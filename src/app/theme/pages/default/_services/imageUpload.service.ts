@@ -24,7 +24,7 @@ export class ImageUploadService {
     if (value == "default") {
       return AppSettings.API_ENDPOINT + "containers/default/download/logo.png";
     } else {
-      return AppSettings.LOGIN_API_ENDPOINT.substring(0, AppSettings.LOGIN_API_ENDPOINT.length - 1) + localStorage.getItem("schoolLogo");
+      return AppSettings.LOGIN_API_ENDPOINT.substring(0, AppSettings.LOGIN_API_ENDPOINT.length - 1) + localStorage.getItem("IMSLogo");
     }
   }
 

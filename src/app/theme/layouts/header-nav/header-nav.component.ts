@@ -15,23 +15,18 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
   defaultLogo: string;
   userRole: string;
   loggedInUser: any;
-  schoolLogoShow: boolean;
+  IMSLogoShow: boolean;
   constructor(private _router: Router, private imageUploadService: ImageUploadService) {
   }
   ngOnInit() {
-    // if (localStorage.getItem("schoolLogo") != null) {
-    //   this.logoUrl =  this.imageUploadService.getImageUrl();
-    // }else{
-    //   this.logoUrl = "./assets/img/phiLogo.png";
-    // }
+ 
     this.userRole = '';
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.loggedInUser = {user: {username:'Test Name',role:{displayName:'Test Role'}}};
-    this.defaultLogo = "./assets/img/phiLogo.png";
-    //this.logoUrl = "./assets/img/phiLogo.png";
+    this.defaultLogo = "./assets/img/demo.png";
     this.logoUrl = this.imageUploadService.getImageUrl("default");
-    if (localStorage.getItem("schoolLogo") != null) {
-      let logo = localStorage.getItem("schoolLogo");
+    if (localStorage.getItem("IMSLogo") != null) {
+      let logo = localStorage.getItem("IMSLogo");
       if (logo != "" && logo != null && logo != "null") {
         this.logoUrl = this.imageUploadService.getImageUrl("");
       } else {

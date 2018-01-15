@@ -10,8 +10,8 @@ export class AppSettings {
 
     // create authorization header with jwt token
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser && currentUser.token) {
-      headers.append('Authorization', currentUser.token);
+    if (currentUser && currentUser.access_token) {
+      headers.append('Authorization', currentUser.access_token);
     }
     let options = new RequestOptions({ headers: headers });
     return new RequestOptions({ headers: headers });

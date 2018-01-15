@@ -9,7 +9,7 @@ export class School {
   schoolAddress: string;
   schoolCity: string;
   schoolState: string;
-  schoolLogo: string;
+  IMSLogo: string;
   webHeader: string;
   createdBy: string;
   createdOn: string;
