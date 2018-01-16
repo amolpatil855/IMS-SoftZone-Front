@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ThemeComponent } from './theme/theme.component';
 import { LayoutModule } from './theme/layouts/layout.module';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { PermissionService } from './theme/pages/default/_services/permission.service';
+import { PermissionService } from './theme/pages/default/_services/Permission.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ScriptLoaderService } from "./_services/script-loader.service";

@@ -21,6 +21,9 @@ export class RoleService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Role/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getRoleMenuById(id: number) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Role/getRoleMenu/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
   createRole(role: Role) {
     return this.http.post(AppSettings.API_ENDPOINT + 'Role', role, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
