@@ -127,16 +127,16 @@
 											</tr>
 										</thead>
 										<tbody *ngIf="longList">
-											<tr *ngFor='let row of roleList | async'>
-												<td>{{row.displayName}}</td>
-												<td>{{row.description}}</td>
+											<tr *ngFor='let row of roleList'>
+												<td>{{row.roleName}}</td>
+												<td>{{row.roleDescription}}</td>
 												<td>
 													<a href="javascript:;" (click)="onEditClick(row)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-													 title="Edit" [isAuthorize]="['Role.Update']">
+													 title="Edit">
 														<i class="la la-edit"></i>
 													</a>
 													<a href="javascript:;" (click)="onDelete(row)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-													 title="Delete" [isAuthorize]="['Role.Delete']">
+													 title="Delete">
 														<i class="la la-close"></i>
 													</a>
 												</td>

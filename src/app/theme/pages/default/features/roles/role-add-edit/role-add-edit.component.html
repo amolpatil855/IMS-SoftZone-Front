@@ -53,25 +53,33 @@
 		<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(roleForm)" [formGroup]="roleForm">
 			<div class="m-portlet__body formPortletBody">				
 				<div class="form-group m-form__group row">
-					<label for="example-text-input" class="col-2 col-form-label">
-						Role Name <span class="requiredField">*</span>
-					</label>
-					<div class="col-5">
-						<input type="text" formControlName="displayName" name="roleName" class="form-control m-input">
-						<div class="alertMsg" *ngIf="roleForm.get('displayName').hasError('required') && roleForm.get('displayName').touched">
-							Please enter Role Name
+				<div class="col-5">
+					<div class="form-group m-form__group row">
+						<label for="example-text-input" class="col-4 col-form-label">
+							Role Name <span class="requiredField">*</span>
+						</label>
+						<div class="col-12">
+							<input type="text" formControlName="displayName" name="roleName" class="form-control m-input">
+							<div class="alertMsg" *ngIf="roleForm.get('displayName').hasError('required') && roleForm.get('displayName').touched">
+								Please enter Role Name
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-form__group row">
+						<label for="example-text-input" class="col-5 col-form-label">
+							Role Description
+						</label>
+						<div class="col-12">
+							<textarea class="form-control m-input" rows="3" formControlName="description" name="roleDescription" style="resize:none;"></textarea>						
 						</div>
 					</div>
 				</div>
-				<div class="form-group m-form__group row">
-					<label for="example-text-input" class="col-2 col-form-label">
-						Role Description
-					</label>
-					<div class="col-5">
-						<textarea class="form-control m-input" rows="3" formControlName="description" name="roleDescription" style="resize:none;"></textarea>						
+				<div class="col-7">
+					<div class="col-12" >
+						<p-tree [value]="featureList" selectionMode="checkbox" [(selection)]="SelectedFeatureList"></p-tree>
 					</div>
 				</div>
-				
+				</div>
 				<div class="form-group m-form__group row">
 					<label for="example-text-input" class="col-2 col-form-label">
 						

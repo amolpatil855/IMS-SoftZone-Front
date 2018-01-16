@@ -6,7 +6,7 @@ import * as _ from 'lodash/index';
 
 import { GlobalErrorHandler } from '../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../_services/message.service';
-
+import {TreeModule,TreeNode} from 'primeng/primeng';
 import { RoleService, PermissionService } from '../../../_services/index';
 import { Role } from "../../../_models/Role";
 import { Helpers } from "../../../../../../helpers";
@@ -28,6 +28,7 @@ export class RoleAddEditComponent implements OnInit {
   roleName: string;
   menuList: any;
   featureList: any;
+  SelectedFeatureList:any;
   selectedFeature: any;
   isMenuSelected: boolean = false;
 
@@ -59,14 +60,14 @@ export class RoleAddEditComponent implements OnInit {
           .subscribe((results: any) => {
             Helpers.setLoading(false);
             this.rolePermissionList = results.permissions ? results.permissions : [];
-            this.getAllFeatures();
+            //this.getAllFeatures();
             // this.getPermissionsByRole();
-            this.roleName = results.name;
+            this.roleName = results.roleName;
             this.roleForm.setValue({
               id: results.id,
-              displayName: results.displayName,
-              name: results.name,
-              description: results.description
+              displayName: results.roleName,
+              name: results.roleName,
+              description: results.roleDescription
             });
           }, error => {
             Helpers.setLoading(false);
@@ -74,9 +75,64 @@ export class RoleAddEditComponent implements OnInit {
           })
       }
     });
+
+
+    this.featureList = [
+      {
+        label: 'Folder 1',
+        collapsedIcon: 'fa-folder',
+        expandedIcon: 'fa-folder-open',
+        children: [
+          {
+            label: 'Folder 2',
+            collapsedIcon: 'fa-folder',
+            expandedIcon: 'fa-folder-open',
+            children: [
+              {
+                label: 'File 2',
+                icon: 'fa-file-o'
+              }
+            ]
+          },
+          {
+            label: 'Folder 2',
+            collapsedIcon: 'fa-folder',
+            expandedIcon: 'fa-folder-open'
+          },
+          {
+            label: 'File 1',
+            icon: 'fa-file-o'
+          }
+        ]
+      }
+    ];
+    this.expandAll();
   }
 
+
+  expandAll(){
+    this.featureList.forEach( node => {
+        this.expandRecursive(node, true);
+    } );
+}
+
+collapseAll(){
+    this.featureList.forEach( node => {
+        this.expandRecursive(node, false);
+    } );
+}
+
+ expandRecursive(node:TreeNode, isExpand:boolean){
+    node.expanded = isExpand;
+    if(node.children){
+        node.children.forEach( childNode => {
+            this.expandRecursive(childNode, isExpand);
+        } );
+    }
+}
+
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    console.log(this.SelectedFeatureList);
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     var schoolId = JSON.parse(localStorage.getItem('schoolId'));
     if (this.params) {
