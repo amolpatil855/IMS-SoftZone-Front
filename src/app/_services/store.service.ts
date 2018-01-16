@@ -1,5 +1,5 @@
 import { Injectable, ErrorHandler } from "@angular/core";
-import { PermissionService } from '../theme/pages/default/_services/permission.service';
+import {PermissionService } from '../theme/pages/default/_services/Permission.service';
 import { Observable } from 'rxjs/Rx';
 
 @Injectable()
