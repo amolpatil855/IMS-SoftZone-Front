@@ -53,25 +53,33 @@
 		<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(roleForm)" [formGroup]="roleForm">
 			<div class="m-portlet__body formPortletBody">				
 				<div class="form-group m-form__group row">
-					<label for="example-text-input" class="col-2 col-form-label">
-						Role Name <span class="requiredField">*</span>
-					</label>
-					<div class="col-5">
-						<input type="text" formControlName="displayName" name="roleName" class="form-control m-input">
-						<div class="alertMsg" *ngIf="roleForm.get('displayName').hasError('required') && roleForm.get('displayName').touched">
-							Please enter Role Name
+				<div class="col-5">
+					<div class="form-group m-form__group row">
+						<label for="example-text-input" class="col-4 col-form-label">
+							Role Name <span class="requiredField">*</span>
+						</label>
+						<div class="col-12">
+							<input type="text" formControlName="roleName" name="roleName" class="form-control m-input">
+							<div class="alertMsg" *ngIf="roleForm.get('roleName').hasError('required') && roleForm.get('roleName').touched">
+								Please enter Role Name
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-form__group row">
+						<label for="example-text-input" class="col-5 col-form-label">
+							Role Description
+						</label>
+						<div class="col-12">
+							<textarea class="form-control m-input" rows="3" formControlName="roleDescription" name="roleDescription" style="resize:none;"></textarea>						
 						</div>
 					</div>
 				</div>
-				<div class="form-group m-form__group row">
-					<label for="example-text-input" class="col-2 col-form-label">
-						Role Description
-					</label>
-					<div class="col-5">
-						<textarea class="form-control m-input" rows="3" formControlName="description" name="roleDescription" style="resize:none;"></textarea>						
+				<div class="col-7">
+					<div class="col-12" >
+						<p-tree [value]="featureList" selectionMode="checkbox" [(selection)]="SelectedFeatureList"></p-tree>
 					</div>
 				</div>
-				
+				</div>
 				<div class="form-group m-form__group row">
 					<label for="example-text-input" class="col-2 col-form-label">
 						
@@ -86,80 +94,6 @@
 					</div>
 				</div>	
 			</div>
-		</form>
-		<div *ngIf='params'> 
-			<div class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed">
-				<div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
-				<div class="form-group m-form__group row">
-					<div class="col-10 ml-auto">
-						<h3 class="m-form__section">
-							Set Permissions for Role
-						</h3>
-					</div>
-				</div>
-				<div class="form-group m-form__group row">
-					<label for="example-text-input" class="col-2 col-form-label">
-						Select Menu <span class="requiredField">*</span>
-					</label>
-					<div class="col-5">
-						<select class="form-control m-input" [(ngModel)]="selectedFeature" (ngModelChange)="getFeaturePermissions($event)">
-							<option [ngValue]="null" >Select</option>
-							<option *ngFor="let feature of featureList" [ngValue]="feature">{{feature.menuName}}</option>
-						</select>
-					</div>
-				</div> 
-				<div class="form-group m-form__group row">
-					<label for="example-text-input" class="col-2 col-form-label">
-						Select Permission <span class="requiredField">*</span>
-					</label>
-					<div class="col-5">
-						<select class="form-control" [(ngModel)]="selectedPermission" [disabled]="filteredPermissionList.length == 0">
-							<option [ngValue]="null" >Select</option>
-							<option *ngFor="let permission of filteredPermissionList" [ngValue]="permission">{{permission.text}}</option>
-						</select>
-						<div class="alertMsg" *ngIf="selectedFeature && !isMenuSelected && permissionList.length == 0">
-							You do not have rights to this permission
-						</div>
-						<div class="alertMsg" *ngIf="selectedFeature && !isMenuSelected  && permissionList.length != 0 && filteredPermissionList.length == 0">
-							 All permissions of selected menu are already assigned to this role
-						</div>
-					</div>
-					<div class="col-3">
-						<button type="submit" class="btn btn-primary" (click)="onAddPermission();" [disabled]="selectedPermission==null || selectedPermission==''">
-							Add Permissions
-						</button>
-					</div>
-				</div> 
-				
-				<div class="">				
-					<div class="col-md-7" style="padding-bottom: 5px;">
-						<div class="table-responsive">
-							<table class="table table-bordered table-striped staticTable">
-								<thead>
-									<tr>
-										<th>Permissions</th>
-										<th>Revoke</th>
-									</tr>
-								</thead>
-								<tbody *ngIf="rolePermissionList.length > 0">
-									<tr *ngFor="let permission of rolePermissionList">
-										<td>{{permission.text}}</td>
-										<td>
-										<a href="javascript:;" class="m-link m-link--focus m-login__account-link" title="Revoke Permission" (click)="revokePermission(permission)"><b>Revoke</b></a>
-										</td>
-									</tr>								
-								</tbody>
-								<tbody *ngIf="rolePermissionList.length == 0">
-									<tr *ngIf="rolePermissionList.length == 0">
-										<td colspan="2">No Permissions</td>								
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		 </div> 
-		<!--end::Form-->                        
+		</form>                   
 	</div>
 </div>
