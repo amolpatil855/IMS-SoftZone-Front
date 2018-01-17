@@ -29,11 +29,11 @@ export class RoleService {
   }
 
   updateRole(role: Role) {
-    return this.http.patch(AppSettings.API_ENDPOINT + 'Role/' + role.id, role, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.put(AppSettings.API_ENDPOINT + 'Role', role, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   deleteRole(id: number) {
-    return this.http.delete(AppSettings.API_ENDPOINT + 'Role/deleteRecord/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.delete(AppSettings.API_ENDPOINT + 'Role/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
   getRolesCount(url) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Role/count' + url, AppSettings.requestOptions()).map((response: Response) => response.json());
