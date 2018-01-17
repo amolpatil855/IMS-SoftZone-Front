@@ -10,6 +10,18 @@ const routes: Routes = [
     "canActivate": [AuthGuard],
     "children": [
       {
+        "path": "features\/master\/company",
+        "loadChildren": ".\/pages\/default\/features\/master\/company\/company.module#CompanyModule"
+      },
+      {
+        "path": "features\/master\/customer",
+        "loadChildren": ".\/pages\/default\/features\/master\/customer\/customer.module#CustomerModule"
+      },
+      {
+        "path": "features\/master\/supplier",
+        "loadChildren": ".\/pages\/default\/features\/master\/supplier\/supplier.module#SupplierModule"
+      },
+      {
         "path": "features\/users",
         "loadChildren": ".\/pages\/default\/features\/users\/users.module#UsersModule"
       },

@@ -27,6 +27,7 @@ export class UserAddEditComponent implements OnInit {
   _tempSchoolList: any;
   selectedInstitute: any;
   roleList: any;
+  userTypeList: any;
   selectedSchoolsValidationError: boolean = false;
   hideInstituteAndSchool: boolean = false;
   relatedSchoolList: any;
@@ -47,22 +48,46 @@ export class UserAddEditComponent implements OnInit {
     this.roleList = [];
     this.relatedSchoolList = [];
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (this.currentUser && this.currentUser.roles && this.currentUser.roles.length > 0) {
-      this.userRole = this.currentUser.roles[0].name;
-    }
+    this.roleService.getAllRoles().subscribe(res => { 
+      if(res.length > 0){
+       // this.userRole = res.map(item => item.mstRole.roleName );
+      //  this.userRole = res[0].mstRole.roleName;
+       this.roleList = res.map(item => item );
+         console.log('this.roleList', this.roleList);
+      }
+  });
+    //if (this.currentUser && this.currentUser.roles && this.currentUser.roles.length > 0) {
+      //this.userRole = this.currentUser.roles[0].name;
+     
+    //}
 
     this.route.params.forEach((params: Params) => {
       this.params = params['userId'];
     });
-    if (this.userRole != 'SuperAdmin') {
-      this.getRolesBySchoolId();
+    
+    if (this.userRole == 'Administrator') {
+     // this.userService.getAllUsers().subscribe(res => { 
+      //if(res.length > 0){
+       // this.userRole = res.map(item => item.mstRole.roleName );
+      // this.roleList = res.map(item => item.mstRole );
+      //   console.log('this.roleList', this.roleList);
+     // }
+  //});
+      //this.roleList = this.userRole;
     } else {
       this.roleList = [{
         id: 1,
-        displayName: 'Super Admin'
+        roleName: 'Super Admin'
       }, {
         id: 2,
-        displayName: 'School Admin'
+        roleName: 'School Admin'
+      }]
+       this.userTypeList = [{
+        id: 1,
+        userTypeName: 'System User'
+      }, {
+        id: 2,
+        userTypeName: 'Customer'
       }]
     }
     if (this.userRole == 'SuperAdmin') {
@@ -73,6 +98,7 @@ export class UserAddEditComponent implements OnInit {
         phone: ['', [Validators.pattern('^[0-9]{10,15}$')]],
         institute: ['', [Validators.required]],
         role: ['', [Validators.required]],
+        userType: ['', [Validators.required]],
         schools: this.buildSchools()
       });
       //this.userForm.controls['role'].setValue(2);
@@ -83,6 +109,7 @@ export class UserAddEditComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         phone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
         role: ['', [Validators.required]],
+        userType: ['', [Validators.required]],
       });
 
       if (this.params) {
@@ -167,14 +194,26 @@ export class UserAddEditComponent implements OnInit {
           }
         }
       }
+      if (this.userForm.controls['userType'].value === 1) {
+        this._tempSchoolList.forEach(element => {
+          selectedSchools.push(element.id);
+        });
+      } else {
+        for (var index = 0; index < value.schools.length; index++) {
+          if (value.schools[index] == true) {
+            selectedSchools.push(this.schoolList[index].id);
+          }
+        }
+      }
       if (selectedSchools.length > 0) {
         let params = {
-          id: value.id,
+        //  id: value.id,
           username: value.username,
           email: value.email,
           phone: value.phone,
           instituteId: value.institute,
           roleId: value.role,
+          userTypeId: value.userType,
           schoolIds: selectedSchools,
         }
         this.saveUser(params);
@@ -185,11 +224,12 @@ export class UserAddEditComponent implements OnInit {
       var schoolIds = [];
       schoolIds.push(localStorage.getItem('schoolId'));
       let params = {
-        id: value.id,
+      //  id: value.id,
         username: value.username,
         email: value.email,
         phone: value.phone,
         roleId: value.role,
+        userTypeId: value.userType,
         schoolIds: schoolIds,
       }
       this.saveUser(params);
@@ -242,4 +282,5 @@ export class UserAddEditComponent implements OnInit {
  
   }
   onRoleClick() {}
+  onUserTypeClick(){}
 }
