@@ -5,7 +5,7 @@ import { User, Role } from "../_models/index";
 import { AppSettings } from '../../../../app-settings';
 
 @Injectable()
-export class PermissionService {
+export class MenuPermissionService {
   list1Event: EventEmitter<any> = new EventEmitter();
   permissionsList: Observable<any[]>;
   isRequestSent: boolean;

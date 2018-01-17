@@ -57,4 +57,27 @@ export class RoleListComponent implements OnInit {
     });
  }
 
+ onDelete(role: Role) {
+  this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+          this.roleService.deleteRole(role.id).subscribe(
+              results => {
+                  this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Deleted Successfully' });
+                  if ((this.currentPageNumber - 1) * this.perPage == (this.total - 1)) {
+                      this.currentPageNumber--;
+                  }
+                this.getRoleLIst();
+              },
+              error => {
+                  this.globalErrorHandler.handleError(error);
+              })
+      },
+      reject: () => {
+      }
+  });
+}
+
 }

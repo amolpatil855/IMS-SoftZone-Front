@@ -1,11 +1,11 @@
 import { Injectable, ErrorHandler } from "@angular/core";
-import {PermissionService } from '../theme/pages/default/_services/Permission.service';
+import {MenuPermissionService } from '../theme/pages/default/_services/menuPermission.service';
 import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class StoreService {
   permissionsList: Observable<any[]>;
-  constructor(private permissionService: PermissionService) {
+  constructor(private permissionService: MenuPermissionService) {
     this.getPermission();
   }
 

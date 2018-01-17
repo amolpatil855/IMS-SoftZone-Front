@@ -13,7 +13,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     */
   handleError(response: Response | any) {
     let errMsg: string;
-    let error = response.json().error
+    let error = response._body ? JSON.parse(response._body) : response.json().error;
     if (error) {
       if (error.statusCode === 401) {
         errMsg = error.message;

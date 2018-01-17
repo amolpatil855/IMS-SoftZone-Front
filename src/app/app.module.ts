@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ThemeComponent } from './theme/theme.component';
 import { LayoutModule } from './theme/layouts/layout.module';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { PermissionService } from './theme/pages/default/_services/Permission.service';
+import { MenuPermissionService } from '../app/theme/pages/default/_services/menuPermission.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ScriptLoaderService } from "./_services/script-loader.service";
@@ -30,7 +30,7 @@ import {
     AuthModule,
     GrowlModule,
   ],
-  providers: [ScriptLoaderService, MessageService, GlobalErrorHandler, StoreService, PermissionService],
+  providers: [ScriptLoaderService, MessageService, GlobalErrorHandler, StoreService, MenuPermissionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
