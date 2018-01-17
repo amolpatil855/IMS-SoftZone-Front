@@ -7,7 +7,7 @@ import * as _ from 'lodash/index';
 import { GlobalErrorHandler } from '../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../_services/message.service';
 import { TreeModule, TreeNode } from 'primeng/primeng';
-import { RoleService, PermissionService } from '../../../_services/index';
+import { RoleService, MenuPermissionService } from '../../../_services/index';
 import { Role } from "../../../_models/Role";
 import { Helpers } from "../../../../../../helpers";
 
@@ -35,7 +35,7 @@ export class RoleAddEditComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private roleService: RoleService,
-    private permissionService: PermissionService,
+    private permissionService: MenuPermissionService,
     private route: ActivatedRoute,
     private router: Router,
     private globalErrorHandler: GlobalErrorHandler,
@@ -46,6 +46,7 @@ export class RoleAddEditComponent implements OnInit {
     this.permissionList = [];
     this.featureList = [];
     this.rolePermissionList = [];
+    this.getAllMenu();
     this.roleForm = this.formBuilder.group({
       id: [],
       roleName: ['', [Validators.required]],
@@ -56,13 +57,10 @@ export class RoleAddEditComponent implements OnInit {
       if (this.params) {
         Helpers.setLoading(true);
         // this.getAllUserMenu(this.params);
-        this.getAllMenu();
         this.roleService.getRoleById(this.params)
           .subscribe((results: any) => {
             Helpers.setLoading(false);
             this.rolePermissionList = results.permissions ? results.permissions : [];
-
-            // this.getPermissionsByRole();
             this.roleName = results.roleName;
             this.roleForm.setValue({
               id: results.id,
@@ -75,7 +73,7 @@ export class RoleAddEditComponent implements OnInit {
           })
       }
     });
-   
+
   }
 
   getAllMenu() {
@@ -94,7 +92,8 @@ export class RoleAddEditComponent implements OnInit {
         // this.SelectedFeatureList=MainMenu;  
         // console.log(MainMenu);
         console.log("featureList", MainMenu);
-        this.getAllUserMenu(1);
+        if (this.params)
+          this.getAllUserMenu(this.params);
       }, error => {
         Helpers.setLoading(false);
         this.globalErrorHandler.handleError(error);
@@ -158,27 +157,35 @@ export class RoleAddEditComponent implements OnInit {
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    console.log(this.SelectedFeatureList);
+    if (this.SelectedFeatureList.length == 0) {
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please select menu for role" });
+      return;
+    }
+    var _CFGRoleMenus = [];
+    _.forEach(this.SelectedFeatureList, function (obj) {
+      var _CFGRoleMenusObj = {
+        "menuId": obj.id
+      }
+      _CFGRoleMenus.push(_CFGRoleMenusObj);
+    });
+
+    value.CFGRoleMenus = _CFGRoleMenus;
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    var schoolId = JSON.parse(localStorage.getItem('schoolId'));
     if (this.params) {
-      value.schoolId = schoolId;
       this.roleService.updateRole(value)
         .subscribe(
         results => {
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Updated Successfully' });
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           this.router.navigate(['/features/roles/list']);
         },
         error => {
           this.globalErrorHandler.handleError(error);
         });
     } else {
-      value.name = value.displayName;
-      value.schoolId = schoolId;
       this.roleService.createRole(value)
         .subscribe(
         results => {
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Added Successfully' });
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           this.router.navigate(['/features/roles/list']);
         },
         error => {
