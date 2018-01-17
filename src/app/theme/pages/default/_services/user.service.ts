@@ -14,7 +14,7 @@ export class UserService {
   currentPageNumber: any = 1;
 
   getAllUsers() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'users', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'User', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getUserById(id: number) {
@@ -22,23 +22,24 @@ export class UserService {
     params.set('filter[include]', "school");
     let requestOptions = AppSettings.requestOptions();
     requestOptions.params = params;
-    return this.http.get(AppSettings.API_ENDPOINT + 'users/' + id, requestOptions).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'User/' + id, requestOptions).map((response: Response) => response.json());
   }
 
   createUser(user: User) {
-    return this.http.post(AppSettings.API_ENDPOINT + 'users/createUser', user, AppSettings.requestOptions()).map((response: Response) => response.json());
+    console.log('user', user);
+    return this.http.post(AppSettings.API_ENDPOINT + 'User', user, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   updateUser(user: User) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'users/updateUser/' + user.id, user, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.put(AppSettings.API_ENDPOINT + 'User/' + user.id, user, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   updateUserStatus(user: User) {
-    return this.http.patch(AppSettings.API_ENDPOINT + 'users/' + user.id, user, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.patch(AppSettings.API_ENDPOINT + 'User/' + user.id, user, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   deleteUser(id: number) {
-    return this.http.delete(AppSettings.API_ENDPOINT + 'users/deleteRecord/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.delete(AppSettings.API_ENDPOINT + 'User/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
   changePassword(data: any) {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));

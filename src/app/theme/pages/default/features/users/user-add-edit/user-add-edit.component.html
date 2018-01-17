@@ -142,7 +142,18 @@
 					<div class="col-md-5">
 						<select class="form-control" formControlName="role" (change)="onRoleClick()">
 							<option [ngValue]="null" >Select</option>
-							<option *ngFor="let role of roleList" [ngValue]="role.id">{{role.displayName}}</option>
+							<option *ngFor="let role of roleList" [ngValue]="role.id">{{role.roleName}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group m-form__group row">
+					<label class="col-md-2 col-form-label" for="example-text-input">
+						UserType <span class="requiredField">*</span>
+					</label>
+					<div class="col-md-5">
+						<select class="form-control" formControlName="userType" (change)="onUserTypeClick()">
+							<option [ngValue]="null" >Select</option>
+							<option *ngFor="let userType of userTypeList" [ngValue]="userType.id">{{userType.userTypeName}}</option>
 						</select>
 					</div>
 				</div> 

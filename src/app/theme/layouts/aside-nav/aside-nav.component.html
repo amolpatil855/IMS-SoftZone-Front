@@ -46,7 +46,63 @@
 					</span>
 				</a>
 			</li>
-		</ul>
+			<li>
+			<a class="m-menu__link" data-toggle="collapse" data-parent="" href="#collapseOne"><i class="m-menu__link-icon flaticon-interface-1"></i>
+						<span class="m-menu__link-title">
+							<span class="m-menu__link-wrap">
+								<span class="m-menu__link-text">
+									Master
+								</span>
+							</span>
+						</span>
+					</a>
+			<div id="collapseOne" class="panel-collapse collapse">
+			<div class="panel-body sidebar-list-panel">
+			<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow">
+				<li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				[isAuthorize]="['Role.Read']">
+					<a routerLink="/features/master/supplier/list" class="m-menu__link">
+						<i class="m-menu__link-icon flaticon-interface-1"></i>
+						<span class="m-menu__link-title">
+							<span class="m-menu__link-wrap">
+								<span class="m-menu__link-text">
+									Supplier
+								</span>
+							</span>
+						</span>
+					</a>
+				</li>
+				<li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				[isAuthorize]="['Role.Read']">
+					<a routerLink="/features/master/customer/list" class="m-menu__link">
+						<i class="m-menu__link-icon flaticon-interface-1"></i>
+						<span class="m-menu__link-title">
+							<span class="m-menu__link-wrap">
+								<span class="m-menu__link-text">
+									Customer
+								</span>
+							</span>
+						</span>
+					</a>
+				</li>
+				<li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				[isAuthorize]="['Role.Create']">
+					<a routerLink="/features/master/company/add" class="m-menu__link">
+						<i class="m-menu__link-icon flaticon-interface-1"></i>
+						<span class="m-menu__link-title">
+							<span class="m-menu__link-wrap">
+								<span class="m-menu__link-text">
+									Company Info
+								</span>
+							</span>
+						</span>
+					</a>
+				</li>
+			</ul>
+			</div>
+			</div>
+		</li>
+	</ul>	
 	</div>
 	<!-- END: Aside Menu -->
 </div>

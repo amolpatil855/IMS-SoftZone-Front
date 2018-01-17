@@ -57,8 +57,14 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+    this.userService.getAllUsers().subscribe(res => { 
+      if(res.length > 0){
+        this.longList = true;
+        this.userList = res;
+      }
+  });
   }
+
   moreNextPages() {
     if (this.boundryEnd + 1 <= this.pages) {
       this.boundryStart = this.boundryEnd + 1;

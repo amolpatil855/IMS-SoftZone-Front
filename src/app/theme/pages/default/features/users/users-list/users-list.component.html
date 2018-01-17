@@ -137,10 +137,10 @@
 												</th>
 											</tr>
 										</thead>
-										<tbody *ngIf="longList && userRole == 'SuperAdmin'">
-											<tr *ngFor='let row of userList | async'>
-												<td>{{row.username}}</td>
-												<td >{{row.role ? row.role.displayName : ''}}</td>
+										<tbody>
+											<tr *ngFor='let row of userList; let i = index'>
+												<td>{{row.userName}}</td>
+												<td >{{row.mstRole !== null  ? row.mstRole.roleName : ''}}</td>
 												<td>{{row.phone}}</td>
 												<td>{{row.email}}</td>
 												<td *ngIf="row.isActivate">
@@ -167,31 +167,6 @@
 														<i class="fa fa-unlock"></i>
 													</a>
 												</td>
-											</tr>
-										</tbody>
-
-										<tbody *ngIf="longList && userRole != 'SuperAdmin'">
-											<tr *ngFor='let row of userList'>
-												<td>{{row.username}}</td>
-												<td>{{row.role.displayName}}</td>
-												<td>{{row.phone}}</td>
-												<td>{{row.email}}</td>
-												<td>{{row.isActivate ? 'Yes' : 'No'}}</td>
-												<td *ngIf="row">
-													<a href="javascript:;" (click)="onEditClick(row)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-													 title="Edit" [isAuthorize]="['User.Update']">
-														<i class="la la-edit"></i>
-													</a>
-													<a href="javascript:;" (click)="onDelete(row)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-													 title="Delete" [isAuthorize]="['User.Delete']">
-														<i class="la la-close"></i>
-													</a>
-													<a href="javascript:;" *ngIf="row.isBolocked" (click)="unblockuser(row)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-													title="Unblock user" [isAuthorize]="['User.Update']">
-													   <i class="fa fa-unlock"></i>
-												   </a>
-												</td>
-												<td *ngIf="!row"> </td>
 											</tr>
 										</tbody>
 										<tbody *ngIf="!longList">
