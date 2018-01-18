@@ -26,7 +26,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.GetLoggedInUserDetail().subscribe(res => { 
+    this.userService.getLoggedInUserDetail().subscribe(res => { 
     this.userId = res.id;    
     
     });

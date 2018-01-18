@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/co
 import { Helpers } from '../../../helpers';
 import { ImageUploadService } from '../../pages/default/_services/imageUpload.service';
 import { UserService } from "../../pages/default/_services/user.service";
-import { RoleService } from "../../pages/default/_services/role.service";
 import { Router } from "@angular/router";
 
 declare let mLayout: any;
@@ -22,12 +21,11 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
   IMSLogoShow: boolean;
   constructor(private _router: Router, 
     private userService: UserService,
-    private roleService: RoleService,
     private imageUploadService: ImageUploadService) {
   }
   ngOnInit() {
     
-    this.userService.GetLoggedInUserDetail().subscribe(res => { 
+    this.userService.getLoggedInUserDetail().subscribe(res => { 
     this.userName = res.userName;    
     this.userRole = res.mstRole.roleName;
     if(this.userName !== undefined && this.userRole !== undefined){

@@ -21,7 +21,7 @@ export class UserService {
     return this.http.get(AppSettings.API_ENDPOINT + 'User/GetUserType', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  GetLoggedInUserDetail(){
+  getLoggedInUserDetail(){
     return this.http.get(AppSettings.API_ENDPOINT + 'User/GetLoggedInUserDetail', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
