@@ -15,7 +15,7 @@ import { Helpers } from "../../../../../../../helpers";
 export class CompanyAddEditComponent implements OnInit {
   errorMessage: any;
   params: number;
-  userForm: FormGroup;
+  companyForm: FormGroup;
 
  constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +32,7 @@ export class CompanyAddEditComponent implements OnInit {
       this.params = params['userId'];
     });
     
-    this.userForm = this.formBuilder.group({
+    this.companyForm = this.formBuilder.group({
         id: 0,
         companyName: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
@@ -46,7 +46,7 @@ export class CompanyAddEditComponent implements OnInit {
          Helpers.setLoading(false);
             if(results !== null){
               console.log('results', results);
-            this.userForm.setValue({
+            this.companyForm.setValue({
               id: results.id,
               companyName: results.companyName,
               email: results.email,
