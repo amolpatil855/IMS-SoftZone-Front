@@ -56,56 +56,30 @@ export class UserAddEditComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       this.params = params['userId'];
     });
-    if (this.userRole != 'Administrator') {
-     this.roleService.getAllRoles().subscribe(res => { 
+
+    this.roleService.getAllRoles().subscribe(res => { 
       if(res.length > 0){
        this.roleList = res.map(item => item );
       }
-  });
+    });
+
     this.userService.getAllUserType().subscribe(res => { 
       if(res.length > 0){
        this.userTypeList = res.map(item => item );
-     }
-  });
-    } else {
-      this.roleList = [{
-        id: 1,
-        roleName: 'Super Admin'
-      }, {
-        id: 2,
-        roleName: 'School Admin'
-      }]
-       this.userTypeList = [{
-        id: 1,
-        userTypeName: 'System User'
-      }, {
-        id: 2,
-        userTypeName: 'Customer'
-      }]
-    }
-    if (this.userRole == 'Administrator') {
-      this.userForm = this.formBuilder.group({
-        id: 0,
-        username: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        phone: ['', [Validators.pattern('^[0-9]{10,15}$')]],
-        role: ['', [Validators.required]],
-        userType: ['', [Validators.required]]
-      });
-      //this.userForm.controls['role'].setValue(2);
-    } else {
-      this.userForm = this.formBuilder.group({
+      }
+    });
+    
+    this.userForm = this.formBuilder.group({
         id: 0,
         username: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         phone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
         role: ['', [Validators.required]],
         userType: ['', [Validators.required]],
-      });
+    });
 
-      if (this.params) {
-        this.getEditFormWithoutInstitute();
-      }
+    if (this.params) {
+      this.getEditFormWithoutInstitute();
     }
 
   }
@@ -171,48 +145,6 @@ export class UserAddEditComponent implements OnInit {
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    if (this.userRole == 'SuperAdmin') {
-      this.selectedSchoolsValidationError = false
-      let selectedSchools = [];
-      if (this.userForm.controls['role'].value === 1) {
-        this._tempSchoolList.forEach(element => {
-          selectedSchools.push(element.id);
-        });
-      } else {
-        for (var index = 0; index < value.schools.length; index++) {
-          if (value.schools[index] == true) {
-            selectedSchools.push(this.schoolList[index].id);
-          }
-        }
-      }
-      if (this.userForm.controls['userType'].value === 1) {
-        this._tempSchoolList.forEach(element => {
-          selectedSchools.push(element.id);
-        });
-      } else {
-        for (var index = 0; index < value.schools.length; index++) {
-          if (value.schools[index] == true) {
-            selectedSchools.push(this.schoolList[index].id);
-          }
-        }
-      }
-      if (selectedSchools.length > 0) {
-        let params = {
-          id: value.id,
-          username: value.username,
-          email: value.email,
-          phone: value.phone,
-          instituteId: value.institute,
-          roleId: value.role,
-          userTypeId: value.userType,
-        }
-        this.saveUser(params);
-      } else {
-        this.selectedSchoolsValidationError = true
-      }
-    } else {
-      var schoolIds = [];
-      schoolIds.push(localStorage.getItem('schoolId'));
       let params = {
         id: value.id,
         username: value.username,
@@ -222,7 +154,6 @@ export class UserAddEditComponent implements OnInit {
         userTypeId: value.userType,
       }
       this.saveUser(params);
-    }
   }
 
   saveUser(value) {
