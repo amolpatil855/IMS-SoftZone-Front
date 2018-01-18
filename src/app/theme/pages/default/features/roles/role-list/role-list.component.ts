@@ -31,7 +31,7 @@ export class RoleListComponent implements OnInit {
   ngOnInit() {
 
     //Page Size Array
-    this.getRoleList();
+   // this.getRoleList();
   }
 
   onEditClick(role: Role) {
