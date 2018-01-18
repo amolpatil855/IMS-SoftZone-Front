@@ -11,9 +11,8 @@ export class StoreService {
 
   getPermission() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    //if (currentUser)
-      //this.permissionsList = this.permissionService.managePermission(currentUser.roles[0].id);
-      
+    if (currentUser)
+      this.permissionsList = this.permissionService.managePermission();   
   }
 
 

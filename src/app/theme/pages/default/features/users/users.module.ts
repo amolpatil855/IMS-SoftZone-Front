@@ -36,7 +36,7 @@ const routes: Routes = [
             component: UsersListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['User.Read']
+              permissions: ['users']
             }
           },
           {
@@ -48,7 +48,7 @@ const routes: Routes = [
             component: UserAddEditComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['User.Create']
+              permissions: ['users']
             }
           },
           {
@@ -56,7 +56,7 @@ const routes: Routes = [
             component: UserAddEditComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['User.Update']
+              permissions: ['users']
             }
           },
         ]
