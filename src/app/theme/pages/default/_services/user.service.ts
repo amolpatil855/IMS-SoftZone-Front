@@ -17,6 +17,14 @@ export class UserService {
     return this.http.get(AppSettings.API_ENDPOINT + 'User', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getAllUserType() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'User/GetUserType', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getLoggedInUserDetail(){
+    return this.http.get(AppSettings.API_ENDPOINT + 'User/GetLoggedInUserDetail', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   getUserById(id: number) {
     let params: URLSearchParams = new URLSearchParams();
     params.set('filter[include]', "school");
@@ -26,7 +34,6 @@ export class UserService {
   }
 
   createUser(user: User) {
-    console.log('user', user);
     return this.http.post(AppSettings.API_ENDPOINT + 'User', user, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
@@ -41,12 +48,11 @@ export class UserService {
   deleteUser(id: number) {
     return this.http.delete(AppSettings.API_ENDPOINT + 'User/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
+
   changePassword(data: any) {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    return this.http.post(AppSettings.API_ENDPOINT + 'users/change-password?access_token=' + currentUser.token, data, AppSettings.requestOptions())
-      .map((response: Response) =>
-        response.text());
+    return this.http.put(AppSettings.API_ENDPOINT + 'User/ChangePassword', data,AppSettings.requestOptions()).map((response: Response) => response.json());
   }
+
   getAllUsersCount(url) {
     return this.http.get(AppSettings.API_ENDPOINT + 'users/count' + url, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

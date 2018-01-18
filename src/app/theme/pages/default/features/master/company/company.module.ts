@@ -34,7 +34,7 @@ const routes: Routes = [
             component: CompanyAddEditComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['User.Create']
+              permissions: ['companyinfo']
             }
           },
           {
@@ -42,7 +42,7 @@ const routes: Routes = [
             component: CompanyAddEditComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['User.Update']
+              permissions: ['companyinfo']
             }
           },
         ]

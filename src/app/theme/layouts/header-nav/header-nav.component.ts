@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { Helpers } from '../../../helpers';
 import { ImageUploadService } from '../../pages/default/_services/imageUpload.service';
+import { UserService } from "../../pages/default/_services/user.service";
 import { Router } from "@angular/router";
+
 declare let mLayout: any;
 @Component({
   selector: "app-header-nav",
@@ -14,15 +16,23 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
   logoUrl: string;
   defaultLogo: string;
   userRole: string;
-  loggedInUser: any;
+  userName: string;
+  loggedInUser = {};
   IMSLogoShow: boolean;
-  constructor(private _router: Router, private imageUploadService: ImageUploadService) {
+  constructor(private _router: Router, 
+    private userService: UserService,
+    private imageUploadService: ImageUploadService) {
   }
   ngOnInit() {
- 
-    this.userRole = '';
+    
+    this.userService.getLoggedInUserDetail().subscribe(res => { 
+    this.userName = res.userName;    
+    this.userRole = res.mstRole.roleName;
+    if(this.userName !== undefined && this.userRole !== undefined){
+      this.loggedInUser = {user: {username: this.userName, role: this.userRole}};
+    }
+    });
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.loggedInUser = {user: {username:'Test Name',role:{displayName:'Test Role'}}};
     this.defaultLogo = "./assets/img/demo.png";
     this.logoUrl = this.imageUploadService.getImageUrl("default");
     if (localStorage.getItem("IMSLogo") != null) {

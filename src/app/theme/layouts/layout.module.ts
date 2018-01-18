@@ -11,6 +11,8 @@ import { HrefPreventDefaultDirective } from '../../_directives/href-prevent-defa
 import { UnwrapTagDirective } from '../../_directives/unwrap-tag.directive';
 import { IsAuthorizeDirective } from '../../_directives/isAuthorize.directive';
 import { ImageUploadService } from '../pages/default/_services/imageUpload.service';
+import { UserService } from "../pages/default/_services/user.service";
+import { RoleService } from "../pages/default/_services/role.service";
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { ImageUploadService } from '../pages/default/_services/imageUpload.servi
   ],
   providers: [
     ImageUploadService,
+    UserService,
+    RoleService,
   ],
   imports: [
     CommonModule,

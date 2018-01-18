@@ -47,15 +47,7 @@ export class UserAddEditComponent implements OnInit {
     this.schoolList = [];
     this.roleList = [];
     this.relatedSchoolList = [];
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.roleService.getAllRoles().subscribe(res => { 
-      if(res.length > 0){
-       // this.userRole = res.map(item => item.mstRole.roleName );
-      //  this.userRole = res[0].mstRole.roleName;
-       this.roleList = res.map(item => item );
-         console.log('this.roleList', this.roleList);
-      }
-  });
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));    
     //if (this.currentUser && this.currentUser.roles && this.currentUser.roles.length > 0) {
       //this.userRole = this.currentUser.roles[0].name;
      
@@ -64,57 +56,30 @@ export class UserAddEditComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       this.params = params['userId'];
     });
+
+    this.roleService.getAllRoles().subscribe(res => { 
+      if(res.length > 0){
+       this.roleList = res.map(item => item );
+      }
+    });
+
+    this.userService.getAllUserType().subscribe(res => { 
+      if(res.length > 0){
+       this.userTypeList = res.map(item => item );
+      }
+    });
     
-    if (this.userRole == 'Administrator') {
-     // this.userService.getAllUsers().subscribe(res => { 
-      //if(res.length > 0){
-       // this.userRole = res.map(item => item.mstRole.roleName );
-      // this.roleList = res.map(item => item.mstRole );
-      //   console.log('this.roleList', this.roleList);
-     // }
-  //});
-      //this.roleList = this.userRole;
-    } else {
-      this.roleList = [{
-        id: 1,
-        roleName: 'Super Admin'
-      }, {
-        id: 2,
-        roleName: 'School Admin'
-      }]
-       this.userTypeList = [{
-        id: 1,
-        userTypeName: 'System User'
-      }, {
-        id: 2,
-        userTypeName: 'Customer'
-      }]
-    }
-    if (this.userRole == 'SuperAdmin') {
-      this.userForm = this.formBuilder.group({
-        id: [],
-        username: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        phone: ['', [Validators.pattern('^[0-9]{10,15}$')]],
-        institute: ['', [Validators.required]],
-        role: ['', [Validators.required]],
-        userType: ['', [Validators.required]],
-        schools: this.buildSchools()
-      });
-      //this.userForm.controls['role'].setValue(2);
-    } else {
-      this.userForm = this.formBuilder.group({
-        id: [],
+    this.userForm = this.formBuilder.group({
+        id: 0,
         username: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         phone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
         role: ['', [Validators.required]],
         userType: ['', [Validators.required]],
-      });
+    });
 
-      if (this.params) {
-        this.getEditFormWithoutInstitute();
-      }
+    if (this.params) {
+      this.getEditFormWithoutInstitute();
     }
 
   }
@@ -123,10 +88,11 @@ export class UserAddEditComponent implements OnInit {
       .subscribe((results: any) => {
         this.userForm.setValue({
           id: results.id,
-          username: results.username,
+          username: results.userName,
           email: results.email,
           phone: results.phone,
           role: results.roleId,
+          userType: results.userTypeId,
         });
       })
   }
@@ -143,12 +109,11 @@ export class UserAddEditComponent implements OnInit {
         }
         this.userForm.setValue({
           id: results.id,
-          username: results.username,
+          username: results.userName,
           email: results.email,
           phone: results.phone,
           role: results.roleId,
-          institute: instituteId,
-          schools: []
+          userType: results.userTypeId,
         });
         if (this.relatedSchoolList.length > 0) {
           this.getSchools(instituteId);
@@ -180,60 +145,15 @@ export class UserAddEditComponent implements OnInit {
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    if (this.userRole == 'SuperAdmin') {
-      this.selectedSchoolsValidationError = false
-      let selectedSchools = [];
-      if (this.userForm.controls['role'].value === 1) {
-        this._tempSchoolList.forEach(element => {
-          selectedSchools.push(element.id);
-        });
-      } else {
-        for (var index = 0; index < value.schools.length; index++) {
-          if (value.schools[index] == true) {
-            selectedSchools.push(this.schoolList[index].id);
-          }
-        }
-      }
-      if (this.userForm.controls['userType'].value === 1) {
-        this._tempSchoolList.forEach(element => {
-          selectedSchools.push(element.id);
-        });
-      } else {
-        for (var index = 0; index < value.schools.length; index++) {
-          if (value.schools[index] == true) {
-            selectedSchools.push(this.schoolList[index].id);
-          }
-        }
-      }
-      if (selectedSchools.length > 0) {
-        let params = {
-        //  id: value.id,
-          username: value.username,
-          email: value.email,
-          phone: value.phone,
-          instituteId: value.institute,
-          roleId: value.role,
-          userTypeId: value.userType,
-          schoolIds: selectedSchools,
-        }
-        this.saveUser(params);
-      } else {
-        this.selectedSchoolsValidationError = true
-      }
-    } else {
-      var schoolIds = [];
-      schoolIds.push(localStorage.getItem('schoolId'));
       let params = {
-      //  id: value.id,
+        id: value.id,
         username: value.username,
         email: value.email,
         phone: value.phone,
         roleId: value.role,
         userTypeId: value.userType,
-        schoolIds: schoolIds,
       }
       this.saveUser(params);
-    }
   }
 
   saveUser(value) {
@@ -277,7 +197,7 @@ export class UserAddEditComponent implements OnInit {
   onCancel() {
     this.router.navigate(['/features/users/list']);
   }
-
+  
   getSchools(value) {
  
   }

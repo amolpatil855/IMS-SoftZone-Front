@@ -17,6 +17,7 @@ import * as _ from 'lodash/index';
   encapsulation: ViewEncapsulation.None,
 })
 export class UsersListComponent implements OnInit {
+  usersList: any;
   userList: Observable<User[]>;
   total: number;         //Number Of records
   currentPos: number;    //Current Page
@@ -64,6 +65,48 @@ export class UsersListComponent implements OnInit {
       }
   });
   }
+
+  onEditClick(user: User) {
+    this.userService.perPage = this.perPage;
+    this.userService.currentPos = this.currentPos;
+    this.userService.currentPageNumber = this.currentPageNumber;
+    this.router.navigate(['/features/users/edit', user.id]);
+  }
+
+  onDelete(user: User) {
+  this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+          this.userService.deleteUser(user.id).subscribe(
+              results => {
+                  this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Deleted Successfully' });
+                  if ((this.currentPageNumber - 1) * this.perPage == (this.total - 1)) {
+                      this.currentPageNumber--;
+                  }
+            this.userService.getAllUsers().subscribe(
+    results => {
+     this.usersList=results;
+     if(this.usersList.length>0)
+     {
+      this.longList=true;
+     }
+    },
+    error => {
+      this.globalErrorHandler.handleError(error);
+    });
+              },
+              error => {
+                  this.globalErrorHandler.handleError(error);
+              })
+      },
+      reject: () => {
+      }
+  });
+}
+
+
 
   moreNextPages() {
     if (this.boundryEnd + 1 <= this.pages) {

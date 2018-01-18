@@ -14,6 +14,7 @@ import { UserService } from '../../_services/user.service';
 export class ChangePasswordComponent implements OnInit {
   changePasswordForm: FormGroup;
   loading: boolean = false;
+  userId: number;
   isConfirmPasswordSame: boolean = true;
 
   constructor(
@@ -25,7 +26,12 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.getLoggedInUserDetail().subscribe(res => { 
+    this.userId = res.id;    
+    
+    });
     this.changePasswordForm = this.formBuilder.group({
+      id: 0,
       oldPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
@@ -38,8 +44,9 @@ export class ChangePasswordComponent implements OnInit {
       this.loading = true;
       this.isConfirmPasswordSame = true;
       let params = {
+        id: this.userId,
         oldPassword: value.oldPassword,
-        newPassword: value.newPassword,
+        password: value.newPassword,
       }
       this.userService.changePassword(params)
         .subscribe(
