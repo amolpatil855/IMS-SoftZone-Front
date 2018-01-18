@@ -85,7 +85,7 @@
 						
 					</label>
 					<div class="col-7">
-						<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom button_foot" [disabled]="roleForm.invalid" [ngClass]="roleForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ roleForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['Role.Create', 'Role.Update']">
+						<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom button_foot" [disabled]="roleForm.invalid" [ngClass]="roleForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ roleForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['role']">
 							{{ params ? 'Update' : 'Save' }}
 						</button>
 						<button type="button" class="btn btn-secondary" (click)="onCancel()">
