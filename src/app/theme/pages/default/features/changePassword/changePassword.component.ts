@@ -40,7 +40,6 @@ export class ChangePasswordComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isConfirmPasswordSame = true;
-    console.log('value', value);
     if (value.confirmPassword === value.newPassword) {
       this.loading = true;
       this.isConfirmPasswordSame = true;
