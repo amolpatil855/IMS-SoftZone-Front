@@ -16,4 +16,8 @@ export class MenuPermissionService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Menu', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  managePermission() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'User/getPermissions', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
 }

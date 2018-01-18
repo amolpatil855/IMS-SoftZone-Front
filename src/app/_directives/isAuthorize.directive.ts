@@ -21,32 +21,32 @@ export class IsAuthorizeDirective {
   }
 
   checkPermission() {
-    return true;
-    //let userHasPermissions = false;
-    // this.storeService.permissionsList.subscribe((response) => {
-    //   if (response) {
-    //     for (var i = 0; i < this.isAuthorize.length; i++) {
-    //       if (!_.find(response, ['permissionName', this.isAuthorize[i]])) {
-    //         userHasPermissions = false;
-    //         //    break;
-    //       } else {
-    //         userHasPermissions = true;
-    //         break;
-    //       }
-    //     }
-    //     if (!userHasPermissions) {
-    //       this._element.style.display = 'none';
-    //     }
-    //     else {
-    //       this._element.style.display = 'block';
-    //     }
-    //   }
-    // }, error => {
-    //   console.log("Auth Fail");
-    //   localStorage.removeItem('currentUser');
-    //   this._router.navigate(['/login']);
-    //   // this.globalErrorHandler.handleError(error);
-    // });
+    let userHasPermissions = false;
+    this.storeService.permissionsList.subscribe((response) => {
+      if (response) {
+        for (var i = 0; i < this.isAuthorize.length; i++) {
+          var _permissionVal=this.isAuthorize[i];
+          if (!_.find(response,function(respVal) { return respVal == _permissionVal })) {
+            userHasPermissions = false;
+            //    break;
+          } else {
+            userHasPermissions = true;
+            break;
+          }
+        }
+        if (!userHasPermissions) {
+          this._element.style.display = 'none';
+        }
+        else {
+          this._element.style.display = 'block';
+        }
+      }
+    }, error => {
+      console.log("Auth Fail");
+      localStorage.removeItem('currentUser');
+      this._router.navigate(['/login']);
+      // this.globalErrorHandler.handleError(error);
+    });
 
   }
 }
