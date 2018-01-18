@@ -36,7 +36,7 @@ const routes: Routes = [
             component: RoleListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['roles']
+              permissions: ['role']
             }
           },
           {
@@ -44,7 +44,7 @@ const routes: Routes = [
             component: RoleAddEditComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['roles']
+              permissions: ['role']
             }
           },
           {
@@ -52,7 +52,7 @@ const routes: Routes = [
             component: RoleAddEditComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['roles']
+              permissions: ['role']
             }
           },
         ]
