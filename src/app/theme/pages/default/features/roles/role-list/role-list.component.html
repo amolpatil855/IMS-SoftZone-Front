@@ -86,32 +86,23 @@
 					<!--begin::Section-->
 					<div class="m-section">
 						<div class="m-section__content">
-							<div class="row staticSearchRow">
-								<div class="col-md-3">
-
-								</div>
-								<div class="col-md-3">
-
-								</div>
-								<div class="col-md-3">
-
-								</div>
-
-								<div class="col-md-3">
-									<div class="m-input-icon m-input-icon--left">
-										<input type="text" class="form-control m-input m-input--solid" [(ngModel)]="searchValue" (keyup)="searchString(searchValue)"
-										 placeholder="Search..." id="m_form_search">
-										<span class="m-input-icon__icon m-input-icon__icon--left">
-											<span>
-												<i class="la la-search"></i>
-											</span>
-										</span>
+								<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+										<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+										<input #gb type="text" pInputText size="50" placeholder="Search">
 									</div>
-								</div>
-							</div>
-							<p-dataTable [value]="roleList" [loading]="loading">
+							<p-dataTable [value]="roleList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [loading]="loading"  [rowsPerPageOptions]="[20,50,100,200,500]"
+							[totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
 								<p-column field="roleName" header="Role Name"></p-column>
 								<p-column field="roleDescription" header="Role Description"></p-column>
+								<p-column styleClass="col-button">
+									<ng-template pTemplate="header">
+										Action
+									</ng-template>
+									<ng-template let-row="rowData" pTemplate="body">
+										<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil"></button>
+										<button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o"></button>
+									</ng-template>
+								</p-column>
 							</p-dataTable>
 						</div>
 					</div>
