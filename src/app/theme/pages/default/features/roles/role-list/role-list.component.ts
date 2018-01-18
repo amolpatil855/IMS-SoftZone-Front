@@ -2,10 +2,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService,DataTableModule } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../_services/message.service';
-
 import { RoleService } from '../../../_services/role.service';
 import { Role } from "../../../_models/role";
 import { ScriptLoaderService } from '../../../../../../_services/script-loader.service';
@@ -24,6 +23,7 @@ export class RoleListComponent implements OnInit {
   firstPageNumber: number;
   lastPage: number;
   currentPageNumber: number;
+  cols: any[];
   constructor(private router: Router,
     private roleService: RoleService,
     private globalErrorHandler: GlobalErrorHandler,
@@ -34,6 +34,10 @@ export class RoleListComponent implements OnInit {
   ngOnInit() {
 
     //Page Size Array
+    this.cols = [
+      { field: 'roleName', header: 'Role Name' },
+      { field: 'roleDescription', header: 'Role Description' },
+  ];
       this.getRoleLIst();
   }
 

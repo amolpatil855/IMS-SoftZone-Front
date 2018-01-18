@@ -74,7 +74,7 @@ export class AuthComponent implements OnInit {
         }
 
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        //this.storeService.getPermission();
+        this.storeService.getPermission();
         if (currentUser) {
           this._router.navigate([this.returnUrl]);
         }
