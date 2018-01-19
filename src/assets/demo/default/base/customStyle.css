@@ -512,3 +512,93 @@
     box-shadow: none!important;
     background: transparent!important;
 }
+
+
+/********* D. 18 Jan 2018 ********/
+
+.formContentbox .col-sm-7{
+	padding:0!important;
+}
+.formContentbox label{
+	padding-left:0!important;
+	padding-right:5px!important;
+	padding-top:5px!important;
+}
+.formSubmitBtnBox{
+	text-align:right;
+}
+.formSubmitBtnBox .btn{
+	padding: 4px 10px!important;
+}
+.formSubmitBtnBox .btn i{
+	vertical-align: middle!important;
+    font-size: 16px;
+    margin-top: -3px;
+    margin-right: 2px;
+}
+
+.formCheckBox{
+	margin-left: 5px!important;
+    margin-top: 7px!important;
+}
+.formPanelHeading{
+	font-family: Poppins!important;
+    margin-top: 0;
+    font-size: 14px;
+	font-weight:600;
+}
+.formAddressTable tr th{
+	background: #e3ebf1!important;
+    font-family: Roboto;
+    font-size: 11px!important;
+    padding-top: 8px!important;
+    padding-bottom: 8px!important;
+    border: none!important;
+    vertical-align: middle;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.formAddressTable tr th:last-child{
+	background:#fff!important;
+}
+.formAddressTable tr td{
+	background: #fff!important;
+    font-family: Roboto;
+    font-size: 12px!important;
+    border-bottom: 1px solid #ddd!important;
+    border-top: none!important;
+    vertical-align: middle!important;
+	padding-top: 2px!important;
+    padding-bottom: 2px!important;
+	border:none!important;
+}
+textarea{
+	resize:none;
+}
+.formAddressTable tr td  i{
+	vertical-align: middle;
+    font-size: 16px!important;
+    margin-top: -2px;
+}
+.formAddressTable tr td:first-child{
+	width:30%;
+}
+.formAddressTable tr td:nth-child(2){
+	width:20%;
+}
+.formAddressTable tr td:nth-child(3){
+	width:17.5%;
+}
+.formAddressTable tr td:nth-child(4){
+	width:17%;
+}	
+.formAddressTable tr td:nth-child(5){
+	width:15%;
+}
+.tableActionBtn{
+	padding:4px 8px!important;
+}
+.detailSeparator{
+	margin-top: 2px;
+    margin-bottom: 12px;
+}
