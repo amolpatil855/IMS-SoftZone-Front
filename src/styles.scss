@@ -71,7 +71,8 @@
 
 .staticTable tr th{
 	//padding: 16px 10px;
-	background: #f4f3fb;
+    /*background: #f4f3fb;*/
+    background: #e3ebf1;
 	font-weight: 600;
     vertical-align: middle;
 	font-size: 1rem;
@@ -471,24 +472,29 @@ body .ui-dialog .ui-dialog-titlebar {
 }
 
 .staticTable tr th {
-    padding: 16px 10px!important;
-    background: #f4f3fb!important;
+    padding: 12px 10px!important;
     font-weight: 600!important;
     vertical-align: middle!important;
-    font-size: 1rem!important;
+    font-size: 13px!important;
     text-align: left!important;
+    font-family: Roboto;
+    color: #2b2b2b;
 }
 .staticTable tr td {
-    padding: 16px 10px!important;
+    padding: 4px 10px!important;
     background: #fff!important;
     font-weight: 400!important;
     vertical-align: middle!important;
     font-size: 13px!important;
     text-align: left!important;
     color: #575962!important;
- max-width:290px!important;
+    max-width:290px!important;
+    font-family: Roboto;
+    color: #2b2b2b;
 }
-
+.staticTable .m-btn--icon.m-btn--icon-only i{
+    color: grey!important;
+}
 
 
 
@@ -520,9 +526,6 @@ body .ui-dialog .ui-dialog-titlebar {
 .m-body .m-content {
     padding-top: 10px!important;
     padding-bottom: 0!important;
-}
-.staticTable tr td {
-    padding: 8px 10px!important;    
 }
 .staticTable tr td:last-child{
  min-width:110px!important; 

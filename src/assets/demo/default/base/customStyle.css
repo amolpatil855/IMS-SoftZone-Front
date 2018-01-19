@@ -504,10 +504,8 @@
 	margin-bottom:-4px;
 }
 .pagination>li>a, .pagination>li>span {
-    padding: 2px 10px;
+    padding: 5px 8px!important;
 }
-
-
 .dashboardPortlet{
     box-shadow: none!important;
     background: transparent!important;
