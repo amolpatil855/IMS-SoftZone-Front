@@ -16,6 +16,8 @@ import {
   ConfirmDialogModule,
   ConfirmationService,
 } from 'primeng/primeng';
+
+import { SupplierService } from "../../../_services/supplier.service";
 import { SupplierComponent } from "./supplier.component";
 import { SupplierListComponent } from "./supplier-list/supplier-list.component";
 import { SupplierAddEditComponent } from "./supplier-add-edit/supplier-add-edit.component";
@@ -81,7 +83,7 @@ const routes: Routes = [
   ],
   providers: [
     // RoleService,
-    // PermissionService,
+    SupplierService,
     ConfirmationService
   ],
 })

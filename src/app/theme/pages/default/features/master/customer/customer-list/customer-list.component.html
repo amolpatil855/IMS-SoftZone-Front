@@ -1,0 +1,119 @@
+<p-confirmDialog #cd>
+	<p-footer>
+		<button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+			<span>
+				<i class="la la-check"></i>
+				<span>
+					Yes
+				</span>
+			</span>
+		</button>
+		<button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+			<span>
+				<i class="la la-close"></i>
+				<span>
+					No
+				</span>
+			</span>
+		</button>
+	</p-footer>
+</p-confirmDialog>
+
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+		<div class="mr-auto">
+			<h3 class="m-subheader__title m-subheader__title--separator">
+				Customers
+			</h3>
+			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+				<li class="m-nav__item m-nav__item--home">
+					<a href="#" class="m-nav__link m-nav__link--icon">
+						<i class="m-nav__link-icon la la-home"></i>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a class="m-nav__link">
+						<span class="m-nav__link-text">
+							Customers
+						</span>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a class="m-nav__link">
+						<span class="m-nav__link-text">
+							List
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+	<div class="row">
+		<div class="col-lg-12">
+			<!--begin::Portlet-->
+			<div class="m-portlet">
+				<div class="m-portlet__head">
+					<div class="row headerRowListing">
+						<div class="col-xl-8">
+							<h3 class="ListingHeading">
+								Customer List
+							</h3>
+						</div>
+						<div class="col-xl-4 order-1 order-xl-2 m--align-right">
+							<a routerLink="/features/master/customer/add" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill pull-right"
+							 [isAuthorize]="['customer']">
+								<span>
+									<i class="flaticon-add"></i>
+									<span>
+										Add Customer
+									</span>
+								</span>
+							</a>
+							<div class="m-separator m-separator--dashed d-xl-none"></div>
+						</div>
+					</div>
+				</div>
+				<div class="m-portlet__body">
+					<!--begin::Section-->
+					<div class="m-section">
+						<div class="m-section__content">
+								<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+										<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+										<input #gb type="text" pInputText size="50" placeholder="Search">
+									</div>
+							<p-dataTable [value]="customerList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [loading]="loading"  [rowsPerPageOptions]="[20,50,100,200,500]"
+							[totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+                                <p-column field="name" header="Name" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="email" header="Email" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="phone" header="Phone" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="nickName" header="Nick Name" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="code" header="Code" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="isWholesaleCustomer" header="WholeSale" [style]="{'text-align':'center'}"></p-column>
+								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
+									<ng-template pTemplate="header">
+										Action
+									</ng-template>
+									<ng-template let-row="rowData" pTemplate="body" >
+										<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil"></button>
+										<button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o"></button>
+									</ng-template>
+								</p-column>
+							</p-dataTable>
+						</div>
+					</div>
+					<!--end::Section-->
+				</div>
+			</div>
+			<!--end::Portlet-->
+		</div>
+	</div>
+</div>
