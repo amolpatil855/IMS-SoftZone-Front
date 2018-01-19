@@ -62,7 +62,7 @@ export class RoleListComponent implements OnInit {
     this.pageSize=event.rows;
     this.page=event.first;
     this.search=  event.globalFilter;
-    this.getRoleList()
+    this.getRoleList();
   }
 
 
@@ -74,7 +74,7 @@ export class RoleListComponent implements OnInit {
       accept: () => {
         this.roleService.deleteRole(role.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Deleted Successfully' });
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
             this.getRoleList();
           },
           error => {

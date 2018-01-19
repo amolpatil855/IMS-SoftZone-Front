@@ -1,6 +1,8 @@
+import { CFGRoleMenu } from "./cfgRoleMenu";
+
 export class Role {
   id: number;
-  name: string;
-  displayName: string;
-  description: string;
+  roleName: string;
+  roleDescription: string;
+  CFGRoleMenus: CFGRoleMenu;
 }
