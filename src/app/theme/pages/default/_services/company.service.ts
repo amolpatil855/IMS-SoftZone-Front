@@ -17,12 +17,19 @@ export class CompanyService {
     return this.http.get(AppSettings.API_ENDPOINT + 'CompanyInfo', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  createCompanyInfo(company: Company) {
-    return this.http.post(AppSettings.API_ENDPOINT + 'CompanyInfo', company, AppSettings.requestOptions()).map((response: Response) => response.json());
+  createCompanyInfo(company: Company,image:any) {
+    let reqObj = AppSettings.requestOptions();
+    reqObj.headers["_headers"].delete("content-type");
+    //reqObj.body=company;
+    return this.http.post(AppSettings.API_ENDPOINT + 'CompanyInfo', image, reqObj).map((response: Response) => response.json());
   }
 
-  updateCompanyInfo(company: Company) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'CompanyInfo', company, AppSettings.requestOptions()).map((response: Response) => response.json());
+  updateCompanyInfo(company: any) {
+    let reqObj = AppSettings.requestOptions();
+    reqObj.headers["_headers"].delete("content-type");
+//reqObj.headers["_headers"].delete("Accept");
+   // reqObj.body.append('mstCompanyInfo', company);
+    return this.http.put(AppSettings.API_ENDPOINT + 'CompanyInfo', company, reqObj).map((response: Response) => response.json());
   }
 
 }

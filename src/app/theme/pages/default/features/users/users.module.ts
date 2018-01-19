@@ -10,7 +10,6 @@ import { AuthGuard } from "../../../../../auth/_guards/auth.guard";
 import { UserService, RoleService, UserRoleService } from '../../_services/index';
 import { UsersComponent } from './users.component';
 import { UsersListComponent } from './users-list/users-list.component';
-import { UserRoleComponent } from './user-role/user-role.component';
 import { UserAddEditComponent } from './user-add-edit/user-add-edit.component';
 
 import {
@@ -38,10 +37,6 @@ const routes: Routes = [
             data: {
               permissions: ['user']
             }
-          },
-          {
-            path: 'manage-role/:id',
-            component: UserRoleComponent,
           },
           {
             path: 'add',
@@ -82,7 +77,6 @@ const routes: Routes = [
   declarations: [
     UsersComponent,
     UsersListComponent,
-    UserRoleComponent,
     UserAddEditComponent,
   ],
   providers: [
