@@ -70,7 +70,7 @@
 						</div>
 						<div class="col-xl-4 order-1 order-xl-2 m--align-right">
 							<a routerLink="/features/users/add" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill pull-right"
-							 [isAuthorize]="['User.Create']">
+							 [isAuthorize]="['user']">
 								<span>
 									<i class="flaticon-user-add"></i>
 									<span>
@@ -155,15 +155,15 @@
 												</td>
 												<td>
 													<a href="javascript:;" (click)="onEditClick(row)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-													 title="Edit" [isAuthorize]="['User.Update']">
+													 title="Edit" [isAuthorize]="['user']">
 														<i class="la la-edit"></i>
 													</a>
 													<a href="javascript:;" (click)="onDelete(row)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-													 title="Delete" [isAuthorize]="['User.Delete']">
+													 title="Delete" [isAuthorize]="['user']">
 														<i class="la la-close"></i>
 													</a>
 													<a href="javascript:;" *ngIf="row.isBolocked" (click)="unblockuser(row)" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-													 title="Unblock user" [isAuthorize]="['User.Update']">
+													 title="Unblock user" [isAuthorize]="['user']">
 														<i class="fa fa-unlock"></i>
 													</a>
 												</td>
