@@ -38,14 +38,13 @@ export class CompanyAddEditComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         phone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
         gstin: ['', [Validators.required]],
-       // companyLogo: ['', [Validators.required]],
+        companyLogo: ['http://localhost:4200/assets/img/demo.png'],
     });
 
     this.companyService.getAllCompanyInfo().subscribe(
       (results: any) => {
          Helpers.setLoading(false);
             if(results !== null){
-              console.log('results', results);
             this.companyForm.setValue({
               id: results.id,
               companyName: results.companyName,
