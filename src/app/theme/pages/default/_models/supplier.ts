@@ -1,4 +1,6 @@
-export class Supplier{
+import { SupplierAddress } from "./supplierAddress";
+
+export class Supplier {
     id: number;
     code: string;
     name: string;
@@ -16,5 +18,5 @@ export class Supplier{
     dispatchPersonName: string;
     dispatchPersonEmail: string;
     dispatchPersonPhone: string;
-    MstSupplierAddressDetails: string;
+    MstSupplierAddressDetails: SupplierAddress;
 }

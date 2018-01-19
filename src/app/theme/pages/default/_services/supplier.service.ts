@@ -13,8 +13,8 @@ export class SupplierService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllSuppliers() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Supplier', AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllSuppliers(pageSize=0,page=0,search='') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Supplier?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getSupplierById(id: number) {
@@ -25,12 +25,12 @@ export class SupplierService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Supplier/GetSupplierLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  createSupplier(Supplier: Supplier) {
-    return this.http.post(AppSettings.API_ENDPOINT + 'Supplier', Supplier, AppSettings.requestOptions()).map((response: Response) => response.json());
+  createSupplier(supplier: Supplier) {
+    return this.http.post(AppSettings.API_ENDPOINT + 'Supplier', supplier, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   updateSupplier(supplier: Supplier) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'Supplier/' + supplier.id, Supplier, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.put(AppSettings.API_ENDPOINT + 'Supplier/' + supplier.id, supplier, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   deleteSupplier(id: number) {
