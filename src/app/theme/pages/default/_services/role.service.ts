@@ -13,8 +13,8 @@ export class RoleService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllRoles() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Role', AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllRoles(pageSize=0,page=0,search='') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Role?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getRoleById(id: number) {
