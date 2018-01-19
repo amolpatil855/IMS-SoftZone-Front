@@ -110,17 +110,17 @@
 						</div>
 					</div>
                 </div>
-                <!-- <div class="form-group m-form__group row">
+                <div class="form-group m-form__group row">
 					<label for="example-text-input" class="col-md-2 col-form-label">
 							Company Logo <span class="requiredField">*</span>
 					</label>					
 					<div class="col-md-5">
-						<input class="form-control m-input" type="file" value="" formControlName="companyLogo" name="companyLogo" id="companyLogo" placeholder="Company Name">
+						<input class="form-control m-input" type="file"  #fileupload  value="" name="companyLogo" id="companyLogo"  (change)="onUploadLogo(fileupload.files)" >
 						<div class="alertMsg" *ngIf="companyForm.get('companyLogo').hasError('required') && companyForm.get('companyLogo').touched">
 								Please select Company Logo
 						</div>
 					</div>
-				</div> -->
+				</div>
 				<!-- <div class="form-group m-form__group row">
 					<label for="example-text-input" class="col-2 col-form-label">
 							Active

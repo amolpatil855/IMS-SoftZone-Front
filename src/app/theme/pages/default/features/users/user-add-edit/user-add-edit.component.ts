@@ -43,16 +43,7 @@ export class UserAddEditComponent implements OnInit {
     private messageService: MessageService) {
   }
   ngOnInit() {
-    this.instituteList = [];
-    this.schoolList = [];
     this.roleList = [];
-    this.relatedSchoolList = [];
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));    
-    //if (this.currentUser && this.currentUser.roles && this.currentUser.roles.length > 0) {
-      //this.userRole = this.currentUser.roles[0].name;
-     
-    //}
-
     this.route.params.forEach((params: Params) => {
       this.params = params['userId'];
     });
@@ -77,71 +68,6 @@ export class UserAddEditComponent implements OnInit {
         role: ['', [Validators.required]],
         userType: ['', [Validators.required]],
     });
-
-    if (this.params) {
-      this.getEditFormWithoutInstitute();
-    }
-
-  }
-  getEditFormWithoutInstitute() {
-    this.userService.getUserById(this.params)
-      .subscribe((results: any) => {
-        this.userForm.setValue({
-          id: results.id,
-          username: results.userName,
-          email: results.email,
-          phone: results.phone,
-          role: results.roleId,
-          userType: results.userTypeId,
-        });
-      })
-  }
-
-  getEditForm() {
-    Helpers.setLoading(true);
-    this.userService.getUserById(this.params)
-      .subscribe((results: any) => {
-        Helpers.setLoading(false);
-        this.relatedSchoolList = results.school ? results.school : [];
-        var instituteId = -1;
-        if (this.relatedSchoolList.length > 0) {
-          instituteId = this.relatedSchoolList[0].instituteId;
-        }
-        this.userForm.setValue({
-          id: results.id,
-          username: results.userName,
-          email: results.email,
-          phone: results.phone,
-          role: results.roleId,
-          userType: results.userTypeId,
-        });
-        if (this.relatedSchoolList.length > 0) {
-          this.getSchools(instituteId);
-        }
-      })
-
-  }
-  get schools(): FormArray {
-    return this.userForm.get('schools') as FormArray;
-  };
-  buildSchools() {
-    const arr = this.schoolList.map(s => {
-      return this.formBuilder.control(s.selected);
-    })
-    return this.formBuilder.array(arr);
-  }
-  updateSchoolList() {
-    for (var index = 0; index < this.schoolList.length; index++) {
-      var school = this.schoolList[index];
-      school.selected = false;
-      if (this.relatedSchoolList.length > 0) {
-        let item = _.find(this.relatedSchoolList, { id: school.id })
-        if (item) {
-          school.selected = true;
-        }
-      }
-    }
-    return this.schoolList;
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
@@ -184,23 +110,9 @@ export class UserAddEditComponent implements OnInit {
         });
     }
   }
-  getRolesBySchoolId() {
-    // this.schoolService.getRolesBySchoolId('')
-    //   .subscribe(
-    //   results => {
-    //     this.roleList = <any>results;
-    //   }, error => {
-    //     this.globalErrorHandler.handleError(error);
-    //   });
-  }
 
   onCancel() {
     this.router.navigate(['/features/users/list']);
   }
   
-  getSchools(value) {
- 
-  }
-  onRoleClick() {}
-  onUserTypeClick(){}
 }
