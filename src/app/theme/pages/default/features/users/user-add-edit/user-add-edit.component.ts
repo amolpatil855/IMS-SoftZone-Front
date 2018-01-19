@@ -162,7 +162,7 @@ export class UserAddEditComponent implements OnInit {
       this.userService.updateUser(value)
         .subscribe(
         results => {
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Updated Successfully' });
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
           this.router.navigate(['/features/users/list']);
         },
@@ -174,7 +174,7 @@ export class UserAddEditComponent implements OnInit {
       this.userService.createUser(value)
         .subscribe(
         results => {
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Added Successfully' });
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
           this.router.navigate(['/features/users/list']);
         },

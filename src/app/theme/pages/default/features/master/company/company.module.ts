@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from "../../../default.component";
 import { LayoutModule } from "../../../../../layouts/layout.module";
 import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
-//import { UserService, RoleService, UserRoleService } from '../../_services/index';
+import { CompanyService } from "../../../_services/company.service";
 
 import {
   DataTableModule,
@@ -70,9 +70,7 @@ const routes: Routes = [
     CompanyAddEditComponent,
   ],
   providers: [
-    // UserService,
-    // RoleService,
-    // UserRoleService,
+    CompanyService,
     ConfirmationService
   ],
 })
