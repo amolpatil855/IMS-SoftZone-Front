@@ -501,13 +501,11 @@
 }
 .formContentbox{
 	min-height:35px;
-	margin-bottom:10px;
+	margin-bottom:-4px;
 }
 .pagination>li>a, .pagination>li>span {
-    padding: 2px 10px;
+    padding: 5px 8px!important;
 }
-
-
 .dashboardPortlet{
     box-shadow: none!important;
     background: transparent!important;
@@ -525,7 +523,8 @@
 	padding-top:5px!important;
 }
 .formSubmitBtnBox{
-	text-align:right;
+    text-align:right;
+    margin-top: 10px;
 }
 .formSubmitBtnBox .btn{
 	padding: 4px 10px!important;
