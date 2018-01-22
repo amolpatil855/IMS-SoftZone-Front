@@ -49,8 +49,8 @@ const routes: Routes = [
             }
           },
           {
-            path: 'edit/:roleId',
-            component: SupplierAddEditComponent,
+            path: 'edit/:supplierId',
+            component: SupplierListComponent,
             canActivate: [AuthGuard],
             data: {
               permissions: ['supplier']
