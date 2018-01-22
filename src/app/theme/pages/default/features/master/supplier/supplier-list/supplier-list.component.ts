@@ -121,14 +121,14 @@ export class SupplierListComponent implements OnInit {
         dispatchPersonName: value.dispatchPersonName,
         dispatchPersonEmail: value.dispatchPersonEmail,
         dispatchPersonPhone: value.dispatchPersonPhone,
-        mstSupplierAddressDetails: { // <-- the child FormGroup
+        mstSupplierAddressDetails: [{ // <-- the child FormGroup
           id: 0,
           supplierId: this.params,
           address: value.address,
           city: value.city,
           state: value.state,
           pin: value.pin
-        }
+        }]
       }
       this.saveSupplier(params);
   }
