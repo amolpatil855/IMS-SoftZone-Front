@@ -39,23 +39,7 @@ const routes: Routes = [
             data: {
               permissions: ['customer']
             }
-          },
-          {
-            path: 'add',
-            component: CustomerAddEditComponent,
-            canActivate: [AuthGuard],
-            data: {
-              permissions: ['customer']
-            }
-          },
-          {
-            path: 'edit/:roleId',
-            component: CustomerAddEditComponent,
-            canActivate: [AuthGuard],
-            data: {
-              permissions: ['customer']
-            }
-          },
+          }
         ]
       }
     ]
