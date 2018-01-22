@@ -130,7 +130,7 @@ export class SupplierListComponent implements OnInit {
           pin: value.pin
         }
       }
-      this.saveUser(params);
+      this.saveSupplier(params);
   }
 
   // onAddSupplierAddress() {
@@ -139,7 +139,7 @@ export class SupplierListComponent implements OnInit {
   //   }
   // }
 
-  saveUser(value) {
+  saveSupplier(value) {
     Helpers.setLoading(true);
     if (this.params) {
       this.supplierService.updateSupplier(value)
