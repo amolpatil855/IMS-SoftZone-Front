@@ -4,7 +4,8 @@ export class AppSettings {
 
   public static API_ENDPOINT = 'http://localhost:50273/api/';
   public static LOGIN_API_ENDPOINT = 'http://localhost:50273/';
-
+  public static IMAGE_API_ENDPOINT = 'http://localhost:50273/';
+  
   public static requestOptions() {
     let headers = new Headers({ 'Content-Type': 'application/json' });
 
