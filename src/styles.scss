@@ -1291,3 +1291,53 @@ body .ui-dialog .ui-dialog-titlebar {
         font-weight: 600!important;
         color: #000!important; 
     }
+
+/***** D. 22 Jan 2017  ****/
+.m-subheader {
+    padding: 0px 30px 0 30px !important;
+}
+.m-body .m-content {
+    padding-top: 0px !important;
+    padding-bottom: 0 !important;
+}
+.ui-cell-data {
+    font-weight: 400 !important;
+    color: #000 !important;
+    font-size: 13px;
+}
+body .ui-widget-header {
+    border: none!important;
+    margin-bottom: 8px!important;
+    text-align: right;
+}
+.btnAddForm{
+    display: inline!important;
+}
+body .ui-datatable .ui-paginator {
+    padding: 0;
+    margin-bottom: 0!important;
+    margin-top: 8px;
+}
+body .ui-paginator .ui-paginator-pages .ui-paginator-page {
+    padding: 0.2em 0.625em!important;
+    min-width: 2em;
+    color: #0275d8;
+    transition: background-color 0.3s;
+    border-radius: 32px!important;
+    text-align: center;
+}
+.m-portlet .m-portlet__body {
+    padding: 8px;
+}
+.editBtn, .delBtn{
+    background: transparent!important;
+    color:Grey!important;
+    box-shadow: none!important;
+}
+.m-section {
+    margin: 0 0 10px 0;
+}
+.m-form__actions.m-form__actions--solid {
+    padding: 0;
+    background: #fff;
+}

@@ -49,7 +49,7 @@
     font-size: 13px;
     background: #FDFDFE;
     cursor: pointer;
-	background: linear-gradient(#FEFEFD, #ffffff 3%, #e8e8e882);
+	background: linear-gradient(#FEFEFD, #ffffff 3%, #e8e8e8);
 }
 .selectIcon{
 	position: absolute;
@@ -66,15 +66,17 @@
     appearance: none;
     box-shadow: none!important;
     border-radius: 3px!important;
-    font-family: 'Conv_AVENIRLTSTD-LIGHT'!important;
+    font-family: Poppins!important;
     color: #000!important;
     font-size: 13px;
     background: #FDFDFE;
+    padding: 7px 12px!important;
+    padding-left: 30px!important;
 }
 .searchIcon{
 	position: absolute;
-    margin-left: -28px;
-    margin-top: 9px;
+    margin-left: 10px;
+    margin-top: 7px;
     font-size: 15px!important;
     color: #a7a4a4;
 }
@@ -216,8 +218,8 @@
 	background: #e3ebf1!important;
     font-family: Roboto;
     font-size: 12px!important;
-    padding-top: 12px!important;
-    padding-bottom: 12px!important;
+    padding-top: 8px!important;
+    padding-bottom: 8px!important;
     border: none!important;
     vertical-align: middle;
     text-transform: uppercase;
@@ -230,8 +232,9 @@
     border-bottom: 1px solid #ddd!important;
     border-top: none!important;
     vertical-align: middle!important;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+    border: none!important;
 }
 .subHeadSpan{
 	font-size: 10px;
@@ -246,11 +249,13 @@
 	background: #fff!important;
 }
 .fieldLabel{
-	font-family: Roboto;
-    color: #292929;
-    font-size: 13px;
+	font-family: Roboto!important;
+    color: #000!important;
+    font-size: 12px!important;
 	padding-top: 8px;
-	text-align: right;
+    text-align: right!important;
+    float: left!important;  
+    font-weight: 500;
 }
 .formContainer .form-control{
 	box-shadow:none!important;
@@ -265,7 +270,7 @@
 	border-color:#1C93ED!important;
 }
 .btn{
-	padding: 7px 10px!important;
+	padding: 6px 10px!important;
     height: auto!important;
     font-size: 13px!important;
 	border-radius: 3px!important;
@@ -497,11 +502,11 @@
 /***** For Login Page  Ends******/
 
 .formContainerSamePage{
-	margin:20px;
+	margin:10px;
 }
 .formContentbox{
 	min-height:35px;
-	margin-bottom:-4px;
+	margin-bottom:0px;
 }
 .pagination>li>a, .pagination>li>span {
     padding: 5px 8px!important;
@@ -515,7 +520,8 @@
 /********* D. 18 Jan 2018 ********/
 
 .formContentbox .col-sm-7{
-	padding:0!important;
+    padding:0!important;
+    float: left;
 }
 .formContentbox label{
 	padding-left:0!important;
@@ -577,7 +583,7 @@ textarea{
 .formAddressTable tr td  i{
 	vertical-align: middle;
     font-size: 16px!important;
-    margin-top: -2px;
+    margin-top: 0px;
 }
 .formAddressTable tr td:first-child{
 	width:30%;
