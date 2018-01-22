@@ -65,24 +65,272 @@
 					<div class="row headerRowListing">
 						<div class="col-xl-8">
 							<h3 class="ListingHeading">
-								Supplier List
 							</h3>
 						</div>
 						<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-							<a routerLink="/features/master/supplier/add" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill pull-right" [isAuthorize]="['supplier']">
+							<button class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill pull-right" (click)="toggleButton()" [isAuthorize]="['supplier']">
 								<span>
 									<i class="flaticon-add"></i>
 									<span>
 										Add Supplier
 									</span>
 								</span>
-							</a>
+							</button>
 							<div class="m-separator m-separator--dashed d-xl-none"></div>
 						</div>
 					</div>
 				</div>
+				<div class="row">
+				
+				<div class="col-md-12" *ngIf="toggleDiv">
+				
+					<div class="formContainer formContainerSamePage">
+							<form class="">
+								<div class="row">
+									
+									<div class="col-md-12">
+										<h5 class="formPanelHeading">Supplier Basic Details:</h5>
+									</div>
+									
+									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Name</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" value="" formControlName="name" name="name" id="name" placeholder="Enter Name">
+											<div class="alertMsg" *ngIf="supplierForm.get('name').hasError('required') && supplierForm.get('name').touched">
+												Please enter User Name
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Email</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" value="" formControlName="email" name="email" placeholder="Email" maxlength="254">
+											<div class="alertMsg" *ngIf="supplierForm.get('email').hasError('required') && supplierForm.get('email').touched">
+												Please enter Email
+											</div>
+											<div class="alertMsg" *ngIf="!supplierForm.get('email').hasError('required') && supplierForm.get('email').hasError('email') && supplierForm.get('email').touched">
+												Please enter valid Email
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Phone</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" formControlName="phone" name="contact" placeholder="Contact" maxlength="15">
+											<div class="alertMsg" *ngIf="supplierForm.get('phone').hasError('required') && supplierForm.get('phone').touched">
+												Please enter Contact Number
+											</div>
+											<div class="alertMsg" *ngIf="!supplierForm.get('phone').hasError('required') && supplierForm.get('phone').hasError('pattern') && supplierForm.get('phone').touched">
+												Please enter valid phone number
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Firm Name</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" value="" formControlName="firmName" name="firmName" id="firmName" placeholder="Enter Firm Name">
+											<div class="alertMsg" *ngIf="supplierForm.get('firmName').hasError('required') && supplierForm.get('firmName').touched">
+												Please enter Firm Name
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Account Person Name</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" value="" formControlName="accountPersonName" name="accountPersonName" id="accountPersonName" placeholder="Enter Account Person Name">
+											<div class="alertMsg" *ngIf="supplierForm.get('accountPersonName').hasError('required') && supplierForm.get('accountPersonName').touched">
+												Please enter Account Person Name
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Account Person Phone</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" formControlName="accountPersonPhone" name="accountPersonPhone" placeholder="Account Person Number" maxlength="15">
+											<div class="alertMsg" *ngIf="supplierForm.get('accountPersonPhone').hasError('required') && supplierForm.get('accountPersonPhone').touched">
+												Please enter Contact Number
+											</div>
+											<div class="alertMsg" *ngIf="!supplierForm.get('accountPersonPhone').hasError('required') && supplierForm.get('accountPersonPhone').hasError('pattern') && supplierForm.get('accountPersonPhone').touched">
+												Please enter valid phone number
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Account Person Email</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" value="" formControlName="accountPersonEmail" name="accountPersonEmail" placeholder="Account Person Email" maxlength="254">
+											<div class="alertMsg" *ngIf="supplierForm.get('accountPersonEmail').hasError('required') && supplierForm.get('accountPersonEmail').touched">
+												Please enter Account Person Email
+											</div>
+											<div class="alertMsg" *ngIf="!supplierForm.get('accountPersonEmail').hasError('required') && supplierForm.get('accountPersonEmail').hasError('accountPersonEmail') && supplierForm.get('accountPersonEmail').touched">
+												Please enter valid Account Person Email
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Dispatch Person Name</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" value="" formControlName="dispatchPersonName" name="dispatchPersonName" id="dispatchPersonName" placeholder="Enter Dispatch Person Name">
+											<div class="alertMsg" *ngIf="supplierForm.get('dispatchPersonName').hasError('required') && supplierForm.get('dispatchPersonName').touched">
+												Please enter Dispatch Person Name
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Dispatch Person Phone</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" formControlName="dispatchPersonPhone" name="dispatchPersonPhone" placeholder="Dispatch Person Number" maxlength="15">
+											<div class="alertMsg" *ngIf="supplierForm.get('dispatchPersonPhone').hasError('required') && supplierForm.get('dispatchPersonPhone').touched">
+												Please enter Contact Number
+											</div>
+											<div class="alertMsg" *ngIf="!supplierForm.get('dispatchPersonPhone').hasError('required') && supplierForm.get('dispatchPersonPhone').hasError('pattern') && supplierForm.get('dispatchPersonPhone').touched">
+												Please enter valid phone number
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Dispatch Person Email</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" value="" formControlName="dispatchPersonEmail" name="dispatchPersonEmail" placeholder="Dispatch Person Email" maxlength="254">
+											<div class="alertMsg" *ngIf="supplierForm.get('dispatchPersonEmail').hasError('required') && supplierForm.get('dispatchPersonEmail').touched">
+												Please enter Dispatch Person Email
+											</div>
+											<div class="alertMsg" *ngIf="!supplierForm.get('dispatchPersonEmail').hasError('required') && supplierForm.get('dispatchPersonEmail').hasError('dispatchPersonEmail') && supplierForm.get('dispatchPersonEmail').touched">
+												Please enter valid Dispatch Person Email
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Warehouse Person Name</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" value="" formControlName="warehousePersonName" name="warehousePersonName" id="warehousePersonName" placeholder="Enter Warehouse Person Name">
+											<div class="alertMsg" *ngIf="supplierForm.get('warehousePersonName').hasError('required') && supplierForm.get('warehousePersonName').touched">
+												Please enter Warehouse Person Name
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Warehouse Person Email</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" value="" formControlName="warehousePersonEmail" name="warehousePersonEmail" placeholder="Warehouse Person Email" maxlength="254">
+											<div class="alertMsg" *ngIf="supplierForm.get('warehousePersonEmail').hasError('required') && supplierForm.get('warehousePersonEmail').touched">
+												Please enter Warehouse Person Email
+											</div>
+											<div class="alertMsg" *ngIf="!supplierForm.get('warehousePersonEmail').hasError('required') && supplierForm.get('warehousePersonEmail').hasError('warehousePersonEmail') && supplierForm.get('warehousePersonEmail').touched">
+												Please enter valid Warehouse Person Email
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-3 formContentbox">
+										<div class="form-group">
+											<label class="fieldLabel col-sm-5">GSTIN</label>
+											<div class="col-sm-7">
+												<input class="form-control m-input" type="text" formControlName="gstin" name="gstin" placeholder="GSTIN" maxlength="15">
+												<div class="alertMsg" *ngIf="supplierForm.get('gstin').hasError('required') && supplierForm.get('gstin').touched">
+													Please enter GSTIN
+												</div>
+												<div class="alertMsg" *ngIf="!supplierForm.get('gstin').hasError('required') && supplierForm.get('gstin').hasError('pattern') && supplierForm.get('gstin').touched">
+													Please enter valid GSTIN
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-3 formContentbox">
+										<div class="form-group">
+											<label class="fieldLabel col-sm-5">Description</label>
+											<div class="col-sm-7">
+												<input class="form-control m-input" type="text" value="" formControlName="description" name="description" id="description" placeholder="Enter Description">
+											<div class="alertMsg" *ngIf="supplierForm.get('description').hasError('required') && supplierForm.get('description').touched">
+												Please enter Description
+											</div>
+											</div>
+										</div>
+									</div>
+									
+									<!--- Address Details -->
+									<div class="col-md-12 ">
+									
+										<hr class="detailSeparator"/>
+										
+										<h5 class="formPanelHeading">Supplier Address Details:</h5>
+									</div>
+									
+									<div class="col-md-9 formContentbox">
+										<div class="table-responsive">
+											<table class="table formAddressTable">
+												<thead>
+												  <tr>
+													<th>Address</th>													
+													<th>State</th>
+													<th>City</th>
+													<th>PIN</th>
+													<th></th>
+												  </tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>
+															 <input type="text" class="form-control" formControlName="address"/>
+														</td>
+														<td>	
+															<select class="form-control" formControlName="state">
+																<option *ngFor="let state of states" [value]="state">{{state}}</option>
+															</select>
+														</td>
+														<td>
+															<input type="text" class="form-control" formControlName="city"/>
+														</td>												
+														<td>
+															<input type="text" class="form-control" formControlName="pin"/>
+														</td>
+														<td>
+															<button class="btn btn-success tableActionBtn"><i class="material-icons">add</i></button>
+															<button class="btn btn-danger tableActionBtn"><i class="material-icons">clear</i></button>
+														</td>
+													</tr>
+												</tbody>
+											  </table>
+										</div>
+									</div>
+									
+								</div>
+								
+								
+				<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+					<div class="m-form__actions m-form__actions--solid">
+						<div class="row">
+							<div class="col-lg-6">
+								<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="supplierForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ supplierForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="supplierForm.invalid" [isAuthorize]="['supplier']">
+										{{ params ? 'Update' : 'Save' }}
+								</button>
+								<button class="btn btn-secondary" [isAuthorize]="['supplier']" (click)="onCancel()">
+										Cancel
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+							</form>
+						
+						</div>
+					
+					
+				</div>
+			</div>
 				<div class="m-portlet__body">
 					<!--begin::Section-->
+					<div class="col-xl-8">
+							<h3 class="ListingHeading">
+								Supplier List
+							</h3>
+						</div>
 					<div class="m-section">
 						<div class="m-section__content">
 								<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
