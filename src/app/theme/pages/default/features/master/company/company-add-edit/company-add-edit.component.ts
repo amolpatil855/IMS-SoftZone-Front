@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
-
+import { AppSettings } from '../../../../../../../app-settings';
 import { CompanyService } from '../../../../_services/company.service';
 import { Company } from "../../../../_models/company";
 import { Helpers } from "../../../../../../../helpers";
@@ -19,6 +19,7 @@ export class CompanyAddEditComponent implements OnInit {
   imageFileName:string;
   fileInput:string;
   myInputVariable: any;
+  logoURLtoshow:string;
  constructor(
     private formBuilder: FormBuilder,
     private globalErrorHandler: GlobalErrorHandler,
@@ -59,6 +60,7 @@ this.getCompanyInfo();
               gstin: results.gstin,
               companyLogo: results.companyLogo,
             });
+            this.logoURLtoshow=AppSettings.IMAGE_API_ENDPOINT+results.companyLogo;
           }
     });
   }
