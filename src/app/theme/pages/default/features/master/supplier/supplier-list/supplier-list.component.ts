@@ -134,7 +134,7 @@ export class SupplierListComponent implements OnInit {
   }
 
   // onAddSupplierAddress() {
-  //   for(var i=1; i<=4; i++) {
+  //   for(var i=0; i<1; i++) {
   //     <FormArray>this.supplierForm.get('mstSupplierAddressDetails').push(new FormControl());
   //   }
   // }
