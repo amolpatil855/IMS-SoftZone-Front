@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-
+import * as _ from 'lodash/index';
 import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { ConfirmationService, DataTableModule, LazyLoadEvent } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
@@ -18,7 +18,8 @@ import { Supplier } from "../../../../_models/supplier";
   encapsulation: ViewEncapsulation.None,
 })
 export class SupplierListComponent implements OnInit {
-  supplierForm: FormGroup;
+  supplierForm: any;
+  supplierObj:any;
   params: number;
   supplierList=[];
   pageSize=50;
@@ -26,7 +27,7 @@ export class SupplierListComponent implements OnInit {
   totalCount=0;
   search='';
   toggleDiv=false;
-
+  states=[];
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -39,40 +40,71 @@ export class SupplierListComponent implements OnInit {
 
   ngOnInit() {
    // this.getSuppliersList();
+   this.states.push({ label: '--Select--', value: '0' });
+   this.states.push({ label: 'Maharashtra', value: 'Maharashtra' });
+   this.states.push({ label: 'MP', value: 'MP' });
     this.route.params.forEach((params: Params) => {
       this.params = params['supplierId'];
     });
 
-   this.supplierForm = this.formBuilder.group({
-        id: 0,
-        code: ['', [Validators.required]],
-        name: ['', [Validators.required]],
-        firmName: ['', [Validators.required]],
-        description: ['', [Validators.required]],
-        gstin: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        phone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
-        accountPersonName: ['', [Validators.required]],
-        accountPersonEmail: ['', [Validators.required, Validators.email]],
-        accountPersonPhone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
-        warehousePersonName: ['', [Validators.required]],
-        warehousePersonEmail: ['', [Validators.required, Validators.email]],
-        warehousePersonPhone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
-        dispatchPersonName: ['', [Validators.required]],
-        dispatchPersonEmail: ['', [Validators.required, Validators.email]],
-        dispatchPersonPhone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
-        mstSupplierAddressDetails: this.formBuilder.array([{ // <-- the child FormGroup
-          id: 0,
-          supplierId:'',
-          address: '',
-          city: '',
-          state: '',
-          pin: ''
-        }]),
-    });
+this.newRecord();
   }
+
+newRecord(){
+  this.supplierObj ={
+    id: 0,
+    code:'',
+    name: '',
+    firmName:'',
+    description: '',
+    gstin: '',
+    email: '',
+    phone:'',
+    accountPersonName:'',
+    accountPersonEmail: '',
+    accountPersonPhone: '',
+    warehousePersonName: '',
+    warehousePersonEmail: '',
+    warehousePersonPhone:'',
+    dispatchPersonName: '',
+    dispatchPersonEmail:'',
+    dispatchPersonPhone: '',
+    MstSupplierAddressDetails:[],
+};
+
+this.supplierObj.MstSupplierAddressDetails.push({ // <-- the child FormGroup
+  id: 0,
+  supplierId:0,
+  address: '',
+  city:'',
+  state:'',
+  pin: '',
+  contRoleId: Math.floor(Math.random() * 2000),
+});
+}
+
+  addNewAddress(supAdd){
+    var newaddressObj ={ // <-- the child FormGroup
+      id: 0,
+      supplierId:0,
+      address: '',
+      city:'',
+      state:'',
+      pin: '',
+      contRoleId: Math.floor(Math.random() * 2000),
+    };
+    this.supplierObj.MstSupplierAddressDetails.push(newaddressObj);
+  }
+  clearAddress(supAddIndex){
+    this.supplierObj.MstSupplierAddressDetails.splice(supAddIndex, 1);
+  }
+
   toggleButton(){
-    this.toggleDiv = true;
+    this.toggleDiv = !this.toggleDiv;
+    if(this.toggleDiv && !this.params){
+      this.newRecord();
+    }
+
   }
   onCancel(){
     this.toggleDiv = false;
@@ -101,36 +133,57 @@ export class SupplierListComponent implements OnInit {
     this.getSuppliersList();
   }
 
+
+getsuplierById(id){
+  this.supplierService.getSupplierById(id).subscribe(
+    results => {
+      this.supplierObj = results;
+      this.supplierObj.MstSupplierAddressDetails=results.mstSupplierAddressDetails;
+      delete this.supplierObj['mstSupplierAddressDetails'];   
+      console.log('this.supplierList', this.supplierObj);
+    },
+    error => {
+      this.globalErrorHandler.handleError(error);
+    });
+}
+
+  
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
       
-      let params = {
-        id: 0,
-        code: '111',
-        name: value.name,
-        firmName: value.firmName,
-        description: value.description,
-        gstin: value.gstin,
-        email: value.email,
-        phone: value.phone,
-        accountPersonName: value.accountPersonName,
-        accountPersonEmail: value.accountPersonEmail,
-        accountPersonPhone: value.accountPersonPhone,
-        warehousePersonName: value.warehousePersonName,
-        warehousePersonEmail: value.warehousePersonEmail,
-        warehousePersonPhone: value.warehousePersonPhone,
-        dispatchPersonName: value.dispatchPersonName,
-        dispatchPersonEmail: value.dispatchPersonEmail,
-        dispatchPersonPhone: value.dispatchPersonPhone,
-        mstSupplierAddressDetails: [{ // <-- the child FormGroup
-          id: 0,
-          supplierId: this.params,
-          address: value.address,
-          city: value.city,
-          state: value.state,
-          pin: value.pin
-        }]
+    _.forEach(this.supplierObj.MstSupplierAddressDetails, function(addressObj) {
+      if(!addressObj.address){
+        addressObj.invalidAdd=true;
+        valid=false;
       }
-      this.saveSupplier(params);
+      else
+      {
+        addressObj.invalidAdd=false;
+      }
+      if(!addressObj.state){
+        addressObj.invalidState=true;
+        valid=false;
+      }
+      {
+        addressObj.invalidState=false;
+      }
+      if(!addressObj.city){
+        addressObj.invalidCity=true;
+        valid=false;
+      }
+      {
+        addressObj.invalidCity=false;
+      }
+      if(!addressObj.pin){
+        addressObj.invalidPin=true;
+        valid=false;
+      }
+      {
+        addressObj.invalidPin=false;
+      }
+    });
+
+    if(valid)
+      this.saveSupplier(this.supplierObj);
   }
 
   // onAddSupplierAddress() {
@@ -145,9 +198,12 @@ export class SupplierListComponent implements OnInit {
       this.supplierService.updateSupplier(value)
         .subscribe(
         results => {
+         this. getSuppliersList(); 
+         this.toggleDiv=false;
+         this.params=null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-          this.router.navigate(['/features/master/supplier/list']);
+         
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -157,9 +213,12 @@ export class SupplierListComponent implements OnInit {
       this.supplierService.createSupplier(value)
         .subscribe(
         results => {
+         this. getSuppliersList();
+         this.toggleDiv=false;
+         this.params=null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-          this.router.navigate(['/features/master/supplier/list']);
+       
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -171,8 +230,11 @@ export class SupplierListComponent implements OnInit {
   onEditClick(supplier: Supplier) {
      this.supplierService.perPage = this.pageSize;
      this.supplierService.currentPos = this.page;
+    this. getsuplierById(supplier.id);
+    this.params=supplier.id;
     // this.roleService.currentPageNumber = this.currentPageNumber;
-    this.router.navigate(['/features/master/supplier/edit', supplier.id]);
+   // this.router.navigate(['/features/master/supplier/edit', supplier.id]);
+   this.toggleDiv=true;
   }
 
   onDelete(supplier: Supplier) {
@@ -185,6 +247,7 @@ export class SupplierListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
             this.getSuppliersList();
+            this.toggleDiv=false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

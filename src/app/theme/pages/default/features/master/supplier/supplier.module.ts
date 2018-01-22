@@ -20,8 +20,6 @@ import {
 import { SupplierService } from "../../../_services/supplier.service";
 import { SupplierComponent } from "./supplier.component";
 import { SupplierListComponent } from "./supplier-list/supplier-list.component";
-import { SupplierAddEditComponent } from "./supplier-add-edit/supplier-add-edit.component";
-
 
 const routes: Routes = [
   {
@@ -39,22 +37,7 @@ const routes: Routes = [
             data: {
               permissions: ['supplier']
             }
-          },
-          {
-            path: 'add',
-            component: SupplierAddEditComponent,
-            canActivate: [AuthGuard],
-            data: {
-              permissions: ['supplier']
-            }
-          },
-          {
-            path: 'edit/:supplierId',
-            component: SupplierListComponent,
-            canActivate: [AuthGuard],
-            data: {
-              permissions: ['supplier']
-            }
+          
           },
         ]
       }
@@ -79,7 +62,6 @@ const routes: Routes = [
   declarations: [
     SupplierComponent,
     SupplierListComponent,
-    SupplierAddEditComponent,
   ],
   providers: [
     // RoleService,
