@@ -19,8 +19,6 @@ import {
 import { CustomerService } from "../../../_services/customer.service";
 import { CustomerComponent } from "./customer.component";
 import { CustomerListComponent } from "./customer-list/customer-list.component";
-import { CustomerAddEditComponent } from "./customer-add-edit/customer-add-edit.component";
-
 
 
 const routes: Routes = [
@@ -63,7 +61,6 @@ const routes: Routes = [
   declarations: [
     CustomerComponent,
     CustomerListComponent,
-    CustomerAddEditComponent,
   ],
   providers: [
     // RoleService,
