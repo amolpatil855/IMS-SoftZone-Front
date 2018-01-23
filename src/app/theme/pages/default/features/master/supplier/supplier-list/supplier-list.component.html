@@ -95,7 +95,7 @@
 									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">Email</label>
 										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value=""   #emailVal="ngModel" required [(ngModel)]="supplierObj.email" name="email" placeholder="Email" maxlength="254">
+											<input class="form-control m-input" type="email" value="" email   #emailVal="ngModel" required [(ngModel)]="supplierObj.email" name="email" placeholder="Email" maxlength="254">
 											<div class="alertMsg" *ngIf="emailVal.errors && (emailVal.dirty || emailVal.touched)">
 												Please enter Email
 											</div>

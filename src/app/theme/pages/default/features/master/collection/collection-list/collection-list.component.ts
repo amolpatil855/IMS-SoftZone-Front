@@ -12,6 +12,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 import { Helpers } from "../../../../../../../helpers";
 import { Collection } from "../../../../_models/collection";
 import { SupplierService } from '../../../../_services/supplier.service';
+import { CommonService } from '../../../../_services/common.service';
 @Component({
   selector: "app-Collection-list",
   templateUrl: "./collection-list.component.html",
@@ -38,6 +39,7 @@ export class CollectionListComponent implements OnInit {
     private collectionService: CollectionService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
+    private commonService: CommonService,
     private messageService: MessageService) {
   }
 
@@ -88,15 +90,13 @@ newRecord(){
   }
 
   getCategoryCodeList() {
-    // this.supplierService.getSupplierLookUp().subscribe(
-    //   results => {
-    //     this.categoriesCodeList = results;
-    //   },
-    //   error => {
-    //     this.globalErrorHandler.handleError(error);
-    //   });
-    this.categoriesCodeList.push({ label: 'Mattresses', value: '1' });
-    this.categoriesCodeList.push({ label: 'Fabric', value: '2' });
+    this.commonService.getCategoryCodes().subscribe(
+      results => {
+        this.categoriesCodeList = results;
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
   }
 
 
