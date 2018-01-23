@@ -21,20 +21,20 @@ export class DesignService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Design/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getDesignLookUp() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Design/GetDesignLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+  getDesignLookupByQuality() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Design/GetDesignLookupByQuality', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getCategoryLookUp() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Category/GetCategoryLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Design/GetCategoryLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getCollectionLookUp() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Category/GetCategoryLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Collection/GetCollectionLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getQualityLookUp() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Category/GetCategoryLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+  getQualityLookUpByCollection() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Quality/GetQualityLookUpByCollection', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createDesign(design: Design) {

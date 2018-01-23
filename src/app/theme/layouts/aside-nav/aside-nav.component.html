@@ -78,6 +78,26 @@
 													</span>
 												</a>
 											</li>
+										<li  [isAuthorize]="['design']"  class="m-menu__item " aria-haspopup="true" >
+                                            <a  routerLink="/features/master/design/list" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                    <span></span>
+                                                </i>
+                                                <span class="m-menu__link-text">
+                                                   Design
+                                                </span>
+                                            </a>
+										</li>
+										<li  [isAuthorize]="['shade']"  class="m-menu__item " aria-haspopup="true" >
+                                            <a  routerLink="/features/master/shade/list" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                    <span></span>
+                                                </i>
+                                                <span class="m-menu__link-text">
+                                                   Shade
+                                                </span>
+                                            </a>
+										</li>
                                         <li  [isAuthorize]="['customer']"  class="m-menu__item " aria-haspopup="true" >
                                             <a  routerLink="/features/master/customer/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
