@@ -29,9 +29,10 @@
     margin-top: 6em;
 }
 .alertMsg{
-	position: absolute;
+	position: relative;
     color: #f4516c;
     font-size: 11px;
+    margin-bottom: 3px;
     margin-top: 3px;
     font-weight: 500;
     letter-spacing: 0px;
@@ -1339,5 +1340,8 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page {
 }
 .m-form__actions.m-form__actions--solid {
     padding: 0;
-    background: #fff;
+    background: #fff!important;
+}
+body .ui-dialog .ui-dialog-titlebar {
+    text-align: center!important;
 }
