@@ -22,9 +22,12 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/supplier\/supplier.module#SupplierModule"
       },
       {
-
         "path": "features\/master\/collection",
         "loadChildren": ".\/pages\/default\/features\/master\/collection\/collection.module#CollectionModule"
+      },
+      {
+        "path": "features\/master\/quality",
+        "loadChildren": ".\/pages\/default\/features\/master\/quality\/quality.module#QualityModule"
       },
       {
         "path": "features\/master\/hsn",
