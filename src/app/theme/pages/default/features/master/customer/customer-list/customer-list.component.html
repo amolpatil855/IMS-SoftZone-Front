@@ -291,8 +291,13 @@
 																</div>
 														</td>
 														<td>
-															<i class="material-icons"  *ngIf="lastRowNum" (click)="addNewAddress(supAdd)" >add</i>
-															<i class="material-icons"  *ngIf="!lastRowNum||rowNum>0" (click)="clearAddress(rowNum)" >Remove</i>
+															<button class="btn btn-success tableActionBtn" *ngIf="lastRowNum" (click)="addNewAddress(supAdd)">
+																<i class="material-icons">add</i>
+															</button>	
+															<button class="btn btn-danger tableActionBtn"  *ngIf="!lastRowNum||rowNum>0" (click)="clearAddress(rowNum)">
+																<i class="material-icons">clear</i>
+															</button>														
+															
 														</td>
 													</tr>
 												</tbody>
