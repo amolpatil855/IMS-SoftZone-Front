@@ -21,9 +21,7 @@ export class CommonService {
     //return classList;
     return this.http.get(AppSettings.API_ENDPOINT + 'Classes', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  getCategory() {
-    //let category = ["--select--", "General", "RTE", "Management", "Staff"];
-    //return category;
+  getCategoryCodes() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Schools/' + localStorage.getItem("schoolId") + '/Schoolcategories', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
   getYear() {

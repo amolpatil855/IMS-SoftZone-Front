@@ -22,6 +22,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/supplier\/supplier.module#SupplierModule"
       },
       {
+        "path": "features\/master\/collection",
+        "loadChildren": ".\/pages\/default\/features\/master\/collection\/collection.module#CollectionModule"
+      },
+      {
         "path": "features\/users",
         "loadChildren": ".\/pages\/default\/features\/users\/users.module#UsersModule"
       },

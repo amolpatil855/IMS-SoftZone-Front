@@ -1,0 +1,221 @@
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
+import * as _ from 'lodash/index';
+import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { ConfirmationService, DataTableModule, LazyLoadEvent } from 'primeng/primeng';
+import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
+import { MessageService } from '../../../../../../../_services/message.service';
+import { CollectionService } from '../../../../_services/collection.service';
+import { Role } from "../../../../_models/role";
+import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
+import { Helpers } from "../../../../../../../helpers";
+import { Collection } from "../../../../_models/collection";
+import { SupplierService } from '../../../../_services/supplier.service';
+@Component({
+  selector: "app-Collection-list",
+  templateUrl: "./collection-list.component.html",
+  encapsulation: ViewEncapsulation.None,
+})
+export class CollectionListComponent implements OnInit {
+  collectionForm: any;
+  collectionObj:any;
+  params: number;
+  collectionList=[];
+  supplierCodeList=[];
+  categoriesCodeList=[];
+  pageSize=50;
+  page=1;
+  totalCount=0;
+  search='';
+  toggleDiv=false;
+  states=[];
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private supplierService: SupplierService,
+    private collectionService: CollectionService,
+    private globalErrorHandler: GlobalErrorHandler,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService) {
+  }
+
+  ngOnInit() {
+   // this.getCollectionList();
+   this.states.push({ label: '--Select--', value: '0' });
+
+
+this.newRecord();
+  }
+
+newRecord(){
+  this.collectionObj = new Collection();
+  this.collectionForm = this.formBuilder.group({
+    id: 0,
+    collectionCode: ['', [Validators.required]],
+    collectionName: ['', [Validators.required]],
+    categoryId: ['0', [Validators.required]],
+    supplierId: ['0', [Validators.required]],
+    manufacturerName: ['', [Validators.required]],
+    description: [''],
+  });
+  this.collectionObj.id=0;
+  this. getCategoryCodeList();
+  this.getSupplierCodeList();
+}
+
+
+  toggleButton(){
+    this.toggleDiv = !this.toggleDiv;
+    if(this.toggleDiv && !this.params){
+      this.newRecord();
+    }
+
+  }
+  onCancel(){
+    this.toggleDiv = false;
+  }
+
+  getSupplierCodeList() {
+    this.supplierService.getSupplierLookUp ().subscribe(
+      results => {
+        this.supplierCodeList = results;
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  getCategoryCodeList() {
+    // this.supplierService.getSupplierLookUp().subscribe(
+    //   results => {
+    //     this.categoriesCodeList = results;
+    //   },
+    //   error => {
+    //     this.globalErrorHandler.handleError(error);
+    //   });
+    this.categoriesCodeList.push({ label: 'Mattresses', value: '1' });
+    this.categoriesCodeList.push({ label: 'Fabric', value: '2' });
+  }
+
+
+
+  getCollectionList() {
+    this.collectionService.getAllCollections(this.pageSize,this.page,this.search).subscribe(
+      results => {
+        this.collectionList = results.data;
+        console.log('this.collectionList', this.collectionList);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+  loadLazy(event: LazyLoadEvent) {
+    //in a real application, make a remote request to load data using state metadata from event
+    //event.first = First row offset
+    //event.rows = Number of rows per page
+    //event.sortField = Field name to sort with
+    //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
+    //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
+    //imitate db connection over a network
+    this.pageSize=event.rows;
+    this.page=event.first;
+    this.search=  event.globalFilter;
+    this.getCollectionList();
+  }
+
+
+getsuplierById(id){
+  this.collectionService.getCollectionById(id).subscribe(
+    results => {
+      this.collectionObj = results; 
+      this.collectionForm.setValue({
+        id: results.id,
+        collectionCode: results.collectionCode,
+        collectionName:results.collectionName,
+        categoryId: results.categoryId,
+        supplierId: results.supplierId,
+        manufacturerName: results.manufacturerName,
+        description: results.description,
+      });
+      console.log('this.collectionList', this.collectionObj);
+    },
+    error => {
+      this.globalErrorHandler.handleError(error);
+    });
+}
+
+  
+  onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    if(valid)
+      this.saveCollection(value);
+  }
+
+  saveCollection(value) {
+    Helpers.setLoading(true);
+    if (this.params) {
+      this.collectionService.updateCollection(value)
+        .subscribe(
+        results => {
+         this. getCollectionList(); 
+         this.toggleDiv=false;
+         this.params=null;
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+         
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    } else {
+      value.id=this.params;
+      this.collectionService.createCollection(value)
+        .subscribe(
+        results => {
+         this. getCollectionList();
+         this.toggleDiv=false;
+         this.params=null;
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+       
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
+  onEditClick(Collection: Collection) {
+     this.collectionService.perPage = this.pageSize;
+     this.collectionService.currentPos = this.page;
+    this. getsuplierById(Collection.id);
+    this.params=Collection.id;
+    // this.roleService.currentPageNumber = this.currentPageNumber;
+   // this.router.navigate(['/features/master/Collection/edit', Collection.id]);
+   this.toggleDiv=true;
+  }
+
+  onDelete(Collection: Collection) {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        this.collectionService.deleteCollection(Collection.id).subscribe(
+          results => {
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
+            this.getCollectionList();
+            this.toggleDiv=false;
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+          })
+      },
+      reject: () => {
+      }
+    });
+  }
+}
