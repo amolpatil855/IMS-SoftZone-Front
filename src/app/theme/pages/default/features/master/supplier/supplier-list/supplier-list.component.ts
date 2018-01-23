@@ -183,16 +183,16 @@ getsuplierById(id){
     });
 
     if(valid)
-      this.saveUser(this.supplierObj);
+      this.saveSupplier(this.supplierObj);
   }
 
   // onAddSupplierAddress() {
-  //   for(var i=1; i<=4; i++) {
+  //   for(var i=0; i<1; i++) {
   //     <FormArray>this.supplierForm.get('mstSupplierAddressDetails').push(new FormControl());
   //   }
   // }
 
-  saveUser(value) {
+  saveSupplier(value) {
     Helpers.setLoading(true);
     if (this.params) {
       this.supplierService.updateSupplier(value)

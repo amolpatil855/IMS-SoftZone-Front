@@ -16,12 +16,10 @@ import {
   ConfirmDialogModule,
   ConfirmationService,
 } from 'primeng/primeng';
-import { CustomerService } from "../../../_services/customer.service";
-import { CustomerComponent } from "./customer.component";
-import { CustomerListComponent } from "./customer-list/customer-list.component";
-import { CustomerAddEditComponent } from "./customer-add-edit/customer-add-edit.component";
 
-
+import { HsnService } from "../../../_services/hsn.service";
+import { HsnComponent } from "./hsn.component";
+import { HsnListComponent } from "./hsn-list/hsn-list.component";
 
 const routes: Routes = [
   {
@@ -30,16 +28,17 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: CustomerComponent,
+        component: HsnComponent,
         children: [
           {
             path: 'list',
-            component: CustomerListComponent,
+            component: HsnListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['customer']
+              permissions: ['hsn']
             }
-          }
+          
+          },
         ]
       }
     ]
@@ -61,15 +60,14 @@ const routes: Routes = [
     ConfirmDialogModule
   ],
   declarations: [
-    CustomerComponent,
-    CustomerListComponent,
-    CustomerAddEditComponent,
+    HsnComponent,
+    HsnListComponent,
   ],
   providers: [
     // RoleService,
-    CustomerService,
+    HsnService,
     ConfirmationService
   ],
 })
-export class CustomerModule {
+export class HsnModule {
 }
