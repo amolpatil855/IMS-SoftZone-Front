@@ -64,10 +64,10 @@ export class CustomerListComponent implements OnInit {
     accountPersonPhone: '',
     accountPersonEmail:'',
     gstin: '',
-    mstCustomerAddressDetails:[],
+    MstCustomerAddressDetails:[],
 };
 
-this.customerObj.mstCustomerAddressDetails.push({ // <-- the child FormGroup
+this.customerObj.MstCustomerAddressDetails.push({ // <-- the child FormGroup
   id: 0,
   supplierId:0,
   address: '',
@@ -88,10 +88,10 @@ this.customerObj.mstCustomerAddressDetails.push({ // <-- the child FormGroup
       pin: '',
       contRoleId: Math.floor(Math.random() * 2000),
     };
-    this.customerObj.mstCustomerAddressDetails.push(newaddressObj);
+    this.customerObj.MstCustomerAddressDetails.push(newaddressObj);
   }
   clearAddress(supAddIndex){
-    this.customerObj.mstCustomerAddressDetails.splice(supAddIndex, 1);
+    this.customerObj.MstCustomerAddressDetails.splice(supAddIndex, 1);
   }
 
   toggleButton(){
@@ -130,7 +130,7 @@ this.customerObj.mstCustomerAddressDetails.push({ // <-- the child FormGroup
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-      _.forEach(this.customerObj.mstCustomerAddressDetails, function(addressObj) {
+      _.forEach(this.customerObj.MstCustomerAddressDetails, function(addressObj) {
       if(!addressObj.address){
         addressObj.invalidAdd=true;
         valid=false;
@@ -201,7 +201,7 @@ this.customerObj.mstCustomerAddressDetails.push({ // <-- the child FormGroup
   this.customerService.getCustomerById(id).subscribe(
     results => {
       this.customerObj = results;
-      this.customerObj.mstCustomerAddressDetails=results.mstCustomerAddressDetails;
+      this.customerObj.MstCustomerAddressDetails=results.mstCustomerAddressDetails;
       delete this.customerObj['mstCustomerAddressDetails'];
     },
     error => {

@@ -124,60 +124,60 @@
 										<label class="fieldLabel col-sm-5">Alternate Email1</label>
 										<div class="col-sm-7">
 											<input class="form-control m-input" type="text" value=""   #alternateEmail1Val="ngModel" [(ngModel)]="customerObj.alternateEmail1" name="alternateEmail1" placeholder="Email" maxlength="254">
-											<div class="alertMsg" *ngIf="alternateEmail1Val.errors && (alternateEmail1Val.dirty || alternateEmail1Val.touched)">
+											<!-- <div class="alertMsg" *ngIf="alternateEmail1Val.errors && (alternateEmail1Val.dirty || alternateEmail1Val.touched)">
 												Please enter Alternate Email1
 											</div>
 											<div class="alertMsg" *ngIf="alternateEmail1Val.errors && !alternateEmail1Val.errors.required && alternateEmail1Val.errors.alternateEmail1 && alternateEmail1Val.touched">
 												Please enter  Alternate Email1
-											</div>
+											</div> -->
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">Alternate Email2</label>
 										<div class="col-sm-7">
 											<input class="form-control m-input" type="text" value=""   #alternateEmail2Val="ngModel" [(ngModel)]="customerObj.alternateEmail2" name="alternateEmail2" placeholder="Email" maxlength="254">
-											<div class="alertMsg" *ngIf="alternateEmail2Val.errors && (alternateEmail2Val.dirty || alternateEmail2Val.touched)">
+											<!-- <div class="alertMsg" *ngIf="alternateEmail2Val.errors && (alternateEmail2Val.dirty || alternateEmail2Val.touched)">
 												Please enter Alternate Email2
 											</div>
 											<div class="alertMsg" *ngIf="alternateEmail2Val.errors && !alternateEmail2Val.errors.required && alternateEmail2Val.errors.alternateEmail2 && alternateEmail2Val.touched">
 												Please enter  Alternate Email2
-											</div>
+											</div> -->
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">Phone</label>
 										<div class="col-sm-7">
 											<input class="form-control m-input" type="text"   [(ngModel)]="customerObj.phone" name="phone" required #phoneVal="ngModel"       placeholder="Contact" maxlength="15">
-											<div class="alertMsg" *ngIf="phoneVal.errors && phoneVal.errors.required && (phoneVal.dirty || phoneVal.touched)">
+											<!-- <div class="alertMsg" *ngIf="phoneVal.errors && phoneVal.errors.required && (phoneVal.dirty || phoneVal.touched)">
 												Please enter Contact Number
 											</div>
 											<div class="alertMsg" *ngIf="phoneVal.errors && !phoneVal.errors.required  && phoneVal.errors.pattern && phoneVal.touched">
 												Please enter valid phone number
-											</div>
+											</div> -->
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Phone</label>
+										<label class="fieldLabel col-sm-5">Alternate Phone1</label>
 										<div class="col-sm-7">
 											<input class="form-control m-input" type="text"   [(ngModel)]="customerObj.alternatePhone1" name="alternatePhone1" #alternatePhone1Val="ngModel"       placeholder="Contact" maxlength="15">
-											<div class="alertMsg" *ngIf="alternatePhone1Val.errors && alternatePhone1Val.errors.required && (alternatePhone1Val.dirty || alternatePhone1Val.touched)">
+											<!-- <div class="alertMsg" *ngIf="alternatePhone1Val.errors && alternatePhone1Val.errors.required && (alternatePhone1Val.dirty || alternatePhone1Val.touched)">
 												Please enter Contact Number
 											</div>
 											<div class="alertMsg" *ngIf="alternatePhone1Val.errors && !alternatePhone1Val.errors.required  && alternatePhone1Val.errors.pattern && alternatePhone1Val.touched">
 												Please enter valid alternatePhone1 number
-											</div>
+											</div> -->
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Phone</label>
+										<label class="fieldLabel col-sm-5">Alternate Phone2</label>
 										<div class="col-sm-7">
 											<input class="form-control m-input" type="text"   [(ngModel)]="customerObj.alternatePhone2" name="alternatePhone2" #alternatePhone2Val="ngModel"       placeholder="alternatePhone2Val" maxlength="15">
-											<div class="alertMsg" *ngIf="alternatePhone2Val.errors && alternatePhone2Val.errors.required && (alternatePhone2Val.dirty || alternatePhone2Val.touched)">
+											<!-- <div class="alertMsg" *ngIf="alternatePhone2Val.errors && alternatePhone2Val.errors.required && (alternatePhone2Val.dirty || alternatePhone2Val.touched)">
 												Please enter Contact Number
 											</div>
 											<div class="alertMsg" *ngIf="alternatePhone2Val.errors && !alternatePhone2Val.errors.required  && alternatePhone2Val.errors.pattern && alternatePhone2Val.touched">
 												Please enter valid alternatePhone2 number
-											</div>
+											</div> -->
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
@@ -189,12 +189,12 @@
 											<label class="fieldLabel col-sm-5">PAN</label>
 											<div class="col-sm-7">
 												<input class="form-control m-input" type="text" [(ngModel)]="customerObj.PAN" name="PAN"   #PANVal="ngModel" placeholder="Account Person Number" maxlength="15">
-												<div class="alertMsg" *ngIf="PANVal.errors && PANVal.errors.required && PANVal.touched">
+												<!-- <div class="alertMsg" *ngIf="PANVal.errors && PANVal.errors.required && PANVal.touched">
 													Please enter PAN
 												</div>
 												<div class="alertMsg" *ngIf="PANVal.errors && !PANVal.errors.required && PANVal.errors.pattern && PANVal.touched">
 													Please enter valid PAN
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</div>
@@ -202,9 +202,9 @@
 										<label class="fieldLabel col-sm-5">Account Person Name</label>
 										<div class="col-sm-7">
 											<input class="form-control m-input" type="text" value="Account Person Name" [(ngModel)]="customerObj.accountPersonName"  #accountPersonNameVal="ngModel"  name="accountPersonName" id="accountPersonName" placeholder="Enter Account Person Name">
-											<div class="alertMsg" *ngIf="accountPersonNameVal.errors && accountPersonNameVal.errors.required && accountPersonNameVal.errors.touched">
+											<!-- <div class="alertMsg" *ngIf="accountPersonNameVal.errors && accountPersonNameVal.errors.required && accountPersonNameVal.errors.touched">
 												Please enter Account Person Name
-											</div>
+											</div> -->
 										</div>
 									</div>
 									
@@ -212,31 +212,31 @@
 										<label class="fieldLabel col-sm-5">Account Person Phone</label>
 										<div class="col-sm-7">
 											<input class="form-control m-input" type="text"  [(ngModel)]="customerObj.accountPersonPhone" name="accountPersonPhone"   #accountPersonPhoneVal="ngModel" placeholder="Account Person Number" maxlength="15">
-											<div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && accountPersonPhoneVal.errors.required && accountPersonPhoneVal.touched">
+											<!-- <div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && accountPersonPhoneVal.errors.required && accountPersonPhoneVal.touched">
 												Please enter Contact Number
 											</div>
 											<div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && !accountPersonPhoneVal.errors.required && accountPersonPhoneVal.errors.pattern && accountPersonPhoneVal.touched">
 												Please enter valid phone number
-											</div>
+											</div> -->
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">Account Person Email</label>
-										<div class="col-sm-7">
+										<!-- <div class="col-sm-7">
 											<input class="form-control m-input" type="text" value="" [(ngModel)]="customerObj.accountPersonEmail" name="accountPersonEmail"  #accountPersonEmailVal="ngModel"  placeholder="Account Person Email" maxlength="254">
-										</div>
+										</div> -->
 									</div>
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">GSTIN</label>
 											<div class="col-sm-7">
 												<input class="form-control m-input" type="text"  [(ngModel)]="customerObj.gstin" name="gstin" placeholder="GSTIN" maxlength="15"  #gstinVal="ngModel" >
-												<div class="alertMsg" *ngIf="gstinVal.errors && gstinVal.errors.required && gstinVal.touched">
+												<!-- <div class="alertMsg" *ngIf="gstinVal.errors && gstinVal.errors.required && gstinVal.touched">
 													Please enter GSTIN
 												</div>
 												<div class="alertMsg" *ngIf="gstinVal.errors && !gstinVal.errors.required && gstinVal.errors.pattern && gstinVal.touched">
 													Please enter valid GSTIN
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</div>
@@ -262,30 +262,30 @@
 												  </tr>
 												</thead>
 												<tbody>
-													<tr  *ngFor="let supAdd of customerObj.mstCustomerAddressDetails;let rowNum=index;let lastRowNum=last">
+													<tr  *ngFor="let supAdd of customerObj.MstCustomerAddressDetails;let rowNum=index;let lastRowNum=last">
 														<td>
 															 <input type="text" class="form-control"  [(ngModel)]="supAdd.address" name="{{'address'+supAdd.contRoleId}}"/>
-															 <div class="alertMsg" *ngIf="supAdd.invalidAdd">
+															 <!-- <div class="alertMsg" *ngIf="supAdd.invalidAdd">
 																	Please enter Address
-																</div>
+																</div> -->
 														</td>
 														<td>	
 																<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" [(ngModel)]="supAdd.state" name="{{'stateDDL'+supAdd.contRoleId}}"></p-dropdown>
-															<div class="alertMsg" *ngIf="supAdd.invalidState">
+															<!-- <div class="alertMsg" *ngIf="supAdd.invalidState">
 																	Please select state
-																</div>
+																</div> -->
 														</td>
 														<td>
 															<input type="text" class="form-control"  name="{{'city'+supAdd.contRoleId}}" [(ngModel)]="supAdd.city"/>
-															<div class="alertMsg" *ngIf="supAdd.invalidCity">
+															<!-- <div class="alertMsg" *ngIf="supAdd.invalidCity">
 																	Please enter city
-																</div>
+																</div> -->
 														</td>												
 														<td>
 															<input type="text" class="form-control"  name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin"/>
-															<div class="alertMsg" *ngIf="supAdd.invalidPin">
+															<!-- <div class="alertMsg" *ngIf="supAdd.invalidPin">
 																	Please enter pin
-																</div>
+																</div> -->
 														</td>
 														<td>
 															<i class="material-icons"  *ngIf="lastRowNum" (click)="addNewAddress(supAdd)" >add</i>
