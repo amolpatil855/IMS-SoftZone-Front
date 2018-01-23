@@ -59,269 +59,312 @@
 <div class="m-content">
 	<div class="row">
 		<div class="col-lg-12">
-			<!--begin::Portlet-->
+		
 			<div class="m-portlet">
 				
 				<div class="row">
 				
 				<div class="col-md-12" *ngIf="toggleDiv">
-					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(supplierForm)"  #supplierForm="ngForm"  id="supplierForm">
-					<div class="formContainer formContainerSamePage">
-						
-								<div class="row">
+				
+						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(supplierForm)"  #supplierForm="ngForm"  id="supplierForm">
+									<div class="row">
 									
-									<div class="col-md-12">
-										<h5 class="formPanelHeading">Supplier Basic Details:</h5>
-									</div>
-									
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Name</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value=""  #nameVal="ngModel" required [(ngModel)]="supplierObj.name" name="name" id="name" placeholder="Enter Name">
-											<div class="alertMsg" *ngIf="nameVal.errors   && (nameVal.dirty || nameVal.touched)">
-												Please enter Suplier Name
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Code</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value=""  #codeVal="ngModel" required [(ngModel)]="supplierObj.code" name="code" id="code" placeholder="Enter Code">
-											<div class="alertMsg" *ngIf="codeVal.errors   && (codeVal.dirty || codeVal.touched)">
-												Please enter Code
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Email</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="email" value="" email   #emailVal="ngModel" required [(ngModel)]="supplierObj.email" name="email" placeholder="Email" maxlength="254">
-											<div class="alertMsg" *ngIf="emailVal.errors && (emailVal.dirty || emailVal.touched)">
-												Please enter Email
-											</div>
-											<div class="alertMsg" *ngIf="emailVal.errors && !emailVal.errors.required && emailVal.errors.email && emailVal.touched">
-												Please enter valid Email
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Phone</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text"   [(ngModel)]="supplierObj.phone" name="phone" required #phoneVal="ngModel"       placeholder="Contact" maxlength="15">
-											<div class="alertMsg" *ngIf="phoneVal.errors && phoneVal.errors.required && (phoneVal.dirty || phoneVal.touched)">
-												Please enter Contact Number
-											</div>
-											<div class="alertMsg" *ngIf="phoneVal.errors && !phoneVal.errors.required  && phoneVal.errors.pattern && phoneVal.touched">
-												Please enter valid phone number
-											</div>
-										</div>
-									</div>
-									
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Firm Name</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value=""   [(ngModel)]="supplierObj.firmName"  required  #firmNameVal="ngModel"   name="firmName" id="firmName"  placeholder="Enter Firm Name">
-											<div class="alertMsg" *ngIf="firmNameVal.errors && firmNameVal.errors.required &&  (firmNameVal.dirty || firmNameVal.touched)">
-												Please enter Firm Name
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Account Person Name</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value=""   [(ngModel)]="supplierObj.accountPersonName"  required  name="accountPersonName" id="accountPersonName"  #accountPersonNameVal="ngModel"  placeholder="Enter Account Person Name">
-											<div class="alertMsg" *ngIf="accountPersonNameVal.errors && accountPersonNameVal.errors.required &&  (accountPersonNameVal.dirty || accountPersonNameVal.touched)">
-												Please enter Account Person Name
-											</div>
-										</div>
-									</div>
-									
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Account Person Phone</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text"  #accountPersonPhoneVal="ngModel"  required [(ngModel)]="supplierObj.accountPersonPhone" name="accountPersonPhone" placeholder="Account Person Number" maxlength="15">
-											<div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && accountPersonPhoneVal.errors.required &&  (accountPersonPhoneVal.dirty || accountPersonPhoneVal.touched)">
-												Please enter Contact Number
-											</div>
-											<div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && !accountPersonPhoneVal.errors.required && accountPersonPhoneVal.errors.pattern && accountPersonPhoneVal.touched">
-												Please enter valid phone number
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Account Person Email</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value=""  required    #accountPersonEmailVal="ngModel"  [(ngModel)]="supplierObj.accountPersonEmail" name="accountPersonEmail" placeholder="Account Person Email" maxlength="254">
-											<div class="alertMsg" *ngIf="accountPersonEmailVal.errors && accountPersonEmailVal.errors.required &&  (accountPersonEmailVal.dirty || accountPersonEmailVal.touched)">
-												Please enter Account Person Email
-											</div>
-											<div class="alertMsg" *ngIf="accountPersonEmailVal.errors && !accountPersonEmailVal.errors.required && accountPersonEmailVal.errors.accountPersonEmail && accountPersonEmailVal.errors.touched">
-												Please enter valid Account Person Email
-											</div>
-										</div>
-									</div>
-									
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Dispatch Person Name</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value=""  required [(ngModel)]="supplierObj.dispatchPersonName"  #dispatchPersonNameVal="ngModel"  name="dispatchPersonName" id="dispatchPersonName" placeholder="Enter Dispatch Person Name">
-											<div class="alertMsg" *ngIf="dispatchPersonNameVal.errors && dispatchPersonNameVal.errors.required && dispatchPersonNameVal.errors.touched">
-												Please enter Dispatch Person Name
-											</div>
-										</div>
-									</div>
-									
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Dispatch Person Phone</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text"  required [(ngModel)]="supplierObj.dispatchPersonPhone" name="dispatchPersonPhone"   #dispatchPersonPhoneVal="ngModel" placeholder="Dispatch Person Number" maxlength="15">
-											<div class="alertMsg" *ngIf="dispatchPersonPhoneVal.errors && dispatchPersonPhoneVal.errors.required && dispatchPersonPhoneVal.touched">
-												Please enter Contact Number
-											</div>
-											<div class="alertMsg" *ngIf="dispatchPersonPhoneVal.errors && !dispatchPersonPhoneVal.errors.required && dispatchPersonPhoneVal.errors.pattern && dispatchPersonPhoneVal.touched">
-												Please enter valid phone number
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Dispatch Person Email</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value=""  required [(ngModel)]="supplierObj.dispatchPersonEmail" name="dispatchPersonEmail"  #dispatchPersonEmailVal="ngModel"  placeholder="Dispatch Person Email" maxlength="254">
-											<!-- <div class="alertMsg" *ngIf="supplierForm.get('dispatchPersonEmail').hasError('required') && supplierForm.get('dispatchPersonEmail').touched">
-												Please enter Dispatch Person Email
-											</div>
-											<div class="alertMsg" *ngIf="!supplierForm.get('dispatchPersonEmail').hasError('required') && supplierForm.get('dispatchPersonEmail').hasError('dispatchPersonEmail') && supplierForm.get('dispatchPersonEmail').touched">
-												Please enter valid Dispatch Person Email
-											</div> -->
-										</div>
-									</div>
-									
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Warehouse Person Name</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value="" [(ngModel)]="supplierObj.warehousePersonName" name="warehousePersonName" id="warehousePersonName"   #warehousePersonNameVal="ngModel" placeholder="Enter Warehouse Person Name">
-											<!-- <div class="alertMsg" *ngIf="supplierForm.get('warehousePersonName').hasError('required') && supplierForm.get('warehousePersonName').touched">
-												Please enter Warehouse Person Name
-											</div> -->
-										</div>
-									</div>
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Warehouse Person Email</label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value=""   [(ngModel)]="supplierObj.warehousePersonEmail" name="warehousePersonEmail" placeholder="Warehouse Person Email"  #warehousePersonEmailVal="ngModel"  maxlength="254">
-											<!-- <div class="alertMsg" *ngIf="supplierForm.get('warehousePersonEmail').hasError('required') && supplierForm.get('warehousePersonEmail').touched">
-												Please enter Warehouse Person Email
-											</div>
-											<div class="alertMsg" *ngIf="!supplierForm.get('warehousePersonEmail').hasError('required') && supplierForm.get('warehousePersonEmail').hasError('warehousePersonEmail') && supplierForm.get('warehousePersonEmail').touched">
-												Please enter valid Warehouse Person Email
-											</div> -->
-										</div>
-									</div>
-									
-									<div class="col-md-3 formContentbox">
-										<div class="form-group">
-											<label class="fieldLabel col-sm-5">GSTIN</label>
-											<div class="col-sm-7">
-												<input class="form-control m-input" type="text"  required   [(ngModel)]="supplierObj.gstin" name="gstin" placeholder="GSTIN" maxlength="15"  #gstinVal="ngModel" >
-												<div class="alertMsg" *ngIf="gstinVal.errors && gstinVal.errors.required && gstinVal.touched">
-													Please enter GSTIN
+										<div class="col-md-6">
+											<div class="row">
+												<div class="col-md-6">
+													<!-- Basic Information -->
+													<div class="panel panel-default">
+													  <div class="panel-heading">Basic Information</div>
+													  <div class="panel-body">
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Name</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control"   #nameVal="ngModel" required [(ngModel)]="supplierObj.name" name="name" id="name" >
+															</div>	
+															<div class="alertMsg" *ngIf="nameVal.errors   && (nameVal.dirty || nameVal.touched)">
+																	Please enter Suplier Name
+															</div>										
+														</div>
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Email</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="email" email   #emailVal="ngModel" required [(ngModel)]="supplierObj.email" name="email" placeholder="" maxlength="254">
+															</div>	
+															<div class="alertMsg" *ngIf="emailVal.errors && (emailVal.dirty || emailVal.touched)">
+																	Please enter Email
+																</div>
+																<div class="alertMsg" *ngIf="emailVal.errors && !emailVal.errors.required && emailVal.errors.email && emailVal.touched">
+																	Please enter valid Email
+																</div>								
+														</div>
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Phone</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control" [(ngModel)]="supplierObj.phone" name="phone" required #phoneVal="ngModel" placeholder="" maxlength="15">
+																<div class="alertMsg" *ngIf="phoneVal.errors && phoneVal.errors.required && (phoneVal.dirty || phoneVal.touched)">
+																		Please enter Contact Number
+																	</div>
+																	<div class="alertMsg" *ngIf="phoneVal.errors && !phoneVal.errors.required  && phoneVal.errors.pattern && phoneVal.touched">
+																		Please enter valid phone number
+																	</div>
+															</div>								
+														</div>
+														
+													  </div>
+													</div>
 												</div>
-												<div class="alertMsg" *ngIf="gstinVal.errors && !gstinVal.errors.required && gstinVal.errors.pattern && gstinVal.touched">
-													Please enter valid GSTIN
+												
+												<div class="col-md-6">
+													<!-- Account Person Information -->
+													<div class="panel panel-default">
+													  <div class="panel-heading">Account Person Information</div>
+													  <div class="panel-body">
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Name</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control"    [(ngModel)]="supplierObj.accountPersonName"  required  name="accountPersonName" id="accountPersonName"  #accountPersonNameVal="ngModel"  placeholder="">
+															</div>
+															<div class="alertMsg" *ngIf="accountPersonNameVal.errors && accountPersonNameVal.errors.required &&  (accountPersonNameVal.dirty || accountPersonNameVal.touched)">
+																	Please enter Account Person Name
+																</div>											
+														</div>
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Email</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control"  required    #accountPersonEmailVal="ngModel"  [(ngModel)]="supplierObj.accountPersonEmail" name="accountPersonEmail" placeholder="" maxlength="254">
+																<div class="alertMsg" *ngIf="accountPersonEmailVal.errors && accountPersonEmailVal.errors.required &&  (accountPersonEmailVal.dirty || accountPersonEmailVal.touched)">
+																		Please enter Account Person Email
+																	</div>
+																	<div class="alertMsg" *ngIf="accountPersonEmailVal.errors && !accountPersonEmailVal.errors.required && accountPersonEmailVal.errors.accountPersonEmail && accountPersonEmailVal.errors.touched">
+																		Please enter valid Account Person Email
+																	</div>
+															</div>									
+														</div>
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Phone</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control"  #accountPersonPhoneVal="ngModel"  required [(ngModel)]="supplierObj.accountPersonPhone" name="accountPersonPhone" placeholder="" maxlength="15">
+																<div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && accountPersonPhoneVal.errors.required &&  (accountPersonPhoneVal.dirty || accountPersonPhoneVal.touched)">
+																		Please enter Contact Number
+																	</div>
+																	<div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && !accountPersonPhoneVal.errors.required && accountPersonPhoneVal.errors.pattern && accountPersonPhoneVal.touched">
+																		Please enter valid phone number
+																	</div>
+															</div>								
+														</div>
+														
+													  </div>
+													</div>
 												</div>
 											</div>
-										</div>
-									</div>
-									
-									<div class="col-md-3 formContentbox">
-										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Description</label>
-											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value=""   [(ngModel)]="supplierObj.description" name="description" id="description"  #descriptionVal="ngModel"  placeholder="Enter Description">
-											<!-- <div class="alertMsg" *ngIf="supplierForm.get('description').hasError('required') && supplierForm.get('description').touched">
-												Please enter Description
-											</div> -->
+											
+											<div class="row">
+												<div class="col-md-12">
+													<!-- Firm Information -->
+													<div class="panel panel-default">
+													  <div class="panel-heading">Firm Information</div>
+													  <div class="panel-body">	
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Firm Name</label>
+															<div class="col-md-4 col-sm-4">
+																<input type="text" class="form-control"   [(ngModel)]="supplierObj.firmName"  required  #firmNameVal="ngModel"   name="firmName" id="firmName"  placeholder="">
+																<div class="alertMsg" *ngIf="firmNameVal.errors && firmNameVal.errors.required &&  (firmNameVal.dirty || firmNameVal.touched)">
+																		Please enter Firm Name
+																	</div>
+															</div>	
+															
+															<label class="col-md-2 col-sm-2 fieldLabel" style="padding-left: 35px;">GSTIN</label>
+															<div class="col-md-4 col-sm-4">
+																<input type="text" class="form-control"   required   [(ngModel)]="supplierObj.gstin" name="gstin" placeholder="GSTIN" maxlength="15"  #gstinVal="ngModel" >
+																<div class="alertMsg" *ngIf="gstinVal.errors && gstinVal.errors.required && gstinVal.touched">
+																		Please enter GSTIN
+																	</div>
+																	<div class="alertMsg" *ngIf="gstinVal.errors && !gstinVal.errors.required && gstinVal.errors.pattern && gstinVal.touched">
+																		Please enter valid GSTIN
+																	</div>
+															</div>
+														</div>																			
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Description</label>
+															<div class="col-md-10 col-sm-10">
+																<input type="text" class="form-control"   [(ngModel)]="supplierObj.description" name="description" id="description"  #descriptionVal="ngModel"  placeholder="">
+															</div>																						
+														</div>
+													  </div>
+													</div>	
+												</div>
+											
 											</div>
+											
+											<div class="row">
+												<div class="col-md-6">
+													<!-- Dispatch Person Information -->
+													<div class="panel panel-default">
+													  <div class="panel-heading">Dispatch Person Information</div>
+													  <div class="panel-body">
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Name</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control"  required [(ngModel)]="supplierObj.dispatchPersonName"  #dispatchPersonNameVal="ngModel"  name="dispatchPersonName" id="dispatchPersonName" placeholder="">
+															</div>
+															<div class="alertMsg" *ngIf="dispatchPersonNameVal.errors && dispatchPersonNameVal.errors.required && dispatchPersonNameVal.errors.touched">
+																	Please enter Dispatch Person Name
+																</div>											
+														</div>
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Email</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control"  required [(ngModel)]="supplierObj.dispatchPersonPhone" name="dispatchPersonPhone"   #dispatchPersonPhoneVal="ngModel" placeholder="" maxlength="15">
+															</div>	
+															<!-- <div class="alertMsg" *ngIf="supplierForm.get('dispatchPersonEmail').hasError('required') && supplierForm.get('dispatchPersonEmail').touched">
+																Please enter Email
+															</div>
+															<div class="alertMsg" *ngIf="!supplierForm.get('dispatchPersonEmail').hasError('required') && supplierForm.get('dispatchPersonEmail').hasError('dispatchPersonEmail') && supplierForm.get('dispatchPersonEmail').touched">
+																Please enter valid Email
+															</div>								 -->
+														</div>
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Phone</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control"  required [(ngModel)]="supplierObj.dispatchPersonPhone" name="dispatchPersonPhone"   #dispatchPersonPhoneVal="ngModel" placeholder="" maxlength="15">
+															</div>	
+															<div class="alertMsg" *ngIf="dispatchPersonPhoneVal.errors && dispatchPersonPhoneVal.errors.required && dispatchPersonPhoneVal.touched">
+																	Please enter Contact Number
+																</div>
+																<div class="alertMsg" *ngIf="dispatchPersonPhoneVal.errors && !dispatchPersonPhoneVal.errors.required && dispatchPersonPhoneVal.errors.pattern && dispatchPersonPhoneVal.touched">
+																	Please enter valid phone number
+																</div>							
+														</div>
+														
+													  </div>
+													</div>
+												</div>
+												
+												<div class="col-md-6">
+													<!-- Warehouse Person Information -->
+													<div class="panel panel-default">
+													  <div class="panel-heading">Warehouse Person Information</div>
+													  <div class="panel-body">
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Name</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control" [(ngModel)]="supplierObj.warehousePersonName" name="warehousePersonName" id="warehousePersonName"   #warehousePersonNameVal="ngModel" placeholder="">
+															</div>											
+														</div>
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Email</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control"  [(ngModel)]="supplierObj.warehousePersonEmail" name="warehousePersonEmail" placeholder=""  #warehousePersonEmailVal="ngModel"  maxlength="254">
+															</div>									
+														</div>
+														<div class="form-group">
+															<label class="col-md-2 col-sm-2 fieldLabel">Phone</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control"  required [(ngModel)]="supplierObj.dispatchPersonPhone" name="dispatchPersonPhone"   #dispatchPersonPhoneVal="ngModel" placeholder="" maxlength="15">
+																<div class="alertMsg" *ngIf="dispatchPersonPhoneVal.errors && dispatchPersonPhoneVal.errors.required && dispatchPersonPhoneVal.touched">
+																		Please enter Contact Number
+																	</div>
+																	<div class="alertMsg" *ngIf="dispatchPersonPhoneVal.errors && !dispatchPersonPhoneVal.errors.required && dispatchPersonPhoneVal.errors.pattern && dispatchPersonPhoneVal.touched">
+																		Please enter valid phone number
+																	</div>
+															</div>								
+														</div>
+														
+													  </div>
+													</div>
+												</div>
+											</div>
+											
+											
+											
 										</div>
-									</div>
-									
-									<!--- Address Details -->
-									<div class="col-md-12 ">
-									
-										<hr class="detailSeparator"/>
 										
-										<h5 class="formPanelHeading">Supplier Address Details:</h5>
-									</div>
-									<div class="col-md-9 formContentbox">
-										<div class="table-responsive">
-											<table class="table formAddressTable">
-												<thead>
-												  <tr>
-													<th>Address</th>													
-													<th>State</th>
-													<th>City</th>
-													<th>PIN</th>
-													<th></th>
-												  </tr>
-												</thead>
-												<tbody>
-													<tr  *ngFor="let supAdd of supplierObj.MstSupplierAddressDetails;let rowNum=index;let lastRowNum=last">
-														<td>
-															 <input type="text" class="form-control"  [(ngModel)]="supAdd.address" name="{{'address'+supAdd.contRoleId}}"/>
-															 <div class="alertMsg" *ngIf="supAdd.invalidAdd">
-																	Please enter Address
-																</div>
-														</td>
-														<td>	
-																<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" [(ngModel)]="supAdd.state" name="{{'stateDDL'+supAdd.contRoleId}}"></p-dropdown>
-															<div class="alertMsg" *ngIf="supAdd.invalidState">
-																	Please select state
-																</div>
-														</td>
-														<td>
-															<input type="text" class="form-control"  name="{{'city'+supAdd.contRoleId}}" [(ngModel)]="supAdd.city"/>
-															<div class="alertMsg" *ngIf="supAdd.invalidCity">
-																	Please enter city
-																</div>
-														</td>												
-														<td>
-															<input type="text" class="form-control"  name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin"/>
-															<div class="alertMsg" *ngIf="supAdd.invalidPin">
-																	Please enter pin
-																</div>
-														</td>
-														<td>
-															<i class="material-icons"  *ngIf="lastRowNum" (click)="addNewAddress(supAdd)" >add</i>
-															<i class="material-icons"  *ngIf="!lastRowNum||rowNum>0" (click)="clearAddress(rowNum)" >Remove</i>
-														</td>
-													</tr>
-												</tbody>
-											  </table>
+										
+										<div class="col-md-6">
+											<div class="panel panel-default">
+											  <div class="panel-heading">Customer Address Details</div>
+											  <div class="panel-body">
+												
+													<div class="table-responsive">
+														<table class="table formAddressTable">
+															<thead>
+															  <tr>
+																<th>Address</th>													
+																<th>State</th>
+																<th>City</th>
+																<th>PIN</th>
+																<th></th>
+															  </tr>
+															</thead>
+															<tbody>
+																<tr  *ngFor="let supAdd of supplierObj.MstSupplierAddresses;let rowNum=index;let lastRowNum=last">
+																	<td>
+																		<textarea rows="2" class="form-control" [(ngModel)]="supAdd.address" name="{{'address'+supAdd.contRoleId}}"></textarea>
+																		<div class="alertMsg" *ngIf="supAdd.invalidAdd">
+																			   Please enter Address
+																		   </div>
+																	</td>
+																	<td>
+																			<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" [(ngModel)]="supAdd.state" name="{{'stateDDL'+supAdd.contRoleId}}"></p-dropdown>
+																			<div class="alertMsg" *ngIf="supAdd.invalidState">
+																					Please select state
+																				</div>
+																	</td>
+																	<td>
+																			<input type="text" class="form-control"  name="{{'city'+supAdd.contRoleId}}" [(ngModel)]="supAdd.city"/>
+																			<div class="alertMsg" *ngIf="supAdd.invalidCity">
+																					Please enter city
+																				</div>	
+																	</td>													
+																	<td>
+																			<input type="text" class="form-control"  name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin"/>
+																			<div class="alertMsg" *ngIf="supAdd.invalidPin">
+																					Please enter pin
+																				</div>
+																	</td>
+																	<td>
+																		<i class="fa fa-plus addBtnIcon"  aria-hidden="true"   *ngIf="lastRowNum" (click)="addNewAddress(supAdd)" >add</i>
+																		<i class="fa fa-trash removeBtnIcon"  aria-hidden="true"  *ngIf="!lastRowNum||rowNum>0" (click)="clearAddress(rowNum)" >Remove</i>
+																	</td>
+																</tr>
+															</tbody>
+														  </table>
+													</div>
+										
+											  </div>
+											</div>
 										</div>
+										
+																	
+										<div class="col-md-6">
+										
+											
+											
+										</div>
+										
 									</div>
 									
-								</div>
-								
-								
-				<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
-					<div class="m-form__actions m-form__actions--solid">
-						<div class="row">
-							<div class="col-lg-6">
-								<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="supplierForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ supplierForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="supplierForm.invalid" [isAuthorize]="['supplier']">
-										{{ params ? 'Update' : 'Save' }}
-								</button>
-								<button class="btn btn-secondary" [isAuthorize]="['supplier']" (click)="onCancel()">
-										Cancel
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
+									
+									<div class="formSubmitBtnBox">
+											<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+													<div class="m-form__actions m-form__actions--solid">
+														<div class="row">
+															<div class="col-lg-6">
+																<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="supplierForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ supplierForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="supplierForm.invalid" [isAuthorize]="['supplier']">
+																		{{ params ? 'Update' : 'Save' }}
+																</button>
+																<button class="btn btn-secondary" [isAuthorize]="['supplier']" (click)="onCancel()">
+																		Cancel
+																</button>
+															</div>
+														</div>
+													</div>
+												</div>
+									</div>
+								</form>
 							
+							</div>
 						
-					</div>
-					
-					</form>
 				</div>
 			</div>
 				<div class="m-portlet__body">
@@ -366,7 +409,6 @@
 					<!--end::Section-->
 				</div>
 			</div>
-			<!--end::Portlet-->
+		
 		</div>
-	</div>
 </div>
