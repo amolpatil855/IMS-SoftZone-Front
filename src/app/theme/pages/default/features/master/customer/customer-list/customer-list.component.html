@@ -91,6 +91,15 @@
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Code</label>
+										<div class="col-sm-7">
+											<input class="form-control m-input" type="text" value=""  #codeVal="ngModel" required [(ngModel)]="customerObj.code" name="code" id="code" placeholder="Enter Code">
+											<div class="alertMsg" *ngIf="codeVal.errors   && (codeVal.dirty || codeVal.touched)">
+												Please enter Code
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">Nick Name</label>
 										<div class="col-sm-7">
 											<input class="form-control m-input" type="text" value=""  #nickNameVal="ngModel" [(ngModel)]="customerObj.nickName" name="nickName" id="nickName" placeholder="Enter Nick Name">
