@@ -1345,3 +1345,50 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page {
 body .ui-dialog .ui-dialog-titlebar {
     text-align: center!important;
 }
+
+/******************** For new changes *************************/
+.panel-heading {
+    color: #fff!important;
+    background-color: #354052!important;
+    border-color: #354052!important;
+	padding:2px 15px!important;
+	font-family:Roboto;
+}
+.formContainer .form-control {
+    padding: 2px 2px!important;
+}
+.panel-body {
+    padding: 5px 5px!important;
+}
+.formAddressTable tr th {   
+    padding-top: 3px!important;
+    padding-bottom: 3px!important;
+}
+.addBtnIcon{
+	cursor:pointer!important;
+	font-size:20px!important;
+	color:grey!important;
+}
+.removeBtnIcon{
+	cursor:pointer!important;
+	font-size:20px!important;
+	color:grey!important;
+}
+.formAddressTable tr td i {
+    vertical-align: middle!important;
+    font-size: 16px!important;
+    margin-top: -3px!important;
+    vertical-align: middle!important;
+    margin-right: 6px!important;
+    font-weight: 500!important;
+}
+.panel {
+    margin-bottom: 5px!important;
+}
+.formSubmitBtnBox {
+    text-align: right!important;
+    margin-top: 0!important;
+}
+.fieldLabel {   
+    text-align: left!important;
+}
