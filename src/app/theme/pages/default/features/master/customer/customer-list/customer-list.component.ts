@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-
+import * as _ from 'lodash/index';
+import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { ConfirmationService, DataTableModule, LazyLoadEvent } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
@@ -15,13 +16,21 @@ import { Helpers } from "../../../../../../../helpers";
   encapsulation: ViewEncapsulation.None,
 })
 export class CustomerListComponent implements OnInit {
+  customerForm: FormGroup;
+  customerObj:any;
+  params: number;
   customerList = [];
   pageSize=50;
   page=1;
   totalCount=0;
   search='';
+  states=[];
+  toggleDiv=false;
 
-  constructor(private router: Router,
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
     private customerService: CustomerService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
@@ -29,6 +38,71 @@ export class CustomerListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.states.push({ label: '--Select--', value: '0' });
+   this.states.push({ label: 'Maharashtra', value: 'Maharashtra' });
+   this.states.push({ label: 'MP', value: 'MP' });
+  this.route.params.forEach((params: Params) => {
+      this.params = params['customerId'];
+    });
+    this.newRecord();
+  }
+  newRecord(){
+  this.customerObj ={
+    id: 0,
+    code:'',
+    name: '',
+    nickName:'',
+    email: '',
+    alternateEmail1: '',
+    alternateEmail2: '',
+    phone:'',
+    alternatePhone1:'',
+    alternatePhone2: '',
+    isWholesaleCustomer: false,
+    pan: '',
+    accountPersonName: '',
+    accountPersonPhone: '',
+    accountPersonEmail:'',
+    gstin: '',
+    mstCustomerAddressDetails:[],
+};
+
+this.customerObj.mstCustomerAddressDetails.push({ // <-- the child FormGroup
+  id: 0,
+  supplierId:0,
+  address: '',
+  city:'',
+  state:'',
+  pin: '',
+  contRoleId: Math.floor(Math.random() * 2000),
+});
+}
+
+  addNewAddress(supAdd){
+    var newaddressObj ={ // <-- the child FormGroup
+      id: 0,
+      supplierId:0,
+      address: '',
+      city:'',
+      state:'',
+      pin: '',
+      contRoleId: Math.floor(Math.random() * 2000),
+    };
+    this.customerObj.mstCustomerAddressDetails.push(newaddressObj);
+  }
+  clearAddress(supAddIndex){
+    this.customerObj.mstCustomerAddressDetails.splice(supAddIndex, 1);
+  }
+
+  toggleButton(){
+    this.toggleDiv = !this.toggleDiv;
+    if(this.toggleDiv && !this.params){
+      this.newRecord();
+    }
+
+  }
+  onCancel(){
+    this.toggleDiv = false;
   }
 
   getCustomersList() {
@@ -55,11 +129,91 @@ export class CustomerListComponent implements OnInit {
     this.getCustomersList();
   }
 
+  onSubmit({ value, valid }: { value: any, valid: boolean }) {
+      _.forEach(this.customerObj.mstCustomerAddressDetails, function(addressObj) {
+      if(!addressObj.address){
+        addressObj.invalidAdd=true;
+        valid=false;
+      }
+      else
+      {
+        addressObj.invalidAdd=false;
+      }
+      if(!addressObj.state){
+        addressObj.invalidState=true;
+        valid=false;
+      }
+      {
+        addressObj.invalidState=false;
+      }
+      if(!addressObj.city){
+        addressObj.invalidCity=true;
+        valid=false;
+      }
+      {
+        addressObj.invalidCity=false;
+      }
+      if(!addressObj.pin){
+        addressObj.invalidPin=true;
+        valid=false;
+      }
+      {
+        addressObj.invalidPin=false;
+      }
+    });
+    if(valid)
+      this.saveCustomer(this.customerObj);
+  }
+  
+  saveCustomer(value) {
+    Helpers.setLoading(true);
+    if (this.params) {
+      this.customerService.updateCustomer(value)
+        .subscribe(
+        results => {
+          this.getCustomersList();
+          this.toggleDiv=false;
+          this.params=null;
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    } else {
+      this.customerService.createCustomer(value)
+        .subscribe(
+        results => {
+          this.getCustomersList();
+          this.toggleDiv=false;
+          this.params=null;
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+  getCustomerById(id){
+  this.customerService.getCustomerById(id).subscribe(
+    results => {
+      this.customerObj = results;
+      this.customerObj.mstCustomerAddressDetails=results.mstCustomerAddressDetails;
+      delete this.customerObj['mstCustomerAddressDetails'];
+    },
+    error => {
+      this.globalErrorHandler.handleError(error);
+    });
+}
   onEditClick(customer: Customer) {
      this.customerService.perPage = this.pageSize;
      this.customerService.currentPos = this.page;
-    // this.roleService.currentPageNumber = this.currentPageNumber;
-    this.router.navigate(['/features/master/customer/edit', customer.id]);
+    this.getCustomerById(customer.id);
+    this.params=customer.id;
+   this.toggleDiv=true;
   }
 
   onDelete(customer: Customer) {
