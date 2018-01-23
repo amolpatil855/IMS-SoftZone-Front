@@ -45,65 +45,6 @@ export class CustomerListComponent implements OnInit {
       this.params = params['customerId'];
     });
     this.newRecord();
-  //   if(this.params){
-  //     this.toggleDiv = true;
-  //     this.customerService.getCustomerById(this.params).subscribe(
-  //     (value: any) => {
-  //        Helpers.setLoading(false);
-  //        console.log('value',value);
-  //           if(value !== null){
-  //           this.customerForm.setValue({
-  //             id: value.id,
-  //             code: value.code,
-  //             name: value.name,
-  //             nickName: value.nickName,
-  //             email: value.email,
-  //             alternateEmail1: value.alternateEmail1,
-  //             alternateEmail2: value.alternateEmail2,
-  //             phone: value.phone,
-  //             alternatePhone1: value.alternatePhone1,
-  //             alternatePhone2: value.alternatePhone2,
-  //             isWholesaleCustomer: value.isWholesaleCustomer,
-  //             pan: value.pan,
-  //             accountPersonName: value.accountPersonName,
-  //             accountPersonPhone: value.accountPersonPhone,
-  //             accountPersonEmail: value.accountPersonEmail,
-  //             gstin: value.gstin,
-  //             mstCustomerAddressDetails: [{ // <-- the child FormGroup
-  //               address: value.mstCustomerAddressDetails[0].address,
-  //               city: value.mstCustomerAddressDetails[0].city,
-  //               state: value.mstCustomerAddressDetails[0].state,
-  //               pin: value.mstCustomerAddressDetails[0].pin
-  //             }]
-  //           });
-  //         }
-  //   });
-  //   }
-  //   this.toggleDiv = true;
-  //  this.customerForm = this.formBuilder.group({
-  //       id: 0,
-  //       code: [''],
-  //       name: ['', [Validators.required]],
-  //       nickName: [''],
-  //       email: ['', [Validators.required, Validators.email]],
-  //       alternateEmail1: ['', [Validators.required, Validators.email]],
-  //       alternateEmail2: ['', [Validators.required, Validators.email]],
-  //       phone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
-  //       alternatePhone1: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
-  //       alternatePhone2: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
-  //       isWholesaleCustomer: [false],
-  //       pan: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
-  //       accountPersonName: ['', [Validators.required]],
-  //       accountPersonPhone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
-  //       accountPersonEmail: ['', [ Validators.email]],
-  //       gstin: [''],
-  //       mstCustomerAddressDetails: this.formBuilder.group({ // <-- the child FormGroup
-  //         address: '',
-  //         state: '',
-  //         city: '',
-  //         pin: ''
-  //       }),
-  //   });
   }
   newRecord(){
   this.customerObj ={
@@ -189,32 +130,7 @@ this.customerObj.mstCustomerAddressDetails.push({ // <-- the child FormGroup
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-      // console.log('submit value', value);
-      // let params = {
-      //   id: value.id,
-      //   code: value.code,
-      //   name: value.name,
-      //   nickName: value.nickName,
-      //   email: value.email,
-      //   alternateEmail1: value.alternateEmail1,
-      //   alternateEmail2: value.alternateEmail2,
-      //   phone: value.phone,
-      //   alternatePhone1: value.alternatePhone1,
-      //   alternatePhone2: value.alternatePhone2,
-      //   isWholesaleCustomer: value.isWholesaleCustomer,
-      //   pan: value.pan,
-      //   accountPersonName: value.accountPersonName,
-      //   accountPersonPhone: value.accountPersonPhone,
-      //   accountPersonEmail: value.accountPersonEmail,
-      //   gstin: value.gstin,
-      //   mstCustomerAddressDetails: [{ // <-- the child FormGroup
-      //     address: value.mstCustomerAddressDetails[0].address,
-      //     city: value.mstCustomerAddressDetails[0].city,
-      //     state: value.mstCustomerAddressDetails[0].state,
-      //     pin: value.mstCustomerAddressDetails[0].pin
-      //   }]
-      // }
-      _.forEach(this.customerObj.mstSupplierAddressDetails, function(addressObj) {
+      _.forEach(this.customerObj.mstCustomerAddressDetails, function(addressObj) {
       if(!addressObj.address){
         addressObj.invalidAdd=true;
         valid=false;
@@ -245,7 +161,6 @@ this.customerObj.mstCustomerAddressDetails.push({ // <-- the child FormGroup
         addressObj.invalidPin=false;
       }
     });
-    console.log('this.customerObj', this.customerObj);
     if(valid)
       this.saveCustomer(this.customerObj);
   }
@@ -286,9 +201,8 @@ this.customerObj.mstCustomerAddressDetails.push({ // <-- the child FormGroup
   this.customerService.getCustomerById(id).subscribe(
     results => {
       this.customerObj = results;
-      this.customerObj.mstSupplierAddressDetails=results.mstSupplierAddressDetails;
-      delete this.customerObj['mstSupplierAddressDetails'];   
-      console.log('this.supplierList', this.customerObj);
+      this.customerObj.mstCustomerAddressDetails=results.mstCustomerAddressDetails;
+      delete this.customerObj['mstCustomerAddressDetails'];
     },
     error => {
       this.globalErrorHandler.handleError(error);
@@ -299,8 +213,6 @@ this.customerObj.mstCustomerAddressDetails.push({ // <-- the child FormGroup
      this.customerService.currentPos = this.page;
     this.getCustomerById(customer.id);
     this.params=customer.id;
-    // this.roleService.currentPageNumber = this.currentPageNumber;
-   // this.router.navigate(['/features/master/supplier/edit', supplier.id]);
    this.toggleDiv=true;
   }
 
