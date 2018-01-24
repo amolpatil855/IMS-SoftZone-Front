@@ -59,7 +59,7 @@
 				<button class="btn btn-secondary" [isAuthorize]="['supplier']" (click)="onCancel()">
 						Cancel
 				</button>
-	</div>
+		</div>
 	</div>
 </div>
 <!-- END: Subheader -->
@@ -102,7 +102,7 @@
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Name</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control"    [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"  #nameVal="ngModel" required [(ngModel)]="supplierObj.name" name="name" id="name" >
+															<input type="text" class="form-control"  [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"  #nameVal="ngModel" required [(ngModel)]="supplierObj.name" name="name" id="name" >
 															<!-- <div class="alertMsg" *ngIf="nameVal.errors   && (nameVal.dirty || nameVal.touched)">
 																Please enter Suplier Name
 															</div> -->
@@ -253,9 +253,6 @@
 												</div>
 											</div>
 										</div>
-										
-										
-										
 									</div>
 									
 									

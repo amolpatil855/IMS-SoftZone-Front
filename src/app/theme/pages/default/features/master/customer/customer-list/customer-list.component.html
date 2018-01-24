@@ -34,7 +34,7 @@
 				<li class="m-nav__item">
 					<a class="m-nav__link">
 						<span class="m-nav__link-text">
-							Suppliers
+							Customer
 						</span>
 					</a>
 				</li>
@@ -49,6 +49,14 @@
 					</a>
 				</li>
 			</ul>
+		</div>
+		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid">
+				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="customerForm" [ngClass]="(customerForm && !customerForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(customerForm && !customerForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="customerForm && !customerForm.form.valid" [isAuthorize]="['customer']">
+						{{ params ? 'Update' : 'Save' }}
+				</button>
+				<button class="btn btn-secondary" [isAuthorize]="['customer']" (click)="onCancel()">
+						Cancel
+				</button>
 		</div>
 	</div>
 </div>
@@ -76,50 +84,47 @@
 										<div class="form-group">
 											<label class="col-md-2 col-sm-2 fieldLabel">Name</label>
 											<div class="col-md-3 col-sm-4">
-												<input class="form-control" type="text" value=""  #nameVal="ngModel" required [(ngModel)]="customerObj.name" name="name" id="name" placeholder="Name">
-												<div class="alertMsg" *ngIf="nameVal.errors   && (nameVal.dirty || nameVal.touched)">
+												<input class="form-control" type="text" [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"  #nameVal="ngModel"  [(ngModel)]="customerObj.name" name="name" id="name" required placeholder="Name">
+												<!-- <div class="alertMsg" *ngIf="nameVal.errors   && (nameVal.dirty || nameVal.touched)">
 													Please enter Customer Name
-												</div>
+												</div> -->
 											</div>
 											<div class="col-md-3 col-sm-2">
-												<input class="form-control" type="text" value=""  #nickNameVal="ngModel" [(ngModel)]="customerObj.nickName" name="nickName" id="nickName" placeholder="Nick Name">
-												<div class="alertMsg" *ngIf="nickNameVal.errors   && (nickNameVal.dirty || nickNameVal.touched)">
+												<input class="form-control" type="text" [ngClass]="{'red-border-class': nickNameVal.errors && isFormSubmitted}"  #nickNameVal="ngModel" [(ngModel)]="customerObj.nickName" name="nickName" id="nickName" placeholder="Nick Name">
+												<!-- <div class="alertMsg" *ngIf="nickNameVal.errors   && (nickNameVal.dirty || nickNameVal.touched)">
 													Please enter Nick Name
-												</div>
+												</div> -->
 											</div>	
 											<div class="col-md-3 col-sm-2">
-											<input class="form-control m-input" type="text" value=""  #codeVal="ngModel" required [(ngModel)]="customerObj.code" name="code" id="code" placeholder="Code">
-											<div class="alertMsg" *ngIf="codeVal.errors   && (codeVal.dirty || codeVal.touched)">
+											<input class="form-control m-input" type="numeric" [ngClass]="{'red-border-class': codeVal.errors && isFormSubmitted}" #codeVal="ngModel" required [(ngModel)]="customerObj.code" name="code" id="code" placeholder="Code">
+											<!-- <div class="alertMsg" *ngIf="codeVal.errors   && (codeVal.dirty || codeVal.touched)">
 												Please enter Code
-											</div>	
+											</div>	 -->
 										</div>											
 										</div>
 										<div class="form-group">
 											<label class="col-md-2 col-sm-2 fieldLabel">Email</label>
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control" type="text" value=""   #emailVal="ngModel" required [(ngModel)]="customerObj.email" name="email" placeholder="Email" maxlength="254">
-												<div class="alertMsg" *ngIf="emailVal.errors && (emailVal.dirty || emailVal.touched)">
+												<input class="form-control" type="text"  [ngClass]="{'red-border-class': emailVal.errors && isFormSubmitted}" #emailVal="ngModel" required [(ngModel)]="customerObj.email" name="email" placeholder="Email" maxlength="254">
+												<!-- <div class="alertMsg" *ngIf="emailVal.errors && (emailVal.dirty || emailVal.touched)">
 													Please enter Email
-												</div>
+												</div> -->
 												<div class="alertMsg" *ngIf="emailVal.errors && !emailVal.errors.required && emailVal.errors.email && emailVal.touched">
 													Please enter valid Email
 												</div>
 											</div>
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control" type="text" value=""   #alternateEmail1Val="ngModel" [(ngModel)]="customerObj.alternateEmail1" name="alternateEmail1" placeholder="Alternate email1" maxlength="254">
-												<div class="alertMsg" *ngIf="alternateEmail1Val.errors && (alternateEmail1Val.dirty || alternateEmail1Val.touched)">
+												<input class="form-control" type="email" email [ngClass]="{'red-border-class': alternateEmail1Val.errors && isFormSubmitted}"  #alternateEmail1Val="ngModel" [(ngModel)]="customerObj.alternateEmail1" name="alternateEmail1" placeholder="Alternate email1" maxlength="254">
+												<!-- <div class="alertMsg" *ngIf="alternateEmail1Val.errors && (alternateEmail1Val.dirty || alternateEmail1Val.touched)">
 													Please enter Alternate Email1
-												</div>
-												<div class="alertMsg" *ngIf="alternateEmail1Val.errors && !alternateEmail1Val.errors.required && alternateEmail1Val.errors.alternateEmail1 && alternateEmail1Val.touched">
+												</div> -->
+												<div class="alertMsg" *ngIf="alternateEmail1Val.errors && !alternateEmail1Val.errors.required && alternateEmail1Val.errors.email && alternateEmail1Val.touched">
 													Please enter  Alternate Email1
 												</div>
 											</div>		
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control m-input" type="text" value=""   #alternateEmail2Val="ngModel" [(ngModel)]="customerObj.alternateEmail2" name="alternateEmail2" placeholder="Alternate email2" maxlength="254">
-												<div class="alertMsg" *ngIf="alternateEmail2Val.errors && (alternateEmail2Val.dirty || alternateEmail2Val.touched)">
-													Please enter Alternate Email2
-												</div>
-												<div class="alertMsg" *ngIf="alternateEmail2Val.errors && !alternateEmail2Val.errors.required && alternateEmail2Val.errors.alternateEmail2 && alternateEmail2Val.touched">
+												<input class="form-control m-input" type="email" email   #alternateEmail2Val="ngModel" [(ngModel)]="customerObj.alternateEmail2" name="alternateEmail2" placeholder="Alternate email2" maxlength="254">
+												<div class="alertMsg" *ngIf="alternateEmail2Val.errors && !alternateEmail2Val.errors.required && alternateEmail2Val.errors.email && alternateEmail2Val.touched">
 													Please enter  Alternate Email2
 												</div>
 											</div>												
@@ -127,28 +132,19 @@
 										<div class="form-group">
 											<label class="col-md-2 col-sm-2 fieldLabel">Phone</label>
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control m-input" type="text"   [(ngModel)]="customerObj.phone" name="phone" required #phoneVal="ngModel"       placeholder="Contact" maxlength="15">
-												<div class="alertMsg" *ngIf="phoneVal.errors && phoneVal.errors.required && (phoneVal.dirty || phoneVal.touched)">
-													Please enter Contact Number
-												</div>
-												<div class="alertMsg" *ngIf="phoneVal.errors && !phoneVal.errors.required  && phoneVal.errors.pattern && phoneVal.touched">
+												<!--<input class="form-control m-input" type="number"  [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.phone" name="phone" required #phoneVal="ngModel" placeholder="Contact" maxlength="10">
+												 <div class="alertMsg" *ngIf="phoneVal.errors && !phoneVal.errors.required  && phoneVal.errors.pattern && phoneVal.touched">
 													Please enter valid phone number
-												</div>
+												</div> -->
 											</div>
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control m-input" type="text"   [(ngModel)]="customerObj.alternatePhone1" name="alternatePhone1" #alternatePhone1Val="ngModel"       placeholder="Alternate Phone1" maxlength="15">
-												<div class="alertMsg" *ngIf="alternatePhone1Val.errors && alternatePhone1Val.errors.required && (alternatePhone1Val.dirty || alternatePhone1Val.touched)">
-													Please enter Contact Number
-												</div>
+												<input class="form-control m-input" type="text"   [ngClass]="{'red-border-class': alternatePhone1Val.errors && isFormSubmitted}"   [(ngModel)]="customerObj.alternatePhone1" name="alternatePhone1" #alternatePhone1Val="ngModel"  placeholder="Alternate Phone1" maxlength="10">
 												<div class="alertMsg" *ngIf="alternatePhone1Val.errors && !alternatePhone1Val.errors.required  && alternatePhone1Val.errors.pattern && alternatePhone1Val.touched">
 													Please enter valid alternatePhone1 number
 												</div>
 											</div>		
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control m-input" type="text"   [(ngModel)]="customerObj.alternatePhone2" name="alternatePhone2" #alternatePhone2Val="ngModel"       placeholder="Alternate Phone2" maxlength="15">
-												<div class="alertMsg" *ngIf="alternatePhone2Val.errors && alternatePhone2Val.errors.required && (alternatePhone2Val.dirty || alternatePhone2Val.touched)">
-													Please enter Contact Number
-												</div>
+												<input class="form-control m-input" type="text" [ngClass]="{'red-border-class': alternatePhone2Val.errors && isFormSubmitted}"   [(ngModel)]="customerObj.alternatePhone2" name="alternatePhone2" #alternatePhone2Val="ngModel"  placeholder="Alternate Phone2" maxlength="10">
 												<div class="alertMsg" *ngIf="alternatePhone2Val.errors && !alternatePhone2Val.errors.required  && alternatePhone2Val.errors.pattern && alternatePhone2Val.touched">
 													Please enter valid alternatePhone2 number
 												</div>
@@ -174,40 +170,34 @@
 										<div class="form-group">
 											<label class="col-md-2 col-sm-2 fieldLabel">Person</label>
 											<div class="col-md-3 col-sm-4">
-												<input class="form-control m-input" type="text" value="Account Person Name" [(ngModel)]="customerObj.accountPersonName"  #accountPersonNameVal="ngModel"  name="accountPersonName" id="accountPersonName" placeholder="Name">
+												<input class="form-control m-input" type="text"  [ngClass]="{'red-border-class': accountPersonNameVal.errors && isFormSubmitted}"   [(ngModel)]="customerObj.accountPersonName" required #accountPersonNameVal="ngModel"  name="accountPersonName" id="accountPersonName" placeholder="Name">
 												<div class="alertMsg" *ngIf="accountPersonNameVal.errors && accountPersonNameVal.errors.required && accountPersonNameVal.errors.touched">
 													Please enter Account Person Name
 												</div>
 											</div>
 											<div class="col-md-3 col-sm-2">
-												<input class="form-control m-input" type="text" value="" [(ngModel)]="customerObj.accountPersonEmail" name="accountPersonEmail"  #accountPersonEmailVal="ngModel"  placeholder="Email" maxlength="254">
+												<input class="form-control m-input" type="email" email required [ngClass]="{'red-border-class': accountPersonEmailVal.errors && isFormSubmitted}" [(ngModel)]="customerObj.accountPersonEmail" name="accountPersonEmail"  #accountPersonEmailVal="ngModel"  placeholder="Email" maxlength="254">
+												<div class="alertMsg" *ngIf="accountPersonEmailVal.errors && !accountPersonEmailVal.errors.required && accountPersonEmailVal.errors.email && accountPersonEmailVal.touched">
+														Please enter  Alternate Email2
+													</div>
 											</div>	
 											<div class="col-md-3 col-sm-2">
-												<input class="form-control m-input" type="text"  [(ngModel)]="customerObj.accountPersonPhone" name="accountPersonPhone"   #accountPersonPhoneVal="ngModel" placeholder="Number" maxlength="15">
-												<div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && accountPersonPhoneVal.errors.required && accountPersonPhoneVal.touched">
-													Please enter Contact Number
-												</div>
+												<input class="form-control m-input" type="number"  [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.accountPersonPhone" name="accountPersonPhone" required  #accountPersonPhoneVal="ngModel" placeholder="Number" maxlength="15">
 												<div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && !accountPersonPhoneVal.errors.required && accountPersonPhoneVal.errors.pattern && accountPersonPhoneVal.touched">
 													Please enter valid phone number
 												</div>
 											</div>	
 										</div>
 										<div class="form-group">
-											<label class="col-md-2 col-sm-2 fieldLabel">GSTIN/PAN</label>
+											<label class="col-md-2 col-sm-2 fieldLabel">GST/PAN</label>
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control m-input" type="text"  [(ngModel)]="customerObj.gstin" name="gstin" placeholder="GSTIN" maxlength="15"  #gstinVal="ngModel" >
-												<div class="alertMsg" *ngIf="gstinVal.errors && gstinVal.errors.required && gstinVal.touched">
-													Please enter GSTIN
-												</div>
+												<input class="form-control m-input" type="number" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.gstin" name="gstin" placeholder="GSTIN" maxlength="15" required #gstinVal="ngModel" >
 												<div class="alertMsg" *ngIf="gstinVal.errors && !gstinVal.errors.required && gstinVal.errors.pattern && gstinVal.touched">
 													Please enter valid GSTIN
 												</div>
 											</div>		
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control m-input" type="text" [(ngModel)]="customerObj.PAN" name="PAN"   #PANVal="ngModel" placeholder="PAN" maxlength="15">
-												<div class="alertMsg" *ngIf="PANVal.errors && PANVal.errors.required && PANVal.touched">
-													Please enter PAN
-												</div>
+												<input class="form-control m-input" type="text" [ngClass]="{'red-border-class': PANVal.errors && isFormSubmitted}" required  [(ngModel)]="customerObj.PAN" name="PAN"   #PANVal="ngModel" placeholder="PAN" maxlength="10">
 												<div class="alertMsg" *ngIf="PANVal.errors && !PANVal.errors.required && PANVal.errors.pattern && PANVal.touched">
 													Please enter valid PAN
 												</div>
@@ -288,23 +278,6 @@
 								</div>
 								
 							</div>
-							
-							
-							<div class="formSubmitBtnBox">
-								<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
-									<div class="m-form__actions m-form__actions--solid">
-										<div class="row">
-											<div class="col-lg-6">
-												<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="customerForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ customerForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="customerForm.invalid" [isAuthorize]="['customer']">
-														{{ params ? 'Update' : 'Save' }}
-												</button>
-												<button class="btn btn-secondary" [isAuthorize]="['customer']" (click)="onCancel()">
-														Cancel
-												</button>
-											</div>
-										</div>
-									</div>
-								</div>							</div>
 						</form>
 					
 					</div>

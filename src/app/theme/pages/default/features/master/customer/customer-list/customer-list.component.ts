@@ -26,7 +26,7 @@ export class CustomerListComponent implements OnInit {
   search='';
   states=[];
   toggleDiv=false;
-
+  isFormSubmitted:boolean;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -130,6 +130,7 @@ this.customerObj.mstCustomerAddresses.push({ // <-- the child FormGroup
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted=true;
       _.forEach(this.customerObj.mstCustomerAddresses, function(addressObj) {
       if(!addressObj.address){
         addressObj.invalidAdd=true;
