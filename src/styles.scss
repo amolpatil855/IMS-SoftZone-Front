@@ -464,7 +464,7 @@ body .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
 
 body .ui-widget-content {
     background-color: #fff!important;
-    border: 1px solid #f1f1f1!important;
+    border: 0px solid #f1f1f1!important;
     font-size: 0em!important;
 }
 /*body .ui-widget{
@@ -1402,6 +1402,7 @@ body .ui-dialog .ui-dialog-titlebar {
 }
 .m-portlet {
     background-color: #ffffff;    
+    margin-bottom: 10px;
 }
 .form-group{
 	clear: both;
@@ -1432,7 +1433,7 @@ body .ui-dialog .ui-dialog-titlebar {
 body .ui-datatable .ui-datatable-data > tr > td {
     padding: 0 8px !important;
 }
-.ui-datatable-even .ui-widget-content{
+/*.ui-datatable-even .ui-widget-content{
     font-size: 0em!important;
 }
 .ui-dropdown .ui-dropdown-label {
@@ -1445,4 +1446,11 @@ body .ui-datatable .ui-datatable-data > tr > td {
 }
 .feePlanBox .ui-dropdown .ui-dropdown-trigger .fa {
     margin-top: 3px;
+}*/
+
+tr:nth-child(even) td{
+  background-color: #f6f6f6!important;
+}
+tr:nth-child(odd) td{
+  background-color: #fff!important;
 }
