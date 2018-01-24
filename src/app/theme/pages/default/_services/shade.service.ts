@@ -22,27 +22,27 @@ export class ShadeService {
   }
 
   getCollectionLookUp(categoryId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Collection/GetCollectionLookUp?categoryId=' + categoryId , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId , AppSettings.requestOptions()).map((response: Response) => response.json());
   }
   
   getCategoryLookup() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'FWRShade/GetCategoryLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getSerialNumberLookUpByDesign(designId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Quality/GetSerialNumberLookUpByDesign?designId=' + designId, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpByDesign?designId=' + designId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getDesignLookupByQuality(qualityid) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'FWRDesign/GetDesignLookupByQuality?qualityid=' + qualityid, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetDesignLookupByQuality?qualityid=' + qualityid, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getSerialNumberLookUpByCollection(collectionId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Quality/GetSerialNumberLookUpByCollection?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpByCollection?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getQualityLookUpByCollection(collectionId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Quality/GetQualityLookUpByCollection?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetQualityLookUpByCollection?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createShade(shade: Shade) {
