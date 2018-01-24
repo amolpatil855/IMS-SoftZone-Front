@@ -218,15 +218,15 @@
 	background: #e3ebf1!important;
     font-family: Roboto;
     font-size: 12px!important;
-    padding-top: 8px!important;
-    padding-bottom: 8px!important;
+    padding-top: 4px!important;
+    padding-bottom: 4px!important;
     border: none!important;
     vertical-align: middle;
     text-transform: uppercase;
     font-weight: 600;
 }
 .listingTable tbody tr td{
-    background: #fff!important;
+    background: #fff;
     font-family: Roboto;
     font-size: 12px!important;
     border-bottom: 1px solid #ddd!important;
@@ -252,7 +252,7 @@
 	font-family: Roboto!important;
     color: #000!important;
     font-size: 12px!important;
-	padding-top: 8px;
+	padding-top: 3px;
     text-align: right!important;
     float: left!important;  
     font-weight: 500;
@@ -601,7 +601,7 @@ textarea{
 	width:15%;
 }
 .tableActionBtn{
-	padding:4px 8px!important;
+	padding: 2px 5px!important;
 }
 .detailSeparator{
 	margin-top: 2px;

@@ -76,19 +76,19 @@
 										<div class="form-group">
 											<label class="col-md-2 col-sm-2 fieldLabel">Name</label>
 											<div class="col-md-3 col-sm-4">
-												<input class="form-control" type="text" value=""  #nameVal="ngModel" required [(ngModel)]="customerObj.name" name="name" id="name" placeholder="Enter Name">
+												<input class="form-control" type="text" value=""  #nameVal="ngModel" required [(ngModel)]="customerObj.name" name="name" id="name" placeholder="Name">
 												<div class="alertMsg" *ngIf="nameVal.errors   && (nameVal.dirty || nameVal.touched)">
 													Please enter Customer Name
 												</div>
 											</div>
 											<div class="col-md-3 col-sm-2">
-												<input class="form-control" type="text" value=""  #nickNameVal="ngModel" [(ngModel)]="customerObj.nickName" name="nickName" id="nickName" placeholder="Enter Nick Name">
+												<input class="form-control" type="text" value=""  #nickNameVal="ngModel" [(ngModel)]="customerObj.nickName" name="nickName" id="nickName" placeholder="Nick Name">
 												<div class="alertMsg" *ngIf="nickNameVal.errors   && (nickNameVal.dirty || nickNameVal.touched)">
 													Please enter Nick Name
 												</div>
 											</div>	
 											<div class="col-md-3 col-sm-2">
-											<input class="form-control m-input" type="text" value=""  #codeVal="ngModel" required [(ngModel)]="customerObj.code" name="code" id="code" placeholder="Enter Code">
+											<input class="form-control m-input" type="text" value=""  #codeVal="ngModel" required [(ngModel)]="customerObj.code" name="code" id="code" placeholder="Code">
 											<div class="alertMsg" *ngIf="codeVal.errors   && (codeVal.dirty || codeVal.touched)">
 												Please enter Code
 											</div>	
@@ -106,7 +106,7 @@
 												</div>
 											</div>
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control" type="text" value=""   #alternateEmail1Val="ngModel" [(ngModel)]="customerObj.alternateEmail1" name="alternateEmail1" placeholder="Email" maxlength="254">
+												<input class="form-control" type="text" value=""   #alternateEmail1Val="ngModel" [(ngModel)]="customerObj.alternateEmail1" name="alternateEmail1" placeholder="Alternate email1" maxlength="254">
 												<div class="alertMsg" *ngIf="alternateEmail1Val.errors && (alternateEmail1Val.dirty || alternateEmail1Val.touched)">
 													Please enter Alternate Email1
 												</div>
@@ -115,7 +115,7 @@
 												</div>
 											</div>		
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control m-input" type="text" value=""   #alternateEmail2Val="ngModel" [(ngModel)]="customerObj.alternateEmail2" name="alternateEmail2" placeholder="Email" maxlength="254">
+												<input class="form-control m-input" type="text" value=""   #alternateEmail2Val="ngModel" [(ngModel)]="customerObj.alternateEmail2" name="alternateEmail2" placeholder="Alternate email2" maxlength="254">
 												<div class="alertMsg" *ngIf="alternateEmail2Val.errors && (alternateEmail2Val.dirty || alternateEmail2Val.touched)">
 													Please enter Alternate Email2
 												</div>
@@ -136,7 +136,7 @@
 												</div>
 											</div>
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control m-input" type="text"   [(ngModel)]="customerObj.alternatePhone1" name="alternatePhone1" #alternatePhone1Val="ngModel"       placeholder="Contact" maxlength="15">
+												<input class="form-control m-input" type="text"   [(ngModel)]="customerObj.alternatePhone1" name="alternatePhone1" #alternatePhone1Val="ngModel"       placeholder="Alternate Phone1" maxlength="15">
 												<div class="alertMsg" *ngIf="alternatePhone1Val.errors && alternatePhone1Val.errors.required && (alternatePhone1Val.dirty || alternatePhone1Val.touched)">
 													Please enter Contact Number
 												</div>
@@ -145,7 +145,7 @@
 												</div>
 											</div>		
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control m-input" type="text"   [(ngModel)]="customerObj.alternatePhone2" name="alternatePhone2" #alternatePhone2Val="ngModel"       placeholder="alternatePhone2Val" maxlength="15">
+												<input class="form-control m-input" type="text"   [(ngModel)]="customerObj.alternatePhone2" name="alternatePhone2" #alternatePhone2Val="ngModel"       placeholder="Alternate Phone2" maxlength="15">
 												<div class="alertMsg" *ngIf="alternatePhone2Val.errors && alternatePhone2Val.errors.required && (alternatePhone2Val.dirty || alternatePhone2Val.touched)">
 													Please enter Contact Number
 												</div>
@@ -174,16 +174,16 @@
 										<div class="form-group">
 											<label class="col-md-2 col-sm-2 fieldLabel">Person</label>
 											<div class="col-md-3 col-sm-4">
-												<input class="form-control m-input" type="text" value="Account Person Name" [(ngModel)]="customerObj.accountPersonName"  #accountPersonNameVal="ngModel"  name="accountPersonName" id="accountPersonName" placeholder="Enter Account Person Name">
+												<input class="form-control m-input" type="text" value="Account Person Name" [(ngModel)]="customerObj.accountPersonName"  #accountPersonNameVal="ngModel"  name="accountPersonName" id="accountPersonName" placeholder="Name">
 												<div class="alertMsg" *ngIf="accountPersonNameVal.errors && accountPersonNameVal.errors.required && accountPersonNameVal.errors.touched">
 													Please enter Account Person Name
 												</div>
 											</div>
 											<div class="col-md-3 col-sm-2">
-												<input class="form-control m-input" type="text" value="" [(ngModel)]="customerObj.accountPersonEmail" name="accountPersonEmail"  #accountPersonEmailVal="ngModel"  placeholder="Account Person Email" maxlength="254">
+												<input class="form-control m-input" type="text" value="" [(ngModel)]="customerObj.accountPersonEmail" name="accountPersonEmail"  #accountPersonEmailVal="ngModel"  placeholder="Email" maxlength="254">
 											</div>	
 											<div class="col-md-3 col-sm-2">
-												<input class="form-control m-input" type="text"  [(ngModel)]="customerObj.accountPersonPhone" name="accountPersonPhone"   #accountPersonPhoneVal="ngModel" placeholder="Account Person Number" maxlength="15">
+												<input class="form-control m-input" type="text"  [(ngModel)]="customerObj.accountPersonPhone" name="accountPersonPhone"   #accountPersonPhoneVal="ngModel" placeholder="Number" maxlength="15">
 												<div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && accountPersonPhoneVal.errors.required && accountPersonPhoneVal.touched">
 													Please enter Contact Number
 												</div>
@@ -204,7 +204,7 @@
 												</div>
 											</div>		
 											<div class="col-md-3 col-sm-3">
-												<input class="form-control m-input" type="text" [(ngModel)]="customerObj.PAN" name="PAN"   #PANVal="ngModel" placeholder="Account Person Number" maxlength="15">
+												<input class="form-control m-input" type="text" [(ngModel)]="customerObj.PAN" name="PAN"   #PANVal="ngModel" placeholder="PAN" maxlength="15">
 												<div class="alertMsg" *ngIf="PANVal.errors && PANVal.errors.required && PANVal.touched">
 													Please enter PAN
 												</div>
@@ -339,11 +339,11 @@
 								
 									<p-dataTable [value]="customerList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [loading]="loading"  [rowsPerPageOptions]="[20,50,100,200,500]"
 									[totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-										<p-column field="name" header="Name" [style]="{'text-align':'center'}"></p-column>
-										<p-column field="email" header="Email" [style]="{'text-align':'center'}"></p-column>
+										<p-column field="name" header="Name" [style]="{'text-align':'left'}"></p-column>
+										<p-column field="email" header="Email" [style]="{'text-align':'left'}"></p-column>
 										<p-column field="phone" header="Phone" [style]="{'text-align':'center'}"></p-column>
-										<p-column field="nickName" header="Nick Name" [style]="{'text-align':'center'}"></p-column>
-										<p-column field="code" header="Code" [style]="{'text-align':'center'}"></p-column>
+										<p-column field="nickName" header="Nick Name" [style]="{'text-align':'left'}"></p-column>
+										<p-column field="code" header="Code" [style]="{'text-align':'left'}"></p-column>
 										<p-column field="isWholesaleCustomer" header="WholeSale" [style]="{'text-align':'center'}"></p-column>
 										<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 											<ng-template pTemplate="header">

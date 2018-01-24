@@ -464,9 +464,12 @@ body .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
 
 body .ui-widget-content {
     background-color: #fff!important;
-    border: 1px solid #f1f1f1!important;
+    border: 0px solid #f1f1f1!important;
+    /*font-size: 0em!important;*/
 }
-
+/*body .ui-widget{
+     font-size: 0em!important;
+}*/
 body .ui-dialog .ui-dialog-titlebar {
     padding: 1em!important;
     border-bottom: 1px solid #ececec!important;
@@ -1304,7 +1307,7 @@ body .ui-dialog .ui-dialog-titlebar {
 .ui-cell-data {
     font-weight: 400 !important;
     color: #000 !important;
-    font-size: 13px;
+    font-size: 12px;
 }
 body .ui-widget-header {
     border: none!important;
@@ -1377,9 +1380,9 @@ body .ui-dialog .ui-dialog-titlebar {
 .formAddressTable tr td i {
     vertical-align: middle!important;
     font-size: 16px!important;
-    margin-top: -3px!important;
+    margin-top: 0px!important;
     vertical-align: middle!important;
-    margin-right: 6px!important;
+    margin-right: 0px!important;
     font-weight: 500!important;
 }
 .panel {
@@ -1391,4 +1394,91 @@ body .ui-dialog .ui-dialog-titlebar {
 }
 .fieldLabel {   
     text-align: left!important;
+    margin-bottom: 0!important;
+}
+.formInfotable tr th{
+	background: #e3ebf1!important;
+    font-family: Roboto;
+    font-size: 11px!important;
+    padding-top: 3px!important;
+    padding-bottom: 3px!important;
+    border: none!important;
+    vertical-align: middle;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.formInfotable tr td {
+    background: #fff!important;
+    font-family: Roboto;
+    font-size: 12px!important;
+    border-bottom: 1px solid #ddd!important;
+    border-top: none!important;
+    vertical-align: middle!important;
+    padding-top: 2px!important;
+    padding-bottom: 2px!important;
+    border: none!important;
+}
+.table {
+    margin-bottom: 0!important;
+}
+.formInfotable thead tr:first-child td{
+	font-weight:600;
+}
+.m-portlet__body{
+    background: #fff;
+    padding: 5px;
+}
+.m-portlet {
+    background-color: #ffffff;    
+    margin-bottom: 10px;
+}
+.form-group{
+	clear: both;
+    display: flow-root;
+    margin-bottom: 4px;
+}
+@media (min-width: 992px){
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12{
+    float: left!important;
+}
+}
+.inputForm{
+    padding: 5px;
+}
+.alertMsg {
+    clear: both;
+    text-align: center;
+}
+.panel{
+    border: 1px solid #f1f1f1!important;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+.panel .form-control {
+    padding: 2px 2px!important;
+}
+body .ui-datatable .ui-datatable-data > tr > td {
+    padding: 0 8px !important;
+}
+/*.ui-datatable-even .ui-widget-content{
+    font-size: 0em!important;
+}
+.ui-dropdown .ui-dropdown-label {
+    height: 20px !important;
+    padding-top: 3px;
+}
+.feePlanBox .ui-dropdown .ui-dropdown-label {
+    height: 20px !important;
+    padding-top: 3px!important;
+}
+.feePlanBox .ui-dropdown .ui-dropdown-trigger .fa {
+    margin-top: 3px;
+}*/
+
+tr:nth-child(even) td{
+  background-color: #f6f6f6!important;
+}
+tr:nth-child(odd) td{
+  background-color: #fff!important;
 }
