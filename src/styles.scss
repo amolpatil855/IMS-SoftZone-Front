@@ -1457,6 +1457,7 @@ body .ui-dialog .ui-dialog-titlebar {
 }
 .panel .form-control {
     padding: 2px 2px!important;
+    font-size: 13px!important;
 }
 body .ui-datatable .ui-datatable-data > tr > td {
     padding: 0 8px !important;
@@ -1477,7 +1478,7 @@ body .ui-datatable .ui-datatable-data > tr > td {
 }*/
 
 tr:nth-child(even) td{
-  background-color: #f6f6f6!important;
+  background-color: #f7f7f7!important;
 }
 tr:nth-child(odd) td{
   background-color: #fff!important;
@@ -1485,3 +1486,10 @@ tr:nth-child(odd) td{
 .red-border-class {
     border: 1px solid red;
   }
+select.form-control:not([size]):not([multiple]) {
+    height: auto!important;
+}
+.addressTablePanelBody{
+    height: 230px;
+    overflow-y: auto;
+}

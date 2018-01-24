@@ -3,46 +3,41 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import * as _ from 'lodash/index';
 import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
-import { ConfirmationService, DataTableModule, LazyLoadEvent, SelectItem } from 'primeng/primeng';
+import { ConfirmationService, DataTableModule, LazyLoadEvent } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
-import { DesignService } from '../../../../_services/design.service';
+import { MatThicknessService } from '../../../../_services/matThickness.service';
 import { Role } from "../../../../_models/role";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
-import { Design } from "../../../../_models/design";
+import { MatThickness } from "../../../../_models/matThickness";
+
 @Component({
-  selector: "app-design-list",
-  templateUrl: "./design-list.component.html",
+  selector: "app-matThickness-list",
+  templateUrl: "./matThickness-list.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class DesignListComponent implements OnInit {
+export class MatThicknessListComponent implements OnInit {
 
-  designForm: any;
-  designObj:any;
+  matThicknessForm: any;
+  matThicknessObj:any;
   params: number;
-  designList=[];
-  categoryList: SelectItem[];
-  selectedCategory = 0;
-  selectedCollection = 0 ;
-  selectedQuality = 0;
-  collectionList=[];
-  qualityList=[];
+  matThicknessList=[];
   pageSize=50;
   page=1;
   totalCount=0;
   search='';
   toggleDiv=false;
+  states=[];
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private designService: DesignService,
+    private matThicknessService: MatThicknessService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) {
   }
-
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.params = params['id'];
@@ -51,13 +46,10 @@ export class DesignListComponent implements OnInit {
   }
 
   newRecord(){
-    this.designObj ={
-    categoryId: 0,
-    collectionId: 0,
-    qualityId: 0,
-    designCode: '',
-    designName: '',
-    description: '',
+    this.matThicknessObj ={
+      id: 0,
+      thicknessCode:'',
+      size: ''
     };
   }
 
@@ -71,59 +63,16 @@ export class DesignListComponent implements OnInit {
   onCancel(){
     this.toggleDiv = false;
   }
-  getDesignsList() {
-    this.designService.getAllDesigns(this.pageSize,this.page,this.search).subscribe(
+  getMatThicknesssList() {
+    this.matThicknessService.getAllMatThicknesss(this.pageSize,this.page,this.search).subscribe(
       results => {
-        this.designList = results.data;
-        console.log('this.designList', this.designList);
+        this.matThicknessList = results.data;
+        console.log('this.matThicknessList', this.matThicknessList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
       });
   }
-
-  getCategoryLookUp(){
-    this.designService.getCategoryLookUp().subscribe(
-      results => {
-        this.categoryList = results;
-        this.categoryList.unshift({ label: '--Select--', value: '0' });
-        console.log('this.categoryList', this.categoryList);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
-  }
-
-  onCategoryClick(){
-    console.log('selectedCategory', this.selectedCategory);
-    this.designService.getCollectionLookUp(this.selectedCategory).subscribe(
-      results => {
-        this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: '0' });
-        this.selectedCollection = this.designObj.collectionId;
-        if(this.selectedCollection > 0){
-          this.onCollectionClick();
-        }
-        console.log('this.collectionList', this.collectionList);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
-  }
-
-  onCollectionClick(){
-    this.designService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
-      results => {
-        this.qualityList = results;
-        this.qualityList.unshift({ label: '--Select--', value: '0' });
-        this.selectedQuality = this.designObj.qualityId;
-        console.log('this.qualityList', this.qualityList);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
-  }
-
   loadLazy(event: LazyLoadEvent) {
     //in a real application, make a remote request to load data using state metadata from event
     //event.first = First row offset
@@ -135,40 +84,31 @@ export class DesignListComponent implements OnInit {
     this.pageSize=event.rows;
     this.page=event.first;
     this.search=  event.globalFilter;
-    this.getDesignsList();
-    this.getCategoryLookUp();
+    this.getMatThicknesssList();
   }
 
-  getdesignById(id){
-  this.designService.getDesignById(id).subscribe(
+  getMatThicknessById(id){
+  this.matThicknessService.getMatThicknessById(id).subscribe(
     results => {
-      this.designObj = results;
-      console.log('this.designObj', this.designObj);
-      this.selectedCategory = this.designObj.categoryId;
-      if(this.selectedCategory > 0){
-        this.onCategoryClick();
-      }
+      this.matThicknessObj = results;
+      console.log('this.matThicknessList', this.matThicknessObj);
     },
     error => {
       this.globalErrorHandler.handleError(error);
     });
-  }
+}
 
-  
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.designObj.categoryId = value.category;
-    this.designObj.collectionId = value.collection;
-    this.designObj.qualityId = value.quality;
-    this.saveDesign(this.designObj);
+      this.saveMatThickness(this.matThicknessObj);
   }
 
-  saveDesign(value) {
+  saveMatThickness(value) {
     Helpers.setLoading(true);
     if (this.params) {
-      this.designService.updateDesign(value)
+      this.matThicknessService.updateMatThickness(value)
         .subscribe(
         results => {
-         this. getDesignsList(); 
+         this.getMatThicknesssList(); 
          this.toggleDiv=false;
          this.params=null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -180,10 +120,10 @@ export class DesignListComponent implements OnInit {
           Helpers.setLoading(false);
         });
     } else {
-      this.designService.createDesign(value)
+      this.matThicknessService.createMatThickness(value)
         .subscribe(
         results => {
-         this. getDesignsList();
+         this. getMatThicknesssList();
          this.toggleDiv=false;
          this.params=null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -197,24 +137,24 @@ export class DesignListComponent implements OnInit {
     }
   }
 
-  onEditClick(design: Design) {
-     this.designService.perPage = this.pageSize;
-     this.designService.currentPos = this.page;
-     this. getdesignById(design.id);
-     this.params=design.id;
+  onEditClick(matThickness: MatThickness) {
+     this.matThicknessService.perPage = this.pageSize;
+     this.matThicknessService.currentPos = this.page;
+     this.getMatThicknessById(matThickness.id);
+     this.params=matThickness.id;
      this.toggleDiv=true;
   }
 
-  onDelete(design: Design) {
+  onDelete(matThickness: MatThickness) {
     this.confirmationService.confirm({
       message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
-        this.designService.deleteDesign(design.id).subscribe(
+        this.matThicknessService.deleteMatThickness(matThickness.id).subscribe(
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
-            this.getDesignsList();
+            this.getMatThicknesssList();
             this.toggleDiv=false;
           },
           error => {

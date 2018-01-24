@@ -1,7 +1,3 @@
-import { Category } from "./category";
-import { Collection } from "./collection";
-import { Hsn } from "./hsn";
-
 export class Quality {
     id: number;
     collectionId:string;

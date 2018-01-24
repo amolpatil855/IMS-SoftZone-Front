@@ -104,6 +104,10 @@ export class ShadeListComponent implements OnInit {
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: '0' });
+         this.selectedCollection = this.shadeObj.collectionId;
+          if(this.selectedCollection > 0){
+            this.onCollectionClick();
+          }
         console.log('this.collectionList', this.collectionList);
       },
       error => {
@@ -116,6 +120,10 @@ export class ShadeListComponent implements OnInit {
       results => {
         this.qualityList = results;
         this.qualityList.unshift({ label: '--Select--', value: '0' });
+        this.selectedQuality = this.shadeObj.qualityId;
+        if(this.selectedQuality > 0){
+          this.onQualityClick();
+        }
         console.log('this.qualityList', this.qualityList);
       },
       error => {
@@ -128,6 +136,7 @@ export class ShadeListComponent implements OnInit {
       results => {
         this.designList = results;
         this.designList.unshift({ label: '--Select--', value: '0' });
+        this.selectedDesign = this.shadeObj.designId;
         console.log('this.designList', this.designList);
       },
       error => {
@@ -154,6 +163,10 @@ export class ShadeListComponent implements OnInit {
   this.shadeService.getShadeById(id).subscribe(
     results => {
       this.shadeObj = results;
+       this.selectedCategory = this.shadeObj.categoryId;
+        if(this.selectedCategory > 0){
+          this.onCategoryClick();
+        }
     },
     error => {
       this.globalErrorHandler.handleError(error);
