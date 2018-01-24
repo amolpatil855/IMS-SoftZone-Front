@@ -21,8 +21,8 @@ export class CollectionService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Collection/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getCollectionLookUp() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Collection/GetCollectionLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+  getCollectionLookUp(id) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Collection/GetCollectionLookUp?categoryId='+id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createCollection(Collection: Collection) {

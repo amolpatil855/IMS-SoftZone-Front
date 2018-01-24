@@ -1,30 +1,23 @@
-import { Category } from "./category";
-import { Collection } from "./collection";
-import { Hsn } from "./hsn";
-
 export class Quality {
     id: number;
-    categoryId: number;
-    collectionId: number;
+    collectionId:string;
     qualityCode: string;
+    categoryId: number;
     qualityName: string;
     description: string;
-    width: number;
-    size: number;
-    hsnId: number;
-    cutRate: number;
-    roleRate: number;
-    rrp: number;
-    maxCutRateDisc: number;
-    maxRoleRateDisc: number;
-    flatRate: number;
-    maxflatCutRateDisc: number;
-    maxflatRoleRateDisc: number;
-    custRatePerSqFeet: number;
-    purchaseRatePerMM: number;
-    sellingRatePerMM: number;
-    maxDiscout: number;
-    MstCategory: Category;
-    MstCollection: Collection;
-    MstHsn: Hsn;
+    hsnId:number;
+    width:number;
+    size:number;
+    cutRate:number;
+    roleRate:number;
+    rrp:number;
+    maxCutRateDisc:number;
+    maxRoleRateDisc:number;
+    flatRate:number;
+    maxflatCutRateDisc:number;
+    maxflatRoleRateDisc:number;
+    custRatePerSqFeet:number;
+    purchaseRatePerMM:number;
+    sellingRatePerMM:number;
+    maxDiscout:number;
 }

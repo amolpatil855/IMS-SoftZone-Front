@@ -25,7 +25,6 @@ export class QualityListComponent implements OnInit {
   qualityObj:any;
   params: number;
   collectionList=[];
-  supplierCodeList=[];
   categoriesCodeList=[];
   hsnCodeList=[];
   recordList=[];
@@ -51,13 +50,10 @@ export class QualityListComponent implements OnInit {
 
   ngOnInit() {
     this.params=null;
-   // this.getqualityList();
    this.getQualityList();
-   this.states.push({ label: '--Select--', value: '0' });
    this.newRecord();
    this. getCategoryCodeList();
-   this.getSupplierCodeList();
-this.getHsnCodeList(); 
+   this.getHsnCodeList(); 
   }
 
 newRecord(){
@@ -99,20 +95,11 @@ newRecord(){
     this.newRecord();
   }
 
-  getSupplierCodeList() {
-    this.supplierService.getSupplierLookUp().subscribe(
-      results => {
-        this.supplierCodeList = results;
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
-  }
-
   getHsnCodeList() {
     this.hsnService.getHsnLookUp().subscribe(
       results => {
         this.hsnCodeList = results;
+        this.hsnCodeList.unshift({ label: '--Select--', value: '0' });
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -123,6 +110,7 @@ newRecord(){
     this.commonService.getCategoryCodes().subscribe(
       results => {
         this.categoriesCodeList = results;
+        this.categoriesCodeList.unshift({ label: '--Select--', value: '0' });
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -140,11 +128,11 @@ newRecord(){
   }
 
 
-  getCollectionList() {
-    this.collectionService.getAllCollections(this.pageSize,this.page,this.search).subscribe(
+  getCollectionList(id) {
+    this.collectionService.getCollectionLookUp(id).subscribe(
       results => {
-        this.collectionList = results.data;
-        console.log('this.collectionList', this.collectionList);
+        this.collectionList = results;
+        this.collectionList.unshift({ label: '--Select--', value: '0' });
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -195,21 +183,27 @@ getQualityById(id){
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     if(valid)
-      this.saveCollection(value);
+      this.saveQuality(value);
   }
 
-  saveCollection(value) {
+  onChangeCategory(event){
+    if(this.qualityForm.get("categoryId")){
+      this.getCollectionList(this.qualityForm.get("categoryId").value);
+    }
+    
+  }
+
+  saveQuality(value) {
     Helpers.setLoading(true);
     if (this.params) {
       this.qualityService.updateQuality(value)
         .subscribe(
         results => {
-         this. getCollectionList(); 
+         this. getQualityList(); 
          this.toggleDiv=false;
          this.params=null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-         
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -220,7 +214,7 @@ getQualityById(id){
       this.qualityService.createQuality(value)
         .subscribe(
         results => {
-         this.getCollectionList();
+         this.getQualityList();
          this.toggleDiv=false;
          this.params=null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -251,7 +245,7 @@ getQualityById(id){
         this.qualityService.deleteQuality(quality.id).subscribe(
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
-            this.getCollectionList();
+            this.getQualityList();
             this.toggleDiv=false;
           },
           error => {
