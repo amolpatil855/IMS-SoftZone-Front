@@ -26,6 +26,16 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/collection\/collection.module#CollectionModule"
       },
       {
+
+        "path": "features\/master\/design",
+        "loadChildren": ".\/pages\/default\/features\/master\/design\/design.module#DesignModule"
+      },
+      {
+
+        "path": "features\/master\/shade",
+        "loadChildren": ".\/pages\/default\/features\/master\/shade\/shade.module#ShadeModule"
+      },
+      {
         "path": "features\/master\/quality",
         "loadChildren": ".\/pages\/default\/features\/master\/quality\/quality.module#QualityModule"
       },

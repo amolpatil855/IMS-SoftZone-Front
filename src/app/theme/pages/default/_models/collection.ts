@@ -1,9 +1,15 @@
-export class Collection{
+import { Supplier } from "./supplier";
+import { Category } from "./category";
+
+export class Collection {
     id: number;
-    collectionCode:string;
-    collectionName: string;
     categoryId: number;
-    manufacturerName: string;
+    supplierId: number;
+    collectionCode: string;
+    collectionName: string;
     description: string;
-    supplierId:number;
+    manufacturerName: string;
+    categoryCode: string;
+    MstSupplier: Supplier;
+    MstCategory: Category;
 }
