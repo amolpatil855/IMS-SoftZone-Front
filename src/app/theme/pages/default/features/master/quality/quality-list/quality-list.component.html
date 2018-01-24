@@ -22,9 +22,6 @@
 <div class="m-subheader">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
-			<h3 class="m-subheader__title m-subheader__title--separator">
-				Collection
-			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 				<li class="m-nav__item m-nav__item--home">
 					<a href="#" class="m-nav__link m-nav__link--icon">
@@ -37,7 +34,7 @@
 				<li class="m-nav__item">
 					<a class="m-nav__link">
 						<span class="m-nav__link-text">
-							Collection
+							Quality
 						</span>
 					</a>
 				</li>
@@ -71,7 +68,7 @@
 							<div class="col-md-3 formContentbox">
 								<label class="fieldLabel col-sm-5">Category Code</label>
 								<div class="col-sm-7">
-									<p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required [style]="{'width':'100%'}"  name="categoriesDDl"></p-dropdown>
+									<p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required [style]="{'width':'100%'}"  (ngModelChange)="onChangeCategory(event)" name="categoriesDDl"></p-dropdown>
 									<div class="alertMsg" *ngIf="qualityForm.get('categoryId').hasError('required') && qualityForm.get('categoryId ').touched">
 											Please select Category
 										</div>
@@ -80,9 +77,9 @@
 							<div class="col-md-3 formContentbox">
 								<label class="fieldLabel col-sm-5">Collection Code</label>
 								<div class="col-sm-7">
-									<p-dropdown class="feePlanBox" [options]="supplierCodeList"  formControlName="collectionId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
+									<p-dropdown class="feePlanBox" [options]="collectionList"  formControlName="collectionId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
 									<div class="alertMsg" *ngIf="qualityForm.get('collectionId').hasError('required') && qualityForm.get('collectionId').touched">
-											Please enter supplier Code
+											Please select collection Code
 										</div>
 								</div>	
 							</div>
