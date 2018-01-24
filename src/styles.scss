@@ -1396,6 +1396,34 @@ body .ui-dialog .ui-dialog-titlebar {
     text-align: left!important;
     margin-bottom: 0!important;
 }
+.formInfotable tr th{
+	background: #e3ebf1!important;
+    font-family: Roboto;
+    font-size: 11px!important;
+    padding-top: 3px!important;
+    padding-bottom: 3px!important;
+    border: none!important;
+    vertical-align: middle;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.formInfotable tr td {
+    background: #fff!important;
+    font-family: Roboto;
+    font-size: 12px!important;
+    border-bottom: 1px solid #ddd!important;
+    border-top: none!important;
+    vertical-align: middle!important;
+    padding-top: 2px!important;
+    padding-bottom: 2px!important;
+    border: none!important;
+}
+.table {
+    margin-bottom: 0!important;
+}
+.formInfotable thead tr:first-child td{
+	font-weight:600;
+}
 .m-portlet__body{
     background: #fff;
     padding: 5px;
