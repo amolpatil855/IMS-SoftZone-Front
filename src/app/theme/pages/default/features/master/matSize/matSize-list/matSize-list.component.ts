@@ -6,28 +6,30 @@ import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@ang
 import { ConfirmationService, DataTableModule, LazyLoadEvent, SelectItem } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
-import { DesignService } from '../../../../_services/design.service';
+import { MatSizeService } from '../../../../_services/matSize.service';
 import { Role } from "../../../../_models/role";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
-import { Design } from "../../../../_models/design";
+import { MatSize } from "../../../../_models/matSize";
+
 @Component({
-  selector: "app-design-list",
-  templateUrl: "./design-list.component.html",
+  selector: ".app-matSize-list",
+  templateUrl: "./matSize-list.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class DesignListComponent implements OnInit {
+export class MatSizeListComponent implements OnInit {
 
-  designForm: any;
-  designObj:any;
+  matSizeForm: any;
+  matSizeObj:any;
   params: number;
-  designList=[];
+  matSizeList=[];
   categoryList: SelectItem[];
-  selectedCategory = 0;
   selectedCollection = 0 ;
   selectedQuality = 0;
+  selectedThickness = 0;
   collectionList=[];
   qualityList=[];
+  thicknessList=[];
   pageSize=50;
   page=1;
   totalCount=0;
@@ -37,7 +39,7 @@ export class DesignListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private designService: DesignService,
+    private matSizeService: MatSizeService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) {
@@ -51,13 +53,14 @@ export class DesignListComponent implements OnInit {
   }
 
   newRecord(){
-    this.designObj ={
+    this.matSizeObj ={
+    id: 0,
     categoryId: 0,
     collectionId: 0,
     qualityId: 0,
-    designCode: '',
-    designName: '',
-    description: '',
+    thicknessId: 0,
+    sizeCode: '',
+    rate: '',
     };
   }
 
@@ -71,39 +74,22 @@ export class DesignListComponent implements OnInit {
   onCancel(){
     this.toggleDiv = false;
   }
-  getDesignsList() {
-    this.designService.getAllDesigns(this.pageSize,this.page,this.search).subscribe(
+  getMatSizesList() {
+    this.matSizeService.getAllMatSizes(this.pageSize,this.page,this.search).subscribe(
       results => {
-        this.designList = results.data;
-        console.log('this.designList', this.designList);
+        this.matSizeList = results.data;
+        console.log('this.matSizeList', this.matSizeList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
       });
   }
 
-  getCategoryLookUp(){
-    this.designService.getCategoryLookUp().subscribe(
-      results => {
-        this.categoryList = results;
-        this.categoryList.unshift({ label: '--Select--', value: '0' });
-        console.log('this.categoryList', this.categoryList);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
-  }
-
-  onCategoryClick(){
-    console.log('selectedCategory', this.selectedCategory);
-    this.designService.getCollectionLookUp(this.selectedCategory).subscribe(
+  getMatCollectionLookUp(){
+    this.matSizeService.getMatCollectionLookUp().subscribe(
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: '0' });
-        this.selectedCollection = this.designObj.collectionId;
-        if(this.selectedCollection > 0){
-          this.onCollectionClick();
-        }
         console.log('this.collectionList', this.collectionList);
       },
       error => {
@@ -112,12 +98,29 @@ export class DesignListComponent implements OnInit {
   }
 
   onCollectionClick(){
-    this.designService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
+    this.matSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
         this.qualityList.unshift({ label: '--Select--', value: '0' });
-        this.selectedQuality = this.designObj.qualityId;
+        this.selectedQuality = this.matSizeObj.qualityId;
+        if(this.selectedQuality > 0){
+          this.onQualityClick();
+        }
+        
         console.log('this.qualityList', this.qualityList);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+  
+  onQualityClick(){
+    this.matSizeService.getMatThicknessLookUp().subscribe(
+      results => {
+        this.thicknessList = results;
+        this.thicknessList.unshift({ label: '--Select--', value: '0' });
+        this.selectedThickness = this.matSizeObj.thicknessId;
+        console.log('this.thicknessList', this.thicknessList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -135,18 +138,18 @@ export class DesignListComponent implements OnInit {
     this.pageSize=event.rows;
     this.page=event.first;
     this.search=  event.globalFilter;
-    this.getDesignsList();
-    this.getCategoryLookUp();
+    this.getMatSizesList();
+    this.getMatCollectionLookUp();
   }
 
-  getdesignById(id){
-  this.designService.getDesignById(id).subscribe(
+  getMatSizeById(id){
+  this.matSizeService.getMatSizeById(id).subscribe(
     results => {
-      this.designObj = results;
-      console.log('this.designObj', this.designObj);
-      this.selectedCategory = this.designObj.categoryId;
-      if(this.selectedCategory > 0){
-        this.onCategoryClick();
+      this.matSizeObj = results;
+      console.log('this.matSizeObj', this.matSizeObj);
+      this.selectedCollection = this.matSizeObj.categoryId;
+      if(this.selectedCollection > 0){
+        this.onCollectionClick();
       }
     },
     error => {
@@ -156,19 +159,19 @@ export class DesignListComponent implements OnInit {
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.designObj.categoryId = value.category;
-    this.designObj.collectionId = value.collection;
-    this.designObj.qualityId = value.quality;
-    this.saveDesign(this.designObj);
+    this.matSizeObj.collectionId = value.collection;
+    this.matSizeObj.qualityId = value.quality;
+    this.matSizeObj.thicknessId = value.thickness;
+    this.saveMatSize(this.matSizeObj);
   }
 
-  saveDesign(value) {
+  saveMatSize(value) {
     Helpers.setLoading(true);
     if (this.params) {
-      this.designService.updateDesign(value)
+      this.matSizeService.updateMatSize(value)
         .subscribe(
         results => {
-         this. getDesignsList(); 
+         this. getMatSizesList(); 
          this.toggleDiv=false;
          this.params=null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -180,10 +183,10 @@ export class DesignListComponent implements OnInit {
           Helpers.setLoading(false);
         });
     } else {
-      this.designService.createDesign(value)
+      this.matSizeService.createMatSize(value)
         .subscribe(
         results => {
-         this. getDesignsList();
+         this. getMatSizesList();
          this.toggleDiv=false;
          this.params=null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -197,24 +200,24 @@ export class DesignListComponent implements OnInit {
     }
   }
 
-  onEditClick(design: Design) {
-     this.designService.perPage = this.pageSize;
-     this.designService.currentPos = this.page;
-     this. getdesignById(design.id);
-     this.params=design.id;
+  onEditClick(matSize: MatSize) {
+     this.matSizeService.perPage = this.pageSize;
+     this.matSizeService.currentPos = this.page;
+     this. getMatSizeById(matSize.id);
+     this.params=matSize.id;
      this.toggleDiv=true;
   }
 
-  onDelete(design: Design) {
+  onDelete(matSize: MatSize) {
     this.confirmationService.confirm({
       message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
-        this.designService.deleteDesign(design.id).subscribe(
+        this.matSizeService.deleteMatSize(matSize.id).subscribe(
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
-            this.getDesignsList();
+            this.getMatSizesList();
             this.toggleDiv=false;
           },
           error => {

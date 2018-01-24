@@ -40,6 +40,21 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/quality\/quality.module#QualityModule"
       },
       {
+
+        "path": "features\/master\/matThickness",
+        "loadChildren": ".\/pages\/default\/features\/master\/matThickness\/matThickness.module#MatThicknessModule"
+      },
+      {
+
+        "path": "features\/master\/matSize",
+        "loadChildren": ".\/pages\/default\/features\/master\/matSize\/matSize.module#MatSizeModule"
+      },
+      {
+
+        "path": "features\/master\/fomDensity",
+        "loadChildren": ".\/pages\/default\/features\/master\/fomDensity\/fomDensity.module#FomDensityModule"
+      },
+      {
         "path": "features\/master\/hsn",
         "loadChildren": ".\/pages\/default\/features\/master\/hsn\/hsn.module#HsnModule"
       },

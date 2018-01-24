@@ -22,19 +22,19 @@ export class DesignService {
   }
 
   getDesignLookupByQuality() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'FWRDesign/GetDesignLookupByQuality', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetDesignLookupByQuality', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getCategoryLookUp() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'FWRDesign/GetCategoryLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getCollectionLookUp(categoryId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Collection/GetCollectionLookUp?categoryId=' + categoryId , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId , AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getQualityLookUpByCollection(collectionId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Quality/GetQualityLookUpByCollection?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetQualityLookUpByCollection?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createDesign(design: Design) {
