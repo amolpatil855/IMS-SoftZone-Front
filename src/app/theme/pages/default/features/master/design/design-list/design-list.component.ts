@@ -139,6 +139,7 @@ export class DesignListComponent implements OnInit {
     results => {
       this.designObj = results;
       console.log('this.designObj', this.designObj);
+      
     },
     error => {
       this.globalErrorHandler.handleError(error);
