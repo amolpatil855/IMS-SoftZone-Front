@@ -22,7 +22,6 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/supplier\/supplier.module#SupplierModule"
       },
       {
-
         "path": "features\/master\/collection",
         "loadChildren": ".\/pages\/default\/features\/master\/collection\/collection.module#CollectionModule"
       },
@@ -35,6 +34,10 @@ const routes: Routes = [
 
         "path": "features\/master\/shade",
         "loadChildren": ".\/pages\/default\/features\/master\/shade\/shade.module#ShadeModule"
+      },
+      {
+        "path": "features\/master\/quality",
+        "loadChildren": ".\/pages\/default\/features\/master\/quality\/quality.module#QualityModule"
       },
       {
         "path": "features\/master\/hsn",

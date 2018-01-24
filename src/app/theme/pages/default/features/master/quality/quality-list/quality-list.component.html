@@ -1,0 +1,296 @@
+<p-confirmDialog #cd>
+	<p-footer>
+		<button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+			<span>
+				<i class="la la-check"></i>
+				<span>
+					Yes
+				</span>
+			</span>
+		</button>
+		<button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+			<span>
+				<i class="la la-close"></i>
+				<span>
+					No
+				</span>
+			</span>
+		</button>
+	</p-footer>
+</p-confirmDialog>
+
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+		<div class="mr-auto">
+			<h3 class="m-subheader__title m-subheader__title--separator">
+				Collection
+			</h3>
+			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+				<li class="m-nav__item m-nav__item--home">
+					<a href="#" class="m-nav__link m-nav__link--icon">
+						<i class="m-nav__link-icon la la-home"></i>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a class="m-nav__link">
+						<span class="m-nav__link-text">
+							Collection
+						</span>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a class="m-nav__link">
+						<span class="m-nav__link-text">
+							List
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+	<div class="row">
+		<div class="col-lg-12">
+			<!--begin::Portlet-->
+			<div class="m-portlet">
+				
+				<div class="row">
+				
+				<div class="col-md-12" *ngIf="toggleDiv">
+						<div class="formContainer formContainerSamePage">
+					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(qualityForm)"  [formGroup]="qualityForm" id="qualityForm">
+						<div class="row">
+							<div class="col-md-3 formContentbox">
+								<label class="fieldLabel col-sm-5">Category Code</label>
+								<div class="col-sm-7">
+									<p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required [style]="{'width':'100%'}"  name="categoriesDDl"></p-dropdown>
+									<div class="alertMsg" *ngIf="qualityForm.get('categoryId').hasError('required') && qualityForm.get('categoryId ').touched">
+											Please select Category
+										</div>
+								</div>	
+							</div>
+							<div class="col-md-3 formContentbox">
+								<label class="fieldLabel col-sm-5">Collection Code</label>
+								<div class="col-sm-7">
+									<p-dropdown class="feePlanBox" [options]="supplierCodeList"  formControlName="collectionId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
+									<div class="alertMsg" *ngIf="qualityForm.get('collectionId').hasError('required') && qualityForm.get('collectionId').touched">
+											Please enter supplier Code
+										</div>
+								</div>	
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Quality Code</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control"  formControlName="qualityCode"  placeholder="Enter code">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Quality Name</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control"   formControlName="qualityName" placeholder="Enter Name">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Description</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control"  formControlName="description"  placeholder="Enter Description">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">HSN Code</label>
+									<div class="col-sm-7">
+										<p-dropdown class="feePlanBox" [options]="hsnCodeList"  formControlName="hsnId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
+										<div class="alertMsg" *ngIf="qualityForm.get('hsnId').hasError('required') && qualityForm.get('hsnId').touched">
+												Please select Code
+											</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Width</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" formControlName="width"  placeholder="Enter Width">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Size</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" formControlName="size" placeholder="Enter Size">
+									</div>
+								</div>
+							</div>									
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Cut Rate</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" formControlName="cutRate" placeholder="Enter Rate">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Role Rate</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" formControlName="roleRate" placeholder="Enter Rate">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">RRP</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" formControlName="rrp"  placeholder="Enter RRP">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Max Dis.Cut Rate</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="maxCutRateDisc" >
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Max Dis.Role Rate</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="maxRoleRateDisc" >
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Flat Rate</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="flatRate" >
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Max Dis.Flat Cut Rate</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="maxflatCutRateDisc" >
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Max Dis.Flat Role Rate</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" placeholder="Enter Rate" formControlName="maxflatRoleRateDisc" >
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Cust Rate/Sq.Mtr.</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" placeholder="Enter Rate" formControlName="custRatePerSqFeet" >
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Purchanse Rate/Sq.Mtr.</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" placeholder="Enter Rate" formControlName="purchaseRatePerMM" >
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Selling Rate/Sq.Mtr.</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" placeholder="Enter Rate" formControlName="sellingRatePerMM" >
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 formContentbox">
+								<div class="form-group">
+									<label class="fieldLabel col-sm-5">Max. Discount</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" placeholder="Enter Discount" formControlName="maxDiscout" >
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="formSubmitBtnBox">
+								<div class="row">
+										<div class="col-lg-12">
+												<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="qualityForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ qualityForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="qualityForm.invalid" [isAuthorize]="['quality']">
+														{{ params ? 'Update' : 'Save' }}
+												</button>
+												<button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()">
+														Cancel
+												</button>
+										</div>
+								</div>
+						</div>
+					</form>
+				</div>
+				</div>
+			</div>
+				<div class="m-portlet__body">
+					<!--begin::Section-->
+					<div class="m-section">
+						<div class="m-section__content">
+								<div class="ui-widget-header" style="border-bottom: 0 none">
+										<i class="fa fa-search searchIcon"></i>
+										<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+										
+										<!-- Add Button -->
+										<button  *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()" [isAuthorize]="['quality']">
+											<span>
+												<i class="flaticon-add"></i>
+												<span>
+													Add Collection
+												</span>
+											</span>
+										</button>
+									</div>
+							<p-dataTable [value]="recordList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [loading]="loading"  [rowsPerPageOptions]="[20,50,100,200,500]"
+							[totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+								<p-column field="qualityCode" header="Quality Code" [style]="{'text-align':'center'}"></p-column>
+								<p-column field="qualityName" header="Quality Name" [style]="{'text-align':'center'}"></p-column>
+								<!-- <p-column field="collection" header="Description" [style]="{'text-align':'center'}"></p-column>
+								<p-column field="manufacturerName" header="Manu FacturerName" [style]="{'text-align':'center'}"></p-column> -->
+								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
+									<ng-template pTemplate="header">
+										Action
+									</ng-template>
+									<ng-template let-row="rowData" pTemplate="body" >
+										<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+										<button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
+									</ng-template>
+								</p-column>
+							</p-dataTable>
+						</div>
+					</div>
+				
+					<!--end::Section-->
+				</div>
+			</div>
+			<!--end::Portlet-->
+		</div>
+	</div>
+</div>

@@ -69,10 +69,10 @@ newRecord(){
     dispatchPersonName: '',
     dispatchPersonEmail:'',
     dispatchPersonPhone: '',
-    MstSupplierAddressDetails:[],
+    MstSupplierAddresss:[],
 };
 
-this.supplierObj.MstSupplierAddressDetails.push({ // <-- the child FormGroup
+this.supplierObj.MstSupplierAddresss.push({ // <-- the child FormGroup
   id: 0,
   supplierId:0,
   address: '',
@@ -93,10 +93,10 @@ this.supplierObj.MstSupplierAddressDetails.push({ // <-- the child FormGroup
       pin: '',
       contRoleId: Math.floor(Math.random() * 2000),
     };
-    this.supplierObj.MstSupplierAddressDetails.push(newaddressObj);
+    this.supplierObj.MstSupplierAddresss.push(newaddressObj);
   }
   clearAddress(supAddIndex){
-    this.supplierObj.MstSupplierAddressDetails.splice(supAddIndex, 1);
+    this.supplierObj.MstSupplierAddresss.splice(supAddIndex, 1);
   }
 
   toggleButton(){
@@ -139,8 +139,8 @@ getsuplierById(id){
     results => {
       console.log('results.mstSupplierAddressDetails', results);
       this.supplierObj = results;
-      this.supplierObj.MstSupplierAddressDetails=results.mstSupplierAddressDetails;
-      delete this.supplierObj['mstSupplierAddressDetails'];   
+      this.supplierObj.MstSupplierAddresses=results.mstSupplierAddresses;
+      delete this.supplierObj['mstSupplierAddresses'];   
       console.log('this.supplierList', this.supplierObj);
     },
     error => {
@@ -151,7 +151,7 @@ getsuplierById(id){
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
       
-    _.forEach(this.supplierObj.MstSupplierAddressDetails, function(addressObj) {
+    _.forEach(this.supplierObj.MstSupplierAddresss, function(addressObj) {
       if(!addressObj.address){
         addressObj.invalidAdd=true;
         valid=false;
@@ -189,7 +189,7 @@ getsuplierById(id){
 
   // onAddSupplierAddress() {
   //   for(var i=0; i<1; i++) {
-  //     <FormArray>this.supplierForm.get('mstSupplierAddressDetails').push(new FormControl());
+  //     <FormArray>this.supplierForm.get('MstSupplierAddresss').push(new FormControl());
   //   }
   // }
 
