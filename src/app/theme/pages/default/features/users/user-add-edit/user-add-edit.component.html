@@ -1,3 +1,24 @@
+<p-confirmDialog #cd>
+		<p-footer>
+			<button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+				<span>
+					<i class="la la-close"></i>
+					<span>
+						Yes
+					</span>
+				</span>
+			</button>
+			<button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+				<span>
+					<i class="la la-check"></i>
+					<span>
+						No
+					</span>
+				</span>
+			</button>
+		</p-footer>
+	</p-confirmDialog>
+	
 <div class="m-subheader">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">

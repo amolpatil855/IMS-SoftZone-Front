@@ -64,7 +64,7 @@
 				<div class="col-md-12">
 					
 					<div class="">
-							<form class="inputForm">
+						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(qualityForm)"  [formGroup]="qualityForm" id="qualityForm">
 								<div class="row">
 								
 									<div class="col-md-6">
@@ -78,47 +78,44 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Category Code</label>
 														<div class="col-md-4 col-sm-4">
-															<select class="form-control">	
-																<option selected="" disabled="">- Select -</option>
-																<option>Code 1</option>
-																<option>Code 2</option>
-																<option>Code 3</option>
-																<option>Code 4</option>
-															</select>
+															<p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required [style]="{'width':'100%'}"  (ngModelChange)="onChangeCategory(event)" name="categoriesDDl"></p-dropdown>
+															<div class="alertMsg" *ngIf="qualityForm.get('categoryId').hasError('required') && qualityForm.get('categoryId ').touched">
+																	Please select Category
+																</div>
 														</div>		
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Collection Code</label>
 														<div class="col-md-4 col-sm-4">
-															<select class="form-control">	
-																<option selected="" disabled="">- Select -</option>
-																<option>Code 1</option>
-																<option>Code 2</option>
-																<option>Code 3</option>
-																<option>Code 4</option>
-															</select>
+															<p-dropdown class="feePlanBox" [options]="collectionList"  formControlName="collectionId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
+															<div class="alertMsg" *ngIf="qualityForm.get('collectionId').hasError('required') && qualityForm.get('collectionId').touched">
+																	Please select collection Code
+																</div>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Quality Code</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+															<input type="text" class="form-control"  formControlName="qualityCode"  placeholder="Enter code">
 														</div>	
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Quality Name</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+															<input type="text" class="form-control"   formControlName="qualityName" placeholder="Enter Name">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">HSN Code</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+															<p-dropdown class="feePlanBox" [options]="hsnCodeList"  formControlName="hsnId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
+															<div class="alertMsg" *ngIf="qualityForm.get('hsnId').hasError('required') && qualityForm.get('hsnId').touched">
+																	Please select Code
+																</div>
 														</div>	
 													</div>																							
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Description</label>
 														<div class="col-md-10 col-sm-10">
-															<input type="text" class="form-control" placeholder="">
+															<input type="text" class="form-control"  formControlName="description"  placeholder="Enter Description">
 														</div>																						
 													</div>
 												  </div>
@@ -136,12 +133,12 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Cust Rate/Sq.Mtr</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+															<input type="text" class="form-control" placeholder="Enter Rate" formControlName="custRatePerSqFeet" >
 														</div>	
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Max. Discount</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+															<input type="text" class="form-control" placeholder="Enter Discount" formControlName="maxDiscout" >
 														</div>
 													</div>									
 												  </div>
@@ -165,47 +162,47 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Basic</label>
 														<div class="col-md-3 col-sm-3">
-															<input type="text" class="form-control" placeholder="Width">
+															<input type="text" class="form-control" formControlName="width"  placeholder="Enter Width">
 														</div>
 														<div class="col-md-3 col-sm-3">
-														   <input type="text" class="form-control" placeholder="Size">
+															<input type="text" class="form-control" formControlName="size" placeholder="Enter Size">
 														</div>	
 														<div class="col-md-3 col-sm-3">
-														   <input type="text" class="form-control" placeholder="Cut Rate">
+															<input type="text" class="form-control" formControlName="cutRate" placeholder="Enter Rate">
 														</div>	
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Rates</label>
 														<div class="col-md-3 col-sm-3">
-															<input type="text" class="form-control" placeholder="Role Rate">
+															<input type="text" class="form-control" formControlName="roleRate" placeholder="Enter Rate">
 														</div>
 														<div class="col-md-3 col-sm-3">
-														   <input type="text" class="form-control" placeholder="RRP">
+															<input type="text" class="form-control" formControlName="rrp"  placeholder="Enter RRP">
 														</div>	
 														<div class="col-md-3 col-sm-3">
-														   <input type="text" class="form-control" placeholder="Flat Rate">
+															<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="flatRate" >
 														</div>	
 													</div>													
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Cut Rate</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="Max. Discount %">
+															<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="maxCutRateDisc" >
 														</div>	
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Role Rate </label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="Max. Discount %">
+															<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="maxRoleRateDisc" >
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Flat Cut Rate</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="Max. Discount %">
+															<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="flatRate" >
 														</div>	
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Flat Role Rate</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="Max. Discount %">
+															<input type="text" class="form-control" formControlName="roleRate" placeholder="Enter Rate">
 														</div>
 													</div>													
 												  </div>
@@ -222,18 +219,18 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Purchase Rate/mm</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+															<input type="text" class="form-control" placeholder="Enter Rate" formControlName="purchaseRatePerMM" >
 														</div>	
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Selling Rate/mm</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+																<input type="text" class="form-control" placeholder="Enter Rate" formControlName="sellingRatePerMM" >
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Max. Discount</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+																<input type="text" class="form-control" placeholder="Enter Discount" formControlName="maxDiscout" >
 														</div>
 													</div>															
 												  </div>
