@@ -235,6 +235,7 @@ getQualityById(id){
      this.collectionService.currentPos = this.page;
     this. getQualityById(quality.id);
     this.params=quality.id;
+    this.slectedCategory=null;
    this.toggleDiv=true;
   }
 
