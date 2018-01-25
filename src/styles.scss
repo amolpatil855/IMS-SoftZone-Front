@@ -1490,7 +1490,8 @@ select.form-control:not([size]):not([multiple]) {
     height: auto!important;
 }
 .addressTablePanelBody{
-    height: 230px;
+    /*height: 230px;*/
+    height: auto;
     overflow-y: auto;
 }
 /******* D. 25 Jan 2017 ******/
