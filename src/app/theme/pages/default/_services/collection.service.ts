@@ -22,7 +22,7 @@ export class CollectionService {
   }
 
   getCollectionLookUp(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Collection/GetCollectionLookUp?categoryId='+id, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId='+id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createCollection(Collection: Collection) {

@@ -50,6 +50,14 @@
 				</li>
 			</ul>
 		</div>
+		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid">
+				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="qualityForm" [ngClass]="(qualityFormVal && !qualityFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(qualityFormVal && qualityFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="qualityFormVal && !qualityFormVal.form.valid" [isAuthorize]="['quality']">
+						{{ params ? 'Update' : 'Save' }}
+				</button>
+				<button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()">
+						Cancel
+				</button>
+		</div>
 	</div>
 </div>
 <!-- END: Subheader -->
@@ -61,11 +69,11 @@
 
 				<div class="row">
 				
-				<div class="col-md-12">
+				<div class="col-md-12"  *ngIf="toggleDiv">
 					
 					<div class="">
-						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(qualityForm)"  [formGroup]="qualityForm" id="qualityForm">
-								<div class="row">
+						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate (ngSubmit)="onSubmit(qualityForm)"  [formGroup]="qualityForm"  #qualityFormVal="ngForm"  id="qualityForm">										
+							<div class="row">
 								
 									<div class="col-md-6">
 										
@@ -78,38 +86,32 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Category</label>
 														<div class="col-md-4 col-sm-4">
-															<p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required [style]="{'width':'100%'}"  (ngModelChange)="onChangeCategory(event)" name="categoriesDDl"></p-dropdown>
-															<div class="alertMsg" *ngIf="qualityForm.get('categoryId').hasError('required') && qualityForm.get('categoryId ').touched">
+															<p-dropdown class="feePlanBox" [options]="categoriesCodeList"   [(ngModel)]="slectedCategory"  [ngClass]="{'red-border-class': qualityForm.get('categoryId').hasError('required') && isFormSubmitted}"  formControlName="categoryId"  required [style]="{'width':'100%'}"  (ngModelChange)="onChangeCategory(event)" name="categoriesDDl"></p-dropdown>
+															<!-- <div class="alertMsg" *ngIf="qualityForm.get('categoryId').hasError('required') && qualityForm.get('categoryId ').touched">
 																	Please select Category
-																</div>
+																</div> -->
 														</div>		
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Collection</label>
 														<div class="col-md-4 col-sm-4">
-															<p-dropdown class="feePlanBox" [options]="collectionList"  formControlName="collectionId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
-															<div class="alertMsg" *ngIf="qualityForm.get('collectionId').hasError('required') && qualityForm.get('collectionId').touched">
-																	Please select collection Code
-																</div>
+															<p-dropdown class="feePlanBox" [options]="collectionList"  formControlName="collectionId"  [ngClass]="{'red-border-class': qualityForm.get('collectionId').hasError('required') && isFormSubmitted}"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Quality Code</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control"  formControlName="qualityCode"  placeholder="Enter code">
+															<input type="text" class="form-control"  [ngClass]="{'red-border-class': qualityForm.get('qualityCode').hasError('required') && isFormSubmitted}"  formControlName="qualityCode" required placeholder="Enter code">
 														</div>	
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Quality Name</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control"   formControlName="qualityName" placeholder="Enter Name">
+															<input type="text" class="form-control"   [ngClass]="{'red-border-class': qualityForm.get('qualityName').hasError('required') && isFormSubmitted}"  formControlName="qualityName" required placeholder="Enter Name">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">HSN Code</label>
 														<div class="col-md-4 col-sm-4">
-															<p-dropdown class="feePlanBox" [options]="hsnCodeList"  formControlName="hsnId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
-															<div class="alertMsg" *ngIf="qualityForm.get('hsnId').hasError('required') && qualityForm.get('hsnId').touched">
-																	Please select Code
-																</div>
+															<p-dropdown class="feePlanBox" [options]="hsnCodeList" [ngClass]="{'red-border-class': qualityForm.get('hsnId').hasError('required') && isFormSubmitted}" formControlName="hsnId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
 														</div>	
 													</div>																							
 													<div class="form-group">
@@ -124,7 +126,7 @@
 										
 										</div>
 										
-										<div class="row">
+										<div class="row" *ngIf="slectedCategory==4">
 											<div class="col-md-12">
 												<!-- For Mattress -->
 												<div class="panel panel-default">
@@ -133,12 +135,12 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Cust Rate/Sq.Mtr</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="Enter Rate" formControlName="custRatePerSqFeet" >
+															<input type="text" class="form-control" required [ngClass]="{'red-border-class': qualityForm.get('custRatePerSqFeet').hasError('required') && isFormSubmitted}"  placeholder="Enter Rate" formControlName="custRatePerSqFeet" >
 														</div>	
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Max. Discount</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="Enter Discount" formControlName="maxDiscout" >
+															<input type="text" class="form-control"  required placeholder="Enter Discount" formControlName="maxDiscout"  [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}"  >
 														</div>
 													</div>									
 												  </div>
@@ -153,7 +155,7 @@
 									
 									<div class="col-md-6">
 										
-										<div class="row">
+										<div class="row" *ngIf="slectedCategory==1 || slectedCategory==5 || slectedCategory==6">
 											<div class="col-md-12">
 												<!-- Fabric, Wallpapers, Rugs -->
 												<div class="panel panel-default">
@@ -162,56 +164,56 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Width</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+															<input type="text" class="form-control"  formControlName="width"  [ngClass]="{'red-border-class': qualityForm.get('width').hasError('required') && isFormSubmitted}" >
 														</div>	
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Size</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+															<input type="text" class="form-control"  formControlName="size"  [ngClass]="{'red-border-class': qualityForm.get('size').hasError('required') && isFormSubmitted}" >
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Cut Rate</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+															<input type="text" class="form-control" formControlName="cutRate" required [ngClass]="{'red-border-class': qualityForm.get('cutRate').hasError('required') && isFormSubmitted}" >
 														</div>	
 														
-														<label class="col-md-2 col-sm-2 fieldLabel">Cut Rate</label>
+														<label class="col-md-2 col-sm-2 fieldLabel">Cut Rate Max Discount</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="Max. Discount %">
+																<input type="text" class="form-control" placeholder="Enter Rate" required  [ngClass]="{'red-border-class': qualityForm.get('maxCutRateDisc').hasError('required') && isFormSubmitted}"  formControlName="maxCutRateDisc" >
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Role Rate</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+																<input type="text" class="form-control" formControlName="roleRate" placeholder="Enter Rate" [ngClass]="{'red-border-class': qualityForm.get('roleRate').hasError('required') && isFormSubmitted}" >
 														</div>	
 														
-														<label class="col-md-2 col-sm-2 fieldLabel">Role Rate</label>
+														<label class="col-md-2 col-sm-2 fieldLabel">Role Rate max discount</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="maxRoleRateDisc" >
+															<input type="text" class="form-control" placeholder="Enter Rate" title="Role Rate max discount" formControlName="maxRoleRateDisc" required [ngClass]="{'red-border-class': qualityForm.get('maxRoleRateDisc').hasError('required') && isFormSubmitted}" >
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">RRP</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+																<input type="text" class="form-control" formControlName="rrp"  [ngClass]="{'red-border-class': qualityForm.get('rrp').hasError('required') && isFormSubmitted}"  required placeholder="Enter RRP">
 														</div>	
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Flat Rate</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="">
+																<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="flatRate" required [ngClass]="{'red-border-class': qualityForm.get('flatRate').hasError('required') && isFormSubmitted}" >
 														</div>
 													</div>													
 													<div class="form-group">
-														<label class="col-md-2 col-sm-2 fieldLabel">Flat Cut Rate</label>
+														<label class="col-md-2 col-sm-2 fieldLabel">Max Dis. Flat Cut Rate</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="flatRate" >
+															<input type="text" class="form-control" placeholder=""  formControlName="maxflatCutRateDisc" required [ngClass]="{'red-border-class': qualityForm.get('maxflatCutRateDisc').hasError('required') && isFormSubmitted}">
 														</div>	
 														
-														<label class="col-md-2 col-sm-2 fieldLabel">Flat Role Rate</label>
+														<label class="col-md-2 col-sm-2 fieldLabel">Max Dis.Flat Role Rate</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" formControlName="roleRate" placeholder="Enter Rate">
+																<input type="text" class="form-control" placeholder="" formControlName="maxflatRoleRateDisc" required  [ngClass]="{'red-border-class': qualityForm.get('maxflatRoleRateDisc').hasError('required') && isFormSubmitted}" >
 														</div>
 													</div>													
 												  </div>
@@ -220,7 +222,7 @@
 										</div>
 										
 										<div class="row">
-											<div class="col-md-12">
+											<div class="col-md-12" *ngIf="slectedCategory==2" >
 												<!-- For Foam -->
 												<div class="panel panel-default">
 												  <div class="panel-heading">Foam Information</div>
@@ -228,18 +230,18 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Purchase Rate/mm</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="Enter Rate" formControlName="purchaseRatePerMM" >
+															<input type="text" class="form-control" placeholder="Enter Rate" formControlName="purchaseRatePerMM"  required  [ngClass]="{'red-border-class': qualityForm.get('purchaseRatePerMM').hasError('required') && isFormSubmitted}" >
 														</div>	
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Selling Rate/mm</label>
 														<div class="col-md-4 col-sm-4">
-																<input type="text" class="form-control" placeholder="Enter Rate" formControlName="sellingRatePerMM" >
+																<input type="text" class="form-control" placeholder="Enter Rate" formControlName="sellingRatePerMM"  required  [ngClass]="{'red-border-class': qualityForm.get('sellingRatePerMM').hasError('required') && isFormSubmitted}" >
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Max. Discount</label>
 														<div class="col-md-4 col-sm-4">
-																<input type="text" class="form-control" placeholder="Enter Discount" formControlName="maxDiscout" >
+																<input type="text" class="form-control" placeholder="Enter Discount" formControlName="maxDiscout"  required  [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}" >
 														</div>
 													</div>															
 												  </div>
@@ -276,7 +278,7 @@
 											<span>
 												<i class="flaticon-add"></i>
 												<span>
-													Add Collection
+													Add Quality
 												</span>
 											</span>
 										</button>

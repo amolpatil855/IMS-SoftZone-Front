@@ -502,7 +502,7 @@
 /***** For Login Page  Ends******/
 
 .formContainerSamePage{
-	margin:10px;
+	margin:5px;
 }
 .formContentbox{
 	min-height:35px;
@@ -606,4 +606,23 @@ textarea{
 .detailSeparator{
 	margin-top: 2px;
     margin-bottom: 12px;
+}
+
+.formAddressTable tr td:first-child{
+	width: 18%;
+}
+.formAddressTable tr td:nth-child(2){
+	width: 18%;
+}
+.formAddressTable tr td:nth-child(3){
+	width: 10%;
+}
+.formAddressTable tr td:nth-child(4){
+	width: 10%;
+}	
+.formAddressTable tr td:nth-child(5){
+    width: 15%;
+}
+.formAddressTable tr td:nth-child(6){
+    width: 12%;
 }

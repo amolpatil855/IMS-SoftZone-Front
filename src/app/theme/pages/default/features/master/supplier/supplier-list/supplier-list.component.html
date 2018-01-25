@@ -52,8 +52,8 @@
 			</ul>
 			
 		</div>
-		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid">
-				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="supplierForm" [ngClass]="(supplierForm && !supplierForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(supplierForm && supplierForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="supplierForm && !supplierForm.form.valid" [isAuthorize]="['supplier']">
+		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="supplierForm" [ngClass]="(supplierForm && !supplierForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(supplierForm && supplierForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="supplierForm && !supplierForm.form.valid" [isAuthorize]="['supplier']">
 						{{ params ? 'Update' : 'Save' }}
 				</button>
 				<button class="btn btn-secondary" [isAuthorize]="['supplier']" (click)="onCancel()">
@@ -160,10 +160,14 @@
 										
 										</div>
 										
+									</div>
+									
+									
+									<div class="col-md-6">
 										<div class="row">
 											
 											<div class="col-md-12">
-												<!-- Account Person Information -->
+												<!-- Contact Information -->
 												<div class="panel panel-default">
 												  <div class="panel-heading">Contact Information</div>
 												  <div class="panel-body">
@@ -250,10 +254,13 @@
 												</div>
 											</div>
 										</div>
+										
+									
 									</div>
 									
-									
-									<div class="col-md-6">
+						</div>
+						<div class="row">
+							<div class="col-md-12">
 										<div class="panel panel-default">
 										  <div class="panel-heading">Supplier Address Details</div>
 										  <div class="panel-body addressTablePanelBody">
@@ -262,10 +269,13 @@
 													<table class="table formAddressTable">
 														<thead>
 														  <tr>
-															<th>Address</th>													
+															<th>Address 1</th>	
+															<th>Address 2</th>	
+															<th>GST</th>	
+															<th>PIN</th>										
 															<th>State</th>
 															<th>City</th>
-															<th>PIN</th>
+															<th>Is Primary?</th>															
 															<th></th>
 														  </tr>
 														</thead>
@@ -278,6 +288,21 @@
 																	</div>
 																</td>
 																<td>
+																	<textarea rows="2" class="form-control"></textarea>
+																	<div class="alertMsg" *ngIf="supAdd.invalidAdd">
+																		   Please enter Address
+																	</div>
+																</td>
+																<td>
+																	<input type="text" class="form-control"  name="" />
+																</td>	
+																<td>
+																	<input type="text" class="form-control"  name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin"/>
+																	<div class="alertMsg" *ngIf="supAdd.invalidPin">
+																			Please enter pin
+																		</div>
+																</td>
+																<td>
 																	<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" [(ngModel)]="supAdd.state" name="{{'stateDDL'+supAdd.contRoleId}}"></p-dropdown>
 																	<div class="alertMsg" *ngIf="supAdd.invalidState">
 																			Please select state
@@ -288,13 +313,10 @@
 																	<div class="alertMsg" *ngIf="supAdd.invalidCity">
 																			Please enter city
 																		</div>	
-																</td>													
+																</td>	
 																<td>
-																	<input type="number" onKeyPress="if(this.value.length==6) return false;" class="form-control"  name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin"/>
-																	<div class="alertMsg" *ngIf="supAdd.invalidPin">
-																			Please enter pin
-																		</div>
-																</td>
+																	<input type="checkbox" class="formCheckBox"/>
+																</td>	
 																<td>
 																	<i class="fa fa-plus addBtnIcon"  aria-hidden="true"   *ngIf="lastRowNum" (click)="addNewAddress(supAdd)" ></i>
 																	<i class="fa fa-trash removeBtnIcon"  aria-hidden="true"  *ngIf="!lastRowNum||rowNum>0" (click)="clearAddress(rowNum)" ></i>
@@ -306,16 +328,8 @@
 									
 										  </div>
 										</div>
-									</div>
-									
-																		
-									<div class="col-md-6">
-									
-										
-										
-									</div>
-									
-								</div>
+								</div>		
+						</div>	
 								
 								
 								<!-- <div class="formSubmitBtnBox">

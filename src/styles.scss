@@ -525,7 +525,7 @@ body .ui-dialog .ui-dialog-titlebar {
 }
 
 .m-subheader {
-    padding: 10px 30px 0 30px!important;
+    padding: 0px 10px 0 10px!important;
 }
 .m-body .m-content {
     padding-top: 10px!important;
@@ -1298,7 +1298,7 @@ body .ui-dialog .ui-dialog-titlebar {
 
 /***** D. 22 Jan 2017  ****/
 .m-subheader {
-    padding: 0px 30px 0 30px !important;
+    padding: 0px 10px 0 10px !important;
 }
 .m-body .m-content {
     padding-top: 0px !important;
@@ -1343,7 +1343,7 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page {
 }
 .m-form__actions.m-form__actions--solid {
     padding: 0;
-    background: #fff!important;
+    background: #fff;
 }
 body .ui-dialog .ui-dialog-titlebar {
     text-align: center!important;
@@ -1490,11 +1490,23 @@ select.form-control:not([size]):not([multiple]) {
     height: auto!important;
 }
 .addressTablePanelBody{
-    height: 230px;
+    /*height: 230px;*/
+    height: auto;
     overflow-y: auto;
 }
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+/******* D. 25 Jan 2017 ******/
+.m-body .m-content {
+    padding: 0px 10px!important;
+}
+.formTopActionBtn{
+    float: left;
+    margin-right: 5px;
+}
+.formTopActionBtnBox{
+    background: transparent!important;
 }
