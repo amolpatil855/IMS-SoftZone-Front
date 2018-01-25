@@ -106,7 +106,7 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Rate</label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value=""  #rateVal="ngModel" required [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="Enter Rate">
+												<input class="form-control m-input" type="text" value="" maxlength="10" #rateVal="ngModel" required [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="Enter Rate">
                                                 <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
                                                     Please enter Rate
                                                 </div>

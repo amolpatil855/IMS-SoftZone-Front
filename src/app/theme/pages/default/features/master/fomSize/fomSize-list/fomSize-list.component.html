@@ -23,7 +23,7 @@
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
-				FomDensitys
+				FomSizes
 			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 				<li class="m-nav__item m-nav__item--home">
@@ -37,7 +37,7 @@
 				<li class="m-nav__item">
 					<a class="m-nav__link">
 						<span class="m-nav__link-text">
-							FomDensitys
+							FomSizes
 						</span>
 					</a>
 				</li>
@@ -65,13 +65,13 @@
 				<div class="row">
 				
 				<div class="col-md-12" *ngIf="toggleDiv">
-					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(fomDensityForm)"  #fomDensityForm="ngForm"  id="fomDensityForm">
+					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(fomSizeForm)"  #fomSizeForm="ngForm"  id="fomSizeForm">
 					<div class="formContainer formContainerSamePage">
 						
 								<div class="row">
 									
 									<div class="col-md-12">
-										<h5 class="formPanelHeading">FomDensity Basic Details:</h5>
+										<h5 class="formPanelHeading">FomSize Basic Details:</h5>
 									</div>
 									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">Collection</label>
@@ -82,31 +82,51 @@
 									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">Quality</label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" name="quality"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
+										</div>
+                                    </div>
+                                    <div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Foam Density</label>
+										<div class="col-sm-7">
+                                            <p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" [(ngModel)]="selectedDensity" name="density" (ngModelChange)="onDensityClick()"></p-dropdown>
+										</div>
+                                    </div>
+                                    <div class="col-md-3 formContentbox">
+										<label class="fieldLabel col-sm-5">Foam Size</label>
+										<div class="col-sm-7">
+                                            <p-dropdown class="feePlanBox" [options]="fomSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedSize" name="size"></p-dropdown>
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Density</label>
+											<label class="fieldLabel col-sm-5">Width</label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value="" maxlength="10" #densityVal="ngModel" required [(ngModel)]="fomDensityObj.density" name="density" id="density" placeholder="Enter Density">
-                                                <div class="alertMsg" *ngIf="densityVal.errors   && (densityVal.dirty || densityVal.touched)">
-                                                    Please enter Density
+												<input class="form-control m-input" type="text" value="" maxlength="10" #widthVal="ngModel" required [(ngModel)]="fomSizeObj.width" name="width" id="width" placeholder="Enter Width">
+                                                <div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
+                                                    Please enter Width
                                                 </div>
 											</div>
 										</div>
                                     </div>
                                     <div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Description</label>
+											<label class="fieldLabel col-sm-5">Length</label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel" [(ngModel)]="fomDensityObj.description" name="description" id="description" placeholder="Enter Description">
-                                                <!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
-                                                    Please enter Description
-                                                </div> -->
+												<input class="form-control m-input" type="text" value="" maxlength="10" #lengthVal="ngModel" required [(ngModel)]="fomSizeObj.length" name="length" id="length" placeholder="Enter Length">
+                                                <div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
+                                                    Please enter Length
+                                                </div>
 											</div>
 										</div>
-									</div>
+                                    </div>
+                                    <div class="col-md-3 formContentbox">
+										<div class="form-group">
+											<label class="fieldLabel col-sm-5">Size Code</label>
+											<div class="col-sm-7">
+												<input class="form-control m-input" type="text" value="" maxlength="10" #sizeCodeVal="ngModel" required [(ngModel)]="fomSizeObj.sizeCode" [disabled]="true" name="sizeCode" id="sizeCode">
+											</div>
+										</div>
+                                    </div>
 								</div>
 								
 								
@@ -114,10 +134,10 @@
 					<div class="m-form__actions m-form__actions--solid">
 						<div class="row">
 							<div class="col-lg-6">
-								<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="fomDensityForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ fomDensityForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="fomDensityForm.invalid" [isAuthorize]="['foamdensity']">
+								<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="fomSizeForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ fomSizeForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="fomSizeForm.invalid" [isAuthorize]="['foamsize']">
 										{{ params ? 'Update' : 'Save' }}
 								</button>
-								<button class="btn btn-secondary" [isAuthorize]="['foamdensity']" (click)="onCancel()">
+								<button class="btn btn-secondary" [isAuthorize]="['foamsize']" (click)="onCancel()">
 										Cancel
 								</button>
 							</div>
@@ -141,21 +161,22 @@
 										<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
 										
 										<!-- Add Button -->
-										<button  *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()" [isAuthorize]="['foamdensity']">
+										<button  *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()" [isAuthorize]="['foamsize']">
 											<span>
 												<i class="flaticon-add"></i>
 												<span>
-													Add FomDensity
+													Add FomSize
 												</span>
 											</span>
 										</button>
 									</div>
-							<p-dataTable [value]="fomDensityList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [loading]="loading"  [rowsPerPageOptions]="[20,50,100,200,500]"
+							<p-dataTable [value]="fomSizeList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [loading]="loading"  [rowsPerPageOptions]="[20,50,100,200,500]"
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                                 <p-column field="mstCollection.collectionName" header="Collection" [style]="{'text-align':'center'}"></p-column>
                                 <p-column field="mstQuality.qualityName" header="Quality" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="density" header="Foam Density" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="description" header="Description" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="mstFomDensity.density" header="Foam Density" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="mstFomSuggestedMM.suggestedMM" header="Foam FomSuggestedMM" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="sizeCode" header="Size Code" [style]="{'text-align':'center'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action

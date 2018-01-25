@@ -175,7 +175,7 @@
 															
 															<label class="col-md-2 col-sm-2 fieldLabel" style="padding-left: 35px;">GSTIN</label>
 															<div class="col-md-4 col-sm-4">
-																<input type="text" class="form-control"   required   [(ngModel)]="supplierObj.gstin" name="gstin" placeholder="GSTIN" maxlength="15"  #gstinVal="ngModel" >
+																<input type="text" class="form-control"   required   [(ngModel)]="supplierObj.gstin" name="gstin" placeholder="GSTIN" minlength="15" maxlength="15"  #gstinVal="ngModel" >
 																<div class="alertMsg" *ngIf="gstinVal.errors && gstinVal.errors.required && gstinVal.touched">
 																		Please enter GSTIN
 																	</div>
