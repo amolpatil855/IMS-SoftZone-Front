@@ -34,6 +34,8 @@ export class QualityListComponent implements OnInit {
   search='';
   toggleDiv=false;
   states=[];
+  isFormSubmitted:boolean;
+  slectedCategory=null;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -61,10 +63,10 @@ newRecord(){
     id: 0,
     qualityCode: ['', [Validators.required]],
     qualityName: ['', [Validators.required]],
-    categoryId: ['0', [Validators.required]],
-    collectionId: ['0', [Validators.required]],
+    categoryId: ['', [Validators.required]],
+    collectionId: ['', [Validators.required]],
     description: [''],
-    hsnId: ['0', [Validators.required]],
+    hsnId: ['', [Validators.required]],
     width: ['0', [Validators.required]],
     size: ['0', [Validators.required]],
     cutRate: ['0', [Validators.required]],
@@ -182,13 +184,14 @@ getQualityById(id){
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted=true;
     if(valid)
       this.saveQuality(value);
   }
 
   onChangeCategory(event){
-    if(this.qualityForm.get("categoryId")){
-      this.getCollectionList(this.qualityForm.get("categoryId").value);
+    if(this.slectedCategory){
+      this.getCollectionList(this.slectedCategory);
     }
     
   }
@@ -210,7 +213,6 @@ getQualityById(id){
           Helpers.setLoading(false);
         });
     } else {
-      value.id=this.params;
       this.qualityService.createQuality(value)
         .subscribe(
         results => {
@@ -233,6 +235,7 @@ getQualityById(id){
      this.collectionService.currentPos = this.page;
     this. getQualityById(quality.id);
     this.params=quality.id;
+    this.slectedCategory=null;
    this.toggleDiv=true;
   }
 

@@ -22,7 +22,7 @@ export class HsnService {
   }
 
   getHsnLookUp() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Hsn/GetHsnLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetHsnLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createHsn(supplier: Hsn) {
