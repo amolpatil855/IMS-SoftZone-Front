@@ -607,3 +607,19 @@ textarea{
 	margin-top: 2px;
     margin-bottom: 12px;
 }
+
+.formAddressTable tr td:first-child{
+	width: 18%;
+}
+.formAddressTable tr td:nth-child(2){
+	width: 18%;
+}
+.formAddressTable tr td:nth-child(3){
+	width: 10%;
+}
+.formAddressTable tr td:nth-child(4){
+	width: 10%;
+}	
+.formAddressTable tr td:nth-child(5){
+    width: 15%;
+}
