@@ -50,8 +50,8 @@
 				</li>
 			</ul>
 		</div>
-		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid">
-				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="customerForm" [ngClass]="(customerForm && !customerForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(customerForm && !customerForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="customerForm && !customerForm.form.valid" [isAuthorize]="['customer']">
+		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="customerForm" [ngClass]="(customerForm && !customerForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(customerForm && !customerForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="customerForm && !customerForm.form.valid" [isAuthorize]="['customer']">
 						{{ params ? 'Update' : 'Save' }}
 				</button>
 				<button class="btn btn-secondary" [isAuthorize]="['customer']" (click)="onCancel()">
@@ -71,7 +71,7 @@
 				
 				<div class="col-md-12" *ngIf="toggleDiv">
 				
-					<div class="formContainer formContainerSamePage">
+					<div class="formContainerSamePage">
 						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(customerForm)" #customerForm="ngForm"  id="customerForm">
 							<div class="row">
 							
@@ -131,12 +131,12 @@
 										</div>
 										<div class="form-group">
 											<label class="col-md-2 col-sm-2 fieldLabel">Phone</label>
-											<div class="col-md-3 col-sm-3">
-												<!--<input class="form-control m-input" type="number"  [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.phone" name="phone" required #phoneVal="ngModel" placeholder="Contact" maxlength="10">
+											<!--<div class="col-md-3 col-sm-3">
+												<input class="form-control m-input" type="number"  [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.phone" name="phone" required #phoneVal="ngModel" placeholder="Contact" maxlength="10">
 												 <div class="alertMsg" *ngIf="phoneVal.errors && !phoneVal.errors.required  && phoneVal.errors.pattern && phoneVal.touched">
 													Please enter valid phone number
-												</div> -->
-											</div>
+												</div> 
+											</div>-->
 											<div class="col-md-3 col-sm-3">
 												<input class="form-control m-input" type="text"   [ngClass]="{'red-border-class': alternatePhone1Val.errors && isFormSubmitted}"   [(ngModel)]="customerObj.alternatePhone1" name="alternatePhone1" #alternatePhone1Val="ngModel"  placeholder="Alternate Phone1" maxlength="10">
 												<div class="alertMsg" *ngIf="alternatePhone1Val.errors && !alternatePhone1Val.errors.required  && alternatePhone1Val.errors.pattern && alternatePhone1Val.touched">
@@ -163,6 +163,12 @@
 									  </div>
 									</div>
 									
+									
+									
+								</div>
+								
+								<div class="col-md-6">
+								
 									<!-- Account Information -->
 									<div class="panel panel-default">
 									  <div class="panel-heading">Account Information</div>
@@ -208,8 +214,9 @@
 									
 								</div>
 								
-								
-								<div class="col-md-6">
+							</div>
+							<div class="row">	
+								<div class="col-md-12">
 									<div class="panel panel-default">
 									  <div class="panel-heading">Customer Address Details</div>
 									  <div class="panel-body">
@@ -218,10 +225,13 @@
 												<table class="table formAddressTable">
 													<thead>
 													  <tr>
-														<th>Address</th>													
+														<th>Address 1</th>
+														<th>Address 2</th>
+														<th>GST</th>	
+														<th>PIN</th>												
 														<th>State</th>
 														<th>City</th>
-														<th>PIN</th>
+														<th>Is Primary?</th>
 														<th></th>
 													  </tr>
 													</thead>
@@ -231,6 +241,21 @@
 																 <input type="text" class="form-control"  [(ngModel)]="supAdd.address" name="{{'address'+supAdd.contRoleId}}"/>
 																 <div class="alertMsg" *ngIf="supAdd.invalidAdd">
 																		Please enter Address
+																	</div>
+															</td>
+															<td>
+																<textarea rows="2" class="form-control"></textarea>
+																<div class="alertMsg" *ngIf="supAdd.invalidAdd">
+																	   Please enter Address
+																</div>
+															</td>
+															<td>
+																<input type="text" class="form-control"  name="" />
+															</td>
+															<td>
+																<input type="text" class="form-control"  name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin"/>
+																<div class="alertMsg" *ngIf="supAdd.invalidPin">
+																		Please enter pin
 																	</div>
 															</td>
 															<td>	
@@ -243,21 +268,21 @@
 																<input type="text" class="form-control"  name="{{'city'+supAdd.contRoleId}}" [(ngModel)]="supAdd.city"/>
 																<div class="alertMsg" *ngIf="supAdd.invalidCity">
 																		Please enter city
-																	</div>
+																</div>
 															</td>												
 															<td>
-																<input type="text" class="form-control"  name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin"/>
-																<div class="alertMsg" *ngIf="supAdd.invalidPin">
-																		Please enter pin
-																	</div>
-															</td>
+																<input type="checkbox" class="formCheckBox"/>
+															</td>	
 															<td>
-																<button class="btn btn-success tableActionBtn" *ngIf="lastRowNum" (click)="addNewAddress(supAdd)">
+																<!--<button class="btn btn-success tableActionBtn" *ngIf="lastRowNum" (click)="addNewAddress(supAdd)">
 																	<i class="material-icons">add</i>
 																</button>	
 																<button class="btn btn-danger tableActionBtn"  *ngIf="!lastRowNum||rowNum>0" (click)="clearAddress(rowNum)">
 																	<i class="material-icons">clear</i>
-																</button>														
+																</button>	-->
+																
+																<i class="fa fa-plus addBtnIcon"  aria-hidden="true"   *ngIf="lastRowNum" (click)="addNewAddress(supAdd)" ></i>
+																<i class="fa fa-trash removeBtnIcon"  aria-hidden="true"  *ngIf="!lastRowNum||rowNum>0" (click)="clearAddress(rowNum)" ></i>
 																
 															</td>
 														</tr>
@@ -271,11 +296,7 @@
 								</div>
 								
 																
-								<div class="col-md-6">
 								
-									
-									
-								</div>
 								
 							</div>
 						</form>
