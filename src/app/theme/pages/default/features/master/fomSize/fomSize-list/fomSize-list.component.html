@@ -101,7 +101,7 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Width</label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value="" maxlength="10" #widthVal="ngModel" required [(ngModel)]="fomSizeObj.width" name="width" id="width" placeholder="Enter Width">
+												<input class="form-control m-input" type="text" value="" maxlength="10" #widthVal="ngModel" required [(ngModel)]="fomSizeObj.width" name="width" id="width" placeholder="Enter Width" (input)="onInputChange()">
                                                 <div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
                                                     Please enter Width
                                                 </div>
@@ -112,7 +112,7 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Length</label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value="" maxlength="10" #lengthVal="ngModel" required [(ngModel)]="fomSizeObj.length" name="length" id="length" placeholder="Enter Length">
+												<input class="form-control m-input" type="text" value="" maxlength="10" #lengthVal="ngModel" required [(ngModel)]="fomSizeObj.length" name="length" id="length" placeholder="Enter Length" (input)="onInputChange()">
                                                 <div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
                                                     Please enter Length
                                                 </div>

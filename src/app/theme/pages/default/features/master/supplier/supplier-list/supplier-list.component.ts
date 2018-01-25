@@ -27,7 +27,9 @@ export class SupplierListComponent implements OnInit {
   totalCount=0;
   search='';
   toggleDiv=false;
+  isDelete=false;
   states=[];
+  isFormSubmitted:boolean;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -51,6 +53,7 @@ this.newRecord();
   }
 
 newRecord(){
+  this.params=null;
   this.supplierObj ={
     id: 0,
     code:'',
@@ -69,35 +72,47 @@ newRecord(){
     dispatchPersonName: '',
     dispatchPersonEmail:'',
     dispatchPersonPhone: '',
-    MstSupplierAddresss:[],
+    MstSupplierAddresses:[],
 };
 
-this.supplierObj.MstSupplierAddresss.push({ // <-- the child FormGroup
+this.supplierObj.MstSupplierAddresses.push({ // <-- the child FormGroup
   id: 0,
   supplierId:0,
-  address: '',
+  addressLine1: '',
+  addressLine2: '',
   city:'',
-  state:'',
+  state: '',
+  country: '',
   pin: '',
+  gstin: '',
+  isPrimary: false,
   contRoleId: Math.floor(Math.random() * 2000),
 });
 }
 
   addNewAddress(supAdd){
+    
     var newaddressObj ={ // <-- the child FormGroup
       id: 0,
       supplierId:0,
-      address: '',
+      addressLine1: '',
+      addressLine2: '',
       city:'',
-      state:'',
+      state: 'Maharashtra',
+      country: 'India',
       pin: '',
+      gstin: '',
+      isPrimary: false,
       contRoleId: Math.floor(Math.random() * 2000),
     };
-    this.supplierObj.MstSupplierAddresss.push(newaddressObj);
+    this.supplierObj.MstSupplierAddresses.push(newaddressObj);
   }
   clearAddress(supAddIndex){
-    this.supplierObj.MstSupplierAddresss.splice(supAddIndex, 1);
-  }
+    if(this.supplierObj.MstSupplierAddresses[supAddIndex].isPrimary){
+    }else{
+      this.supplierObj.MstSupplierAddresses.splice(supAddIndex, 1);
+    }   
+ }
 
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
@@ -108,6 +123,7 @@ this.supplierObj.MstSupplierAddresss.push({ // <-- the child FormGroup
   }
   onCancel(){
     this.toggleDiv = false;
+    this.newRecord();
   }
   getSuppliersList() {
     this.supplierService.getAllSuppliers(this.pageSize,this.page,this.search).subscribe(
@@ -134,13 +150,15 @@ this.supplierObj.MstSupplierAddresss.push({ // <-- the child FormGroup
   }
 
 
-getsuplierById(id){
+getSupplierById(id){
   this.supplierService.getSupplierById(id).subscribe(
     results => {
-      console.log('results.mstSupplierAddressDetails', results);
       this.supplierObj = results;
       this.supplierObj.MstSupplierAddresses=results.mstSupplierAddresses;
       delete this.supplierObj['mstSupplierAddresses'];   
+      _.forEach(this.supplierObj.MstSupplierAddresses, function(value) {
+        value.contRoleId= Math.floor(Math.random() * 2000);
+      });
       console.log('this.supplierList', this.supplierObj);
     },
     error => {
@@ -150,34 +168,51 @@ getsuplierById(id){
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-      
-    _.forEach(this.supplierObj.MstSupplierAddresss, function(addressObj) {
-      if(!addressObj.address){
-        addressObj.invalidAdd=true;
+      this.isFormSubmitted=true;
+    _.forEach(this.supplierObj.MstSupplierAddresses, function(addressObj) {
+      if(!addressObj.addressLine1){
+        addressObj.invalidAddressLine1=true;
         valid=false;
       }
       else
       {
         addressObj.invalidAdd=false;
       }
+      if(!addressObj.addressLine2){
+        addressObj.invalidAddressLine2=true;
+        valid=false;
+      }
+      else
+      {
+        addressObj.invalidAdd=false;
+      }
+      if(!addressObj.gstin){
+        addressObj.invalidGstin=true;
+        valid=false;
+      }
+      else
+      {
+        addressObj.invalidGstin=false;
+      }
       if(!addressObj.state){
         addressObj.invalidState=true;
         valid=false;
       }
+      else
       {
         addressObj.invalidState=false;
       }
       if(!addressObj.city){
         addressObj.invalidCity=true;
         valid=false;
-      }
+      }else
       {
         addressObj.invalidCity=false;
       }
       if(!addressObj.pin){
         addressObj.invalidPin=true;
         valid=false;
-      }
+      }else
       {
         addressObj.invalidPin=false;
       }
@@ -186,12 +221,6 @@ getsuplierById(id){
     if(valid)
       this.saveSupplier(this.supplierObj);
   }
-
-  // onAddSupplierAddress() {
-  //   for(var i=0; i<1; i++) {
-  //     <FormArray>this.supplierForm.get('MstSupplierAddresss').push(new FormControl());
-  //   }
-  // }
 
   saveSupplier(value) {
     Helpers.setLoading(true);
@@ -231,7 +260,7 @@ getsuplierById(id){
   onEditClick(supplier: Supplier) {
      this.supplierService.perPage = this.pageSize;
      this.supplierService.currentPos = this.page;
-    this. getsuplierById(supplier.id);
+    this. getSupplierById(supplier.id);
     this.params=supplier.id;
     // this.roleService.currentPageNumber = this.currentPageNumber;
    // this.router.navigate(['/features/master/supplier/edit', supplier.id]);

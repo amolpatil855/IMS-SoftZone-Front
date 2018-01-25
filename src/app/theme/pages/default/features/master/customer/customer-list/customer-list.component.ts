@@ -26,7 +26,7 @@ export class CustomerListComponent implements OnInit {
   search='';
   states=[];
   toggleDiv=false;
-
+  isFormSubmitted:boolean;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -63,10 +63,10 @@ export class CustomerListComponent implements OnInit {
     accountPersonName: '',
     accountPersonPhone: '',
     accountPersonEmail:'',
-    mstCustomerAddresses:[],
+    MstCustomerAddresses:[],
 };
 
-this.customerObj.mstCustomerAddresses.push({ // <-- the child FormGroup
+this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
   id: 0,
   customerId:0,
   addressLine1: '',
@@ -88,17 +88,20 @@ this.customerObj.mstCustomerAddresses.push({ // <-- the child FormGroup
       addressLine1: '',
       addressLine2: '',
       city:'',
-      state: '',
-      country: '',
+      state: 'Maharashtra',
+      country: 'India',
       pin: '',
       gstin: '',
       isPrimary: false,
       contRoleId: Math.floor(Math.random() * 2000),
     };
-    this.customerObj.mstCustomerAddresses.push(newaddressObj);
+    this.customerObj.MstCustomerAddresses.push(newaddressObj);
   }
   clearAddress(supAddIndex){
-    this.customerObj.mstCustomerAddresses.splice(supAddIndex, 1);
+    if(this.customerObj.MstSupplierAddresses[supAddIndex].isPrimary){
+    }else{
+      this.customerObj.MstCustomerAddresses.splice(supAddIndex, 1);
+    }     
   }
 
   toggleButton(){
@@ -137,7 +140,8 @@ this.customerObj.mstCustomerAddresses.push({ // <-- the child FormGroup
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-      _.forEach(this.customerObj.mstCustomerAddresses, function(addressObj) {
+    this.isFormSubmitted=true;
+      _.forEach(this.customerObj.MstCustomerAddresses, function(addressObj) {
       if(!addressObj.addressLine1){
         addressObj.invalidAddressLine1=true;
         valid=false;
@@ -153,6 +157,14 @@ this.customerObj.mstCustomerAddresses.push({ // <-- the child FormGroup
       else
       {
         addressObj.invalidAdd=false;
+      }
+      if(!addressObj.gstin){
+        addressObj.invalidGstin=true;
+        valid=false;
+      }
+      else
+      {
+        addressObj.invalidGstin=false;
       }
       if(!addressObj.state){
         addressObj.invalidState=true;
@@ -174,13 +186,6 @@ this.customerObj.mstCustomerAddresses.push({ // <-- the child FormGroup
       }
       else{
         addressObj.invalidPin=false;
-      }
-      if(!addressObj.gstin){
-        addressObj.invalidGstin=true;
-        valid=false;
-      }
-      else{
-        addressObj.invalidGstin=false;
       }
     });
     if(valid)
@@ -223,8 +228,11 @@ this.customerObj.mstCustomerAddresses.push({ // <-- the child FormGroup
   this.customerService.getCustomerById(id).subscribe(
     results => {
       this.customerObj = results;
-      this.customerObj.mstCustomerAddresses=results.mstCustomerAddresses;
-      //delete this.customerObj['mstCustomerAddresses'];
+      this.customerObj.MstCustomerAddresses=results.mstCustomerAddresses;
+      delete this.customerObj['mstCustomerAddresses'];
+       _.forEach(this.customerObj.MstCustomerAddresses, function(value) {
+        value.contRoleId= Math.floor(Math.random() * 2000);
+      });
     },
     error => {
       this.globalErrorHandler.handleError(error);

@@ -66,7 +66,9 @@ export class FomSizeListComponent implements OnInit {
     sizeCode: '0x0',
     };
   }
-
+  onInputChange(){
+    this.fomSizeObj.sizeCode=this.fomSizeObj.width+'x'+this.fomSizeObj.length;
+  }
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
@@ -132,7 +134,7 @@ export class FomSizeListComponent implements OnInit {
         this.fomSizeList = results;
         this.fomSizeList.unshift({ label: '--Select--', value: '0' });
         this.selectedSize = this.fomSizeObj.fomSuggestedMMId;
-        console.log('this.fomDensityList', this.fomSizeList);
+        console.log('this.fomSizeList', this.fomSizeList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -171,11 +173,10 @@ export class FomSizeListComponent implements OnInit {
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.fomSizeObj.categoryId = value.category;
     this.fomSizeObj.collectionId = value.collection;
     this.fomSizeObj.qualityId = value.quality;
     this.fomSizeObj.fomDensityId = value.density;
-    this.fomSizeObj.fomSuggestedMMId = value.fomSuggestedMMId;
+    this.fomSizeObj.fomSuggestedMMId = value.size;
     this.fomSizeObj.sizeCode = value.width+'x'+value.length;
     this.saveFomSize(this.fomSizeObj);
   }
