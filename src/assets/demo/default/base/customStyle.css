@@ -502,7 +502,7 @@
 /***** For Login Page  Ends******/
 
 .formContainerSamePage{
-	margin:10px;
+	margin:5px;
 }
 .formContentbox{
 	min-height:35px;
@@ -622,4 +622,7 @@ textarea{
 }	
 .formAddressTable tr td:nth-child(5){
     width: 15%;
+}
+.formAddressTable tr td:nth-child(6){
+    width: 12%;
 }
