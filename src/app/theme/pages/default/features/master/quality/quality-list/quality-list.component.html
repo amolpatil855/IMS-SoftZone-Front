@@ -76,7 +76,7 @@
 												  <div class="panel-heading">Quality Basic Information</div>
 												  <div class="panel-body">	
 													<div class="form-group">
-														<label class="col-md-2 col-sm-2 fieldLabel">Category Code</label>
+														<label class="col-md-2 col-sm-2 fieldLabel">Category</label>
 														<div class="col-md-4 col-sm-4">
 															<p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required [style]="{'width':'100%'}"  (ngModelChange)="onChangeCategory(event)" name="categoriesDDl"></p-dropdown>
 															<div class="alertMsg" *ngIf="qualityForm.get('categoryId').hasError('required') && qualityForm.get('categoryId ').touched">
@@ -84,7 +84,7 @@
 																</div>
 														</div>		
 														
-														<label class="col-md-2 col-sm-2 fieldLabel">Collection Code</label>
+														<label class="col-md-2 col-sm-2 fieldLabel">Collection</label>
 														<div class="col-md-4 col-sm-4">
 															<p-dropdown class="feePlanBox" [options]="collectionList"  formControlName="collectionId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
 															<div class="alertMsg" *ngIf="qualityForm.get('collectionId').hasError('required') && qualityForm.get('collectionId').touched">
@@ -128,7 +128,7 @@
 											<div class="col-md-12">
 												<!-- For Mattress -->
 												<div class="panel panel-default">
-												  <div class="panel-heading">For Mattress</div>
+												  <div class="panel-heading">Mattress Information</div>
 												  <div class="panel-body">																		
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Cust Rate/Sq.Mtr</label>
@@ -157,43 +157,52 @@
 											<div class="col-md-12">
 												<!-- Fabric, Wallpapers, Rugs -->
 												<div class="panel panel-default">
-												  <div class="panel-heading">Fabric, Wallpapers, Rugs</div>
+												  <div class="panel-heading">Fabric, Wallpapers, Rugs Information</div>
 												  <div class="panel-body">	
 													<div class="form-group">
-														<label class="col-md-2 col-sm-2 fieldLabel">Basic</label>
-														<div class="col-md-3 col-sm-3">
-															<input type="text" class="form-control" formControlName="width"  placeholder="Enter Width">
+														<label class="col-md-2 col-sm-2 fieldLabel">Width</label>
+														<div class="col-md-4 col-sm-4">
+															<input type="text" class="form-control" placeholder="">
+														</div>	
+														
+														<label class="col-md-2 col-sm-2 fieldLabel">Size</label>
+														<div class="col-md-4 col-sm-4">
+															<input type="text" class="form-control" placeholder="">
 														</div>
-														<div class="col-md-3 col-sm-3">
-															<input type="text" class="form-control" formControlName="size" placeholder="Enter Size">
-														</div>	
-														<div class="col-md-3 col-sm-3">
-															<input type="text" class="form-control" formControlName="cutRate" placeholder="Enter Rate">
-														</div>	
 													</div>
-													<div class="form-group">
-														<label class="col-md-2 col-sm-2 fieldLabel">Rates</label>
-														<div class="col-md-3 col-sm-3">
-															<input type="text" class="form-control" formControlName="roleRate" placeholder="Enter Rate">
-														</div>
-														<div class="col-md-3 col-sm-3">
-															<input type="text" class="form-control" formControlName="rrp"  placeholder="Enter RRP">
-														</div>	
-														<div class="col-md-3 col-sm-3">
-															<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="flatRate" >
-														</div>	
-													</div>													
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Cut Rate</label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="maxCutRateDisc" >
+															<input type="text" class="form-control" placeholder="">
 														</div>	
 														
-														<label class="col-md-2 col-sm-2 fieldLabel">Role Rate </label>
+														<label class="col-md-2 col-sm-2 fieldLabel">Cut Rate</label>
+														<div class="col-md-4 col-sm-4">
+															<input type="text" class="form-control" placeholder="Max. Discount %">
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-2 col-sm-2 fieldLabel">Role Rate</label>
+														<div class="col-md-4 col-sm-4">
+															<input type="text" class="form-control" placeholder="">
+														</div>	
+														
+														<label class="col-md-2 col-sm-2 fieldLabel">Role Rate</label>
 														<div class="col-md-4 col-sm-4">
 															<input type="text" class="form-control" placeholder="Enter Rate"  formControlName="maxRoleRateDisc" >
 														</div>
 													</div>
+													<div class="form-group">
+														<label class="col-md-2 col-sm-2 fieldLabel">RRP</label>
+														<div class="col-md-4 col-sm-4">
+															<input type="text" class="form-control" placeholder="">
+														</div>	
+														
+														<label class="col-md-2 col-sm-2 fieldLabel">Flat Rate</label>
+														<div class="col-md-4 col-sm-4">
+															<input type="text" class="form-control" placeholder="">
+														</div>
+													</div>													
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Flat Cut Rate</label>
 														<div class="col-md-4 col-sm-4">
@@ -214,7 +223,7 @@
 											<div class="col-md-12">
 												<!-- For Foam -->
 												<div class="panel panel-default">
-												  <div class="panel-heading">For Foam</div>
+												  <div class="panel-heading">Foam Information</div>
 												  <div class="panel-body">																		
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Purchase Rate/mm</label>
@@ -242,19 +251,13 @@
 										
 									</div>
 									
-									<!--- Address Details -->									
-									<div class="col-md-6">
-									
-										
-										
-									</div>
 									
 								</div>
 								
 								
 							</form>
 						
-						</div>
+					</div>
 					
 				</div>
 			</div>	
