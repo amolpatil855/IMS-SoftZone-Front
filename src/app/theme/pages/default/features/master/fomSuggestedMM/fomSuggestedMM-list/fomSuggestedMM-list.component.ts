@@ -6,29 +6,30 @@ import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@ang
 import { ConfirmationService, DataTableModule, LazyLoadEvent, SelectItem } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
-import { FomDensityService } from '../../../../_services/fomDensity.service';
+import { FomSuggestedMMService } from '../../../../_services/fomSuggestedMM.service';
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
-import { FomDensity } from "../../../../_models/fomDensity";
+import { FomSuggestedMM } from "../../../../_models/fomSuggestedMM";
 
 @Component({
-  selector: ".app-fomDensity-list",
-  templateUrl: "./fomDensity-list.component.html",
+  selector: ".app-fomSuggestedMM-list",
+  templateUrl: "./fomSuggestedMM-list.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class FomDensityListComponent implements OnInit {
+export class FomSuggestedMMListComponent implements OnInit {
 
-  fomDensityForm: any;
-  fomDensityObj:any;
+  fomSuggestedMMForm: any;
+  fomSuggestedMMObj:any;
   params: number;
-  fomDensityList=[];
+  fomSuggestedMMList=[];
   categoryList: SelectItem[];
+  selectedCategory = 0;
   selectedCollection = 0 ;
   selectedQuality = 0;
-  selectedThickness = 0;
+  selectedDensity = 0;
   collectionList=[];
   qualityList=[];
-  thicknessList=[];
+  fomDensityList=[];
   pageSize=50;
   page=1;
   totalCount=0;
@@ -38,7 +39,7 @@ export class FomDensityListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private fomDensityService: FomDensityService,
+    private fomSuggestedMMService: FomSuggestedMMService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) {
@@ -52,14 +53,13 @@ export class FomDensityListComponent implements OnInit {
   }
 
   newRecord(){
-    this.fomDensityObj ={
+    this.fomSuggestedMMObj ={
     id: 0,
     categoryId: 0,
     collectionId: 0,
     qualityId: 0,
-    thicknessId: 0,
-    sizeCode: '',
-    rate: '',
+    fomDensityId: 0,
+    suggestedMM: 0,
     };
   }
 
@@ -73,11 +73,11 @@ export class FomDensityListComponent implements OnInit {
   onCancel(){
     this.toggleDiv = false;
   }
-  getFomDensitysList() {
-    this.fomDensityService.getAllFomDensitys(this.pageSize,this.page,this.search).subscribe(
+  getFomSuggestedMMsList() {
+    this.fomSuggestedMMService.getAllFomSuggestedMMs(this.pageSize,this.page,this.search).subscribe(
       results => {
-        this.fomDensityList = results.data;
-        console.log('this.fomDensityList', this.fomDensityList);
+        this.fomSuggestedMMList = results.data;
+        console.log('this.fomSuggestedMMList', this.fomSuggestedMMList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -85,7 +85,7 @@ export class FomDensityListComponent implements OnInit {
   }
 
   getFomCollectionLookUp(){
-    this.fomDensityService.getFomCollectionLookUp().subscribe(
+    this.fomSuggestedMMService.getFomCollectionLookUp().subscribe(
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: '0' });
@@ -97,11 +97,11 @@ export class FomDensityListComponent implements OnInit {
   }
 
   onCollectionClick(){
-    this.fomDensityService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
+    this.fomSuggestedMMService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
         this.qualityList.unshift({ label: '--Select--', value: '0' });
-        this.selectedQuality = this.fomDensityObj.qualityId;
+        this.selectedQuality = this.fomSuggestedMMObj.qualityId;
         console.log('this.qualityList', this.qualityList);
       },
       error => {
@@ -109,6 +109,19 @@ export class FomDensityListComponent implements OnInit {
       });
   }
   
+  onQualityClick(){
+    this.fomSuggestedMMService.getFomDensityLookUpByQuality(this.selectedQuality).subscribe(
+      results => {
+        this.fomDensityList = results;
+        this.fomDensityList.unshift({ label: '--Select--', value: '0' });
+        this.selectedDensity = this.fomSuggestedMMObj.fomDensityId;
+        console.log('this.fomDensityList', this.fomDensityList);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
   loadLazy(event: LazyLoadEvent) {
     //in a real application, make a remote request to load data using state metadata from event
     //event.first = First row offset
@@ -120,16 +133,16 @@ export class FomDensityListComponent implements OnInit {
     this.pageSize=event.rows;
     this.page=event.first;
     this.search=  event.globalFilter;
-    this.getFomDensitysList();
+    this.getFomSuggestedMMsList();
     this.getFomCollectionLookUp();
   }
 
-  getFomDensityById(id){
-  this.fomDensityService.getFomDensityById(id).subscribe(
+  getFomSuggestedMMById(id){
+  this.fomSuggestedMMService.getFomSuggestedMMById(id).subscribe(
     results => {
-      this.fomDensityObj = results;
-      console.log('this.fomDensityObj', this.fomDensityObj);
-      this.selectedCollection = this.fomDensityObj.categoryId;
+      this.fomSuggestedMMObj = results;
+      console.log('this.fomSuggestedMMObj', this.fomSuggestedMMObj);
+      this.selectedCollection = this.fomSuggestedMMObj.categoryId;
       if(this.selectedCollection > 0){
         this.onCollectionClick();
       }
@@ -141,20 +154,20 @@ export class FomDensityListComponent implements OnInit {
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.fomDensityObj.categoryId = value.category;
-    this.fomDensityObj.collectionId = value.collection;
-    this.fomDensityObj.qualityId = value.quality;
-    this.fomDensityObj.thicknessId = value.thickness;
-    this.saveFomDensity(this.fomDensityObj);
+    this.fomSuggestedMMObj.categoryId = value.category;
+    this.fomSuggestedMMObj.collectionId = value.collection;
+    this.fomSuggestedMMObj.qualityId = value.quality;
+    this.fomSuggestedMMObj.fomDensityId = value.density;
+    this.saveFomSuggestedMM(this.fomSuggestedMMObj);
   }
 
-  saveFomDensity(value) {
+  saveFomSuggestedMM(value) {
     Helpers.setLoading(true);
     if (this.params) {
-      this.fomDensityService.updateFomDensity(value)
+      this.fomSuggestedMMService.updateFomSuggestedMM(value)
         .subscribe(
         results => {
-         this. getFomDensitysList(); 
+         this. getFomSuggestedMMsList(); 
          this.toggleDiv=false;
          this.params=null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -166,10 +179,10 @@ export class FomDensityListComponent implements OnInit {
           Helpers.setLoading(false);
         });
     } else {
-      this.fomDensityService.createFomDensity(value)
+      this.fomSuggestedMMService.createFomSuggestedMM(value)
         .subscribe(
         results => {
-         this. getFomDensitysList();
+         this. getFomSuggestedMMsList();
          this.toggleDiv=false;
          this.params=null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -183,24 +196,24 @@ export class FomDensityListComponent implements OnInit {
     }
   }
 
-  onEditClick(fomDensity: FomDensity) {
-     this.fomDensityService.perPage = this.pageSize;
-     this.fomDensityService.currentPos = this.page;
-     this. getFomDensityById(fomDensity.id);
-     this.params=fomDensity.id;
+  onEditClick(fomSuggestedMM: FomSuggestedMM) {
+     this.fomSuggestedMMService.perPage = this.pageSize;
+     this.fomSuggestedMMService.currentPos = this.page;
+     this. getFomSuggestedMMById(fomSuggestedMM.id);
+     this.params=fomSuggestedMM.id;
      this.toggleDiv=true;
   }
 
-  onDelete(fomDensity: FomDensity) {
+  onDelete(fomSuggestedMM: FomSuggestedMM) {
     this.confirmationService.confirm({
       message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
-        this.fomDensityService.deleteFomDensity(fomDensity.id).subscribe(
+        this.fomSuggestedMMService.deleteFomSuggestedMM(fomSuggestedMM.id).subscribe(
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
-            this.getFomDensitysList();
+            this.getFomSuggestedMMsList();
             this.toggleDiv=false;
           },
           error => {
@@ -212,3 +225,4 @@ export class FomDensityListComponent implements OnInit {
     });
   }
 }
+

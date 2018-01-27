@@ -26,6 +26,7 @@ export class CustomerListComponent implements OnInit {
   search='';
   states=[];
   toggleDiv=false;
+  isHide = false;
   isFormSubmitted:boolean;
   constructor(
     private formBuilder: FormBuilder,
@@ -63,17 +64,20 @@ export class CustomerListComponent implements OnInit {
     accountPersonName: '',
     accountPersonPhone: '',
     accountPersonEmail:'',
-    gstin: '',
-    mstCustomerAddresses:[],
+    MstCustomerAddresses:[],
 };
 
-this.customerObj.mstCustomerAddresses.push({ // <-- the child FormGroup
+this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
   id: 0,
-  supplierId:0,
-  address: '',
+  customerId:0,
+  addressLine1: '',
+  addressLine2: '',
   city:'',
-  state:'',
+  state: '',
+  country: '',
   pin: '',
+  gstin: 0,
+  isPrimary: false,
   contRoleId: Math.floor(Math.random() * 2000),
 });
 }
@@ -81,17 +85,24 @@ this.customerObj.mstCustomerAddresses.push({ // <-- the child FormGroup
   addNewAddress(supAdd){
     var newaddressObj ={ // <-- the child FormGroup
       id: 0,
-      supplierId:0,
-      address: '',
+      customerId:0,
+      addressLine1: '',
+      addressLine2: '',
       city:'',
-      state:'',
+      state: 'Maharashtra',
+      country: 'India',
       pin: '',
+      gstin: 0,
+      isPrimary: false,
       contRoleId: Math.floor(Math.random() * 2000),
     };
-    this.customerObj.mstCustomerAddresses.push(newaddressObj);
+    this.customerObj.MstCustomerAddresses.push(newaddressObj);
   }
   clearAddress(supAddIndex){
-    this.customerObj.mstCustomerAddresses.splice(supAddIndex, 1);
+    if(this.customerObj.MstSupplierAddresses[supAddIndex].isPrimary){
+    }else{
+      this.customerObj.MstCustomerAddresses.splice(supAddIndex, 1);
+    }     
   }
 
   toggleButton(){
@@ -131,34 +142,50 @@ this.customerObj.mstCustomerAddresses.push({ // <-- the child FormGroup
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted=true;
-      _.forEach(this.customerObj.mstCustomerAddresses, function(addressObj) {
-      if(!addressObj.address){
-        addressObj.invalidAdd=true;
+      _.forEach(this.customerObj.MstCustomerAddresses, function(addressObj) {
+      if(!addressObj.addressLine1){
+        addressObj.invalidAddressLine1=true;
         valid=false;
       }
       else
       {
         addressObj.invalidAdd=false;
       }
+      if(!addressObj.addressLine2){
+        addressObj.invalidAddressLine2=true;
+        valid=false;
+      }
+      else
+      {
+        addressObj.invalidAdd=false;
+      }
+      if(!addressObj.gstin){
+        addressObj.invalidGstin=true;
+        valid=false;
+      }
+      else
+      {
+        addressObj.invalidGstin=false;
+      }
       if(!addressObj.state){
         addressObj.invalidState=true;
         valid=false;
       }
-      {
+      else{
         addressObj.invalidState=false;
       }
       if(!addressObj.city){
         addressObj.invalidCity=true;
         valid=false;
       }
-      {
+      else{
         addressObj.invalidCity=false;
       }
       if(!addressObj.pin){
         addressObj.invalidPin=true;
         valid=false;
       }
-      {
+      else{
         addressObj.invalidPin=false;
       }
     });
@@ -202,8 +229,14 @@ this.customerObj.mstCustomerAddresses.push({ // <-- the child FormGroup
   this.customerService.getCustomerById(id).subscribe(
     results => {
       this.customerObj = results;
-      this.customerObj.mstCustomerAddresses=results.mstCustomerAddresses;
-      //delete this.customerObj['mstCustomerAddresses'];
+      if(this.customerObj.isWholesaleCustomer){
+        this.isHide = true;
+      }
+      this.customerObj.MstCustomerAddresses=results.mstCustomerAddresses;
+      delete this.customerObj['mstCustomerAddresses'];
+       _.forEach(this.customerObj.MstCustomerAddresses, function(value) {
+        value.contRoleId= Math.floor(Math.random() * 2000);
+      });
     },
     error => {
       this.globalErrorHandler.handleError(error);
@@ -212,9 +245,9 @@ this.customerObj.mstCustomerAddresses.push({ // <-- the child FormGroup
   onEditClick(customer: Customer) {
      this.customerService.perPage = this.pageSize;
      this.customerService.currentPos = this.page;
-    this.getCustomerById(customer.id);
-    this.params=customer.id;
-   this.toggleDiv=true;
+     this.getCustomerById(customer.id);
+     this.params=customer.id;
+     this.toggleDiv=true;
   }
 
   onDelete(customer: Customer) {
