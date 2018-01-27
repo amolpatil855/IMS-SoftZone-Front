@@ -77,7 +77,7 @@
 									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">HSN CODE</label>
 										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value=""  #hsnCodeVal="ngModel" required [(ngModel)]="hsnObj.hsnCode" name="hsnCode" id="hsnCode" placeholder="Enter HSN CODE">
+											<input class="form-control m-input" type="text" value=""  #hsnCodeVal="ngModel" required [(ngModel)]="hsnObj.hsnCode" maxlength="10" name="hsnCode" id="hsnCode" placeholder="Enter HSN CODE">
 											<div class="alertMsg" *ngIf="hsnCodeVal.errors   && (hsnCodeVal.dirty || hsnCodeVal.touched)">
 												Please enter HSN Code
 											</div>
@@ -88,7 +88,7 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">GST</label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text"  required   [(ngModel)]="hsnObj.gst" name="gst" placeholder="GST" maxlength="15"  #gstVal="ngModel" >
+												<input class="form-control m-input" type="text"  required   [(ngModel)]="hsnObj.gst" name="gst" placeholder="GST" maxlength="2"  #gstVal="ngModel" >
 												<div class="alertMsg" *ngIf="gstVal.errors && gstVal.errors.required && gstVal.touched">
 													Please enter GST
 												</div>
