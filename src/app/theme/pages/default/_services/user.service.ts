@@ -13,8 +13,8 @@ export class UserService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllUsers() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'User', AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllUsers(pageSize=0,page=0,search='') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'User?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getAllUserType() {

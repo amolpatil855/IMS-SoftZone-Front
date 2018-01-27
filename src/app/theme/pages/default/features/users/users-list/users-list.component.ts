@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+/** Angular Dependencies */
+import { OnInit, Component,ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import * as _ from 'lodash/index';
 
-import { ConfirmationService } from 'primeng/primeng';
+import { ConfirmationService,LazyLoadEvent } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../_services/message.service';
-import { UserService } from '../../../_services/user.service';
+
+import { UserService, RoleService } from '../../../_services/index';
 import { User } from "../../../_models/user";
-import { ScriptLoaderService } from '../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../helpers";
-import * as _ from 'lodash/index';
 
 @Component({
   selector: "app-users-list",
@@ -17,60 +18,122 @@ import * as _ from 'lodash/index';
   encapsulation: ViewEncapsulation.None,
 })
 export class UsersListComponent implements OnInit {
-  usersList: any;
-  userList: Observable<User[]>;
-  total: number;         //Number Of records
-  currentPos: number;    //Current Page
-  perPage: number;       //Number of records to be displayed per page
-  firstPageNumber: number;
-  lastPage: number;
-  currentPageNumber: number; //Stores Current Page Number
-  url: string;           //Api url
-  sortUrl: string;       //Sort Api Url
-  pages: number;         //Number of pages in pagination
-  arr: number[] = [];    //Array for Number of pages in pagination
-  pageSize: any;         //10,20,30,50,100
-  ascSortCol1: boolean;  //Sorting for Column1
-  ascSortCol2: boolean;  //Sorting for Column2
-  ascSortCol3: boolean;  //Sorting for Column3
-  ascSortCol4: boolean;  //Sorting for Column4
-
-  searchQuery: string;   //Search Api Query 
-  countQuery: string;    //Count number of records query
-  filter1CountQuery: string;  //Count number of records for filter1CountQuery
-  filter2CountQuery: string;  //Count number of records for filter2CountQuery
-  searchCountQuery: string;
-  longList: boolean;     //To show now records found message
-  prePageEnable: boolean; //To disable/enable prev page button
-  nextPageEnable: boolean; //To disable/enable prev page button
-  boundry: number;
-  boundryStart: number;
-  boundryEnd: number;
-  searchValue: string; //HTML values
-  selectedPageSize: number = 25; //HTML values
+  errorMessage: any;
+  params: number;
+  userList: any;
+  userForm: FormGroup;
   userRole: string;
-  constructor(private userService: UserService,
-    private router: Router,
+  instituteList: any;
+  schoolList: any;
+  _tempSchoolList: any;
+  selectedInstitute: any;
+  roleList: any;
+  userTypeList: any;
+  selectedSchoolsValidationError: boolean = false;
+  hideInstituteAndSchool: boolean = false;
+  relatedSchoolList: any;
+  currentUser: any;
+  pageSize=50;
+  page=1;
+  totalCount=0;
+  search='';
+  toggleDiv=false;
+  isFormSubmitted=false;
+  constructor(
+    private formBuilder: FormBuilder,
     private globalErrorHandler: GlobalErrorHandler,
+    private userService: UserService,
+    private roleService: RoleService,
     private confirmationService: ConfirmationService,
+    private route: ActivatedRoute,
+    private router: Router,
     private messageService: MessageService) {
   }
-
   ngOnInit() {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.userService.getAllUsers().subscribe(res => { 
+    this.roleList = [];
+    this.roleService.getRoleLookup().subscribe(res => { 
       if(res.length > 0){
-        this.longList = true;
-        this.userList = res;
+       this.roleList = res.map(item => item );
       }
+    });
+    this.userService.getAllUserType().subscribe(res => { 
+      if(res.length > 0){
+       this.userTypeList = res.map(item => item );
+      }
+    });
+    this.getAllUserList();
+  }
+
+  loadLazy(event: LazyLoadEvent) {
+    //in a real application, make a remote request to load data using state metadata from event
+    //event.first = First row offset
+    //event.rows = Number of rows per page
+    //event.sortField = Field name to sort with
+    //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
+    //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
+    //imitate db connection over a network
+    this.pageSize=event.rows;
+    this.page=event.first;
+    this.search=  event.globalFilter;
+    this.getAllUserList();
+  }
+
+  getAllUserList() {
+    this.userService.getAllUsers(this.pageSize,this.page,this.search).subscribe(
+      results => {
+        this.userList = results.data;
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  getUserById(id){
+    this.userService.getUserById(id).subscribe(
+      results => {
+        console.log('results.mstSupplierAddressDetails', results);
+        
+    this.userForm = this.formBuilder.group({
+      id: results.id,
+      username: results.userName,
+      email: results.email,
+      phone: results.phone,
+      role: results.roleId,
+      userType:results.userTypeId,
   });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
   }
 
   onEditClick(user: User) {
-    this.userService.perPage = this.perPage;
-    this.userService.currentPos = this.currentPos;
-    this.userService.currentPageNumber = this.currentPageNumber;
-    this.router.navigate(['/features/users/edit', user.id]);
+   this.userService.perPage = this.pageSize;
+   this.userService.currentPos = this.page;
+   this.getUserById(user.id);
+   this.params=user.id;
+   // this.roleService.currentPageNumber = this.currentPageNumber;
+   // this.router.navigate(['/features/master/supplier/edit', supplier.id]);
+   this.toggleDiv=true;
+  }
+  
+  newRecord(){
+    this.params=null;
+    this.userForm = this.formBuilder.group({
+      id: 0,
+      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
+      role: ['', [Validators.required]],
+      userType: ['', [Validators.required]],
+  });
+  }
+
+  toggleButton(){
+    this.toggleDiv = !this.toggleDiv;
+    if(this.toggleDiv && !this.params){
+      this.newRecord();
+    }
   }
 
   onDelete(user: User) {
@@ -82,20 +145,9 @@ export class UsersListComponent implements OnInit {
           this.userService.deleteUser(user.id).subscribe(
               results => {
                   this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Deleted Successfully' });
-                  if ((this.currentPageNumber - 1) * this.perPage == (this.total - 1)) {
-                      this.currentPageNumber--;
-                  }
-            this.userService.getAllUsers().subscribe(
-    results => {
-     this.usersList=results;
-     if(this.usersList.length>0)
-     {
-      this.longList=true;
-     }
-    },
-    error => {
-      this.globalErrorHandler.handleError(error);
-    });
+              this.getAllUserList();
+              this.toggleDiv=false;                 
+              this.newRecord();
               },
               error => {
                   this.globalErrorHandler.handleError(error);
@@ -106,171 +158,52 @@ export class UsersListComponent implements OnInit {
   });
 }
 
-
-
-  moreNextPages() {
-    if (this.boundryEnd + 1 <= this.pages) {
-      this.boundryStart = this.boundryEnd + 1;
-      this.currentPageNumber = this.boundryStart;
-      if (this.boundryEnd + this.boundry >= this.pages) {
-        this.boundryEnd = this.pages;
-      } else {
-        this.boundryEnd = this.boundryEnd + this.boundry;
+  onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted=true;  
+    let params = {
+        id: value.id,
+        username: value.username,
+        email: value.email,
+        phone: value.phone,
+        roleId: value.role,
+        userTypeId: value.userType,
       }
-      //this.getQueryDataCount();
-    }
-    //this.generateCount();
-
-
+      if(valid)
+      this.saveUser(params);
   }
 
-  morePreviousPages() {
-    if (this.boundryStart - this.boundry > 0) {
-      this.boundryStart = this.boundryStart - this.boundry;
-      this.boundryEnd = this.boundryStart + this.boundry - 1;
-      this.currentPageNumber = this.boundryEnd;
-      //this.getQueryDataCount();
-    }
-  }
-
-  pageSizeChanged(size) {
-    this.perPage = size;
-    this.currentPos = 0;
-    this.currentPageNumber = 1;
-    //this.getQueryDataCount();
-  }
-
-  visitFirstPage() {
-    if (this.boundryStart > this.boundry) {
-      this.currentPos = 0;
-      this.currentPageNumber = 1;
-      this.boundryStart = 1;
-      this.boundryEnd = this.boundry;
-      //this.generateCount();
-      this.setDisplayPageNumberRange();
-      //this.getAllRoles();
-    }
-  }
-
-  visitLastPage() {
-    for (var index = 0; this.currentPos + this.perPage < this.total; index++) {
-      this.currentPos += this.perPage;
-      this.currentPageNumber++;
-    }
-    this.boundryStart = 1;
-    this.boundryEnd = this.boundry;
-    for (var index = 0; this.boundryEnd + 1 <= this.pages; index++) {
-      this.boundryStart = this.boundryEnd + 1;
-
-      if (this.boundryEnd + this.boundry >= this.pages) {
-        this.boundryEnd = this.pages;
-        this.currentPageNumber = this.boundryEnd;
-      } else {
-        this.boundryEnd = this.boundryEnd + this.boundry;
-        this.currentPageNumber = this.boundryEnd;
-      }
-    }
-    //this.boundryEnd = this.pages;
-    //this.boundryStart = this.pages - this.boundry + 1;
-    //this.generateCount();
-    this.setDisplayPageNumberRange();
-    //this.getAllRoles();
-  }
-
-  backPage() {
-    if (this.currentPos - this.perPage >= 0) {
-      this.currentPos -= this.perPage;
-      this.currentPageNumber--;
-
-      // this.boundryStart--;
-      // this.boundryEnd--;
-      // this.generateCount();
-      this.setDisplayPageNumberRange();
-      //this.getAllRoles();
-    }
-    else {
-      this.currentPos = 0;
-      this.currentPageNumber = 1;
-    }
-  }
-  nextPage() {
-    if (this.currentPos + this.perPage < this.total) {
-      this.currentPos += this.perPage;
-      this.currentPageNumber++;
-      this.boundryStart++;
-      // if (this.boundryStart > this.boundryEnd) {
-      //     this.boundryStart--;
-      //     this.moreNextPages();
-      // }
-      this.setDisplayPageNumberRange();
-    //  this.getAllRoles();
-    }
-  }
-
-  pageClick(pageNumber) {
-    this.currentPos = this.perPage * (pageNumber - 1);
-    this.currentPageNumber = pageNumber;
-    this.setDisplayPageNumberRange();
-   // this.getAllRoles();
-  }
-
-  noPrevPage() {
-    if (this.currentPos > 0) {
-      return true;
-    }
-    return false;
-  }
-
-  setDisplayPageNumberRange() {
-    this.currentPos = this.perPage * (this.currentPageNumber - 1);
-
-    if ((this.currentPageNumber * this.perPage) > this.total)
-      this.lastPage = this.total;
-    else
-      this.lastPage = this.currentPageNumber * this.perPage;
-
-    if (this.lastPage >= this.total) {
-      this.lastPage = this.total;
-    }
-
-    this.firstPageNumber = 1 + this.currentPos;
-  }
-
-  noFwrdPage() {
-    if (this.currentPos + this.perPage < this.total) {
-      return true;
-    }
-    return false;
-  }
-
-  /* Pagination Function's Ends */
-
-  /* Filtering, Sorting, Search functions Starts*/
-  searchString(searchString) {
-    if (searchString == '') {
-      this.searchQuery = '';
-      this.searchCountQuery = '';
+  saveUser(value) {
+    Helpers.setLoading(true);
+    if (this.params) {
+      this.userService.updateUser(value)
+        .subscribe(
+        results => {
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+          this.toggleDiv=false;
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
     } else {
-      this.searchQuery = '&filter[where][displayName][like]=%' + searchString + '%';
-      this.searchCountQuery = '&[where][displayName][like]=' + searchString + '%';
+      this.userService.createUser(value)
+        .subscribe(
+        results => {
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false); 
+          this.toggleDiv=false;
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
     }
-    this.currentPos = 0;
-    this.currentPageNumber = 1;
-    this.boundryStart = 1;
-    this.boundry = 3;
-    this.boundryEnd = this.boundry;
-    //this.getQueryDataCount();
-    //this.getAllSchools();
   }
 
-  sort(column, sortOrder) {
-    if (sortOrder) {
-      this.sortUrl = '&filter[order]=' + column + ' DESC';
-    } else {
-      this.sortUrl = '&filter[order]=' + column + ' ASC';
-    }
-   // this.getAllRoles();
+  onCancel() {
+    this.getAllUserList();
+    this.toggleButton();
+    this.newRecord();
   }
-
-
 }

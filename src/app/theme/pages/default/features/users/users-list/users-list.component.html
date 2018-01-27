@@ -20,229 +20,180 @@
 </p-confirmDialog>
 
 <div class="m-subheader">
-	<div class="d-flex align-items-center">
-		<div class="mr-auto">
-			<h3 class="m-subheader__title m-subheader__title--separator">
-				Users
-			</h3>
-			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-				<li class="m-nav__item m-nav__item--home">
-					<a href="#" class="m-nav__link m-nav__link--icon">
-						<i class="m-nav__link-icon la la-home"></i>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-							Users
-						</span>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-							List
-						</span>
-					</a>
-				</li>
-			</ul>
-		</div>
+<div class="d-flex align-items-center">
+	<div class="mr-auto">
+		<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+			<li class="m-nav__item m-nav__item--home">
+				<a href="#" class="m-nav__link m-nav__link--icon">
+					<i class="m-nav__link-icon la la-home"></i>
+				</a>
+			</li>
+			<li class="m-nav__separator">
+				-
+			</li>
+			<li class="m-nav__item">
+				<a class="m-nav__link">
+					<span class="m-nav__link-text">
+						Users
+					</span>
+				</a>
+			</li>
+			<li class="m-nav__separator">
+				-
+			</li>
+			<li class="m-nav__item">
+				<a class="m-nav__link">
+					<span class="m-nav__link-text">
+					{{ params ? 'edit' : 'add' }}
+					</span>
+				</a>
+			</li>
+		</ul>
 	</div>
+	<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="userForm" [ngClass]="(userFormVal && !userFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(userFormVal && userFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="userFormVal && !userFormVal.form.valid" [isAuthorize]="['user']">
+					{{ params ? 'Update' : 'Save' }}
+			</button>
+			<button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()">
+					Cancel
+			</button>
+	</div>
+</div>
 </div>
 <!-- END: Subheader -->
+<!-- END: Subheader -->
 <div class="m-content">
-	<div class="row">
-		<div class="col-lg-12">
-			<!--begin::Portlet-->
-			<div class="m-portlet">
-				<div class="m-portlet__head">
-					<div class="row headerRowListing">
-						<div class="col-xl-8">
-							<h3 class="ListingHeading">
-								Users List
-							</h3>
-						</div>
-						<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-							<a routerLink="/features/users/add" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill pull-right"
-							 [isAuthorize]="['user']">
-								<span>
-									<i class="flaticon-user-add"></i>
-									<span>
-										Add User
-									</span>
-								</span>
-							</a>
-							<div class="m-separator m-separator--dashed d-xl-none"></div>
-						</div>
-					</div>
-				</div>
-				<div class="m-portlet__body">
-					<!--begin::Section-->
-					<div class="m-section">
-						<div class="m-section__content">
-							<div class="row staticSearchRow">
-								<div class="col-md-3">
+	
+		<div class="row">
+			<div class="col-lg-12">
+			
+				<div class="m-portlet">
+					
+					<div class="row">
+					
+					<div class="col-md-12" *ngIf="toggleDiv">
+					
+					
+				<div class="">
+					
+					<div class="col-md-12">
+							<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate (ngSubmit)="onSubmit(userForm)"  [formGroup]="userForm"  #userFormVal="ngForm"  id="userForm">
+									<div class="row">
+									
+										<div class="col-md-6">
+											
+											<div class="row">
+												<div class="col-md-10">
+													<!-- Basic Information -->
+													<div class="panel panel-default">
+													  <div class="panel-heading">User Details</div>
+													  <div class="panel-body">	
+														<div class="form-group">
+															<label class="col-md-3 col-sm-3 fieldLabel">Name</label>
+															<div class="col-md-5 col-sm-5">
+																	<input class="form-control m-input" type="text"  required [ngClass]="{'red-border-class': userForm.get('username').hasError('required') && isFormSubmitted}"  formControlName="username" name="userName" id="userName" placeholder="User Name">
+															</div>														
+														</div>
+														<div class="form-group">
+															<label class="col-md-3 col-sm-3 fieldLabel">Email</label>
+															<div class="col-md-5 col-sm-5">
+																	<input class="form-control m-input" type="email"  required [ngClass]="{'red-border-class': userForm.get('email').hasError('required') && isFormSubmitted}"  email formControlName="email" name="email" placeholder="Email" maxlength="254">
+															</div>		
+															<div class="alertMsg" *ngIf="userForm.get('email').hasError('email') && !userForm.get('email').hasError('required') && isFormSubmitted">
+																Please enter valid Email
+															</div>												
+														</div>
+														<div class="form-group">
+															<label class="col-md-3 col-sm-3 fieldLabel">Contact No.</label>
+															<div class="col-md-5 col-sm-5">
+																	<input class="form-control m-input" type="number" onKeyPress="if(this.value.length==10) return false;" required [ngClass]="{'red-border-class': userForm.get('phone').hasError('required') && isFormSubmitted}"   formControlName="phone" name="contact" placeholder="Contact" maxlength="10">
+															</div>														
+														</div>
+														<div class="form-group">
+															<label class="col-md-3 col-sm-3 fieldLabel">Role</label>
+															<div class="col-md-5 col-sm-5">
+																	<select class="form-control"  required [ngClass]="{'red-border-class': userForm.get('role').hasError('required') && isFormSubmitted}"  formControlName="role">
+																			<option [ngValue]="null" >Select</option>
+																			<option *ngFor="let role of roleList" [ngValue]="role.value">{{role.label}}</option>
+																		</select>
+															</div>														
+														</div>
+														<div class="form-group">
+															<label class="col-md-3 col-sm-3 fieldLabel">User Type</label>
+															<div class="col-md-5 col-sm-5">
+																	<select class="form-control" [ngClass]="{'red-border-class': userForm.get('userType').hasError('required') && isFormSubmitted}"  formControlName="userType">
+																			<option [ngValue]="null" >Select</option>
+																			<option *ngFor="let userType of userTypeList" [ngValue]="userType.id">{{userType.userTypeName}}</option>
+																		</select>
+															</div>														
+														</div>
+																					
+													  </div>
+													</div>	
+												</div>
+											
+											</div>
+											
+										</div>								
+										<div class="col-md-6">
+										
+											
+											
+										</div>
+										
+									</div>
+								</form>
 
-								</div>
-								<div class="col-md-3">
+			</div>
+		</div>
+	
+				
 
-								</div>
-								<div class="col-md-3">
 
-								</div>
-
-								<div class="col-md-3">
-									<div class="m-input-icon m-input-icon--left">
-										<input type="text" class="form-control m-input m-input--solid" [(ngModel)]="searchValue" (keyup)="searchString(searchValue)"
-										 placeholder="Search..." id="m_form_search">
-										<span class="m-input-icon__icon m-input-icon__icon--left">
+			</div>
+		</div>
+			<div class="m-portlet__body">
+				<!--begin::Section-->
+				
+				<div class="m-section">
+					<div class="m-section__content">
+							<div class="ui-widget-header" style="border-bottom: 0 none">
+									<i class="fa fa-search searchIcon"></i>
+									<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+									
+									<!-- Add Button -->
+									<button  *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()" [isAuthorize]="['supplier']">
+										<span>
+											<i class="flaticon-add"></i>
 											<span>
-												<i class="la la-search"></i>
+												Add User
 											</span>
 										</span>
-									</div>
+									</button>
 								</div>
-							</div>
-							<div class="table-responsive">
-								<!--begin: Datatable -->
-								<div class="tableBox">
-									<table class="staticTable" id="" width="100%">
-										<thead>
-											<tr>
-												<th title="">
-													<a href="#" (click)="sort('username',ascSortCol1 = !ascSortCol1)">
-														User Name
-													</a>
-												</th>
-												<th title="">
-													Role
-												</th>
-												<th title="">
-													Phone
-												</th>
-												<th title="">
-													Email
-												</th>
-												<th title="">
-													Status
-												</th>
-												<th title="">
-													Actions
-												</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr *ngFor='let row of userList; let i = index'>
-												<td>{{row.userName}}</td>
-												<td >{{row.mstRole !== null  ? row.mstRole.roleName : ''}}</td>
-												<td>{{row.phone}}</td>
-												<td>{{row.email}}</td>
-												<td *ngIf="row.isActivate">
-													<a href="#" (click)="toggleUserStatus(row,false)">
-														Make Deactive
-													</a>
-												</td>
-												<td *ngIf="!row.isActivate">
-													<a href="#" (click)="toggleUserStatus(row,true)">
-														Make Active
-													</a>
-												</td>
-												<td>
-													<a href="javascript:;" (click)="onEditClick(row)" class="m-portlet__nav-link btn m-btn m-btn--icon m-btn--icon-only m-btn--pill"
-													 title="Edit" [isAuthorize]="['user']">
-														<i class="la la-edit"></i>
-													</a>
-													<a href="javascript:;" (click)="onDelete(row)" class="m-portlet__nav-link btn m-btn m-btn--icon m-btn--icon-only m-btn--pill"
-													 title="Delete" [isAuthorize]="['user']">
-														<i class="la la-close"></i>
-													</a>
-													<a href="javascript:;" *ngIf="row.isBolocked" (click)="unblockuser(row)" class="m-portlet__nav-link btn m-btn m-btn--icon m-btn--icon-only m-btn--pill"
-													 title="Unblock user" [isAuthorize]="['user']">
-														<i class="fa fa-unlock"></i>
-													</a>
-												</td>
-											</tr>
-										</tbody>
-										<tbody *ngIf="!longList">
-											No Records Found...
-										</tbody>
-
-									</table>
-								</div>
-								<!-- Pagination -->
-								<div class="PaginationBox">
-
-									<div class="row">
-										<div class="col-md-6">
-											<nav aria-label="Page navigation example">
-												<ul class="pagination">
-													<li [ngClass]="{'page-item' : true}" title="Go to First Page">
-														<a [ngClass]="{'page-link' : true, 'prev':true}" (click)="visitFirstPage()">
-															<i class="la la-angle-double-left leftIcon"></i>
-														</a>
-													</li>
-													<!-- <li class="page-item">
-																		<a [ngClass]="{'disabled': prePageEnable ,'page-link' : true, 'prev':true}" (click)="visitFirstPage()">
-																			<i class="fa fa-arrows leftIcon"></i>
-																		</a>
-																	</li> -->
-													<li class="page-item" title="Previous">
-														<a [ngClass]="{'disabled': prePageEnable ,'page-link' : true, 'prev':true}" (click)="morePreviousPages()">
-															<i class="la la-angle-left leftIcon"></i>
-														</a>
-													</li>
-													<li [ngClass]="{'cursorNone' : currentPageCheck(item), 'page-item' : true}" *ngFor="let item of arr">
-														<!-- <a my-link="false" [ngClass]="{'active' : true, 'page-link' : currentPageCheck(item)}" (click)="pageClick(item)">{{item}}</a> -->
-														<a my-link="false" [ngClass]="{'disabled' : currentPageCheck(item), 'active' : currentPageCheck(item), 'page-link' : true}"
-														 (click)="pageClick(item)">{{item}}</a>
-													</li>
-													<li class="page-item" title="Next">
-														<a [ngClass]="{'disabled': nextPageEnable ,'page-link' : true, 'next':true}" class="page-link next" (click)="moreNextPages()">
-															<i class="la la-angle-right rightIcon"></i>
-														</a>
-													</li>
-													<!-- <li class="page-item">
-																		<a [ngClass]="{'disabled': nextPageEnable ,'page-link' : true, 'next':true}" class="page-link next" (click)="nextPage()">
-																			<i class="fa fa-arrows rightIcon"></i>
-																		</a>
-																	</li> -->
-													<li class="page-item" title="Go to Last Page">
-														<a [ngClass]="{'disabled': nextPageEnable ,'page-link' : true, 'next':true}" class="page-link next" (click)="visitLastPage()">
-															<i class="la la-angle-double-right rightIcon"></i>
-														</a>
-													</li>
-												</ul>
-											</nav>
-										</div>
-
-										<div class="col-md-6 showRecordsBox">
-											<div class="showRecordsLabel">
-												<label>Displaying {{firstPageNumber}} - {{lastPage}} of {{total}} records</label>
-											</div>
-											<div class="showRecordsDropdown">
-												<p-dropdown class="recordSelect" [style]="{'width':'100%'}" [(ngModel)]="selectedPageSize" [options]="pageSize" name="CategoryId"
-												 (ngModelChange)="pageSizeChanged(selectedPageSize)"></p-dropdown>
-											</div>
-										</div>
-
-									</div>
-
-								</div>
-
-
-							</div>
-						</div>
+						<p-dataTable [value]="userList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [loading]="loading"  [rowsPerPageOptions]="[20,50,100,200,500]"
+						[totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+							<p-column field="userName" header="User Name" [style]="{'text-align':'left'}"></p-column>
+							<p-column field="mstRole.roleName" header="Role Name" [style]="{'text-align':'left'}"></p-column>
+							<p-column field="phone" header="Phone" [style]="{'text-align':'center'}"></p-column>
+							<p-column field="email" header="Email" [style]="{'text-align':'left'}"></p-column>
+							<p-column styleClass="col-button" [style]="{'text-align':'center'}">
+								<ng-template pTemplate="header">
+									Action
+								</ng-template>
+								<ng-template let-row="rowData" pTemplate="body" >
+									<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+									<button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
+								</ng-template>
+							</p-column>
+						</p-dataTable>
 					</div>
-					<!--end::Section-->
 				</div>
+				<!--end::Section-->
 			</div>
-			<!--end::Portlet-->
 		</div>
+	
 	</div>
 </div>
+
+</div>		

@@ -10,7 +10,6 @@ import { AuthGuard } from "../../../../../auth/_guards/auth.guard";
 import { UserService, RoleService, UserRoleService } from '../../_services/index';
 import { UsersComponent } from './users.component';
 import { UsersListComponent } from './users-list/users-list.component';
-import { UserAddEditComponent } from './user-add-edit/user-add-edit.component';
 
 import {
   DataTableModule,
@@ -37,22 +36,7 @@ const routes: Routes = [
             data: {
               permissions: ['user']
             }
-          },
-          {
-            path: 'add',
-            component: UserAddEditComponent,
-            canActivate: [AuthGuard],
-            data: {
-              permissions: ['user']
-            }
-          },
-          {
-            path: 'edit/:userId',
-            component: UserAddEditComponent,
-            canActivate: [AuthGuard],
-            data: {
-              permissions: ['user']
-            }
+          
           },
         ]
       }
@@ -77,7 +61,6 @@ const routes: Routes = [
   declarations: [
     UsersComponent,
     UsersListComponent,
-    UserAddEditComponent,
   ],
   providers: [
     UserService,

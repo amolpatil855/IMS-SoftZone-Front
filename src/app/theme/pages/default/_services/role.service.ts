@@ -17,6 +17,12 @@ export class RoleService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Role?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getRoleLookup(){
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetRoleLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+  
+
+
   getRoleById(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Role/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
