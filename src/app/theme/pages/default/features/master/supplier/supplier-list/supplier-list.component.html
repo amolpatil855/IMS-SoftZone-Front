@@ -202,17 +202,13 @@
 																		</div>		
 																	</td>
 																	<td>
-																		<input type="text" class="form-control" email required [(ngModel)]="supplierObj.dispatchPersonEmail"  [ngClass]="{'red-border-class': dispatchPersonEmailVal.errors && isFormSubmitted}"  name="dispatchPersonEmail"   #dispatchPersonEmailVal="ngModel" placeholder="DispatchPersonEmail" maxlength="15">
+																		<input type="email" class="form-control" email required [(ngModel)]="supplierObj.dispatchPersonEmail"  [ngClass]="{'red-border-class': dispatchPersonEmailVal.errors && isFormSubmitted}"  name="dispatchPersonEmail"   #dispatchPersonEmailVal="ngModel" placeholder="DispatchPersonEmail" maxlength="15">
 																		<div class="alertMsg" *ngIf="dispatchPersonEmailVal.errors && !dispatchPersonEmailVal.errors.required && dispatchPersonEmailVal.errors.email && dispatchPersonEmailVal.touched">
 																			Invalid Email
 																		</div>				
 																	</td>													
 																	<td>
-<<<<<<< HEAD
-																		<input type="number" class="form-control"  required [(ngModel)]="supplierObj.dispatchPersonPhone"  [ngClass]="{'red-border-class': dispatchPersonPhoneVal.errors && isFormSubmitted}"  name="dispatchPersonPhone"   #dispatchPersonPhoneVal="ngModel" placeholder="DispatchPersonPhone" maxlength="10">
-=======
-																		<input type="text" class="form-control"  required [(ngModel)]="supplierObj.dispatchPersonPhone" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': dispatchPersonPhoneVal.errors && isFormSubmitted}"  name="dispatchPersonPhone"   #dispatchPersonPhoneVal="ngModel" placeholder="" maxlength="15">
->>>>>>> 19c59fe8004c4ff9f7170cb61d66babbf49a2a2d
+																		<input type="number" class="form-control"  required [(ngModel)]="supplierObj.dispatchPersonPhone" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': dispatchPersonPhoneVal.errors && isFormSubmitted}"  name="dispatchPersonPhone"   #dispatchPersonPhoneVal="ngModel" placeholder="" maxlength="15">
 																		<div class="alertMsg" *ngIf="dispatchPersonPhoneVal.errors && !dispatchPersonPhoneVal.errors.required && dispatchPersonPhoneVal.errors.pattern && dispatchPersonPhoneVal.touched">
 																			Please enter valid phone number
 																		</div>	
@@ -223,7 +219,7 @@
 																		<b>Warehouse</b>
 																	</td>
 																	<td>
-																		<input type="email" class="form-control" required [(ngModel)]="supplierObj.warehousePersonName"  [ngClass]="{'red-border-class': warehousePersonNameVal.errors && isFormSubmitted}" name="warehousePersonName" id="warehousePersonName"   #warehousePersonNameVal="ngModel" placeholder="WarehousePersonName">
+																		<input type="text" class="form-control" required [(ngModel)]="supplierObj.warehousePersonName"  [ngClass]="{'red-border-class': warehousePersonNameVal.errors && isFormSubmitted}" name="warehousePersonName" id="warehousePersonName"   #warehousePersonNameVal="ngModel" placeholder="WarehousePersonName">
 																	</td>
 																	<td>
 																		<input type="email" class="form-control" email   [ngClass]="{'red-border-class': warehousePersonEmailVal.errors && isFormSubmitted}" [(ngModel)]="supplierObj.warehousePersonEmail" name="warehousePersonEmail" placeholder="WarehousePersonEmail"  #warehousePersonEmailVal="ngModel"  maxlength="254">
@@ -232,11 +228,7 @@
 																		</div>	
 																	</td>													
 																	<td>
-<<<<<<< HEAD
-																		<input type="number" class="form-control"  required   [ngClass]="{'red-border-class': warehousePersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.warehousePersonPhone" name="warehousePersonPhone"   #warehousePersonPhoneVal="ngModel" placeholder="WarehousePersonPhone" maxlength="10">
-=======
-																		<input type="email" class="form-control"  required onKeyPress="if(this.value.length==10) return false;"  [ngClass]="{'red-border-class': warehousePersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.warehousePersonPhone" name="warehousePersonPhone"   #warehousePersonPhoneVal="ngModel" placeholder="" maxlength="15">
->>>>>>> 19c59fe8004c4ff9f7170cb61d66babbf49a2a2d
+																		<input type="number" class="form-control"  required onKeyPress="if(this.value.length==10) return false;"  [ngClass]="{'red-border-class': warehousePersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.warehousePersonPhone" name="warehousePersonPhone"   #warehousePersonPhoneVal="ngModel" placeholder="" maxlength="15">
 																			<div class="alertMsg" *ngIf="warehousePersonPhoneVal.errors && !warehousePersonPhoneVal.errors.required && warehousePersonPhoneVal.errors.pattern && warehousePersonPhoneVal.touched">
 																				Please enter valid phone number
 																			</div>
@@ -291,13 +283,13 @@
 																	</div>
 																</td>
 																<td>
-																	<input class="form-control" type="text"  [(ngModel)]="supAdd.gstin" name="{{'gstin'+supAdd.contRoleId}}" maxlength="15">
+																	<input class="form-control" type="number" onKeyPress="if(this.value.length==15) return false;" [(ngModel)]="supAdd.gstin" name="{{'gstin'+supAdd.contRoleId}}" maxlength="15">
 																		<div class="alertMsg" *ngIf="supAdd.invalidGstin">
 																			Please enter gstin
 																		</div>
 																</td>
 																<td>
-																	<input type="text" class="form-control"  name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin"/>
+																	<input type="text" class="form-control" onKeyPress="if(this.value.length==6) return false;" name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin" maxlength="6"/>
 																	<div class="alertMsg" *ngIf="supAdd.invalidPin">
 																			Please enter pin
 																		</div>
@@ -385,7 +377,11 @@
                                 <p-column field="phone" header="Phone" [style]="{'text-align':'center'}"></p-column>
                                 <p-column field="firmName" header="Firm Name" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="code" header="Code" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstSupplierAddresses[0].gstin" header="GST" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="mstSupplierAddresses" header="GST" [style]="{'text-align':'center'}">
+									<ng-template let-data="rowData"  pTemplate="body">
+										<span *ngFor="let item of data.mstSupplierAddresses">{{ item.gstin }} <br/></span>
+									</ng-template>
+								</p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action

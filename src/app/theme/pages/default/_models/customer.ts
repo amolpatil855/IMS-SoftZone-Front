@@ -1,11 +1,11 @@
 import { User } from "./user";
+import { CustomerAddress } from "./customerAddress";
 
 export class Customer {
     id: number;
     code: string;
     name: string;
     nickName: string;
-    gstin: string;
     email: string;
     phone: string;
     alternateEmail1: string;
@@ -18,7 +18,7 @@ export class Customer {
     accountPersonEmail: string;
     accountPersonPhone: string;
     userId: number;
-    createdBy: number;
-    updatedBy: number;
+    userName: string;
     MstUser: User;
+    MstCustomerAddresses: CustomerAddress;
 }

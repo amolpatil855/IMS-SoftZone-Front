@@ -26,6 +26,7 @@ export class CustomerListComponent implements OnInit {
   search='';
   states=[];
   toggleDiv=false;
+  isHide = false;
   isFormSubmitted:boolean;
   constructor(
     private formBuilder: FormBuilder,
@@ -75,7 +76,7 @@ this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
   state: '',
   country: '',
   pin: '',
-  gstin: '',
+  gstin: 0,
   isPrimary: false,
   contRoleId: Math.floor(Math.random() * 2000),
 });
@@ -91,7 +92,7 @@ this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
       state: 'Maharashtra',
       country: 'India',
       pin: '',
-      gstin: '',
+      gstin: 0,
       isPrimary: false,
       contRoleId: Math.floor(Math.random() * 2000),
     };
@@ -228,6 +229,9 @@ this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
   this.customerService.getCustomerById(id).subscribe(
     results => {
       this.customerObj = results;
+      if(this.customerObj.isWholesaleCustomer){
+        this.isHide = true;
+      }
       this.customerObj.MstCustomerAddresses=results.mstCustomerAddresses;
       delete this.customerObj['mstCustomerAddresses'];
        _.forEach(this.customerObj.MstCustomerAddresses, function(value) {
@@ -241,9 +245,9 @@ this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
   onEditClick(customer: Customer) {
      this.customerService.perPage = this.pageSize;
      this.customerService.currentPos = this.page;
-    this.getCustomerById(customer.id);
-    this.params=customer.id;
-   this.toggleDiv=true;
+     this.getCustomerById(customer.id);
+     this.params=customer.id;
+     this.toggleDiv=true;
   }
 
   onDelete(customer: Customer) {
