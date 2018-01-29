@@ -41,7 +41,7 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="(fomSuggestedMMForm && !fomSuggestedMMForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(fomSuggestedMMForm && fomSuggestedMMForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="fomSuggestedMMForm && !fomSuggestedMMForm.form.valid" [isAuthorize]="['foamsuggestedmm']">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="fomSuggestedMMForm" [ngClass]="(fomSuggestedMMForm && !fomSuggestedMMForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(fomSuggestedMMForm && fomSuggestedMMForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="fomSuggestedMMForm && !fomSuggestedMMForm.form.valid" [isAuthorize]="['foamsuggestedmm']">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
 			<button class="btn btn-secondary" [isAuthorize]="['foamsuggestedmm']" (click)="onCancel()">

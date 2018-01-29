@@ -41,7 +41,7 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="(matThicknessForm && !matThicknessForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(matThicknessForm && matThicknessForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="matThicknessForm && !matThicknessForm.form.valid" [isAuthorize]="['mattressthickness']">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="matSizeForm" [ngClass]="(matThicknessForm && !matThicknessForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(matThicknessForm && matThicknessForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="matThicknessForm && !matThicknessForm.form.valid" [isAuthorize]="['mattressthickness']">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
 			<button class="btn btn-secondary" [isAuthorize]="['mattressthickness']" (click)="onCancel()">

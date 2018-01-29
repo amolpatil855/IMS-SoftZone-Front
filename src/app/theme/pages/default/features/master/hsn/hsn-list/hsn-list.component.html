@@ -41,7 +41,7 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="(hsnForm && !hsnForm.form.valid)?'cursorNotAllowed':'cursorPointer'" title="{{(hsnForm && hsnForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="hsnForm && !hsnForm.form.valid" [isAuthorize]="['hsn']">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" [ngClass]="(hsnForm && !hsnForm.form.valid)?'cursorNotAllowed':'cursorPointer'" title="{{(hsnForm && hsnForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="hsnForm && !hsnForm.form.valid" [isAuthorize]="['hsn']">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
 			<button class="btn btn-secondary" [isAuthorize]="['hsn']" (click)="onCancel()">

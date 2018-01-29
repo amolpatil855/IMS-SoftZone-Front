@@ -79,13 +79,13 @@
 													  <div class="panel-heading">User Details</div>
 													  <div class="panel-body">	
 														<div class="form-group">
-															<label class="col-md-3 col-sm-3 fieldLabel">Name</label>
+															<label class="col-md-3 col-sm-3 fieldLabel">Name<span class="requiredField">*</span></label>
 															<div class="col-md-5 col-sm-5">
 																	<input class="form-control m-input" type="text"  required [ngClass]="{'red-border-class': userForm.get('username').hasError('required') && isFormSubmitted}"  formControlName="username" name="userName" id="userName" placeholder="User Name">
 															</div>														
 														</div>
 														<div class="form-group">
-															<label class="col-md-3 col-sm-3 fieldLabel">Email</label>
+															<label class="col-md-3 col-sm-3 fieldLabel">Email<span class="requiredField">*</span></label>
 															<div class="col-md-5 col-sm-5">
 																	<input class="form-control m-input" type="email"  required [ngClass]="{'red-border-class': userForm.get('email').hasError('required') && isFormSubmitted}"  email formControlName="email" name="email" placeholder="Email" maxlength="254">
 															</div>		
@@ -94,13 +94,13 @@
 															</div>												
 														</div>
 														<div class="form-group">
-															<label class="col-md-3 col-sm-3 fieldLabel">Contact No.</label>
+															<label class="col-md-3 col-sm-3 fieldLabel">Contact No.<span class="requiredField">*</span></label>
 															<div class="col-md-5 col-sm-5">
 																	<input class="form-control m-input" type="number" onKeyPress="if(this.value.length==10) return false;" required [ngClass]="{'red-border-class': userForm.get('phone').hasError('required') && isFormSubmitted}"   formControlName="phone" name="contact" placeholder="Contact" maxlength="10">
 															</div>														
 														</div>
 														<div class="form-group">
-															<label class="col-md-3 col-sm-3 fieldLabel">Role</label>
+															<label class="col-md-3 col-sm-3 fieldLabel">Role<span class="requiredField">*</span></label>
 															<div class="col-md-5 col-sm-5">
 																	<select class="form-control"  required [ngClass]="{'red-border-class': userForm.get('role').hasError('required') && isFormSubmitted}"  formControlName="role">
 																			<option [ngValue]="null" >Select</option>
@@ -109,7 +109,7 @@
 															</div>														
 														</div>
 														<div class="form-group">
-															<label class="col-md-3 col-sm-3 fieldLabel">User Type</label>
+															<label class="col-md-3 col-sm-3 fieldLabel">User Type<span class="requiredField">*</span></label>
 															<div class="col-md-5 col-sm-5">
 																	<select class="form-control" [ngClass]="{'red-border-class': userForm.get('userType').hasError('required') && isFormSubmitted}"  formControlName="userType">
 																			<option [ngValue]="null" >Select</option>

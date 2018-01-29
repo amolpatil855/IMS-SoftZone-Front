@@ -64,7 +64,7 @@ export class FomSizeListComponent implements OnInit {
     width: 0,
     length: 0,
     sizeCode: '0x0',
-    stockReorderLevel: 0,
+    stockReorderLevel: null,
     };
   }
   onInputChange(){

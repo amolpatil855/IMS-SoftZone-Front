@@ -41,12 +41,12 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="(shadeForm && !shadeForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(shadeForm && shadeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="shadeForm && !shadeForm.form.valid" [isAuthorize]="['shade']">
-					{{ params ? 'Update' : 'Save' }}
-			</button>
-			<button class="btn btn-secondary" [isAuthorize]="['shade']" (click)="onCancel()">
-					Cancel
-			</button>
+				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="shadeForm" title="{{(shadeForm && shadeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['shade']">
+						{{ params ? 'Update' : 'Save' }}
+				</button>
+				<button class="btn btn-secondary" [isAuthorize]="['shade']" (click)="onCancel()">
+						Cancel
+				</button>
 		</div>
 	</div>
 </div>
@@ -61,56 +61,56 @@
 				
 				<div class="col-md-12" *ngIf="toggleDiv">
 					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(shadeForm)"  #shadeForm="ngForm"  id="shadeForm">
-					<div class="formContainer formContainerSamePage">
+					<div class="formContainerSamePage">
 						
 								<div class="row">
-									
-									<div class="col-md-12">
-										<h5 class="formPanelHeading">Shade Basic Details:</h5>
-									</div>
+										<div class="col-md-12">
+										<div class="panel panel-default">
+												<div class="panel-heading">Shade Basic Details</div>
+												<div class="panel-body">	
+														<div class="form-group">
+
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Category Code <span class="requiredField">*</span></label>
+										<label class="fieldLabel col-sm-5">Category Code<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}" [(ngModel)]="selectedCategory" name="category" (ngModelChange)="onCategoryClick()"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}"   #selectedCategoryVal="ngModel"  required [ngClass]="{'red-border-class': selectedCategoryVal.errors && isFormSubmitted}"  [(ngModel)]="selectedCategory" name="category" (ngModelChange)="onCategoryClick()"></p-dropdown>
 										</div>	
 									</div>
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Collection Code <span class="requiredField">*</span></label>
+										<label class="fieldLabel col-sm-5">Collection Code<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection"   #selectedCollectionVal="ngModel"  required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}"  name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
 										</div>
 									</div>	
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Quality Code <span class="requiredField">*</span></label>
+										<label class="fieldLabel col-sm-5">Quality Code<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality"   #selectedQualityVal="ngModel"  required [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}"  name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
 										</div>
                                     </div>
                                     <div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Design Code <span class="requiredField">*</span></label>
+										<label class="fieldLabel col-sm-5">Design Code<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="designList" [style]="{'width':'100%'}" [(ngModel)]="selectedDesign" name="design"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="designList" [style]="{'width':'100%'}"   #selectedDesignVal="ngModel"  required [ngClass]="{'red-border-class': selectedDesignVal.errors && isFormSubmitted}"  [(ngModel)]="selectedDesign" name="design"></p-dropdown>
 										</div>
 									</div>	
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Shade Code <span class="requiredField">*</span></label>
-											<div class="col-sm-7">   
-												<input class="form-control m-input" type="text" value=""  #shadeCodeVal="ngModel" required [(ngModel)]="shadeObj.shadeCode" name="shadeCode" id="shadeCode" placeholder="Enter Shade Code">
-                                                <div class="alertMsg" *ngIf="shadeCodeVal.errors   && (shadeCodeVal.dirty || shadeCodeVal.touched)">
+											<label class="fieldLabel col-sm-5">Shade Code<span class="requiredField">*</span></label>
+											    <input class="form-control m-input  col-sm-7" type="text" value=""  #shadeCodeVal="ngModel" required [ngClass]="{'red-border-class': shadeCodeVal.errors && isFormSubmitted}"  [(ngModel)]="shadeObj.shadeCode" name="shadeCode" id="shadeCode" placeholder="Enter Shade Code">
+                                                <!-- <div class="alertMsg" *ngIf="shadeCodeVal.errors   && (shadeCodeVal.dirty || shadeCodeVal.touched)">
                                                     Please enter Shade Code
-												</div>
-											</div>
+                                                </div> -->
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Shade Name <span class="requiredField">*</span></label>
+											<label class="fieldLabel col-sm-5">Shade Name<span class="requiredField">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value=""  #shadeNameVal="ngModel" required [(ngModel)]="shadeObj.shadeName" name="shadeName" id="shadeName" placeholder="Enter Shade Name">
-                                                <div class="alertMsg" *ngIf="shadeNameVal.errors   && (shadeNameVal.dirty || shadeNameVal.touched)">
+												<input class="form-control m-input" type="text" value=""  #shadeNameVal="ngModel" required [ngClass]="{'red-border-class': shadeNameVal.errors && isFormSubmitted}"  [(ngModel)]="shadeObj.shadeName" name="shadeName" id="shadeName" placeholder="Enter Shade Name">
+                                                <!-- <div class="alertMsg" *ngIf="shadeNameVal.errors   && (shadeNameVal.dirty || shadeNameVal.touched)">
                                                     Please enter Shade Name
-                                                </div>
+                                                </div> -->
 											</div>
 										</div>
                                     </div>
@@ -118,28 +118,32 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Description</label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel" required [(ngModel)]="shadeObj.description" name="description" id="description" placeholder="Enter Description">
-                                                <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
+												<input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel"  [(ngModel)]="shadeObj.description" name="description" id="description" placeholder="Enter Description">
+                                                <!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
                                                     Please enter Description
-                                                </div>
+                                                </div> -->
 											</div>
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">StockReorderLevel <span class="requiredField">*</span></label>
+											<label class="fieldLabel col-sm-5">Stock Reorder Level <span class="requiredField">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required [(ngModel)]="shadeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
-                                                <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
+												<input class="form-control m-input" type="number" value=""  #stockReorderLevelVal="ngModel" required [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="shadeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
+                                                <!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
                                                     Please enter StockReorderLevel
-                                                </div>
+                                                </div> -->
 											</div>
 										</div>
                                     </div>
 								</div>
+							</div>
+						</div>
+					</div>
+								</div>
 								
-								
-				<!-- <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+<!-- 								
+				<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
 					<div class="m-form__actions m-form__actions--solid">
 						<div class="row">
 							<div class="col-lg-6">
@@ -152,8 +156,8 @@
 							</div>
 						</div>
 					</div>
-				</div> -->
-							
+				</div>
+							 -->
 						
 					</div>
 					

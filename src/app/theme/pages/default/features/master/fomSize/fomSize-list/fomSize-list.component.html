@@ -41,7 +41,7 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="(fomSizeForm && !fomSizeForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(fomSizeForm && fomSizeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="fomSizeForm && !fomSizeForm.form.valid" [isAuthorize]="['foamsize']">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="fomSizeForm" [ngClass]="(fomSizeForm && !fomSizeForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(fomSizeForm && fomSizeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="fomSizeForm && !fomSizeForm.form.valid" [isAuthorize]="['foamsize']">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
 			<button class="btn btn-secondary" [isAuthorize]="['foamsize']" (click)="onCancel()">
@@ -126,10 +126,10 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">StockReorderLevel <span class="requiredField">*</span><span class="requiredField">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required [(ngModel)]="fomSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
-                                                <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
+												<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
+                                                <!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
                                                     Please enter StockReorderLevel
-                                                </div>
+                                                </div> -->
 											</div>
 										</div>
                                     </div>
