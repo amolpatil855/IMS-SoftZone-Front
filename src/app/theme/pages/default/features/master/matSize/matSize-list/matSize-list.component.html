@@ -22,9 +22,6 @@
 <div class="m-subheader">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
-			<h3 class="m-subheader__title m-subheader__title--separator">
-				MatSizes
-			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 				<li class="m-nav__item m-nav__item--home">
 					<a href="#" class="m-nav__link m-nav__link--icon">
@@ -41,17 +38,15 @@
 						</span>
 					</a>
 				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-							List
-						</span>
-					</a>
-				</li>
 			</ul>
+			</div>
+			<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"  form="matSizeForm" [ngClass]="(matSizeForm && !matSizeForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(matSizeForm && matSizeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="matSizeForm && !matSizeForm.form.valid" [isAuthorize]="['mattresssize']">
+						{{ params ? 'Update' : 'Save' }}
+				</button>
+				<button class="btn btn-secondary" [isAuthorize]="['mattresssize']" (click)="onCancel()">
+						Cancel
+				</button>
 		</div>
 	</div>
 </div>
@@ -74,49 +69,60 @@
 										<h5 class="formPanelHeading">MatSize Basic Details:</h5>
 									</div>
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Collection</label>
+										<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel"  required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" [(ngModel)]="selectedCollection" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
 										</div>	
 									</div>
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Quality</label>
+										<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel"  required [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" [(ngModel)]="selectedQuality" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
 										</div>
 									</div>	
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Thickness</label>
+										<label class="fieldLabel col-sm-5">Thickness <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="selectedThickness" name="thickness"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" #selectedThicknessVal="ngModel"  required [ngClass]="{'red-border-class': selectedThicknessVal.errors && isFormSubmitted}" [(ngModel)]="selectedThickness" name="thickness"></p-dropdown>
 										</div>
 									</div>	
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Size Code</label>
+											<label class="fieldLabel col-sm-5">Size Code <span class="requiredField">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value="" maxlength="10" #sizeCodeVal="ngModel" required [(ngModel)]="matSizeObj.sizeCode" name="sizeCode" id="sizeCode" placeholder="Enter Size Code">
-                                                <div class="alertMsg" *ngIf="sizeCodeVal.errors   && (sizeCodeVal.dirty || sizeCodeVal.touched)">
+												<input class="form-control m-input" type="text" value="" maxlength="10" #sizeCodeVal="ngModel" required [ngClass]="{'red-border-class': sizeCodeVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.sizeCode" name="sizeCode" id="sizeCode" placeholder="Enter Size Code">
+                                                <!-- <div class="alertMsg" *ngIf="sizeCodeVal.errors   && (sizeCodeVal.dirty || sizeCodeVal.touched)">
                                                     Please enter Size Code
-                                                </div>
+                                                </div> -->
 											</div>
 										</div>
                                     </div>
                                     <div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Rate</label>
+											<label class="fieldLabel col-sm-5">Rate <span class="requiredField">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value="" maxlength="10" #rateVal="ngModel" required [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="Enter Rate">
-                                                <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
+												<input class="form-control m-input" type="text" value="" maxlength="10" #rateVal="ngModel" required [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="Enter Rate">
+                                                <!-- <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
                                                     Please enter Rate
-                                                </div>
+                                                </div> -->
 											</div>
 										</div>
 									</div>
+									<div class="col-md-3 formContentbox">
+										<div class="form-group">
+											<label class="fieldLabel col-sm-5">Stock Reorder Level <span class="requiredField">*</span></label>
+											<div class="col-sm-7">
+												<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
+                                                <!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
+                                                    Please enter StockReorderLevel
+                                                </div> -->
+											</div>
+										</div>
+                                    </div>
 								</div>
 								
 								
-				<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+				<!-- <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
 					<div class="m-form__actions m-form__actions--solid">
 						<div class="row">
 							<div class="col-lg-6">
@@ -129,7 +135,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 							
 						
 					</div>

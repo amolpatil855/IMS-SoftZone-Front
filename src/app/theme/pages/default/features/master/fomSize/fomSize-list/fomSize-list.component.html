@@ -22,9 +22,6 @@
 <div class="m-subheader">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
-			<h3 class="m-subheader__title m-subheader__title--separator">
-				FomSizes
-			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 				<li class="m-nav__item m-nav__item--home">
 					<a href="#" class="m-nav__link m-nav__link--icon">
@@ -37,21 +34,19 @@
 				<li class="m-nav__item">
 					<a class="m-nav__link">
 						<span class="m-nav__link-text">
-							FomSizes
-						</span>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-							List
+							Foam Size
 						</span>
 					</a>
 				</li>
 			</ul>
+		</div>
+		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="fomSizeForm" [ngClass]="(fomSizeForm && !fomSizeForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(fomSizeForm && fomSizeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="fomSizeForm && !fomSizeForm.form.valid" [isAuthorize]="['foamsize']">
+					{{ params ? 'Update' : 'Save' }}
+			</button>
+			<button class="btn btn-secondary" [isAuthorize]="['foamsize']" (click)="onCancel()">
+					Cancel
+			</button>
 		</div>
 	</div>
 </div>
@@ -74,32 +69,32 @@
 										<h5 class="formPanelHeading">FomSize Basic Details:</h5>
 									</div>
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Collection</label>
+										<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
                                             <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
 										</div>	
 									</div>
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Quality</label>
+										<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
                                             <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
 										</div>
                                     </div>
                                     <div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Foam Density</label>
+										<label class="fieldLabel col-sm-5">Foam Density <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
                                             <p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" [(ngModel)]="selectedDensity" name="density" (ngModelChange)="onDensityClick()"></p-dropdown>
 										</div>
                                     </div>
                                     <div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Foam Size</label>
+										<label class="fieldLabel col-sm-5">Foam Size <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
                                             <p-dropdown class="feePlanBox" [options]="fomSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedSize" name="size"></p-dropdown>
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Width</label>
+											<label class="fieldLabel col-sm-5">Width <span class="requiredField">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control m-input" type="text" value="" maxlength="10" #widthVal="ngModel" required [(ngModel)]="fomSizeObj.width" name="width" id="width" placeholder="Enter Width" (input)="onInputChange()">
                                                 <div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
@@ -110,7 +105,7 @@
                                     </div>
                                     <div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Length</label>
+											<label class="fieldLabel col-sm-5">Length <span class="requiredField">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control m-input" type="text" value="" maxlength="10" #lengthVal="ngModel" required [(ngModel)]="fomSizeObj.length" name="length" id="length" placeholder="Enter Length" (input)="onInputChange()">
                                                 <div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
@@ -126,11 +121,22 @@
 												<input class="form-control m-input" type="text" value="" maxlength="10" #sizeCodeVal="ngModel" required [(ngModel)]="fomSizeObj.sizeCode" [disabled]="true" name="sizeCode" id="sizeCode">
 											</div>
 										</div>
+									</div>
+									<div class="col-md-3 formContentbox">
+										<div class="form-group">
+											<label class="fieldLabel col-sm-5">StockReorderLevel <span class="requiredField">*</span><span class="requiredField">*</span></label>
+											<div class="col-sm-7">
+												<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
+                                                <!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
+                                                    Please enter StockReorderLevel
+                                                </div> -->
+											</div>
+										</div>
                                     </div>
 								</div>
 								
 								
-				<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+				<!-- <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
 					<div class="m-form__actions m-form__actions--solid">
 						<div class="row">
 							<div class="col-lg-6">
@@ -143,7 +149,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 							
 						
 					</div>

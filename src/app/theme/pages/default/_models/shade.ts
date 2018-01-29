@@ -13,6 +13,7 @@ export class Shade {
     shadeName: string;
     serialNumber: number;
     description: string;
+    stockReorderLevel: number;
     MstCategory: Category;
     MstCollection: Collection;
     MstDesign: Design;

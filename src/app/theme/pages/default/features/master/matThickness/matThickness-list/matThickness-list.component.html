@@ -22,9 +22,6 @@
 <div class="m-subheader">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
-			<h3 class="m-subheader__title m-subheader__title--separator">
-				MatThicknesss
-			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 				<li class="m-nav__item m-nav__item--home">
 					<a href="#" class="m-nav__link m-nav__link--icon">
@@ -41,17 +38,15 @@
 						</span>
 					</a>
 				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-							List
-						</span>
-					</a>
-				</li>
 			</ul>
+		</div>
+		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="matSizeForm" [ngClass]="(matThicknessForm && !matThicknessForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(matThicknessForm && matThicknessForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="matThicknessForm && !matThicknessForm.form.valid" [isAuthorize]="['mattressthickness']">
+					{{ params ? 'Update' : 'Save' }}
+			</button>
+			<button class="btn btn-secondary" [isAuthorize]="['mattressthickness']" (click)="onCancel()">
+					Cancel
+			</button>
 		</div>
 	</div>
 </div>
@@ -75,7 +70,7 @@
 									</div>
 									
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Mattress Thickness Code</label>
+										<label class="fieldLabel col-sm-5">Mattress Thickness Code <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
 											<input class="form-control m-input" type="text" value="" maxlength="10" #thicknessCodeVal="ngModel" required [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="Enter Mattress Thickness Code" maxlength="10">
 											<div class="alertMsg" *ngIf="thicknessCodeVal.errors   && (thicknessCodeVal.dirty || thicknessCodeVal.touched)">
@@ -86,7 +81,7 @@
 									
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Size</label>
+											<label class="fieldLabel col-sm-5">Size <span class="requiredField">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control m-input" type="text"  required   [(ngModel)]="matThicknessObj.size" name="size" placeholder="Size"  #sizeVal="ngModel" >
 												<div class="alertMsg" *ngIf="sizeVal.errors && sizeVal.errors.required && sizeVal.touched">
@@ -101,7 +96,7 @@
 								</div>
 								
 								
-				<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+				<!-- <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
 					<div class="m-form__actions m-form__actions--solid">
 						<div class="row">
 							<div class="col-lg-6">
@@ -114,7 +109,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 							
 						
 					</div>

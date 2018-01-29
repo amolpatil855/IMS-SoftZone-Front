@@ -40,8 +40,8 @@
 				</li>
 			</ul>
 		</div>
-		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid">
-				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="shadeForm" title="{{(shadeForm && shadeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['shade']">
+		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="shadeForm" title="{{(shadeForm && shadeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['shade']">
 						{{ params ? 'Update' : 'Save' }}
 				</button>
 				<button class="btn btn-secondary" [isAuthorize]="['shade']" (click)="onCancel()">
@@ -118,13 +118,24 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Description</label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel"  required [ngClass]="{'red-border-class': descriptionVal.errors && isFormSubmitted}"  [(ngModel)]="shadeObj.description" name="description" id="description" placeholder="Enter Description">
+												<input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel"  [(ngModel)]="shadeObj.description" name="description" id="description" placeholder="Enter Description">
                                                 <!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
                                                     Please enter Description
                                                 </div> -->
 											</div>
 										</div>
 									</div>
+									<div class="col-md-3 formContentbox">
+										<div class="form-group">
+											<label class="fieldLabel col-sm-5">Stock Reorder Level <span class="requiredField">*</span></label>
+											<div class="col-sm-7">
+												<input class="form-control m-input" type="number" value=""  #stockReorderLevelVal="ngModel" required [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="shadeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
+                                                <!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
+                                                    Please enter StockReorderLevel
+                                                </div> -->
+											</div>
+										</div>
+                                    </div>
 								</div>
 							</div>
 						</div>

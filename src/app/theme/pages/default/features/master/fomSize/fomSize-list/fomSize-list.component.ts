@@ -64,6 +64,7 @@ export class FomSizeListComponent implements OnInit {
     width: 0,
     length: 0,
     sizeCode: '0x0',
+    stockReorderLevel: null,
     };
   }
   onInputChange(){
@@ -178,6 +179,7 @@ export class FomSizeListComponent implements OnInit {
     this.fomSizeObj.fomDensityId = value.density;
     this.fomSizeObj.fomSuggestedMMId = value.size;
     this.fomSizeObj.sizeCode = value.width+'x'+value.length;
+    this.fomSizeObj.stockReorderLevel = value.stockReorderLevel;
     this.saveFomSize(this.fomSizeObj);
   }
 
