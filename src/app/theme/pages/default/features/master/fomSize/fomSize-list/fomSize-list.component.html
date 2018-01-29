@@ -121,6 +121,17 @@
 												<input class="form-control m-input" type="text" value="" maxlength="10" #sizeCodeVal="ngModel" required [(ngModel)]="fomSizeObj.sizeCode" [disabled]="true" name="sizeCode" id="sizeCode">
 											</div>
 										</div>
+									</div>
+									<div class="col-md-3 formContentbox">
+										<div class="form-group">
+											<label class="fieldLabel col-sm-5">StockReorderLevel <span class="requiredField">*</span><span class="requiredField">*</span></label>
+											<div class="col-sm-7">
+												<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required [(ngModel)]="fomSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
+                                                <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
+                                                    Please enter StockReorderLevel
+                                                </div>
+											</div>
+										</div>
                                     </div>
 								</div>
 								
