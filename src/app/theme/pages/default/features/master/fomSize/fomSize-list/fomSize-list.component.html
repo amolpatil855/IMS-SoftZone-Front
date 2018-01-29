@@ -61,79 +61,84 @@
 				
 				<div class="col-md-12" *ngIf="toggleDiv">
 					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(fomSizeForm)"  #fomSizeForm="ngForm"  id="fomSizeForm">
-					<div class="formContainer formContainerSamePage">
+					<div class="formContainerSamePage">
 						
 								<div class="row">
-									
 									<div class="col-md-12">
-										<h5 class="formPanelHeading">FomSize Basic Details:</h5>
-									</div>
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
-										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
-										</div>	
-									</div>
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
-										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
-										</div>
-                                    </div>
-                                    <div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Foam Density <span class="requiredField">*</span></label>
-										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" [(ngModel)]="selectedDensity" name="density" (ngModelChange)="onDensityClick()"></p-dropdown>
-										</div>
-                                    </div>
-                                    <div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Foam Size <span class="requiredField">*</span></label>
-										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="fomSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedSize" name="size"></p-dropdown>
-										</div>
-									</div>
-									<div class="col-md-3 formContentbox">
-										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Width <span class="requiredField">*</span></label>
-											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value="" maxlength="10" #widthVal="ngModel" required [(ngModel)]="fomSizeObj.width" name="width" id="width" placeholder="Enter Width" (input)="onInputChange()">
-                                                <div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
-                                                    Please enter Width
-                                                </div>
+										<div class="panel panel-default">
+												<div class="panel-heading">FomSize Basic Details:</div>
+												<div class="panel-body">	
+													<div class="form-group">
+											<div class="col-md-3 formContentbox">
+												<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
+												<div class="col-sm-7">
+													<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
+												</div>	
+											</div>
+											<div class="col-md-3 formContentbox">
+												<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
+												<div class="col-sm-7">
+													<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
+												</div>
+											</div>
+											<div class="col-md-3 formContentbox">
+												<label class="fieldLabel col-sm-5">Foam Density <span class="requiredField">*</span></label>
+												<div class="col-sm-7">
+													<p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" [(ngModel)]="selectedDensity" name="density" (ngModelChange)="onDensityClick()"></p-dropdown>
+												</div>
+											</div>
+											<div class="col-md-3 formContentbox">
+												<label class="fieldLabel col-sm-5">Foam Size <span class="requiredField">*</span></label>
+												<div class="col-sm-7">
+													<p-dropdown class="feePlanBox" [options]="fomSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedSize" name="size"></p-dropdown>
+												</div>
+											</div>
+											<div class="col-md-3 formContentbox">
+												<div class="form-group">
+													<label class="fieldLabel col-sm-5">Width <span class="requiredField">*</span></label>
+													<div class="col-sm-7">
+														<input class="form-control m-input" type="text" value="" maxlength="10" #widthVal="ngModel" required [(ngModel)]="fomSizeObj.width" name="width" id="width" placeholder="Enter Width" (input)="onInputChange()">
+														<div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
+															Please enter Width
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-3 formContentbox">
+												<div class="form-group">
+													<label class="fieldLabel col-sm-5">Length <span class="requiredField">*</span></label>
+													<div class="col-sm-7">
+														<input class="form-control m-input" type="text" value="" maxlength="10" #lengthVal="ngModel" required [(ngModel)]="fomSizeObj.length" name="length" id="length" placeholder="Enter Length" (input)="onInputChange()">
+														<div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
+															Please enter Length
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-3 formContentbox">
+												<div class="form-group">
+													<label class="fieldLabel col-sm-5">Size Code</label>
+													<div class="col-sm-7">
+														<input class="form-control m-input" type="text" value="" maxlength="10" #sizeCodeVal="ngModel" required [(ngModel)]="fomSizeObj.sizeCode" [disabled]="true" name="sizeCode" id="sizeCode">
+													</div>
+												</div>
+											</div>
+											<div class="col-md-3 formContentbox">
+												<div class="form-group">
+													<label class="fieldLabel col-sm-5">StockReorderLevel <span class="requiredField">*</span><span class="requiredField">*</span></label>
+													<div class="col-sm-7">
+														<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
+														<!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
+															Please enter StockReorderLevel
+														</div> -->
+													</div>
+												</div>
+											</div>
 											</div>
 										</div>
-                                    </div>
-                                    <div class="col-md-3 formContentbox">
-										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Length <span class="requiredField">*</span></label>
-											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value="" maxlength="10" #lengthVal="ngModel" required [(ngModel)]="fomSizeObj.length" name="length" id="length" placeholder="Enter Length" (input)="onInputChange()">
-                                                <div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
-                                                    Please enter Length
-                                                </div>
-											</div>
-										</div>
-                                    </div>
-                                    <div class="col-md-3 formContentbox">
-										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Size Code</label>
-											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value="" maxlength="10" #sizeCodeVal="ngModel" required [(ngModel)]="fomSizeObj.sizeCode" [disabled]="true" name="sizeCode" id="sizeCode">
-											</div>
-										</div>
 									</div>
-									<div class="col-md-3 formContentbox">
-										<div class="form-group">
-											<label class="fieldLabel col-sm-5">StockReorderLevel <span class="requiredField">*</span><span class="requiredField">*</span></label>
-											<div class="col-sm-7">
-												<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
-                                                <!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
-                                                    Please enter StockReorderLevel
-                                                </div> -->
-											</div>
-										</div>
-                                    </div>
 								</div>
+							</div>
 								
 								
 				<!-- <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
