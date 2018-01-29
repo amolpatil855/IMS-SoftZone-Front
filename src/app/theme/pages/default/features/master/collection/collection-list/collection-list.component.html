@@ -22,9 +22,6 @@
 <div class="m-subheader">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
-			<h3 class="m-subheader__title m-subheader__title--separator">
-				Collection
-			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 				<li class="m-nav__item m-nav__item--home">
 					<a href="#" class="m-nav__link m-nav__link--icon">
@@ -41,17 +38,15 @@
 						</span>
 					</a>
 				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-							List
-						</span>
-					</a>
-				</li>
 			</ul>
+		</div>
+		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid">
+				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="collectionForm" [ngClass]="(collectionFormVal && !collectionFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(collectionFormVal && collectionFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="collectionFormVal && !collectionFormVal.form.valid" [isAuthorize]="['collection']">
+						{{ params ? 'Update' : 'Save' }}
+				</button>
+				<button class="btn btn-secondary" [isAuthorize]="['collection']" (click)="onCancel()">
+						Cancel
+				</button>
 		</div>
 	</div>
 </div>
@@ -66,55 +61,62 @@
 				
 				<div class="col-md-12" *ngIf="toggleDiv">
 					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(collectionForm)"  [formGroup]="collectionForm" id="collectionForm">
-					<div class="formContainer formContainerSamePage">
-							<div class="row">
+					<div class="formContainerSamePage">
+					<div class="row">
+							<div class="col-md-12">
+									<div class="panel panel-default">
+											<div class="panel-heading">Collection Details</div>
+											<div class="panel-body">	
+								<div class="form-group">
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Category Code</label>
-										<div class="col-sm-7">
-										<p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required [style]="{'width':'100%'}"  name="categoriesDDl"></p-dropdown>
-										<div class="alertMsg" *ngIf="collectionForm.get('categoryId').hasError('required') && collectionForm.get('categoryId ').touched">
+										<label class="col-md-5 col-sm-5 fieldLabel">Category Code<span class="requiredField">*</span></label>
+										<div class="col-md-7 col-sm-7">
+										<p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required [ngClass]="{'red-border-class': collectionForm.get('categoryId').hasError('required') && isFormSubmitted}"  [style]="{'width':'100%'}"  name="categoriesDDl"></p-dropdown>
+										<!-- <div class="alertMsg" *ngIf="collectionForm.get('categoryId').hasError('required') && collectionForm.get('categoryId ').touched">
 												Please select Category
-											</div>
+											</div> -->
 										</div>
 									</div>	
-									
+								
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Collection Code</label>
-										<div class="col-sm-7">
-												<input type="text" formControlName="collectionCode" name="collectionCode" class="form-control m-input">
-												<div class="alertMsg" *ngIf="collectionForm.get('collectionCode').hasError('required') && collectionForm.get('collectionCode').touched">
+										<label class="col-md-5 col-sm-5 fieldLabel">Collection Code<span class="requiredField">*</span></label>
+										<div class="col-md-7 col-sm-7">
+												<input type="text" formControlName="collectionCode" required [ngClass]="{'red-border-class': collectionForm.get('collectionCode').hasError('required') && isFormSubmitted}"   name="collectionCode" class="form-control m-input">
+												<!-- <div class="alertMsg" *ngIf="collectionForm.get('collectionCode').hasError('required') && collectionForm.get('collectionCode').touched">
 													Please enter collection code
-												</div>
+												</div> -->
 										</div>
-									</div>								
+									</div>	
+								
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Name</label>
-											<div class="col-sm-7">
-													<input type="text" formControlName="collectionName" name="Name" class="form-control m-input">
-													<div class="alertMsg" *ngIf="collectionForm.get('collectionName').hasError('required') && collectionForm.get('collectionName').touched">
+											<label class="col-md-5 col-sm-5 fieldLabel">Name<span class="requiredField">*</span></label>
+											<div class="col-md-7 col-sm-7">
+													<input type="text" formControlName="collectionName"  required [ngClass]="{'red-border-class': collectionForm.get('collectionName').hasError('required') && isFormSubmitted}"  name="Name" class="form-control m-input">
+													<!-- <div class="alertMsg" *ngIf="collectionForm.get('collectionName').hasError('required') && collectionForm.get('collectionName').touched">
 														Please enter Name
-													</div>
+													</div> -->
 											</div>
 										</div>
 									</div>
+								
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Supplier Code</label>
+										<label class="fieldLabel col-sm-5">Supplier Code<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-											<p-dropdown class="feePlanBox" [options]="supplierCodeList"  formControlName="supplierId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
-											<div class="alertMsg" *ngIf="collectionForm.get('supplierId').hasError('required') && collectionForm.get('supplierCode').touched">
+											<p-dropdown class="feePlanBox" [options]="supplierCodeList"  required [ngClass]="{'red-border-class': collectionForm.get('supplierId').hasError('required') && isFormSubmitted}" formControlName="supplierId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
+											<!-- <div class="alertMsg" *ngIf="collectionForm.get('supplierId').hasError('required') && collectionForm.get('supplierCode').touched">
 													Please enter supplier Code
-												</div>
+												</div> -->
 										</div>	
 									</div>
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Manufacturer  Name</label>
+											<label class="fieldLabel col-sm-5">Manufacturer<span class="requiredField">*</span></label>
 											<div class="col-sm-7">
-												<input type="text" formControlName="manufacturerName" name="manufacturerName" class="form-control m-input">
-												<div class="alertMsg" *ngIf="collectionForm.get('manufacturerName').hasError('required') && collectionForm.get('manufacturerName').touched">
+												<input type="text" formControlName="manufacturerName"  required [ngClass]="{'red-border-class': collectionForm.get('manufacturerName').hasError('required') && isFormSubmitted}"  name="manufacturerName" class="form-control m-input">
+												<!-- <div class="alertMsg" *ngIf="collectionForm.get('manufacturerName').hasError('required') && collectionForm.get('manufacturerName').touched">
 													Please manufacturer Name
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</div>
@@ -122,16 +124,22 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Description</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control" formControlName="description"  placeholder="Enter Description">
+												<input type="text" class="form-control" formControlName="description">
 											</div>
 										</div>
 									</div>
-									
 								</div>
+								</div>
+							</div>
+						</div>
+							
+							
+							</div>
+					</div>
 								
 								
 				    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
-					<div class="m-form__actions m-form__actions--solid">
+					<!-- <div class="m-form__actions m-form__actions--solid">
 						<div class="row">
 							<div class="col-lg-6">
 								<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="collectionForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ collectionForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="collectionForm.invalid" [isAuthorize]="['collection']">
@@ -142,11 +150,11 @@
 								</button>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 							
 						
-					</div>
+				
 					
 					</form>
 				</div>

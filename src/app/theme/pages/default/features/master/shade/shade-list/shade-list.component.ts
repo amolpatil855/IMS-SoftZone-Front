@@ -11,6 +11,7 @@ import { Role } from "../../../../_models/role";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
 import { Shade} from "../../../../_models/shade";
+import { retry } from 'rxjs/operator/retry';
 
 @Component({
   selector: "app-shade-list",
@@ -18,7 +19,7 @@ import { Shade} from "../../../../_models/shade";
   encapsulation: ViewEncapsulation.None,
 })
 export class ShadeListComponent implements OnInit {
-
+  isFormSubmitted=false;
   shadeForm: any;
   shadeObj:any;
   params: number;
@@ -175,6 +176,9 @@ export class ShadeListComponent implements OnInit {
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted=true;
+    if(!valid)
+    return;
       this.shadeObj.categoryId = value.category;
       this.shadeObj.collectionId = value.collection;
       this.shadeObj.qualityId = value.quality;
