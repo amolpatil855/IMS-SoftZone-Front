@@ -41,7 +41,7 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" [ngClass]="(hsnForm && !hsnForm.form.valid)?'cursorNotAllowed':'cursorPointer'" title="{{(hsnForm && hsnForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="hsnForm && !hsnForm.form.valid" [isAuthorize]="['hsn']">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"  title="{{(hsnForm && hsnForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['hsn']">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
 			<button class="btn btn-secondary" [isAuthorize]="['hsn']" (click)="onCancel()">
@@ -61,13 +61,14 @@
 				
 				<div class="col-md-12" *ngIf="toggleDiv">
 					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(hsnForm)"  #hsnForm="ngForm"  id="hsnForm">
-					<div class="formContainer formContainerSamePage">
+					<div class="formContainerSamePage">
 						
 								<div class="row">
-									
 									<div class="col-md-12">
-										<h5 class="formPanelHeading">Hsn Basic Details:</h5>
-									</div>
+									<div class="panel panel-default">
+												<div class="panel-heading">Hsn Basic Details:</div>
+												<div class="panel-body">	
+														<div class="form-group">
 									
 									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">HSN CODE <span class="requiredField">*</span></label>
@@ -83,7 +84,7 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">GST <span class="requiredField">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" #gstVal="ngModel" required [ngClass]="{'red-border-class': gstVal.errors && isFormSubmitted}"  [(ngModel)]="hsnObj.gst" name="gst" placeholder="GST" maxlength="2"  #gstVal="ngModel" >
+												<input class="form-control m-input" type="text" #gstVal="ngModel" required [ngClass]="{'red-border-class': gstVal.errors && isFormSubmitted}"  [(ngModel)]="hsnObj.gst" name="gst" placeholder="GST" maxlength="2" >
 												<!-- <div class="alertMsg" *ngIf="gstVal.errors && gstVal.errors.required && gstVal.touched">
 													Please enter GST
 												</div>
@@ -93,9 +94,12 @@
 											</div>
 										</div>
 									</div>
+
 								</div>
-								
-								
+						</div>
+					</div>
+						</div>		
+					</div>			
 				<!-- <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
 					<div class="m-form__actions m-form__actions--solid">
 						<div class="row">

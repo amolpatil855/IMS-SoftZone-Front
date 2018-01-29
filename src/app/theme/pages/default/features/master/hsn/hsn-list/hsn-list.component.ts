@@ -101,8 +101,7 @@ export class HsnListComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted=true;
-    if(!valid)
-    return;
+    if(valid)
       this.saveHsn(this.hsnObj);
   }
 
