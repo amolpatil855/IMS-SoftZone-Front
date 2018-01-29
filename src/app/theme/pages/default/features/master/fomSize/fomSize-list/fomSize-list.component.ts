@@ -17,7 +17,7 @@ import { FomSize } from "../../../../_models/fomSize";
   encapsulation: ViewEncapsulation.None,
 })
 export class FomSizeListComponent implements OnInit {
-
+  isFormSubmitted=false;
   fomSizeForm: any;
   fomSizeObj:any;
   params: number;
@@ -174,6 +174,9 @@ export class FomSizeListComponent implements OnInit {
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted=true;
+    if(!valid)
+    return;
     this.fomSizeObj.collectionId = value.collection;
     this.fomSizeObj.qualityId = value.quality;
     this.fomSizeObj.fomDensityId = value.density;

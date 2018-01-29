@@ -17,7 +17,7 @@ import { FomSuggestedMM } from "../../../../_models/fomSuggestedMM";
   encapsulation: ViewEncapsulation.None,
 })
 export class FomSuggestedMMListComponent implements OnInit {
-
+  isFormSubmitted=false;
   fomSuggestedMMForm: any;
   fomSuggestedMMObj:any;
   params: number;
@@ -59,7 +59,7 @@ export class FomSuggestedMMListComponent implements OnInit {
     collectionId: 0,
     qualityId: 0,
     fomDensityId: 0,
-    suggestedMM: 0,
+    suggestedMM: null,
     };
   }
 
@@ -154,6 +154,9 @@ export class FomSuggestedMMListComponent implements OnInit {
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted=true;
+    if(!valid)
+    return;
     this.fomSuggestedMMObj.categoryId = value.category;
     this.fomSuggestedMMObj.collectionId = value.collection;
     this.fomSuggestedMMObj.qualityId = value.quality;

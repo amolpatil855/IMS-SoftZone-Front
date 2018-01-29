@@ -18,7 +18,7 @@ import { MatThickness } from "../../../../_models/matThickness";
   encapsulation: ViewEncapsulation.None,
 })
 export class MatThicknessListComponent implements OnInit {
-
+  isFormSubmitted=false;
   matThicknessForm: any;
   matThicknessObj:any;
   params: number;
@@ -99,6 +99,9 @@ export class MatThicknessListComponent implements OnInit {
 }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted=true;
+    if(!valid)
+    return;
       this.saveMatThickness(this.matThicknessObj);
   }
 
