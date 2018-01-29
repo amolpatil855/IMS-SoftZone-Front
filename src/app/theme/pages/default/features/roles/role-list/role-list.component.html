@@ -80,7 +80,7 @@
 													  <div class="panel-heading">Role Details</div>
 													  <div class="panel-body">	
 														<div class="form-group">
-															<label class="col-md-3 col-sm-3 fieldLabel">Name</label>
+															<label class="col-md-3 col-sm-3 fieldLabel">Name<span class="requiredField">*</span></label>
 															<div class="col-md-7 col-sm-7">
 																<input type="text" formControlName="roleName" [ngClass]="{'red-border-class': roleForm.get('roleName').hasError('required') && isFormSubmitted}"   name="roleName" class="form-control m-input" required>
 															</div>														

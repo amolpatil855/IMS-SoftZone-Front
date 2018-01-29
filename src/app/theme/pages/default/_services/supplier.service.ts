@@ -22,7 +22,7 @@ export class SupplierService {
   }
 
   getSupplierLookUp() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Supplier/GetSupplierLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSupplierLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createSupplier(supplier: Supplier) {

@@ -33,6 +33,7 @@ export class DesignListComponent implements OnInit {
   totalCount=0;
   search='';
   toggleDiv=false;
+  isFormSubmitted=false;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -156,6 +157,10 @@ export class DesignListComponent implements OnInit {
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+
+  this.isFormSubmitted=true;
+    if(!valid)
+    return;    
     this.designObj.categoryId = value.category;
     this.designObj.collectionId = value.collection;
     this.designObj.qualityId = value.quality;

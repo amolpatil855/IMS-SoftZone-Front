@@ -31,6 +31,7 @@ export class CollectionListComponent implements OnInit {
   search='';
   toggleDiv=false;
   states=[];
+  isFormSubmitted=false;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -148,6 +149,7 @@ getsuplierById(id){
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted=true;
     if(valid)
       this.saveCollection(value);
   }
