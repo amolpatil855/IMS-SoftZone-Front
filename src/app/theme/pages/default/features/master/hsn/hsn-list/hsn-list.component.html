@@ -22,9 +22,6 @@
 <div class="m-subheader">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
-			<h3 class="m-subheader__title m-subheader__title--separator">
-				Hsns
-			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 				<li class="m-nav__item m-nav__item--home">
 					<a href="#" class="m-nav__link m-nav__link--icon">
@@ -37,21 +34,19 @@
 				<li class="m-nav__item">
 					<a class="m-nav__link">
 						<span class="m-nav__link-text">
-							Hsns
-						</span>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-							List
+							Hsn
 						</span>
 					</a>
 				</li>
 			</ul>
+		</div>
+		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="(hsnForm && !hsnForm.form.valid)?'cursorNotAllowed':'cursorPointer'" title="{{(hsnForm && hsnForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="hsnForm && !hsnForm.form.valid" [isAuthorize]="['hsn']">
+					{{ params ? 'Update' : 'Save' }}
+			</button>
+			<button class="btn btn-secondary" [isAuthorize]="['hsn']" (click)="onCancel()">
+					Cancel
+			</button>
 		</div>
 	</div>
 </div>
@@ -75,7 +70,7 @@
 									</div>
 									
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">HSN CODE</label>
+										<label class="fieldLabel col-sm-5">HSN CODE <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
 											<input class="form-control m-input" type="text" value=""  #hsnCodeVal="ngModel" required [(ngModel)]="hsnObj.hsnCode" maxlength="10" name="hsnCode" id="hsnCode" placeholder="Enter HSN CODE">
 											<div class="alertMsg" *ngIf="hsnCodeVal.errors   && (hsnCodeVal.dirty || hsnCodeVal.touched)">
@@ -86,7 +81,7 @@
 									
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">GST</label>
+											<label class="fieldLabel col-sm-5">GST <span class="requiredField">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control m-input" type="text"  required   [(ngModel)]="hsnObj.gst" name="gst" placeholder="GST" maxlength="2"  #gstVal="ngModel" >
 												<div class="alertMsg" *ngIf="gstVal.errors && gstVal.errors.required && gstVal.touched">
@@ -101,7 +96,7 @@
 								</div>
 								
 								
-				<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+				<!-- <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
 					<div class="m-form__actions m-form__actions--solid">
 						<div class="row">
 							<div class="col-lg-6">
@@ -114,7 +109,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 							
 						
 					</div>

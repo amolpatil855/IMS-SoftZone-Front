@@ -22,9 +22,6 @@
 <div class="m-subheader">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
-			<h3 class="m-subheader__title m-subheader__title--separator">
-				FomDensitys
-			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 				<li class="m-nav__item m-nav__item--home">
 					<a href="#" class="m-nav__link m-nav__link--icon">
@@ -37,21 +34,19 @@
 				<li class="m-nav__item">
 					<a class="m-nav__link">
 						<span class="m-nav__link-text">
-							FomDensitys
-						</span>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-							List
+							Foam Densities
 						</span>
 					</a>
 				</li>
 			</ul>
+		</div>
+		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+		<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="(fomDensityForm && !fomDensityForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(fomDensityForm && fomDensityForm.form.valid)? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="fomDensityForm && !fomDensityForm.form.valid" [isAuthorize]="['foamdensity']">
+					{{ params ? 'Update' : 'Save' }}
+			</button>
+			<button class="btn btn-secondary" [isAuthorize]="['foamdensity']" (click)="onCancel()">
+					Cancel
+			</button>
 		</div>
 	</div>
 </div>
@@ -71,23 +66,23 @@
 								<div class="row">
 									
 									<div class="col-md-12">
-										<h5 class="formPanelHeading">FomDensity Basic Details:</h5>
+										<h5 class="formPanelHeading">Foam Density Basic Details:</h5>
 									</div>
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Collection</label>
+										<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
                                             <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
 										</div>	
 									</div>
 									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Quality</label>
+										<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
                                             <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" name="quality"></p-dropdown>
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Density</label>
+											<label class="fieldLabel col-sm-5">Density <span class="requiredField">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control m-input" type="text" value="" maxlength="10" #densityVal="ngModel" required [(ngModel)]="fomDensityObj.density" name="density" id="density" placeholder="Enter Density">
                                                 <div class="alertMsg" *ngIf="densityVal.errors   && (densityVal.dirty || densityVal.touched)">
@@ -98,7 +93,7 @@
                                     </div>
                                     <div class="col-md-3 formContentbox">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Description</label>
+											<label class="fieldLabel col-sm-5">Description </label>
 											<div class="col-sm-7">
 												<input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel" [(ngModel)]="fomDensityObj.description" name="description" id="description" placeholder="Enter Description">
                                                 <!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
@@ -110,7 +105,7 @@
 								</div>
 								
 								
-				<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+				<!-- <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
 					<div class="m-form__actions m-form__actions--solid">
 						<div class="row">
 							<div class="col-lg-6">
@@ -123,7 +118,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 							
 						
 					</div>

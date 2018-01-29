@@ -92,7 +92,7 @@
 												  <div class="panel-heading">Basic Information</div>
 												  <div class="panel-body">	
 													<div class="form-group">
-														<label class="col-md-2 col-sm-2 fieldLabel">Code</label>
+														<label class="col-md-2 col-sm-2 fieldLabel">Code <span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
 															<input type="text" class="form-control"    [ngClass]="{'red-border-class': codeVal.errors && isFormSubmitted}"  #codeVal="ngModel" required [(ngModel)]="supplierObj.code" name="code"  placeholder="Code" id="code" >
 															<!-- <div class="alertMsg" *ngIf="codeVal.errors && codeVal.errors.required   && (nameVal.dirty || nameVal.touched)">
@@ -100,7 +100,7 @@
 															</div> -->
 														</div>	
 														
-														<label class="col-md-2 col-sm-2 fieldLabel">Name</label>
+														<label class="col-md-2 col-sm-2 fieldLabel">Name <span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
 															<input type="text" class="form-control"  [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"  #nameVal="ngModel" required [(ngModel)]="supplierObj.name" name="name"  placeholder="Name" id="name" >
 															<!-- <div class="alertMsg" *ngIf="nameVal.errors   && (nameVal.dirty || nameVal.touched)">
@@ -109,7 +109,7 @@
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-2 col-sm-2 fieldLabel">Email</label>
+														<label class="col-md-2 col-sm-2 fieldLabel">Email <span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
 															<input type="email" class="form-control" email    [ngClass]="{'red-border-class': emailVal.errors && isFormSubmitted}"   #emailVal="ngModel" required [(ngModel)]="supplierObj.email" name="email" placeholder="Email" maxlength="254">
 															<!-- <div class="alertMsg" *ngIf="emailVal.errors && emailVal.errors.required && (emailVal.dirty || emailVal.touched)">
@@ -120,13 +120,13 @@
 															</div>
 														</div>	
 														
-														<label class="col-md-2 col-sm-2 fieldLabel">Firm Name</label>
+														<label class="col-md-2 col-sm-2 fieldLabel">Firm Name <span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
 															<input type="text" class="form-control"    [ngClass]="{'red-border-class': firmNameVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.firmName"  required  #firmNameVal="ngModel"   name="firmName" id="firmName"  placeholder="FirmName">
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-2 col-sm-2 fieldLabel">Phone</label>
+														<label class="col-md-2 col-sm-2 fieldLabel">Phone <span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
 															<input type="number" class="form-control"   [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}" [(ngModel)]="supplierObj.phone" name="phone" required #phoneVal="ngModel" placeholder="Phone" maxlength="10">
 															<!-- <div class="alertMsg" *ngIf="phoneVal.errors && phoneVal.errors.required && (phoneVal.dirty || phoneVal.touched)">
