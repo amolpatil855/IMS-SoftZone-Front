@@ -17,7 +17,7 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
   defaultLogo: string;
   userRole: string;
   userName: string;
-  loggedInUser = {};
+  loggedInUser = {user:null};
   IMSLogoShow: boolean;
   constructor(private _router: Router, 
     private userService: UserService,
