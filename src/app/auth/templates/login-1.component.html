@@ -7,7 +7,7 @@
 					<div class="m-login__signin">
 						<div class="m-login__head">
 							<h3 class="m-login__title">
-								Sign In
+								Softzone Login
 							</h3>
 							
 						</div>
@@ -28,14 +28,14 @@
 									</label>
 								</div>
 								<div class="col m--align-right">
-									<a href="javascript:;" id="m_login_forget_password" class="m-link">
-										Forget Password ?
+									<a href="javascript:;" id="m_login_forget_password" class="forgot-pass-link">
+										Forgot Password ?
 									</a>
 								</div>
 							</div>
 							<div class="m-login__form-action">
-								<button [disabled]="loading" [ngClass]="{'m-loader m-loader--right m-loader--light': loading}" id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
-									Sign In
+								<button [disabled]="loading" [ngClass]="{'m-loader m-loader--right m-loader--light': loading}" id="m_login_signin_submit" class="loginBtn">
+									Login
 								</button>
 							</div>
 						</form>
@@ -102,10 +102,10 @@
 								<input class="form-control m-input" type="text" placeholder="Email" name="email" [(ngModel)]="model.email" #email="ngModel" id="m_email" autocomplete="off">
 							</div>
 							<div class="m-login__form-action">
-								<button [disabled]="loading" [ngClass]="{'m-loader m-loader--right m-loader--light': loading}" id="m_login_forget_password_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
+								<button [disabled]="loading" [ngClass]="{'m-loader m-loader--right m-loader--light': loading}" id="m_login_forget_password_submit" class="forgotPassSubmit">
 									Request
 								</button>
-								<button [disabled]="loading"  id="m_login_forget_password_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom">
+								<button [disabled]="loading"  id="m_login_forget_password_cancel" class="forgotPassCancel">
 									Cancel
 								</button>
 							</div>
@@ -126,18 +126,5 @@
 			</div> -->
 		</div>
 	</div>
-	<div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content" style="background-image: url(./assets/app/media/img/bg/bgNew.png)">
-		<div class="m-grid__item m-grid__item--middle">
-			<h3 class="m-login__welcome">
-				<i>IMS</i>
-				
-				<br/><br/>
-				
-			App
-			</h3>
-			<!--<p class="m-login__msg">
-				Gate No. 3, Symbiosis Viman Nagar Campus, Off., New Airport Rd, Viman Nagar, Pune, Maharashtra 411014
-			</p> -->
-		</div>
-	</div>
+	
 </div>
