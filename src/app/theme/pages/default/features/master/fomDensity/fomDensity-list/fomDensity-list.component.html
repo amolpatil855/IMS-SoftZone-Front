@@ -41,7 +41,7 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-		<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="fomDensityForm" [ngClass]="(fomDensityForm && !fomDensityForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(fomDensityForm && fomDensityForm.form.valid)? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="fomDensityForm && !fomDensityForm.form.valid" [isAuthorize]="['foamdensity']">
+		<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="fomDensityForm" title="{{(fomDensityForm && fomDensityForm.form.valid)? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['foamdensity']">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
 			<button class="btn btn-secondary" [isAuthorize]="['foamdensity']" (click)="onCancel()">
@@ -71,23 +71,20 @@
 									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel"  required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" [(ngModel)]="selectedCollection" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
 										</div>	
 									</div>
 									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" name="quality"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel"  required [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" [(ngModel)]="selectedQuality" name="quality"></p-dropdown>
 										</div>
 									</div>
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Density <span class="requiredField">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value="" maxlength="10" #densityVal="ngModel" required [(ngModel)]="fomDensityObj.density" name="density" id="density" placeholder="Enter Density">
-                                                <div class="alertMsg" *ngIf="densityVal.errors   && (densityVal.dirty || densityVal.touched)">
-                                                    Please enter Density
-                                                </div>
+												<input class="form-control m-input" type="text" value="" maxlength="10" #densityVal="ngModel"  required [ngClass]="{'red-border-class': densityVal.errors && isFormSubmitted}" [(ngModel)]="fomDensityObj.density" name="density" id="density" placeholder="Enter Density">
 											</div>
 										</div>
                                     </div>

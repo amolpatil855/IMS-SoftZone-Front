@@ -40,8 +40,8 @@
 				</li>
 			</ul>
 		</div>
-		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid">
-				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="collectionForm" [ngClass]="(collectionFormVal && !collectionFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(collectionFormVal && collectionFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="collectionFormVal && !collectionFormVal.form.valid" [isAuthorize]="['collection']">
+		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="collectionForm" [ngClass]="(collectionFormVal && !collectionFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(collectionFormVal && collectionFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="collectionFormVal && !collectionFormVal.form.valid" [isAuthorize]="['collection']">
 						{{ params ? 'Update' : 'Save' }}
 				</button>
 				<button class="btn btn-secondary" [isAuthorize]="['collection']" (click)="onCancel()">
