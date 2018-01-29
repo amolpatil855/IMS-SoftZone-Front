@@ -18,7 +18,7 @@ import { MatSize } from "../../../../_models/matSize";
   encapsulation: ViewEncapsulation.None,
 })
 export class MatSizeListComponent implements OnInit {
-
+  isFormSubmitted=false;
   matSizeForm: any;
   matSizeObj:any;
   params: number;
@@ -160,6 +160,9 @@ export class MatSizeListComponent implements OnInit {
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted=true;
+    if(!valid)
+    return;
     this.matSizeObj.collectionId = value.collection;
     this.matSizeObj.qualityId = value.quality;
     this.matSizeObj.thicknessId = value.thickness;

@@ -41,11 +41,12 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" [ngClass]="(hsnForm && !hsnForm.form.valid)?'cursorNotAllowed':'cursorPointer'" title="{{(hsnForm && hsnForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="hsnForm && !hsnForm.form.valid" [isAuthorize]="['hsn']">
-					{{ params ? 'Update' : 'Save' }}
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"  form="hsnForm"  title="{{(hsnForm && hsnForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			 [isAuthorize]="['hsn']">
+				{{ params ? 'Update' : 'Save' }}
 			</button>
 			<button class="btn btn-secondary" [isAuthorize]="['hsn']" (click)="onCancel()">
-					Cancel
+				Cancel
 			</button>
 		</div>
 	</div>
@@ -56,95 +57,82 @@
 		<div class="col-lg-12">
 			<!--begin::Portlet-->
 			<div class="m-portlet">
-				
+
 				<div class="row">
-				
-				<div class="col-md-12" *ngIf="toggleDiv">
-					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(hsnForm)"  #hsnForm="ngForm"  id="hsnForm">
-					<div class="formContainer formContainerSamePage">
-						
+
+					<div class="col-md-12" *ngIf="toggleDiv">
+						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(hsnForm)"
+						 #hsnForm="ngForm" id="hsnForm">
+						 <div class="formContainerSamePage">
+
 								<div class="row">
-									
 									<div class="col-md-12">
-										<h5 class="formPanelHeading">Hsn Basic Details:</h5>
-									</div>
-									
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">HSN CODE <span class="requiredField">*</span></label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value=""  #hsnCodeVal="ngModel" required [(ngModel)]="hsnObj.hsnCode" maxlength="10" name="hsnCode" id="hsnCode" placeholder="Enter HSN CODE">
-											<div class="alertMsg" *ngIf="hsnCodeVal.errors   && (hsnCodeVal.dirty || hsnCodeVal.touched)">
-												Please enter HSN Code
-											</div>
-										</div>
-									</div>
-									
-									<div class="col-md-3 formContentbox">
-										<div class="form-group">
-											<label class="fieldLabel col-sm-5">GST <span class="requiredField">*</span></label>
-											<div class="col-sm-7">
-												<input class="form-control m-input" type="text"  required   [(ngModel)]="hsnObj.gst" name="gst" placeholder="GST" maxlength="2"  #gstVal="ngModel" >
-												<div class="alertMsg" *ngIf="gstVal.errors && gstVal.errors.required && gstVal.touched">
-													Please enter GST
-												</div>
-												<div class="alertMsg" *ngIf="gstVal.errors && !gstVal.errors.required && gstVal.errors.pattern && gstVal.touched">
-													Please enter valid GST
+										<div class="panel panel-default">
+											<div class="panel-heading">Hsn Basic Details:</div>
+											<div class="panel-body">
+												<div class="form-group">
+
+													<div class="col-md-3 formContentbox">
+														<label class="fieldLabel col-sm-5">HSN CODE
+															<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="text" value="" #hsnCodeVal="ngModel" required [ngClass]="{'red-border-class': hsnCodeVal.errors && isFormSubmitted}"
+															 [(ngModel)]="hsnObj.hsnCode" maxlength="10" name="hsnCode" id="hsnCode" placeholder="Enter HSN CODE">
+														</div>
+													</div>
+
+													<div class="col-md-3 formContentbox">
+														<div class="form-group">
+															<label class="fieldLabel col-sm-5">GST
+																<span class="requiredField">*</span>
+															</label>
+															<div class="col-sm-7">
+																<input class="form-control m-input" type="text" #gstVal="ngModel" required [ngClass]="{'red-border-class': gstVal.errors && isFormSubmitted}"
+																 [(ngModel)]="hsnObj.gst" name="gst" placeholder="GST" maxlength="2">
+															</div>
+														</div>
+													</div>
+
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								
-								
-				<!-- <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
-					<div class="m-form__actions m-form__actions--solid">
-						<div class="row">
-							<div class="col-lg-6">
-								<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="hsnForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ hsnForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="hsnForm.invalid" [isAuthorize]="['hsn']">
-										{{ params ? 'Update' : 'Save' }}
-								</button>
-								<button class="btn btn-secondary" [isAuthorize]="['hsn']" (click)="onCancel()">
-										Cancel
-								</button>
 							</div>
-						</div>
+
+						</form>
 					</div>
-				</div> -->
-							
-						
-					</div>
-					
-					</form>
 				</div>
-			</div>
 				<div class="m-portlet__body">
 					<!--begin::Section-->
-					
+
 					<div class="m-section">
 						<div class="m-section__content">
-								<div class="ui-widget-header" style="border-bottom: 0 none">
-										<i class="fa fa-search searchIcon"></i>
-										<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
-										
-										<!-- Add Button -->
-										<button  *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()" [isAuthorize]="['hsn']">
-											<span>
-												<i class="flaticon-add"></i>
-												<span>
-													Add Hsn
-												</span>
-											</span>
-										</button>
-									</div>
-							<p-dataTable [value]="hsnList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
-							[totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                                <p-column field="hsnCode" header="HSN CODE" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="gst" header="GST" [style]="{'text-align':'center'}"></p-column>
+							<div class="ui-widget-header" style="border-bottom: 0 none">
+								<i class="fa fa-search searchIcon"></i>
+								<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+
+								<!-- Add Button -->
+								<button *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()"
+								 [isAuthorize]="['hsn']">
+									<span>
+										<i class="flaticon-add"></i>
+										<span>
+											Add Hsn
+										</span>
+									</span>
+								</button>
+							</div>
+							<p-dataTable [value]="hsnList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"
+							 [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+								<p-column field="hsnCode" header="HSN CODE" [style]="{'text-align':'center'}"></p-column>
+								<p-column field="gst" header="GST" [style]="{'text-align':'center'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action
 									</ng-template>
-									<ng-template let-row="rowData" pTemplate="body" >
+									<ng-template let-row="rowData" pTemplate="body">
 										<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
 										<button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
 									</ng-template>
