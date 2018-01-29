@@ -38,20 +38,10 @@
 						</span>
 					</a>
 				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-							List
-						</span>
-					</a>
-				</li>
 			</ul>
 		</div>
-		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid">
-				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="qualityForm" [ngClass]="(qualityFormVal && !qualityFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(qualityFormVal && qualityFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="qualityFormVal && !qualityFormVal.form.valid" [isAuthorize]="['quality']">
+		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="qualityForm" [ngClass]="(qualityFormVal && !qualityFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(qualityFormVal && qualityFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="qualityFormVal && !qualityFormVal.form.valid" [isAuthorize]="['quality']">
 						{{ params ? 'Update' : 'Save' }}
 				</button>
 				<button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()">

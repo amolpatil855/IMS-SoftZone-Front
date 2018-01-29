@@ -22,7 +22,7 @@ export class QualityService {
   }
 
   getQualityLookUp() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Quality/GetQualityLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetQualityLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createQuality(Quality: Quality) {

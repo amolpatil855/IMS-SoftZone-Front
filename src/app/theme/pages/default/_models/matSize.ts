@@ -11,6 +11,7 @@ export class MatSize {
     thicknessId: number;
     sizeCode: string;
     rate: number;
+    stockReorderLevel: number;
     MstCategory: Category;
     MstCollection: Collection;
     MstMatThickness: MatThickness; 

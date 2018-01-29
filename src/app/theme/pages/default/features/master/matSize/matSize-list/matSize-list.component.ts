@@ -61,6 +61,7 @@ export class MatSizeListComponent implements OnInit {
     thicknessId: 0,
     sizeCode: '',
     rate: '',
+    stockReorderLevel: null,
     };
   }
 

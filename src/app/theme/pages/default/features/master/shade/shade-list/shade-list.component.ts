@@ -63,6 +63,7 @@ export class ShadeListComponent implements OnInit {
     shadeCode: '',
     shadeName: '',
     description: '',
+    stockReorderLevel: null,
     };
   }
 
