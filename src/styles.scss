@@ -1510,3 +1510,128 @@ input[type=number]::-webkit-outer-spin-button {
 .formTopActionBtnBox{
     background: transparent!important;
 }
+
+/******** For Login Page - 29 Jan 2018 *********/
+.m-login.m-login--1 .m-login__wrapper {
+    overflow: hidden!important;
+    padding: 12% 2rem 2rem 2rem!important;
+    width: 420px!important;
+    margin: 0 auto!important;
+}
+
+.m-login.m-login--1 .m-login__wrapper .m-login__form .m-form__group .form-control {
+    margin-bottom: 10px!important;
+    padding: 1rem 15px!important;
+    border-radius: 4px;
+}
+.m-login.m-login--1 .m-login__aside {
+    width: 100%!important;
+    padding: 2rem 11rem!important;
+    /*background-image: url(./assets/app/media/img/bg/magitex_banner_01.jpg);*/
+    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('./assets/app/media/img/bg/magitex_banner_01.jpg');    
+    background-size: cover!important;
+    background-repeat: no-repeat!important;
+}
+.m-login.m-login--1 .m-login__wrapper .m-login__head .m-login__title {
+    text-align: center !important;
+    font-size: 22px !important;
+    color: #fff !important;
+    font-family: Poppins;
+    font-weight: 700;
+}
+.m-login.m-login--1.m-login--singin .m-login__signin {    
+    padding: 15px;
+    background-color: rgba(0,0,0,0.6);
+}
+.m-login__forget-password{
+    padding: 15px;
+    background-color: rgba(0,0,0,0.6);
+}
+.m-login.m-login--1 .m-login__wrapper .m-login__form {
+    margin-top: 2rem;
+}
+.m-login.m-login--1 .m-login__wrapper .m-login__head .m-login__desc {
+    margin-top: 1.5rem;
+    color: #e2e2e2;
+}
+.loginBtn{
+    width: 100%;
+    border: 2px solid #1C93ED !important;
+    background: #1C93ED !important;
+    border-radius: 4px;
+    padding: 10px 10px;
+    font-family: Poppins !important;
+    font-size: 15px;
+    transition: 0.3s all ease-out;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+    /* text-transform: uppercase; */
+    font-weight: 500;
+}
+.loginBtn:hover {
+    background: #188de6!important;
+	border-color: #188de6!important;
+    color: #fff;
+}
+.forgot-pass-link {
+    color: #f5f5f5 !important;
+    font-size: 13px !important;
+    letter-spacing: 0px;
+    margin-bottom: 0;
+    font-family: Poppins !important;
+    font-weight: 500;
+}
+.m-login.m-login--1 .m-login__wrapper .m-login__form .m-login__form-action {
+    margin: 20px 0 3px 0;
+    text-align: center;
+}
+.m-login__form .m-checkbox.m-checkbox--focus > input:checked ~ span {
+    border: 1px solid #ffffff!important;
+}
+.m-login__form .m-checkbox {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 13px!important;
+}
+.m-login__form .m-checkbox.m-checkbox--focus > span:after {
+    border: solid #ffffff;
+}
+.forgotPassSubmit {
+    color: #fff!important;
+    background-color: #1C93ED!important;
+    border-color: #1C93ED!important;
+    border:1px solid #1C93ED!important;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 13px;
+    cursor: pointer;
+}
+.forgotPassSubmit:hover {
+    background: #188de6!important;
+	border-color: #188de6!important;
+    color: #fff;
+}
+.forgotPassCancel {
+    color: #1C93ED!important;
+    background-color: transparent!important;
+    background-image: none;
+    border-color: #1C93ED!important;
+    border:1px solid #1C93ED!important;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 13px;
+    cursor: pointer;
+}
+.forgotPassCancel:hover {
+    color: #fff!important;
+    border-color: #1C93ED!important;
+    background: #1C93ED!important;
+}
+.m-login__form .alert.m-alert--outline.alert-danger {
+    color: #575962;
+    background-color: transparent;
+    border-color: #f4516c;
+    color: #f4516c;
+    font-weight: 400;
+}
