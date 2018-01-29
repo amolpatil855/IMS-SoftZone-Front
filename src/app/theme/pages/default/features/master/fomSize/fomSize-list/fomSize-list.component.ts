@@ -109,6 +109,9 @@ export class FomSizeListComponent implements OnInit {
         this.qualityList = results;
         this.qualityList.unshift({ label: '--Select--', value: '0' });
         this.selectedQuality = this.fomSizeObj.qualityId;
+        if(this.selectedQuality > 0){
+          this.onQualityClick();
+        }
         console.log('this.qualityList', this.qualityList);
       },
       error => {
@@ -122,7 +125,10 @@ export class FomSizeListComponent implements OnInit {
         this.fomDensityList = results;
         this.fomDensityList.unshift({ label: '--Select--', value: '0' });
         this.selectedDensity = this.fomSizeObj.fomDensityId;
-        console.log('this.fomDensityList', this.fomDensityList);
+        if(this.selectedDensity > 0){
+          this.onDensityClick();
+        }
+        console.log('this.selectedDensity', this.selectedDensity);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -162,7 +168,7 @@ export class FomSizeListComponent implements OnInit {
     results => {
       this.fomSizeObj = results;
       console.log('this.fomSizeObj', this.fomSizeObj);
-      this.selectedCollection = this.fomSizeObj.categoryId;
+      this.selectedCollection = this.fomSizeObj.collectionId;
       if(this.selectedCollection > 0){
         this.onCollectionClick();
       }
@@ -181,8 +187,8 @@ export class FomSizeListComponent implements OnInit {
     this.fomSizeObj.qualityId = value.quality;
     this.fomSizeObj.fomDensityId = value.density;
     this.fomSizeObj.fomSuggestedMMId = value.size;
-    this.fomSizeObj.sizeCode = value.width+'x'+value.length;
-    this.fomSizeObj.stockReorderLevel = value.stockReorderLevel;
+    // this.fomSizeObj.sizeCode = value.width+'x'+value.length;
+    // this.fomSizeObj.stockReorderLevel = value.stockReorderLevel;
     this.saveFomSize(this.fomSizeObj);
   }
 

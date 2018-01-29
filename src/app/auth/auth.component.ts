@@ -81,7 +81,7 @@ export class AuthComponent implements OnInit {
       },
       error => {
         this.showAlert('alertSignin');
-        this._alertService.error(JSON.parse(error._body).Message);
+        this._alertService.error(JSON.parse(error._body).error_description);
         this.loading = false;
       });
   }

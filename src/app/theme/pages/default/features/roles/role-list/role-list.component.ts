@@ -191,6 +191,7 @@ export class RoleListComponent implements OnInit {
       this.roleService.updateRole(value)
         .subscribe(
         results => {
+          this.getRoleList();
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
           this.toggleDiv=false;
@@ -203,6 +204,7 @@ export class RoleListComponent implements OnInit {
       this.roleService.createRole(value)
         .subscribe(
         results => {
+          this.getRoleList();
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
           this.toggleDiv=false;

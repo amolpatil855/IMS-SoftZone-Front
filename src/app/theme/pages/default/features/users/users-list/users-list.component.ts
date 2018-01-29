@@ -178,6 +178,7 @@ export class UsersListComponent implements OnInit {
       this.userService.updateUser(value)
         .subscribe(
         results => {
+           this.getAllUserList();
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
           this.toggleDiv=false;
@@ -190,6 +191,7 @@ export class UsersListComponent implements OnInit {
       this.userService.createUser(value)
         .subscribe(
         results => {
+           this.getAllUserList();
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false); 
           this.toggleDiv=false;
