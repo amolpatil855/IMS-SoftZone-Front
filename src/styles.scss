@@ -1520,8 +1520,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .m-login.m-login--1 .m-login__wrapper .m-login__form .m-form__group .form-control {
-    margin-bottom: 10px!important;
-    padding: 1rem 15px!important;
+    margin-bottom: 10px !important;
+    padding: 12px 15px !important;
     border-radius: 4px;
 }
 .m-login.m-login--1 .m-login__aside {
@@ -1566,7 +1566,7 @@ input[type=number]::-webkit-outer-spin-button {
     color: #fff;
     letter-spacing: 1px;
     margin-bottom: 0;
-    /* text-transform: uppercase; */
+    cursor: pointer;
     font-weight: 500;
 }
 .loginBtn:hover {
