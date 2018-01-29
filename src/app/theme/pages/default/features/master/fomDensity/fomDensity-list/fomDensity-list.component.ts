@@ -17,7 +17,7 @@ import { FomDensity } from "../../../../_models/fomDensity";
   encapsulation: ViewEncapsulation.None,
 })
 export class FomDensityListComponent implements OnInit {
-
+  isFormSubmitted=false;
   fomDensityForm: any;
   fomDensityObj:any;
   params: number;
@@ -141,6 +141,9 @@ export class FomDensityListComponent implements OnInit {
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted=true;
+    if(!valid)
+    return;
     this.fomDensityObj.categoryId = value.category;
     this.fomDensityObj.collectionId = value.collection;
     this.fomDensityObj.qualityId = value.quality;

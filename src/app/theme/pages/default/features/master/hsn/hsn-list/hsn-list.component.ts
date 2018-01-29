@@ -19,7 +19,7 @@ import { Hsn } from "../../../../_models/hsn";
   encapsulation: ViewEncapsulation.None,
 })
 export class HsnListComponent implements OnInit {
-
+  isFormSubmitted=false;
   hsnForm: any;
   hsnObj:any;
   params: number;
@@ -100,6 +100,9 @@ export class HsnListComponent implements OnInit {
 }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted=true;
+    if(!valid)
+    return;
       this.saveHsn(this.hsnObj);
   }
 
