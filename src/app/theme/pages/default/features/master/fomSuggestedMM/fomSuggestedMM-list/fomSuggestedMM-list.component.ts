@@ -102,6 +102,9 @@ export class FomSuggestedMMListComponent implements OnInit {
         this.qualityList = results;
         this.qualityList.unshift({ label: '--Select--', value: '0' });
         this.selectedQuality = this.fomSuggestedMMObj.qualityId;
+        if(this.selectedQuality > 0){
+          this.onQualityClick();
+        }
         console.log('this.qualityList', this.qualityList);
       },
       error => {
@@ -142,7 +145,7 @@ export class FomSuggestedMMListComponent implements OnInit {
     results => {
       this.fomSuggestedMMObj = results;
       console.log('this.fomSuggestedMMObj', this.fomSuggestedMMObj);
-      this.selectedCollection = this.fomSuggestedMMObj.categoryId;
+      this.selectedCollection = this.fomSuggestedMMObj.collectionId;
       if(this.selectedCollection > 0){
         this.onCollectionClick();
       }
@@ -157,7 +160,6 @@ export class FomSuggestedMMListComponent implements OnInit {
     this.isFormSubmitted=true;
     if(!valid)
     return;
-    this.fomSuggestedMMObj.categoryId = value.category;
     this.fomSuggestedMMObj.collectionId = value.collection;
     this.fomSuggestedMMObj.qualityId = value.quality;
     this.fomSuggestedMMObj.fomDensityId = value.density;

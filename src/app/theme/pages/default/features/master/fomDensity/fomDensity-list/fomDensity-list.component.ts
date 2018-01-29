@@ -129,7 +129,7 @@ export class FomDensityListComponent implements OnInit {
     results => {
       this.fomDensityObj = results;
       console.log('this.fomDensityObj', this.fomDensityObj);
-      this.selectedCollection = this.fomDensityObj.categoryId;
+      this.selectedCollection = this.fomDensityObj.collectionId;
       if(this.selectedCollection > 0){
         this.onCollectionClick();
       }
