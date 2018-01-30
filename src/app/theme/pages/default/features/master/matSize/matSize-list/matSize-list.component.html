@@ -102,7 +102,7 @@
 															<div class="form-group">
 																<label class="fieldLabel col-sm-5">Rate <span class="requiredField">*</span></label>
 																<div class="col-sm-7">
-																	<input class="form-control m-input" type="text" value="" maxlength="10" #rateVal="ngModel" required [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="">
+																	<input class="form-control m-input" type="number" value="" maxlength="10" #rateVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="Enter Rate">
 																	<!-- <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
 																		Please enter Rate
 																	</div> -->

@@ -114,6 +114,7 @@ export class UsersListComponent implements OnInit {
    this.params=user.id;
    // this.roleService.currentPageNumber = this.currentPageNumber;
    // this.router.navigate(['/features/master/supplier/edit', supplier.id]);
+   this.isFormSubmitted=false;
    this.toggleDiv=true;
   }
   
@@ -131,6 +132,7 @@ export class UsersListComponent implements OnInit {
 
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
+    this.isFormSubmitted=false;
     if(this.toggleDiv && !this.params){
       this.newRecord();
     }
