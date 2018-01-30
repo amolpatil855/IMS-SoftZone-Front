@@ -1,54 +1,53 @@
 <p-confirmDialog #cd>
-	<p-footer>
-		<button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
-			<span>
-				<i class="la la-check"></i>
-				<span>
-					Yes
-				</span>
-			</span>
-		</button>
-		<button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
-			<span>
-				<i class="la la-close"></i>
-				<span>
-					No
-				</span>
-			</span>
-		</button>
-	</p-footer>
+   <p-footer>
+      <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+      <span>
+      <i class="la la-check"></i>
+      <span>
+      Yes
+      </span>
+      </span>
+      </button>
+      <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+      <span>
+      <i class="la la-close"></i>
+      <span>
+      No
+      </span>
+      </span>
+      </button>
+   </p-footer>
 </p-confirmDialog>
-
 <div class="m-subheader">
-	<div class="d-flex align-items-center">
-		<div class="mr-auto">
-			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-				<li class="m-nav__item m-nav__item--home">
-					<a href="#" class="m-nav__link m-nav__link--icon">
-						<i class="m-nav__link-icon la la-home"></i>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-							Mattress Sizes
-						</span>
-					</a>
-				</li>
-			</ul>
-			</div>
-			<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"  form="matSizeForm" [ngClass]="(matSizeForm && !matSizeForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(matSizeForm && matSizeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="matSizeForm && !matSizeForm.form.valid" [isAuthorize]="['mattresssize']">
-						{{ params ? 'Update' : 'Save' }}
-				</button>
-				<button class="btn btn-secondary" [isAuthorize]="['mattresssize']" (click)="onCancel()">
-						Cancel
-				</button>
-		</div>
-	</div>
+   <div class="d-flex align-items-center">
+      <div class="mr-auto">
+         <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+            <li class="m-nav__item m-nav__item--home">
+               <a href="#" class="m-nav__link m-nav__link--icon">
+               <i class="m-nav__link-icon la la-home"></i>
+               </a>
+            </li>
+            <li class="m-nav__separator">
+               -
+            </li>
+            <li class="m-nav__item">
+               <a class="m-nav__link">
+               <span class="m-nav__link-text">
+               Mattress Sizes
+               </span>
+               </a>
+            </li>
+         </ul>
+      </div>
+      <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+         <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"  form="matSizeForm" [ngClass]="(matSizeForm && !matSizeForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(matSizeForm && matSizeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="matSizeForm && !matSizeForm.form.valid" [isAuthorize]="['mattresssize']">
+         {{ params ? 'Update' : 'Save' }}
+         </button>
+         <button class="btn btn-secondary" [isAuthorize]="['mattresssize']" (click)="onCancel()">
+         Cancel
+         </button>
+      </div>
+   </div>
 </div>
 <!-- END: Subheader -->
 <div class="m-content">
