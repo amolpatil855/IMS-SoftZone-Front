@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from "../../../default.component";
 import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
-// import { RoleService, PermissionService } from '../../_services/index';
+import { CommonService } from '../../../_services/common.service';
 
 import {
   DataTableModule,
@@ -63,7 +63,7 @@ const routes: Routes = [
     CustomerListComponent,
   ],
   providers: [
-    // RoleService,
+    CommonService,
     CustomerService,
     ConfirmationService
   ],
