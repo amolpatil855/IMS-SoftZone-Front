@@ -40,8 +40,8 @@
 			</li>
 		</ul>
 	</div>
-	<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="roleForm" [ngClass]="(roleFormVal && !roleFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(roleFormVal && roleFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="roleFormVal && !roleFormVal.form.valid" [isAuthorize]="['role']">
+	<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="roleForm" [ngClass]="(roleFormVal && !roleFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(roleFormVal && roleFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="roleFormVal && !roleFormVal.form.valid" [isAuthorize]="['role']">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
 			<button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()">
@@ -102,7 +102,7 @@
 										</div>
 										
 										
-										<!--- Address Details --->									
+										<!--- Address Details -->									
 										<div class="col-md-3">
 											
 											<div class="row">
@@ -110,7 +110,7 @@
 													<!-- Role Details -->
 													<div class="panel panel-default">
 													  <div class="panel-heading">Role Details</div>
-													  <div class="panel-body">	
+													  <div class="panel-body roleTreeListBox">	
 														<p-tree [value]="featureList" selectionMode="checkbox" [(selection)]="SelectedFeatureList"></p-tree>		
 													  </div>
 													</div>	

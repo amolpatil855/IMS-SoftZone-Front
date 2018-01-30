@@ -73,7 +73,7 @@
 																<div class="col-md-5 formContentbox">
 																	<label class="fieldLabel col-sm-5">Mattress Thickness Code <span class="requiredField">*</span></label>
 																	<div class="col-sm-7">
-																		<input class="form-control m-input" type="text" value="" maxlength="10" #thicknessCodeVal="ngModel" required [ngClass]="{'red-border-class': thicknessCodeVal.errors && isFormSubmitted}" [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="Enter Mattress Thickness Code" maxlength="10">
+																		<input class="form-control m-input" type="text" value="" maxlength="10" #thicknessCodeVal="ngModel" required [ngClass]="{'red-border-class': thicknessCodeVal.errors && isFormSubmitted}" [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="" maxlength="10">
 																		<!-- <div class="alertMsg" *ngIf="thicknessCodeVal.errors   && (thicknessCodeVal.dirty || thicknessCodeVal.touched)">
 																			Please enter Mattress Thickness Code
 																		</div> -->
@@ -84,7 +84,7 @@
 																	<div class="form-group">
 																		<label class="fieldLabel col-sm-5">Size <span class="requiredField">*</span></label>
 																		<div class="col-sm-7">
-																			<input class="form-control m-input" type="text"  #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"   [(ngModel)]="matThicknessObj.size" name="size" placeholder="Size"  #sizeVal="ngModel" >
+																			<input class="form-control m-input" type="text"  #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"   [(ngModel)]="matThicknessObj.size" name="size" placeholder=""  #sizeVal="ngModel" >
 																			<!-- <div class="alertMsg" *ngIf="sizeVal.errors && sizeVal.errors.required && sizeVal.touched">
 																				Please enter Size
 																			</div>

@@ -68,6 +68,7 @@
 									<div class="panel panel-default">
 									  <div class="panel-heading">Foam SuggestedMM Basic Details:</div>
 									    <div class="panel-body">
+											<div class="row">
 											<div class="col-md-3 formContentbox">
 												<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
@@ -90,12 +91,13 @@
 												<div class="form-group">
 													<label class="fieldLabel col-sm-5">SuggestedMM <span class="requiredField">*</span></label>
 													<div class="col-sm-7">
-														<input class="form-control m-input" type="text" value="" maxlength="10" #suggestedMMVal="ngModel" required [ngClass]="{'red-border-class': suggestedMMVal.errors && isFormSubmitted}" [(ngModel)]="fomSuggestedMMObj.suggestedMM" name="suggestedMM" id="suggestedMM" placeholder="Enter SuggestedMM">
+														<input class="form-control m-input" type="text" value="" maxlength="10" #suggestedMMVal="ngModel" required [ngClass]="{'red-border-class': suggestedMMVal.errors && isFormSubmitted}" [(ngModel)]="fomSuggestedMMObj.suggestedMM" name="suggestedMM" id="suggestedMM" placeholder="">
 														<!-- <div class="alertMsg" *ngIf="suggestedMMVal.errors   && (suggestedMMVal.dirty || suggestedMMVal.touched)">
 															Please enter SuggestedMM
 														</div> -->
 													</div>
 												</div>
+											</div>
 											</div>
 										</div>
 									</div>
