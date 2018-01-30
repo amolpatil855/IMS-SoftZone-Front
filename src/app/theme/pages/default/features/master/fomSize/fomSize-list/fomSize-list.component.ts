@@ -140,10 +140,10 @@ export class FomSizeListComponent implements OnInit {
   onDensityClick(){
     this.fomSizeService.getFomSuggestedMMLookUpByFomDensity(this.selectedDensity).subscribe(
       results => {
-        this.fomSizeList = results;
-        this.fomSizeList.unshift({ label: '--Select--', value: '0' });
+        this.fomSuggestedMMList = results;
+        this.fomSuggestedMMList.unshift({ label: '--Select--', value: '0' });
         this.selectedSize = this.fomSizeObj.fomSuggestedMMId;
-        console.log('this.fomSizeList', this.fomSizeList);
+        console.log('this.fomSuggestedMMList', this.fomSuggestedMMList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
