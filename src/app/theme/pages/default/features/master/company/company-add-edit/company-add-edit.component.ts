@@ -20,6 +20,7 @@ export class CompanyAddEditComponent implements OnInit {
   fileInput:string;
   myInputVariable: any;
   logoURLtoshow:string;
+  isFormSubmitted=false;
  constructor(
     private formBuilder: FormBuilder,
     private globalErrorHandler: GlobalErrorHandler,
@@ -65,11 +66,15 @@ this.getCompanyInfo();
     });
   }
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    if (!this.fileInput ||  this.fileInput.length == 0) {
+    this.isFormSubmitted=true;
+    if(!valid)
+      return;
+
+    if ((!this.fileInput ||  this.fileInput.length == 0) && this.logoURLtoshow.length == 0 ) {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please select company logo" });
       return;
     }
-      this.saveUser(value);
+      this.saveCompany(value);
   }
   onUploadLogo(fileInput: any) {
     var rec = this;
@@ -106,10 +111,12 @@ this.getCompanyInfo();
         img.src = fr.result;
     };
 }
-  saveUser(value) {
+  saveCompany(value) {
     Helpers.setLoading(true);
     let fd = new FormData();
+    if(this.fileInput)
     fd.append('UploadFile', this.fileInput[0] ? this.fileInput[0] : null);
+    
     fd.append('mstCompanyInfo',JSON.stringify(value));
     if (value.id > 0) {
       this.companyService.updateCompanyInfo(fd)
