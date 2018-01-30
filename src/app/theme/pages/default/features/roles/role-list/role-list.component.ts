@@ -57,6 +57,8 @@ export class RoleListComponent implements OnInit {
   }
 
   newRecord(){
+    this.isFormSubmitted=false;
+    this.SelectedFeatureList=[];
     this.params=null;
     this.roleForm = this.formBuilder.group({
       id: 0,
@@ -195,6 +197,7 @@ export class RoleListComponent implements OnInit {
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
           this.toggleDiv=false;
+          this.newRecord();
         },
         error => {
           Helpers.setLoading(false);
@@ -208,6 +211,7 @@ export class RoleListComponent implements OnInit {
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
           this.toggleDiv=false;
+          this.newRecord();
         },
         error => {
           this.globalErrorHandler.handleError(error);
