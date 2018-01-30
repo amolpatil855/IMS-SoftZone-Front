@@ -18,8 +18,13 @@ export class UserService {
     }
   }
 
+  // forgotPassword(email: any) {
+  //   let parm={emailId:email}
+  //   return this.http.post(AppSettings.API_ENDPOINT + 'User/ForgetPassword', parm, AppSettings.requestOptions()).map((response: Response) => response.json());
+  // }
+
   forgotPassword(email: any) {
-    return this.http.post(AppSettings.LOGIN_API_ENDPOINT + 'request-password-reset', email, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.post(AppSettings.API_ENDPOINT + 'User/ForgetPassword?email='+email, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getAll() {
