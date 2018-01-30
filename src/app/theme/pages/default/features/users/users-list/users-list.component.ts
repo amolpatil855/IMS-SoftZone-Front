@@ -184,6 +184,7 @@ export class UsersListComponent implements OnInit {
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
           this.toggleDiv=false;
+          this.newRecord();
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -197,6 +198,7 @@ export class UsersListComponent implements OnInit {
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false); 
           this.toggleDiv=false;
+          this.newRecord();
         },
         error => {
           this.globalErrorHandler.handleError(error);
