@@ -109,7 +109,7 @@ export class AuthComponent implements OnInit {
     let email = {
       email: this.model.email
     };
-    this._userService.forgotPassword(email)
+    this._userService.forgotPassword(this.model.email)
       .subscribe(
       data => {
         this.showAlert('alertSignin');
