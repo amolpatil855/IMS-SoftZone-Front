@@ -1,177 +1,174 @@
 <p-confirmDialog #cd>
-	<p-footer>
-		<button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
-			<span>
-				<i class="la la-check"></i>
-				<span>
-					Yes
-				</span>
-			</span>
-		</button>
-		<button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
-			<span>
-				<i class="la la-close"></i>
-				<span>
-					No
-				</span>
-			</span>
-		</button>
-	</p-footer>
+   <p-footer>
+      <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+      <span>
+      <i class="la la-check"></i>
+      <span>
+      Yes
+      </span>
+      </span>
+      </button>
+      <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+      <span>
+      <i class="la la-close"></i>
+      <span>
+      No
+      </span>
+      </span>
+      </button>
+   </p-footer>
 </p-confirmDialog>
-
 <div class="m-subheader">
-	<div class="d-flex align-items-center">
-		<div class="mr-auto">
-			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-				<li class="m-nav__item m-nav__item--home">
-					<a href="#" class="m-nav__link m-nav__link--icon">
-						<i class="m-nav__link-icon la la-home"></i>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-							Designs
-						</span>
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="designForm" title="{{(designForm && designForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['design']">
-						{{ params ? 'Update' : 'Save' }}
-				</button>
-				<button class="btn btn-secondary" [isAuthorize]="['design']" (click)="onCancel()">
-						Cancel
-				</button>
-		</div>
-	</div>
+   <div class="d-flex align-items-center">
+      <div class="mr-auto">
+         <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+            <li class="m-nav__item m-nav__item--home">
+               <a href="#" class="m-nav__link m-nav__link--icon">
+               <i class="m-nav__link-icon la la-home"></i>
+               </a>
+            </li>
+            <li class="m-nav__separator">
+               -
+            </li>
+            <li class="m-nav__item">
+               <a class="m-nav__link">
+               <span class="m-nav__link-text">
+               Designs
+               </span>
+               </a>
+            </li>
+         </ul>
+      </div>
+      <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+         <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="designForm" title="{{(designForm && designForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['design']">
+         {{ params ? 'Update' : 'Save' }}
+         </button>
+         <button class="btn btn-secondary" [isAuthorize]="['design']" (click)="onCancel()">
+         Cancel
+         </button>
+      </div>
+   </div>
 </div>
 <!-- END: Subheader -->
 <div class="m-content">
-	<div class="row">
-		<div class="col-lg-12">
-			<!--begin::Portlet-->
-			<div class="m-portlet">
-				
-				<div class="row">
-				
-				<div class="col-md-12" *ngIf="toggleDiv">
-					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(designForm)"  #designForm="ngForm"  id="designForm">
-					<div class="formContainerSamePage">
-						
-								<div class="row">
-									
-									<div class="col-md-12">
-										
-											<div class="panel panel-default">
-													<div class="panel-heading">Design Basic Details</div>
-													<div class="panel-body">	
-															<div class="form-group">
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Category<span class="requiredField">*</span></label>
-										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}" [(ngModel)]="selectedCategory" required [ngClass]="{'red-border-class': selectedCategory.errors && isFormSubmitted}"  name="category" (ngModelChange)="onCategoryClick()"></p-dropdown>
-										</div>	
-									</div>
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Collection<span class="requiredField">*</span></label>
-										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}"  #selectedCollectionVal="ngModel" [(ngModel)]="selectedCollection" required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
-										</div>
-									</div>	
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Quality<span class="requiredField">*</span></label>
-										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality"   #selectedQualityVal="ngModel"  required [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" name="quality"></p-dropdown>
-										</div>
-									</div>	
-									<div class="col-md-3 formContentbox">
-										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Design Code<span class="requiredField">*</span></label>
-											    <input class="form-control m-input col-sm-7" type="text" value=""   [ngClass]="{'red-border-class': designCodeVal.errors && isFormSubmitted}"  #designCodeVal="ngModel" required [(ngModel)]="designObj.designCode" name="designCode" id="designCode" placeholder="">
-                                                <!-- <div class="alertMsg" *ngIf="designCodeVal.errors   && (designCodeVal.dirty || designCodeVal.touched)">
-                                                    Please enter Design Code
-                                                </div> -->
-										</div>
-									</div>
-									<div class="col-md-3 formContentbox">
-										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Design Name<span class="requiredField">*</span></label>
-											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value=""   [ngClass]="{'red-border-class': designNameVal.errors && isFormSubmitted}"  #designNameVal="ngModel" required [(ngModel)]="designObj.designName" name="designName" id="designName" placeholder="">
-                                                <!-- <div class="alertMsg" *ngIf="designNameVal.errors   && (designNameVal.dirty || designNameVal.touched)">
-                                                    Please enter Design Name
-                                                </div> -->
-											</div>
-										</div>
+   <div class="row">
+      <div class="col-lg-12">
+         <!--begin::Portlet-->
+         <div class="m-portlet">
+            <div class="row">
+               <div class="col-md-12" *ngIf="toggleDiv">
+                  <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(designForm)"  #designForm="ngForm"  id="designForm">
+                  <div class="formContainerSamePage">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="panel panel-default">
+                              <div class="panel-heading">Design Basic Details</div>
+                              <div class="panel-body">
+                                 <div class="form-group">
+                                    <div class="col-md-4 formContentbox">
+                                       <label class="fieldLabel col-sm-5">Category<span class="requiredField">*</span></label>
+                                       <div class="col-sm-7">
+                                          <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}" [(ngModel)]="selectedCategory" required [ngClass]="{'red-border-class': selectedCategory.errors && isFormSubmitted}"  name="category" (ngModelChange)="onCategoryClick()"></p-dropdown>
+                                       </div>
                                     </div>
-                                    <div class="col-md-3 formContentbox">
-										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Description</label>
-											<div class="col-sm-7">
-												<input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel" [(ngModel)]="designObj.description" name="description" id="description" placeholder="">
-                                                <!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
-                                                    Please enter Description
+                                    <div class="col-md-4 formContentbox">
+                                       <label class="fieldLabel col-sm-5">Collection<span class="requiredField">*</span></label>
+                                       <div class="col-sm-7">
+                                          <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}"  #selectedCollectionVal="ngModel" [(ngModel)]="selectedCollection" required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4 formContentbox">
+                                       <label class="fieldLabel col-sm-5">Quality<span class="requiredField">*</span></label>
+                                       <div class="col-sm-7">
+                                          <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality"   #selectedQualityVal="ngModel"  required [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" name="quality"></p-dropdown>
+                                       </div>
+                                    </div>
+									</div>
+									
+									<div class="form-group">
+                                    <div class="col-md-4 formContentbox">
+                                       <div class="form-group">
+                                          <label class="fieldLabel col-sm-5">Design Code<span class="requiredField">*</span></label>
+                                          <input class="form-control m-input col-sm-7" type="text" value=""   [ngClass]="{'red-border-class': designCodeVal.errors && isFormSubmitted}"  #designCodeVal="ngModel" required [(ngModel)]="designObj.designCode" name="designCode" id="designCode" placeholder="">
+                                          <!-- <div class="alertMsg" *ngIf="designCodeVal.errors   && (designCodeVal.dirty || designCodeVal.touched)">
+                                             Please enter Design Code
+                                             </div> -->
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4 formContentbox">
+                                       <div class="form-group">
+                                          <label class="fieldLabel col-sm-5">Design Name<span class="requiredField">*</span></label>
+                                          <div class="col-sm-7">
+                                             <input class="form-control m-input" type="text" value=""   [ngClass]="{'red-border-class': designNameVal.errors && isFormSubmitted}"  #designNameVal="ngModel" required [(ngModel)]="designObj.designName" name="designName" id="designName" placeholder="">
+                                             <!-- <div class="alertMsg" *ngIf="designNameVal.errors   && (designNameVal.dirty || designNameVal.touched)">
+                                                Please enter Design Name
                                                 </div> -->
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>	
-							</div>
-								</div>
-							</div>					
-					</div>
-					
-					</form>
-				</div>
-			</div>
-				<div class="m-portlet__body">
-					<!--begin::Section-->
-					
-					<div class="m-section">
-						<div class="m-section__content">
-								<div class="ui-widget-header" style="border-bottom: 0 none">
-										<i class="fa fa-search searchIcon"></i>
-										<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
-										
-										<!-- Add Button -->
-										<button  *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()" [isAuthorize]="['design']">
-											<span>
-												<i class="flaticon-add"></i>
-												<span>
-													Add Design
-												</span>
-											</span>
-										</button>
-									</div>
-							<p-dataTable [value]="designList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
-                            [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                            <p-column field="mstCategory.name" header="Category" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstCollection.collectionName" header="Collection" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstQuality.qualityName" header="Quality Name" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="designCode" header="Design Code" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="designName" header="Design Name" [style]="{'text-align':'left'}"></p-column>
-								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
-									<ng-template pTemplate="header">
-										Action
-									</ng-template>
-									<ng-template let-row="rowData" pTemplate="body" >
-										<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
-										<button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
-									</ng-template>
-								</p-column>
-							</p-dataTable>
-						</div>
-					</div>
-					<!--end::Section-->
-				</div>
-			</div>
-			<!--end::Portlet-->
-		</div>
-	</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4 formContentbox">
+                                       <div class="form-group">
+                                          <label class="fieldLabel col-sm-5">Description</label>
+                                          <div class="col-sm-7">
+                                             <input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel" [(ngModel)]="designObj.description" name="description" id="description" placeholder="">
+                                             <!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
+                                                Please enter Description
+                                                </div> -->
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+								 
+								 
+								 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  </form>
+               </div>
+            </div>
+            <div class="m-portlet__body">
+               <!--begin::Section-->
+               <div class="m-section">
+                  <div class="m-section__content">
+                     <div class="ui-widget-header" style="border-bottom: 0 none">
+                        <i class="fa fa-search searchIcon"></i>
+                        <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+                        <!-- Add Button -->
+                        <button  *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()" [isAuthorize]="['design']">
+                        <span>
+                        <i class="flaticon-add"></i>
+                        <span>
+                        Add Design
+                        </span>
+                        </span>
+                        </button>
+                     </div>
+                     <p-dataTable [value]="designList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
+                     [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+                     <p-column field="mstCategory.name" header="Category" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="mstCollection.collectionName" header="Collection" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="mstQuality.qualityName" header="Quality Name" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="designCode" header="Design Code" [style]="{'text-align':'center'}"></p-column>
+                     <p-column field="designName" header="Design Name" [style]="{'text-align':'left'}"></p-column>
+                     <p-column styleClass="col-button" [style]="{'text-align':'center'}">
+                        <ng-template pTemplate="header">
+                           Action
+                        </ng-template>
+                        <ng-template let-row="rowData" pTemplate="body" >
+                           <button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+                           <button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
+                        </ng-template>
+                     </p-column>
+                     </p-dataTable>
+                  </div>
+               </div>
+               <!--end::Section-->
+            </div>
+         </div>
+         <!--end::Portlet-->
+      </div>
+   </div>
 </div>

@@ -1666,3 +1666,30 @@ body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item {
 .formContentboxShade{
     margin-bottom: 3px;
 }
+.ui-datatable-even, .ui-datatable-odd{
+    font-size: 9px!important;
+}
+tbody .ui-widget-content{
+    font-size: 9px!important;
+}
+.m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading, .m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link {
+    height: 30px;
+}
+@media (min-width: 993px){
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__link-text {
+    color: #bdbbbb !important;
+    font-size: 12px !important;
+}
+}
+.formInfotable tr:nth-child(even) td {
+    background-color: #fff !important;
+}
+.formInfotable tr:nth-child(odd) td {
+    background-color: #fff !important;
+}
+.formAddressTable tr:nth-child(even) td {
+    background-color: #fff !important;
+}
+.formAddressTable tr:nth-child(odd) td {
+    background-color: #fff !important;
+}
