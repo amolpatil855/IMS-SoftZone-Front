@@ -102,7 +102,29 @@
 															<div class="form-group">
 																<label class="fieldLabel col-sm-5">Rate <span class="requiredField">*</span></label>
 																<div class="col-sm-7">
-																	<input class="form-control m-input" type="number" value="" maxlength="10" #rateVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="Enter Rate">
+																	<input class="form-control m-input" type="number" value="" maxlength="8" #rateVal="ngModel" required onKeyPress="if(this.value.length==8) return false;" [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="Enter Rate" (input)="onInputChange()">
+																	<!-- <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
+																		Please enter Rate
+																	</div> -->
+																</div>
+															</div>
+														</div>
+														<div class="col-md-3 formContentbox">
+															<div class="form-group">
+																<label class="fieldLabel col-sm-5"> Purchase Discount (%) <span class="requiredField">*</span></label>
+																<div class="col-sm-7">
+																	<input class="form-control m-input" type="number" value="" maxlength="2" #purchaseDiscountVal="ngModel" required onKeyPress="if(this.value.length==2) return false;" [ngClass]="{'red-border-class': purchaseDiscountVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.purchaseDiscount" name="purchaseDiscount" id="purchaseDiscount" placeholder="Enter PurchaseDiscount" (input)="onInputChange()">
+																	<!-- <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
+																		Please enter Rate
+																	</div> -->
+																</div>
+															</div>
+														</div>
+														<div class="col-md-3 formContentbox">
+															<div class="form-group">
+																<label class="fieldLabel col-sm-5">Purchase Rate <span class="requiredField">*</span></label>
+																<div class="col-sm-7">
+																	<input class="form-control m-input" type="number" value="" maxlength="10" [disabled]="true" #purchaseRateVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': purchaseRateVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.purchaseRate" name="purchaseRate" id="purchaseRate" placeholder="Enter PurchaseRate">
 																	<!-- <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
 																		Please enter Rate
 																	</div> -->
