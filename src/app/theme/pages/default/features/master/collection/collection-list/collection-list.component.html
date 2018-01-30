@@ -69,7 +69,7 @@
 											<div class="panel-body">	
 								<div class="form-group">
 									<div class="col-md-3 formContentbox">
-										<label class="col-md-5 col-sm-5 fieldLabel">Category Code<span class="requiredField">*</span></label>
+										<label class="col-md-5 col-sm-5 fieldLabel">Category<span class="requiredField">*</span></label>
 										<div class="col-md-7 col-sm-7">
 										<p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required [ngClass]="{'red-border-class': collectionForm.get('categoryId').hasError('required') && isFormSubmitted}"  [style]="{'width':'100%'}"  name="categoriesDDl"></p-dropdown>
 										<!-- <div class="alertMsg" *ngIf="collectionForm.get('categoryId').hasError('required') && collectionForm.get('categoryId ').touched">

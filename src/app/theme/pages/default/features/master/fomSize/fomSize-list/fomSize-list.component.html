@@ -66,7 +66,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="panel panel-default">
-												<div class="panel-heading">FomSize Basic Details:</div>
+												<div class="panel-heading">Foam Size Basic Details:</div>
 												<div class="panel-body">	
 													<div class="form-group">
 											<div class="col-md-3 formContentbox">
@@ -125,9 +125,9 @@
 											</div>
 											<div class="col-md-3 formContentbox">
 												<div class="form-group">
-													<label class="fieldLabel col-sm-5">StockReorderLevel <span class="requiredField">*</span><span class="requiredField">*</span></label>
+													<label class="fieldLabel col-sm-5">StockReorderLevel <span class="requiredField">*</span></label>
 													<div class="col-sm-7">
-														<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
+														<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="">
 														<!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
 															Please enter StockReorderLevel
 														</div> -->
