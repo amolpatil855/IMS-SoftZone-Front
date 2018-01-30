@@ -120,7 +120,7 @@ export class AuthComponent implements OnInit {
       },
       error => {
         this.showAlert('alertForgotPass');
-        this._alertService.error(error.json().Message);
+        this._alertService.error(JSON.parse(error._body).message);
         this.loading = false;
       });
   }

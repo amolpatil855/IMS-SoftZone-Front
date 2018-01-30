@@ -68,6 +68,7 @@
 									<div class="panel panel-default">
 									  <div class="panel-heading">Foam SuggestedMM Basic Details:</div>
 									    <div class="panel-body">
+											<div class="row">
 											<div class="col-md-3 formContentbox">
 												<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
@@ -96,6 +97,7 @@
 														</div> -->
 													</div>
 												</div>
+											</div>
 											</div>
 										</div>
 									</div>
@@ -145,10 +147,10 @@
 									</div>
 							<p-dataTable [value]="fomSuggestedMMList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                                <p-column field="mstCollection.collectionName" header="Collection" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="mstQuality.qualityName" header="Quality" [style]="{'text-align':'center'}"></p-column>
-								<p-column field="density" header="Foam Density" [style]="{'text-align':'center'}"></p-column>
-								<p-column field="suggestedMM" header="Foam SuggestedMM" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="mstCollection.collectionName" header="Collection" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="mstQuality.qualityName" header="Quality" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="density" header="Foam Density" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="suggestedMM" header="Foam Suggested MM" [style]="{'text-align':'center'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action

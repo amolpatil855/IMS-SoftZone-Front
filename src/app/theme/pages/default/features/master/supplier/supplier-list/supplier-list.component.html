@@ -94,7 +94,7 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Code<span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control"    [ngClass]="{'red-border-class': codeVal.errors && isFormSubmitted}"  #codeVal="ngModel" required [(ngModel)]="supplierObj.code" name="code"  placeholder="Code" id="code" >
+															<input type="text" class="form-control"    [ngClass]="{'red-border-class': codeVal.errors && isFormSubmitted}"  #codeVal="ngModel" required [(ngModel)]="supplierObj.code" name="code"  placeholder="" id="code" >
 															<!-- <div class="alertMsg" *ngIf="codeVal.errors && codeVal.errors.required   && (nameVal.dirty || nameVal.touched)">
 																Please enter Suplier Name
 															</div> -->
@@ -102,7 +102,7 @@
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Name<span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control"  [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"  #nameVal="ngModel" required [(ngModel)]="supplierObj.name" name="name"  placeholder="Name" id="name" >
+															<input type="text" class="form-control"  [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"  #nameVal="ngModel" required [(ngModel)]="supplierObj.name" name="name"  placeholder="" id="name" >
 															<!-- <div class="alertMsg" *ngIf="nameVal.errors   && (nameVal.dirty || nameVal.touched)">
 																Please enter Suplier Name
 															</div> -->
@@ -111,7 +111,7 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Email<span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
-															<input type="email" class="form-control" email    [ngClass]="{'red-border-class': emailVal.errors && isFormSubmitted}"   #emailVal="ngModel" required [(ngModel)]="supplierObj.email" name="email" placeholder="Email" maxlength="254">
+															<input type="email" class="form-control" email    [ngClass]="{'red-border-class': emailVal.errors && isFormSubmitted}"   #emailVal="ngModel" required [(ngModel)]="supplierObj.email" name="email" placeholder="" maxlength="254">
 															<!-- <div class="alertMsg" *ngIf="emailVal.errors && emailVal.errors.required && (emailVal.dirty || emailVal.touched)">
 																Please enter Email
 															</div> -->
@@ -122,13 +122,13 @@
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Firm Name<span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control"    [ngClass]="{'red-border-class': firmNameVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.firmName"  required  #firmNameVal="ngModel"   name="firmName" id="firmName"  placeholder="FirmName">
+															<input type="text" class="form-control"    [ngClass]="{'red-border-class': firmNameVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.firmName"  required  #firmNameVal="ngModel"   name="firmName" id="firmName"  placeholder="">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Phone<span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
-															<input type="number" class="form-control"   [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}" [(ngModel)]="supplierObj.phone" name="phone" required #phoneVal="ngModel" placeholder="Phone" maxlength="10">
+															<input type="number" class="form-control"   [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}" [(ngModel)]="supplierObj.phone" name="phone" required #phoneVal="ngModel" placeholder="" maxlength="10">
 															<!-- <div class="alertMsg" *ngIf="phoneVal.errors && phoneVal.errors.required && (phoneVal.dirty || phoneVal.touched)">
 																	Please enter Contact Number
 																</div> -->
@@ -140,7 +140,7 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Description</label>
 														<div class="col-md-10 col-sm-10">
-															<input type="text" class="form-control"   [(ngModel)]="supplierObj.description" name="description" id="description" placeholder="Enter Description">
+															<input type="text" class="form-control"   [(ngModel)]="supplierObj.description" name="description" id="description" placeholder="">
 														</div>																						
 													</div>
 												  </div>

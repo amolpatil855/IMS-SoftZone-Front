@@ -69,7 +69,7 @@
 											<div class="panel-body">	
 								<div class="form-group">
 									<div class="col-md-3 formContentbox">
-										<label class="col-md-5 col-sm-5 fieldLabel">Category Code<span class="requiredField">*</span></label>
+										<label class="col-md-5 col-sm-5 fieldLabel">Category<span class="requiredField">*</span></label>
 										<div class="col-md-7 col-sm-7">
 										<p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required [ngClass]="{'red-border-class': collectionForm.get('categoryId').hasError('required') && isFormSubmitted}"  [style]="{'width':'100%'}"  name="categoriesDDl"></p-dropdown>
 										<!-- <div class="alertMsg" *ngIf="collectionForm.get('categoryId').hasError('required') && collectionForm.get('categoryId ').touched">
@@ -180,10 +180,10 @@
 									</div>
 							<p-dataTable [value]="collectionList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
 							[totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                                <p-column field="collectionCode" header="Collection Code" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="collectionName" header="Collection Name" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="description" header="Description" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="manufacturerName" header="Manu FacturerName" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="collectionCode" header="Collection Code" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="collectionName" header="Collection Name" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="description" header="Description" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="manufacturerName" header="Manufacturer Name" [style]="{'text-align':'left'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action
