@@ -1,3 +1,4 @@
+
 <div class="m-subheader">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
@@ -13,141 +14,118 @@
 				<li class="m-nav__item">
 					<a class="m-nav__link">
 						<span class="m-nav__link-text">
-							Company Info
-						</span>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-						{{ params ? 'edit' : 'add' }}
+							Company
 						</span>
 					</a>
 				</li>
 			</ul>
 		</div>
+		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="companyForm" title="{{(companyFormVal && companyFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			 [isAuthorize]="['shade']">
+				{{ params ? 'Update' : 'Save' }}
+			</button>
+			<button class="btn btn-secondary" [isAuthorize]="['shade']" (click)="onCancel()">
+				Cancel
+			</button>
+		</div>
 	</div>
 </div>
 <!-- END: Subheader -->
 <div class="m-content">
-	<div class="m-portlet m-portlet--mobile">
-		<div class="m-portlet__head">
-			<div class="m-portlet__head-caption">
-				<div class="m-portlet__head-title">
-					<h3 class="m-portlet__head-text">
-						{{ params ? 'Edit Company' : 'Add Company' }}
-					</h3>
-				</div>
-			</div>
-			<label class="requiredFieldNote">Note: &nbsp;&nbsp;<b>*</b>&nbsp;&nbsp; indicates Required Fields</label>
-		</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<!--begin::Portlet-->
+			<div class="m-portlet">
 
-		<!--begin::Form-->
-		<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(companyForm)" [formGroup]="companyForm">
-			<div class="m-portlet__body formPortletBody">
-				<div class="form-group m-form__group m--margin-top-10 m--hide">
-					<div class="alert m-alert m-alert--default" role="alert">
-						The example form below demonstrates common HTML form elements that receive updated styles from Bootstrap with additional
-						classes.
-					</div>
-				</div>
-				<div class="form-group m-form__group row">
-					<label for="example-text-input" class="col-md-2 col-form-label">
-							Company Name <span class="requiredField">*</span>
-					</label>					
-					<div class="col-md-5">
-						<input class="form-control m-input" type="text" value="" formControlName="companyName" name="companyName" id="companyName" placeholder="Company Name">
-						<div class="alertMsg" *ngIf="companyForm.get('companyName').hasError('required') && companyForm.get('companyName').touched">
-								Please enter Company Name
-						</div>
-					</div>
-				</div>
-				<div class="form-group m-form__group row">
-					<label for="example-text-input" class="col-md-2 col-form-label">
-							Company Email <span class="requiredField">*</span>
-					</label>
-					<div class="col-md-5">
-						<input class="form-control m-input" type="text" value="" formControlName="email" name="email" placeholder="Email" maxlength="254">
-						<div class="alertMsg" *ngIf="companyForm.get('email').hasError('required') && companyForm.get('email').touched">
-							Please enter  Email
-						</div>
-						<div class="alertMsg" *ngIf="!companyForm.get('email').hasError('required') && companyForm.get('email').hasError('email') && companyForm.get('email').touched">
-							Please enter valid Email
-						</div>
-					</div>
-				</div>
-				<div class="form-group m-form__group row">
-					<label for="example-text-input" class="col-md-2 col-form-label">
-							Contact <span class="requiredField">*</span>
-					</label>
-					<div class="col-md-5">
-						<input class="form-control m-input" type="text" formControlName="phone" name="contact" placeholder="Contact" maxlength="15">
-						<div class="alertMsg" *ngIf="companyForm.get('phone').hasError('required') && companyForm.get('phone').touched">
-							Please enter Contact Number
-						</div>
-						<div class="alertMsg" *ngIf="!companyForm.get('phone').hasError('required') && companyForm.get('phone').hasError('pattern') && companyForm.get('phone').touched">
-							Please enter valid phone number
-						</div>
-					</div>
-                </div>
-                <div class="form-group m-form__group row">
-					<label for="example-text-input" class="col-md-2 col-form-label">
-							GSTIN <span class="requiredField">*</span>
-					</label>
-					<div class="col-md-5">
-						<input class="form-control m-input" type="text" formControlName="gstin" name="gstin" placeholder="GSTIN" maxlength="15">
-						<div class="alertMsg" *ngIf="companyForm.get('gstin').hasError('required') && companyForm.get('gstin').touched">
-							Please enter GSTIN
-						</div>
-						<div class="alertMsg" *ngIf="!companyForm.get('gstin').hasError('required') && companyForm.get('gstin').hasError('pattern') && companyForm.get('gstin').touched">
-							Please enter valid GSTIN
-						</div>
-					</div>
-                </div>
-                <div class="form-group m-form__group row">
-					<label for="example-text-input" class="col-md-2 col-form-label">
-							Company Logo <span class="requiredField">*</span>
-					</label>					
-					<div class="col-md-5">
-						<input class="form-control m-input" type="file"  #fileupload  value="" name="companyLogo" id="companyLogo"  (change)="onUploadLogo(fileupload.files)" >
-						<div class="alertMsg" *ngIf="companyForm.get('companyLogo').hasError('required') && companyForm.get('companyLogo').touched">
-								Please select Company Logo
-						</div>
-					</div>
-					<div class="col-md-5">
-						<img src="{{logoURLtoshow}}" alt="Smiley face" height="42" width="42">
-					</div>
-				</div>
-				<!-- <div class="form-group m-form__group row">
-					<label for="example-text-input" class="col-2 col-form-label">
-							Active
-					</label>
-					<div class="col-2" style="padding-top: 5px;">
-						<label class="m-checkbox">
-							<input type="checkbox">												
-							<span></span>
-						</label>
-					</div>
-				</div> -->
-				<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
-					<div class="m-form__actions m-form__actions--solid">
-						<div class="row">
-							<div class="col-lg-6">
-								<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="companyForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ companyForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="companyForm.invalid" [isAuthorize]="['companyinfo']">
-										{{ params ? 'Update' : 'Save' }}
-								</button>
-								<button type="reset" class="btn btn-secondary" (click)="onCancel()">
-										Cancel
-								</button>
-							</div>
-						</div>
+				<div class="row">
+
+					<div class="col-md-12" >
+						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(companyForm)"
+						 #companyFormVal="ngForm" id="companyForm"  [formGroup]="companyForm">
+							<div class="formContainerSamePage">
+
+								<div class="row">
+									<div class="col-md-12">
+										<div class="panel panel-default">
+											<div class="panel-heading">Company Basic Details</div>
+											<div class="panel-body">
+												<div class="form-group">
+
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">Company Name
+															<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="text" value="" formControlName="companyName" required  [ngClass]="{'red-border-class': companyForm.get('companyName').hasError('required') && isFormSubmitted}"   name="companyName" id="companyName" placeholder="Company Name">
+														</div>
+													</div>
+													</div>
+													<div class="form-group">
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">Company Email
+															<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="text" value="" formControlName="email"  required  [ngClass]="{'red-border-class': companyForm.get('email').hasError('required') && isFormSubmitted}"  name="email" placeholder="Email" maxlength="254">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">Contact
+															<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="text" formControlName="phone"  required  [ngClass]="{'red-border-class': companyForm.get('phone').hasError('required') && isFormSubmitted}"  name="contact" placeholder="Contact" maxlength="15">
+														</div>
+														<div class="alertMsg" *ngIf="!companyForm.get('phone').hasError('required') && companyForm.get('phone').hasError('pattern') && companyForm.get('phone').touched">
+															Please enter valid phone number
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">GSTIN
+															<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="text" formControlName="gstin"  required  [ngClass]="{'red-border-class': companyForm.get('gstin').hasError('required') && isFormSubmitted}"  name="gstin" placeholder="GSTIN" maxlength="15">
+														</div>
+														<div class="alertMsg" *ngIf="!companyForm.get('gstin').hasError('required') && companyForm.get('gstin').hasError('pattern') && companyForm.get('gstin').touched">
+															Please enter valid GSTIN
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-5 formContentbox">
+														<div class="form-group">
+															<label class="fieldLabel col-sm-5">Company Logo
+																<span class="requiredField">*</span>
+															</label>
+															<div class="col-sm-7">
+															<input class="form-control m-input" type="file"  #fileupload  value="" name="companyLogo" id="companyLogo"  (change)="onUploadLogo(fileupload.files)" >
+														</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-5 formContentbox">
+														<div class="form-group">
+															<img src="{{logoURLtoshow}}" alt="Smiley face" height="42" width="42">
+														</div>
+													</div>
+												</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+						</form>
 					</div>
 				</div>
 			</div>
-		</form>
-		<!--end::Form-->
+			<!--end::Portlet-->
+		</div>
 	</div>
 </div>
