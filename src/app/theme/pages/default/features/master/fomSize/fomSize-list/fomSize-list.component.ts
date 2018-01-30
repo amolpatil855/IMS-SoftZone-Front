@@ -54,6 +54,7 @@ export class FomSizeListComponent implements OnInit {
   }
 
   newRecord(){
+    this.params=null;
     this.fomSizeObj ={
     id: 0,
     categoryId: 0,
@@ -79,6 +80,7 @@ export class FomSizeListComponent implements OnInit {
   }
   onCancel(){
     this.toggleDiv = false;
+    this.newRecord();
   }
   getFomSizesList() {
     this.fomSizeService.getAllFomSizes(this.pageSize,this.page,this.search).subscribe(
@@ -169,6 +171,7 @@ export class FomSizeListComponent implements OnInit {
       this.fomSizeObj = results;
       console.log('this.fomSizeObj', this.fomSizeObj);
       this.selectedCollection = this.fomSizeObj.collectionId;
+      console.log('this.selectedCollection', this.selectedCollection );
       if(this.selectedCollection > 0){
         this.onCollectionClick();
       }

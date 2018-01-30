@@ -90,7 +90,7 @@
 												<div class="form-group">
 													<label class="fieldLabel col-sm-5">SuggestedMM <span class="requiredField">*</span></label>
 													<div class="col-sm-7">
-														<input class="form-control m-input" type="text" value="" maxlength="10" #suggestedMMVal="ngModel" required [ngClass]="{'red-border-class': suggestedMMVal.errors && isFormSubmitted}" [(ngModel)]="fomSuggestedMMObj.suggestedMM" name="suggestedMM" id="suggestedMM" placeholder="Enter SuggestedMM">
+														<input class="form-control m-input" type="number" value="" maxlength="10" #suggestedMMVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': suggestedMMVal.errors && isFormSubmitted}" [(ngModel)]="fomSuggestedMMObj.suggestedMM" name="suggestedMM" id="suggestedMM" placeholder="Enter SuggestedMM">
 														<!-- <div class="alertMsg" *ngIf="suggestedMMVal.errors   && (suggestedMMVal.dirty || suggestedMMVal.touched)">
 															Please enter SuggestedMM
 														</div> -->
