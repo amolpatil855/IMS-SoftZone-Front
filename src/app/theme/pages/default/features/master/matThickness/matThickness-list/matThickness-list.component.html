@@ -34,14 +34,14 @@
 				<li class="m-nav__item">
 					<a class="m-nav__link">
 						<span class="m-nav__link-text">
-							MatThicknesss
+							Mattress Thicknesss
 						</span>
 					</a>
 				</li>
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="matSizeForm" [ngClass]="(matThicknessForm && !matThicknessForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(matThicknessForm && matThicknessForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="matThicknessForm && !matThicknessForm.form.valid" [isAuthorize]="['mattressthickness']">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="matThicknessForm" [ngClass]="(matThicknessForm && !matThicknessForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(matThicknessForm && matThicknessForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="matThicknessForm && !matThicknessForm.form.valid" [isAuthorize]="['mattressthickness']">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
 			<button class="btn btn-secondary" [isAuthorize]="['mattressthickness']" (click)="onCancel()">
@@ -61,7 +61,7 @@
 				
 				<div class="col-md-12" *ngIf="toggleDiv">
 					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(matThicknessForm)"  #matThicknessForm="ngForm"  id="matThicknessForm">
-					<div class="formContainer formContainerSamePage">
+					<div class="formContainerSamePage">
 						
 								<div class="row">
 									
@@ -70,34 +70,34 @@
 														<div class="panel-heading">Mattress Thickness Basic Details</div>
 														<div class="panel-body">	
 															<div class="form-group">
-									<div class="col-md-5 formContentbox">
-										<label class="fieldLabel col-sm-5">Mattress Thickness Code <span class="requiredField">*</span></label>
-										<div class="col-sm-7">
-											<input class="form-control m-input" type="text" value="" maxlength="10" #thicknessCodeVal="ngModel" required [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="Enter Mattress Thickness Code" maxlength="10">
-											<div class="alertMsg" *ngIf="thicknessCodeVal.errors   && (thicknessCodeVal.dirty || thicknessCodeVal.touched)">
-												Please enter Mattress Thickness Code
-											</div>
-										</div>
-									</div>
-									
-									<div class="col-md-3 formContentbox">
-										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Size <span class="requiredField">*</span></label>
-											<div class="col-sm-7">
-												<input class="form-control m-input" type="text"  required   [(ngModel)]="matThicknessObj.size" name="size" placeholder="Size"  #sizeVal="ngModel" >
-												<div class="alertMsg" *ngIf="sizeVal.errors && sizeVal.errors.required && sizeVal.touched">
-													Please enter Size
+																<div class="col-md-5 formContentbox">
+																	<label class="fieldLabel col-sm-5">Mattress Thickness Code <span class="requiredField">*</span></label>
+																	<div class="col-sm-7">
+																		<input class="form-control m-input" type="text" value="" maxlength="10" #thicknessCodeVal="ngModel" required [ngClass]="{'red-border-class': thicknessCodeVal.errors && isFormSubmitted}" [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="Enter Mattress Thickness Code" maxlength="10">
+																		<!-- <div class="alertMsg" *ngIf="thicknessCodeVal.errors   && (thicknessCodeVal.dirty || thicknessCodeVal.touched)">
+																			Please enter Mattress Thickness Code
+																		</div> -->
+																	</div>
+																</div>
+																
+																<div class="col-md-3 formContentbox">
+																	<div class="form-group">
+																		<label class="fieldLabel col-sm-5">Size <span class="requiredField">*</span></label>
+																		<div class="col-sm-7">
+																			<input class="form-control m-input" type="text"  #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"   [(ngModel)]="matThicknessObj.size" name="size" placeholder="Size"  #sizeVal="ngModel" >
+																			<!-- <div class="alertMsg" *ngIf="sizeVal.errors && sizeVal.errors.required && sizeVal.touched">
+																				Please enter Size
+																			</div>
+																			<div class="alertMsg" *ngIf="sizeVal.errors && !sizeVal.errors.required && sizeVal.errors.pattern && sizeVal.touched">
+																				Please enter valid Size
+																			</div> -->
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
 												</div>
-												<div class="alertMsg" *ngIf="sizeVal.errors && !sizeVal.errors.required && sizeVal.errors.pattern && sizeVal.touched">
-													Please enter valid Size
-												</div>
-											</div>
 										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 
 
 
@@ -139,7 +139,7 @@
 											<span>
 												<i class="flaticon-add"></i>
 												<span>
-													Add MatThickness
+													Add Mattress Thickness
 												</span>
 											</span>
 										</button>
