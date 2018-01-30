@@ -97,7 +97,7 @@
 												<div class="form-group">
 													<label class="fieldLabel col-sm-5">Width <span class="requiredField">*</span></label>
 													<div class="col-sm-7">
-														<input class="form-control m-input" type="text" value="" maxlength="10" #widthVal="ngModel" required [(ngModel)]="fomSizeObj.width" name="width" id="width" placeholder="Enter Width" (input)="onInputChange()">
+														<input class="form-control m-input" type="number" value="" maxlength="10" #widthVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [(ngModel)]="fomSizeObj.width" name="width" id="width" placeholder="Enter Width" (input)="onInputChange()">
 														<div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
 															Please enter Width
 														</div>
@@ -108,7 +108,7 @@
 												<div class="form-group">
 													<label class="fieldLabel col-sm-5">Length <span class="requiredField">*</span></label>
 													<div class="col-sm-7">
-														<input class="form-control m-input" type="text" value="" maxlength="10" #lengthVal="ngModel" required [(ngModel)]="fomSizeObj.length" name="length" id="length" placeholder="Enter Length" (input)="onInputChange()">
+														<input class="form-control m-input" type="number" value="" maxlength="10" #lengthVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [(ngModel)]="fomSizeObj.length" name="length" id="length" placeholder="Enter Length" (input)="onInputChange()">
 														<div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
 															Please enter Length
 														</div>
@@ -125,9 +125,9 @@
 											</div>
 											<div class="col-md-3 formContentbox formContentboxShade">
 												<div class="form-group">
-													<label class="fieldLabel col-sm-5">StockReorderLevel <span class="requiredField">*</span></label>
+													<label class="fieldLabel col-sm-5">Stock Reorder Level <span class="requiredField">*</span></label>
 													<div class="col-sm-7">
-														<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="">
+														<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
 														<!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
 															Please enter StockReorderLevel
 														</div> -->

@@ -11,7 +11,7 @@ import { Role } from "../../../../_models/role";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
 import { Supplier } from "../../../../_models/supplier";
-
+import { CommonService } from '../../../../_services/common.service';
 @Component({
   selector: "app-supplier-list",
   templateUrl: "./supplier-list.component.html",
@@ -37,14 +37,13 @@ export class SupplierListComponent implements OnInit {
     private supplierService: SupplierService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
+    private commonService: CommonService,
     private messageService: MessageService) {
   }
 
   ngOnInit() {
    // this.getSuppliersList();
-   this.states.push({ label: '--Select--', value: '0' });
-   this.states.push({ label: 'Maharashtra', value: 'Maharashtra' });
-   this.states.push({ label: 'MP', value: 'MP' });
+   this.states=this.commonService.states;
     this.route.params.forEach((params: Params) => {
       this.params = params['supplierId'];
     });
@@ -98,7 +97,7 @@ this.supplierObj.MstSupplierAddresses.push({ // <-- the child FormGroup
       addressLine1: '',
       addressLine2: '',
       city:'',
-      state: 'Maharashtra',
+      state: '',
       country: 'India',
       pin: '',
       gstin: '',

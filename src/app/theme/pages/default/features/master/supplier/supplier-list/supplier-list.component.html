@@ -185,7 +185,7 @@
 																		</div>	
 																	</td>													
 																	<td>
-																		<input type="number" class="form-control"  #accountPersonPhoneVal="ngModel" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  required [(ngModel)]="supplierObj.accountPersonPhone" name="accountPersonPhone" placeholder="AccountPersonPhone" maxlength="10">
+																		<input type="number" class="form-control"  #accountPersonPhoneVal="ngModel" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  required [(ngModel)]="supplierObj.accountPersonPhone" name="accountPersonPhone" placeholder="AccountPersonEmail" maxlength="10">
 																			<div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && !accountPersonPhoneVal.errors.required && accountPersonPhoneVal.errors.pattern && accountPersonPhoneVal.touched">
 																				Please enter valid phone number
 																			</div>
@@ -252,7 +252,7 @@
 							<div class="col-md-12">
 										<div class="panel panel-default">
 										  <div class="panel-heading">Supplier Address Details</div>
-										  <div class="panel-body addressTablePanelBody">
+										  <div class="panel-body">
 											
 												<div class="table-responsive">
 													<table class="table formAddressTable">
