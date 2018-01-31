@@ -78,9 +78,9 @@
 							 </div>
 							 <p-dataTable [value]="roleList"  [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
 							 [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-							 <p-column field="roleName" header="Role Name"></p-column>
-							 <p-column field="roleDescription" header="Description"></p-column>
-							 <p-column styleClass="col-button">
+							 <p-column field="roleName" header="Role Name" [style]="{'text-align':'left'}"></p-column>
+							 <p-column field="roleDescription" header="Description" [style]="{'text-align':'left'}"></p-column>
+							 <p-column styleClass="col-button" [style]="{'text-align':'center'}">
 								<ng-template pTemplate="header">
 								   Action
 								</ng-template>
@@ -136,7 +136,7 @@
                                     <!-- Role Details -->
                                     <div class="panel panel-default">
                                        <div class="panel-heading">Role Details</div>
-                                       <div class="panel-body">	
+                                       <div class="panel-body roleTreeListBox">	
                                           <p-tree [value]="featureList" selectionMode="checkbox" [(selection)]="SelectedFeatureList"></p-tree>		
                                        </div>
                                     </div>
