@@ -60,6 +60,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/fomSize\/fomSize.module#FomSizeModule"
       },
       {
+        "path": "features\/master\/trnProductStock",
+        "loadChildren": ".\/pages\/default\/features\/master\/trnProductStock\/trnProductStock.module#TrnProductStockModule"
+      },
+      {
         "path": "features\/master\/hsn",
         "loadChildren": ".\/pages\/default\/features\/master\/hsn\/hsn.module#HsnModule"
       },

@@ -60,9 +60,15 @@ export class MatSizeListComponent implements OnInit {
     qualityId: 0,
     thicknessId: 0,
     sizeCode: '',
-    rate: '',
+    rate: 0,
+    purchaseDiscount: 0,
+    purchaseRate: 0,
     stockReorderLevel: null,
     };
+  }
+
+  onInputChange(){
+    this.matSizeObj.purchaseRate = this.matSizeObj.rate - ((this.matSizeObj.rate * this.matSizeObj.purchaseDiscount)/100);
   }
 
   toggleButton(){

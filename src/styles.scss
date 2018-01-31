@@ -1382,7 +1382,7 @@ body .ui-dialog .ui-dialog-titlebar {
     font-size: 16px!important;
     margin-top: 0px!important;
     vertical-align: middle!important;
-    margin-right: 0px!important;
+    margin-right: 5px!important;
     font-weight: 500!important;
 }
 .panel {
@@ -1435,7 +1435,8 @@ body .ui-dialog .ui-dialog-titlebar {
 .form-group{
 	clear: both;
     display: flow-root;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
+   /* margin: 3px 0;*/
 }
 @media (min-width: 992px){
 .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12{
@@ -1490,8 +1491,7 @@ select.form-control:not([size]):not([multiple]) {
     height: auto!important;
 }
 .addressTablePanelBody{
-    /*height: 230px;*/
-    height: auto;
+    min-height: 150px;
     overflow-y: auto;
 }
 input[type=number]::-webkit-inner-spin-button, 
@@ -1634,4 +1634,62 @@ input[type=number]::-webkit-outer-spin-button {
     border-color: #f4516c;
     color: #f4516c;
     font-weight: 400;
+}
+/************ Login page ends **************/
+
+/**** D. 30 Jan 2018 ****/
+.feePlanBox .ui-dropdown .ui-dropdown-label {
+    height: 20px !important;
+    padding-top: 3.5px !important;
+    padding-left: 5px !important;
+    font-size: 12px;
+    font-family: sans-serif, Arial;
+}
+.feePlanBox .ui-dropdown .ui-dropdown-trigger .fa {
+    margin-top: 3px;
+}
+body .ui-dropdown:not(.ui-state-disabled):hover {
+    background-color: transparent!important;
+    border-color: #cccccc;
+}
+body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item {
+    font-family: sans-serif, Arial;
+    font-size: 12px;
+}
+.formCheckbox{
+    margin-top: 5px;
+}
+.roleTreeListBox{
+    height: 170px;
+    overflow-y: auto;
+}
+.formContentboxShade{
+    margin-bottom: 3px;
+}
+.ui-datatable-even, .ui-datatable-odd{
+    font-size: 9px!important;
+}
+tbody .ui-widget-content{
+    font-size: 9px!important;
+}
+.m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading, .m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link {
+    height: 30px;
+}
+@media (min-width: 993px){
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__link-text {
+    color: #bdbbbb !important;
+    font-size: 12px !important;
+}
+}
+.formInfotable tr:nth-child(even) td {
+    background-color: #fff !important;
+}
+.formInfotable tr:nth-child(odd) td {
+    background-color: #fff !important;
+}
+.formAddressTable tr:nth-child(even) td {
+    background-color: #fff !important;
+}
+.formAddressTable tr:nth-child(odd) td {
+    background-color: #fff !important;
 }

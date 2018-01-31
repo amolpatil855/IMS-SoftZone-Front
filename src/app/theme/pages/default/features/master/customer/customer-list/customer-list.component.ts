@@ -10,6 +10,7 @@ import { CustomerService } from "../../../../_services/customer.service";
 import { Customer } from "../../../../_models/customer";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
+import { CommonService } from '../../../../_services/common.service';
 @Component({
   selector: "app-customer-list",
   templateUrl: "./customer-list.component.html",
@@ -35,13 +36,12 @@ export class CustomerListComponent implements OnInit {
     private customerService: CustomerService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
+    private commonService: CommonService,
     private messageService: MessageService) {
   }
 
   ngOnInit() {
-    this.states.push({ label: '--Select--', value: '0' });
-   this.states.push({ label: 'Maharashtra', value: 'Maharashtra' });
-   this.states.push({ label: 'MP', value: 'MP' });
+    this.states=this.commonService.states;
   this.route.params.forEach((params: Params) => {
       this.params = params['customerId'];
     });
@@ -89,7 +89,7 @@ this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
       addressLine1: '',
       addressLine2: '',
       city:'',
-      state: 'Maharashtra',
+      state: '',
       country: 'India',
       pin: '',
       gstin: 0,

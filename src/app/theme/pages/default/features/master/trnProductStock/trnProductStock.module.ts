@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from "../../../default.component";
 import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
-import { CommonService } from '../../../_services/common.service';
+// import { RoleService, PermissionService } from '../../_services/index';
 
 import {
   DataTableModule,
@@ -16,10 +16,10 @@ import {
   ConfirmDialogModule,
   ConfirmationService,
 } from 'primeng/primeng';
-import { CustomerService } from "../../../_services/customer.service";
-import { CustomerComponent } from "./customer.component";
-import { CustomerListComponent } from "./customer-list/customer-list.component";
 
+import { TrnProductStockService } from "../../../_services/trnProductStock.service";
+import { TrnProductStockComponent } from "./trnProductStock.component";
+import { TrnProductStockListComponent } from "./trnProductStock-list/trnProductStock-list.component";
 
 const routes: Routes = [
   {
@@ -28,16 +28,17 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: CustomerComponent,
+        component: TrnProductStockComponent,
         children: [
           {
             path: 'list',
-            component: CustomerListComponent,
+            component: TrnProductStockListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['customer']
+              permissions: ['stockmanagement']
             }
-          }
+          
+          },
         ]
       }
     ]
@@ -59,14 +60,14 @@ const routes: Routes = [
     ConfirmDialogModule
   ],
   declarations: [
-    CustomerComponent,
-    CustomerListComponent,
+    TrnProductStockComponent,
+    TrnProductStockListComponent,
   ],
   providers: [
-    CommonService,
-    CustomerService,
+    // RoleService,
+    TrnProductStockService,
     ConfirmationService
   ],
 })
-export class CustomerModule {
+export class TrnProductStockModule {
 }

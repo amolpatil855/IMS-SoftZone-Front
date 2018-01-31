@@ -54,6 +54,7 @@ export class FomSizeListComponent implements OnInit {
   }
 
   newRecord(){
+    this.params=null;
     this.fomSizeObj ={
     id: 0,
     categoryId: 0,
@@ -79,6 +80,7 @@ export class FomSizeListComponent implements OnInit {
   }
   onCancel(){
     this.toggleDiv = false;
+    this.newRecord();
   }
   getFomSizesList() {
     this.fomSizeService.getAllFomSizes(this.pageSize,this.page,this.search).subscribe(
@@ -138,10 +140,10 @@ export class FomSizeListComponent implements OnInit {
   onDensityClick(){
     this.fomSizeService.getFomSuggestedMMLookUpByFomDensity(this.selectedDensity).subscribe(
       results => {
-        this.fomSizeList = results;
-        this.fomSizeList.unshift({ label: '--Select--', value: '0' });
+        this.fomSuggestedMMList = results;
+        this.fomSuggestedMMList.unshift({ label: '--Select--', value: '0' });
         this.selectedSize = this.fomSizeObj.fomSuggestedMMId;
-        console.log('this.fomSizeList', this.fomSizeList);
+        console.log('this.fomSuggestedMMList', this.fomSuggestedMMList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -169,6 +171,7 @@ export class FomSizeListComponent implements OnInit {
       this.fomSizeObj = results;
       console.log('this.fomSizeObj', this.fomSizeObj);
       this.selectedCollection = this.fomSizeObj.collectionId;
+      console.log('this.selectedCollection', this.selectedCollection );
       if(this.selectedCollection > 0){
         this.onCollectionClick();
       }

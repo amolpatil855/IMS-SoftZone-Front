@@ -505,8 +505,11 @@
 	margin:5px;
 }
 .formContentbox{
-	min-height:35px;
-	margin-bottom:0px;
+	/*min-height:35px;
+    margin-bottom:0px;*/
+    min-height: 12px;
+    margin-bottom: 0px;
+    /*margin: 2px 0;*/
 }
 .pagination>li>a, .pagination>li>span {
     padding: 5px 8px!important;
@@ -526,7 +529,7 @@
 .formContentbox label{
 	padding-left:0!important;
 	padding-right:5px!important;
-	padding-top:5px!important;
+	padding-top:2px!important;
 }
 .formSubmitBtnBox{
     text-align:right;

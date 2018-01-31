@@ -52,6 +52,7 @@ export class FomDensityListComponent implements OnInit {
   }
 
   newRecord(){
+    this.params=null;
     this.fomDensityObj ={
     id: 0,
     categoryId: 0,
@@ -72,6 +73,7 @@ export class FomDensityListComponent implements OnInit {
   }
   onCancel(){
     this.toggleDiv = false;
+    this.newRecord();
   }
   getFomDensitysList() {
     this.fomDensityService.getAllFomDensitys(this.pageSize,this.page,this.search).subscribe(
