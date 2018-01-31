@@ -18,7 +18,7 @@ import { MatThickness } from "../../../../_models/matThickness";
   encapsulation: ViewEncapsulation.None,
 })
 export class MatThicknessListComponent implements OnInit {
-  isFormSubmitted=false;
+  isFormSubmitted: boolean = false;
   matThicknessForm: any;
   matThicknessObj:any;
   params: number;
@@ -29,6 +29,7 @@ export class MatThicknessListComponent implements OnInit {
   search='';
   toggleDiv=false;
   states=[];
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -46,6 +47,7 @@ export class MatThicknessListComponent implements OnInit {
   }
 
   newRecord(){
+    this.params = null;
     this.matThicknessObj ={
       id: 0,
       thicknessCode:'',
@@ -56,6 +58,7 @@ export class MatThicknessListComponent implements OnInit {
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
+      this.isFormSubmitted = false;
       this.newRecord();
     }
 
@@ -67,9 +70,14 @@ export class MatThicknessListComponent implements OnInit {
     this.matThicknessService.getAllMatThicknesss(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.matThicknessList = results.data;
-        console.log('this.matThicknessList', this.matThicknessList);
+        this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -146,6 +154,7 @@ export class MatThicknessListComponent implements OnInit {
      this.getMatThicknessById(matThickness.id);
      this.params=matThickness.id;
      this.toggleDiv=true;
+     this.isFormSubmitted = false;
   }
 
   onDelete(matThickness: MatThickness) {

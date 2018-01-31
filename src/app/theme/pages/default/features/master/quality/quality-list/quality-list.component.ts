@@ -33,9 +33,11 @@ export class QualityListComponent implements OnInit {
   totalCount=0;
   search='';
   toggleDiv=false;
+  disabled: boolean = false;
   states=[];
-  isFormSubmitted:boolean;
+  isFormSubmitted:boolean = false;
   slectedCategory=null;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -54,11 +56,12 @@ export class QualityListComponent implements OnInit {
     this.params=null;
    this.getQualityList();
    this.newRecord();
-   this. getCategoryCodeList();
-   this.getHsnCodeList(); 
+   this.getHsnCodeList();
+   this. getCategoryCodeList(); 
   }
 
 newRecord(){
+  this.params=null;
   this.qualityForm = this.formBuilder.group({
     id: 0,
     qualityCode: ['', [Validators.required]],
@@ -82,18 +85,22 @@ newRecord(){
     sellingRatePerMM:['0', [Validators.required]],
     maxDiscout:['0', [Validators.required]],
   });
+  this.slectedCategory = 0;
 }
 
 
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
+      this.disabled = false;
+      this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
   onCancel(){
     this.toggleDiv = false;
+    this.disabled = false;
     this.newRecord();
   }
 
@@ -123,8 +130,14 @@ newRecord(){
     this.qualityService.getAllQualitys().subscribe(
       results => {
         this.recordList = results.data;
+      this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -236,7 +249,9 @@ getQualityById(id){
     this. getQualityById(quality.id);
     this.params=quality.id;
     this.slectedCategory=null;
-   this.toggleDiv=true;
+    this.toggleDiv=true;
+    this.disabled = true;
+    this.isFormSubmitted = false;
   }
 
   onDelete(quality: Quality) {
