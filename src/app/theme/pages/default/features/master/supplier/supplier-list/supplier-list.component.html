@@ -94,7 +94,7 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Code<span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control"    [ngClass]="{'red-border-class': codeVal.errors && isFormSubmitted}"  #codeVal="ngModel" required [(ngModel)]="supplierObj.code" name="code"  placeholder="" id="code" >
+															<input type="text" class="form-control"    [ngClass]="{'red-border-class': codeVal.errors && isFormSubmitted}"  #codeVal="ngModel" required [(ngModel)]="supplierObj.code" name="code"  placeholder="Code" id="code" >
 															<!-- <div class="alertMsg" *ngIf="codeVal.errors && codeVal.errors.required   && (nameVal.dirty || nameVal.touched)">
 																Please enter Suplier Name
 															</div> -->
@@ -102,7 +102,7 @@
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Name<span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control"  [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"  #nameVal="ngModel" required [(ngModel)]="supplierObj.name" name="name"  placeholder="" id="name" >
+															<input type="text" class="form-control"  [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"  #nameVal="ngModel" required [(ngModel)]="supplierObj.name" name="name"  placeholder="Name" id="name" >
 															<!-- <div class="alertMsg" *ngIf="nameVal.errors   && (nameVal.dirty || nameVal.touched)">
 																Please enter Suplier Name
 															</div> -->
@@ -111,7 +111,7 @@
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Email<span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
-															<input type="email" class="form-control" email    [ngClass]="{'red-border-class': emailVal.errors && isFormSubmitted}"   #emailVal="ngModel" required [(ngModel)]="supplierObj.email" name="email" placeholder="" maxlength="254">
+															<input type="email" class="form-control" email    [ngClass]="{'red-border-class': emailVal.errors && isFormSubmitted}"   #emailVal="ngModel" required [(ngModel)]="supplierObj.email" name="email" placeholder="Email" maxlength="254">
 															<!-- <div class="alertMsg" *ngIf="emailVal.errors && emailVal.errors.required && (emailVal.dirty || emailVal.touched)">
 																Please enter Email
 															</div> -->
@@ -122,19 +122,19 @@
 														
 														<label class="col-md-2 col-sm-2 fieldLabel">Firm Name<span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
-															<input type="text" class="form-control"    [ngClass]="{'red-border-class': firmNameVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.firmName"  required  #firmNameVal="ngModel"   name="firmName" id="firmName"  placeholder="">
+															<input type="text" class="form-control"    [ngClass]="{'red-border-class': firmNameVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.firmName"  required  #firmNameVal="ngModel"   name="firmName" id="firmName"  placeholder="FirmName">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Phone<span class="requiredField">*</span></label>
 														<div class="col-md-4 col-sm-4">
-															<input type="number" class="form-control"   [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}" [(ngModel)]="supplierObj.phone" name="phone" required #phoneVal="ngModel" placeholder="" maxlength="10">
+															<input type="phone" class="form-control"  pattern="[1-9][0-9]{9}"  onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}" [(ngModel)]="supplierObj.phone" name="phone" required #phoneVal="ngModel" placeholder="Phone" maxlength="10">
 															<!-- <div class="alertMsg" *ngIf="phoneVal.errors && phoneVal.errors.required && (phoneVal.dirty || phoneVal.touched)">
 																	Please enter Contact Number
 																</div> -->
-																<div class="alertMsg" *ngIf="phoneVal.errors && !phoneVal.errors.required  && phoneVal.errors.pattern && phoneVal.touched">
+																<!-- <div class="alertMsg" *ngIf="phoneVal.errors && !phoneVal.errors.required  && phoneVal.errors.pattern && phoneVal.touched">
 																	Please enter valid phone number
-																</div>
+																</div> -->
 														</div>
 													</div>																							
 													<div class="form-group">
@@ -176,19 +176,25 @@
 																		<b>Account</b>
 																	</td>
 																	<td>
-																		<input type="text" class="form-control" [(ngModel)]="supplierObj.accountPersonName" [ngClass]="{'red-border-class': accountPersonNameVal.errors && isFormSubmitted}"   required  name="accountPersonName" id="accountPersonName"  #accountPersonNameVal="ngModel"  placeholder="AccountPersonName">
+																		<input type="text" class="form-control" [(ngModel)]="supplierObj.accountPersonName" [ngClass]="{'red-border-class': accountPersonNameVal.errors && isFormSubmitted}"  name="accountPersonName" id="accountPersonName"  #accountPersonNameVal="ngModel"  placeholder="AccountPersonName">
 																	</td>
 																	<td>
-																		<input type="email" class="form-control"  required  email  #accountPersonEmailVal="ngModel"   [ngClass]="{'red-border-class': accountPersonEmailVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.accountPersonEmail" name="accountPersonEmail" placeholder="AccountPersonEmail" maxlength="254">
-																		<div class="alertMsg" *ngIf="accountPersonEmailVal.errors && !accountPersonEmailVal.errors.required && accountPersonEmailVal.errors.email && accountPersonEmailVal.touched">
+																		<input type="email" class="form-control"  pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" #accountPersonEmailVal="ngModel"   [ngClass]="{'red-border-class': accountPersonEmailVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.accountPersonEmail" name="accountPersonEmail" placeholder="AccountPersonEmail" maxlength="254">
+																		<!-- <div class="alertMsg" *ngIf="accountPersonEmailVal.errors && !accountPersonEmailVal.errors.required && accountPersonEmailVal.errors.email && accountPersonEmailVal.touched">
 																			Invalid Email
-																		</div>	
+																		</div>	 -->
 																	</td>													
 																	<td>
-																		<input type="number" class="form-control"  #accountPersonPhoneVal="ngModel" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  required [(ngModel)]="supplierObj.accountPersonPhone" name="accountPersonPhone" placeholder="AccountPersonEmail" maxlength="10">
-																			<div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && !accountPersonPhoneVal.errors.required && accountPersonPhoneVal.errors.pattern && accountPersonPhoneVal.touched">
+																		<input type="phone" class="form-control"  #accountPersonPhoneVal="ngModel" pattern="[1-9][0-9]{9}"  onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.accountPersonPhone" name="accountPersonPhone" placeholder="AccountPersonPhone"  >
+																			<!-- <div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && !accountPersonPhoneVal.errors.required && accountPersonPhoneVal.errors.pattern && accountPersonPhoneVal.touched">
 																				Please enter valid phone number
-																			</div>
+																			</div> -->
+																			<!-- <div [hidden]="accountPersonPhoneVal.valid || accountPersonPhoneVal.pristine"class="alert alert-danger">
+																				<div [hidden]="!accountPersonPhoneVal.hasError('minlength')">Mobile should be 10 digit</div>
+																				<div [hidden]="!accountPersonPhoneVal.hasError('maxlength')">Mobile should exactly be 10 digit</div>
+																				<div [hidden]="!accountPersonPhoneVal.hasError('required')">Mobile is required</div>
+																				<div [hidden]="!accountPersonPhoneVal.hasError('pattern')">Mobile numberr should be only numbers</div>
+																			</div> -->
 																	</td>
 																</tr>
 																<tr>
@@ -196,22 +202,22 @@
 																		<b>Dispatch</b>
 																	</td>
 																	<td>
-																		<input type="text" class="form-control"  required [(ngModel)]="supplierObj.dispatchPersonName"  [ngClass]="{'red-border-class': dispatchPersonNameVal.errors && isFormSubmitted}"  #dispatchPersonNameVal="ngModel"  name="dispatchPersonName" id="dispatchPersonName" placeholder="DispatchPersonName">
-																		<div class="alertMsg" *ngIf="dispatchPersonNameVal.errors && dispatchPersonNameVal.errors.required && dispatchPersonNameVal.errors.touched">
+																		<input type="text" class="form-control" [(ngModel)]="supplierObj.dispatchPersonName"  [ngClass]="{'red-border-class': dispatchPersonNameVal.errors && isFormSubmitted}"  #dispatchPersonNameVal="ngModel"  name="dispatchPersonName" id="dispatchPersonName" placeholder="DispatchPersonName">
+																		<!-- <div class="alertMsg" *ngIf="dispatchPersonNameVal.errors && dispatchPersonNameVal.errors.required && dispatchPersonNameVal.errors.touched">
 																			Please enter Dispatch Person Name
-																		</div>		
+																		</div>		 -->
 																	</td>
 																	<td>
-																		<input type="email" class="form-control" email required [(ngModel)]="supplierObj.dispatchPersonEmail"  [ngClass]="{'red-border-class': dispatchPersonEmailVal.errors && isFormSubmitted}"  name="dispatchPersonEmail"   #dispatchPersonEmailVal="ngModel" placeholder="DispatchPersonEmail" maxlength="15">
-																		<div class="alertMsg" *ngIf="dispatchPersonEmailVal.errors && !dispatchPersonEmailVal.errors.required && dispatchPersonEmailVal.errors.email && dispatchPersonEmailVal.touched">
+																		<input type="email" class="form-control" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" [(ngModel)]="supplierObj.dispatchPersonEmail"  [ngClass]="{'red-border-class': dispatchPersonEmailVal.errors && isFormSubmitted}"  name="dispatchPersonEmail"   #dispatchPersonEmailVal="ngModel" placeholder="DispatchPersonEmail" maxlength="15">
+																		 <!-- <div class="alertMsg" *ngIf="dispatchPersonEmailVal.errors && !dispatchPersonEmailVal.errors.required && dispatchPersonEmailVal.errors.email && dispatchPersonEmailVal.touched">
 																			Invalid Email
-																		</div>				
-																	</td>													
+																		</div>				 -->
+																	</td>													 
 																	<td>
-																		<input type="number" class="form-control"  required [(ngModel)]="supplierObj.dispatchPersonPhone" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': dispatchPersonPhoneVal.errors && isFormSubmitted}"  name="dispatchPersonPhone"   #dispatchPersonPhoneVal="ngModel" placeholder="DispatchPersonPhone" maxlength="15">
-																		<div class="alertMsg" *ngIf="dispatchPersonPhoneVal.errors && !dispatchPersonPhoneVal.errors.required && dispatchPersonPhoneVal.errors.pattern && dispatchPersonPhoneVal.touched">
+																		<input type="phone" class="form-control" pattern="[1-9][0-9]{9}"  [(ngModel)]="supplierObj.dispatchPersonPhone" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': dispatchPersonPhoneVal.errors && isFormSubmitted}"  name="dispatchPersonPhone"   #dispatchPersonPhoneVal="ngModel" placeholder="DispatchPersonPhone" maxlength="15">
+																		<!-- <div class="alertMsg" *ngIf="dispatchPersonPhoneVal.errors && dispatchPersonPhoneVal.errors.pattern && dispatchPersonPhoneVal.touched">
 																			Please enter valid phone number
-																		</div>	
+																		</div>	 -->
 																	</td>
 																</tr>
 																<tr>
@@ -219,19 +225,19 @@
 																		<b>Warehouse</b>
 																	</td>
 																	<td>
-																		<input type="text" class="form-control" required [(ngModel)]="supplierObj.warehousePersonName"  [ngClass]="{'red-border-class': warehousePersonNameVal.errors && isFormSubmitted}" name="warehousePersonName" id="warehousePersonName"   #warehousePersonNameVal="ngModel" placeholder="WarehousePersonName">
+																		<input type="text" class="form-control" [(ngModel)]="supplierObj.warehousePersonName"  [ngClass]="{'red-border-class': warehousePersonNameVal.errors && isFormSubmitted}" name="warehousePersonName" id="warehousePersonName"   #warehousePersonNameVal="ngModel" placeholder="WarehousePersonName">
 																	</td>
 																	<td>
-																		<input type="email" class="form-control" email   [ngClass]="{'red-border-class': warehousePersonEmailVal.errors && isFormSubmitted}" [(ngModel)]="supplierObj.warehousePersonEmail" name="warehousePersonEmail" placeholder="WarehousePersonEmail"  #warehousePersonEmailVal="ngModel"  maxlength="254">
-																		<div class="alertMsg" *ngIf="warehousePersonEmailVal.errors && !warehousePersonEmailVal.errors.required && warehousePersonEmailVal.errors.email && warehousePersonEmailVal.touched">
+																		<input type="email" class="form-control" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"  [ngClass]="{'red-border-class': warehousePersonEmailVal.errors && isFormSubmitted}" [(ngModel)]="supplierObj.warehousePersonEmail" name="warehousePersonEmail" placeholder="WarehousePersonEmail"  #warehousePersonEmailVal="ngModel"  maxlength="254">
+																		<!-- <div class="alertMsg" *ngIf="warehousePersonEmailVal.errors && !warehousePersonEmailVal.errors.required && warehousePersonEmailVal.errors.email && warehousePersonEmailVal.touched">
 																			Invalid Email
-																		</div>	
+																		</div>	 -->
 																	</td>													
 																	<td>
-																		<input type="number" class="form-control"  required onKeyPress="if(this.value.length==10) return false;"  [ngClass]="{'red-border-class': warehousePersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.warehousePersonPhone" name="warehousePersonPhone"   #warehousePersonPhoneVal="ngModel" placeholder="WarehousePersonPhone" maxlength="15">
-																			<div class="alertMsg" *ngIf="warehousePersonPhoneVal.errors && !warehousePersonPhoneVal.errors.required && warehousePersonPhoneVal.errors.pattern && warehousePersonPhoneVal.touched">
+																		<input type="phone" class="form-control" pattern="[1-9][0-9]{9}" onKeyPress="if(this.value.length==10) return false;"  [ngClass]="{'red-border-class': warehousePersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.warehousePersonPhone" name="warehousePersonPhone"   #warehousePersonPhoneVal="ngModel" placeholder="WarehousePersonPhone" maxlength="15">
+																			<!-- <div class="alertMsg" *ngIf="warehousePersonPhoneVal.errors && warehousePersonPhoneVal.errors.pattern && warehousePersonPhoneVal.touched">
 																				Please enter valid phone number
-																			</div>
+																			</div> -->
 																	</td>
 																</tr>
 															  
@@ -283,7 +289,7 @@
 																	</div>
 																</td>
 																<td>
-																	<input class="form-control" type="number" onKeyPress="if(this.value.length==15) return false;" [(ngModel)]="supAdd.gstin" name="{{'gstin'+supAdd.contRoleId}}" maxlength="15">
+																	<input class="form-control" type="text" onKeyPress="if(this.value.length==15) return false;" [(ngModel)]="supAdd.gstin" name="{{'gstin'+supAdd.contRoleId}}" minlength="15"  maxlength="15">
 																		<div class="alertMsg" *ngIf="supAdd.invalidGstin">
 																			Please enter gstin
 																		</div>
