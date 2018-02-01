@@ -58,7 +58,7 @@
             <div class="row">
 			
 				<!--Table-->
-				<div class="col-md-4"> 						
+				<div class="col-md-5"> 						
 					<div class="m-portlet__body">
 					   <!--begin::Section-->
 					   <div class="m-section">
@@ -76,7 +76,7 @@
 								</span>
 								</button>
 							 </div>
-							 <p-dataTable [value]="roleList"  [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
+							 <p-dataTable [value]="roleList"  [emptyMessage]="tableEmptyMesssage" class="table listingTable halfWidthTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
 							 [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
 							 <p-column field="roleName" header="Role Name" [style]="{'text-align':'left'}"></p-column>
 							 <p-column field="roleDescription" header="Description" [style]="{'text-align':'left'}"></p-column>
@@ -100,12 +100,12 @@
 				</div>
 			
 				
-               <div class="col-md-8" *ngIf="toggleDiv" style="padding: 0;">
+               <div class="col-md-7" *ngIf="toggleDiv" style="padding: 0;">
                   <div class="">
                      <div class="col-md-12">
                         <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate (ngSubmit)="onSubmit(roleForm)"  [formGroup]="roleForm"  #roleFormVal="ngForm"  id="roleForm">
                         <div class="row">
-                           <div class="col-md-5">
+                           <div class="col-md-6">
                               <div class="row">
                                  <div class="col-md-12">
                                     <!-- Role Details -->
@@ -130,7 +130,7 @@
                               </div>
                            </div>
                            <!--- Address Details -->									
-                           <div class="col-md-7">
+                           <div class="col-md-6">
                               <div class="row">
                                  <div class="col-md-12">
                                     <!-- Role Details -->

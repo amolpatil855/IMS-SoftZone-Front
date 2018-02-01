@@ -1704,3 +1704,12 @@ body .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label {
     padding: 0 3px!important;
     font-size: 12px;
 }
+
+/**** D. 1 Feb 2018 ****/
+.halfWidthTable tr td{
+    width: 50px!important;
+    max-width: 50px!important;
+    overflow: hidden!important;
+    text-overflow: ellipsis!important;
+    white-space: nowrap!important;
+}
