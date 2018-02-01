@@ -84,13 +84,13 @@ this.supplierObj.MstSupplierAddresses.push({ // <-- the child FormGroup
   country: '',
   pin: '',
   gstin: '',
-  isPrimary: false,
+  isPrimary: true,
   contRoleId: Math.floor(Math.random() * 2000),
 });
 }
 
   addNewAddress(supAdd){
-    
+    if(this.validateAddress()){
     var newaddressObj ={ // <-- the child FormGroup
       id: 0,
       supplierId:0,
@@ -105,6 +105,7 @@ this.supplierObj.MstSupplierAddresses.push({ // <-- the child FormGroup
       contRoleId: Math.floor(Math.random() * 2000),
     };
     this.supplierObj.MstSupplierAddresses.push(newaddressObj);
+     }
   }
   clearAddress(supAddIndex){
     if(this.supplierObj.MstSupplierAddresses[supAddIndex].isPrimary){
@@ -164,6 +165,122 @@ getSupplierById(id){
       this.globalErrorHandler.handleError(error);
     });
 }
+validateAddress1(addressObj){
+  if(!addressObj.addressLine1){
+        addressObj.invalidAddressLine1=true;
+      }
+      else
+      {
+        addressObj.invalidAddressLine1=false;
+      }
+}
+
+validateGSTIN(addressObj){
+  let regex =new RegExp( "^[A-Z0-9]{15}$");
+  if(!addressObj.gstin){
+        addressObj.invalidGstin=true;
+      }
+      else if(addressObj.gstin && regex.test(addressObj.gstin)==false){
+        addressObj.invalidGstin=true;
+       }
+      else
+      {
+        addressObj.invalidGstin=false;
+      }
+}
+
+validatePin(addressObj){
+  let regex =new RegExp( "^[0-9]{6}$");
+  if(!addressObj.pin){
+        addressObj.invalidPin=true;
+      }
+      else if(addressObj.pin && regex.test(addressObj.pin)==false){
+        addressObj.invalidPin=true;
+      }
+      else
+      {
+        addressObj.invalidPin=false;
+      }
+}
+
+validateCity(addressObj){
+  if(!addressObj.city  ){
+        addressObj.invalidCity=true;
+      }else
+      {
+        addressObj.invalidCity=false;
+      }
+}
+
+validateState(addressObj){
+  if(addressObj.state=='0'){
+        addressObj.invalidState=true;
+      }
+      else
+      {
+        addressObj.invalidState=false;
+      }
+}
+
+  validateAddress(){
+    let regex =new RegExp( "^[A-Z0-9]{15}$");
+    let isvalidAddress=true;
+    _.forEach(this.supplierObj.MstSupplierAddresses, function(addressObj) {
+      if(!addressObj.addressLine1){
+        addressObj.invalidAddressLine1=true;
+        isvalidAddress=false;
+      }
+      else
+      {
+        addressObj.invalidAddressLine1=false;
+      }
+      // if(!addressObj.addressLine2){
+      //   addressObj.invalidAddressLine2=true;
+      //   valid=false;
+      // }
+      // else
+      // {
+      //   addressObj.invalidAdd=false;
+      // }
+      if(!addressObj.gstin){
+
+        addressObj.invalidGstin=true;
+        isvalidAddress=false;
+      }
+      else if(addressObj.gstin && regex.test(addressObj.gstin)==false){
+        addressObj.invalidGstin=true;
+        isvalidAddress=false;
+      }
+      else
+      {
+        addressObj.invalidGstin=false;
+      }
+
+      if(addressObj.state=='0'){
+        addressObj.invalidState=true;
+        isvalidAddress=false;
+      }
+      else
+      {
+        addressObj.invalidState=false;
+      }
+      if(!addressObj.city  ){
+        addressObj.invalidCity=true;
+        isvalidAddress=false;
+      }else
+      {
+        addressObj.invalidCity=false;
+      }
+      if(!addressObj.pin){
+        addressObj.invalidPin=true;
+        isvalidAddress=false;
+      }else
+      {
+        addressObj.invalidPin=false;
+      }
+    });
+     return isvalidAddress;
+  }
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
@@ -175,16 +292,16 @@ getSupplierById(id){
       }
       else
       {
-        addressObj.invalidAdd=false;
+        addressObj.invalidAddressLine1=false;
       }
-      if(!addressObj.addressLine2){
-        addressObj.invalidAddressLine2=true;
-        valid=false;
-      }
-      else
-      {
-        addressObj.invalidAdd=false;
-      }
+      // if(!addressObj.addressLine2){
+      //   addressObj.invalidAddressLine2=true;
+      //   valid=false;
+      // }
+      // else
+      // {
+      //   addressObj.invalidAdd=false;
+      // }
       if(!addressObj.gstin){
         addressObj.invalidGstin=true;
         valid=false;
@@ -193,7 +310,7 @@ getSupplierById(id){
       {
         addressObj.invalidGstin=false;
       }
-      if(!addressObj.state){
+      if(addressObj.state=='0'){
         addressObj.invalidState=true;
         valid=false;
       }
