@@ -186,7 +186,7 @@ getsuplierById(id){
           Helpers.setLoading(false);
         });
     } else {
-      value.id=this.params;
+      // value.id=this.params;
       this.collectionService.createCollection(value)
         .subscribe(
         results => {

@@ -98,6 +98,7 @@ this.supplierObj.MstSupplierAddresses.push(address);
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
+      this.isFormSubmitted = false;
       this.newRecord();
     }
     this.isFormSubmitted=false;
