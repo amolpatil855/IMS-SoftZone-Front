@@ -35,7 +35,10 @@ export class FomSizeListComponent implements OnInit {
   page=1;
   totalCount=0;
   search='';
+  states=[];
   toggleDiv=false;
+  disabled: boolean = false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -50,6 +53,9 @@ export class FomSizeListComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       this.params = params['id'];
     });
+    this.states.push({ label: '--Select--', value: '0' });
+    this.getFomCollectionLookUp();
+    this.onCollectionClick();
     this.newRecord();
   }
 
@@ -62,11 +68,15 @@ export class FomSizeListComponent implements OnInit {
     qualityId: 0,
     fomDensityId: 0,
     fomSuggestedMMId: 0,
-    width: 0,
-    length: 0,
-    sizeCode: '0x0',
+    width: '',
+    length: '',
+    sizeCode: '',
     stockReorderLevel: null,
     };
+    this.selectedCollection = 0 ;
+    this.selectedQuality = 0;
+    this.selectedDensity = 0;
+    this.selectedSize = 0;
   }
   onInputChange(){
     this.fomSizeObj.sizeCode=this.fomSizeObj.width+'x'+this.fomSizeObj.length;
@@ -74,12 +84,14 @@ export class FomSizeListComponent implements OnInit {
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
+      this.disabled = false;
       this.newRecord();
     }
 
   }
   onCancel(){
     this.toggleDiv = false;
+    this.disabled = false;
     this.newRecord();
   }
   getFomSizesList() {
@@ -87,8 +99,14 @@ export class FomSizeListComponent implements OnInit {
       results => {
         this.fomSizeList = results.data;
         console.log('this.fomSizeList', this.fomSizeList);
+        this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -186,10 +204,14 @@ export class FomSizeListComponent implements OnInit {
     this.isFormSubmitted=true;
     if(!valid)
     return;
+    if(this.fomSizeObj.id > 0){
+
+    }else{
     this.fomSizeObj.collectionId = value.collection;
     this.fomSizeObj.qualityId = value.quality;
     this.fomSizeObj.fomDensityId = value.density;
     this.fomSizeObj.fomSuggestedMMId = value.size;
+    }
     // this.fomSizeObj.sizeCode = value.width+'x'+value.length;
     // this.fomSizeObj.stockReorderLevel = value.stockReorderLevel;
     this.saveFomSize(this.fomSizeObj);
@@ -213,6 +235,7 @@ export class FomSizeListComponent implements OnInit {
           Helpers.setLoading(false);
         });
     } else {
+     // value.id=this.params;
       this.fomSizeService.createFomSize(value)
         .subscribe(
         results => {
@@ -236,6 +259,7 @@ export class FomSizeListComponent implements OnInit {
      this. getFomSizeById(fomSize.id);
      this.params=fomSize.id;
      this.toggleDiv=true;
+     this.disabled = true;
   }
 
   onDelete(fomSize: FomSize) {

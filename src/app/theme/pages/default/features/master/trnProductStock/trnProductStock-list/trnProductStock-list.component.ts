@@ -41,7 +41,11 @@ export class TrnProductStockListComponent implements OnInit {
   search='';
   toggleDiv=false;
   disabled: boolean = false;
+  shadeEnable: boolean = false;
+  matEnable: boolean = false;
+  fomEnable: boolean = false;
   isFormSubmitted=false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -70,6 +74,15 @@ export class TrnProductStockListComponent implements OnInit {
     locationId: 0,
     stock: null,
     };
+    this.selectedCategory = 0;
+    this.selectedCollection = 0 ;
+    this.selectedShade = 0;
+    this.selectedMatSize = 0;
+    this.selectedFomSize = 0;
+    this.selectedCompanyLocation = 0;
+    this.shadeEnable = false;
+    this.matEnable = false;
+    this.fomEnable = false;
   }
 
   toggleButton(){
@@ -89,9 +102,14 @@ export class TrnProductStockListComponent implements OnInit {
     this.trnProductStockService.getAllTrnProductStocks(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.trnProductStockList = results.data;
-        console.log('this.trnProductStockList', this.trnProductStockList);
+        this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -101,7 +119,6 @@ export class TrnProductStockListComponent implements OnInit {
       results => {
         this.categoryList = results;
         this.categoryList.unshift({ label: '--Select--', value: '0' });
-        console.log('this.categoryList', this.categoryList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -121,6 +138,27 @@ export class TrnProductStockListComponent implements OnInit {
   }
 
   onCategoryClick(){
+    console.log('this.categoryList', this.categoryList);
+    console.log('this.selectedCategory', this.selectedCategory);
+    this.categoryList.forEach(item =>{
+          if(item.value == this.selectedCategory){
+            if(item.label === "Foam"){
+              this.fomEnable = true;
+              this.matEnable = false;
+              this.shadeEnable = false;
+            }
+            if(item.label === "Mattress"){
+              this.matEnable = true;
+              this.fomEnable = false;
+              this.shadeEnable = false;
+            }
+            if(item.label === "Fabric" || item.label === "Rug" || item.label === "Wallpaper"){
+              this.shadeEnable = true;
+              this.matEnable = false;
+              this.fomEnable = false;
+            }             
+          }
+        });
     this.trnProductStockService.getCollectionLookUpByCategory(this.selectedCategory).subscribe(
       results => {
         this.collectionList = results;
@@ -208,13 +246,18 @@ export class TrnProductStockListComponent implements OnInit {
 
   this.isFormSubmitted=true;
     if(!valid)
-    return;    
-    this.trnProductStockObj.categoryId = value.category;
-    this.trnProductStockObj.collectionId = value.collection;
-    this.trnProductStockObj.fwrShadeId = value.shade;
-    this.trnProductStockObj.matSizeId = value.matSize;
-    this.trnProductStockObj.fomSizeId = value.fomSize;
-    this.trnProductStockObj.locationId = value.location;
+    return;
+    if(this.trnProductStockObj.id>0){
+
+    }
+    else{
+      this.trnProductStockObj.categoryId = value.category;
+      this.trnProductStockObj.collectionId = value.collection;
+      this.trnProductStockObj.fwrShadeId = value.shade;
+      this.trnProductStockObj.matSizeId = value.matSize;
+      this.trnProductStockObj.fomSizeId = value.fomSize;
+      this.trnProductStockObj.locationId = value.location;
+    }   
     this.saveTrnProductStock(this.trnProductStockObj);
   }
 

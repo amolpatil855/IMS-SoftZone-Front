@@ -72,25 +72,25 @@
 											<div class="col-md-3 formContentbox formContentboxShade">
 												<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
-													<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
+													<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
 												</div>	
 											</div>
 											<div class="col-md-3 formContentbox formContentboxShade">
 												<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
-													<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
+													<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
 												</div>
 											</div>
 											<div class="col-md-3 formContentbox formContentboxShade">
 												<label class="fieldLabel col-sm-5">Density <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
-													<p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" [(ngModel)]="selectedDensity" name="density" (ngModelChange)="onDensityClick()"></p-dropdown>
+													<p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" [(ngModel)]="selectedDensity" [disabled]="disabled" name="density" (ngModelChange)="onDensityClick()"></p-dropdown>
 												</div>
 											</div>
 											<div class="col-md-3 formContentbox formContentboxShade">
 												<label class="fieldLabel col-sm-5">SuggestedMM <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
-													<p-dropdown class="feePlanBox" [options]="fomSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedSize" name="size"></p-dropdown>
+													<p-dropdown class="feePlanBox" [options]="fomSuggestedMMList" [style]="{'width':'100%'}" [disabled]="disabled" [(ngModel)]="selectedSize" name="size"></p-dropdown>
 												</div>
 											</div>
 											<div class="col-md-3 formContentbox formContentboxShade">
@@ -181,7 +181,7 @@
 											</span>
 										</button>
 									</div>
-							<p-dataTable [value]="fomSizeList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
+							<p-dataTable [value]="fomSizeList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                                 <p-column field="mstCollection.collectionName" header="Collection" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="mstQuality.qualityName" header="Quality" [style]="{'text-align':'left'}"></p-column>

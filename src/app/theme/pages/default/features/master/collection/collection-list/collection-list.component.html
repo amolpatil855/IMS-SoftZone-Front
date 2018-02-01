@@ -69,7 +69,7 @@
 										<div class="">
 											<label class="col-md-5 col-sm-5 fieldLabel">Category<span class="requiredField">*</span></label>
 											<div class="col-md-7 col-sm-7">
-											  <p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required [ngClass]="{'red-border-class': collectionForm.get('categoryId').hasError('required') && isFormSubmitted}"  [style]="{'width':'100%'}"  name="categoriesDDl"></p-dropdown>
+											  <p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required [ngClass]="{'red-border-class': collectionForm.get('categoryId').hasError('required') && isFormSubmitted}"  [style]="{'width':'100%'}" [disabled]="disabled" name="categoriesDDl"></p-dropdown>
 												  <!-- <div class="alertMsg" *ngIf="collectionForm.get('categoryId').hasError('required') && collectionForm.get('categoryId ').touched">
 													 Please select Category
 													 </div> -->
@@ -171,7 +171,7 @@
                         </span>
                         </button>
                      </div>
-                     <p-dataTable [value]="collectionList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
+                     <p-dataTable [value]="collectionList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
                      [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                      <p-column field="collectionCode" header="Collection Code" [style]="{'text-align':'left'}"></p-column>
                      <p-column field="collectionName" header="Collection Name" [style]="{'text-align':'left'}"></p-column>
