@@ -41,11 +41,12 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-		<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="fomDensityForm" title="{{(fomDensityForm && fomDensityForm.form.valid)? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['foamdensity']">
-					{{ params ? 'Update' : 'Save' }}
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="fomDensityForm" title="{{(fomDensityForm && fomDensityForm.form.valid)? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			 [isAuthorize]="['foamdensity']">
+				{{ params ? 'Update' : 'Save' }}
 			</button>
 			<button class="btn btn-secondary" [isAuthorize]="['foamdensity']" (click)="onCancel()">
-					Cancel
+				Cancel
 			</button>
 		</div>
 	</div>
@@ -56,119 +57,179 @@
 		<div class="col-lg-12">
 			<!--begin::Portlet-->
 			<div class="m-portlet">
-				
+
 				<div class="row">
-				
-				<div class="col-md-12" *ngIf="toggleDiv">
-					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(fomDensityForm)"  #fomDensityForm="ngForm"  id="fomDensityForm">
-					<div class="formContainerSamePage">
-						
+
+					<div class="col-md-12" *ngIf="toggleDiv">
+						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(fomDensityForm)"
+						 #fomDensityForm="ngForm" id="fomDensityForm">
+							<div class="formContainerSamePage">
+
 								<div class="row">
 									<div class="col-md-12">
 										<div class="panel panel-default">
-												<div class="panel-heading">Foam Density Basic Details:</div>
-												<div class="panel-body">	
-													<div class="form-group">
-														<div class="col-md-3 formContentbox">
-															<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
-															<div class="col-sm-7">
-																<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel"  required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" [(ngModel)]="selectedCollection" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
-															</div>	
+											<div class="panel-heading">Foam Density Basic Details:</div>
+											<div class="panel-body">
+												<div class="form-group">
+													<div class="col-md-4">
+														<label class="fieldLabel col-md-4 col-sm-4">Collection
+															<span class="requiredField">*</span>
+														</label>
+														<div class="col-md-8 col-sm-8">
+															<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel" required
+															 styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" 
+															 [(ngModel)]="selectedCollection"
+															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
 														</div>
-														<div class="col-md-3 formContentbox">
-															<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
-															<div class="col-sm-7">
-																<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel"  required [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" [(ngModel)]="selectedQuality" [disabled]="disabled" name="quality"></p-dropdown>
-															</div>
+													</div>
+													<div class="col-md-4">
+														<label class="fieldLabel  col-md-4 col-sm-4">Quality
+															<span class="requiredField">*</span>
+														</label>
+														<div class="col-md-8 col-sm-8">
+															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel" required
+															 styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedQuality"
+															 [disabled]="disabled" name="quality"></p-dropdown>
 														</div>
-														<div class="col-md-3 formContentbox">
+													</div>
+													<div class="col-md-4">
 															<div class="form-group">
-																<label class="fieldLabel col-sm-5">Density <span class="requiredField">*</span></label>
-																<div class="col-sm-7">
-																	<input class="form-control m-input" type="text" value="" maxlength="10" #densityVal="ngModel"  required [ngClass]="{'red-border-class': densityVal.errors && isFormSubmitted}" [(ngModel)]="fomDensityObj.density" name="density" id="density" placeholder="Enter Density">
+																<label class="fieldLabel col-md-4 col-sm-4">Density
+																	<span class="requiredField">*</span>
+																</label>
+																<div class="col-md-8 col-sm-8">
+																	<input class="form-control m-input" type="text" value="" maxlength="10" #densityVal="ngModel" required [ngClass]="{'red-border-class': densityVal.errors && isFormSubmitted}"
+																	 [(ngModel)]="fomDensityObj.density" name="density" id="density" placeholder="Enter Density">
 																</div>
 															</div>
 														</div>
-														<div class="col-md-3 formContentbox">
-															<div class="form-group">
-																<label class="fieldLabel col-sm-5">Description </label>
-																<div class="col-sm-7">
-																	<input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel" [(ngModel)]="fomDensityObj.description" name="description" id="description" placeholder="Enter Description">
-																	<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
-																		Please enter Description
-																	</div> -->
+												</div>
+												<div class="form-group">
+														<div class="col-md-4">
+																<div class="form-group">
+																	<label class="fieldLabel col-md-4 col-sm-4">Description </label>
+																	<div class="col-md-8 col-sm-8">
+																		<input class="form-control m-input" type="text" value="" #descriptionVal="ngModel" [(ngModel)]="fomDensityObj.description"
+																		 name="description" id="description" placeholder="Enter Description">
+																		<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
+																				Please enter Description
+																			</div> -->
+																	</div>
 																</div>
+															</div>
+													<div class="col-md-4">
+														<div class="form-group">
+															<label class="fieldLabel col-md-4 col-sm-4">Purchase Rate/MM
+																<span class="requiredField">*</span>
+															</label>
+															<div class="col-md-8 col-sm-8">
+																<input class="form-control m-input" type="number" value="" maxlength="10" #purchaseRatePerMMVal="ngModel" required [ngClass]="{'red-border-class': purchaseRatePerMMVal.errors && isFormSubmitted}"
+																 [(ngModel)]="fomDensityObj.purchaseRatePerMM" name="purchaseRatePerMM" id="purchaseRatePerMM">
 															</div>
 														</div>
 													</div>
+													<div class="col-md-4">
+														<div class="form-group">
+															<label class="fieldLabel col-md-4 col-sm-4">Purchase Rate/KG <span class="requiredField">*</span></label>
+															<div class="col-md-8 col-sm-8">
+																<input class="form-control m-input" type="number" value="" #purchaseRatePerKGVal="ngModel" required [ngClass]="{'red-border-class': purchaseRatePerKGVal.errors && isFormSubmitted}"
+																 [(ngModel)]="fomDensityObj.purchaseRatePerKG" name="purchaseRatePerKG" id="purchaseRatePerKG">
+																<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
+																			Please enter Description
+																		</div> -->
+															</div>
+														</div>
+													</div>
+													
 												</div>
+
+												<div class="form-group">
+														<div class="col-md-4">
+																<div class="form-group">
+																	<label class="fieldLabel col-md-4 col-sm-4">Selling Rate % </label>
+																	<div class="col-md-8 col-sm-8">
+																		<input class="form-control m-input" type="number" value="" #sellingRatePercentageVal="ngModel" required [ngClass]="{'red-border-class':sellingRatePercentageVal.errors && isFormSubmitted}"
+																		 [(ngModel)]="fomDensityObj.sellingRatePercentage" name="sellingRatePercentage" id="sellingRatePercentage">
+																		<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
+																						Please enter Description
+																					</div> -->
+																	</div>
+																</div>
+															</div>
+													<div class="col-md-4">
+														<div class="form-group">
+															<label class="fieldLabel col-md-4 col-sm-4">Selling Rate/MM
+															</label>
+															<div class="col-md-8 col-sm-8">
+																<input class="form-control m-input" type="number" value="" maxlength="10" #sellingRatePerMMVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerMMVal.errors && isFormSubmitted}"
+																 [(ngModel)]="fomDensityObj.sellingRatePerMM" disabled name="sellingRatePerMM" id="sellingRatePerMM">
+															</div>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="form-group">
+															<label class="fieldLabel col-md-4 col-sm-4">Selling Rate/KG</label>
+															<div class="col-md-8 col-sm-8">
+																<input class="form-control m-input" type="number" value="" #sellingRatePerKGVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerKGVal.errors && isFormSubmitted}"
+																 [(ngModel)]="fomDensityObj.sellingRatePerKG" disabled name="sellingRatePerKG" id="sellingRatePerKG">
+																<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
+																				Please enter Description
+																			</div> -->
+															</div>
+														</div>
+													</div>
+												
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-								
-								
-				<!-- <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
-					<div class="m-form__actions m-form__actions--solid">
-						<div class="row">
-							<div class="col-lg-6">
-								<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="fomDensityForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ fomDensityForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="fomDensityForm.invalid" [isAuthorize]="['foamdensity']">
-										{{ params ? 'Update' : 'Save' }}
-								</button>
-								<button class="btn btn-secondary" [isAuthorize]="['foamdensity']" (click)="onCancel()">
-										Cancel
-								</button>
+							</div>
+						</form>
+						</div>
+					</div>
+					<div class="m-portlet__body">
+						<!--begin::Section-->
+
+						<div class="m-section">
+							<div class="m-section__content">
+								<div class="ui-widget-header" style="border-bottom: 0 none">
+									<i class="fa fa-search searchIcon"></i>
+									<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+
+									<!-- Add Button -->
+									<button *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()"
+									 [isAuthorize]="['foamdensity']">
+										<span>
+											<i class="flaticon-add"></i>
+											<span>
+												Add Foam Density
+											</span>
+										</span>
+									</button>
+								</div>
+								<p-dataTable [value]="fomDensityList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb"
+								 #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+									<p-column field="mstCollection.collectionName" header="Collection" [style]="{'text-align':'left'}"></p-column>
+									<p-column field="mstQuality.qualityName" header="Quality" [style]="{'text-align':'left'}"></p-column>
+									<p-column field="density" header="Foam Density" [style]="{'text-align':'left'}"></p-column>
+									<p-column field="description" header="Description" [style]="{'text-align':'left'}"></p-column>
+									<p-column styleClass="col-button" [style]="{'text-align':'center'}">
+										<ng-template pTemplate="header">
+											Action
+										</ng-template>
+										<ng-template let-row="rowData" pTemplate="body">
+											<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+											<button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
+										</ng-template>
+									</p-column>
+								</p-dataTable>
 							</div>
 						</div>
+						<!--end::Section-->
 					</div>
-				</div> -->
-							
-						
-					</div>
-					
-					</form>
 				</div>
+				<!--end::Portlet-->
 			</div>
-				<div class="m-portlet__body">
-					<!--begin::Section-->
-					
-					<div class="m-section">
-						<div class="m-section__content">
-								<div class="ui-widget-header" style="border-bottom: 0 none">
-										<i class="fa fa-search searchIcon"></i>
-										<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
-										
-										<!-- Add Button -->
-										<button  *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()" [isAuthorize]="['foamdensity']">
-											<span>
-												<i class="flaticon-add"></i>
-												<span>
-													Add Foam Density
-												</span>
-											</span>
-										</button>
-									</div>
-							<p-dataTable [value]="fomDensityList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
-                            [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                                <p-column field="mstCollection.collectionName" header="Collection" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstQuality.qualityName" header="Quality" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="density" header="Foam Density" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="description" header="Description" [style]="{'text-align':'left'}"></p-column>
-								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
-									<ng-template pTemplate="header">
-										Action
-									</ng-template>
-									<ng-template let-row="rowData" pTemplate="body" >
-										<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
-										<button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
-									</ng-template>
-								</p-column>
-							</p-dataTable>
-						</div>
-					</div>
-					<!--end::Section-->
-				</div>
-			</div>
-			<!--end::Portlet-->
 		</div>
 	</div>
-</div>
