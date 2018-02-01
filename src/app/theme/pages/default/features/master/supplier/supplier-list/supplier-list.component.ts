@@ -7,7 +7,7 @@ import { ConfirmationService, DataTableModule, LazyLoadEvent } from 'primeng/pri
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
 import { SupplierService } from '../../../../_services/supplier.service';
-import { Role } from "../../../../_models/role";
+import { Address } from "../../../../_models/address";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
 import { Supplier } from "../../../../_models/supplier";
@@ -75,37 +75,17 @@ newRecord(){
     MstSupplierAddresses:[],
   };
 
-this.supplierObj.MstSupplierAddresses.push({ // <-- the child FormGroup
-  id: 0,
-  supplierId:0,
-  addressLine1: '',
-  addressLine2: '',
-  city:'',
-  state: '',
-  country: '',
-  pin: '',
-  gstin: '',
-  isPrimary: true,
-  contRoleId: Math.floor(Math.random() * 2000),
-});
+  let address=new Address();
+  address.isPrimary=true;
+address.contRoleId= Math.floor(Math.random() * 2000);
+this.supplierObj.MstSupplierAddresses.push(address);
 }
 
   addNewAddress(supAdd){
     if(this.validateAddress()){
-    var newaddressObj ={ // <-- the child FormGroup
-      id: 0,
-      supplierId:0,
-      addressLine1: '',
-      addressLine2: '',
-      city:'',
-      state: '',
-      country: '',
-      pin: '',
-      gstin: '',
-      isPrimary: false,
-      contRoleId: Math.floor(Math.random() * 2000),
-    };
-    this.supplierObj.MstSupplierAddresses.push(newaddressObj);
+      let address=new Address();
+      address.contRoleId= Math.floor(Math.random() * 2000);
+      this.supplierObj.MstSupplierAddresses.push(address);
      }
   }
   clearAddress(supAddIndex){
@@ -121,8 +101,16 @@ this.supplierObj.MstSupplierAddresses.push({ // <-- the child FormGroup
       this.isFormSubmitted = false;
       this.newRecord();
     }
-
+    this.isFormSubmitted=false;
   }
+
+ onClickPrimary(row){
+  this.supplierObj.MstSupplierAddresses.forEach(function(value){
+    value.isPrimary=false;
+  })
+  row.isPrimary=true;
+ }
+
   onCancel(){
     this.toggleDiv = false;
     this.newRecord();
@@ -220,7 +208,7 @@ validateCity(addressObj){
 }
 
 validateState(addressObj){
-  if(addressObj.state=='0'){
+  if(!addressObj.state || addressObj.state=='0' || addressObj.state==0){
         addressObj.invalidState=true;
       }
       else
@@ -263,7 +251,7 @@ validateState(addressObj){
         addressObj.invalidGstin=false;
       }
 
-      if(addressObj.state=='0'){
+      if(!addressObj.state || addressObj.state=='0' || addressObj.state==0){
         addressObj.invalidState=true;
         isvalidAddress=false;
       }

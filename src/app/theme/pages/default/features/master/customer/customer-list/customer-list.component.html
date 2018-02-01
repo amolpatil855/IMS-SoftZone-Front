@@ -297,8 +297,8 @@
                                                 </div> -->
                                              </td>
                                              <td>
-                                                <input type="radio" class="formCheckbox"  [(ngModel)]="supAdd.isPrimary" [value]="true" name="{{'isPrimary'+supAdd.contRoleId}}"/>
-                                             </td>
+                                          	<input type="radio" class="formCheckbox"  [(ngModel)]="supAdd.isPrimary"  [value]="true" name="{{'chkbox'+supAdd.contRoleId}}" [checked]="supAdd.isPrimary == true" (click)="onClickPrimary(supAdd)" />   
+                                          </td>
                                              <td>
                                                 <!--<button class="btn btn-success tableActionBtn" *ngIf="lastRowNum" (click)="addNewAddress(supAdd)">
                                                    <i class="material-icons">add</i>
