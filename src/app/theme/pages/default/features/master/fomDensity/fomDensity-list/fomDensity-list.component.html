@@ -72,13 +72,13 @@
 														<div class="col-md-3 formContentbox">
 															<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel"  required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" [(ngModel)]="selectedCollection" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
+																<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel"  required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" [(ngModel)]="selectedCollection" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
 															</div>	
 														</div>
 														<div class="col-md-3 formContentbox">
 															<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel"  required [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" [(ngModel)]="selectedQuality" name="quality"></p-dropdown>
+																<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel"  required [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" [(ngModel)]="selectedQuality" [disabled]="disabled" name="quality"></p-dropdown>
 															</div>
 														</div>
 														<div class="col-md-3 formContentbox">
@@ -147,7 +147,7 @@
 											</span>
 										</button>
 									</div>
-							<p-dataTable [value]="fomDensityList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
+							<p-dataTable [value]="fomDensityList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                                 <p-column field="mstCollection.collectionName" header="Collection" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="mstQuality.qualityName" header="Quality" [style]="{'text-align':'left'}"></p-column>

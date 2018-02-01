@@ -39,6 +39,7 @@ export class UsersListComponent implements OnInit {
   search='';
   toggleDiv=false;
   isFormSubmitted=false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private globalErrorHandler: GlobalErrorHandler,
@@ -82,8 +83,14 @@ export class UsersListComponent implements OnInit {
     this.userService.getAllUsers(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.userList = results.data;
+      this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -91,9 +98,7 @@ export class UsersListComponent implements OnInit {
   getUserById(id){
     this.userService.getUserById(id).subscribe(
       results => {
-        console.log('results.mstSupplierAddressDetails', results);
-        
-    this.userForm = this.formBuilder.group({
+      this.userForm = this.formBuilder.group({
       id: results.id,
       username: results.userName,
       email: results.email,

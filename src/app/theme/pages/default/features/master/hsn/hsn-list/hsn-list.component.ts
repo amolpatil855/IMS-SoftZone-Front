@@ -19,7 +19,7 @@ import { Hsn } from "../../../../_models/hsn";
   encapsulation: ViewEncapsulation.None,
 })
 export class HsnListComponent implements OnInit {
-  isFormSubmitted=false;
+  isFormSubmitted: boolean = false;
   hsnForm: any;
   hsnObj:any;
   params: number;
@@ -30,6 +30,7 @@ export class HsnListComponent implements OnInit {
   search='';
   toggleDiv=false;
   states=[];
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -68,9 +69,14 @@ export class HsnListComponent implements OnInit {
     this.hsnService.getAllHsns(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.hsnList = results.data;
-        console.log('this.hsnList', this.hsnList);
+        this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }

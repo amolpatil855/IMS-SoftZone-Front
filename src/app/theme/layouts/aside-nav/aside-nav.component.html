@@ -45,8 +45,44 @@
 						</span>
 					</span>
 				</a>
+            </li>
+            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+			 [isAuthorize]="['companyinfo']">
+				<a  routerLink="/features/master/company/add" class="m-menu__link ">
+                    <i class="m-menu__link-icon flaticon-interface-1">
+                        <span></span>
+                    </i>
+                    <span class="m-menu__link-text">
+                        Company Info
+                    </span>
+                </a>
 			</li>
-			
+            
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" aria-haspopup="true"  data-menu-submenu-toggle="hover"  [isAuthorize]="['companyinfo','master','supplier','customer']">
+                                <a  href="#" class="m-menu__link m-menu__toggle">
+                                    <i class="m-menu__link-icon flaticon-user-settings"></i>
+                                    <span class="m-menu__link-text">
+                                        Stock
+                                    </span>
+                                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                                </a>
+                                <div class="m-menu__submenu">
+                                    <span class="m-menu__arrow"></span>
+                                    <ul class="m-menu__subnav">
+                                        <li  [isAuthorize]="['stockmanagement']"  class="m-menu__item " aria-haspopup="true" >
+                                            <a  routerLink="/features/master/trnProductStock/list" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                    <span></span>
+                                                </i>
+                                                <span class="m-menu__link-text">
+                                                   Product Stock
+                                                </span>
+                                            </a>
+										</li>
+                                    </ul>
+                                </div>
+            </li>
+
 			<li class="m-menu__item  m-menu__item--submenu m-menu__item--active" aria-haspopup="true"  data-menu-submenu-toggle="hover"  [isAuthorize]="['companyinfo','master','supplier','customer']">
                                 <a  href="#" class="m-menu__link m-menu__toggle">
                                     <i class="m-menu__link-icon flaticon-user-settings"></i>
@@ -69,15 +105,25 @@
                                             </a>
 										</li>
 										<li  [isAuthorize]="['collection']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
-												<a  routerLink="/features/master/collection/list" class="m-menu__link ">
-													<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-														<span></span>
-													</i>
-													<span class="m-menu__link-text">
-														Collection
-													</span>
-												</a>
-											</li>
+                                            <a  routerLink="/features/master/collection/list" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                    <span></span>
+                                                </i>
+                                                <span class="m-menu__link-text">
+                                                    Collection
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li  [isAuthorize]="['quality']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
+											<a  routerLink="/features/master/quality/list" class="m-menu__link ">
+												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="m-menu__link-text">
+													Quality
+												</span>
+											</a>
+										</li>
 										<li  [isAuthorize]="['design']"  class="m-menu__item " aria-haspopup="true" >
                                             <a  routerLink="/features/master/design/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -97,16 +143,6 @@
                                                    Shade
                                                 </span>
                                             </a>
-										</li>
-										<li  [isAuthorize]="['quality']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
-											<a  routerLink="/features/master/quality/list" class="m-menu__link ">
-												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-													<span></span>
-												</i>
-												<span class="m-menu__link-text">
-													Quality
-												</span>
-											</a>
 										</li>
 										<li  [isAuthorize]="['mattressthickness']"  class="m-menu__item " aria-haspopup="true" >
                                             <a  routerLink="/features/master/matThickness/list" class="m-menu__link ">
@@ -158,16 +194,6 @@
                                                 </span>
                                             </a>
                                         </li>
-                                        <li  [isAuthorize]="['stockmanagement']"  class="m-menu__item " aria-haspopup="true" >
-                                            <a  routerLink="/features/master/trnProductStock/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                   Product Stock
-                                                </span>
-                                            </a>
-										</li>
                                         <li  [isAuthorize]="['customer']"  class="m-menu__item " aria-haspopup="true" >
                                             <a  routerLink="/features/master/customer/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -175,16 +201,6 @@
                                                 </i>
                                                 <span class="m-menu__link-text">
                                                    Customer
-                                                </span>
-                                            </a>
-										</li>
-										<li  [isAuthorize]="['companyinfo']"  class="m-menu__item " aria-haspopup="true" >
-                                            <a  routerLink="/features/master/company/add" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                   Company Info
                                                 </span>
                                             </a>
 										</li>
@@ -200,7 +216,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+            </li>
 
 
 	</ul>	

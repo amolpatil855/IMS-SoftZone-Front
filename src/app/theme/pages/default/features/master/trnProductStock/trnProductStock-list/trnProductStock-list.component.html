@@ -89,19 +89,19 @@
                                             <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}"  #selectedCollectionVal="ngModel" [(ngModel)]="selectedCollection" required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
 										</div>
 									</div>	
-									<div class="col-md-3 formContentbox">
-										<label class="fieldLabel col-sm-5">Shade<span class="requiredField">*</span></label>
+									<div class="col-md-3 formContentbox" *ngIf="shadeEnable">
+										<label class="fieldLabel col-sm-5" >Shade<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
                                             <p-dropdown class="feePlanBox" [options]="shadeList" [style]="{'width':'100%'}" [(ngModel)]="selectedShade"   #selectedShadeVal="ngModel"  required [ngClass]="{'red-border-class': selectedShadeVal.errors && isFormSubmitted}" [disabled]="disabled" name="shade"></p-dropdown>
 										</div>
                                     </div>
-                                    <div class="col-md-3 formContentbox">
+                                    <div class="col-md-3 formContentbox"  *ngIf="matEnable">
 										<label class="fieldLabel col-sm-5">Mattress Size<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
                                             <p-dropdown class="feePlanBox" [options]="matSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedMatSize"   #selectedMatSizeVal="ngModel"  required [ngClass]="{'red-border-class': selectedMatSizeVal.errors && isFormSubmitted}" [disabled]="disabled" name="matSize"></p-dropdown>
 										</div>
                                     </div>	
-                                    <div class="col-md-3 formContentbox">
+                                    <div class="col-md-3 formContentbox"  *ngIf="fomEnable">
 										<label class="fieldLabel col-sm-5">Foam Size<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
                                             <p-dropdown class="feePlanBox" [options]="fomSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedFomSize"   #selectedFomSizeVal="ngModel"  required [ngClass]="{'red-border-class': selectedFomSizeVal.errors && isFormSubmitted}" [disabled]="disabled" name="fomSize"></p-dropdown>
@@ -145,7 +145,7 @@
 											</span>
 										</button>
 									</div>
-							<p-dataTable [value]="trnProductStockList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
+							<p-dataTable [value]="trnProductStockList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                             <p-column field="mstCategory.name" header="Category" [style]="{'text-align':'center'}"></p-column>
                                 <p-column field="mstCollection.collectionName" header="Collection" [style]="{'text-align':'center'}"></p-column>

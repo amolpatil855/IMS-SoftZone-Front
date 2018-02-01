@@ -28,7 +28,8 @@ export class CustomerListComponent implements OnInit {
   states=[];
   toggleDiv=false;
   isHide = false;
-  isFormSubmitted:boolean;
+  isFormSubmitted:boolean = false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -42,12 +43,13 @@ export class CustomerListComponent implements OnInit {
 
   ngOnInit() {
     this.states=this.commonService.states;
-  this.route.params.forEach((params: Params) => {
-      this.params = params['customerId'];
+    this.route.params.forEach((params: Params) => {
+        this.params = params['customerId'];
     });
     this.newRecord();
   }
   newRecord(){
+  this.params = null;
   this.customerObj ={
     id: 0,
     code:'',
@@ -65,21 +67,22 @@ export class CustomerListComponent implements OnInit {
     accountPersonPhone: '',
     accountPersonEmail:'',
     MstCustomerAddresses:[],
-};
+  };
 
-this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
-  id: 0,
-  customerId:0,
-  addressLine1: '',
-  addressLine2: '',
-  city:'',
-  state: '',
-  country: '',
-  pin: '',
-  gstin: 0,
-  isPrimary: false,
-  contRoleId: Math.floor(Math.random() * 2000),
-});
+  this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
+    id: 0,
+    customerId:0,
+    addressLine1: '',
+    addressLine2: '',
+    city:'',
+    state: '',
+    country: '',
+    pin: '',
+    gstin: 0,
+    isPrimary: false,
+    contRoleId: Math.floor(Math.random() * 2000),
+  });
+  this.isFormSubmitted = false;
 }
 
   addNewAddress(supAdd){
@@ -90,7 +93,7 @@ this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
       addressLine2: '',
       city:'',
       state: '',
-      country: 'India',
+      country: '',
       pin: '',
       gstin: 0,
       isPrimary: false,
@@ -114,15 +117,21 @@ this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
   }
   onCancel(){
     this.toggleDiv = false;
+    this.newRecord();
   }
 
   getCustomersList() {
     this.customerService.getAllCustomers(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.customerList = results.data;
-        console.log('this.customerList', this.customerList);
+       this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -248,6 +257,7 @@ this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
      this.getCustomerById(customer.id);
      this.params=customer.id;
      this.toggleDiv=true;
+     this.isFormSubmitted = false;
   }
 
   onDelete(customer: Customer) {

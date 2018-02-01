@@ -35,6 +35,8 @@ export class FomSuggestedMMListComponent implements OnInit {
   totalCount=0;
   search='';
   toggleDiv=false;
+  disabled: boolean = false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -53,6 +55,7 @@ export class FomSuggestedMMListComponent implements OnInit {
   }
 
   newRecord(){
+    this.params=null;
     this.fomSuggestedMMObj ={
     id: 0,
     categoryId: 0,
@@ -61,25 +64,39 @@ export class FomSuggestedMMListComponent implements OnInit {
     fomDensityId: 0,
     suggestedMM: null,
     };
+    this.selectedCategory = 0;
+    this.selectedCollection = 0 ;
+    this.selectedQuality = 0;
+    this.selectedDensity = 0;
   }
 
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
+      this.disabled = false;
+      this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
   onCancel(){
     this.toggleDiv = false;
+    this.disabled = false;
+    this.newRecord();
   }
   getFomSuggestedMMsList() {
     this.fomSuggestedMMService.getAllFomSuggestedMMs(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.fomSuggestedMMList = results.data;
         console.log('this.fomSuggestedMMList', this.fomSuggestedMMList);
+        this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -160,9 +177,14 @@ export class FomSuggestedMMListComponent implements OnInit {
     this.isFormSubmitted=true;
     if(!valid)
     return;
-    this.fomSuggestedMMObj.collectionId = value.collection;
-    this.fomSuggestedMMObj.qualityId = value.quality;
-    this.fomSuggestedMMObj.fomDensityId = value.density;
+    if(this.fomSuggestedMMObj.id > 0){
+
+    }
+    else{
+      this.fomSuggestedMMObj.collectionId = value.collection;
+      this.fomSuggestedMMObj.qualityId = value.quality;
+      this.fomSuggestedMMObj.fomDensityId = value.density;
+    }
     this.saveFomSuggestedMM(this.fomSuggestedMMObj);
   }
 
@@ -207,6 +229,8 @@ export class FomSuggestedMMListComponent implements OnInit {
      this. getFomSuggestedMMById(fomSuggestedMM.id);
      this.params=fomSuggestedMM.id;
      this.toggleDiv=true;
+     this.disabled = true;
+     this.isFormSubmitted = false;
   }
 
   onDelete(fomSuggestedMM: FomSuggestedMM) {
