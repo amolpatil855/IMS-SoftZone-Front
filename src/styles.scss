@@ -1485,7 +1485,7 @@ tr:nth-child(odd) td{
   background-color: #fff!important;
 }
 .red-border-class {
-    border: 1px solid red;
+    border: 1px solid red !important;
   }
 select.form-control:not([size]):not([multiple]) {
     height: auto!important;

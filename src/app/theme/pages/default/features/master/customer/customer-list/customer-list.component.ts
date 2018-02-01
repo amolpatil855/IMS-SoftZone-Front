@@ -101,6 +101,14 @@ export class CustomerListComponent implements OnInit {
     };
     this.customerObj.MstCustomerAddresses.push(newaddressObj);
   }
+
+  onClickPrimary(row){
+    this.customerObj.MstCustomerAddresses.forEach(function(value){
+      value.isPrimary=false;
+    })
+    row.isPrimary=true;
+   }
+
   clearAddress(supAddIndex){
     if(this.customerObj.MstSupplierAddresses[supAddIndex].isPrimary){
     }else{

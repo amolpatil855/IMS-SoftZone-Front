@@ -249,7 +249,7 @@
                                                 </div>
                                              </td>
                                              <td>
-                                                <p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" [(ngModel)]="supAdd.state" name="{{'stateDDL'+supAdd.contRoleId}}"></p-dropdown>
+                                                <p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" [(ngModel)]="supAdd.state"  styleClass="{{ supAdd.invalidState?'red-border-class':''}}"  name="{{'stateDDL'+supAdd.contRoleId}}"></p-dropdown>
                                                 <div class="alertMsg" *ngIf="supAdd.invalidState">
                                                    Please select state
                                                 </div>
@@ -261,8 +261,8 @@
                                                 </div>
                                              </td>
                                              <td>
-                                                <input type="radio" class="formCheckbox"  [(ngModel)]="supAdd.isPrimary" [value]="true" name="{{'isPrimary'+supAdd.contRoleId}}"/>
-                                             </td>
+                                          	<input type="radio" class="formCheckbox"  [(ngModel)]="supAdd.isPrimary"  [value]="true" name="{{'chkbox'+supAdd.contRoleId}}" [checked]="supAdd.isPrimary == true" (click)="onClickPrimary(supAdd)" />   
+                                          </td>
                                              <td>
                                                 <!--<button class="btn btn-success tableActionBtn" *ngIf="lastRowNum" (click)="addNewAddress(supAdd)">
                                                    <i class="material-icons">add</i>
