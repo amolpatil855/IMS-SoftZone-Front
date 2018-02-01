@@ -10,7 +10,7 @@ import { FomDensityService } from '../../../../_services/fomDensity.service';
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
 import { FomDensity } from "../../../../_models/fomDensity";
-
+import { CommonService } from '../../../../_services/common.service';
 @Component({
   selector: ".app-fomDensity-list",
   templateUrl: "./fomDensity-list.component.html",
@@ -23,8 +23,9 @@ export class FomDensityListComponent implements OnInit {
   params: number;
   fomDensityList=[];
   categoryList: SelectItem[];
-  selectedCollection = 0 ;
-  selectedQuality = 0;
+  selectedCollection = null ;
+  selectedQuality =null;
+  slectedCategory=null;
   selectedThickness = 0;
   collectionList=[];
   qualityList=[];
@@ -35,6 +36,7 @@ export class FomDensityListComponent implements OnInit {
   search='';
   toggleDiv=false;
   disabled: boolean = false;
+  categoriesCodeList=[];
   tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
@@ -43,6 +45,7 @@ export class FomDensityListComponent implements OnInit {
     private fomDensityService: FomDensityService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
+    private commonService: CommonService,
     private messageService: MessageService) {
   }
 
@@ -52,6 +55,8 @@ export class FomDensityListComponent implements OnInit {
     });
     this.newRecord();
   }
+
+
 
   newRecord(){
     this.params=null;
@@ -64,8 +69,8 @@ export class FomDensityListComponent implements OnInit {
     sizeCode: '',
     rate: '',
     };
-    this.selectedCollection = 0 ;
-    this.selectedQuality = 0;
+    this.selectedCollection = null ;
+    this.selectedQuality = null;
     this.selectedThickness = 0;
   }
 
@@ -103,7 +108,7 @@ export class FomDensityListComponent implements OnInit {
     this.fomDensityService.getFomCollectionLookUp().subscribe(
       results => {
         this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: '0' });
+        this.collectionList.unshift({ label: '--Select--', value: null });
         console.log('this.collectionList', this.collectionList);
       },
       error => {
@@ -115,7 +120,7 @@ export class FomDensityListComponent implements OnInit {
     this.fomDensityService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
-        this.qualityList.unshift({ label: '--Select--', value: '0' });
+        this.qualityList.unshift({ label: '--Select--', value: null });
         this.selectedQuality = this.fomDensityObj.qualityId;
         console.log('this.qualityList', this.qualityList);
       },
