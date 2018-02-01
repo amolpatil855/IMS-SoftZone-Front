@@ -72,19 +72,19 @@
 											<div class="col-md-3 formContentbox">
 												<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
-													<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel"  required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" [(ngModel)]="selectedCollection" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
+													<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel"  required styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedCollection" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
 												</div>	
 											</div>
 											<div class="col-md-3 formContentbox">
 												<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
-													<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" #selectedQualityVal="ngModel" required [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
+													<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" #selectedQualityVal="ngModel" required styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
 												</div>
 											</div>
 											<div class="col-md-3 formContentbox">
 												<label class="fieldLabel col-sm-5">Foam Density <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
-													<p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" [(ngModel)]="selectedDensity" #selectedDensityVal="ngModel" required [ngClass]="{'red-border-class': selectedDensityVal.errors && isFormSubmitted}" [disabled]="disabled" name="density"></p-dropdown>
+													<p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" [(ngModel)]="selectedDensity" #selectedDensityVal="ngModel" required styleClass="{{ selectedDensityVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="density"></p-dropdown>
 												</div>
 											</div>
 											<div class="col-md-3 formContentbox">

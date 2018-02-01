@@ -23,10 +23,10 @@ export class FomSuggestedMMListComponent implements OnInit {
   params: number;
   fomSuggestedMMList=[];
   categoryList: SelectItem[];
-  selectedCategory = 0;
-  selectedCollection = 0 ;
-  selectedQuality = 0;
-  selectedDensity = 0;
+  selectedCategory = null;
+  selectedCollection = null ;
+  selectedQuality = null;
+  selectedDensity = null;
   collectionList=[];
   qualityList=[];
   fomDensityList=[];
@@ -58,16 +58,16 @@ export class FomSuggestedMMListComponent implements OnInit {
     this.params=null;
     this.fomSuggestedMMObj ={
     id: 0,
-    categoryId: 0,
-    collectionId: 0,
-    qualityId: 0,
-    fomDensityId: 0,
+    categoryId: null,
+    collectionId: null,
+    qualityId: null,
+    fomDensityId: null,
     suggestedMM: null,
     };
-    this.selectedCategory = 0;
-    this.selectedCollection = 0 ;
-    this.selectedQuality = 0;
-    this.selectedDensity = 0;
+    this.selectedCategory = null;
+    this.selectedCollection = null;
+    this.selectedQuality = null;
+    this.selectedDensity = null;
   }
 
   toggleButton(){
@@ -105,7 +105,7 @@ export class FomSuggestedMMListComponent implements OnInit {
     this.fomSuggestedMMService.getFomCollectionLookUp().subscribe(
       results => {
         this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: '0' });
+        this.collectionList.unshift({ label: '--Select--', value: null });
         console.log('this.collectionList', this.collectionList);
       },
       error => {
@@ -117,7 +117,7 @@ export class FomSuggestedMMListComponent implements OnInit {
     this.fomSuggestedMMService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
-        this.qualityList.unshift({ label: '--Select--', value: '0' });
+        this.qualityList.unshift({ label: '--Select--', value: null });
         this.selectedQuality = this.fomSuggestedMMObj.qualityId;
         if(this.selectedQuality > 0){
           this.onQualityClick();
@@ -133,7 +133,7 @@ export class FomSuggestedMMListComponent implements OnInit {
     this.fomSuggestedMMService.getFomDensityLookUpByQuality(this.selectedQuality).subscribe(
       results => {
         this.fomDensityList = results;
-        this.fomDensityList.unshift({ label: '--Select--', value: '0' });
+        this.fomDensityList.unshift({ label: '--Select--', value: null });
         this.selectedDensity = this.fomSuggestedMMObj.fomDensityId;
         console.log('this.fomDensityList', this.fomDensityList);
       },

@@ -61,8 +61,8 @@ newRecord(){
     id: 0,
     collectionCode: ['', [Validators.required]],
     collectionName: ['', [Validators.required]],
-    categoryId: ['0', [Validators.required]],
-    supplierId: ['0', [Validators.required]],
+    categoryId: [null, [Validators.required]],
+    supplierId: [null, [Validators.required]],
     manufacturerName: ['', [Validators.required]],
     description: [''],
   });
@@ -91,7 +91,7 @@ newRecord(){
     this.supplierService.getSupplierLookUp ().subscribe(
       results => {
         this.supplierCodeList = results;
-        this.supplierCodeList.unshift({ label: '--Select--', value: '0' });
+        this.supplierCodeList.unshift({ label: '--Select--', value: null });
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -102,7 +102,7 @@ newRecord(){
     this.commonService.getCategoryCodes().subscribe(
       results => {
         this.categoriesCodeList = results;
-        this.categoriesCodeList.unshift({ label: '--Select--', value: '0' });
+        this.categoriesCodeList.unshift({ label: '--Select--', value: null });
       },
       error => {
         this.globalErrorHandler.handleError(error);

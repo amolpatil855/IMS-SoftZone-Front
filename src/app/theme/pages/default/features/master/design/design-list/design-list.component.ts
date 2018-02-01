@@ -23,9 +23,9 @@ export class DesignListComponent implements OnInit {
   params: number;
   designList=[];
   categoryList: SelectItem[];
-  selectedCategory = 0;
-  selectedCollection = 0 ;
-  selectedQuality = 0;
+  selectedCategory = null;
+  selectedCollection = null;
+  selectedQuality = null;
   collectionList=[];
   qualityList=[];
   pageSize=50;
@@ -55,16 +55,16 @@ export class DesignListComponent implements OnInit {
 
   newRecord(){
     this.designObj ={
-    categoryId: 0,
-    collectionId: 0,
-    qualityId: 0,
+    categoryId: null,
+    collectionId: null,
+    qualityId: null,
     designCode: '',
     designName: '',
     description: '',
     };
-    this.selectedCategory = 0;
-    this.selectedCollection = 0 ;
-    this.selectedQuality = 0;
+    this.selectedCategory = null;
+    this.selectedCollection = null;
+    this.selectedQuality = null;
   }
 
   toggleButton(){
@@ -101,7 +101,7 @@ export class DesignListComponent implements OnInit {
     this.designService.getCategoryLookUp().subscribe(
       results => {
         this.categoryList = results;
-        this.categoryList.unshift({ label: '--Select--', value: '0' });
+        this.categoryList.unshift({ label: '--Select--', value: null });
         console.log('this.categoryList', this.categoryList);
       },
       error => {
@@ -114,7 +114,7 @@ export class DesignListComponent implements OnInit {
     this.designService.getCollectionLookUp(this.selectedCategory).subscribe(
       results => {
         this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: '0' });
+        this.collectionList.unshift({ label: '--Select--', value: null });
         this.selectedCollection = this.designObj.collectionId;
         if(this.selectedCollection > 0){
           this.onCollectionClick();
@@ -130,7 +130,7 @@ export class DesignListComponent implements OnInit {
     this.designService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
-        this.qualityList.unshift({ label: '--Select--', value: '0' });
+        this.qualityList.unshift({ label: '--Select--', value: null });
         this.selectedQuality = this.designObj.qualityId;
         console.log('this.qualityList', this.qualityList);
       },

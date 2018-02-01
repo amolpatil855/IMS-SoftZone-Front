@@ -73,25 +73,25 @@
 									<div class="col-md-3 formContentbox formContentboxShade">
 										<label class="fieldLabel col-sm-5">Category<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}"   #selectedCategoryVal="ngModel"  required [ngClass]="{'red-border-class': selectedCategoryVal.errors && isFormSubmitted}"  [(ngModel)]="selectedCategory" [disabled]="disabled" name="category" (ngModelChange)="onCategoryClick()"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}"   #selectedCategoryVal="ngModel"  required styleClass="{{ selectedCategoryVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedCategory" [disabled]="disabled" name="category" (ngModelChange)="onCategoryClick()"></p-dropdown>
 										</div>	
 									</div>
 									<div class="col-md-3 formContentbox formContentboxShade">
 										<label class="fieldLabel col-sm-5">Collection<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection"   #selectedCollectionVal="ngModel"  required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection"   #selectedCollectionVal="ngModel"  required styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
 										</div>
 									</div>	
 									<div class="col-md-3 formContentbox formContentboxShade">
 										<label class="fieldLabel col-sm-5">Quality<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality"   #selectedQualityVal="ngModel"  required [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality"   #selectedQualityVal="ngModel"  required styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
 										</div>
                                     </div>
                                     <div class="col-md-3 formContentbox formContentboxShade">
 										<label class="fieldLabel col-sm-5">Design<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="designList" [style]="{'width':'100%'}"   #selectedDesignVal="ngModel"  required [ngClass]="{'red-border-class': selectedDesignVal.errors && isFormSubmitted}"  [(ngModel)]="selectedDesign" [disabled]="disabled" name="design"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="designList" [style]="{'width':'100%'}"   #selectedDesignVal="ngModel"  required styleClass="{{ selectedDesignVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedDesign" [disabled]="disabled" name="design"></p-dropdown>
 										</div>
 									</div>	
 									<div class="col-md-3 formContentbox formContentboxShade">
