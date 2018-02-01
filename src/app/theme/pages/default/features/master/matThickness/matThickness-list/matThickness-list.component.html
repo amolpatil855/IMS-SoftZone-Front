@@ -71,7 +71,7 @@
 														<div class="panel-body">	
 															<div class="form-group">
 																<div class="col-md-5 formContentbox">
-																	<label class="fieldLabel col-sm-5">Mattress Thickness Code <span class="requiredField">*</span></label>
+																	<label class="fieldLabel col-sm-5">Thickness Code <span class="requiredField">*</span></label>
 																	<div class="col-sm-7">
 																		<input class="form-control m-input" type="text" value="" maxlength="10" #thicknessCodeVal="ngModel" required [ngClass]="{'red-border-class': thicknessCodeVal.errors && isFormSubmitted}" [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="" maxlength="10">
 																		<!-- <div class="alertMsg" *ngIf="thicknessCodeVal.errors   && (thicknessCodeVal.dirty || thicknessCodeVal.touched)">
@@ -84,7 +84,7 @@
 																	<div class="form-group">
 																		<label class="fieldLabel col-sm-5">Size <span class="requiredField">*</span></label>
 																		<div class="col-sm-7">
-																			<input class="form-control m-input" type="number" maxlength="10" #sizeVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"   [(ngModel)]="matThicknessObj.size" name="size" placeholder="Size"  #sizeVal="ngModel" >
+																			<input class="form-control m-input" type="number" pattern="^[0-9]+(\.[0-9]{1,2})?$" maxlength="10" #sizeVal="ngModel" required onKeyPress="if(this.value.length==5) return false;" [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"   [(ngModel)]="matThicknessObj.size" name="size" placeholder="Size"  #sizeVal="ngModel" >
 																			<!-- <div class="alertMsg" *ngIf="sizeVal.errors && sizeVal.errors.required && sizeVal.touched">
 																				Please enter Size
 																			</div>
@@ -144,7 +144,7 @@
 											</span>
 										</button>
 									</div>
-							<p-dataTable [value]="matThicknessList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
+							<p-dataTable [value]="matThicknessList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
 							[totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                                 <p-column field="thicknessCode" header="Thickness Code" [style]="{'text-align':'center'}"></p-column>
                                 <p-column field="size" header="Size" [style]="{'text-align':'center'}"></p-column>

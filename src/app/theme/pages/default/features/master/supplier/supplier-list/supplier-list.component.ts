@@ -29,7 +29,8 @@ export class SupplierListComponent implements OnInit {
   toggleDiv=false;
   isDelete=false;
   states=[];
-  isFormSubmitted:boolean;
+  isFormSubmitted:boolean = false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -72,7 +73,7 @@ newRecord(){
     dispatchPersonEmail:'',
     dispatchPersonPhone: '',
     MstSupplierAddresses:[],
-};
+  };
 
 this.supplierObj.MstSupplierAddresses.push({ // <-- the child FormGroup
   id: 0,
@@ -98,7 +99,7 @@ this.supplierObj.MstSupplierAddresses.push({ // <-- the child FormGroup
       addressLine2: '',
       city:'',
       state: '',
-      country: 'India',
+      country: '',
       pin: '',
       gstin: '',
       isPrimary: false,
@@ -129,9 +130,14 @@ this.supplierObj.MstSupplierAddresses.push({ // <-- the child FormGroup
     this.supplierService.getAllSuppliers(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.supplierList = results.data;
-        console.log('this.supplierList', this.supplierList);
+       this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -381,6 +387,7 @@ validateState(addressObj){
     // this.roleService.currentPageNumber = this.currentPageNumber;
    // this.router.navigate(['/features/master/supplier/edit', supplier.id]);
    this.toggleDiv=true;
+   this.isFormSubmitted = false;
   }
 
   onDelete(supplier: Supplier) {

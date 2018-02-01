@@ -33,7 +33,9 @@ export class DesignListComponent implements OnInit {
   totalCount=0;
   search='';
   toggleDiv=false;
-  isFormSubmitted=false;
+  disabled: boolean = false;
+  isFormSubmitted: boolean = false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -60,25 +62,37 @@ export class DesignListComponent implements OnInit {
     designName: '',
     description: '',
     };
+    this.selectedCategory = 0;
+    this.selectedCollection = 0 ;
+    this.selectedQuality = 0;
   }
 
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
+      this.disabled = false;
+      this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
   onCancel(){
     this.toggleDiv = false;
+    this.disabled = false;
+    this.newRecord();
   }
   getDesignsList() {
     this.designService.getAllDesigns(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.designList = results.data;
-        console.log('this.designList', this.designList);
+        this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -160,10 +174,15 @@ export class DesignListComponent implements OnInit {
 
   this.isFormSubmitted=true;
     if(!valid)
-    return;    
-    this.designObj.categoryId = value.category;
-    this.designObj.collectionId = value.collection;
-    this.designObj.qualityId = value.quality;
+    return;
+    if(this.designObj.id > 0){
+
+    } 
+    else{
+        this.designObj.categoryId = value.category;
+        this.designObj.collectionId = value.collection;
+        this.designObj.qualityId = value.quality;
+    }   
     this.saveDesign(this.designObj);
   }
 
@@ -208,6 +227,8 @@ export class DesignListComponent implements OnInit {
      this. getdesignById(design.id);
      this.params=design.id;
      this.toggleDiv=true;
+     this.disabled = true;
+     this.isFormSubmitted = false;
   }
 
   onDelete(design: Design) {

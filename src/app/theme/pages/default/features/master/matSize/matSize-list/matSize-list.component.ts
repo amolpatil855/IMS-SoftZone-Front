@@ -35,6 +35,8 @@ export class MatSizeListComponent implements OnInit {
   totalCount=0;
   search='';
   toggleDiv=false;
+  disabled: boolean = false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -53,6 +55,7 @@ export class MatSizeListComponent implements OnInit {
   }
 
   newRecord(){
+    this.params=null;
     this.matSizeObj ={
     id: 0,
     categoryId: 0,
@@ -65,6 +68,9 @@ export class MatSizeListComponent implements OnInit {
     purchaseRate: 0,
     stockReorderLevel: null,
     };
+    this.selectedCollection = 0 ;
+    this.selectedQuality = 0;
+    this.selectedThickness = 0;
   }
 
   onInputChange(){
@@ -74,20 +80,29 @@ export class MatSizeListComponent implements OnInit {
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
+      this.disabled = false;
+      this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
   onCancel(){
     this.toggleDiv = false;
+    this.disabled = false;
+    this.newRecord();
   }
   getMatSizesList() {
     this.matSizeService.getAllMatSizes(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.matSizeList = results.data;
-        console.log('this.matSizeList', this.matSizeList);
+        this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -169,9 +184,13 @@ export class MatSizeListComponent implements OnInit {
     this.isFormSubmitted=true;
     if(!valid)
     return;
-    this.matSizeObj.collectionId = value.collection;
-    this.matSizeObj.qualityId = value.quality;
-    this.matSizeObj.thicknessId = value.thickness;
+    if(this.matSizeObj.id > 0){
+
+    }else{
+      this.matSizeObj.collectionId = value.collection;
+      this.matSizeObj.qualityId = value.quality;
+      this.matSizeObj.thicknessId = value.thickness;
+    }
     this.saveMatSize(this.matSizeObj);
   }
 
@@ -216,6 +235,8 @@ export class MatSizeListComponent implements OnInit {
      this. getMatSizeById(matSize.id);
      this.params=matSize.id;
      this.toggleDiv=true;
+     this.disabled = true;
+     this.isFormSubmitted = false;
   }
 
   onDelete(matSize: MatSize) {
