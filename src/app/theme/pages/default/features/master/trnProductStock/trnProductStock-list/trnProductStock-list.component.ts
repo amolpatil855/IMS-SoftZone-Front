@@ -138,8 +138,6 @@ export class TrnProductStockListComponent implements OnInit {
   }
 
   onCategoryClick(){
-    console.log('this.categoryList', this.categoryList);
-    console.log('this.selectedCategory', this.selectedCategory);
     this.categoryList.forEach(item =>{
           if(item.value == this.selectedCategory){
             if(item.label === "Foam"){

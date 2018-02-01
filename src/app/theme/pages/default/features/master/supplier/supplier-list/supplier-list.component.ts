@@ -305,7 +305,7 @@ validateState(addressObj){
       {
         addressObj.invalidGstin=false;
       }
-      if(addressObj.state=='0'){
+      if(!addressObj.state || addressObj.state=='0' || addressObj.state==0){
         addressObj.invalidState=true;
         valid=false;
       }

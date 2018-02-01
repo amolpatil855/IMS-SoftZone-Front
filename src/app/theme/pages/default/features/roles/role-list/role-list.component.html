@@ -115,13 +115,13 @@
                                           <div class="form-group">
                                              <label class="col-md-3 col-sm-3 fieldLabel">Name<span class="requiredField">*</span></label>
                                              <div class="col-md-9 col-sm-9">
-                                                <input type="text" formControlName="roleName" [ngClass]="{'red-border-class': roleForm.get('roleName').hasError('required') && isFormSubmitted}"   name="roleName" class="form-control m-input" required>
+                                                <input type="text" formControlName="roleName" [ngClass]="{'red-border-class': roleForm.get('roleName').hasError('required') && isFormSubmitted}"   name="roleName" class="form-control m-input" required maxlength="50">
                                              </div>
                                           </div>
                                           <div class="form-group">
                                              <label class="col-md-3 col-sm-3 fieldLabel">Description</label>
                                              <div class="col-md-9 col-sm-9">
-                                                <textarea class="form-control m-input" rows="3" formControlName="roleDescription" name="roleDescription" style="resize:none;"></textarea>						
+                                                <textarea class="form-control m-input" rows="3" formControlName="roleDescription" name="roleDescription" style="resize:none;" maxlength="100"></textarea>						
                                              </div>
                                           </div>
                                        </div>
