@@ -78,6 +78,7 @@ newRecord(){
   }
   onCancel(){
     this.toggleDiv = false;
+    this.params=null;
   }
 
   getSupplierCodeList() {
