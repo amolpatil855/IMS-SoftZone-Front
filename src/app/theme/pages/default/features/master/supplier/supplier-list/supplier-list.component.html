@@ -350,7 +350,7 @@
 																		</div> -->
 																</td>
 																<td>
-																	<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" (blur)="validateState(supAdd)" [(ngModel)]="supAdd.state" styleClass="{{ supAdd.invalidState?'red-border-class':''}}" name="{{'stateDDL'+supAdd.contRoleId}}"></p-dropdown>
+																	<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" (onChange)="validateState(supAdd)" [(ngModel)]="supAdd.state" styleClass="{{ supAdd.invalidState?'red-border-class':''}}" name="{{'stateDDL'+supAdd.contRoleId}}"></p-dropdown>
 																	<!-- <div class="alertMsg" *ngIf="supAdd.invalidState">
 																			Please select state
 																		</div> -->
