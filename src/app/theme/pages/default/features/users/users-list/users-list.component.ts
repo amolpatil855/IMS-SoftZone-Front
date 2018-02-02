@@ -29,7 +29,7 @@ export class UsersListComponent implements OnInit {
   selectedInstitute: any;
   roleList: any;
   userTypeList: any;
-  userTypeId=0;
+  roleId=null;
   selectedSchoolsValidationError: boolean = false;
   hideInstituteAndSchool: boolean = false;
   relatedSchoolList: any;
@@ -76,16 +76,22 @@ export class UsersListComponent implements OnInit {
       });
   }
 
-  onRoleChange(role){
-    if(this.roleList[role].label ==="Administrator"){
+  onUserTypeChange(userTypeId){
+    if(userTypeId == 1){
       this.userForm.patchValue({
-        userType: role
+        role: 1
       });
-      this.userForm.get('userType').disable(); 
+      this.userForm.get('role').disable(); 
       this.butDisabled = true;
-    }else{
+    }
+    else{
+      if(userTypeId > 1){
+      this.roleList.splice(1 , 1);
       this.butDisabled = false;
-        this.userForm.get('userType').enable(); 
+      this.userForm.get('role').enable(); 
+      }else{
+        this.roleList = this.roleList;
+      }
     }
   }
 
@@ -131,7 +137,7 @@ export class UsersListComponent implements OnInit {
       role: results.roleId,
       userType: results.userTypeId,
   });
-    this.userTypeId = results.userTypeId;
+    this.roleId = results.roleId;
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -201,8 +207,8 @@ export class UsersListComponent implements OnInit {
         username: value.username,
         email: value.email,
         phone: value.phone,
-        roleId: value.role,
-        userTypeId: this.userTypeId,
+        roleId: this.roleId,
+        userTypeId: value.userType,
     }
    
         
