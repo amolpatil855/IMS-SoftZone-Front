@@ -75,6 +75,7 @@ export class FomDensityListComponent implements OnInit {
   }
 
   calculateSellingRate(){
+    this.fomDensityObj.sellingRatePercentage=this.fomDensityObj.sellingRatePercentage<1?'':this.fomDensityObj.sellingRatePercentage;
     if(this.fomDensityObj.purchaseRatePerMM>0 && this.fomDensityObj.sellingRatePercentage>0){
       this.fomDensityObj.sellingRatePerMM=this.fomDensityObj.purchaseRatePerMM+(this.fomDensityObj.purchaseRatePerMM * this.fomDensityObj.sellingRatePercentage/100);
     }
