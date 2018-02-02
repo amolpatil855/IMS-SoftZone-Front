@@ -113,6 +113,17 @@
                                                 </div> -->
 											</div>
 										</div>
+									</div>
+									<div class="col-md-3 formContentbox formContentboxShade">
+										<div class="form-group">
+											<label class="fieldLabel col-sm-5">Serial Number<span class="requiredField">*</span></label>
+											<div class="col-sm-7">
+												<input class="form-control m-input" type="number" value=""  #serialNumberLevelVal="ngModel" required [ngClass]="{'red-border-class': serialNumberLevelVal.errors && isFormSubmitted}" [(ngModel)]="shadeObj.serialNumber" name="serialNumber" id="serialNumber" placeholder="">
+                                                <!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
+                                                    Please enter StockReorderLevel
+                                                </div> -->
+											</div>
+										</div>
                                     </div>
                                     <div class="col-md-3 formContentbox formContentboxShade">
 										<div class="form-group">
@@ -189,9 +200,9 @@
                                 <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="mstQuality.qualityName" header="Quality" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="mstFWRDesign.designName" header="Design" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="shadeCode" header="Shade Code" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="shadeName" header="Shade Name" [style]="{'text-align':'center'}"></p-column>
-								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
+                                <p-column field="shadeCode" header="Shade Code" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="shadeName" header="Shade Name" [style]="{'text-align':'left'}"></p-column>
+								<p-column styleClass="col-button" [style]="{'text-align':'left'}">
 									<ng-template pTemplate="header">
 										Action
 									</ng-template>

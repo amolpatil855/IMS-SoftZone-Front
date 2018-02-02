@@ -29,7 +29,7 @@ export class UsersListComponent implements OnInit {
   selectedInstitute: any;
   roleList: any;
   userTypeList: any;
-  userTypeId=0;
+  roleId=null;
   selectedSchoolsValidationError: boolean = false;
   hideInstituteAndSchool: boolean = false;
   relatedSchoolList: any;
@@ -41,6 +41,8 @@ export class UsersListComponent implements OnInit {
   toggleDiv=false;
   isFormSubmitted=false;
   butDisabled: boolean = false;
+  disableButton: boolean = false;
+  disableEditDeleteButton: boolean = true;
   tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
@@ -76,16 +78,22 @@ export class UsersListComponent implements OnInit {
       });
   }
 
-  onRoleChange(role){
-    if(this.roleList[role].label ==="Administrator"){
+  onUserTypeChange(userTypeId){
+    if(userTypeId == 1){
       this.userForm.patchValue({
-        userType: role
+        role: 1
       });
-      this.userForm.get('userType').disable(); 
+      this.userForm.get('role').disable(); 
       this.butDisabled = true;
-    }else{
+    }
+    else{
+      if(userTypeId > 1){
+      this.roleList.splice(1 , 1);
       this.butDisabled = false;
-        this.userForm.get('userType').enable(); 
+      this.userForm.get('role').enable(); 
+      }else{
+        this.roleList = this.roleList;
+      }
     }
   }
 
@@ -103,16 +111,31 @@ export class UsersListComponent implements OnInit {
     this.getAllUserList();
   }
 
+  toggleActiveButton(user: User){
+    user.isActive = false;
+   console.log('row', user);
+  }
+
   getAllUserList() {
     this.userService.getAllUsers(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.userList = results.data;
         console.log('this.userList', this.userList);
+        
       this.totalCount=results.totalCount;
         if(this.totalCount==0)
         {
           this.tableEmptyMesssage="No Records Found";
         }
+
+        this.userList.forEach(
+          user => {
+            console.log('user', user);
+             if(user.mstRole.roleName === "Customer"){
+                this.disableEditDeleteButton = false;
+             }  
+          }
+        );
       },
       error => {
         this.tableEmptyMesssage="No Records Found";
@@ -131,7 +154,7 @@ export class UsersListComponent implements OnInit {
       role: results.roleId,
       userType: results.userTypeId,
   });
-    this.userTypeId = results.userTypeId;
+    this.roleId = results.roleId;
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -201,8 +224,8 @@ export class UsersListComponent implements OnInit {
         username: value.username,
         email: value.email,
         phone: value.phone,
-        roleId: value.role,
-        userTypeId: this.userTypeId,
+        roleId: this.roleId,
+        userTypeId: value.userType,
     }
    
         

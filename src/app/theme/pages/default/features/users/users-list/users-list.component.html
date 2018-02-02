@@ -86,8 +86,9 @@
                            Action
                         </ng-template>
                         <ng-template let-row="rowData" pTemplate="body" >
-                           <button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
-                           <button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
+                            <button type="button" pButton (click)="toggleActiveButton(row)" icon="fa fa-ban" class="editBtn" title="Active"> </button>
+                           <button type="button" *ngIf="disableEditDeleteButton" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+                           <button type="button" *ngIf="disableEditDeleteButton" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
                         </ng-template>
                      </p-column>
                      </p-dataTable>
@@ -131,24 +132,24 @@
                                                 <input class="form-control m-input" type="number" onKeyPress="if(this.value.length==10) return false;" required [ngClass]="{'red-border-class': userForm.get('phone').hasError('required') && isFormSubmitted}"   formControlName="phone" name="contact" placeholder="Contact" maxlength="10">
                                              </div>
                                           </div>
-                                          <div class="form-group">
-                                             <label class="col-md-3 col-sm-3 fieldLabel">Role<span class="requiredField">*</span></label>
-                                             <div class="col-md-7">
-                                                 <select class="form-control"  required [ngClass]="{'red-border-class': userForm.get('role').hasError('required') && isFormSubmitted}"  formControlName="role" (change)="onRoleChange($event.target.value)">
-                                            
-                                                   <option *ngFor="let role of roleList" [value]="role.value">{{role.label}}</option>
-                                                </select> 
-                                                <!-- <p-dropdown class="feePlanBox" [options]="roleList" [style]="{'width':'100%'}" formControlName="role"    required styleClass="{{ userForm.get('role').hasError('required') && isFormSubmitted ?'red-border-class':''}}"  name="role"></p-dropdown> -->
-                                             </div>
-                                          </div>
-                                          <div class="form-group">
+                                        <div class="form-group">
                                              <label class="col-md-3 col-sm-3 fieldLabel">User Type<span class="requiredField">*</span></label>
                                              <div class="col-md-7">
-                                                 <select class="form-control" [ngClass]="{'red-border-class': userForm.get('userType').hasError('required') && isFormSubmitted}" [(ngModel)]="userTypeId" formControlName="userType">
+                                                 <select class="form-control" required [ngClass]="{'red-border-class': userForm.get('userType').hasError('required') && isFormSubmitted}" formControlName="userType" (change)="onUserTypeChange($event.target.value)">
     
                                                    <option *ngFor="let userType of userTypeList" [value]="userType.id">{{userType.userTypeName}}</option>
                                                 </select> 
                                                 <!-- <p-dropdown class="feePlanBox" [options]="userTypeList" [style]="{'width':'100%'}" formControlName="userType"    required styleClass="{{ userForm.get('userType').hasError('required') && isFormSubmitted ?'red-border-class':''}}"  name="userType"></p-dropdown> -->
+                                             </div>
+                                          </div>
+                                          <div class="form-group">
+                                             <label class="col-md-3 col-sm-3 fieldLabel">Role<span class="requiredField">*</span></label>
+                                             <div class="col-md-7">
+                                                 <select class="form-control"  required [ngClass]="{'red-border-class': userForm.get('role').hasError('required') && isFormSubmitted}"  formControlName="role">
+                                            
+                                                   <option *ngFor="let role of roleList" [value]="role.value">{{role.label}}</option>
+                                                </select> 
+                                                <!-- <p-dropdown class="feePlanBox" [options]="roleList" [style]="{'width':'100%'}" formControlName="role"    required styleClass="{{ userForm.get('role').hasError('required') && isFormSubmitted ?'red-border-class':''}}"  name="role"></p-dropdown> -->
                                              </div>
                                           </div>
                                        </div>

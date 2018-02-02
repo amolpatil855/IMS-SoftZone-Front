@@ -21,16 +21,16 @@ import { Hsn } from "../../../../_models/hsn";
 export class HsnListComponent implements OnInit {
   isFormSubmitted: boolean = false;
   hsnForm: any;
-  hsnObj:any;
+  hsnObj: any;
   params: number;
-  hsnList=[];
-  pageSize=50;
-  page=1;
-  totalCount=0;
-  search='';
-  toggleDiv=false;
-  states=[];
-  tableEmptyMesssage='Loading...';
+  hsnList = [];
+  pageSize = 50;
+  page = 1;
+  totalCount = 0;
+  search = '';
+  toggleDiv = false;
+  states = [];
+  tableEmptyMesssage = 'Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -52,34 +52,33 @@ export class HsnListComponent implements OnInit {
     this.params=null;
     this.hsnObj ={
       id: 0,
-      hsnCode:'',
+      hsnCode: '',
       gst: ''
     };
   }
 
-  toggleButton(){
+  toggleButton() {
     this.toggleDiv = !this.toggleDiv;
-    if(this.toggleDiv && !this.params){
+    if (this.toggleDiv && !this.params) {
+      this.isFormSubmitted = false;
       this.newRecord();
     }
-
   }
-  onCancel(){
+  onCancel() {
     this.toggleDiv = false;
     this.newRecord();
   }
   getHsnsList() {
-    this.hsnService.getAllHsns(this.pageSize,this.page,this.search).subscribe(
+    this.hsnService.getAllHsns(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.hsnList = results.data;
-        this.totalCount=results.totalCount;
-        if(this.totalCount==0)
-        {
-          this.tableEmptyMesssage="No Records Found";
+        this.totalCount = results.totalCount;
+        if (this.totalCount == 0) {
+          this.tableEmptyMesssage = "No Records Found";
         }
       },
       error => {
-        this.tableEmptyMesssage="No Records Found";
+        this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -91,26 +90,26 @@ export class HsnListComponent implements OnInit {
     //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
-    this.pageSize=event.rows;
-    this.page=event.first;
-    this.search=  event.globalFilter;
+    this.pageSize = event.rows;
+    this.page = event.first;
+    this.search = event.globalFilter;
     this.getHsnsList();
   }
 
-  gethsnById(id){
-  this.hsnService.getHsnById(id).subscribe(
-    results => {
-      this.hsnObj = results;
-      console.log('this.hsnList', this.hsnObj);
-    },
-    error => {
-      this.globalErrorHandler.handleError(error);
-    });
-}
+  gethsnById(id) {
+    this.hsnService.getHsnById(id).subscribe(
+      results => {
+        this.hsnObj = results;
+        console.log('this.hsnList', this.hsnObj);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.isFormSubmitted=true;
-    if(valid)
+    this.isFormSubmitted = true;
+    if (valid)
       this.saveHsn(this.hsnObj);
   }
 
@@ -120,12 +119,12 @@ export class HsnListComponent implements OnInit {
       this.hsnService.updateHsn(value)
         .subscribe(
         results => {
-         this.getHsnsList(); 
-         this.toggleDiv=false;
-         this.params=null;
+          this.getHsnsList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-         
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -135,12 +134,12 @@ export class HsnListComponent implements OnInit {
       this.hsnService.createHsn(value)
         .subscribe(
         results => {
-         this. getHsnsList();
-         this.toggleDiv=false;
-         this.params=null;
+          this.getHsnsList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-       
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -150,13 +149,14 @@ export class HsnListComponent implements OnInit {
   }
 
   onEditClick(hsn: Hsn) {
-     this.hsnService.perPage = this.pageSize;
-     this.hsnService.currentPos = this.page;
+    this.hsnService.perPage = this.pageSize;
+    this.hsnService.currentPos = this.page;
     this.gethsnById(hsn.id);
-    this.params=hsn.id;
+    this.params = hsn.id;
     // this.roleService.currentPageNumber = this.currentPageNumber;
-   // this.router.navigate(['/features/master/hsn/edit', hsn.id]);
-   this.toggleDiv=true;
+    // this.router.navigate(['/features/master/hsn/edit', hsn.id]);
+    this.isFormSubmitted = false;
+    this.toggleDiv = true;
   }
 
   onDelete(hsn: Hsn) {
@@ -167,9 +167,9 @@ export class HsnListComponent implements OnInit {
       accept: () => {
         this.hsnService.deleteHsn(hsn.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getHsnsList();
-            this.toggleDiv=false;
+            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

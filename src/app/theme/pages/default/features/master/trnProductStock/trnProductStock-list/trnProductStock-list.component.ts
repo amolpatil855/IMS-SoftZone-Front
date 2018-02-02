@@ -24,12 +24,12 @@ export class TrnProductStockListComponent implements OnInit {
   params: number;
   trnProductStockList=[];
   categoryList: SelectItem[];
-  selectedCategory = 0;
-  selectedCollection = 0 ;
-  selectedShade = 0;
-  selectedMatSize = 0;
-  selectedFomSize = 0;
-  selectedCompanyLocation = 0;
+  selectedCategory = null;
+  selectedCollection = null;
+  selectedShade = null;
+  selectedMatSize = null;
+  selectedFomSize = null;
+  selectedCompanyLocation = null;
   collectionList=[];
   companyLocationList=[];
   shadeList=[];
@@ -74,12 +74,12 @@ export class TrnProductStockListComponent implements OnInit {
     locationId: 0,
     stock: null,
     };
-    this.selectedCategory = 0;
-    this.selectedCollection = 0 ;
-    this.selectedShade = 0;
-    this.selectedMatSize = 0;
-    this.selectedFomSize = 0;
-    this.selectedCompanyLocation = 0;
+    this.selectedCategory = null;
+    this.selectedCollection = null ;
+    this.selectedShade = null;
+    this.selectedMatSize = null;
+    this.selectedFomSize = null;
+    this.selectedCompanyLocation = null;
     this.shadeEnable = false;
     this.matEnable = false;
     this.fomEnable = false;
@@ -118,7 +118,7 @@ export class TrnProductStockListComponent implements OnInit {
     this.trnProductStockService.getCategoryLookUp().subscribe(
       results => {
         this.categoryList = results;
-        this.categoryList.unshift({ label: '--Select--', value: '0' });
+        this.categoryList.unshift({ label: '--Select--', value: null });
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -129,7 +129,7 @@ export class TrnProductStockListComponent implements OnInit {
     this.trnProductStockService.getCompanyLocationLookUp().subscribe(
       results => {
         this.companyLocationList = results;
-        this.companyLocationList.unshift({ label: '--Select--', value: '0' });
+        this.companyLocationList.unshift({ label: '--Select--', value: null });
         console.log('this.companyLocationList', this.companyLocationList);
       },
       error => {
@@ -160,7 +160,7 @@ export class TrnProductStockListComponent implements OnInit {
     this.trnProductStockService.getCollectionLookUpByCategory(this.selectedCategory).subscribe(
       results => {
         this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: '0' });
+        this.collectionList.unshift({ label: '--Select--', value: null });
         this.selectedCollection = this.trnProductStockObj.collectionId;
         if(this.selectedCollection > 0){
           this.onCollectionClick();
@@ -176,7 +176,7 @@ export class TrnProductStockListComponent implements OnInit {
     this.trnProductStockService.getSerialNumberLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.shadeList = results;
-        this.shadeList.unshift({ label: '--Select--', value: '0' });
+        this.shadeList.unshift({ label: '--Select--', value: null });
         this.selectedShade = this.trnProductStockObj.fwrShadeId;
         console.log('this.selectedShade', this.selectedShade);
       },
@@ -187,7 +187,7 @@ export class TrnProductStockListComponent implements OnInit {
       this.trnProductStockService.getMatSizeLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.matSizeList = results;
-        this.matSizeList.unshift({ label: '--Select--', value: '0' });
+        this.matSizeList.unshift({ label: '--Select--', value: null });
         this.selectedMatSize = this.trnProductStockObj.matSizeId;
         console.log('this.selectedMatSize', this.selectedMatSize);
       },
@@ -198,7 +198,7 @@ export class TrnProductStockListComponent implements OnInit {
       this.trnProductStockService.getFomSizeLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.fomSizeList = results;
-        this.fomSizeList.unshift({ label: '--Select--', value: '0' });
+        this.fomSizeList.unshift({ label: '--Select--', value: null });
         this.selectedFomSize = this.trnProductStockObj.fomSizeId;
         console.log('this.selectedFomSize', this.selectedFomSize);
       },
