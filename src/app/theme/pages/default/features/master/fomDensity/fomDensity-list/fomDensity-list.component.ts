@@ -74,6 +74,22 @@ export class FomDensityListComponent implements OnInit {
     this.selectedThickness = 0;
   }
 
+  calculateSellingRate(){
+    if(this.fomDensityObj.purchaseRatePerMM>0 && this.fomDensityObj.sellingRatePercentage>0){
+      this.fomDensityObj.sellingRatePerMM=this.fomDensityObj.purchaseRatePerMM+(this.fomDensityObj.purchaseRatePerMM * this.fomDensityObj.sellingRatePercentage/100);
+    }
+    else{
+      this.fomDensityObj.sellingRatePerMM=this.fomDensityObj.purchaseRatePerMM;
+    }
+    if(this.fomDensityObj.purchaseRatePerKG>0 && this.fomDensityObj.sellingRatePercentage>0){
+      this.fomDensityObj.sellingRatePerKG= this.fomDensityObj.purchaseRatePerKG+(this.fomDensityObj.purchaseRatePerKG * this.fomDensityObj.sellingRatePercentage/100);
+    }
+    else{
+      this.fomDensityObj.sellingRatePerKG=this.fomDensityObj.purchaseRatePerKG;
+    }
+
+  }
+
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
