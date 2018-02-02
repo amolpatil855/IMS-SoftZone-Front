@@ -86,8 +86,9 @@
                            Action
                         </ng-template>
                         <ng-template let-row="rowData" pTemplate="body" >
-                           <button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
-                           <button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
+                            <button type="button" pButton (click)="toggleActiveButton(row)" icon="fa fa-ban" class="editBtn" title="Active"> </button>
+                           <button type="button" *ngIf="disableEditDeleteButton" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+                           <button type="button" *ngIf="disableEditDeleteButton" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
                         </ng-template>
                      </p-column>
                      </p-dataTable>

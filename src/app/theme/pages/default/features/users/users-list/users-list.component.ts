@@ -41,6 +41,8 @@ export class UsersListComponent implements OnInit {
   toggleDiv=false;
   isFormSubmitted=false;
   butDisabled: boolean = false;
+  disableButton: boolean = false;
+  disableEditDeleteButton: boolean = true;
   tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
@@ -109,16 +111,31 @@ export class UsersListComponent implements OnInit {
     this.getAllUserList();
   }
 
+  toggleActiveButton(user: User){
+    user.isActive = false;
+   console.log('row', user);
+  }
+
   getAllUserList() {
     this.userService.getAllUsers(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.userList = results.data;
         console.log('this.userList', this.userList);
+        
       this.totalCount=results.totalCount;
         if(this.totalCount==0)
         {
           this.tableEmptyMesssage="No Records Found";
         }
+
+        this.userList.forEach(
+          user => {
+            console.log('user', user);
+             if(user.mstRole.roleName === "Customer"){
+                this.disableEditDeleteButton = false;
+             }  
+          }
+        );
       },
       error => {
         this.tableEmptyMesssage="No Records Found";
