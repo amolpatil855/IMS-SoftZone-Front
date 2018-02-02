@@ -201,6 +201,10 @@ getQualityById(id){
     if(this.slectedCategory){
       this.getCollectionList(this.slectedCategory);
     }
+    else{
+      this.collectionList = [];
+      this.collectionList.unshift({ label: '--Select--', value: null });
+    }
     if(this.slectedCategory==1){
       this.qualityForm.patchValue({
          size: 0,
