@@ -30,8 +30,10 @@ export class CollectionListComponent implements OnInit {
   totalCount=0;
   search='';
   toggleDiv=false;
+  disabled: boolean = false;
   states=[];
-  isFormSubmitted=false;
+  isFormSubmitted: boolean = false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -53,13 +55,14 @@ this.newRecord();
   }
 
 newRecord(){
+  this.params=null;
   this.collectionObj = new Collection();
   this.collectionForm = this.formBuilder.group({
     id: 0,
     collectionCode: ['', [Validators.required]],
     collectionName: ['', [Validators.required]],
-    categoryId: ['0', [Validators.required]],
-    supplierId: ['0', [Validators.required]],
+    categoryId: [null, [Validators.required]],
+    supplierId: [null, [Validators.required]],
     manufacturerName: ['', [Validators.required]],
     description: [''],
   });
@@ -72,18 +75,23 @@ newRecord(){
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
+      this.disabled = false;
+      this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
   onCancel(){
     this.toggleDiv = false;
+    this.disabled = false;
+    this.newRecord();
   }
 
   getSupplierCodeList() {
     this.supplierService.getSupplierLookUp ().subscribe(
       results => {
         this.supplierCodeList = results;
+        this.supplierCodeList.unshift({ label: '--Select--', value: null });
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -94,6 +102,7 @@ newRecord(){
     this.commonService.getCategoryCodes().subscribe(
       results => {
         this.categoriesCodeList = results;
+        this.categoriesCodeList.unshift({ label: '--Select--', value: null });
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -106,9 +115,14 @@ newRecord(){
     this.collectionService.getAllCollections(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.collectionList = results.data;
-        console.log('this.collectionList', this.collectionList);
+        this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -172,7 +186,7 @@ getsuplierById(id){
           Helpers.setLoading(false);
         });
     } else {
-      value.id=this.params;
+      // value.id=this.params;
       this.collectionService.createCollection(value)
         .subscribe(
         results => {
@@ -198,6 +212,8 @@ getsuplierById(id){
     // this.roleService.currentPageNumber = this.currentPageNumber;
    // this.router.navigate(['/features/master/Collection/edit', Collection.id]);
    this.toggleDiv=true;
+   this.disabled = true;
+   this.isFormSubmitted = false;
   }
 
   onDelete(Collection: Collection) {

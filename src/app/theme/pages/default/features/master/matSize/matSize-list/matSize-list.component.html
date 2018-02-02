@@ -71,19 +71,19 @@
 														<div class="col-md-3 formContentbox">
 															<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel"  required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" [(ngModel)]="selectedCollection" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
+																<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel"  required styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedCollection" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
 															</div>	
 														</div>
 														<div class="col-md-3 formContentbox">
 															<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel"  required [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" [(ngModel)]="selectedQuality" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
+																<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel"  required  styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedQuality" [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
 															</div>
 														</div>	
 														<div class="col-md-3 formContentbox">
 															<label class="fieldLabel col-sm-5">Thickness <span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" #selectedThicknessVal="ngModel"  required [ngClass]="{'red-border-class': selectedThicknessVal.errors && isFormSubmitted}" [(ngModel)]="selectedThickness" name="thickness"></p-dropdown>
+																<p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" #selectedThicknessVal="ngModel"  required  styleClass="{{ selectedThicknessVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedThickness" name="thickness"></p-dropdown>
 															</div>
 														</div>	
 														<div class="col-md-3 formContentbox">
@@ -101,7 +101,7 @@
 															<div class="form-group">
 																<label class="fieldLabel col-sm-5">Rate <span class="requiredField">*</span></label>
 																<div class="col-sm-7">
-																	<input class="form-control m-input" type="number" value="" maxlength="8" #rateVal="ngModel" required onKeyPress="if(this.value.length==8) return false;" [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="Enter Rate" (input)="onInputChange()">
+																	<input class="form-control m-input" type="number" value="" maxlength="8" #rateVal="ngModel" required onKeyPress="if(this.value.length==8) return false;" [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="" (input)="onInputChange()">
 																	<!-- <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
 																		Please enter Rate
 																	</div> -->
@@ -112,7 +112,7 @@
 															<div class="form-group">
 																<label class="fieldLabel col-sm-5"> Purchase Discount (%) <span class="requiredField">*</span></label>
 																<div class="col-sm-7">
-																	<input class="form-control m-input" type="number" value="" maxlength="2" #purchaseDiscountVal="ngModel" required onKeyPress="if(this.value.length==2) return false;" [ngClass]="{'red-border-class': purchaseDiscountVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.purchaseDiscount" name="purchaseDiscount" id="purchaseDiscount" placeholder="Enter PurchaseDiscount" (input)="onInputChange()">
+																	<input class="form-control m-input" type="number" value="" maxlength="2" #purchaseDiscountVal="ngModel" required onKeyPress="if(this.value.length==2) return false;" [ngClass]="{'red-border-class': purchaseDiscountVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.purchaseDiscount" name="purchaseDiscount" id="purchaseDiscount" placeholder="" (input)="onInputChange()">
 																	<!-- <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
 																		Please enter Rate
 																	</div> -->
@@ -123,7 +123,7 @@
 															<div class="form-group">
 																<label class="fieldLabel col-sm-5">Purchase Rate <span class="requiredField">*</span></label>
 																<div class="col-sm-7">
-																	<input class="form-control m-input" type="number" value="" maxlength="10" [disabled]="true" #purchaseRateVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': purchaseRateVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.purchaseRate" name="purchaseRate" id="purchaseRate" placeholder="Enter PurchaseRate">
+																	<input class="form-control m-input" type="number" value="" maxlength="10" [disabled]="true" #purchaseRateVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': purchaseRateVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.purchaseRate" name="purchaseRate" id="purchaseRate" placeholder="">
 																	<!-- <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
 																		Please enter Rate
 																	</div> -->
@@ -141,6 +141,29 @@
 																</div>
 															</div>
 														</div>
+														<div class="col-md-3 formContentbox">
+																<div class="form-group">
+																	<label class="fieldLabel col-sm-5">Width <span class="requiredField">*</span></label>
+																	<div class="col-sm-7">
+																		<input class="form-control m-input" type="number" value="" maxlength="10" #widthVal="ngModel" required [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.width" name="width" id="width" placeholder="">
+																		<!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
+																			Please enter StockReorderLevel
+																		</div> -->
+																	</div>
+																</div>
+															</div>
+															<div class="col-md-3 formContentbox">
+																	<div class="form-group">
+																		<label class="fieldLabel col-sm-5">Length<span class="requiredField">*</span></label>
+																		<div class="col-sm-7">
+																			<input class="form-control m-input" type="number" value="" maxlength="10" #lengthVal="ngModel" required [ngClass]="{'red-border-class': lengthVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.length" name="length" id="length" placeholder="">
+																			<!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
+																				Please enter StockReorderLevel
+																			</div> -->
+																		</div>
+																	</div>
+																</div>
+
 													</div>
 												</div>
 											</div>
@@ -188,7 +211,7 @@
 											</span>
 										</button>
 									</div>
-							<p-dataTable [value]="matSizeList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
+							<p-dataTable [value]="matSizeList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                                 <p-column field="mstCollection.collectionName" header="Collection" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="mstQuality.qualityName" header="Quality" [style]="{'text-align':'left'}"></p-column>

@@ -10,7 +10,7 @@ import { FomDensityService } from '../../../../_services/fomDensity.service';
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
 import { FomDensity } from "../../../../_models/fomDensity";
-
+import { CommonService } from '../../../../_services/common.service';
 @Component({
   selector: ".app-fomDensity-list",
   templateUrl: "./fomDensity-list.component.html",
@@ -23,8 +23,9 @@ export class FomDensityListComponent implements OnInit {
   params: number;
   fomDensityList=[];
   categoryList: SelectItem[];
-  selectedCollection = 0 ;
-  selectedQuality = 0;
+  selectedCollection = null ;
+  selectedQuality =null;
+  slectedCategory=null;
   selectedThickness = 0;
   collectionList=[];
   qualityList=[];
@@ -34,6 +35,9 @@ export class FomDensityListComponent implements OnInit {
   totalCount=0;
   search='';
   toggleDiv=false;
+  disabled: boolean = false;
+  categoriesCodeList=[];
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -41,6 +45,7 @@ export class FomDensityListComponent implements OnInit {
     private fomDensityService: FomDensityService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
+    private commonService: CommonService,
     private messageService: MessageService) {
   }
 
@@ -50,6 +55,8 @@ export class FomDensityListComponent implements OnInit {
     });
     this.newRecord();
   }
+
+
 
   newRecord(){
     this.params=null;
@@ -62,26 +69,37 @@ export class FomDensityListComponent implements OnInit {
     sizeCode: '',
     rate: '',
     };
+    this.selectedCollection = null ;
+    this.selectedQuality = null;
+    this.selectedThickness = 0;
   }
 
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
+      this.disabled = false;
+      this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
   onCancel(){
     this.toggleDiv = false;
+    this.disabled = false;
     this.newRecord();
   }
   getFomDensitysList() {
     this.fomDensityService.getAllFomDensitys(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.fomDensityList = results.data;
-        console.log('this.fomDensityList', this.fomDensityList);
+       this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -90,7 +108,7 @@ export class FomDensityListComponent implements OnInit {
     this.fomDensityService.getFomCollectionLookUp().subscribe(
       results => {
         this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: '0' });
+        this.collectionList.unshift({ label: '--Select--', value: null });
         console.log('this.collectionList', this.collectionList);
       },
       error => {
@@ -102,7 +120,7 @@ export class FomDensityListComponent implements OnInit {
     this.fomDensityService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
-        this.qualityList.unshift({ label: '--Select--', value: '0' });
+        this.qualityList.unshift({ label: '--Select--', value: null });
         this.selectedQuality = this.fomDensityObj.qualityId;
         console.log('this.qualityList', this.qualityList);
       },
@@ -146,10 +164,15 @@ export class FomDensityListComponent implements OnInit {
     this.isFormSubmitted=true;
     if(!valid)
     return;
-    this.fomDensityObj.categoryId = value.category;
-    this.fomDensityObj.collectionId = value.collection;
-    this.fomDensityObj.qualityId = value.quality;
-    this.fomDensityObj.thicknessId = value.thickness;
+    if(this.fomDensityObj.id > 0){
+
+    }else{
+      this.fomDensityObj.categoryId = value.category;
+      this.fomDensityObj.collectionId = value.collection;
+      this.fomDensityObj.qualityId = value.quality;
+      this.fomDensityObj.thicknessId = value.thickness;
+    }
+    
     this.saveFomDensity(this.fomDensityObj);
   }
 
@@ -194,6 +217,8 @@ export class FomDensityListComponent implements OnInit {
      this. getFomDensityById(fomDensity.id);
      this.params=fomDensity.id;
      this.toggleDiv=true;
+     this.disabled = true;
+     this.isFormSubmitted = false;
   }
 
   onDelete(fomDensity: FomDensity) {

@@ -23,10 +23,10 @@ export class FomSizeListComponent implements OnInit {
   params: number;
   fomSizeList=[];
   categoryList: SelectItem[];
-  selectedCollection = 0 ;
-  selectedQuality = 0;
-  selectedDensity = 0;
-  selectedSize = 0;
+  selectedCollection = null ;
+  selectedQuality = null;
+  selectedDensity = null;
+  selectedSize = null;
   collectionList=[];
   qualityList=[];
   fomDensityList=[];
@@ -35,7 +35,10 @@ export class FomSizeListComponent implements OnInit {
   page=1;
   totalCount=0;
   search='';
+  states=[];
   toggleDiv=false;
+  disabled: boolean = false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -50,6 +53,9 @@ export class FomSizeListComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       this.params = params['id'];
     });
+    this.states.push({ label: '--Select--', value: '0' });
+    this.getFomCollectionLookUp();
+    this.onCollectionClick();
     this.newRecord();
   }
 
@@ -57,16 +63,20 @@ export class FomSizeListComponent implements OnInit {
     this.params=null;
     this.fomSizeObj ={
     id: 0,
-    categoryId: 0,
-    collectionId: 0,
-    qualityId: 0,
-    fomDensityId: 0,
-    fomSuggestedMMId: 0,
-    width: 0,
-    length: 0,
-    sizeCode: '0x0',
+    categoryId: null,
+    collectionId: null,
+    qualityId: null,
+    fomDensityId: null,
+    fomSuggestedMMId: null,
+    width: '',
+    length: '',
+    sizeCode: '',
     stockReorderLevel: null,
     };
+    this.selectedCollection = null ;
+    this.selectedQuality = null;
+    this.selectedDensity = null;
+    this.selectedSize = null;
   }
   onInputChange(){
     this.fomSizeObj.sizeCode=this.fomSizeObj.width+'x'+this.fomSizeObj.length;
@@ -74,12 +84,15 @@ export class FomSizeListComponent implements OnInit {
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
+      this.disabled = false;
+      this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
   onCancel(){
     this.toggleDiv = false;
+    this.disabled = false;
     this.newRecord();
   }
   getFomSizesList() {
@@ -87,8 +100,14 @@ export class FomSizeListComponent implements OnInit {
       results => {
         this.fomSizeList = results.data;
         console.log('this.fomSizeList', this.fomSizeList);
+        this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -97,7 +116,7 @@ export class FomSizeListComponent implements OnInit {
     this.fomSizeService.getFomCollectionLookUp().subscribe(
       results => {
         this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: '0' });
+        this.collectionList.unshift({ label: '--Select--', value: null });
         console.log('this.collectionList', this.collectionList);
       },
       error => {
@@ -109,7 +128,7 @@ export class FomSizeListComponent implements OnInit {
     this.fomSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
-        this.qualityList.unshift({ label: '--Select--', value: '0' });
+        this.qualityList.unshift({ label: '--Select--', value: null });
         this.selectedQuality = this.fomSizeObj.qualityId;
         if(this.selectedQuality > 0){
           this.onQualityClick();
@@ -125,7 +144,7 @@ export class FomSizeListComponent implements OnInit {
     this.fomSizeService.getFomDensityLookUpByQuality(this.selectedQuality).subscribe(
       results => {
         this.fomDensityList = results;
-        this.fomDensityList.unshift({ label: '--Select--', value: '0' });
+        this.fomDensityList.unshift({ label: '--Select--', value: null });
         this.selectedDensity = this.fomSizeObj.fomDensityId;
         if(this.selectedDensity > 0){
           this.onDensityClick();
@@ -141,7 +160,7 @@ export class FomSizeListComponent implements OnInit {
     this.fomSizeService.getFomSuggestedMMLookUpByFomDensity(this.selectedDensity).subscribe(
       results => {
         this.fomSuggestedMMList = results;
-        this.fomSuggestedMMList.unshift({ label: '--Select--', value: '0' });
+        this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
         this.selectedSize = this.fomSizeObj.fomSuggestedMMId;
         console.log('this.fomSuggestedMMList', this.fomSuggestedMMList);
       },
@@ -186,10 +205,14 @@ export class FomSizeListComponent implements OnInit {
     this.isFormSubmitted=true;
     if(!valid)
     return;
+    if(this.fomSizeObj.id > 0){
+
+    }else{
     this.fomSizeObj.collectionId = value.collection;
     this.fomSizeObj.qualityId = value.quality;
     this.fomSizeObj.fomDensityId = value.density;
     this.fomSizeObj.fomSuggestedMMId = value.size;
+    }
     // this.fomSizeObj.sizeCode = value.width+'x'+value.length;
     // this.fomSizeObj.stockReorderLevel = value.stockReorderLevel;
     this.saveFomSize(this.fomSizeObj);
@@ -213,6 +236,7 @@ export class FomSizeListComponent implements OnInit {
           Helpers.setLoading(false);
         });
     } else {
+     // value.id=this.params;
       this.fomSizeService.createFomSize(value)
         .subscribe(
         results => {
@@ -236,6 +260,8 @@ export class FomSizeListComponent implements OnInit {
      this. getFomSizeById(fomSize.id);
      this.params=fomSize.id;
      this.toggleDiv=true;
+     this.disabled = true;
+     this.isFormSubmitted = false;
   }
 
   onDelete(fomSize: FomSize) {

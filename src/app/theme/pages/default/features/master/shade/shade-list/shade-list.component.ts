@@ -19,16 +19,16 @@ import { retry } from 'rxjs/operator/retry';
   encapsulation: ViewEncapsulation.None,
 })
 export class ShadeListComponent implements OnInit {
-  isFormSubmitted=false;
+  isFormSubmitted: boolean =false;
   shadeForm: any;
   shadeObj:any;
   params: number;
   shadeList=[];
   categoryList: SelectItem[];
-  selectedCategory: any;
-  selectedCollection: any;
-  selectedDesign: any;
-  selectedQuality: any;
+  selectedCategory = null;
+  selectedCollection = null;
+  selectedDesign = null;
+  selectedQuality = null;
   collectionList=[];
   qualityList=[];
   designList=[];
@@ -37,6 +37,8 @@ export class ShadeListComponent implements OnInit {
   totalCount=0;
   search='';
   toggleDiv=false;
+  disabled: boolean = false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -55,35 +57,49 @@ export class ShadeListComponent implements OnInit {
   }
 
   newRecord(){
+    this.params=null;
     this.shadeObj ={
-    categoryId: 0,
-    collectionId: 0,
-    qualityId: 0,
-    designId: 0,
+    categoryId: null,
+    collectionId: null,
+    qualityId: null,
+    designId: null,
     shadeCode: '',
     shadeName: '',
     description: '',
     stockReorderLevel: null,
     };
+    this.selectedCategory = null;
+    this.selectedCollection = null;
+    this.selectedDesign = null;
+    this.selectedQuality = null;
   }
 
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
+      this.disabled = false;
+      this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
   onCancel(){
     this.toggleDiv = false;
+    this.disabled = false;
+    this.newRecord();
   }
   getShadesList() {
     this.shadeService.getAllShades(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.shadeList = results.data;
-        console.log('this.shadeList', this.shadeList);
+        this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -92,7 +108,7 @@ export class ShadeListComponent implements OnInit {
     this.shadeService.getCategoryLookup().subscribe(
       results => {
         this.categoryList = results;
-        this.categoryList.unshift({ label: '--Select--', value: '0' });
+        this.categoryList.unshift({ label: '--Select--', value: null });
         console.log('this.categoryList', this.categoryList);
       },
       error => {
@@ -105,7 +121,7 @@ export class ShadeListComponent implements OnInit {
     this.shadeService.getCollectionLookUp(this.selectedCategory).subscribe(
       results => {
         this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: '0' });
+        this.collectionList.unshift({ label: '--Select--', value: null });
          this.selectedCollection = this.shadeObj.collectionId;
           if(this.selectedCollection > 0){
             this.onCollectionClick();
@@ -121,7 +137,7 @@ export class ShadeListComponent implements OnInit {
     this.shadeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
-        this.qualityList.unshift({ label: '--Select--', value: '0' });
+        this.qualityList.unshift({ label: '--Select--', value: null });
         this.selectedQuality = this.shadeObj.qualityId;
         if(this.selectedQuality > 0){
           this.onQualityClick();
@@ -137,7 +153,7 @@ export class ShadeListComponent implements OnInit {
     this.shadeService.getDesignLookupByQuality(this.selectedQuality).subscribe(
       results => {
         this.designList = results;
-        this.designList.unshift({ label: '--Select--', value: '0' });
+        this.designList.unshift({ label: '--Select--', value: null });
         this.selectedDesign = this.shadeObj.designId;
         console.log('this.designList', this.designList);
       },
@@ -180,10 +196,16 @@ export class ShadeListComponent implements OnInit {
     this.isFormSubmitted=true;
     if(!valid)
     return;
-      this.shadeObj.categoryId = value.category;
-      this.shadeObj.collectionId = value.collection;
-      this.shadeObj.qualityId = value.quality;
-      this.shadeObj.designId = value.design;
+      if(this.shadeObj.id > 0){
+
+      }
+      else{
+          this.shadeObj.categoryId = value.category;
+          this.shadeObj.collectionId = value.collection;
+          this.shadeObj.qualityId = value.quality;
+          this.shadeObj.designId = value.design;
+      }
+     
       this.saveShade(this.shadeObj);
   }
 
@@ -228,6 +250,8 @@ export class ShadeListComponent implements OnInit {
      this. getshadeById(shade.id);
      this.params=shade.id;
      this.toggleDiv=true;
+     this.disabled = true;
+     this.isFormSubmitted = false;
   }
 
   onDelete(shade: Shade) {

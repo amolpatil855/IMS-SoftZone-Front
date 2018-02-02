@@ -7,7 +7,7 @@ import { ConfirmationService, DataTableModule, LazyLoadEvent } from 'primeng/pri
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
 import { SupplierService } from '../../../../_services/supplier.service';
-import { Role } from "../../../../_models/role";
+import { Address } from "../../../../_models/address";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
 import { Supplier } from "../../../../_models/supplier";
@@ -29,7 +29,8 @@ export class SupplierListComponent implements OnInit {
   toggleDiv=false;
   isDelete=false;
   states=[];
-  isFormSubmitted:boolean;
+  isFormSubmitted:boolean = false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -72,39 +73,20 @@ newRecord(){
     dispatchPersonEmail:'',
     dispatchPersonPhone: '',
     MstSupplierAddresses:[],
-};
+  };
 
-this.supplierObj.MstSupplierAddresses.push({ // <-- the child FormGroup
-  id: 0,
-  supplierId:0,
-  addressLine1: '',
-  addressLine2: '',
-  city:'',
-  state: '',
-  country: '',
-  pin: '',
-  gstin: '',
-  isPrimary: false,
-  contRoleId: Math.floor(Math.random() * 2000),
-});
+  let address=new Address();
+  address.isPrimary=true;
+address.contRoleId= Math.floor(Math.random() * 2000);
+this.supplierObj.MstSupplierAddresses.push(address);
 }
 
   addNewAddress(supAdd){
-    
-    var newaddressObj ={ // <-- the child FormGroup
-      id: 0,
-      supplierId:0,
-      addressLine1: '',
-      addressLine2: '',
-      city:'',
-      state: '',
-      country: 'India',
-      pin: '',
-      gstin: '',
-      isPrimary: false,
-      contRoleId: Math.floor(Math.random() * 2000),
-    };
-    this.supplierObj.MstSupplierAddresses.push(newaddressObj);
+    if(this.validateAddress()){
+      let address=new Address();
+      address.contRoleId= Math.floor(Math.random() * 2000);
+      this.supplierObj.MstSupplierAddresses.push(address);
+     }
   }
   clearAddress(supAddIndex){
     if(this.supplierObj.MstSupplierAddresses[supAddIndex].isPrimary){
@@ -116,10 +98,19 @@ this.supplierObj.MstSupplierAddresses.push({ // <-- the child FormGroup
   toggleButton(){
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
+      this.isFormSubmitted = false;
       this.newRecord();
     }
-
+    this.isFormSubmitted=false;
   }
+
+ onClickPrimary(row){
+  this.supplierObj.MstSupplierAddresses.forEach(function(value){
+    value.isPrimary=false;
+  })
+  row.isPrimary=true;
+ }
+
   onCancel(){
     this.toggleDiv = false;
     this.newRecord();
@@ -128,9 +119,14 @@ this.supplierObj.MstSupplierAddresses.push({ // <-- the child FormGroup
     this.supplierService.getAllSuppliers(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.supplierList = results.data;
-        console.log('this.supplierList', this.supplierList);
+       this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -164,6 +160,122 @@ getSupplierById(id){
       this.globalErrorHandler.handleError(error);
     });
 }
+validateAddress1(addressObj){
+  if(!addressObj.addressLine1){
+        addressObj.invalidAddressLine1=true;
+      }
+      else
+      {
+        addressObj.invalidAddressLine1=false;
+      }
+}
+
+validateGSTIN(addressObj){
+  let regex =new RegExp( "^[A-Z0-9]{15}$");
+  if(!addressObj.gstin){
+        addressObj.invalidGstin=true;
+      }
+      else if(addressObj.gstin && regex.test(addressObj.gstin)==false){
+        addressObj.invalidGstin=true;
+       }
+      else
+      {
+        addressObj.invalidGstin=false;
+      }
+}
+
+validatePin(addressObj){
+  let regex =new RegExp( "^[0-9]{6}$");
+  if(!addressObj.pin){
+        addressObj.invalidPin=true;
+      }
+      else if(addressObj.pin && regex.test(addressObj.pin)==false){
+        addressObj.invalidPin=true;
+      }
+      else
+      {
+        addressObj.invalidPin=false;
+      }
+}
+
+validateCity(addressObj){
+  if(!addressObj.city  ){
+        addressObj.invalidCity=true;
+      }else
+      {
+        addressObj.invalidCity=false;
+      }
+}
+
+validateState(addressObj){
+  if(!addressObj.state || addressObj.state=='0' || addressObj.state==0){
+        addressObj.invalidState=true;
+      }
+      else
+      {
+        addressObj.invalidState=false;
+      }
+}
+
+  validateAddress(){
+    let regex =new RegExp( "^[A-Z0-9]{15}$");
+    let isvalidAddress=true;
+    _.forEach(this.supplierObj.MstSupplierAddresses, function(addressObj) {
+      if(!addressObj.addressLine1){
+        addressObj.invalidAddressLine1=true;
+        isvalidAddress=false;
+      }
+      else
+      {
+        addressObj.invalidAddressLine1=false;
+      }
+      // if(!addressObj.addressLine2){
+      //   addressObj.invalidAddressLine2=true;
+      //   valid=false;
+      // }
+      // else
+      // {
+      //   addressObj.invalidAdd=false;
+      // }
+      if(!addressObj.gstin){
+
+        addressObj.invalidGstin=true;
+        isvalidAddress=false;
+      }
+      else if(addressObj.gstin && regex.test(addressObj.gstin)==false){
+        addressObj.invalidGstin=true;
+        isvalidAddress=false;
+      }
+      else
+      {
+        addressObj.invalidGstin=false;
+      }
+
+      if(!addressObj.state || addressObj.state=='0' || addressObj.state==0){
+        addressObj.invalidState=true;
+        isvalidAddress=false;
+      }
+      else
+      {
+        addressObj.invalidState=false;
+      }
+      if(!addressObj.city  ){
+        addressObj.invalidCity=true;
+        isvalidAddress=false;
+      }else
+      {
+        addressObj.invalidCity=false;
+      }
+      if(!addressObj.pin){
+        addressObj.invalidPin=true;
+        isvalidAddress=false;
+      }else
+      {
+        addressObj.invalidPin=false;
+      }
+    });
+     return isvalidAddress;
+  }
 
   
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
@@ -175,16 +287,16 @@ getSupplierById(id){
       }
       else
       {
-        addressObj.invalidAdd=false;
+        addressObj.invalidAddressLine1=false;
       }
-      if(!addressObj.addressLine2){
-        addressObj.invalidAddressLine2=true;
-        valid=false;
-      }
-      else
-      {
-        addressObj.invalidAdd=false;
-      }
+      // if(!addressObj.addressLine2){
+      //   addressObj.invalidAddressLine2=true;
+      //   valid=false;
+      // }
+      // else
+      // {
+      //   addressObj.invalidAdd=false;
+      // }
       if(!addressObj.gstin){
         addressObj.invalidGstin=true;
         valid=false;
@@ -193,7 +305,7 @@ getSupplierById(id){
       {
         addressObj.invalidGstin=false;
       }
-      if(!addressObj.state){
+      if(!addressObj.state || addressObj.state=='0' || addressObj.state==0){
         addressObj.invalidState=true;
         valid=false;
       }
@@ -264,6 +376,7 @@ getSupplierById(id){
     // this.roleService.currentPageNumber = this.currentPageNumber;
    // this.router.navigate(['/features/master/supplier/edit', supplier.id]);
    this.toggleDiv=true;
+   this.isFormSubmitted = false;
   }
 
   onDelete(supplier: Supplier) {

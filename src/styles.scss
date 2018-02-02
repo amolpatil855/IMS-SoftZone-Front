@@ -1485,7 +1485,7 @@ tr:nth-child(odd) td{
   background-color: #fff!important;
 }
 .red-border-class {
-    border: 1px solid red;
+    border: 1px solid red !important;
   }
 select.form-control:not([size]):not([multiple]) {
     height: auto!important;
@@ -1692,4 +1692,24 @@ tbody .ui-widget-content{
 }
 .formAddressTable tr:nth-child(odd) td {
     background-color: #fff !important;
+}
+
+/**** D. 31 Jan 2018 ****/
+.ui-chkbox .ui-chkbox-icon {    
+    font-size: 12px!important;
+    margin-top: 1px!important;
+    margin-left: 1px!important;
+}
+body .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label {  
+    padding: 0 3px!important;
+    font-size: 12px;
+}
+
+/**** D. 1 Feb 2018 ****/
+.halfWidthTable tr td{
+    width: 50px!important;
+    max-width: 50px!important;
+    overflow: hidden!important;
+    text-overflow: ellipsis!important;
+    white-space: nowrap!important;
 }

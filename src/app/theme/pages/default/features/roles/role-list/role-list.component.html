@@ -58,7 +58,7 @@
             <div class="row">
 			
 				<!--Table-->
-				<div class="col-md-4"> 						
+				<div class="col-md-5"> 						
 					<div class="m-portlet__body">
 					   <!--begin::Section-->
 					   <div class="m-section">
@@ -76,11 +76,11 @@
 								</span>
 								</button>
 							 </div>
-							 <p-dataTable [value]="roleList" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
+							 <p-dataTable [value]="roleList"  [emptyMessage]="tableEmptyMesssage" class="table listingTable halfWidthTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
 							 [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-							 <p-column field="roleName" header="Role Name"></p-column>
-							 <p-column field="roleDescription" header="Description"></p-column>
-							 <p-column styleClass="col-button">
+							 <p-column field="roleName" header="Role Name" [style]="{'text-align':'left'}"></p-column>
+							 <p-column field="roleDescription" header="Description" [style]="{'text-align':'left'}"></p-column>
+							 <p-column styleClass="col-button" [style]="{'text-align':'center'}">
 								<ng-template pTemplate="header">
 								   Action
 								</ng-template>
@@ -100,12 +100,12 @@
 				</div>
 			
 				
-               <div class="col-md-8" *ngIf="toggleDiv" style="padding: 0;">
+               <div class="col-md-7" *ngIf="toggleDiv" style="padding: 0;">
                   <div class="">
                      <div class="col-md-12">
                         <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate (ngSubmit)="onSubmit(roleForm)"  [formGroup]="roleForm"  #roleFormVal="ngForm"  id="roleForm">
                         <div class="row">
-                           <div class="col-md-5">
+                           <div class="col-md-6">
                               <div class="row">
                                  <div class="col-md-12">
                                     <!-- Role Details -->
@@ -115,13 +115,13 @@
                                           <div class="form-group">
                                              <label class="col-md-3 col-sm-3 fieldLabel">Name<span class="requiredField">*</span></label>
                                              <div class="col-md-9 col-sm-9">
-                                                <input type="text" formControlName="roleName" [ngClass]="{'red-border-class': roleForm.get('roleName').hasError('required') && isFormSubmitted}"   name="roleName" class="form-control m-input" required>
+                                                <input type="text" formControlName="roleName" [ngClass]="{'red-border-class': roleForm.get('roleName').hasError('required') && isFormSubmitted}"   name="roleName" class="form-control m-input" required maxlength="50">
                                              </div>
                                           </div>
                                           <div class="form-group">
                                              <label class="col-md-3 col-sm-3 fieldLabel">Description</label>
                                              <div class="col-md-9 col-sm-9">
-                                                <textarea class="form-control m-input" rows="3" formControlName="roleDescription" name="roleDescription" style="resize:none;"></textarea>						
+                                                <textarea class="form-control m-input" rows="3" formControlName="roleDescription" name="roleDescription" style="resize:none;" maxlength="100"></textarea>						
                                              </div>
                                           </div>
                                        </div>
@@ -130,13 +130,13 @@
                               </div>
                            </div>
                            <!--- Address Details -->									
-                           <div class="col-md-7">
+                           <div class="col-md-6">
                               <div class="row">
                                  <div class="col-md-12">
                                     <!-- Role Details -->
                                     <div class="panel panel-default">
                                        <div class="panel-heading">Role Details</div>
-                                       <div class="panel-body">	
+                                       <div class="panel-body roleTreeListBox">	
                                           <p-tree [value]="featureList" selectionMode="checkbox" [(selection)]="SelectedFeatureList"></p-tree>		
                                        </div>
                                     </div>

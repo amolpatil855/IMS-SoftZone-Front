@@ -29,6 +29,7 @@ export class UsersListComponent implements OnInit {
   selectedInstitute: any;
   roleList: any;
   userTypeList: any;
+  userTypeId=0;
   selectedSchoolsValidationError: boolean = false;
   hideInstituteAndSchool: boolean = false;
   relatedSchoolList: any;
@@ -39,6 +40,8 @@ export class UsersListComponent implements OnInit {
   search='';
   toggleDiv=false;
   isFormSubmitted=false;
+  butDisabled: boolean = false;
+  tableEmptyMesssage='Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private globalErrorHandler: GlobalErrorHandler,
@@ -51,17 +54,39 @@ export class UsersListComponent implements OnInit {
   }
   ngOnInit() {
     this.roleList = [];
-    this.roleService.getRoleLookup().subscribe(res => { 
-      if(res.length > 0){
-       this.roleList = res.map(item => item );
-      }
-    });
-    this.userService.getAllUserType().subscribe(res => { 
-      if(res.length > 0){
-       this.userTypeList = res.map(item => item );
-      }
-    });
-    this.getAllUserList();
+    this.userTypeList = [];
+    this.roleService.getRoleLookup().subscribe(
+      results => {
+        this.roleList = results;
+        console.log('this.roleList', this.roleList);
+        this.roleList.unshift({ value: null , label: '--Select--'  });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+      
+     this.userService.getAllUserType().subscribe(
+      results => {
+        this.userTypeList = results;
+        console.log('this.userTypeList', this.userTypeList);
+        this.userTypeList.unshift({ id: null , userTypeName: '--Select--'});
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  onRoleChange(role){
+    if(this.roleList[role].label ==="Administrator"){
+      this.userForm.patchValue({
+        userType: role
+      });
+      this.userForm.get('userType').disable(); 
+      this.butDisabled = true;
+    }else{
+      this.butDisabled = false;
+        this.userForm.get('userType').enable(); 
+    }
   }
 
   loadLazy(event: LazyLoadEvent) {
@@ -82,8 +107,15 @@ export class UsersListComponent implements OnInit {
     this.userService.getAllUsers(this.pageSize,this.page,this.search).subscribe(
       results => {
         this.userList = results.data;
+        console.log('this.userList', this.userList);
+      this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -91,16 +123,15 @@ export class UsersListComponent implements OnInit {
   getUserById(id){
     this.userService.getUserById(id).subscribe(
       results => {
-        console.log('results.mstSupplierAddressDetails', results);
-        
-    this.userForm = this.formBuilder.group({
+      this.userForm = this.formBuilder.group({
       id: results.id,
       username: results.userName,
       email: results.email,
       phone: results.phone,
       role: results.roleId,
-      userType:results.userTypeId,
+      userType: results.userTypeId,
   });
+    this.userTypeId = results.userTypeId;
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -116,6 +147,7 @@ export class UsersListComponent implements OnInit {
    // this.router.navigate(['/features/master/supplier/edit', supplier.id]);
    this.isFormSubmitted=false;
    this.toggleDiv=true;
+   this.butDisabled = false;
   }
   
   newRecord(){
@@ -124,10 +156,11 @@ export class UsersListComponent implements OnInit {
       id: 0,
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
+      phone: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
       role: ['', [Validators.required]],
-      userType: ['', [Validators.required]],
+      userType: [{value: '', disabled: this.butDisabled}, [Validators.required]],
   });
+    this.butDisabled = false;
   }
 
   toggleButton(){
@@ -161,15 +194,19 @@ export class UsersListComponent implements OnInit {
 }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.isFormSubmitted=true;  
-    let params = {
+    this.isFormSubmitted=true; 
+   
+      let params ={
         id: value.id,
         username: value.username,
         email: value.email,
         phone: value.phone,
         roleId: value.role,
-        userTypeId: value.userType,
-      }
+        userTypeId: this.userTypeId,
+    }
+   
+        
+      
       if(valid)
       this.saveUser(params);
   }

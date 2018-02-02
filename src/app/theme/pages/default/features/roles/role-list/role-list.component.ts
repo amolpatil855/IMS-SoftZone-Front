@@ -38,6 +38,7 @@ export class RoleListComponent implements OnInit {
   selectedFeature: any;
   isMenuSelected: boolean = false;
   isFormSubmitted=false;
+  tableEmptyMesssage='Loading...';
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private roleService: RoleService,
@@ -235,8 +236,13 @@ export class RoleListComponent implements OnInit {
       results => {
         this.roleList = results.data;
         this.totalCount=results.totalCount;
+        if(this.totalCount==0)
+        {
+          this.tableEmptyMesssage="No Records Found";
+        }
       },
       error => {
+        this.tableEmptyMesssage="No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
