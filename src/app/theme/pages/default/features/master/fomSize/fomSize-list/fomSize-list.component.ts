@@ -23,10 +23,10 @@ export class FomSizeListComponent implements OnInit {
   params: number;
   fomSizeList=[];
   categoryList: SelectItem[];
-  selectedCollection = 0 ;
-  selectedQuality = 0;
-  selectedDensity = 0;
-  selectedSize = 0;
+  selectedCollection = null ;
+  selectedQuality = null;
+  selectedDensity = null;
+  selectedSize = null;
   collectionList=[];
   qualityList=[];
   fomDensityList=[];
@@ -63,20 +63,20 @@ export class FomSizeListComponent implements OnInit {
     this.params=null;
     this.fomSizeObj ={
     id: 0,
-    categoryId: 0,
-    collectionId: 0,
-    qualityId: 0,
-    fomDensityId: 0,
-    fomSuggestedMMId: 0,
+    categoryId: null,
+    collectionId: null,
+    qualityId: null,
+    fomDensityId: null,
+    fomSuggestedMMId: null,
     width: '',
     length: '',
     sizeCode: '',
     stockReorderLevel: null,
     };
-    this.selectedCollection = 0 ;
-    this.selectedQuality = 0;
-    this.selectedDensity = 0;
-    this.selectedSize = 0;
+    this.selectedCollection = null ;
+    this.selectedQuality = null;
+    this.selectedDensity = null;
+    this.selectedSize = null;
   }
   onInputChange(){
     this.fomSizeObj.sizeCode=this.fomSizeObj.width+'x'+this.fomSizeObj.length;
@@ -85,6 +85,7 @@ export class FomSizeListComponent implements OnInit {
     this.toggleDiv = !this.toggleDiv;
     if(this.toggleDiv && !this.params){
       this.disabled = false;
+      this.isFormSubmitted = false;
       this.newRecord();
     }
 
@@ -115,7 +116,7 @@ export class FomSizeListComponent implements OnInit {
     this.fomSizeService.getFomCollectionLookUp().subscribe(
       results => {
         this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: '0' });
+        this.collectionList.unshift({ label: '--Select--', value: null });
         console.log('this.collectionList', this.collectionList);
       },
       error => {
@@ -127,7 +128,7 @@ export class FomSizeListComponent implements OnInit {
     this.fomSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
-        this.qualityList.unshift({ label: '--Select--', value: '0' });
+        this.qualityList.unshift({ label: '--Select--', value: null });
         this.selectedQuality = this.fomSizeObj.qualityId;
         if(this.selectedQuality > 0){
           this.onQualityClick();
@@ -143,7 +144,7 @@ export class FomSizeListComponent implements OnInit {
     this.fomSizeService.getFomDensityLookUpByQuality(this.selectedQuality).subscribe(
       results => {
         this.fomDensityList = results;
-        this.fomDensityList.unshift({ label: '--Select--', value: '0' });
+        this.fomDensityList.unshift({ label: '--Select--', value: null });
         this.selectedDensity = this.fomSizeObj.fomDensityId;
         if(this.selectedDensity > 0){
           this.onDensityClick();
@@ -159,7 +160,7 @@ export class FomSizeListComponent implements OnInit {
     this.fomSizeService.getFomSuggestedMMLookUpByFomDensity(this.selectedDensity).subscribe(
       results => {
         this.fomSuggestedMMList = results;
-        this.fomSuggestedMMList.unshift({ label: '--Select--', value: '0' });
+        this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
         this.selectedSize = this.fomSizeObj.fomSuggestedMMId;
         console.log('this.fomSuggestedMMList', this.fomSuggestedMMList);
       },
@@ -260,6 +261,7 @@ export class FomSizeListComponent implements OnInit {
      this.params=fomSize.id;
      this.toggleDiv=true;
      this.disabled = true;
+     this.isFormSubmitted = false;
   }
 
   onDelete(fomSize: FomSize) {

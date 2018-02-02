@@ -25,10 +25,10 @@ export class ShadeListComponent implements OnInit {
   params: number;
   shadeList=[];
   categoryList: SelectItem[];
-  selectedCategory: any;
-  selectedCollection: any;
-  selectedDesign: any;
-  selectedQuality: any;
+  selectedCategory = null;
+  selectedCollection = null;
+  selectedDesign = null;
+  selectedQuality = null;
   collectionList=[];
   qualityList=[];
   designList=[];
@@ -59,19 +59,19 @@ export class ShadeListComponent implements OnInit {
   newRecord(){
     this.params=null;
     this.shadeObj ={
-    categoryId: 0,
-    collectionId: 0,
-    qualityId: 0,
-    designId: 0,
+    categoryId: null,
+    collectionId: null,
+    qualityId: null,
+    designId: null,
     shadeCode: '',
     shadeName: '',
     description: '',
     stockReorderLevel: null,
     };
-    this.selectedCategory = 0;
-    this.selectedCollection = 0;
-    this.selectedDesign = 0;
-    this.selectedQuality = 0;
+    this.selectedCategory = null;
+    this.selectedCollection = null;
+    this.selectedDesign = null;
+    this.selectedQuality = null;
   }
 
   toggleButton(){
@@ -108,7 +108,7 @@ export class ShadeListComponent implements OnInit {
     this.shadeService.getCategoryLookup().subscribe(
       results => {
         this.categoryList = results;
-        this.categoryList.unshift({ label: '--Select--', value: '0' });
+        this.categoryList.unshift({ label: '--Select--', value: null });
         console.log('this.categoryList', this.categoryList);
       },
       error => {
@@ -121,7 +121,7 @@ export class ShadeListComponent implements OnInit {
     this.shadeService.getCollectionLookUp(this.selectedCategory).subscribe(
       results => {
         this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: '0' });
+        this.collectionList.unshift({ label: '--Select--', value: null });
          this.selectedCollection = this.shadeObj.collectionId;
           if(this.selectedCollection > 0){
             this.onCollectionClick();
@@ -137,7 +137,7 @@ export class ShadeListComponent implements OnInit {
     this.shadeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
-        this.qualityList.unshift({ label: '--Select--', value: '0' });
+        this.qualityList.unshift({ label: '--Select--', value: null });
         this.selectedQuality = this.shadeObj.qualityId;
         if(this.selectedQuality > 0){
           this.onQualityClick();
@@ -153,7 +153,7 @@ export class ShadeListComponent implements OnInit {
     this.shadeService.getDesignLookupByQuality(this.selectedQuality).subscribe(
       results => {
         this.designList = results;
-        this.designList.unshift({ label: '--Select--', value: '0' });
+        this.designList.unshift({ label: '--Select--', value: null });
         this.selectedDesign = this.shadeObj.designId;
         console.log('this.designList', this.designList);
       },
