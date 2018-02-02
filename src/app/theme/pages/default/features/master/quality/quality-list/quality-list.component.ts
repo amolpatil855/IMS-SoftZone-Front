@@ -205,6 +205,7 @@ getQualityById(id){
       this.qualityForm.patchValue({
          size: 0,
          custRatePerSqFeet:0,
+         collectionId:null,
          maxDiscout:0,
          width: '',
          roleRate: '',
@@ -220,6 +221,7 @@ getQualityById(id){
       this.qualityForm.patchValue({
         width: 0,
         custRatePerSqFeet:0,
+        collectionId:null,
         maxDiscout:0,
         size: '',
         roleRate: '',
@@ -236,6 +238,7 @@ getQualityById(id){
       this.qualityForm.patchValue({
         width: 0,
         size: 0,
+        collectionId:null,
         roleRate: 0,
         cutRate:0,
         rrp: 0,
@@ -253,6 +256,7 @@ getQualityById(id){
         width: 0,
         size: 0,
         roleRate: 0,
+        collectionId:null,
         rrp: 0,
         cutRate:0,
         maxCutRateDisc: 0,
