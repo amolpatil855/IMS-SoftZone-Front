@@ -112,8 +112,20 @@ export class UsersListComponent implements OnInit {
   }
 
   toggleActiveButton(user: User){
-    user.isActive = false;
-   console.log('row', user);
+    user.isActive = !user.isActive;
+   this.userService.updateUser(user)
+        .subscribe(
+        results => {
+           this.getAllUserList();
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+          this.toggleDiv=false;
+          this.newRecord();
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
   }
 
   getAllUserList() {
