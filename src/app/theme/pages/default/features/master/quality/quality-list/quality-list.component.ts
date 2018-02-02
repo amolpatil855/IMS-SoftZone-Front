@@ -205,14 +205,30 @@ getQualityById(id){
       this.qualityForm.patchValue({
          size: 0,
          custRatePerSqFeet:0,
-         maxDiscout:0
+         maxDiscout:0,
+         width: '',
+         roleRate: '',
+         cutRate:'',
+         rrp: '',
+         maxCutRateDisc: '',
+         maxRoleRateDisc:'',
+         maxFlatRateDisc:'',
+         flatRate:'',
       }); 
     }
     else if(this.slectedCategory==5 || this.slectedCategory==6){
       this.qualityForm.patchValue({
         width: 0,
         custRatePerSqFeet:0,
-        maxDiscout:0
+        maxDiscout:0,
+        size: '',
+        roleRate: '',
+        cutRate:'',
+        rrp: '',
+        maxCutRateDisc: '',
+        maxRoleRateDisc:'',
+        maxFlatRateDisc:'',
+        flatRate:'',
       });
 
     }
@@ -221,6 +237,7 @@ getQualityById(id){
         width: 0,
         size: 0,
         roleRate: 0,
+        cutRate:0,
         rrp: 0,
         maxCutRateDisc: 0,
         maxRoleRateDisc: 0,
@@ -237,6 +254,7 @@ getQualityById(id){
         size: 0,
         roleRate: 0,
         rrp: 0,
+        cutRate:0,
         maxCutRateDisc: 0,
         maxRoleRateDisc: 0,
         maxFlatRateDisc:0,
@@ -244,8 +262,8 @@ getQualityById(id){
         custRatePerSqFeet:0,
         maxDiscout:''
       });
-
     }
+    
   }
 
   saveQuality(value) {
