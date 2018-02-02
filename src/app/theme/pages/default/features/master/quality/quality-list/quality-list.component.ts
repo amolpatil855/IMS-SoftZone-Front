@@ -206,14 +206,7 @@ getQualityById(id){
          size: 0,
          custRatePerSqFeet:0,
          maxDiscout:0,
-         width: '',
-         roleRate: '',
-         cutRate:'',
-         rrp: '',
-         maxCutRateDisc: '',
-         maxRoleRateDisc:'',
-         maxFlatRateDisc:'',
-         flatRate:'',
+         collectionId:null
       }); 
     }
     else if(this.slectedCategory==5 || this.slectedCategory==6){
@@ -221,14 +214,7 @@ getQualityById(id){
         width: 0,
         custRatePerSqFeet:0,
         maxDiscout:0,
-        size: '',
-        roleRate: '',
-        cutRate:'',
-        rrp: '',
-        maxCutRateDisc: '',
-        maxRoleRateDisc:'',
-        maxFlatRateDisc:'',
-        flatRate:'',
+        collectionId:null
       });
 
     }
@@ -237,14 +223,14 @@ getQualityById(id){
         width: 0,
         size: 0,
         roleRate: 0,
-        cutRate:0,
         rrp: 0,
         maxCutRateDisc: 0,
         maxRoleRateDisc: 0,
         maxFlatRateDisc:0,
         flatRate:0,
         custRatePerSqFeet:'',
-        maxDiscout:''
+        maxDiscout:'',
+        collectionId:null
       });
 
     }
@@ -254,17 +240,18 @@ getQualityById(id){
         size: 0,
         roleRate: 0,
         rrp: 0,
-        cutRate:0,
         maxCutRateDisc: 0,
         maxRoleRateDisc: 0,
         maxFlatRateDisc:0,
         flatRate:0,
         custRatePerSqFeet:0,
-        maxDiscout:''
+        maxDiscout:'',
+        collectionId:null
       });
+
     }
-    
   }
+
 
   saveQuality(value) {
     Helpers.setLoading(true);
