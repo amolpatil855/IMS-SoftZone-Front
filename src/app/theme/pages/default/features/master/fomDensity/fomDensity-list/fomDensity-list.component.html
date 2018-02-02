@@ -72,10 +72,10 @@
 											<div class="panel-body">
 												<div class="form-group">
 													<div class="col-md-4">
-														<label class="fieldLabel col-md-4 col-sm-4">Collection
+														<label class="fieldLabel col-md-6 col-sm-6">Collection
 															<span class="requiredField">*</span>
 														</label>
-														<div class="col-md-8 col-sm-8">
+														<div class="col-md-6 col-sm-6">
 															<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel" required
 															 styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" 
 															 [(ngModel)]="selectedCollection"
@@ -83,10 +83,10 @@
 														</div>
 													</div>
 													<div class="col-md-4">
-														<label class="fieldLabel  col-md-4 col-sm-4">Quality
+														<label class="fieldLabel  col-md-6 col-sm-6">Quality
 															<span class="requiredField">*</span>
 														</label>
-														<div class="col-md-8 col-sm-8">
+														<div class="col-md-6 col-sm-6">
 															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel" required
 															 styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedQuality"
 															 [disabled]="disabled" name="quality"></p-dropdown>
@@ -94,10 +94,10 @@
 													</div>
 													<div class="col-md-4">
 															<div class="form-group">
-																<label class="fieldLabel col-md-4 col-sm-4">Density
+																<label class="fieldLabel col-md-6 col-sm-6">Density
 																	<span class="requiredField">*</span>
 																</label>
-																<div class="col-md-8 col-sm-8">
+																<div class="col-md-6 col-sm-6">
 																	<input class="form-control m-input" type="text" value="" maxlength="10" #densityVal="ngModel" required [ngClass]="{'red-border-class': densityVal.errors && isFormSubmitted}"
 																	 [(ngModel)]="fomDensityObj.density" name="density" id="density" placeholder="Enter Density">
 																</div>
@@ -107,8 +107,8 @@
 												<div class="form-group">
 														<div class="col-md-4">
 																<div class="form-group">
-																	<label class="fieldLabel col-md-4 col-sm-4">Description </label>
-																	<div class="col-md-8 col-sm-8">
+																	<label class="fieldLabel col-md-6 col-sm-6">Description </label>
+																	<div class="col-md-6 col-sm-6">
 																		<input class="form-control m-input" type="text" value="" #descriptionVal="ngModel" [(ngModel)]="fomDensityObj.description"
 																		 name="description" id="description" placeholder="Enter Description">
 																		<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
@@ -119,10 +119,10 @@
 															</div>
 													<div class="col-md-4">
 														<div class="form-group">
-															<label class="fieldLabel col-md-4 col-sm-4">Purchase Rate/MM
+															<label class="fieldLabel col-md-6 col-sm-6">Purchase Rate/MM
 																<span class="requiredField">*</span>
 															</label>
-															<div class="col-md-8 col-sm-8">
+															<div class="col-md-6 col-sm-6">
 																<input class="form-control m-input" type="number" value="" maxlength="10" #purchaseRatePerMMVal="ngModel"  (blur)="calculateSellingRate()"  required [ngClass]="{'red-border-class': purchaseRatePerMMVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomDensityObj.purchaseRatePerMM" name="purchaseRatePerMM" id="purchaseRatePerMM">
 															</div>
@@ -130,8 +130,8 @@
 													</div>
 													<div class="col-md-4">
 														<div class="form-group">
-															<label class="fieldLabel col-md-4 col-sm-4">Purchase Rate/KG <span class="requiredField">*</span></label>
-															<div class="col-md-8 col-sm-8">
+															<label class="fieldLabel col-md-6 col-sm-6">Purchase Rate/KG <span class="requiredField">*</span></label>
+															<div class="col-md-6 col-sm-6">
 																<input class="form-control m-input" type="number" value="" #purchaseRatePerKGVal="ngModel" required  (blur)="calculateSellingRate()"  [ngClass]="{'red-border-class': purchaseRatePerKGVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomDensityObj.purchaseRatePerKG" name="purchaseRatePerKG" id="purchaseRatePerKG">
 																<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
@@ -146,8 +146,8 @@
 												<div class="form-group">
 														<div class="col-md-4">
 																<div class="form-group">
-																	<label class="fieldLabel col-md-4 col-sm-4">Selling Rate % </label>
-																	<div class="col-md-8 col-sm-8">
+																	<label class="fieldLabel col-md-6 col-sm-6">Selling Rate %<span class="requiredField">*</span></label>
+																	<div class="col-md-6 col-sm-6">
 																		<input class="form-control m-input" type="number" value="" #sellingRatePercentageVal="ngModel" (blur)="calculateSellingRate()" required [ngClass]="{'red-border-class':sellingRatePercentageVal.errors && isFormSubmitted}"
 																		 [(ngModel)]="fomDensityObj.sellingRatePercentage" name="sellingRatePercentage" id="sellingRatePercentage">
 																		<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
@@ -158,9 +158,9 @@
 															</div>
 													<div class="col-md-4">
 														<div class="form-group">
-															<label class="fieldLabel col-md-4 col-sm-4">Selling Rate/MM
+															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/MM
 															</label>
-															<div class="col-md-8 col-sm-8">
+															<div class="col-md-6 col-sm-6">
 																<input class="form-control m-input" type="number" value="" maxlength="10" #sellingRatePerMMVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerMMVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomDensityObj.sellingRatePerMM" disabled name="sellingRatePerMM" id="sellingRatePerMM">
 															</div>
@@ -168,8 +168,8 @@
 													</div>
 													<div class="col-md-4">
 														<div class="form-group">
-															<label class="fieldLabel col-md-4 col-sm-4">Selling Rate/KG</label>
-															<div class="col-md-8 col-sm-8">
+															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/KG</label>
+															<div class="col-md-6 col-sm-6">
 																<input class="form-control m-input" type="number" value="" #sellingRatePerKGVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerKGVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomDensityObj.sellingRatePerKG" disabled name="sellingRatePerKG" id="sellingRatePerKG">
 																<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">

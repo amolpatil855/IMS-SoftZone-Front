@@ -48,6 +48,8 @@ export class HsnListComponent implements OnInit {
   }
 
   newRecord(){
+    this.isFormSubmitted=false;
+    this.params=null;
     this.hsnObj ={
       id: 0,
       hsnCode:'',
@@ -64,6 +66,7 @@ export class HsnListComponent implements OnInit {
   }
   onCancel(){
     this.toggleDiv = false;
+    this.newRecord();
   }
   getHsnsList() {
     this.hsnService.getAllHsns(this.pageSize,this.page,this.search).subscribe(
