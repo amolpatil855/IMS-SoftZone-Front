@@ -22,22 +22,22 @@ import { HsnService } from '../../../../_services/hsn.service';
 })
 export class QualityListComponent implements OnInit {
   qualityForm: any;
-  qualityObj:any;
+  qualityObj: any;
   params: number;
-  collectionList=[];
-  categoriesCodeList=[];
-  hsnCodeList=[];
-  recordList=[];
-  pageSize=50;
-  page=1;
-  totalCount=0;
-  search='';
-  toggleDiv=false;
+  collectionList = [];
+  categoriesCodeList = [];
+  hsnCodeList = [];
+  recordList = [];
+  pageSize = 50;
+  page = 1;
+  totalCount = 0;
+  search = '';
+  toggleDiv = false;
   disabled: boolean = false;
-  states=[];
-  isFormSubmitted:boolean = false;
-  slectedCategory=null;
-  tableEmptyMesssage='Loading...';
+  states = [];
+  isFormSubmitted: boolean = false;
+  slectedCategory = null;
+  tableEmptyMesssage = 'Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -47,55 +47,55 @@ export class QualityListComponent implements OnInit {
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private commonService: CommonService,
-    private hsnService:HsnService,
-    private collectionService:CollectionService,
+    private hsnService: HsnService,
+    private collectionService: CollectionService,
     private messageService: MessageService) {
   }
 
   ngOnInit() {
-    this.params=null;
-   this.getQualityList();
-   this.newRecord();
-   this.getHsnCodeList();
-   this. getCategoryCodeList(); 
+    this.params = null;
+    this.getQualityList();
+    this.newRecord();
+    this.getHsnCodeList();
+    this.getCategoryCodeList();
   }
 
-newRecord(){
-  this.params=null;
-  this.qualityForm = this.formBuilder.group({
-    id: 0,
-    qualityCode: ['', [Validators.required]],
-    qualityName: ['', [Validators.required]],
-    categoryId: ['', [Validators.required]],
-    collectionId: ['', [Validators.required]],
-    description: [''],
-    hsnId: ['', [Validators.required]],
-    width: ['', [Validators.required]],
-    size: ['', [Validators.required]],
-    cutRate: ['', [Validators.required]],
-    roleRate: ['', [Validators.required]],
-    rrp: ['', [Validators.required]],
-    maxCutRateDisc: ['', [Validators.required]],
-    maxRoleRateDisc: ['', [Validators.required]],
-    flatRate:['', [Validators.required]],
-    maxFlatRateDisc:['', [Validators.required]],
-    custRatePerSqFeet:['', [Validators.required]],
-    maxDiscout:['', [Validators.required]],
-  });
-  this.slectedCategory = null;
-}
+  newRecord() {
+    this.params = null;
+    this.qualityForm = this.formBuilder.group({
+      id: 0,
+      qualityCode: ['', [Validators.required]],
+      qualityName: ['', [Validators.required]],
+      categoryId: ['', [Validators.required]],
+      collectionId: ['', [Validators.required]],
+      description: [''],
+      hsnId: ['', [Validators.required]],
+      width: ['', [Validators.required]],
+      size: ['', [Validators.required]],
+      cutRate: ['', [Validators.required]],
+      roleRate: ['', [Validators.required]],
+      rrp: ['', [Validators.required]],
+      maxCutRateDisc: ['', [Validators.required]],
+      maxRoleRateDisc: ['', [Validators.required]],
+      flatRate: ['', [Validators.required]],
+      maxFlatRateDisc: ['', [Validators.required]],
+      custRatePerSqFeet: ['', [Validators.required]],
+      maxDiscout: ['', [Validators.required]],
+    });
+    this.slectedCategory = null;
+  }
 
 
-  toggleButton(){
+  toggleButton() {
     this.toggleDiv = !this.toggleDiv;
-    if(this.toggleDiv && !this.params){
+    if (this.toggleDiv && !this.params) {
       this.disabled = false;
       this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
-  onCancel(){
+  onCancel() {
     this.toggleDiv = false;
     this.disabled = false;
     this.newRecord();
@@ -127,14 +127,13 @@ newRecord(){
     this.qualityService.getAllQualitys().subscribe(
       results => {
         this.recordList = results.data;
-      this.totalCount=results.totalCount;
-        if(this.totalCount==0)
-        {
-          this.tableEmptyMesssage="No Records Found";
+        this.totalCount = results.totalCount;
+        if (this.totalCount == 0) {
+          this.tableEmptyMesssage = "No Records Found";
         }
       },
       error => {
-        this.tableEmptyMesssage="No Records Found";
+        this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -151,127 +150,127 @@ newRecord(){
       });
   }
   loadLazy(event: LazyLoadEvent) {
-    this.pageSize=event.rows;
-    this.page=event.first;
-    this.search=  event.globalFilter;
+    this.pageSize = event.rows;
+    this.page = event.first;
+    this.search = event.globalFilter;
     this.getQualityList();
   }
 
 
-getQualityById(id){
-  this.qualityService.getQualityById(id).subscribe(
-    results => {
-      this.qualityObj = results; 
-      this.qualityForm.setValue({
-        id: results.id,
-        qualityCode:  results.qualityCode,
-        qualityName:  results.qualityName,
-        categoryId: results.categoryId,
-        collectionId: results.collectionId,
-        description:results.description,
-        hsnId: results.hsnId,
-        width: results.width,
-        size: results.size,
-        cutRate: results.cutRate,
-        roleRate: results.roleRate,
-        rrp: results.rrp,
-        maxCutRateDisc: results.maxCutRateDisc,
-        maxRoleRateDisc: results.maxRoleRateDisc,
-        maxFlatRateDisc:results.maxFlatRateDisc,
-        flatRate:results.flatRate,
-        custRatePerSqFeet:results.custRatePerSqFeet,
-        maxDiscout:results.maxDiscout,
+  getQualityById(id) {
+    this.qualityService.getQualityById(id).subscribe(
+      results => {
+        this.qualityObj = results;
+        this.qualityForm.setValue({
+          id: results.id,
+          qualityCode: results.qualityCode,
+          qualityName: results.qualityName,
+          categoryId: results.categoryId,
+          collectionId: results.collectionId,
+          description: results.description,
+          hsnId: results.hsnId,
+          width: results.width,
+          size: results.size,
+          cutRate: results.cutRate,
+          roleRate: results.roleRate,
+          rrp: results.rrp,
+          maxCutRateDisc: results.maxCutRateDisc,
+          maxRoleRateDisc: results.maxRoleRateDisc,
+          maxFlatRateDisc: results.maxFlatRateDisc,
+          flatRate: results.flatRate,
+          custRatePerSqFeet: results.custRatePerSqFeet,
+          maxDiscout: results.maxDiscout,
+        });
+        this.slectedCategory = results.categoryId;
+        console.log('this.collectionList', this.qualityObj);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
       });
-      this.slectedCategory=results.categoryId;
-      console.log('this.collectionList', this.qualityObj);
-    },
-    error => {
-      this.globalErrorHandler.handleError(error);
-    });
-}
+  }
 
-  
+
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.isFormSubmitted=true;
-    if(valid)
+    this.isFormSubmitted = true;
+    if (valid)
       this.saveQuality(value);
   }
 
-  onChangeCategory(event){
-    if(this.slectedCategory){
+  onChangeCategory(event) {
+    if (this.slectedCategory) {
       this.getCollectionList(this.slectedCategory);
     }
-    else{
+    else {
       this.collectionList = [];
       this.collectionList.unshift({ label: '--Select--', value: null });
     }
-    if(this.slectedCategory==1){
+    if (this.slectedCategory == 1) {
       this.qualityForm.patchValue({
-         size: 0,
-         custRatePerSqFeet:0,
-         collectionId:null,
-         maxDiscout:0,
-         width: '',
-         roleRate: '',
-         cutRate:'',
-         rrp: '',
-         maxCutRateDisc: '',
-         maxRoleRateDisc:'',
-         maxFlatRateDisc:'',
-         flatRate:'',
-      }); 
-    }
-    else if(this.slectedCategory==5 || this.slectedCategory==6){
-      this.qualityForm.patchValue({
-        width: 0,
-        custRatePerSqFeet:0,
-        collectionId:null,
-        maxDiscout:0,
-        size: '',
+        size: 0,
+        custRatePerSqFeet: 0,
+        collectionId: null,
+        maxDiscout: 0,
+        width: '',
         roleRate: '',
-        cutRate:'',
+        cutRate: '',
         rrp: '',
         maxCutRateDisc: '',
-        maxRoleRateDisc:'',
-        maxFlatRateDisc:'',
-        flatRate:'',
+        maxRoleRateDisc: '',
+        maxFlatRateDisc: '',
+        flatRate: '',
+      });
+    }
+    else if (this.slectedCategory == 5 || this.slectedCategory == 6) {
+      this.qualityForm.patchValue({
+        width: 0,
+        custRatePerSqFeet: 0,
+        collectionId: null,
+        maxDiscout: 0,
+        size: '',
+        roleRate: '',
+        cutRate: '',
+        rrp: '',
+        maxCutRateDisc: '',
+        maxRoleRateDisc: '',
+        maxFlatRateDisc: '',
+        flatRate: '',
       });
 
     }
-    else if(this.slectedCategory==4){
+    else if (this.slectedCategory == 4) {
       this.qualityForm.patchValue({
         width: 0,
         size: 0,
-        collectionId:null,
+        collectionId: null,
         roleRate: 0,
-        cutRate:0,
+        cutRate: 0,
         rrp: 0,
         maxCutRateDisc: 0,
         maxRoleRateDisc: 0,
-        maxFlatRateDisc:0,
-        flatRate:0,
-        custRatePerSqFeet:'',
-        maxDiscout:''
+        maxFlatRateDisc: 0,
+        flatRate: 0,
+        custRatePerSqFeet: '',
+        maxDiscout: ''
       });
 
     }
-    else if(this.slectedCategory==2){
+    else if (this.slectedCategory == 2) {
       this.qualityForm.patchValue({
         width: 0,
         size: 0,
         roleRate: 0,
-        collectionId:null,
+        collectionId: null,
         rrp: 0,
-        cutRate:0,
+        cutRate: 0,
         maxCutRateDisc: 0,
         maxRoleRateDisc: 0,
-        maxFlatRateDisc:0,
-        flatRate:0,
-        custRatePerSqFeet:0,
-        maxDiscout:''
+        maxFlatRateDisc: 0,
+        flatRate: 0,
+        custRatePerSqFeet: 0,
+        maxDiscout: ''
       });
     }
-    
+
   }
 
   saveQuality(value) {
@@ -280,9 +279,9 @@ getQualityById(id){
       this.qualityService.updateQuality(value)
         .subscribe(
         results => {
-         this. getQualityList(); 
-         this.toggleDiv=false;
-         this.params=null;
+          this.getQualityList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
         },
@@ -294,12 +293,12 @@ getQualityById(id){
       this.qualityService.createQuality(value)
         .subscribe(
         results => {
-         this.getQualityList();
-         this.toggleDiv=false;
-         this.params=null;
+          this.getQualityList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-       
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -309,15 +308,15 @@ getQualityById(id){
   }
 
   onEditClick(quality: Quality) {
-     this.collectionService.perPage = this.pageSize;
-     this.collectionService.currentPos = this.page;
-     this.params=quality.id;
-     this.slectedCategory=null;
-     this.toggleDiv=true;
-     this.disabled = true;
-     this.isFormSubmitted = false;
-    this. getQualityById(quality.id);
-    
+    this.collectionService.perPage = this.pageSize;
+    this.collectionService.currentPos = this.page;
+    this.params = quality.id;
+    this.slectedCategory = null;
+    this.toggleDiv = true;
+    this.disabled = true;
+    this.isFormSubmitted = false;
+    this.getQualityById(quality.id);
+
   }
 
   onDelete(quality: Quality) {
@@ -328,9 +327,9 @@ getQualityById(id){
       accept: () => {
         this.qualityService.deleteQuality(quality.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getQualityList();
-            this.toggleDiv=false;
+            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);
