@@ -18,7 +18,7 @@ export class UserService {
   }
 
   getAllUserType() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'User/GetUserType', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetUserTypeLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getLoggedInUserDetail(){

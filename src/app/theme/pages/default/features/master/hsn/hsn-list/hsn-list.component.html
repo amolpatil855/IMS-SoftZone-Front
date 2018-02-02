@@ -78,7 +78,7 @@
 														</label>
 														<div class="col-sm-7">
 															<input class="form-control m-input" type="text" value="" #hsnCodeVal="ngModel" required [ngClass]="{'red-border-class': hsnCodeVal.errors && isFormSubmitted}"
-															 [(ngModel)]="hsnObj.hsnCode" maxlength="10" name="hsnCode" id="hsnCode" placeholder="Enter HSN CODE">
+															 [(ngModel)]="hsnObj.hsnCode" maxlength="10" name="hsnCode" id="hsnCode" placeholder="">
 														</div>
 													</div>
 
@@ -89,7 +89,7 @@
 															</label>
 															<div class="col-sm-7">
 																<input class="form-control m-input" type="text" #gstVal="ngModel" required [ngClass]="{'red-border-class': gstVal.errors && isFormSubmitted}"
-																 [(ngModel)]="hsnObj.gst" name="gst" placeholder="GST" maxlength="2">
+																 [(ngModel)]="hsnObj.gst" name="gst" placeholder="" maxlength="2">
 															</div>
 														</div>
 													</div>

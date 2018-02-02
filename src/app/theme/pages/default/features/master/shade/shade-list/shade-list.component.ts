@@ -65,6 +65,7 @@ export class ShadeListComponent implements OnInit {
     designId: null,
     shadeCode: '',
     shadeName: '',
+    serialNumber: null,
     description: '',
     stockReorderLevel: null,
     };
@@ -109,6 +110,9 @@ export class ShadeListComponent implements OnInit {
       results => {
         this.categoryList = results;
         this.categoryList.unshift({ label: '--Select--', value: null });
+        // this.collectionList.unshift({ label: '--Select--', value: null });
+        // this.qualityList.unshift({ label: '--Select--', value: null });
+        // this.designList.unshift({ label: '--Select--', value: null });
         console.log('this.categoryList', this.categoryList);
       },
       error => {
@@ -118,7 +122,18 @@ export class ShadeListComponent implements OnInit {
 
   onCategoryClick(){
     console.log('selectedCategory', this.selectedCategory);
-    this.shadeService.getCollectionLookUp(this.selectedCategory).subscribe(
+    if(this.selectedCategory == null){
+      this.collectionList = [];
+      this.collectionList.unshift({ label: '--Select--', value: null });
+      this.qualityList = [];
+      this.qualityList.unshift({ label: '--Select--', value: null });
+      this.designList = [];
+      this.designList.unshift({ label: '--Select--', value: null });
+        this.selectedCollection = null;
+        this.selectedDesign = null;
+        this.selectedQuality = null;
+    }else{
+      this.shadeService.getCollectionLookUp(this.selectedCategory).subscribe(
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
@@ -131,10 +146,19 @@ export class ShadeListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
 
   onCollectionClick(){
-    this.shadeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
+     if(this.selectedCollection == null){
+      this.qualityList = [];
+      this.qualityList.unshift({ label: '--Select--', value: null });
+      this.selectedQuality = null;
+      this.designList = [];
+      this.designList.unshift({ label: '--Select--', value: null });
+      this.selectedDesign = null;
+    }else{
+      this.shadeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
         this.qualityList.unshift({ label: '--Select--', value: null });
@@ -147,9 +171,15 @@ export class ShadeListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
 
   onQualityClick(){
+    if(this.selectedQuality == null){
+      this.designList = [];
+      this.designList.unshift({ label: '--Select--', value: null });
+      this.selectedDesign = null;
+    }else{
     this.shadeService.getDesignLookupByQuality(this.selectedQuality).subscribe(
       results => {
         this.designList = results;
@@ -160,6 +190,7 @@ export class ShadeListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
 
   loadLazy(event: LazyLoadEvent) {
