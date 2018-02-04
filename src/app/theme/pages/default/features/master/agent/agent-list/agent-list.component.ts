@@ -6,23 +6,22 @@ import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@ang
 import { ConfirmationService, DataTableModule, LazyLoadEvent } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
-import { MatThicknessService } from '../../../../_services/matThickness.service';
-import { Role } from "../../../../_models/role";
+import { AgentService } from '../../../../_services/agent.service';
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
-import { MatThickness } from "../../../../_models/matThickness";
+import { Agent } from "../../../../_models/agent";
 
 @Component({
-  selector: "app-matThickness-list",
-  templateUrl: "./matThickness-list.component.html",
+  selector: "app-agent-list",
+  templateUrl: "./agent-list.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class MatThicknessListComponent implements OnInit {
+export class AgentListComponent implements OnInit {
   isFormSubmitted: boolean = false;
-  matThicknessForm: any;
-  matThicknessObj:any;
+  agentForm: any;
+  agentObj:any;
   params: number;
-  matThicknessList=[];
+  agentList=[];
   pageSize=50;
   page=1;
   totalCount=0;
@@ -34,7 +33,7 @@ export class MatThicknessListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private matThicknessService: MatThicknessService,
+    private agentService: AgentService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) {
@@ -48,10 +47,17 @@ export class MatThicknessListComponent implements OnInit {
 
   newRecord(){
     this.params = null;
-    this.matThicknessObj ={
+    this.agentObj ={
       id: 0,
-      thicknessCode:'',
-      size: ''
+      name:'',
+      phone: '',
+      email: '',
+      address1: '',
+      address2: '',
+      city: '',
+      state: '',
+      pin: '',
+      commision: null,
     };
   }
 
@@ -67,10 +73,10 @@ export class MatThicknessListComponent implements OnInit {
     this.toggleDiv = false;
     this.newRecord();
   }
-  getMatThicknesssList() {
-    this.matThicknessService.getAllMatThicknesss(this.pageSize,this.page,this.search).subscribe(
+  getAgentsList() {
+    this.agentService.getAllAgents(this.pageSize,this.page,this.search).subscribe(
       results => {
-        this.matThicknessList = results.data;
+        this.agentList = results.data;
         this.totalCount=results.totalCount;
         if(this.totalCount==0)
         {
@@ -93,14 +99,14 @@ export class MatThicknessListComponent implements OnInit {
     this.pageSize=event.rows;
     this.page=event.first;
     this.search=  event.globalFilter;
-    this.getMatThicknesssList();
+    this.getAgentsList();
   }
 
-  getMatThicknessById(id){
-  this.matThicknessService.getMatThicknessById(id).subscribe(
+  getAgentById(id){
+  this.agentService.getAgentById(id).subscribe(
     results => {
-      this.matThicknessObj = results;
-      console.log('this.matThicknessList', this.matThicknessObj);
+      this.agentObj = results;
+      console.log('this.agentList', this.agentObj);
     },
     error => {
       this.globalErrorHandler.handleError(error);
@@ -111,16 +117,16 @@ export class MatThicknessListComponent implements OnInit {
     this.isFormSubmitted=true;
     if(!valid)
     return;
-      this.saveMatThickness(this.matThicknessObj);
+      this.saveAgent(this.agentObj);
   }
 
-  saveMatThickness(value) {
+  saveAgent(value) {
     Helpers.setLoading(true);
     if (this.params) {
-      this.matThicknessService.updateMatThickness(value)
+      this.agentService.updateAgent(value)
         .subscribe(
         results => {
-         this.getMatThicknesssList(); 
+         this.getAgentsList(); 
          this.toggleDiv=false;
          this.params=null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -132,10 +138,10 @@ export class MatThicknessListComponent implements OnInit {
           Helpers.setLoading(false);
         });
     } else {
-      this.matThicknessService.createMatThickness(value)
+      this.agentService.createAgent(value)
         .subscribe(
         results => {
-         this. getMatThicknesssList();
+         this. getAgentsList();
          this.toggleDiv=false;
          this.params=null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -149,25 +155,25 @@ export class MatThicknessListComponent implements OnInit {
     }
   }
 
-  onEditClick(matThickness: MatThickness) {
-     this.matThicknessService.perPage = this.pageSize;
-     this.matThicknessService.currentPos = this.page;
-     this.getMatThicknessById(matThickness.id);
-     this.params=matThickness.id;
+  onEditClick(agent: Agent) {
+     this.agentService.perPage = this.pageSize;
+     this.agentService.currentPos = this.page;
+     this.getAgentById(agent.id);
+     this.params=agent.id;
      this.toggleDiv=true;
      this.isFormSubmitted = false;
   }
 
-  onDelete(matThickness: MatThickness) {
+  onDelete(agent: Agent) {
     this.confirmationService.confirm({
       message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
-        this.matThicknessService.deleteMatThickness(matThickness.id).subscribe(
+        this.agentService.deleteAgent(agent.id).subscribe(
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
-            this.getMatThicknesssList();
+            this.getAgentsList();
             this.toggleDiv=false;
           },
           error => {
