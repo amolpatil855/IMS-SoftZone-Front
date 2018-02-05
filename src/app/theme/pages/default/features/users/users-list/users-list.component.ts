@@ -82,7 +82,7 @@ export class UsersListComponent implements OnInit {
   onUserTypeChange(userTypeId){
    // let temp = this;
   //  this.roleList = temp.roleDuplicateList;
-  if(userTypeId == null){
+  if(userTypeId == "null"){
     this.roleList=[];
      this.roleList.unshift({ value: null , label: '--Select--'  });
      this.userForm.patchValue({
