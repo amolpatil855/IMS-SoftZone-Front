@@ -7,7 +7,7 @@ import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
 import { CommonService } from '../../../_services/common.service';
 // import { RoleService, PermissionService } from '../../_services/index';
-
+import { TextMaskModule } from 'angular2-text-mask';
 import {
   DataTableModule,
   SharedModule,
@@ -52,6 +52,7 @@ const routes: Routes = [
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    TextMaskModule,
     // primeng modules
     DataTableModule,
     SharedModule,

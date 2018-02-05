@@ -11,6 +11,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 import { Helpers } from "../../../../../../../helpers";
 import { FomDensity } from "../../../../_models/fomDensity";
 import { CommonService } from '../../../../_services/common.service';
+
 @Component({
   selector: ".app-fomDensity-list",
   templateUrl: "./fomDensity-list.component.html",
@@ -38,6 +39,7 @@ export class FomDensityListComponent implements OnInit {
   disabled: boolean = false;
   categoriesCodeList=[];
   tableEmptyMesssage='Loading...';
+  mask = [ /[1-9]/, /\d/, '.', /\d/, /\d/];
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
