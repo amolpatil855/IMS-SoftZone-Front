@@ -123,7 +123,7 @@
 																<span class="requiredField">*</span>
 															</label>
 															<div class="col-md-6 col-sm-6">
-																<input class="form-control m-input" type="number" value="" maxlength="10" #purchaseRatePerMMVal="ngModel"  (blur)="calculateSellingRate()"  required [ngClass]="{'red-border-class': purchaseRatePerMMVal.errors && isFormSubmitted}"
+																<input class="form-control m-input" type="number" value="" maxlength="10" #purchaseRatePerMMVal="ngModel" (blur)="calculateSellingRate()"  required [ngClass]="{'red-border-class': purchaseRatePerMMVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomDensityObj.purchaseRatePerMM" name="purchaseRatePerMM" id="purchaseRatePerMM">
 															</div>
 														</div>
@@ -148,7 +148,7 @@
 																<div class="form-group">
 																	<label class="fieldLabel col-md-6 col-sm-6">Selling Rate %<span class="requiredField">*</span></label>
 																	<div class="col-md-6 col-sm-6">
-																		<input class="form-control m-input" type="number" value="" #sellingRatePercentageVal="ngModel" (blur)="calculateSellingRate()" required [ngClass]="{'red-border-class':sellingRatePercentageVal.errors && isFormSubmitted}"
+																		<input class="form-control m-input" type="number" value="" #sellingRatePercentageVal="ngModel" (blur)="calculateSellingRate()" onKeyPress="if(this.value.length==2) return false;" required [ngClass]="{'red-border-class':sellingRatePercentageVal.errors && isFormSubmitted}"
 																		 [(ngModel)]="fomDensityObj.sellingRatePercentage" name="sellingRatePercentage" id="sellingRatePercentage">
 																		<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
 																						Please enter Description

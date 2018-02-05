@@ -38,6 +38,8 @@ export class QualityListComponent implements OnInit {
   isFormSubmitted: boolean = false;
   slectedCategory = null;
   tableEmptyMesssage = 'Loading...';
+  disableFlatRate = false;
+  disableRRP = false;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -72,19 +74,66 @@ export class QualityListComponent implements OnInit {
       hsnId: ['', [Validators.required]],
       width: ['', [Validators.required]],
       size: ['', [Validators.required]],
-      cutRate: ['', [Validators.required]],
-      roleRate: ['', [Validators.required]],
-      rrp: ['', [Validators.required]],
-      maxCutRateDisc: ['', [Validators.required]],
-      maxRoleRateDisc: ['', [Validators.required]],
-      flatRate: ['', [Validators.required]],
-      maxFlatRateDisc: ['', [Validators.required]],
+      cutRate: [{value: '', disabled: this.disableRRP}, [Validators.required]],
+      roleRate: [{value: '', disabled: this.disableRRP}, [Validators.required]],
+      rrp: [{value: '', disabled: this.disableRRP}, [Validators.required]],
+      maxCutRateDisc: [{value: '', disabled: this.disableRRP}, [Validators.required]],
+      maxRoleRateDisc: [{value: '', disabled: this.disableRRP}, [Validators.required]],
+      flatRate: [{value: '', disabled: this.disableFlatRate}, [Validators.required]],
+      maxFlatRateDisc: [{value: '', disabled: this.disableFlatRate}, [Validators.required]],
       custRatePerSqFeet: ['', [Validators.required]],
       maxDiscout: ['', [Validators.required]],
     });
     this.slectedCategory = null;
   }
 
+
+  onChangeRRP(cutrate,flaterate) {
+    if (cutrate.value) {
+      this.disableFlatRate = true;
+      flaterate.disable(); 
+      this.qualityForm.get('maxFlatRateDisc').disable(); 
+      this.disableRRP = false;
+      this.qualityForm.patchValue({
+        maxFlatRateDisc: '',
+        flatRate: '',
+      });
+    }
+    else {
+      this.disableFlatRate = false;
+      this.disableRRP = false;
+      flaterate.enable(); 
+      this.qualityForm.get('maxFlatRateDisc').enable(); 
+      }
+  }
+
+  onChangeFlatRate(flaterate) {
+    if (flaterate.value) {
+    this.disableFlatRate = false;
+    this.disableRRP = true;
+    this.qualityForm.get('cutRate').disable(); 
+    this.qualityForm.get('roleRate').disable(); 
+    this.qualityForm.get('rrp').disable(); 
+    this.qualityForm.get('maxCutRateDisc').disable(); 
+    this.qualityForm.get('maxRoleRateDisc').disable(); 
+    this.qualityForm.patchValue({
+      roleRate: '',
+      cutRate: '',
+      rrp: '',
+      maxCutRateDisc: '',
+      maxRoleRateDisc: '',
+    });
+    }
+    else {
+      this.disableFlatRate = false;
+      this.disableRRP = false;
+      this.qualityForm.get('cutRate').enable(); 
+      this.qualityForm.get('roleRate').enable(); 
+      this.qualityForm.get('rrp').enable(); 
+      this.qualityForm.get('maxCutRateDisc').enable(); 
+      this.qualityForm.get('maxRoleRateDisc').enable(); 
+      }
+  }
 
   toggleButton() {
     this.toggleDiv = !this.toggleDiv;
