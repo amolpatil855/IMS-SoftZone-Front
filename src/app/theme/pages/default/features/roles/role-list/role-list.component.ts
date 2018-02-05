@@ -18,12 +18,12 @@ import * as _ from 'lodash/index';
 })
 export class RoleListComponent implements OnInit {
   roleList = [];
-  pageSize=50;
-  page=1;
-  totalCount=0;
-  search='';
+  pageSize = 50;
+  page = 1;
+  totalCount = 0;
+  search = '';
   cols: any[];
-  toggleDiv=false;
+  toggleDiv = false;
   roleForm: FormGroup;
   errorMessage: any;
   params: number;
@@ -37,8 +37,8 @@ export class RoleListComponent implements OnInit {
   SelectedFeatureList = [];
   selectedFeature: any;
   isMenuSelected: boolean = false;
-  isFormSubmitted=false;
-  tableEmptyMesssage='Loading...';
+  isFormSubmitted = false;
+  tableEmptyMesssage = 'Loading...';
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private roleService: RoleService,
@@ -57,15 +57,15 @@ export class RoleListComponent implements OnInit {
     this.getAllMenu();
   }
 
-  newRecord(){
-    this.isFormSubmitted=false;
-    this.SelectedFeatureList=[];
-    this.params=null;
+  newRecord() {
+    this.isFormSubmitted = false;
+    this.SelectedFeatureList = [];
+    this.params = null;
     this.roleForm = this.formBuilder.group({
       id: 0,
       roleName: ['', [Validators.required]],
       roleDescription: ['']
-  });
+    });
   }
 
 
@@ -73,13 +73,13 @@ export class RoleListComponent implements OnInit {
     this.permissionService.getAllMenu()
       .subscribe((results: any) => {
         Helpers.setLoading(false);
-        var lstRecords = _.forEach(results, function (obj) {
+        var lstRecords = _.forEach(results, function(obj) {
           obj.label = obj.menuName;
           obj.id = obj.id;
         });
-        var MainMenu = _.filter(lstRecords, function (o) { return o.menuParentId == null; });
-        _.forEach(MainMenu, function (objParrent) {
-          objParrent.children = _.filter(lstRecords, function (o) { return o.menuParentId == objParrent.id; });
+        var MainMenu = _.filter(lstRecords, function(o) { return o.menuParentId == null; });
+        _.forEach(MainMenu, function(objParrent) {
+          objParrent.children = _.filter(lstRecords, function(o) { return o.menuParentId == objParrent.id; });
         });
         this.featureList = MainMenu;
         // this.SelectedFeatureList=MainMenu;  
@@ -93,7 +93,7 @@ export class RoleListComponent implements OnInit {
       })
   }
 
-  getRoleById(id){
+  getRoleById(id) {
     Helpers.setLoading(true);
     // this.getAllUserMenu(this.params);
     this.roleService.getRoleById(id)
@@ -120,8 +120,8 @@ export class RoleListComponent implements OnInit {
         var allMenu = _.map(results, 'mstMenu');
         var clildMenu = _.map(_featureList, 'children');
         var _selectedFeatureList = [];
-        _.forEach(allMenu, function (obj) {
-          var tempResult = _.find(_featureList, function (o) {
+        _.forEach(allMenu, function(obj) {
+          var tempResult = _.find(_featureList, function(o) {
             if (o.id == obj.id)
               return o;
           });
@@ -129,9 +129,9 @@ export class RoleListComponent implements OnInit {
             _selectedFeatureList.push(tempResult);
         });
 
-        _.forEach(allMenu, function (obj) {
+        _.forEach(allMenu, function(obj) {
           for (var i = 0; i < clildMenu.length; i++) {
-            var tempResult = _.find(clildMenu[i], function (o) {
+            var tempResult = _.find(clildMenu[i], function(o) {
               if (o.id == obj.id)
                 return o;
             });
@@ -169,21 +169,20 @@ export class RoleListComponent implements OnInit {
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.isFormSubmitted=true;
+    this.isFormSubmitted = true;
     if (this.SelectedFeatureList.length == 0) {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please select menu for role" });
       return;
     }
     var _CFGRoleMenus = [];
-    _.forEach(this.SelectedFeatureList, function (obj) {
+    _.forEach(this.SelectedFeatureList, function(obj) {
       var _CFGRoleMenusObj = {
         "menuId": obj.id
       }
       _CFGRoleMenus.push(_CFGRoleMenusObj);
     });
 
-    if(!valid)
-    {
+    if (!valid) {
       return;
     }
 
@@ -197,7 +196,7 @@ export class RoleListComponent implements OnInit {
           this.getRoleList();
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-          this.toggleDiv=false;
+          this.toggleDiv = false;
           this.newRecord();
         },
         error => {
@@ -211,7 +210,7 @@ export class RoleListComponent implements OnInit {
           this.getRoleList();
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-          this.toggleDiv=false;
+          this.toggleDiv = false;
           this.newRecord();
         },
         error => {
@@ -226,30 +225,29 @@ export class RoleListComponent implements OnInit {
     this.roleService.currentPos = this.page;
     this.getRoleById(role.id);
     this.getAllMenu();
-    this.params=role.id;
+    this.params = role.id;
     // this.roleService.currentPageNumber = this.currentPageNumber;
     // this.router.navigate(['/features/master/supplier/edit', supplier.id]);
-    this.toggleDiv=true;
+    this.toggleDiv = true;
   }
   getRoleList() {
-    this.roleService.getAllRoles(this.pageSize,this.page,this.search).subscribe(
+    this.roleService.getAllRoles(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.roleList = results.data;
-        this.totalCount=results.totalCount;
-        if(this.totalCount==0)
-        {
-          this.tableEmptyMesssage="No Records Found";
+        this.totalCount = results.totalCount;
+        if (this.totalCount == 0) {
+          this.tableEmptyMesssage = "No Records Found";
         }
       },
       error => {
-        this.tableEmptyMesssage="No Records Found";
+        this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
 
-  toggleButton(){
+  toggleButton() {
     this.toggleDiv = !this.toggleDiv;
-    if(this.toggleDiv && !this.params){
+    if (this.toggleDiv && !this.params) {
       this.newRecord();
     }
   }
@@ -262,9 +260,9 @@ export class RoleListComponent implements OnInit {
     //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
-    this.pageSize=event.rows;
-    this.page=event.first;
-    this.search=  event.globalFilter;
+    this.pageSize = event.rows;
+    this.page = event.first;
+    this.search = event.globalFilter;
     this.getRoleList();
   }
 
@@ -277,7 +275,7 @@ export class RoleListComponent implements OnInit {
       accept: () => {
         this.roleService.deleteRole(role.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getRoleList();
           },
           error => {

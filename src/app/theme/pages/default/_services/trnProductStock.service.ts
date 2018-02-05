@@ -13,8 +13,8 @@ export class TrnProductStockService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllTrnProductStocks(pageSize=0,page=0,search='') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStock?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllTrnProductStocks(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStock?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getTrnProductStockById(id: number) {
@@ -30,7 +30,7 @@ export class TrnProductStockService {
   }
 
   getCollectionLookUpByCategory(categoryId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getSerialNumberLookUpByCollection(collectionId) {

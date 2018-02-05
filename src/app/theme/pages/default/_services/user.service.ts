@@ -13,15 +13,15 @@ export class UserService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllUsers(pageSize=0,page=0,search='') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'User?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllUsers(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'User?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getAllUserType() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetUserTypeLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getLoggedInUserDetail(){
+  getLoggedInUserDetail() {
     return this.http.get(AppSettings.API_ENDPOINT + 'User/GetLoggedInUserDetail', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
@@ -50,7 +50,7 @@ export class UserService {
   }
 
   changePassword(data: any) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'User/ChangePassword', data,AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.put(AppSettings.API_ENDPOINT + 'User/ChangePassword', data, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getAllUsersCount(url) {

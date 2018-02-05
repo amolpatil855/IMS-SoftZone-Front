@@ -13,8 +13,8 @@ export class ShadeService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllShades(pageSize=0,page=0,search='') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'FWRShade?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllShades(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'FWRShade?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getShadeById(id: number) {
@@ -22,9 +22,9 @@ export class ShadeService {
   }
 
   getCollectionLookUp(categoryId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   getCategoryLookup() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }

@@ -1,5 +1,5 @@
-export class MatThickness{
-    id: number;
-    thicknessCode: string;
-    size: number;
+export class MatThickness {
+  id: number;
+  thicknessCode: string;
+  size: number;
 }

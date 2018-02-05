@@ -25,8 +25,8 @@ export class IsAuthorizeDirective {
     this.storeService.permissionsList.subscribe((response) => {
       if (response) {
         for (var i = 0; i < this.isAuthorize.length; i++) {
-          var _permissionVal=this.isAuthorize[i];
-          if (!_.find(response,function(respVal) { return respVal == _permissionVal })) {
+          var _permissionVal = this.isAuthorize[i];
+          if (!_.find(response, function(respVal) { return respVal == _permissionVal })) {
             userHasPermissions = false;
             //    break;
           } else {

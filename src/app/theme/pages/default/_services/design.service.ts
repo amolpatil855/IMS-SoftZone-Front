@@ -13,8 +13,8 @@ export class DesignService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllDesigns(pageSize=0,page=0,search='') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'FWRDesign?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllDesigns(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'FWRDesign?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getDesignById(id: number) {
@@ -30,7 +30,7 @@ export class DesignService {
   }
 
   getCollectionLookUp(categoryId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getQualityLookUpByCollection(collectionId) {

@@ -1,5 +1,5 @@
-export class Hsn{
-    id: number;
-    hsnCode: string;
-    gst: number;
+export class Hsn {
+  id: number;
+  hsnCode: string;
+  gst: number;
 }
