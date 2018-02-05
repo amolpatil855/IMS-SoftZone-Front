@@ -11,7 +11,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 import { Helpers } from "../../../../../../../helpers";
 import { FomDensity } from "../../../../_models/fomDensity";
 import { CommonService } from '../../../../_services/common.service';
-import { TextMaskModule } from 'angular2-text-mask';
+
 @Component({
   selector: ".app-fomDensity-list",
   templateUrl: "./fomDensity-list.component.html",
