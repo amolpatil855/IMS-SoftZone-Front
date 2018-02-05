@@ -75,14 +75,17 @@ export class FomDensityListComponent implements OnInit {
   }
 
   calculateSellingRate(){
-    this.fomDensityObj.sellingRatePercentage=this.fomDensityObj.sellingRatePercentage<1?'':this.fomDensityObj.sellingRatePercentage;
+
+    this.fomDensityObj.sellingRatePercentage=this.fomDensityObj.sellingRatePercentage<0.1?'':this.fomDensityObj.sellingRatePercentage;
     if(this.fomDensityObj.purchaseRatePerMM>0 && this.fomDensityObj.sellingRatePercentage>0){
+      this.fomDensityObj.purchaseRatePerMM= parseFloat(this.fomDensityObj.purchaseRatePerMM).toFixed(2);
       this.fomDensityObj.sellingRatePerMM=this.fomDensityObj.purchaseRatePerMM+(this.fomDensityObj.purchaseRatePerMM * this.fomDensityObj.sellingRatePercentage/100);
     }
     // else{
     //   this.fomDensityObj.sellingRatePerMM=this.fomDensityObj.purchaseRatePerMM;
     // }
     if(this.fomDensityObj.purchaseRatePerKG>0 && this.fomDensityObj.sellingRatePercentage>0){
+      this.fomDensityObj.purchaseRatePerKG= parseFloat(this.fomDensityObj.purchaseRatePerKG).toFixed(2);
       this.fomDensityObj.sellingRatePerKG= this.fomDensityObj.purchaseRatePerKG+(this.fomDensityObj.purchaseRatePerKG * this.fomDensityObj.sellingRatePercentage/100);
     }
     // else{
