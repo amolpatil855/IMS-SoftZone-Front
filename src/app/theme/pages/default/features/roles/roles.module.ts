@@ -18,7 +18,7 @@ import {
   DropdownModule,
   ConfirmDialogModule,
   ConfirmationService,
-  TreeModule,TreeNode
+  TreeModule, TreeNode
 } from 'primeng/primeng';
 
 const routes: Routes = [

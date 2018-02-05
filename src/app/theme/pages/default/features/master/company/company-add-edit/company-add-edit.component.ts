@@ -16,12 +16,12 @@ export class CompanyAddEditComponent implements OnInit {
   errorMessage: any;
   params: number;
   companyForm: FormGroup;
-  imageFileName:string;
-  fileInput:string;
+  imageFileName: string;
+  fileInput: string;
   myInputVariable: any;
-  logoURLtoshow:string;
-  isFormSubmitted=false;
- constructor(
+  logoURLtoshow: string;
+  isFormSubmitted = false;
+  constructor(
     private formBuilder: FormBuilder,
     private globalErrorHandler: GlobalErrorHandler,
     private companyService: CompanyService,
@@ -35,46 +35,46 @@ export class CompanyAddEditComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       this.params = params['userId'];
     });
-    
+
     this.companyForm = this.formBuilder.group({
-        id: 0,
-        companyName: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        phone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
-        gstin: ['', [Validators.required]],
-        companyLogo: [''],
+      id: 0,
+      companyName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
+      gstin: ['', [Validators.required]],
+      companyLogo: [''],
     });
 
-this.getCompanyInfo();
+    this.getCompanyInfo();
   }
 
-  getCompanyInfo(){
+  getCompanyInfo() {
     this.companyService.getAllCompanyInfo().subscribe(
       (results: any) => {
-         Helpers.setLoading(false);
-            if(results !== null){
-            this.companyForm.setValue({
-              id: results.id,
-              companyName: results.companyName,
-              email: results.email,
-              phone: results.phone,
-              gstin: results.gstin,
-              companyLogo: results.companyLogo,
-            });
-            this.logoURLtoshow=AppSettings.IMAGE_API_ENDPOINT+results.companyLogo;
-          }
-    });
+        Helpers.setLoading(false);
+        if (results !== null) {
+          this.companyForm.setValue({
+            id: results.id,
+            companyName: results.companyName,
+            email: results.email,
+            phone: results.phone,
+            gstin: results.gstin,
+            companyLogo: results.companyLogo,
+          });
+          this.logoURLtoshow = AppSettings.IMAGE_API_ENDPOINT + results.companyLogo;
+        }
+      });
   }
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.isFormSubmitted=true;
-    if(!valid)
+    this.isFormSubmitted = true;
+    if (!valid)
       return;
 
-    if ((!this.fileInput ||  this.fileInput.length == 0) && this.logoURLtoshow.length == 0 ) {
+    if ((!this.fileInput || this.fileInput.length == 0) && this.logoURLtoshow.length == 0) {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please select company logo" });
       return;
     }
-      this.saveCompany(value);
+    this.saveCompany(value);
   }
   onUploadLogo(fileInput: any) {
     var rec = this;
@@ -84,46 +84,46 @@ this.getCompanyInfo();
     this.fileInput = fileInput;
     let ext = fileInput[0].name.split('.')[1];
     if (ext != 'jpeg' && ext != 'jpg' && ext != 'png') {
-        this.messageService.addMessage({ severity: 'fail', summary: 'Fail', detail: 'Wrong extention' });
-        this.myInputVariable.nativeElement.value = "";
-        return;
+      this.messageService.addMessage({ severity: 'fail', summary: 'Fail', detail: 'Wrong extention' });
+      this.myInputVariable.nativeElement.value = "";
+      return;
     }
     rec.imageFileName = fileInput[0].name;
     var img = new Image;
     var success = 0;
-    fr.onload = function () {
-        success = 1;
-        img.onload = function () {
-            if (img.height <= 50 && img.width <= 160) {
-                //
-                success = 1;
+    fr.onload = function() {
+      success = 1;
+      img.onload = function() {
+        if (img.height <= 50 && img.width <= 160) {
+          //
+          success = 1;
 
-            }
-            else {
-                rec.imageFileName = null;
-                success = 0;
-                rec.fileInput = null;
-                rec.messageService.addMessage({ severity: 'fail', summary: 'Fail', detail: 'Image Resolution not should be greater than 160 * 50 px ' });
-                rec.myInputVariable.nativeElement.value = "";
-            }
+        }
+        else {
+          rec.imageFileName = null;
+          success = 0;
+          rec.fileInput = null;
+          rec.messageService.addMessage({ severity: 'fail', summary: 'Fail', detail: 'Image Resolution not should be greater than 160 * 50 px ' });
+          rec.myInputVariable.nativeElement.value = "";
+        }
 
-        };
-        img.src = fr.result;
+      };
+      img.src = fr.result;
     };
-}
+  }
   saveCompany(value) {
     Helpers.setLoading(true);
     let fd = new FormData();
-    if(this.fileInput)
-    fd.append('UploadFile', this.fileInput[0] ? this.fileInput[0] : null);
-    
-    fd.append('mstCompanyInfo',JSON.stringify(value));
+    if (this.fileInput)
+      fd.append('UploadFile', this.fileInput[0] ? this.fileInput[0] : null);
+
+    fd.append('mstCompanyInfo', JSON.stringify(value));
     if (value.id > 0) {
       this.companyService.updateCompanyInfo(fd)
         .subscribe(
         results => {
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
-          
+
           this.getCompanyInfo();
         },
         error => {
@@ -131,11 +131,11 @@ this.getCompanyInfo();
           Helpers.setLoading(false);
         });
     } else {
-      this.companyService.createCompanyInfo(value,fd)
+      this.companyService.createCompanyInfo(value, fd)
         .subscribe(
         results => {
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
-        
+
           this.getCompanyInfo();
         },
         error => {

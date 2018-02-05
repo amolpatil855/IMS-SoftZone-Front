@@ -37,7 +37,7 @@ const routes: Routes = [
             data: {
               permissions: ['hsn']
             }
-          
+
           },
         ]
       }

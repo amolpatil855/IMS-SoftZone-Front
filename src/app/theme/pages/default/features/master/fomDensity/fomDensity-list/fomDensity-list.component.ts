@@ -11,33 +11,35 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 import { Helpers } from "../../../../../../../helpers";
 import { FomDensity } from "../../../../_models/fomDensity";
 import { CommonService } from '../../../../_services/common.service';
+
 @Component({
   selector: ".app-fomDensity-list",
   templateUrl: "./fomDensity-list.component.html",
   encapsulation: ViewEncapsulation.None,
 })
 export class FomDensityListComponent implements OnInit {
-  isFormSubmitted=false;
+  isFormSubmitted = false;
   fomDensityForm: any;
-  fomDensityObj:any;
+  fomDensityObj: any;
   params: number;
-  fomDensityList=[];
+  fomDensityList = [];
   categoryList: SelectItem[];
-  selectedCollection = null ;
-  selectedQuality =null;
-  slectedCategory=null;
+  selectedCollection = null;
+  selectedQuality = null;
+  slectedCategory = null;
   selectedThickness = 0;
-  collectionList=[];
-  qualityList=[];
-  thicknessList=[];
-  pageSize=50;
-  page=1;
-  totalCount=0;
-  search='';
-  toggleDiv=false;
+  collectionList = [];
+  qualityList = [];
+  thicknessList = [];
+  pageSize = 50;
+  page = 1;
+  totalCount = 0;
+  search = '';
+  toggleDiv = false;
   disabled: boolean = false;
-  categoriesCodeList=[];
-  tableEmptyMesssage='Loading...';
+  categoriesCodeList = [];
+  tableEmptyMesssage = 'Loading...';
+  mask = [/[1-9]/, /\d/, '.', /\d/, /\d/];
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -58,35 +60,35 @@ export class FomDensityListComponent implements OnInit {
 
 
 
-  newRecord(){
-    this.params=null;
-    this.fomDensityObj ={
-    id: 0,
-    categoryId: 0,
-    collectionId: 0,
-    qualityId: 0,
-    thicknessId: 0,
-    sizeCode: '',
-    rate: '',
+  newRecord() {
+    this.params = null;
+    this.fomDensityObj = {
+      id: 0,
+      categoryId: 0,
+      collectionId: 0,
+      qualityId: 0,
+      thicknessId: 0,
+      sizeCode: '',
+      rate: '',
     };
-    this.selectedCollection = null ;
+    this.selectedCollection = null;
     this.selectedQuality = null;
     this.selectedThickness = 0;
   }
 
-  calculateSellingRate(){
+  calculateSellingRate() {
 
-    this.fomDensityObj.sellingRatePercentage=this.fomDensityObj.sellingRatePercentage<0.1?'':this.fomDensityObj.sellingRatePercentage;
-    if(this.fomDensityObj.purchaseRatePerMM>0 && this.fomDensityObj.sellingRatePercentage>0){
-      this.fomDensityObj.purchaseRatePerMM= parseFloat(this.fomDensityObj.purchaseRatePerMM).toFixed(2);
-      this.fomDensityObj.sellingRatePerMM=this.fomDensityObj.purchaseRatePerMM+(this.fomDensityObj.purchaseRatePerMM * this.fomDensityObj.sellingRatePercentage/100);
+    this.fomDensityObj.sellingRatePercentage = this.fomDensityObj.sellingRatePercentage < 0.1 ? '' : this.fomDensityObj.sellingRatePercentage;
+    if (this.fomDensityObj.purchaseRatePerMM > 0 && this.fomDensityObj.sellingRatePercentage > 0) {
+      this.fomDensityObj.purchaseRatePerMM = parseFloat(this.fomDensityObj.purchaseRatePerMM).toFixed(2);
+      this.fomDensityObj.sellingRatePerMM = this.fomDensityObj.purchaseRatePerMM + (this.fomDensityObj.purchaseRatePerMM * this.fomDensityObj.sellingRatePercentage / 100);
     }
     // else{
     //   this.fomDensityObj.sellingRatePerMM=this.fomDensityObj.purchaseRatePerMM;
     // }
-    if(this.fomDensityObj.purchaseRatePerKG>0 && this.fomDensityObj.sellingRatePercentage>0){
-      this.fomDensityObj.purchaseRatePerKG= parseFloat(this.fomDensityObj.purchaseRatePerKG).toFixed(2);
-      this.fomDensityObj.sellingRatePerKG= this.fomDensityObj.purchaseRatePerKG+(this.fomDensityObj.purchaseRatePerKG * this.fomDensityObj.sellingRatePercentage/100);
+    if (this.fomDensityObj.purchaseRatePerKG > 0 && this.fomDensityObj.sellingRatePercentage > 0) {
+      this.fomDensityObj.purchaseRatePerKG = parseFloat(this.fomDensityObj.purchaseRatePerKG).toFixed(2);
+      this.fomDensityObj.sellingRatePerKG = this.fomDensityObj.purchaseRatePerKG + (this.fomDensityObj.purchaseRatePerKG * this.fomDensityObj.sellingRatePercentage / 100);
     }
     // else{
     //   this.fomDensityObj.sellingRatePerKG=this.fomDensityObj.purchaseRatePerKG;
@@ -94,37 +96,36 @@ export class FomDensityListComponent implements OnInit {
 
   }
 
-  toggleButton(){
+  toggleButton() {
     this.toggleDiv = !this.toggleDiv;
-    if(this.toggleDiv && !this.params){
+    if (this.toggleDiv && !this.params) {
       this.disabled = false;
       this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
-  onCancel(){
+  onCancel() {
     this.toggleDiv = false;
     this.disabled = false;
     this.newRecord();
   }
   getFomDensitysList() {
-    this.fomDensityService.getAllFomDensitys(this.pageSize,this.page,this.search).subscribe(
+    this.fomDensityService.getAllFomDensitys(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.fomDensityList = results.data;
-       this.totalCount=results.totalCount;
-        if(this.totalCount==0)
-        {
-          this.tableEmptyMesssage="No Records Found";
+        this.totalCount = results.totalCount;
+        if (this.totalCount == 0) {
+          this.tableEmptyMesssage = "No Records Found";
         }
       },
       error => {
-        this.tableEmptyMesssage="No Records Found";
+        this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
 
-  getFomCollectionLookUp(){
+  getFomCollectionLookUp() {
     this.fomDensityService.getFomCollectionLookUp().subscribe(
       results => {
         this.collectionList = results;
@@ -136,7 +137,7 @@ export class FomDensityListComponent implements OnInit {
       });
   }
 
-  onCollectionClick(){
+  onCollectionClick() {
     this.fomDensityService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
@@ -148,7 +149,7 @@ export class FomDensityListComponent implements OnInit {
         this.globalErrorHandler.handleError(error);
       });
   }
-  
+
   loadLazy(event: LazyLoadEvent) {
     //in a real application, make a remote request to load data using state metadata from event
     //event.first = First row offset
@@ -157,42 +158,42 @@ export class FomDensityListComponent implements OnInit {
     //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
-    this.pageSize=event.rows;
-    this.page=event.first;
-    this.search=  event.globalFilter;
+    this.pageSize = event.rows;
+    this.page = event.first;
+    this.search = event.globalFilter;
     this.getFomDensitysList();
     this.getFomCollectionLookUp();
   }
 
-  getFomDensityById(id){
-  this.fomDensityService.getFomDensityById(id).subscribe(
-    results => {
-      this.fomDensityObj = results;
-      console.log('this.fomDensityObj', this.fomDensityObj);
-      this.selectedCollection = this.fomDensityObj.collectionId;
-      if(this.selectedCollection > 0){
-        this.onCollectionClick();
-      }
-    },
-    error => {
-      this.globalErrorHandler.handleError(error);
-    });
+  getFomDensityById(id) {
+    this.fomDensityService.getFomDensityById(id).subscribe(
+      results => {
+        this.fomDensityObj = results;
+        console.log('this.fomDensityObj', this.fomDensityObj);
+        this.selectedCollection = this.fomDensityObj.collectionId;
+        if (this.selectedCollection > 0) {
+          this.onCollectionClick();
+        }
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
   }
 
-  
-  onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.isFormSubmitted=true;
-    if(!valid)
-    return;
-    if(this.fomDensityObj.id > 0){
 
-    }else{
+  onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted = true;
+    if (!valid)
+      return;
+    if (this.fomDensityObj.id > 0) {
+
+    } else {
       this.fomDensityObj.categoryId = value.category;
       this.fomDensityObj.collectionId = value.collection;
       this.fomDensityObj.qualityId = value.quality;
       this.fomDensityObj.thicknessId = value.thickness;
     }
-    
+
     this.saveFomDensity(this.fomDensityObj);
   }
 
@@ -202,12 +203,12 @@ export class FomDensityListComponent implements OnInit {
       this.fomDensityService.updateFomDensity(value)
         .subscribe(
         results => {
-         this. getFomDensitysList(); 
-         this.toggleDiv=false;
-         this.params=null;
+          this.getFomDensitysList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-         
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -217,12 +218,12 @@ export class FomDensityListComponent implements OnInit {
       this.fomDensityService.createFomDensity(value)
         .subscribe(
         results => {
-         this. getFomDensitysList();
-         this.toggleDiv=false;
-         this.params=null;
+          this.getFomDensitysList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-       
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -232,13 +233,13 @@ export class FomDensityListComponent implements OnInit {
   }
 
   onEditClick(fomDensity: FomDensity) {
-     this.fomDensityService.perPage = this.pageSize;
-     this.fomDensityService.currentPos = this.page;
-     this. getFomDensityById(fomDensity.id);
-     this.params=fomDensity.id;
-     this.toggleDiv=true;
-     this.disabled = true;
-     this.isFormSubmitted = false;
+    this.fomDensityService.perPage = this.pageSize;
+    this.fomDensityService.currentPos = this.page;
+    this.getFomDensityById(fomDensity.id);
+    this.params = fomDensity.id;
+    this.toggleDiv = true;
+    this.disabled = true;
+    this.isFormSubmitted = false;
   }
 
   onDelete(fomDensity: FomDensity) {
@@ -249,9 +250,9 @@ export class FomDensityListComponent implements OnInit {
       accept: () => {
         this.fomDensityService.deleteFomDensity(fomDensity.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getFomDensitysList();
-            this.toggleDiv=false;
+            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

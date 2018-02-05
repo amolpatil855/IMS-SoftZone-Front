@@ -17,7 +17,7 @@ export class CompanyService {
     return this.http.get(AppSettings.API_ENDPOINT + 'CompanyInfo', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  createCompanyInfo(company: Company,image:any) {
+  createCompanyInfo(company: Company, image: any) {
     let reqObj = AppSettings.requestOptions();
     reqObj.headers["_headers"].delete("content-type");
     //reqObj.body=company;
@@ -27,8 +27,8 @@ export class CompanyService {
   updateCompanyInfo(company: any) {
     let reqObj = AppSettings.requestOptions();
     reqObj.headers["_headers"].delete("content-type");
-//reqObj.headers["_headers"].delete("Accept");
-   // reqObj.body.append('mstCompanyInfo', company);
+    //reqObj.headers["_headers"].delete("Accept");
+    // reqObj.body.append('mstCompanyInfo', company);
     return this.http.put(AppSettings.API_ENDPOINT + 'CompanyInfo', company, reqObj).map((response: Response) => response.json());
   }
 

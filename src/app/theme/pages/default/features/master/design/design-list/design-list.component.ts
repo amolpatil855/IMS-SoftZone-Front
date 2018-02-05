@@ -19,23 +19,23 @@ import { Design } from "../../../../_models/design";
 export class DesignListComponent implements OnInit {
 
   designForm: any;
-  designObj:any;
+  designObj: any;
   params: number;
-  designList=[];
+  designList = [];
   categoryList: SelectItem[];
   selectedCategory = null;
   selectedCollection = null;
   selectedQuality = null;
-  collectionList=[];
-  qualityList=[];
-  pageSize=50;
-  page=1;
-  totalCount=0;
-  search='';
-  toggleDiv=false;
+  collectionList = [];
+  qualityList = [];
+  pageSize = 50;
+  page = 1;
+  totalCount = 0;
+  search = '';
+  toggleDiv = false;
   disabled: boolean = false;
   isFormSubmitted: boolean = false;
-  tableEmptyMesssage='Loading...';
+  tableEmptyMesssage = 'Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -53,51 +53,50 @@ export class DesignListComponent implements OnInit {
     this.newRecord();
   }
 
-  newRecord(){
-    this.designObj ={
-    categoryId: null,
-    collectionId: null,
-    qualityId: null,
-    designCode: '',
-    designName: '',
-    description: '',
+  newRecord() {
+    this.designObj = {
+      categoryId: null,
+      collectionId: null,
+      qualityId: null,
+      designCode: '',
+      designName: '',
+      description: '',
     };
     this.selectedCategory = null;
     this.selectedCollection = null;
     this.selectedQuality = null;
   }
 
-  toggleButton(){
+  toggleButton() {
     this.toggleDiv = !this.toggleDiv;
-    if(this.toggleDiv && !this.params){
+    if (this.toggleDiv && !this.params) {
       this.disabled = false;
       this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
-  onCancel(){
+  onCancel() {
     this.toggleDiv = false;
     this.disabled = false;
     this.newRecord();
   }
   getDesignsList() {
-    this.designService.getAllDesigns(this.pageSize,this.page,this.search).subscribe(
+    this.designService.getAllDesigns(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.designList = results.data;
-        this.totalCount=results.totalCount;
-        if(this.totalCount==0)
-        {
-          this.tableEmptyMesssage="No Records Found";
+        this.totalCount = results.totalCount;
+        if (this.totalCount == 0) {
+          this.tableEmptyMesssage = "No Records Found";
         }
       },
       error => {
-        this.tableEmptyMesssage="No Records Found";
+        this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
 
-  getCategoryLookUp(){
+  getCategoryLookUp() {
     this.designService.getCategoryLookUp().subscribe(
       results => {
         this.categoryList = results;
@@ -109,34 +108,49 @@ export class DesignListComponent implements OnInit {
       });
   }
 
-  onCategoryClick(){
+  onCategoryClick() {
     console.log('selectedCategory', this.selectedCategory);
-    this.designService.getCollectionLookUp(this.selectedCategory).subscribe(
-      results => {
-        this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: null });
-        this.selectedCollection = this.designObj.collectionId;
-        if(this.selectedCollection > 0){
-          this.onCollectionClick();
-        }
-        console.log('this.collectionList', this.collectionList);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
+    if (this.selectedCategory == null) {
+      this.collectionList = [];
+      this.collectionList.unshift({ label: '--Select--', value: null });
+      this.qualityList = [];
+      this.qualityList.unshift({ label: '--Select--', value: null });
+      this.selectedCollection = null;
+      this.selectedQuality = null;
+    } else {
+      this.designService.getCollectionLookUp(this.selectedCategory).subscribe(
+        results => {
+          this.collectionList = results;
+          this.collectionList.unshift({ label: '--Select--', value: null });
+          this.selectedCollection = this.designObj.collectionId;
+          if (this.selectedCollection > 0) {
+            this.onCollectionClick();
+          }
+          console.log('this.collectionList', this.collectionList);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        });
+    }
   }
 
-  onCollectionClick(){
-    this.designService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
-      results => {
-        this.qualityList = results;
-        this.qualityList.unshift({ label: '--Select--', value: null });
-        this.selectedQuality = this.designObj.qualityId;
-        console.log('this.qualityList', this.qualityList);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
+  onCollectionClick() {
+    if (this.selectedCollection == null) {
+      this.qualityList = [];
+      this.qualityList.unshift({ label: '--Select--', value: null });
+      this.selectedQuality = null;
+    } else {
+      this.designService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
+        results => {
+          this.qualityList = results;
+          this.qualityList.unshift({ label: '--Select--', value: null });
+          this.selectedQuality = this.designObj.qualityId;
+          console.log('this.qualityList', this.qualityList);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        });
+    }
   }
 
   loadLazy(event: LazyLoadEvent) {
@@ -147,42 +161,42 @@ export class DesignListComponent implements OnInit {
     //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
-    this.pageSize=event.rows;
-    this.page=event.first;
-    this.search=  event.globalFilter;
+    this.pageSize = event.rows;
+    this.page = event.first;
+    this.search = event.globalFilter;
     this.getDesignsList();
     this.getCategoryLookUp();
   }
 
-  getdesignById(id){
-  this.designService.getDesignById(id).subscribe(
-    results => {
-      this.designObj = results;
-      console.log('this.designObj', this.designObj);
-      this.selectedCategory = this.designObj.categoryId;
-      if(this.selectedCategory > 0){
-        this.onCategoryClick();
-      }
-    },
-    error => {
-      this.globalErrorHandler.handleError(error);
-    });
+  getdesignById(id) {
+    this.designService.getDesignById(id).subscribe(
+      results => {
+        this.designObj = results;
+        console.log('this.designObj', this.designObj);
+        this.selectedCategory = this.designObj.categoryId;
+        if (this.selectedCategory > 0) {
+          this.onCategoryClick();
+        }
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
   }
 
-  
+
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
 
-  this.isFormSubmitted=true;
-    if(!valid)
-    return;
-    if(this.designObj.id > 0){
+    this.isFormSubmitted = true;
+    if (!valid)
+      return;
+    if (this.designObj.id > 0) {
 
-    } 
-    else{
-        this.designObj.categoryId = value.category;
-        this.designObj.collectionId = value.collection;
-        this.designObj.qualityId = value.quality;
-    }   
+    }
+    else {
+      this.designObj.categoryId = value.category;
+      this.designObj.collectionId = value.collection;
+      this.designObj.qualityId = value.quality;
+    }
     this.saveDesign(this.designObj);
   }
 
@@ -192,12 +206,12 @@ export class DesignListComponent implements OnInit {
       this.designService.updateDesign(value)
         .subscribe(
         results => {
-         this. getDesignsList(); 
-         this.toggleDiv=false;
-         this.params=null;
+          this.getDesignsList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-         
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -207,12 +221,12 @@ export class DesignListComponent implements OnInit {
       this.designService.createDesign(value)
         .subscribe(
         results => {
-         this. getDesignsList();
-         this.toggleDiv=false;
-         this.params=null;
+          this.getDesignsList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-       
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -222,13 +236,13 @@ export class DesignListComponent implements OnInit {
   }
 
   onEditClick(design: Design) {
-     this.designService.perPage = this.pageSize;
-     this.designService.currentPos = this.page;
-     this. getdesignById(design.id);
-     this.params=design.id;
-     this.toggleDiv=true;
-     this.disabled = true;
-     this.isFormSubmitted = false;
+    this.designService.perPage = this.pageSize;
+    this.designService.currentPos = this.page;
+    this.getdesignById(design.id);
+    this.params = design.id;
+    this.toggleDiv = true;
+    this.disabled = true;
+    this.isFormSubmitted = false;
   }
 
   onDelete(design: Design) {
@@ -239,9 +253,9 @@ export class DesignListComponent implements OnInit {
       accept: () => {
         this.designService.deleteDesign(design.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getDesignsList();
-            this.toggleDiv=false;
+            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

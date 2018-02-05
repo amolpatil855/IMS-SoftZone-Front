@@ -13,8 +13,8 @@ export class MatThicknessService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllMatThicknesss(pageSize=0,page=0,search='') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'MatThickness?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllMatThicknesss(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'MatThickness?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getMatThicknessById(id: number) {

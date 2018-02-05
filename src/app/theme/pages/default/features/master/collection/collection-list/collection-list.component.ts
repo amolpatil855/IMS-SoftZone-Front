@@ -20,20 +20,20 @@ import { CommonService } from '../../../../_services/common.service';
 })
 export class CollectionListComponent implements OnInit {
   collectionForm: any;
-  collectionObj:any;
+  collectionObj: any;
   params: number;
-  collectionList=[];
-  supplierCodeList=[];
-  categoriesCodeList=[];
-  pageSize=50;
-  page=1;
-  totalCount=0;
-  search='';
-  toggleDiv=false;
+  collectionList = [];
+  supplierCodeList = [];
+  categoriesCodeList = [];
+  pageSize = 50;
+  page = 1;
+  totalCount = 0;
+  search = '';
+  toggleDiv = false;
   disabled: boolean = false;
-  states=[];
+  states = [];
   isFormSubmitted: boolean = false;
-  tableEmptyMesssage='Loading...';
+  tableEmptyMesssage = 'Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -47,48 +47,48 @@ export class CollectionListComponent implements OnInit {
   }
 
   ngOnInit() {
-   // this.getCollectionList();
-   this.states.push({ label: '--Select--', value: '0' });
+    // this.getCollectionList();
+    this.states.push({ label: '--Select--', value: '0' });
 
 
-this.newRecord();
+    this.newRecord();
   }
 
-newRecord(){
-  this.params=null;
-  this.collectionObj = new Collection();
-  this.collectionForm = this.formBuilder.group({
-    id: 0,
-    collectionCode: ['', [Validators.required]],
-    collectionName: ['', [Validators.required]],
-    categoryId: [null, [Validators.required]],
-    supplierId: [null, [Validators.required]],
-    manufacturerName: ['', [Validators.required]],
-    description: [''],
-  });
-  this.collectionObj.id=0;
-  this. getCategoryCodeList();
-  this.getSupplierCodeList();
-}
+  newRecord() {
+    this.params = null;
+    this.collectionObj = new Collection();
+    this.collectionForm = this.formBuilder.group({
+      id: 0,
+      collectionCode: ['', [Validators.required]],
+      collectionName: ['', [Validators.required]],
+      categoryId: [null, [Validators.required]],
+      supplierId: [null, [Validators.required]],
+      manufacturerName: ['', [Validators.required]],
+      description: [''],
+    });
+    this.collectionObj.id = 0;
+    this.getCategoryCodeList();
+    this.getSupplierCodeList();
+  }
 
 
-  toggleButton(){
+  toggleButton() {
     this.toggleDiv = !this.toggleDiv;
-    if(this.toggleDiv && !this.params){
+    if (this.toggleDiv && !this.params) {
       this.disabled = false;
       this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
-  onCancel(){
+  onCancel() {
     this.toggleDiv = false;
     this.disabled = false;
     this.newRecord();
   }
 
   getSupplierCodeList() {
-    this.supplierService.getSupplierLookUp ().subscribe(
+    this.supplierService.getSupplierLookUp().subscribe(
       results => {
         this.supplierCodeList = results;
         this.supplierCodeList.unshift({ label: '--Select--', value: null });
@@ -112,17 +112,16 @@ newRecord(){
 
 
   getCollectionList() {
-    this.collectionService.getAllCollections(this.pageSize,this.page,this.search).subscribe(
+    this.collectionService.getAllCollections(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.collectionList = results.data;
-        this.totalCount=results.totalCount;
-        if(this.totalCount==0)
-        {
-          this.tableEmptyMesssage="No Records Found";
+        this.totalCount = results.totalCount;
+        if (this.totalCount == 0) {
+          this.tableEmptyMesssage = "No Records Found";
         }
       },
       error => {
-        this.tableEmptyMesssage="No Records Found";
+        this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -134,37 +133,37 @@ newRecord(){
     //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
-    this.pageSize=event.rows;
-    this.page=event.first;
-    this.search=  event.globalFilter;
+    this.pageSize = event.rows;
+    this.page = event.first;
+    this.search = event.globalFilter;
     this.getCollectionList();
   }
 
 
-getsuplierById(id){
-  this.collectionService.getCollectionById(id).subscribe(
-    results => {
-      this.collectionObj = results; 
-      this.collectionForm.setValue({
-        id: results.id,
-        collectionCode: results.collectionCode,
-        collectionName:results.collectionName,
-        categoryId: results.categoryId,
-        supplierId: results.supplierId,
-        manufacturerName: results.manufacturerName,
-        description: results.description,
+  getsuplierById(id) {
+    this.collectionService.getCollectionById(id).subscribe(
+      results => {
+        this.collectionObj = results;
+        this.collectionForm.setValue({
+          id: results.id,
+          collectionCode: results.collectionCode,
+          collectionName: results.collectionName,
+          categoryId: results.categoryId,
+          supplierId: results.supplierId,
+          manufacturerName: results.manufacturerName,
+          description: results.description,
+        });
+        console.log('this.collectionList', this.collectionObj);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
       });
-      console.log('this.collectionList', this.collectionObj);
-    },
-    error => {
-      this.globalErrorHandler.handleError(error);
-    });
-}
+  }
 
-  
+
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.isFormSubmitted=true;
-    if(valid)
+    this.isFormSubmitted = true;
+    if (valid)
       this.saveCollection(value);
   }
 
@@ -174,12 +173,12 @@ getsuplierById(id){
       this.collectionService.updateCollection(value)
         .subscribe(
         results => {
-         this. getCollectionList(); 
-         this.toggleDiv=false;
-         this.params=null;
+          this.getCollectionList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-         
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -190,12 +189,12 @@ getsuplierById(id){
       this.collectionService.createCollection(value)
         .subscribe(
         results => {
-         this. getCollectionList();
-         this.toggleDiv=false;
-         this.params=null;
+          this.getCollectionList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-       
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -205,15 +204,15 @@ getsuplierById(id){
   }
 
   onEditClick(Collection: Collection) {
-     this.collectionService.perPage = this.pageSize;
-     this.collectionService.currentPos = this.page;
-    this. getsuplierById(Collection.id);
-    this.params=Collection.id;
+    this.collectionService.perPage = this.pageSize;
+    this.collectionService.currentPos = this.page;
+    this.getsuplierById(Collection.id);
+    this.params = Collection.id;
     // this.roleService.currentPageNumber = this.currentPageNumber;
-   // this.router.navigate(['/features/master/Collection/edit', Collection.id]);
-   this.toggleDiv=true;
-   this.disabled = true;
-   this.isFormSubmitted = false;
+    // this.router.navigate(['/features/master/Collection/edit', Collection.id]);
+    this.toggleDiv = true;
+    this.disabled = true;
+    this.isFormSubmitted = false;
   }
 
   onDelete(Collection: Collection) {
@@ -224,9 +223,9 @@ getsuplierById(id){
       accept: () => {
         this.collectionService.deleteCollection(Collection.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getCollectionList();
-            this.toggleDiv=false;
+            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

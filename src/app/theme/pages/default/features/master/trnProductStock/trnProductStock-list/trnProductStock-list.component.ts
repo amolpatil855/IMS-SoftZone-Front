@@ -20,9 +20,9 @@ import { TrnProductStock } from "../../../../_models/trnProductStock";
 export class TrnProductStockListComponent implements OnInit {
 
   trnProductStockForm: any;
-  trnProductStockObj:any;
+  trnProductStockObj: any;
   params: number;
-  trnProductStockList=[];
+  trnProductStockList = [];
   categoryList: SelectItem[];
   selectedCategory = null;
   selectedCollection = null;
@@ -30,22 +30,22 @@ export class TrnProductStockListComponent implements OnInit {
   selectedMatSize = null;
   selectedFomSize = null;
   selectedCompanyLocation = null;
-  collectionList=[];
-  companyLocationList=[];
-  shadeList=[];
-  matSizeList=[];
-  fomSizeList=[];
-  pageSize=50;
-  page=1;
-  totalCount=0;
-  search='';
-  toggleDiv=false;
+  collectionList = [];
+  companyLocationList = [];
+  shadeList = [];
+  matSizeList = [];
+  fomSizeList = [];
+  pageSize = 50;
+  page = 1;
+  totalCount = 0;
+  search = '';
+  toggleDiv = false;
   disabled: boolean = false;
   shadeEnable: boolean = false;
   matEnable: boolean = false;
   fomEnable: boolean = false;
-  isFormSubmitted=false;
-  tableEmptyMesssage='Loading...';
+  isFormSubmitted = false;
+  tableEmptyMesssage = 'Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -63,19 +63,19 @@ export class TrnProductStockListComponent implements OnInit {
     this.newRecord();
   }
 
-  newRecord(){
-    this.params=null;
-    this.trnProductStockObj ={
-    categoryId: 0,
-    collectionId: 0,
-    fwrShadeId: 0,
-    matSizeId: 0,
-    fomSizeId: 0,
-    locationId: 0,
-    stock: null,
+  newRecord() {
+    this.params = null;
+    this.trnProductStockObj = {
+      categoryId: 0,
+      collectionId: 0,
+      fwrShadeId: 0,
+      matSizeId: 0,
+      fomSizeId: 0,
+      locationId: 0,
+      stock: null,
     };
     this.selectedCategory = null;
-    this.selectedCollection = null ;
+    this.selectedCollection = null;
     this.selectedShade = null;
     this.selectedMatSize = null;
     this.selectedFomSize = null;
@@ -85,36 +85,35 @@ export class TrnProductStockListComponent implements OnInit {
     this.fomEnable = false;
   }
 
-  toggleButton(){
+  toggleButton() {
     this.toggleDiv = !this.toggleDiv;
-    if(this.toggleDiv && !this.params){
+    if (this.toggleDiv && !this.params) {
       this.disabled = false;
       this.newRecord();
     }
 
   }
-  onCancel(){
+  onCancel() {
     this.toggleDiv = false;
     this.disabled = false;
     this.newRecord();
   }
   getTrnProductStocksList() {
-    this.trnProductStockService.getAllTrnProductStocks(this.pageSize,this.page,this.search).subscribe(
+    this.trnProductStockService.getAllTrnProductStocks(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.trnProductStockList = results.data;
-        this.totalCount=results.totalCount;
-        if(this.totalCount==0)
-        {
-          this.tableEmptyMesssage="No Records Found";
+        this.totalCount = results.totalCount;
+        if (this.totalCount == 0) {
+          this.tableEmptyMesssage = "No Records Found";
         }
       },
       error => {
-        this.tableEmptyMesssage="No Records Found";
+        this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
 
-  getCategoryLookUp(){
+  getCategoryLookUp() {
     this.trnProductStockService.getCategoryLookUp().subscribe(
       results => {
         this.categoryList = results;
@@ -125,7 +124,7 @@ export class TrnProductStockListComponent implements OnInit {
       });
   }
 
-  getCompanyLocationLookUp(){
+  getCompanyLocationLookUp() {
     this.trnProductStockService.getCompanyLocationLookUp().subscribe(
       results => {
         this.companyLocationList = results;
@@ -137,32 +136,32 @@ export class TrnProductStockListComponent implements OnInit {
       });
   }
 
-  onCategoryClick(){
-    this.categoryList.forEach(item =>{
-          if(item.value == this.selectedCategory){
-            if(item.label === "Foam"){
-              this.fomEnable = true;
-              this.matEnable = false;
-              this.shadeEnable = false;
-            }
-            if(item.label === "Mattress"){
-              this.matEnable = true;
-              this.fomEnable = false;
-              this.shadeEnable = false;
-            }
-            if(item.label === "Fabric" || item.label === "Rug" || item.label === "Wallpaper"){
-              this.shadeEnable = true;
-              this.matEnable = false;
-              this.fomEnable = false;
-            }             
-          }
-        });
+  onCategoryClick() {
+    this.categoryList.forEach(item => {
+      if (item.value == this.selectedCategory) {
+        if (item.label === "Foam") {
+          this.fomEnable = true;
+          this.matEnable = false;
+          this.shadeEnable = false;
+        }
+        if (item.label === "Mattress") {
+          this.matEnable = true;
+          this.fomEnable = false;
+          this.shadeEnable = false;
+        }
+        if (item.label === "Fabric" || item.label === "Rug" || item.label === "Wallpaper") {
+          this.shadeEnable = true;
+          this.matEnable = false;
+          this.fomEnable = false;
+        }
+      }
+    });
     this.trnProductStockService.getCollectionLookUpByCategory(this.selectedCategory).subscribe(
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
         this.selectedCollection = this.trnProductStockObj.collectionId;
-        if(this.selectedCollection > 0){
+        if (this.selectedCollection > 0) {
           this.onCollectionClick();
         }
         console.log('this.collectionList', this.collectionList);
@@ -172,7 +171,7 @@ export class TrnProductStockListComponent implements OnInit {
       });
   }
 
-  onCollectionClick(){
+  onCollectionClick() {
     this.trnProductStockService.getSerialNumberLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.shadeList = results;
@@ -184,7 +183,7 @@ export class TrnProductStockListComponent implements OnInit {
         this.globalErrorHandler.handleError(error);
       });
 
-      this.trnProductStockService.getMatSizeLookUpByCollection(this.selectedCollection).subscribe(
+    this.trnProductStockService.getMatSizeLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.matSizeList = results;
         this.matSizeList.unshift({ label: '--Select--', value: null });
@@ -195,7 +194,7 @@ export class TrnProductStockListComponent implements OnInit {
         this.globalErrorHandler.handleError(error);
       });
 
-      this.trnProductStockService.getFomSizeLookUpByCollection(this.selectedCollection).subscribe(
+    this.trnProductStockService.getFomSizeLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.fomSizeList = results;
         this.fomSizeList.unshift({ label: '--Select--', value: null });
@@ -215,47 +214,47 @@ export class TrnProductStockListComponent implements OnInit {
     //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
-    this.pageSize=event.rows;
-    this.page=event.first;
-    this.search=  event.globalFilter;
+    this.pageSize = event.rows;
+    this.page = event.first;
+    this.search = event.globalFilter;
     this.getTrnProductStocksList();
     this.getCategoryLookUp();
     this.getCompanyLocationLookUp();
   }
 
-  getTrnProductStockById(id){
-  this.trnProductStockService.getTrnProductStockById(id).subscribe(
-    results => {
-      this.trnProductStockObj = results;
-      console.log('this.trnProductStockObj', this.trnProductStockObj);
-      this.selectedCategory = this.trnProductStockObj.categoryId;
-      this.selectedCompanyLocation = this.trnProductStockObj.locationId;
-      if(this.selectedCategory > 0){
-        this.onCategoryClick();
-      }
-    },
-    error => {
-      this.globalErrorHandler.handleError(error);
-    });
+  getTrnProductStockById(id) {
+    this.trnProductStockService.getTrnProductStockById(id).subscribe(
+      results => {
+        this.trnProductStockObj = results;
+        console.log('this.trnProductStockObj', this.trnProductStockObj);
+        this.selectedCategory = this.trnProductStockObj.categoryId;
+        this.selectedCompanyLocation = this.trnProductStockObj.locationId;
+        if (this.selectedCategory > 0) {
+          this.onCategoryClick();
+        }
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
   }
 
-  
+
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
 
-  this.isFormSubmitted=true;
-    if(!valid)
-    return;
-    if(this.trnProductStockObj.id>0){
+    this.isFormSubmitted = true;
+    if (!valid)
+      return;
+    if (this.trnProductStockObj.id > 0) {
 
     }
-    else{
+    else {
       this.trnProductStockObj.categoryId = value.category;
       this.trnProductStockObj.collectionId = value.collection;
       this.trnProductStockObj.fwrShadeId = value.shade;
       this.trnProductStockObj.matSizeId = value.matSize;
       this.trnProductStockObj.fomSizeId = value.fomSize;
       this.trnProductStockObj.locationId = value.location;
-    }   
+    }
     this.saveTrnProductStock(this.trnProductStockObj);
   }
 
@@ -265,12 +264,12 @@ export class TrnProductStockListComponent implements OnInit {
       this.trnProductStockService.updateTrnProductStock(value)
         .subscribe(
         results => {
-         this. getTrnProductStocksList(); 
-         this.toggleDiv=false;
-         this.params=null;
+          this.getTrnProductStocksList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-         
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -280,12 +279,12 @@ export class TrnProductStockListComponent implements OnInit {
       this.trnProductStockService.createTrnProductStock(value)
         .subscribe(
         results => {
-         this. getTrnProductStocksList();
-         this.toggleDiv=false;
-         this.params=null;
+          this.getTrnProductStocksList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-       
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -295,12 +294,12 @@ export class TrnProductStockListComponent implements OnInit {
   }
 
   onEditClick(trnProductStock: TrnProductStock) {
-     this.trnProductStockService.perPage = this.pageSize;
-     this.trnProductStockService.currentPos = this.page;
-     this. getTrnProductStockById(trnProductStock.id);
-     this.params=trnProductStock.id;
-     this.toggleDiv=true;
-     this.disabled = true;
+    this.trnProductStockService.perPage = this.pageSize;
+    this.trnProductStockService.currentPos = this.page;
+    this.getTrnProductStockById(trnProductStock.id);
+    this.params = trnProductStock.id;
+    this.toggleDiv = true;
+    this.disabled = true;
   }
 
 }

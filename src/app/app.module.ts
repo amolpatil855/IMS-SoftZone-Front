@@ -13,6 +13,7 @@ import { ThemeRoutingModule } from "./theme/theme-routing.module";
 import { AuthModule } from "./auth/auth.module";
 import { StoreService } from "./_services/store.service";
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { TextMaskModule } from 'angular2-text-mask';
 import {
   GrowlModule,
 } from 'primeng/primeng';
@@ -29,6 +30,7 @@ import {
     AppRoutingModule,
     ThemeRoutingModule,
     AuthModule,
+    TextMaskModule,
     GrowlModule,
   ],
   providers: [ScriptLoaderService, MessageService, GlobalErrorHandler, StoreService, MenuPermissionService,{provide: LocationStrategy, useClass: HashLocationStrategy}],

@@ -21,8 +21,8 @@ export class AuthGuard implements CanActivate {
       this.storeService.permissionsList.subscribe((response) => {
         if (response) {
           for (var i = 0; i < route.data['permissions'].length; i++) {
-            var _permissionVal=route.data['permissions'][i];
-            if (!_.find(response,function(respVal) { return respVal == _permissionVal })) {
+            var _permissionVal = route.data['permissions'][i];
+            if (!_.find(response, function(respVal) { return respVal == _permissionVal })) {
               this._router.navigate(['/forbidden']);
               return false;
             }

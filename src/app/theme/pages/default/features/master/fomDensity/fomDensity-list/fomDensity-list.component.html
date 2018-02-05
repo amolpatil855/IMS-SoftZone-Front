@@ -148,8 +148,8 @@
 																<div class="form-group">
 																	<label class="fieldLabel col-md-6 col-sm-6">Selling Rate %<span class="requiredField">*</span></label>
 																	<div class="col-md-6 col-sm-6">
-																		<input class="form-control m-input" type="number" value="" #sellingRatePercentageVal="ngModel" (blur)="calculateSellingRate()" onKeyPress="if(this.value.length==2) return false;" required [ngClass]="{'red-border-class':sellingRatePercentageVal.errors && isFormSubmitted}"
-																		 [(ngModel)]="fomDensityObj.sellingRatePercentage" name="sellingRatePercentage" id="sellingRatePercentage">
+																		<input class="form-control m-input" type="text" value="" #sellingRatePercentageVal="ngModel" (blur)="calculateSellingRate()" onKeyPress="if(this.value.length==2) return false;" required [ngClass]="{'red-border-class':sellingRatePercentageVal.errors && isFormSubmitted}"
+																		[textMask]="{mask: mask}" onchange="this.value=parseFloat(this.value).toFixed(2)" [(ngModel)]="fomDensityObj.sellingRatePercentage" name="sellingRatePercentage" id="sellingRatePercentage">
 																		<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
 																						Please enter Description
 																					</div> -->
@@ -211,7 +211,7 @@
 								<p-dataTable [value]="fomDensityList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb"
 								 #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
 									<p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
-									<p-column field="mstQuality.qualityName" header="Quality" [style]="{'text-align':'left'}"></p-column>
+									<p-column field="mstQuality.qualityCode" header="Quality" [style]="{'text-align':'left'}"></p-column>
 									<p-column field="density" header="Foam Density" [style]="{'text-align':'left'}"></p-column>
 									<p-column field="description" header="Description" [style]="{'text-align':'left'}"></p-column>
 									<p-column styleClass="col-button" [style]="{'text-align':'center'}">

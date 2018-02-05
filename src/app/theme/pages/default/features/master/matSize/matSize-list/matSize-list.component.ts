@@ -119,33 +119,48 @@ export class MatSizeListComponent implements OnInit {
   }
 
   onCollectionClick() {
-    this.matSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
-      results => {
-        this.qualityList = results;
-        this.qualityList.unshift({ label: '--Select--', value: null });
-        this.selectedQuality = this.matSizeObj.qualityId;
-        if (this.selectedQuality > 0) {
-          this.onQualityClick();
-        }
+    if (this.selectedCollection == null) {
+      this.qualityList = [];
+      this.qualityList.unshift({ label: '--Select--', value: null });
+      this.thicknessList = [];
+      this.thicknessList.unshift({ label: '--Select--', value: null });
+      this.selectedQuality = null;
+      this.selectedThickness = null;
+    } else {
+      this.matSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
+        results => {
+          this.qualityList = results;
+          this.qualityList.unshift({ label: '--Select--', value: null });
+          this.selectedQuality = this.matSizeObj.qualityId;
+          if (this.selectedQuality > 0) {
+            this.onQualityClick();
+          }
 
-        console.log('this.qualityList', this.qualityList);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
+          console.log('this.qualityList', this.qualityList);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        });
+    }
   }
 
   onQualityClick() {
-    this.matSizeService.getMatThicknessLookUp().subscribe(
-      results => {
-        this.thicknessList = results;
-        this.thicknessList.unshift({ label: '--Select--', value: null });
-        this.selectedThickness = this.matSizeObj.thicknessId;
-        console.log('this.thicknessList', this.thicknessList);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
+    if (this.selectedQuality == null) {
+      this.thicknessList = [];
+      this.thicknessList.unshift({ label: '--Select--', value: null });
+      this.selectedThickness = null;
+    } else {
+      this.matSizeService.getMatThicknessLookUp().subscribe(
+        results => {
+          this.thicknessList = results;
+          this.thicknessList.unshift({ label: '--Select--', value: null });
+          this.selectedThickness = this.matSizeObj.thicknessId;
+          console.log('this.thicknessList', this.thicknessList);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        });
+    }
   }
 
   calculateSizeCode() {
@@ -153,7 +168,7 @@ export class MatSizeListComponent implements OnInit {
       this.matSizeObj.sizeCode = this.matSizeObj.length + 'x' + this.matSizeObj.width;
     }
     else
-    this.matSizeObj.sizeCode='';
+      this.matSizeObj.sizeCode = '';
   }
 
   loadLazy(event: LazyLoadEvent) {

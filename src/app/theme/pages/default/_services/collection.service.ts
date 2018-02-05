@@ -13,8 +13,8 @@ export class CollectionService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllCollections(pageSize=0,page=0,search='') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Collection?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllCollections(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Collection?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getCollectionById(id: number) {
@@ -22,7 +22,7 @@ export class CollectionService {
   }
 
   getCollectionLookUp(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId='+id, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createCollection(Collection: Collection) {

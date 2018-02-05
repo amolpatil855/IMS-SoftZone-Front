@@ -1,5 +1,5 @@
-export class Category{
-    id: number;
-    code: string;
-    name: string;
+export class Category {
+  id: number;
+  code: string;
+  name: string;
 }
