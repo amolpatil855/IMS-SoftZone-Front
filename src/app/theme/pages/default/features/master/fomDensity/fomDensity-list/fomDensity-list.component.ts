@@ -171,6 +171,12 @@ export class FomDensityListComponent implements OnInit {
     this.fomDensityService.getFomDensityById(id).subscribe(
       results => {
         this.fomDensityObj = results;
+
+        this.fomDensityObj.sellingRatePercentage =  parseFloat(this.fomDensityObj.sellingRatePercentage).toFixed(2);
+        this.fomDensityObj.sellingRatePerMM =parseFloat(this.fomDensityObj.sellingRatePerMM).toFixed(2);
+        this.fomDensityObj.sellingRatePerKG =parseFloat(this.fomDensityObj.sellingRatePerKG).toFixed(2);
+   
+
         console.log('this.fomDensityObj', this.fomDensityObj);
         this.selectedCollection = this.fomDensityObj.collectionId;
         if (this.selectedCollection > 0) {
