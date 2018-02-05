@@ -39,6 +39,8 @@ export class FomSizeListComponent implements OnInit {
   toggleDiv = false;
   disabled: boolean = false;
   tableEmptyMesssage = 'Loading...';
+  lengthMask = [/[1-9]/, /\d/, /\d/, '.', /\d/, /\d/];
+  widthMask = [/[1-9]/, /\d/, /\d/, '.', /\d/, /\d/];
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
