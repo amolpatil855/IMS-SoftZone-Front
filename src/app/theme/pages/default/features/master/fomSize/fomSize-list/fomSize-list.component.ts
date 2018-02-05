@@ -55,7 +55,6 @@ export class FomSizeListComponent implements OnInit {
     });
     this.states.push({ label: '--Select--', value: '0' });
     this.getFomCollectionLookUp();
-    this.onCollectionClick();
     this.newRecord();
   }
 
