@@ -110,7 +110,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   onClickPrimary(row) {
-    this.customerObj.MstCustomerAddresses.forEach(function(value) {
+    this.customerObj.MstCustomerAddresses.forEach(function (value) {
       value.isPrimary = false;
     })
     row.isPrimary = true;
@@ -218,7 +218,7 @@ export class CustomerListComponent implements OnInit {
   validateAddress() {
     let regex = new RegExp("^[A-Z0-9]{15}$");
     let isvalidAddress = true;
-    _.forEach(this.customerObj.MstCustomerAddresses, function(addressObj) {
+    _.forEach(this.customerObj.MstCustomerAddresses, function (addressObj) {
       if (!addressObj.addressLine1) {
         addressObj.invalidAddressLine1 = true;
         isvalidAddress = false;
@@ -226,7 +226,13 @@ export class CustomerListComponent implements OnInit {
       else {
         addressObj.invalidAddressLine1 = false;
       }
-
+      if (!addressObj.gstin) {
+        addressObj.invalidGstin = true;
+        isvalidAddress = false;
+      }
+      else {
+        addressObj.invalidGstin = false;
+      }
 
       if (!addressObj.state || addressObj.state == '0' || addressObj.state == 0) {
         addressObj.invalidState = true;
@@ -253,7 +259,7 @@ export class CustomerListComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    _.forEach(this.customerObj.MstCustomerAddresses, function(addressObj) {
+    _.forEach(this.customerObj.MstCustomerAddresses, function (addressObj) {
       if (!addressObj.addressLine1) {
         addressObj.invalidAddressLine1 = true;
         valid = false;
@@ -261,8 +267,14 @@ export class CustomerListComponent implements OnInit {
       else {
         addressObj.invalidAdd = false;
       }
-
-      if (!addressObj.state || addressObj.state == '0') {
+      if (!addressObj.gstin) {
+        addressObj.invalidGstin = true;
+        valid = false;
+      }
+      else {
+        addressObj.invalidGstin = false;
+      }
+      if (!addressObj.state || addressObj.state == '0' || addressObj.state == 0) {
         addressObj.invalidState = true;
         valid = false;
       }
@@ -344,7 +356,7 @@ export class CustomerListComponent implements OnInit {
           });
         }
         delete this.customerObj['mstCustomerAddresses'];
-        _.forEach(this.customerObj.MstCustomerAddresses, function(value) {
+        _.forEach(this.customerObj.MstCustomerAddresses, function (value) {
           value.contRoleId = Math.floor(Math.random() * 2000);
         });
       },
