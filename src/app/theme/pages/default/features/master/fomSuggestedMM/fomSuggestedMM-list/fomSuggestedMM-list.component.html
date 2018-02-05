@@ -91,7 +91,7 @@
 												<div class="form-group">
 													<label class="fieldLabel col-sm-5">SuggestedMM <span class="requiredField">*</span></label>
 													<div class="col-sm-7">
-														<input class="form-control m-input" type="number" value="" maxlength="10" #suggestedMMVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': suggestedMMVal.errors && isFormSubmitted}" [(ngModel)]="fomSuggestedMMObj.suggestedMM" name="suggestedMM" id="suggestedMM" placeholder="Enter SuggestedMM">
+														<input class="form-control m-input" type="number" value="" maxlength="5" step="1" onchange="this.value = parseFloat(this.value).toFixed(0);"  #suggestedMMVal="ngModel" required onKeyPress="if(this.value.length==5) return false;" [ngClass]="{'red-border-class': suggestedMMVal.errors && isFormSubmitted}" [(ngModel)]="fomSuggestedMMObj.suggestedMM" name="suggestedMM" id="suggestedMM" placeholder="Enter SuggestedMM">
 														<!-- <div class="alertMsg" *ngIf="suggestedMMVal.errors   && (suggestedMMVal.dirty || suggestedMMVal.touched)">
 															Please enter SuggestedMM
 														</div> -->
@@ -150,8 +150,8 @@
                                 <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="mstQuality.qualityName" header="Quality" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="mstFomDensity.density" header="Foam Density" [style]="{'text-align':'left'}"></p-column>
-								<p-column field="suggestedMM" header="Foam Suggested MM" [style]="{'text-align':'center'}"></p-column>
-								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
+								<p-column field="suggestedMM" header="Foam Suggested MM" [style]="{'text-align':'left'}"></p-column>
+								<p-column styleClass="col-button" [style]="{'text-align':'left'}">
 									<ng-template pTemplate="header">
 										Action
 									</ng-template>

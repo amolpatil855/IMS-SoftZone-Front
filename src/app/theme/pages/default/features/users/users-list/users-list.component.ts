@@ -29,7 +29,7 @@ export class UsersListComponent implements OnInit {
   selectedInstitute: any;
   roleList: any;
   userTypeList: any;
-  roleId=null;
+  role=null;
   selectedSchoolsValidationError: boolean = false;
   hideInstituteAndSchool: boolean = false;
   relatedSchoolList: any;
@@ -57,7 +57,61 @@ export class UsersListComponent implements OnInit {
   ngOnInit() {
     this.roleList = [];
     this.userTypeList = [];
-    this.roleService.getRoleLookup().subscribe(
+    // this.roleService.getRoleLookup().subscribe(
+    //   results => {
+    //     this.roleList = results;
+    //     this.roleDuplicateList = this.roleList;
+    //     console.log('this.roleList', this.roleList);
+    //     this.roleList.unshift({ value: null , label: '--Select--'  });
+    //   },
+    //   error => {
+    //     this.globalErrorHandler.handleError(error);
+    //   });
+      
+     this.userService.getAllUserType().subscribe(
+      results => {
+        this.userTypeList = results;
+        console.log('this.userTypeList', this.userTypeList);
+        this.userTypeList.unshift({ value: null , label: '--Select--'});
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  onUserTypeChange(userTypeId){
+   // let temp = this;
+  //  this.roleList = temp.roleDuplicateList;
+  if(userTypeId == null){
+    this.roleList=[];
+     this.roleList.unshift({ value: null , label: '--Select--'  });
+     this.userForm.patchValue({
+        userType: this.roleList[0].value,
+        role: this.roleList[0].value
+      });
+  }else{
+
+    if(userTypeId == 1){
+      this.roleService.getRoleLookup(userTypeId).subscribe(
+      results => {
+        this.roleList = results;
+        console.log('this.roleList', this.roleList);
+        this.roleList.unshift({ value: null , label: '--Select--'  });
+        this.userForm.patchValue({
+         role: this.roleList[1].value
+       });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+      
+      this.userForm.get('role').disable(); 
+      this.butDisabled = true;
+    }
+    else{
+      if(userTypeId > 1){
+     // this.roleList.splice(1 , 1);
+      this.roleService.getRoleLookup(userTypeId).subscribe(
       results => {
         this.roleList = results;
         console.log('this.roleList', this.roleList);
@@ -66,36 +120,12 @@ export class UsersListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
-      
-     this.userService.getAllUserType().subscribe(
-      results => {
-        this.userTypeList = results;
-        console.log('this.userTypeList', this.userTypeList);
-        this.userTypeList.unshift({ id: null , userTypeName: '--Select--'});
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
-  }
-
-  onUserTypeChange(userTypeId){
-    if(userTypeId == 1){
-      this.userForm.patchValue({
-        role: 1
-      });
-      this.userForm.get('role').disable(); 
-      this.butDisabled = true;
-    }
-    else{
-      if(userTypeId > 1){
-      this.roleList.splice(1 , 1);
       this.butDisabled = false;
       this.userForm.get('role').enable(); 
-      }else{
-        this.roleList = this.roleList;
       }
     }
   }
+}
 
   loadLazy(event: LazyLoadEvent) {
     //in a real application, make a remote request to load data using state metadata from event
@@ -112,8 +142,20 @@ export class UsersListComponent implements OnInit {
   }
 
   toggleActiveButton(user: User){
-    user.isActive = false;
-   console.log('row', user);
+    user.isActive = !user.isActive;
+   this.userService.updateUser(user)
+        .subscribe(
+        results => {
+           this.getAllUserList();
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+          this.toggleDiv=false;
+          this.newRecord();
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
   }
 
   getAllUserList() {
@@ -154,7 +196,7 @@ export class UsersListComponent implements OnInit {
       role: results.roleId,
       userType: results.userTypeId,
   });
-    this.roleId = results.roleId;
+    this.role = results.roleId;
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -218,15 +260,27 @@ export class UsersListComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted=true; 
-   
-      let params ={
+    let params = {};
+    if(value.roleId == null){
+      params ={
         id: value.id,
         username: value.username,
         email: value.email,
         phone: value.phone,
-        roleId: this.roleId,
+        roleId: value.role,
+        userTypeId: value.userType,
+      }
+    }else{
+      params ={
+        id: value.id,
+        username: value.username,
+        email: value.email,
+        phone: value.phone,
+        roleId: this.role,
         userTypeId: value.userType,
     }
+    }
+     
    
         
       
