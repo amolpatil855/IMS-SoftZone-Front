@@ -39,8 +39,8 @@ export class FomSizeListComponent implements OnInit {
   toggleDiv = false;
   disabled: boolean = false;
   tableEmptyMesssage = 'Loading...';
-  lengthMask = [/[1-9]/, /\d/, /\d/, '.', /\d/, /\d/];
-  widthMask = [/[1-9]/, /\d/, /\d/, '.', /\d/, /\d/];
+  lengthMask = [/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/];
+  widthMask = [/[0-9]/, /\d/, /\d/, '.', /\d/, /\d/];
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -80,7 +80,8 @@ export class FomSizeListComponent implements OnInit {
     this.selectedSize = null;
   }
   onInputChange() {
-    this.fomSizeObj.sizeCode = this.fomSizeObj.width + 'x' + this.fomSizeObj.length;
+
+    this.fomSizeObj.sizeCode = (this.fomSizeObj.width==""?0:parseFloat( this.fomSizeObj.width ).toFixed(2)) + 'x' + ( this.fomSizeObj.length==""?0:parseFloat(this.fomSizeObj.length ).toFixed(2)) ;
   }
   toggleButton() {
     this.toggleDiv = !this.toggleDiv;

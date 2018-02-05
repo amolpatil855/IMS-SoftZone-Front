@@ -128,10 +128,10 @@
 															<div class="form-group">
 																<label class="fieldLabel col-sm-5">Rate <span class="requiredField">*</span></label>
 																<div class="col-sm-7">
-																	<input class="form-control m-input" type="number" value="" maxlength="8" #rateVal="ngModel" required onKeyPress="if(this.value.length==8) return false;" [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="" (input)="onInputChange()">
-																	<!-- <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
+																	<input class="form-control m-input" type="text" value="" maxlength="10" #rateVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [textMask]="{mask: rateMask}" onchange="this.value=this.value!=''? parseFloat(this.value).toFixed(2):''" [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="" (change)="onInputChange()">
+																	 <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
 																		Please enter Rate
-																	</div> -->
+																	</div>
 																</div>
 															</div>
 														</div>
@@ -139,10 +139,10 @@
 															<div class="form-group">
 																<label class="fieldLabel col-sm-5"> Purchase Disc (%) <span class="requiredField">*</span></label>
 																<div class="col-sm-7">
-																	<input class="form-control m-input" type="number" value="" maxlength="2" #purchaseDiscountVal="ngModel" required onKeyPress="if(this.value.length==2) return false;" [ngClass]="{'red-border-class': purchaseDiscountVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.purchaseDiscount" name="purchaseDiscount" id="purchaseDiscount" placeholder="" (input)="onInputChange()">
-																	<!-- <div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
-																		Please enter Rate
-																	</div> -->
+																	<input class="form-control m-input" type="number" value="" maxlength="2" #purchaseDiscountVal="ngModel" required onKeyPress="if(this.value.length==2) return false;" [ngClass]="{'red-border-class': purchaseDiscountVal.errors && isFormSubmitted}" [(ngModel)]="matSizeObj.purchaseDiscount" name="purchaseDiscount" id="purchaseDiscount" placeholder="" (change)="onInputChange()">
+																	<div class="alertMsg" *ngIf="rateVal.errors   && (rateVal.dirty || rateVal.touched)">
+																		Enter purchase discount
+																	</div> 
 																</div>
 															</div>
 														</div>
