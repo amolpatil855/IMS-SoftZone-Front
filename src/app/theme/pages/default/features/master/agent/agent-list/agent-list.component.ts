@@ -19,16 +19,16 @@ import { Agent } from "../../../../_models/agent";
 export class AgentListComponent implements OnInit {
   isFormSubmitted: boolean = false;
   agentForm: any;
-  agentObj:any;
+  agentObj: any;
   params: number;
-  agentList=[];
-  pageSize=50;
-  page=1;
-  totalCount=0;
-  search='';
-  toggleDiv=false;
-  states=[];
-  tableEmptyMesssage='Loading...';
+  agentList = [];
+  pageSize = 50;
+  page = 1;
+  totalCount = 0;
+  search = '';
+  toggleDiv = false;
+  states = [];
+  tableEmptyMesssage = 'Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -45,11 +45,11 @@ export class AgentListComponent implements OnInit {
     this.newRecord();
   }
 
-  newRecord(){
+  newRecord() {
     this.params = null;
-    this.agentObj ={
+    this.agentObj = {
       id: 0,
-      name:'',
+      name: '',
       phone: '',
       email: '',
       address1: '',
@@ -61,30 +61,29 @@ export class AgentListComponent implements OnInit {
     };
   }
 
-  toggleButton(){
+  toggleButton() {
     this.toggleDiv = !this.toggleDiv;
-    if(this.toggleDiv && !this.params){
+    if (this.toggleDiv && !this.params) {
       this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
-  onCancel(){
+  onCancel() {
     this.toggleDiv = false;
     this.newRecord();
   }
   getAgentsList() {
-    this.agentService.getAllAgents(this.pageSize,this.page,this.search).subscribe(
+    this.agentService.getAllAgents(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.agentList = results.data;
-        this.totalCount=results.totalCount;
-        if(this.totalCount==0)
-        {
-          this.tableEmptyMesssage="No Records Found";
+        this.totalCount = results.totalCount;
+        if (this.totalCount == 0) {
+          this.tableEmptyMesssage = "No Records Found";
         }
       },
       error => {
-        this.tableEmptyMesssage="No Records Found";
+        this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -96,28 +95,28 @@ export class AgentListComponent implements OnInit {
     //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
-    this.pageSize=event.rows;
-    this.page=event.first;
-    this.search=  event.globalFilter;
+    this.pageSize = event.rows;
+    this.page = event.first;
+    this.search = event.globalFilter;
     this.getAgentsList();
   }
 
-  getAgentById(id){
-  this.agentService.getAgentById(id).subscribe(
-    results => {
-      this.agentObj = results;
-      console.log('this.agentList', this.agentObj);
-    },
-    error => {
-      this.globalErrorHandler.handleError(error);
-    });
-}
+  getAgentById(id) {
+    this.agentService.getAgentById(id).subscribe(
+      results => {
+        this.agentObj = results;
+        console.log('this.agentList', this.agentObj);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.isFormSubmitted=true;
-    if(!valid)
-    return;
-      this.saveAgent(this.agentObj);
+    this.isFormSubmitted = true;
+    if (!valid)
+      return;
+    this.saveAgent(this.agentObj);
   }
 
   saveAgent(value) {
@@ -126,12 +125,12 @@ export class AgentListComponent implements OnInit {
       this.agentService.updateAgent(value)
         .subscribe(
         results => {
-         this.getAgentsList(); 
-         this.toggleDiv=false;
-         this.params=null;
+          this.getAgentsList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-         
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -141,12 +140,12 @@ export class AgentListComponent implements OnInit {
       this.agentService.createAgent(value)
         .subscribe(
         results => {
-         this. getAgentsList();
-         this.toggleDiv=false;
-         this.params=null;
+          this.getAgentsList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-       
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -156,12 +155,12 @@ export class AgentListComponent implements OnInit {
   }
 
   onEditClick(agent: Agent) {
-     this.agentService.perPage = this.pageSize;
-     this.agentService.currentPos = this.page;
-     this.getAgentById(agent.id);
-     this.params=agent.id;
-     this.toggleDiv=true;
-     this.isFormSubmitted = false;
+    this.agentService.perPage = this.pageSize;
+    this.agentService.currentPos = this.page;
+    this.getAgentById(agent.id);
+    this.params = agent.id;
+    this.toggleDiv = true;
+    this.isFormSubmitted = false;
   }
 
   onDelete(agent: Agent) {
@@ -172,9 +171,9 @@ export class AgentListComponent implements OnInit {
       accept: () => {
         this.agentService.deleteAgent(agent.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getAgentsList();
-            this.toggleDiv=false;
+            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

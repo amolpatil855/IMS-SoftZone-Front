@@ -13,8 +13,8 @@ export class FomSizeService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllFomSizes(pageSize=0,page=0,search='') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'FomSize?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllFomSizes(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'FomSize?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getFomSizeById(id: number) {
@@ -34,7 +34,7 @@ export class FomSizeService {
   }
 
   getFomSuggestedMMLookUpByFomDensity(fomDensityId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetFomSuggestedMMLookUpByFomDensity?fomDensityId=' + fomDensityId , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetFomSuggestedMMLookUpByFomDensity?fomDensityId=' + fomDensityId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createFomSize(fomSize: FomSize) {

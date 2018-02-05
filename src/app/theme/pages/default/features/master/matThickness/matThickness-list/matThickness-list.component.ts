@@ -20,16 +20,16 @@ import { MatThickness } from "../../../../_models/matThickness";
 export class MatThicknessListComponent implements OnInit {
   isFormSubmitted: boolean = false;
   matThicknessForm: any;
-  matThicknessObj:any;
+  matThicknessObj: any;
   params: number;
-  matThicknessList=[];
-  pageSize=50;
-  page=1;
-  totalCount=0;
-  search='';
-  toggleDiv=false;
-  states=[];
-  tableEmptyMesssage='Loading...';
+  matThicknessList = [];
+  pageSize = 50;
+  page = 1;
+  totalCount = 0;
+  search = '';
+  toggleDiv = false;
+  states = [];
+  tableEmptyMesssage = 'Loading...';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -46,39 +46,38 @@ export class MatThicknessListComponent implements OnInit {
     this.newRecord();
   }
 
-  newRecord(){
+  newRecord() {
     this.params = null;
-    this.matThicknessObj ={
+    this.matThicknessObj = {
       id: 0,
-      thicknessCode:'',
+      thicknessCode: '',
       size: ''
     };
   }
 
-  toggleButton(){
+  toggleButton() {
     this.toggleDiv = !this.toggleDiv;
-    if(this.toggleDiv && !this.params){
+    if (this.toggleDiv && !this.params) {
       this.isFormSubmitted = false;
       this.newRecord();
     }
 
   }
-  onCancel(){
+  onCancel() {
     this.toggleDiv = false;
     this.newRecord();
   }
   getMatThicknesssList() {
-    this.matThicknessService.getAllMatThicknesss(this.pageSize,this.page,this.search).subscribe(
+    this.matThicknessService.getAllMatThicknesss(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.matThicknessList = results.data;
-        this.totalCount=results.totalCount;
-        if(this.totalCount==0)
-        {
-          this.tableEmptyMesssage="No Records Found";
+        this.totalCount = results.totalCount;
+        if (this.totalCount == 0) {
+          this.tableEmptyMesssage = "No Records Found";
         }
       },
       error => {
-        this.tableEmptyMesssage="No Records Found";
+        this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
       });
   }
@@ -90,28 +89,28 @@ export class MatThicknessListComponent implements OnInit {
     //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
-    this.pageSize=event.rows;
-    this.page=event.first;
-    this.search=  event.globalFilter;
+    this.pageSize = event.rows;
+    this.page = event.first;
+    this.search = event.globalFilter;
     this.getMatThicknesssList();
   }
 
-  getMatThicknessById(id){
-  this.matThicknessService.getMatThicknessById(id).subscribe(
-    results => {
-      this.matThicknessObj = results;
-      console.log('this.matThicknessList', this.matThicknessObj);
-    },
-    error => {
-      this.globalErrorHandler.handleError(error);
-    });
-}
+  getMatThicknessById(id) {
+    this.matThicknessService.getMatThicknessById(id).subscribe(
+      results => {
+        this.matThicknessObj = results;
+        console.log('this.matThicknessList', this.matThicknessObj);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
-    this.isFormSubmitted=true;
-    if(!valid)
-    return;
-      this.saveMatThickness(this.matThicknessObj);
+    this.isFormSubmitted = true;
+    if (!valid)
+      return;
+    this.saveMatThickness(this.matThicknessObj);
   }
 
   saveMatThickness(value) {
@@ -120,12 +119,12 @@ export class MatThicknessListComponent implements OnInit {
       this.matThicknessService.updateMatThickness(value)
         .subscribe(
         results => {
-         this.getMatThicknesssList(); 
-         this.toggleDiv=false;
-         this.params=null;
+          this.getMatThicknesssList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-         
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -135,12 +134,12 @@ export class MatThicknessListComponent implements OnInit {
       this.matThicknessService.createMatThickness(value)
         .subscribe(
         results => {
-         this. getMatThicknesssList();
-         this.toggleDiv=false;
-         this.params=null;
+          this.getMatThicknesssList();
+          this.toggleDiv = false;
+          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-       
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -150,12 +149,12 @@ export class MatThicknessListComponent implements OnInit {
   }
 
   onEditClick(matThickness: MatThickness) {
-     this.matThicknessService.perPage = this.pageSize;
-     this.matThicknessService.currentPos = this.page;
-     this.getMatThicknessById(matThickness.id);
-     this.params=matThickness.id;
-     this.toggleDiv=true;
-     this.isFormSubmitted = false;
+    this.matThicknessService.perPage = this.pageSize;
+    this.matThicknessService.currentPos = this.page;
+    this.getMatThicknessById(matThickness.id);
+    this.params = matThickness.id;
+    this.toggleDiv = true;
+    this.isFormSubmitted = false;
   }
 
   onDelete(matThickness: MatThickness) {
@@ -166,9 +165,9 @@ export class MatThicknessListComponent implements OnInit {
       accept: () => {
         this.matThicknessService.deleteMatThickness(matThickness.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message  });
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getMatThicknesssList();
-            this.toggleDiv=false;
+            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

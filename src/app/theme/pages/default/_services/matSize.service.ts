@@ -13,8 +13,8 @@ export class MatSizeService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllMatSizes(pageSize=0,page=0,search='') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'MatSize?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllMatSizes(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'MatSize?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getMatSizeById(id: number) {

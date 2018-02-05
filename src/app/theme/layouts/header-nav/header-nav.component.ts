@@ -17,20 +17,20 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
   defaultLogo: string;
   userRole: string;
   userName: string;
-  loggedInUser = {user:null};
+  loggedInUser = { user: null };
   IMSLogoShow: boolean;
-  constructor(private _router: Router, 
+  constructor(private _router: Router,
     private userService: UserService,
     private imageUploadService: ImageUploadService) {
   }
   ngOnInit() {
-    
-    this.userService.getLoggedInUserDetail().subscribe(res => { 
-    this.userName = res.userName;    
-    this.userRole = res.mstRole.roleName;
-    if(this.userName !== undefined && this.userRole !== undefined){
-      this.loggedInUser = {user: {username: this.userName, role: this.userRole}};
-    }
+
+    this.userService.getLoggedInUserDetail().subscribe(res => {
+      this.userName = res.userName;
+      this.userRole = res.mstRole.roleName;
+      if (this.userName !== undefined && this.userRole !== undefined) {
+        this.loggedInUser = { user: { username: this.userName, role: this.userRole } };
+      }
     });
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.defaultLogo = "./assets/img/demo.png";
@@ -45,7 +45,7 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
     }
 
 
-      this.webHeader = "IMS";
+    this.webHeader = "IMS";
 
 
   }

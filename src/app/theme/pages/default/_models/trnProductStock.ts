@@ -5,17 +5,17 @@ import { Shade } from "./shade";
 import { MatSize } from "./matSize";
 
 export class TrnProductStock {
-    id: number;
-    categoryId: number;
-    collectionid: number;
-    fwrShadeId: number;
-    matSizeId: number;
-    fomSizeId: number;
-    locationId: number;
-    stock: number;
-    MstCategory: Category;
-    MstCollection: Collection;
-    MstFomSize: FomSize;
-    MstFWRShade: Shade;
-    MstMatSize: MatSize;
+  id: number;
+  categoryId: number;
+  collectionid: number;
+  fwrShadeId: number;
+  matSizeId: number;
+  fomSizeId: number;
+  locationId: number;
+  stock: number;
+  MstCategory: Category;
+  MstCollection: Collection;
+  MstFomSize: FomSize;
+  MstFWRShade: Shade;
+  MstMatSize: MatSize;
 }

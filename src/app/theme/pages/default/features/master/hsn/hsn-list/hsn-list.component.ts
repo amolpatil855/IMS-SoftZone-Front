@@ -47,10 +47,10 @@ export class HsnListComponent implements OnInit {
     this.newRecord();
   }
 
-  newRecord(){
-    this.isFormSubmitted=false;
-    this.params=null;
-    this.hsnObj ={
+  newRecord() {
+    this.isFormSubmitted = false;
+    this.params = null;
+    this.hsnObj = {
       id: 0,
       hsnCode: '',
       gst: ''

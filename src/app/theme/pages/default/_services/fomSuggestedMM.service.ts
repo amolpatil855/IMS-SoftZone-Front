@@ -13,8 +13,8 @@ export class FomSuggestedMMService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllFomSuggestedMMs(pageSize=0,page=0,search='') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'FomSuggestedMM?pageSize='+pageSize+'&page='+page+'&search='+search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllFomSuggestedMMs(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'FomSuggestedMM?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getFomSuggestedMMById(id: number) {
