@@ -22,7 +22,7 @@
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
 			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="companyForm" title="{{(companyFormVal && companyFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-			 [isAuthorize]="['shade']">
+			 [isAuthorize]="['shade']" tabindex="6">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
 			<!-- <button class="btn btn-secondary" [isAuthorize]="['shade']" (click)="onCancel()">
@@ -57,7 +57,7 @@
 															<span class="requiredField">*</span>
 														</label>
 														<div class="col-sm-7">
-															<input class="form-control m-input" type="text" value="" formControlName="companyName" required  [ngClass]="{'red-border-class': companyForm.get('companyName').hasError('required') && isFormSubmitted}"   name="companyName" id="companyName" placeholder="Company Name">
+															<input class="form-control m-input" type="text" value="" formControlName="companyName" required  [ngClass]="{'red-border-class': companyForm.get('companyName').hasError('required') && isFormSubmitted}"   name="companyName" id="companyName" placeholder="Company Name" tabindex="1">
 														</div>
 													</div>
 													</div>
@@ -67,7 +67,7 @@
 															<span class="requiredField">*</span>
 														</label>
 														<div class="col-sm-7">
-															<input class="form-control m-input" type="text" value="" formControlName="email"  required  [ngClass]="{'red-border-class': companyForm.get('email').hasError('required') && isFormSubmitted}"  name="email" placeholder="Email" maxlength="254">
+															<input class="form-control m-input" type="text" value="" formControlName="email"  required  [ngClass]="{'red-border-class': companyForm.get('email').hasError('required') && isFormSubmitted}"  name="email" placeholder="Email" maxlength="254" tabindex="2">
 														</div>
 													</div>
 												</div>
@@ -77,7 +77,7 @@
 															<span class="requiredField">*</span>
 														</label>
 														<div class="col-sm-7">
-															<input class="form-control m-input" type="text" formControlName="phone"  required  [ngClass]="{'red-border-class': companyForm.get('phone').hasError('required') && isFormSubmitted}"  name="contact" placeholder="Contact" maxlength="15">
+															<input class="form-control m-input" type="text" formControlName="phone"  required  [ngClass]="{'red-border-class': companyForm.get('phone').hasError('required') && isFormSubmitted}"  name="contact" placeholder="Contact" maxlength="15" tabindex="3">
 														</div>
 														<div class="alertMsg" *ngIf="!companyForm.get('phone').hasError('required') && companyForm.get('phone').hasError('pattern') && companyForm.get('phone').touched">
 															Please enter valid phone number
@@ -90,7 +90,7 @@
 															<span class="requiredField">*</span>
 														</label>
 														<div class="col-sm-7">
-															<input class="form-control m-input" type="text" formControlName="gstin"  required  [ngClass]="{'red-border-class': companyForm.get('gstin').hasError('required') && isFormSubmitted}"  name="gstin" placeholder="GSTIN" maxlength="15">
+															<input class="form-control m-input" type="text" formControlName="gstin"  required  [ngClass]="{'red-border-class': companyForm.get('gstin').hasError('required') && isFormSubmitted}"  name="gstin" placeholder="GSTIN" maxlength="15" tabindex="4">
 														</div>
 														<div class="alertMsg" *ngIf="!companyForm.get('gstin').hasError('required') && companyForm.get('gstin').hasError('pattern') && companyForm.get('gstin').touched">
 															Please enter valid GSTIN
@@ -104,7 +104,7 @@
 																<span class="requiredField">*</span>
 															</label>
 															<div class="col-sm-7">
-															<input class="form-control m-input" type="file"  #fileupload  value="" name="companyLogo" id="companyLogo"  (change)="onUploadLogo(fileupload.files)" >
+															<input class="form-control m-input" type="file"  #fileupload  value="" name="companyLogo" id="companyLogo"  (change)="onUploadLogo(fileupload.files)" tabindex="5">
 														</div>
 														</div>
 													</div>
