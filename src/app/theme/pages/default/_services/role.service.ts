@@ -18,7 +18,7 @@ export class RoleService {
   }
 
   getRoleLookup(userTypeId: number){
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetRoleLookup?userTypeId='+ userTypeId, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetRoleLookupByUserTypeId?userTypeId='+ userTypeId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
   
 

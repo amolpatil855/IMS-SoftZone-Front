@@ -119,6 +119,14 @@ export class MatSizeListComponent implements OnInit {
   }
 
   onCollectionClick() {
+     if(this.selectedCollection == null){
+      this.qualityList = [];
+      this.qualityList.unshift({ label: '--Select--', value: null });
+      this.thicknessList = [];
+      this.thicknessList.unshift({ label: '--Select--', value: null });
+        this.selectedQuality = null;
+        this.selectedThickness = null;
+    }else{
     this.matSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
@@ -133,9 +141,15 @@ export class MatSizeListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
 
   onQualityClick() {
+     if(this.selectedQuality == null){
+      this.thicknessList = [];
+      this.thicknessList.unshift({ label: '--Select--', value: null });
+        this.selectedThickness = null;
+    }else{
     this.matSizeService.getMatThicknessLookUp().subscribe(
       results => {
         this.thicknessList = results;
@@ -146,6 +160,7 @@ export class MatSizeListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
 
   calculateSizeCode() {

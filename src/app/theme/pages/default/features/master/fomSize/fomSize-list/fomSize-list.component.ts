@@ -124,6 +124,17 @@ export class FomSizeListComponent implements OnInit {
   }
 
   onCollectionClick(){
+     if(this.selectedCollection == null){
+      this.qualityList = [];
+      this.qualityList.unshift({ label: '--Select--', value: null });
+      this.fomDensityList = [];
+      this.fomDensityList.unshift({ label: '--Select--', value: null });
+      this.fomSuggestedMMList = [];
+      this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
+        this.selectedQuality = null;
+        this.selectedDensity = null;
+        this.selectedSize = null;
+    }else{
     this.fomSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
@@ -137,9 +148,18 @@ export class FomSizeListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
   
   onQualityClick(){
+    if(this.selectedQuality == null){
+      this.fomDensityList = [];
+      this.fomDensityList.unshift({ label: '--Select--', value: null });
+      this.fomSuggestedMMList = [];
+      this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
+        this.selectedDensity = null;
+        this.selectedSize = null;
+    }else{
     this.fomSizeService.getFomDensityLookUpByQuality(this.selectedQuality).subscribe(
       results => {
         this.fomDensityList = results;
@@ -153,9 +173,15 @@ export class FomSizeListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
 
   onDensityClick(){
+     if(this.selectedDensity == null){
+      this.fomSuggestedMMList = [];
+      this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
+        this.selectedSize = null;
+    }else{
     this.fomSizeService.getFomSuggestedMMLookUpByFomDensity(this.selectedDensity).subscribe(
       results => {
         this.fomSuggestedMMList = results;
@@ -166,6 +192,7 @@ export class FomSizeListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
 
   loadLazy(event: LazyLoadEvent) {
