@@ -80,9 +80,29 @@ export class FomSizeListComponent implements OnInit {
     this.selectedSize = null;
   }
   onInputChange() {
-
-    this.fomSizeObj.sizeCode = (this.fomSizeObj.width==""?0:parseFloat( this.fomSizeObj.width ).toFixed(2)) + 'x' + ( this.fomSizeObj.length==""?0:parseFloat(this.fomSizeObj.length ).toFixed(2)) ;
+    if(parseFloat(this.fomSizeObj.width) > 999.99 ){
+      this.fomSizeObj.width='';
+    }
+    if(parseFloat(this.fomSizeObj.length) > 999.99){
+      this.fomSizeObj.length='';
+    }
+    //this.fomSizeObj.sizeCode = (this.fomSizeObj.width==""?0:parseFloat( this.fomSizeObj.width ).toFixed(2)) + 'x' + ( this.fomSizeObj.length==""?0:parseFloat(this.fomSizeObj.length ).toFixed(2)) ;
+    this.fomSizeObj.sizeCode = this.fomSizeObj.width+ 'x' + this.fomSizeObj.length ;
   }
+
+  restrictMinus(e, limit) {
+
+        if(e.target.value.length == limit){
+          return false;
+        }
+
+        var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+
+        if (inputKeyCode != null) {
+            if (inputKeyCode == 45) e.preventDefault();
+        } 
+  }
+
   toggleButton() {
     this.toggleDiv = !this.toggleDiv;
     if (this.toggleDiv && !this.params) {

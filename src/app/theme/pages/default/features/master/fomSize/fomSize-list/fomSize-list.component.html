@@ -97,9 +97,11 @@
 												<div class="form-group">
 													<label class="fieldLabel col-sm-5">Width <span class="requiredField">*</span></label>
 													<div class="col-sm-7">
-														<input class="form-control m-input" type="text" value="" maxlength="10" #widthVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [(ngModel)]="fomSizeObj.width" [textMask]="{mask: widthMask}" onchange="this.value=this.value!=''? parseFloat(this.value).toFixed(2):''" name="width" id="width" placeholder="Enter Width" (change)="onInputChange()">
+														<input class="form-control m-input" type="text" value="" maxlength="10" #widthVal="ngModel" required (keypress)="restrictMinus($event, 10);" [(ngModel)]="fomSizeObj.width" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}" name="width" id="width" placeholder="Enter Width" (change)="onInputChange()">
 														<div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
-															 Invalid Width
+													
+																Invalid width
+															
 														</div>
 													</div>
 												</div>
@@ -108,7 +110,7 @@
 												<div class="form-group">
 													<label class="fieldLabel col-sm-5">Length <span class="requiredField">*</span></label>
 													<div class="col-sm-7">
-														<input class="form-control m-input" type="text" value="" maxlength="10" #lengthVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [(ngModel)]="fomSizeObj.length" [textMask]="{mask: lengthMask}" onchange="this.value=this.value!=''? parseFloat(this.value).toFixed(2):''" name="length" id="length" placeholder="Enter Length" (change)="onInputChange()">
+														<input class="form-control m-input" type="number" min="0" value="" maxlength="10" #lengthVal="ngModel" required (keypress)="restrictMinus($event, 10);"  [(ngModel)]="fomSizeObj.length" [ngClass]="{'red-border-class': lengthVal.errors && isFormSubmitted}" name="length" id="length" placeholder="Enter Length" (change)="onInputChange()">
 														<div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
 															Invalid Length
 														</div>
