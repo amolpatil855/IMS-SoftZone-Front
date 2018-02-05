@@ -148,8 +148,8 @@
 																<div class="form-group">
 																	<label class="fieldLabel col-md-6 col-sm-6">Selling Rate %<span class="requiredField">*</span></label>
 																	<div class="col-md-6 col-sm-6">
-																		<input class="form-control m-input" type="text" value="" #sellingRatePercentageVal="ngModel" (blur)="calculateSellingRate()" onKeyPress="if(this.value.length==2) return false;" required [ngClass]="{'red-border-class':sellingRatePercentageVal.errors && isFormSubmitted}"
-																		[textMask]="{mask: mask}" onchange="this.value=parseFloat(this.value).toFixed(2)" [(ngModel)]="fomDensityObj.sellingRatePercentage" name="sellingRatePercentage" id="sellingRatePercentage" tabindex="7">
+																		<input class="form-control m-input" type="text" value="" #sellingRatePercentageVal="ngModel" (blur)="calculateSellingRate()" required [ngClass]="{'red-border-class':sellingRatePercentageVal.errors && isFormSubmitted}"
+																		[textMask]="{mask: mask}"  [(ngModel)]="fomDensityObj.sellingRatePercentage" name="sellingRatePercentage" id="sellingRatePercentage" tabindex="7">
 																		<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
 																						Please enter Description
 																					</div> -->

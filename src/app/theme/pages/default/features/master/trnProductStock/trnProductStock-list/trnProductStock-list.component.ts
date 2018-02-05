@@ -66,12 +66,13 @@ export class TrnProductStockListComponent implements OnInit {
   newRecord() {
     this.params = null;
     this.trnProductStockObj = {
-      categoryId: 0,
-      collectionId: 0,
-      fwrShadeId: 0,
-      matSizeId: 0,
-      fomSizeId: 0,
-      locationId: 0,
+      id: 0,
+      categoryId: null,
+      collectionId: null,
+      fwrShadeId: null,
+      matSizeId: null,
+      fomSizeId: null,
+      locationId: null,
       stock: null,
     };
     this.selectedCategory = null;
@@ -89,6 +90,7 @@ export class TrnProductStockListComponent implements OnInit {
     this.toggleDiv = !this.toggleDiv;
     if (this.toggleDiv && !this.params) {
       this.disabled = false;
+      this.isFormSubmitted = false;
       this.newRecord();
     }
 
@@ -137,6 +139,20 @@ export class TrnProductStockListComponent implements OnInit {
   }
 
   onCategoryClick() {
+    if (this.selectedCategory == null) {
+      this.collectionList = [];
+      this.collectionList.unshift({ label: '--Select--', value: null });
+      this.shadeList = [];
+      this.shadeList.unshift({ label: '--Select--', value: null });
+      this.matSizeList = [];
+      this.matSizeList.unshift({ label: '--Select--', value: null });
+      this.fomSizeList = [];
+      this.fomSizeList.unshift({ label: '--Select--', value: null });
+      this.selectedCollection = null;
+      this.selectedShade = null;
+      this.selectedMatSize = null;
+      this.selectedFomSize = null;
+    } else {
     this.categoryList.forEach(item => {
       if (item.value == this.selectedCategory) {
         if (item.label === "Foam") {
@@ -156,6 +172,7 @@ export class TrnProductStockListComponent implements OnInit {
         }
       }
     });
+    
     this.trnProductStockService.getCollectionLookUpByCategory(this.selectedCategory).subscribe(
       results => {
         this.collectionList = results;
@@ -169,9 +186,21 @@ export class TrnProductStockListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
 
   onCollectionClick() {
+    if (this.selectedCollection == null) {
+      this.shadeList = [];
+      this.shadeList.unshift({ label: '--Select--', value: null });
+      this.matSizeList = [];
+      this.matSizeList.unshift({ label: '--Select--', value: null });
+      this.fomSizeList = [];
+      this.fomSizeList.unshift({ label: '--Select--', value: null });
+      this.selectedShade = null;
+      this.selectedMatSize = null;
+      this.selectedFomSize = null;
+    } else {
     this.trnProductStockService.getSerialNumberLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.shadeList = results;
@@ -204,6 +233,7 @@ export class TrnProductStockListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
 
   loadLazy(event: LazyLoadEvent) {
@@ -300,6 +330,7 @@ export class TrnProductStockListComponent implements OnInit {
     this.params = trnProductStock.id;
     this.toggleDiv = true;
     this.disabled = true;
+    this.isFormSubmitted = false;
   }
 
 }
