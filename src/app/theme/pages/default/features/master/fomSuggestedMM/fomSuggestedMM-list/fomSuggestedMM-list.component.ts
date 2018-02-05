@@ -114,6 +114,14 @@ export class FomSuggestedMMListComponent implements OnInit {
   }
 
   onCollectionClick(){
+     if(this.selectedCollection == null){
+      this.qualityList = [];
+      this.qualityList.unshift({ label: '--Select--', value: null });
+      this.fomDensityList = [];
+      this.fomDensityList.unshift({ label: '--Select--', value: null });
+      this.selectedQuality = null;
+      this.selectedDensity = null;
+    }else{
     this.fomSuggestedMMService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
@@ -127,9 +135,15 @@ export class FomSuggestedMMListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
   
   onQualityClick(){
+     if(this.selectedQuality == null){
+      this.fomDensityList = [];
+      this.fomDensityList.unshift({ label: '--Select--', value: null });
+      this.selectedDensity = null;
+    }else{
     this.fomSuggestedMMService.getFomDensityLookUpByQuality(this.selectedQuality).subscribe(
       results => {
         this.fomDensityList = results;
@@ -140,6 +154,7 @@ export class FomSuggestedMMListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
 
   loadLazy(event: LazyLoadEvent) {

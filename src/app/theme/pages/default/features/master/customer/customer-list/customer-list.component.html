@@ -273,10 +273,15 @@
                                                 </div> -->
                                              </td>
                                              <td>
-                                                <input class="form-control" type="text" onKeyPress="if(this.value.length==15) return false;" [(ngModel)]="supAdd.gstin" [ngClass]="{'red-border-class': supAdd.invalidGstin}" name="{{'gstin'+supAdd.contRoleId}}" maxlength="15">
+                                                <input class="form-control" type="text" onKeyPress="if(this.value.length==15) return false;" #gstinVal="ngModel" [(ngModel)]="supAdd.gstin" [ngClass]="{'red-border-class': gstinVal.errors && isFormSubmitted}" name="{{'gstin'+supAdd.contRoleId}}" minlength="15" maxlength="15">
                                                 <!-- <div class="alertMsg" *ngIf="supAdd.invalidGstin">
                                                    Please enter gstin
                                                 </div> -->
+                                                <div *ngIf="gstinVal.errors && (gstinVal.dirty || gstinVal.touched)" class="alertMsg">
+                                                      <div *ngIf="gstinVal.errors.minlength">
+                                                            GST must be a combination of alphanumeric characters of 15 character.
+                                                      </div>
+                                                </div>
                                              </td>
                                              <td>
                                                 <input type="text" class="form-control" (blur)="validatePin(supAdd)" onKeyPress="if(this.value.length==6) return false;" [ngClass]="{'red-border-class': supAdd.invalidPin}" name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin" maxlength="6"/>
