@@ -43,10 +43,10 @@
         <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
             <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="courierForm" [ngClass]="(courierForm && !courierForm.form.valid) ?'cursorNotAllowed':'cursorPointer'"
                 title="{{(courierForm && courierForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-                [disabled]="courierForm && !courierForm.form.valid" [isAuthorize]="['courier']">
+                [disabled]="courierForm && !courierForm.form.valid" [isAuthorize]="['courier']" tabindex="3">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
-            <button class="btn btn-secondary" [isAuthorize]="['courier']" (click)="onCancel()">
+            <button class="btn btn-secondary" [isAuthorize]="['courier']" (click)="onCancel()" tabindex="4">
 					Cancel
 			</button>
         </div>
@@ -79,7 +79,7 @@
                                                             <div class="col-sm-7">
                                                                 <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==100) return false;" [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"
                                                                     #nameVal="ngModel" required [(ngModel)]="courierObj.name" name="name"
-                                                                    id="name" placeholder="">
+                                                                    id="name" placeholder="" tabindex="1">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -90,7 +90,7 @@
                                                             <div class="col-sm-7">
                                                                 <input type="text" class="form-control" onKeyPress="if(this.value.length==50) return false;" [ngClass]="{'red-border-class': docketNumberVal.errors && isFormSubmitted}" #docketNumberVal="ngModel"
                                                                     required [(ngModel)]="courierObj.docketNumber" name="docketNumber" placeholder=""
-                                                                    id="docketNumber">
+                                                                    id="docketNumber" tabindex="2">
                                                             </div>
                                                         </div>
                                                     </div>
