@@ -42,10 +42,10 @@
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
 			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"  form="hsnForm"  title="{{(hsnForm && hsnForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-			 [isAuthorize]="['hsn']">
+			 [isAuthorize]="['hsn']" tabindex="3">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
-			<button class="btn btn-secondary" [isAuthorize]="['hsn']" (click)="onCancel()">
+			<button class="btn btn-secondary" [isAuthorize]="['hsn']" (click)="onCancel()" tabindex="4">
 				Cancel
 			</button>
 		</div>
@@ -78,7 +78,7 @@
 														</label>
 														<div class="col-sm-7">
 															<input class="form-control m-input" type="text" value="" #hsnCodeVal="ngModel" required [ngClass]="{'red-border-class': hsnCodeVal.errors && isFormSubmitted}"
-															 [(ngModel)]="hsnObj.hsnCode" maxlength="10" name="hsnCode" id="hsnCode" placeholder="">
+															 [(ngModel)]="hsnObj.hsnCode" maxlength="10" name="hsnCode" id="hsnCode" placeholder="" tabindex="1">
 														</div>
 													</div>
 
@@ -89,7 +89,7 @@
 															</label>
 															<div class="col-sm-7">
 																<input class="form-control m-input" type="text" #gstVal="ngModel" required [ngClass]="{'red-border-class': gstVal.errors && isFormSubmitted}"
-																 [(ngModel)]="hsnObj.gst" name="gst" placeholder="" maxlength="2">
+																 [(ngModel)]="hsnObj.gst" name="gst" placeholder="" maxlength="2" tabindex="2">
 															</div>
 														</div>
 													</div>
