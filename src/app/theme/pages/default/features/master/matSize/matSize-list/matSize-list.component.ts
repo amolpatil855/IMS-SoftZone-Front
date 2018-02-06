@@ -38,7 +38,7 @@ export class MatSizeListComponent implements OnInit {
   disabled: boolean = false;
   convertedRate = null;
   tableEmptyMesssage = 'Loading...';
-  rateMask = [/[0-9]/, /\d/, /\d/,/\d/,/\d/, '.', /\d/, /\d/];
+  rateMask = [/[0-9]/, /\d/, /\d/, /\d/, /\d/, '.', /\d/, /\d/];
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -76,8 +76,8 @@ export class MatSizeListComponent implements OnInit {
   }
 
   onInputChange() {
-    this.convertedRate = this.matSizeObj.rate==""?0:parseFloat( this.matSizeObj.rate ).toFixed(2);
-    this.matSizeObj.purchaseDiscount = this.matSizeObj.purchaseDiscount === null ? 0: this.matSizeObj.purchaseDiscount;
+    this.convertedRate = this.matSizeObj.rate == "" ? 0 : parseFloat(this.matSizeObj.rate).toFixed(2);
+    this.matSizeObj.purchaseDiscount = this.matSizeObj.purchaseDiscount === null ? 0 : this.matSizeObj.purchaseDiscount;
     this.matSizeObj.purchaseRate = this.convertedRate - ((this.convertedRate * this.matSizeObj.purchaseDiscount) / 100);
   }
 
@@ -123,14 +123,14 @@ export class MatSizeListComponent implements OnInit {
   }
 
   onCollectionClick() {
-    if (this.selectedCollection == null) {
-      this.qualityList = [];
-      this.qualityList.unshift({ label: '--Select--', value: null });
-      this.thicknessList = [];
-      this.thicknessList.unshift({ label: '--Select--', value: null });
-      this.selectedQuality = null;
-      this.selectedThickness = null;
-    } else {
+
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.thicknessList = [];
+    this.thicknessList.unshift({ label: '--Select--', value: null });
+    this.selectedQuality = null;
+    this.selectedThickness = null;
+    if (this.selectedCollection != null) {
       this.matSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
         results => {
           this.qualityList = results;
@@ -149,11 +149,11 @@ export class MatSizeListComponent implements OnInit {
   }
 
   onQualityClick() {
-    if (this.selectedQuality == null) {
-      this.thicknessList = [];
-      this.thicknessList.unshift({ label: '--Select--', value: null });
-      this.selectedThickness = null;
-    } else {
+
+    this.thicknessList = [];
+    this.thicknessList.unshift({ label: '--Select--', value: null });
+    this.selectedThickness = null;
+    if (this.selectedQuality != null) {
       this.matSizeService.getMatThicknessLookUp().subscribe(
         results => {
           this.thicknessList = results;

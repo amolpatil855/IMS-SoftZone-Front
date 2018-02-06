@@ -80,27 +80,40 @@ export class FomSizeListComponent implements OnInit {
     this.selectedSize = null;
   }
   onInputChange() {
-    if(parseFloat(this.fomSizeObj.width) > 999.99 ){
-      this.fomSizeObj.width='';
+    if (parseFloat(this.fomSizeObj.width) > 999.99) {
+      this.fomSizeObj.width = '';
     }
-    if(parseFloat(this.fomSizeObj.length) > 999.99){
-      this.fomSizeObj.length='';
+    if (parseFloat(this.fomSizeObj.length) > 999.99) {
+      this.fomSizeObj.length = '';
     }
     //this.fomSizeObj.sizeCode = (this.fomSizeObj.width==""?0:parseFloat( this.fomSizeObj.width ).toFixed(2)) + 'x' + ( this.fomSizeObj.length==""?0:parseFloat(this.fomSizeObj.length ).toFixed(2)) ;
-    this.fomSizeObj.sizeCode = this.fomSizeObj.width+ 'x' + this.fomSizeObj.length ;
+    this.fomSizeObj.sizeCode = this.fomSizeObj.width + 'x' + this.fomSizeObj.length;
   }
 
   restrictMinus(e, limit) {
 
-        if(e.target.value.length == limit){
-          return false;
-        }
+    if (e.target.value.length == limit) {
+      return false;
+    }
 
-        var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+    var inputKeyCode = e.keyCode ? e.keyCode : e.which;
 
-        if (inputKeyCode != null) {
-            if (inputKeyCode == 45) e.preventDefault();
-        } 
+    if (inputKeyCode != null) {
+      if (inputKeyCode == 43 || inputKeyCode == 45 || inputKeyCode == 101) e.preventDefault();
+    }
+  }
+
+  restrictDotMinus(e, limit) {
+
+    if (e.target.value.length == limit) {
+      return false;
+    }
+
+    var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+
+    if (inputKeyCode != null) {
+      if (inputKeyCode == 43 || inputKeyCode == 45 || inputKeyCode == 46 || inputKeyCode == 101) e.preventDefault();
+    }
   }
 
   toggleButton() {
@@ -146,17 +159,17 @@ export class FomSizeListComponent implements OnInit {
   }
 
   onCollectionClick() {
-    if (this.selectedCollection == null) {
-      this.qualityList = [];
-      this.qualityList.unshift({ label: '--Select--', value: null });
-      this.fomDensityList = [];
-      this.fomDensityList.unshift({ label: '--Select--', value: null });
-      this.fomSuggestedMMList = [];
-      this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
-      this.selectedQuality = null;
-      this.selectedDensity = null;
-      this.selectedSize = null;
-    } else {
+
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.fomDensityList = [];
+    this.fomDensityList.unshift({ label: '--Select--', value: null });
+    this.fomSuggestedMMList = [];
+    this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
+    this.selectedQuality = null;
+    this.selectedDensity = null;
+    this.selectedSize = null;
+    if (this.selectedCollection != null) {
       this.fomSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
         results => {
           this.qualityList = results;
@@ -174,14 +187,14 @@ export class FomSizeListComponent implements OnInit {
   }
 
   onQualityClick() {
-    if (this.selectedQuality == null) {
-      this.fomDensityList = [];
-      this.fomDensityList.unshift({ label: '--Select--', value: null });
-      this.fomSuggestedMMList = [];
-      this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
-      this.selectedDensity = null;
-      this.selectedSize = null;
-    } else {
+
+    this.fomDensityList = [];
+    this.fomDensityList.unshift({ label: '--Select--', value: null });
+    this.fomSuggestedMMList = [];
+    this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
+    this.selectedDensity = null;
+    this.selectedSize = null;
+    if (this.selectedQuality != null) {
       this.fomSizeService.getFomDensityLookUpByQuality(this.selectedQuality).subscribe(
         results => {
           this.fomDensityList = results;
@@ -199,11 +212,11 @@ export class FomSizeListComponent implements OnInit {
   }
 
   onDensityClick() {
-    if (this.selectedDensity == null) {
-      this.fomSuggestedMMList = [];
-      this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
-      this.selectedSize = null;
-    } else {
+
+    this.fomSuggestedMMList = [];
+    this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
+    this.selectedSize = null;
+    if (this.selectedDensity != null) {
       this.fomSizeService.getFomSuggestedMMLookUpByFomDensity(this.selectedDensity).subscribe(
         results => {
           this.fomSuggestedMMList = results;
