@@ -195,13 +195,14 @@
 										</button>
 									</div>
 							<p-dataTable [value]="shadeList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
-                            [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+							[totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+							<p-column field="serialNumber" header="Serial Number" [style]="{'text-align':'left'}"></p-column>
                             <p-column field="mstCategory.name" header="Category" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="mstQuality.qualityCode" header="Quality" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="mstFWRDesign.designCode" header="Design" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="shadeCode" header="Shade Code" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="shadeName" header="Shade Name" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="shadeCode" header="Code" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="shadeName" header="Name" [style]="{'text-align':'left'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'left'}">
 									<ng-template pTemplate="header">
 										Action
