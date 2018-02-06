@@ -6,6 +6,7 @@ import { DefaultComponent } from "../../../default.component";
 import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
 // import { RoleService, PermissionService } from '../../_services/index';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import {
   DataTableModule,
@@ -51,6 +52,7 @@ const routes: Routes = [
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    TextMaskModule,
     // primeng modules
     DataTableModule,
     SharedModule,

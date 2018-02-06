@@ -77,25 +77,25 @@ export class FomDensityListComponent implements OnInit {
   }
 
   calculateSellingRate() {
-
-    this.fomDensityObj.sellingRatePercentage = isNaN( parseFloat(this.fomDensityObj.sellingRatePercentage))  ? '' : parseFloat(this.fomDensityObj.sellingRatePercentage).toFixed(2);
-    if (parseFloat(this.fomDensityObj.purchaseRatePerMM) > 0 && parseFloat(this.fomDensityObj.sellingRatePercentage) > 0) {
-      this.fomDensityObj.purchaseRatePerMM = parseFloat(this.fomDensityObj.purchaseRatePerMM).toFixed(2);
-      this.fomDensityObj.sellingRatePerMM = parseFloat(this.fomDensityObj.purchaseRatePerMM) + ( parseFloat(this.fomDensityObj.purchaseRatePerMM) * parseFloat(this.fomDensityObj.sellingRatePercentage) / 100);
-      this.fomDensityObj.sellingRatePerMM =parseFloat(this.fomDensityObj.sellingRatePerMM).toFixed(2);
-    }
-    // else{
-    //   this.fomDensityObj.sellingRatePerMM=this.fomDensityObj.purchaseRatePerMM;
-    // }
-    if (parseFloat(this.fomDensityObj.purchaseRatePerKG) > 0 && parseFloat(this.fomDensityObj.sellingRatePercentage) > 0) {
-      this.fomDensityObj.purchaseRatePerKG = parseFloat(this.fomDensityObj.purchaseRatePerKG).toFixed(2);
-      this.fomDensityObj.sellingRatePerKG = parseFloat(this.fomDensityObj.purchaseRatePerKG) + (parseFloat(this.fomDensityObj.purchaseRatePerKG) * parseFloat(this.fomDensityObj.sellingRatePercentage) / 100);
-      this.fomDensityObj.sellingRatePerKG =parseFloat(this.fomDensityObj.sellingRatePerKG).toFixed(2);
-    }
-    // else{
-    //   this.fomDensityObj.sellingRatePerKG=this.fomDensityObj.purchaseRatePerKG;
-    // }
-
+    
+        this.fomDensityObj.sellingRatePercentage = isNaN( parseFloat(this.fomDensityObj.sellingRatePercentage))  ? '' : parseFloat(this.fomDensityObj.sellingRatePercentage).toFixed(2);
+        if (parseFloat(this.fomDensityObj.purchaseRatePerMM) > 0 && parseFloat(this.fomDensityObj.sellingRatePercentage) > 0) {
+          this.fomDensityObj.purchaseRatePerMM = parseFloat(this.fomDensityObj.purchaseRatePerMM).toFixed(2);
+          this.fomDensityObj.sellingRatePerMM = parseFloat(this.fomDensityObj.purchaseRatePerMM) + ( parseFloat(this.fomDensityObj.purchaseRatePerMM) * parseFloat(this.fomDensityObj.sellingRatePercentage) / 100);
+          this.fomDensityObj.sellingRatePerMM =parseFloat(this.fomDensityObj.sellingRatePerMM).toFixed(2);
+        }
+        // else{
+        //   this.fomDensityObj.sellingRatePerMM=this.fomDensityObj.purchaseRatePerMM;
+        // }
+        if (parseFloat(this.fomDensityObj.purchaseRatePerKG) > 0 && parseFloat(this.fomDensityObj.sellingRatePercentage) > 0) {
+          this.fomDensityObj.purchaseRatePerKG = parseFloat(this.fomDensityObj.purchaseRatePerKG).toFixed(2);
+          this.fomDensityObj.sellingRatePerKG = parseFloat(this.fomDensityObj.purchaseRatePerKG) + (parseFloat(this.fomDensityObj.purchaseRatePerKG) * parseFloat(this.fomDensityObj.sellingRatePercentage) / 100);
+          this.fomDensityObj.sellingRatePerKG =parseFloat(this.fomDensityObj.sellingRatePerKG).toFixed(2);
+        }
+        // else{
+        //   this.fomDensityObj.sellingRatePerKG=this.fomDensityObj.purchaseRatePerKG;
+        // }
+    
   }
 
   toggleButton() {
@@ -140,6 +140,11 @@ export class FomDensityListComponent implements OnInit {
   }
 
   onCollectionClick() {
+    if (this.selectedCollection == null) {
+      this.qualityList = [];
+      this.qualityList.unshift({ label: '--Select--', value: null });
+      this.selectedQuality = null;
+    } else {
     this.fomDensityService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
@@ -150,6 +155,7 @@ export class FomDensityListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
 
   loadLazy(event: LazyLoadEvent) {
@@ -171,7 +177,12 @@ export class FomDensityListComponent implements OnInit {
     this.fomDensityService.getFomDensityById(id).subscribe(
       results => {
         this.fomDensityObj = results;
-        this.fomDensityObj.sellingRatePercentage=parseFloat(this.fomDensityObj.sellingRatePercentage).toFixed(2);
+
+        this.fomDensityObj.sellingRatePercentage =  parseFloat(this.fomDensityObj.sellingRatePercentage).toFixed(2);
+        this.fomDensityObj.sellingRatePerMM =parseFloat(this.fomDensityObj.sellingRatePerMM).toFixed(2);
+        this.fomDensityObj.sellingRatePerKG =parseFloat(this.fomDensityObj.sellingRatePerKG).toFixed(2);
+   
+
         console.log('this.fomDensityObj', this.fomDensityObj);
         this.selectedCollection = this.fomDensityObj.collectionId;
         if (this.selectedCollection > 0) {

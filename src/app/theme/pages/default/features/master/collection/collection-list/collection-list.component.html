@@ -40,10 +40,10 @@
          </ul>
       </div>
       <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-         <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="collectionForm" [ngClass]="(collectionFormVal && !collectionFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(collectionFormVal && collectionFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="collectionFormVal && !collectionFormVal.form.valid" [isAuthorize]="['collection']">
+         <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="collectionForm" [ngClass]="(collectionFormVal && !collectionFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(collectionFormVal && collectionFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="collectionFormVal && !collectionFormVal.form.valid" [isAuthorize]="['collection']" tabindex="7">
          {{ params ? 'Update' : 'Save' }}
          </button>
-         <button class="btn btn-secondary" [isAuthorize]="['collection']" (click)="onCancel()">
+         <button class="btn btn-secondary" [isAuthorize]="['collection']" (click)="onCancel()" tabindex="8">
          Cancel
          </button>
       </div>
@@ -69,7 +69,7 @@
 										<div class="">
 											<label class="col-md-5 col-sm-5 fieldLabel">Category<span class="requiredField">*</span></label>
 											<div class="col-md-7 col-sm-7">
-											  <p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required styleClass="{{ collectionForm.get('categoryId').hasError('required') && isFormSubmitted?'red-border-class':''}}"  [style]="{'width':'100%'}" [disabled]="disabled" name="categoriesDDl"></p-dropdown>
+											  <p-dropdown class="feePlanBox" [options]="categoriesCodeList"  formControlName="categoryId"  required styleClass="{{ collectionForm.get('categoryId').hasError('required') && isFormSubmitted?'red-border-class':''}}"  [style]="{'width':'100%'}" [disabled]="disabled" name="categoriesDDl" tabindex="1"></p-dropdown>
 												  <!-- <div class="alertMsg" *ngIf="collectionForm.get('categoryId').hasError('required') && collectionForm.get('categoryId ').touched">
 													 Please select Category
 													 </div> -->
@@ -80,7 +80,7 @@
 										<div class="">
 										   <label class="col-md-5 col-sm-5 fieldLabel">Collection Code<span class="requiredField">*</span></label>
 										   <div class="col-md-7 col-sm-7">
-											  <input type="text" formControlName="collectionCode" required [ngClass]="{'red-border-class': collectionForm.get('collectionCode').hasError('required') && isFormSubmitted}"   name="collectionCode" class="form-control m-input">
+											  <input type="text" formControlName="collectionCode" required [ngClass]="{'red-border-class': collectionForm.get('collectionCode').hasError('required') && isFormSubmitted}"   name="collectionCode" class="form-control m-input" tabindex="2">
 											  <!-- <div class="alertMsg" *ngIf="collectionForm.get('collectionCode').hasError('required') && collectionForm.get('collectionCode').touched">
 												 Please enter collection code
 												 </div> -->
@@ -91,7 +91,7 @@
 										  <div class=""> 
 											  <label class="col-md-5 col-sm-5 fieldLabel">Name<span class="requiredField">*</span></label>
 											  <div class="col-md-7 col-sm-7">
-												 <input type="text" formControlName="collectionName"  required [ngClass]="{'red-border-class': collectionForm.get('collectionName').hasError('required') && isFormSubmitted}"  name="Name" class="form-control m-input">
+												 <input type="text" formControlName="collectionName"  required [ngClass]="{'red-border-class': collectionForm.get('collectionName').hasError('required') && isFormSubmitted}"  name="Name" class="form-control m-input" tabindex="3">
 												 <!-- <div class="alertMsg" *ngIf="collectionForm.get('collectionName').hasError('required') && collectionForm.get('collectionName').touched">
 													Please enter Name
 													</div> -->
@@ -105,7 +105,7 @@
 										<div class=""> 
 										   <label class="fieldLabel col-sm-5">Supplier Code<span class="requiredField">*</span></label>
 										   <div class="col-sm-7">
-											  <p-dropdown class="feePlanBox" [options]="supplierCodeList"  required styleClass="{{ collectionForm.get('supplierId').hasError('required') && isFormSubmitted?'red-border-class':''}}" formControlName="supplierId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl"></p-dropdown>
+											  <p-dropdown class="feePlanBox" [options]="supplierCodeList"  required styleClass="{{ collectionForm.get('supplierId').hasError('required') && isFormSubmitted?'red-border-class':''}}" formControlName="supplierId"  required [style]="{'width':'100%'}"  name="supplierCodeDDl" tabindex="4"></p-dropdown>
 											  <!-- <div class="alertMsg" *ngIf="collectionForm.get('supplierId').hasError('required') && collectionForm.get('supplierCode').touched">
 												 Please enter supplier Code
 												 </div> -->
@@ -116,7 +116,7 @@
                                        <div class="">
                                           <label class="fieldLabel col-sm-5">Manufacturer<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
-                                             <input type="text" formControlName="manufacturerName"  required [ngClass]="{'red-border-class': collectionForm.get('manufacturerName').hasError('required') && isFormSubmitted}"  name="manufacturerName" class="form-control m-input">
+                                             <input type="text" formControlName="manufacturerName"  required [ngClass]="{'red-border-class': collectionForm.get('manufacturerName').hasError('required') && isFormSubmitted}"  name="manufacturerName" class="form-control m-input" tabindex="5">
                                              <!-- <div class="alertMsg" *ngIf="collectionForm.get('manufacturerName').hasError('required') && collectionForm.get('manufacturerName').touched">
                                                 Please manufacturer Name
                                                 </div> -->
@@ -127,7 +127,7 @@
                                        <div class="">
                                           <label class="fieldLabel col-sm-5">Description</label>
                                           <div class="col-sm-7">
-                                             <input type="text" class="form-control" formControlName="description">
+                                             <input type="text" class="form-control" formControlName="description" tabindex="6">
                                           </div>
                                        </div>
                                     </div>
@@ -173,10 +173,11 @@
                      </div>
                      <p-dataTable [value]="collectionList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
                      [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                     <p-column field="collectionCode" header="Collection Code" [style]="{'text-align':'left'}"></p-column>
-                     <p-column field="collectionName" header="Collection Name" [style]="{'text-align':'left'}"></p-column>
-                     <p-column field="description" header="Description" [style]="{'text-align':'left'}"></p-column>
-                     <p-column field="manufacturerName" header="Manufacturer Name" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="mstCategory.code" header="Category" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="collectionCode" header="Code" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="collectionName" header="Name" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="mstSupplier.code" header="Supplier Code" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="manufacturerName" header="Manufacturer" [style]="{'text-align':'left'}"></p-column>
                      <p-column styleClass="col-button" [style]="{'text-align':'center'}">
                         <ng-template pTemplate="header">
                            Action

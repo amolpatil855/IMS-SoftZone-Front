@@ -5,8 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from "../../../default.component";
 import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
-// import { RoleService, PermissionService } from '../../_services/index';
-import { TextMaskModule } from 'angular2-text-mask';
 
 import {
   DataTableModule,
@@ -18,9 +16,9 @@ import {
   ConfirmationService,
 } from 'primeng/primeng';
 
-import { FomSizeService } from "../../../_services/fomSize.service";
-import { FomSizeComponent } from "./fomSize.component";
-import { FomSizeListComponent } from "./fomSize-list/fomSize-list.component";
+import { CourierService } from "../../../_services/courier.service";
+import { CourierComponent } from "./courier.component";
+import { CourierListComponent } from "./courier-list/courier-list.component";
 
 const routes: Routes = [
   {
@@ -29,14 +27,14 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: FomSizeComponent,
+        component: CourierComponent,
         children: [
           {
             path: 'list',
-            component: FomSizeListComponent,
+            component: CourierListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['foamsize']
+              permissions: ['courier']
             }
 
           },
@@ -52,7 +50,6 @@ const routes: Routes = [
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    TextMaskModule,
     // primeng modules
     DataTableModule,
     SharedModule,
@@ -62,14 +59,13 @@ const routes: Routes = [
     ConfirmDialogModule
   ],
   declarations: [
-    FomSizeComponent,
-    FomSizeListComponent,
+    CourierComponent,
+    CourierListComponent,
   ],
   providers: [
-    // RoleService,
-    FomSizeService,
+    CourierService,
     ConfirmationService
   ],
 })
-export class FomSizeModule {
+export class CourierModule {
 }

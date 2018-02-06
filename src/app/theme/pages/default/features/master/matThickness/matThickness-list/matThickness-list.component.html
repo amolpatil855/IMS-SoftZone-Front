@@ -41,10 +41,10 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="matThicknessForm" [ngClass]="(matThicknessForm && !matThicknessForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(matThicknessForm && matThicknessForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="matThicknessForm && !matThicknessForm.form.valid" [isAuthorize]="['mattressthickness']">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="matThicknessForm" [ngClass]="(matThicknessForm && !matThicknessForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(matThicknessForm && matThicknessForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="matThicknessForm && !matThicknessForm.form.valid" [isAuthorize]="['mattressthickness']" tabindex="3">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
-			<button class="btn btn-secondary" [isAuthorize]="['mattressthickness']" (click)="onCancel()">
+			<button class="btn btn-secondary" [isAuthorize]="['mattressthickness']" (click)="onCancel()" tabindex="4">
 					Cancel
 			</button>
 		</div>
@@ -73,7 +73,7 @@
 																<div class="col-md-5 formContentbox">
 																	<label class="fieldLabel col-sm-5">Thickness Code <span class="requiredField">*</span></label>
 																	<div class="col-sm-7">
-																		<input class="form-control m-input" type="text" value="" maxlength="10" #thicknessCodeVal="ngModel" required [ngClass]="{'red-border-class': thicknessCodeVal.errors && isFormSubmitted}" [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="" maxlength="10">
+																		<input class="form-control m-input" type="text" value="" maxlength="10" #thicknessCodeVal="ngModel" required [ngClass]="{'red-border-class': thicknessCodeVal.errors && isFormSubmitted}" [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="" maxlength="10" tabindex="1">
 																		<!-- <div class="alertMsg" *ngIf="thicknessCodeVal.errors   && (thicknessCodeVal.dirty || thicknessCodeVal.touched)">
 																			Please enter Mattress Thickness Code
 																		</div> -->
@@ -84,7 +84,7 @@
 																	<div class="form-group">
 																		<label class="fieldLabel col-sm-5">Size <span class="requiredField">*</span></label>
 																		<div class="col-sm-7">
-																			<input class="form-control m-input" type="number" pattern="^[0-9]+(\.[0-9]{1,2})?$" step=".01" onKeyPress="if(this.value.length==4) return false;" maxlength="4" #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"   [(ngModel)]="matThicknessObj.size" name="size" placeholder="Size">
+																			<input class="form-control m-input" type="number" pattern="^[0-9]+(\.[0-9]{1,2})?$" step=".01" onKeyPress="if(this.value.length==4) return false;" maxlength="4" #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"   [(ngModel)]="matThicknessObj.size" name="size" placeholder="Size" tabindex="2">
 																			<div *ngIf="sizeVal.errors && (sizeVal.dirty || sizeVal.touched)" class="alertMsg">
 																				<div *ngIf="sizeVal.errors.maxlength && !sizeVal.errors.pattern">
 																					Maximum size limit exceeded.

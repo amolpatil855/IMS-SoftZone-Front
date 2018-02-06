@@ -41,10 +41,10 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="fomSizeForm" [ngClass]="(fomSizeForm && !fomSizeForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(fomSizeForm && fomSizeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="fomSizeForm && !fomSizeForm.form.valid" [isAuthorize]="['foamsize']">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="fomSizeForm" [ngClass]="(fomSizeForm && !fomSizeForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(fomSizeForm && fomSizeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="fomSizeForm && !fomSizeForm.form.valid" [isAuthorize]="['foamsize']" tabindex="8">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
-			<button class="btn btn-secondary" [isAuthorize]="['foamsize']" (click)="onCancel()">
+			<button class="btn btn-secondary" [isAuthorize]="['foamsize']" (click)="onCancel()" tabindex="9">
 					Cancel
 			</button>
 		</div>
@@ -72,34 +72,36 @@
 											<div class="col-md-3 formContentbox formContentboxShade">
 												<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
-													<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel"  required styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedCollection" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
+													<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel"  required styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedCollection" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" tabindex="1"></p-dropdown>
 												</div>	
 											</div>
 											<div class="col-md-3 formContentbox formContentboxShade">
 												<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
-													<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel"  required styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedQuality" [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()"></p-dropdown>
+													<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel"  required styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedQuality" [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()" tabindex="2"></p-dropdown>
 												</div>
 											</div>
 											<div class="col-md-3 formContentbox formContentboxShade">
 												<label class="fieldLabel col-sm-5">Density <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
-													<p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" #selectedDensityVal="ngModel"  required styleClass="{{ selectedDensityVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedDensity" [disabled]="disabled" name="density" (ngModelChange)="onDensityClick()"></p-dropdown>
+													<p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" #selectedDensityVal="ngModel"  required styleClass="{{ selectedDensityVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedDensity" [disabled]="disabled" name="density" (ngModelChange)="onDensityClick()" tabindex="3"></p-dropdown>
 												</div>
 											</div>
 											<div class="col-md-3 formContentbox formContentboxShade">
 												<label class="fieldLabel col-sm-5">SuggestedMM <span class="requiredField">*</span></label>
 												<div class="col-sm-7">
-													<p-dropdown class="feePlanBox" [options]="fomSuggestedMMList" [style]="{'width':'100%'}" #selectedSizeVal="ngModel"  required styleClass="{{ selectedSizeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" [(ngModel)]="selectedSize" name="size"></p-dropdown>
+													<p-dropdown class="feePlanBox" [options]="fomSuggestedMMList" [style]="{'width':'100%'}" #selectedSizeVal="ngModel"  required styleClass="{{ selectedSizeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" [(ngModel)]="selectedSize" name="size" tabindex="4"></p-dropdown>
 												</div>
 											</div>
 											<div class="col-md-3 formContentbox formContentboxShade">
 												<div class="form-group">
 													<label class="fieldLabel col-sm-5">Width <span class="requiredField">*</span></label>
 													<div class="col-sm-7">
-														<input class="form-control m-input" type="number" value="" maxlength="10" #widthVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [(ngModel)]="fomSizeObj.width" name="width" id="width" placeholder="Enter Width" (input)="onInputChange()">
+														<input class="form-control m-input" type="text" value="" maxlength="10" #widthVal="ngModel" required (keypress)="restrictMinus($event, 10);" [(ngModel)]="fomSizeObj.width" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}" name="width" id="width" placeholder="Enter Width" (change)="onInputChange()" tabindex="5">
 														<div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
-															Please enter Width
+													
+																Invalid width
+															
 														</div>
 													</div>
 												</div>
@@ -108,9 +110,9 @@
 												<div class="form-group">
 													<label class="fieldLabel col-sm-5">Length <span class="requiredField">*</span></label>
 													<div class="col-sm-7">
-														<input class="form-control m-input" type="number" value="" maxlength="10" #lengthVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [(ngModel)]="fomSizeObj.length" name="length" id="length" placeholder="Enter Length" (input)="onInputChange()">
+														<input class="form-control m-input" type="number" min="0" value="" maxlength="10" #lengthVal="ngModel" required (keypress)="restrictMinus($event, 10);"  [(ngModel)]="fomSizeObj.length" [ngClass]="{'red-border-class': lengthVal.errors && isFormSubmitted}" name="length" id="length" placeholder="Enter Length" (change)="onInputChange()" tabindex="6">
 														<div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
-															Please enter Length
+															Invalid Length
 														</div>
 													</div>
 												</div>
@@ -127,7 +129,7 @@
 												<div class="form-group">
 													<label class="fieldLabel col-sm-5">Stock Reorder Level <span class="requiredField">*</span></label>
 													<div class="col-sm-7">
-														<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel">
+														<input class="form-control m-input" type="number" value="" maxlength="10" #stockReorderLevelVal="ngModel" required onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel" tabindex="7">
 														<!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
 															Please enter StockReorderLevel
 														</div> -->
@@ -185,8 +187,8 @@
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                                 <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="mstQuality.qualityCode" header="Quality" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstFomDensity.density" header="Foam Density" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstFomSuggestedMM.suggestedMM" header="Foam FomSuggested MM" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="mstFomDensity.density" header="Density" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="mstFomSuggestedMM.suggestedMM" header="Suggested MM" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="sizeCode" header="Size Code" [style]="{'text-align':'left'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">

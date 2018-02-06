@@ -41,10 +41,10 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm" title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['stockmanagement']">
+				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm" title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['stockmanagement']" tabindex="8">
 						{{ params ? 'Update' : 'Save' }}
 				</button>
-				<button class="btn btn-secondary" [isAuthorize]="['stockmanagement']" (click)="onCancel()">
+				<button class="btn btn-secondary" [isAuthorize]="['stockmanagement']" (click)="onCancel()" tabindex="9">
 						Cancel
 				</button>
 		</div>
@@ -74,43 +74,43 @@
 									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">Category Code<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}" [(ngModel)]="selectedCategory" required [ngClass]="{'red-border-class': selectedCategory.errors && isFormSubmitted}" [disabled]="disabled"  name="category" (ngModelChange)="onCategoryClick()"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}" #selectedCategoryVal="ngModel" [(ngModel)]="selectedCategory" required styleClass="{{ selectedCategoryVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled"  name="category" (ngModelChange)="onCategoryClick()" tabindex="1"></p-dropdown>
 										</div>	
                                     </div>
                                     <div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">Location<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="companyLocationList" [style]="{'width':'100%'}" [(ngModel)]="selectedCompanyLocation" required [ngClass]="{'red-border-class': selectedCategory.errors && isFormSubmitted}"  [disabled]="disabled" name="location"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="companyLocationList" [style]="{'width':'100%'}" #selectedCompanyLocationVal="ngModel" [(ngModel)]="selectedCompanyLocation" required styleClass="{{ selectedCompanyLocationVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="location" tabindex="2"></p-dropdown>
 										</div>	
 									</div>
 									<div class="col-md-3 formContentbox">
 										<label class="fieldLabel col-sm-5">Collection<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}"  #selectedCollectionVal="ngModel" [(ngModel)]="selectedCollection" required [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}"  #selectedCollectionVal="ngModel" [(ngModel)]="selectedCollection" required styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" tabindex="3"></p-dropdown>
 										</div>
 									</div>	
 									<div class="col-md-3 formContentbox" *ngIf="shadeEnable">
 										<label class="fieldLabel col-sm-5" >Shade<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="shadeList" [style]="{'width':'100%'}" [(ngModel)]="selectedShade"   #selectedShadeVal="ngModel"  required [ngClass]="{'red-border-class': selectedShadeVal.errors && isFormSubmitted}" [disabled]="disabled" name="shade"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="shadeList" [style]="{'width':'100%'}" [(ngModel)]="selectedShade"   #selectedShadeVal="ngModel"  required styleClass="{{ selectedShadeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="shade" tabindex="4"></p-dropdown>
 										</div>
                                     </div>
                                     <div class="col-md-3 formContentbox"  *ngIf="matEnable">
 										<label class="fieldLabel col-sm-5">Mattress Size<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="matSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedMatSize"   #selectedMatSizeVal="ngModel"  required [ngClass]="{'red-border-class': selectedMatSizeVal.errors && isFormSubmitted}" [disabled]="disabled" name="matSize"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="matSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedMatSize"   #selectedMatSizeVal="ngModel"  required styleClass="{{ selectedMatSizeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="matSize" tabindex="5"></p-dropdown>
 										</div>
                                     </div>	
                                     <div class="col-md-3 formContentbox"  *ngIf="fomEnable">
 										<label class="fieldLabel col-sm-5">Foam Size<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="fomSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedFomSize"   #selectedFomSizeVal="ngModel"  required [ngClass]="{'red-border-class': selectedFomSizeVal.errors && isFormSubmitted}" [disabled]="disabled" name="fomSize"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="fomSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedFomSize"   #selectedFomSizeVal="ngModel"  required styleClass="{{ selectedFomSizeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="fomSize" tabindex="6"></p-dropdown>
 										</div>
 									</div>		
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Product Stock<span class="requiredField">*</span></label>
-											    <input class="form-control m-input col-sm-7" type="text" value=""   [ngClass]="{'red-border-class': stockVal.errors && isFormSubmitted}"  #stockVal="ngModel" required [(ngModel)]="trnProductStockObj.stock" name="stock" id="stock" placeholder="Enter Product Stock Code">
+											    <input class="form-control m-input col-sm-7" type="text" value=""   [ngClass]="{'red-border-class': stockVal.errors && isFormSubmitted}"  #stockVal="ngModel" required [(ngModel)]="trnProductStockObj.stock" name="stock" id="stock" placeholder="Enter Product Stock Code" tabindex="7">
                                                 <!-- <div class="alertMsg" *ngIf="trnProductStockCodeVal.errors   && (trnProductStockCodeVal.dirty || trnProductStockCodeVal.touched)">
                                                     Please enter Product Stock Code
                                                 </div> -->
@@ -149,9 +149,9 @@
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                             <p-column field="mstCategory.name" header="Category" [style]="{'text-align':'center'}"></p-column>
                                 <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="mstFWRShade.shadeName" header="Shade Name" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="mstFomSize.sizeCode" header="Foam Size" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="mstMatSize.sizeCode" header="Mattress Size" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="mstFWRShade.shadeName" [hidden]="shadeEnable" header="Shade Name" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="mstFomSize.sizeCode" [hidden]="matEnable" header="Foam Size" [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="mstMatSize.sizeCode" [hidden]="fomEnable" header="Mattress Size" [style]="{'text-align':'center'}"></p-column>
                                 <p-column field="stock" header="Product Stock" [style]="{'text-align':'center'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
