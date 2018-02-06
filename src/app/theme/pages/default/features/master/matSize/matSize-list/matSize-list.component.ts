@@ -76,9 +76,45 @@ export class MatSizeListComponent implements OnInit {
   }
 
   onInputChange() {
-    this.convertedRate = this.matSizeObj.rate == "" ? 0 : parseFloat(this.matSizeObj.rate).toFixed(2);
-    this.matSizeObj.purchaseDiscount = this.matSizeObj.purchaseDiscount === null ? 0 : this.matSizeObj.purchaseDiscount;
-    this.matSizeObj.purchaseRate = this.convertedRate - ((this.convertedRate * this.matSizeObj.purchaseDiscount) / 100);
+    if (parseFloat(this.matSizeObj.rate) > 99999.99) {
+      this.matSizeObj.rate = '';
+    }else{
+      this.matSizeObj.rate = parseFloat(this.matSizeObj.rate);
+    }
+    if (parseFloat(this.matSizeObj.purchaseDiscount) > 99.99) {
+      this.matSizeObj.purchaseDiscount = '';
+    }else{
+      this.matSizeObj.purchaseDiscount = parseFloat(this.matSizeObj.purchaseDiscount);
+    }
+    if(this.matSizeObj.rate > 0){
+    this.matSizeObj.purchaseRate = this.matSizeObj.rate - ((this.matSizeObj.rate * this.matSizeObj.purchaseDiscount) / 100);
+    }
+  }
+
+   restrictMinus(e, limit) {
+
+    if (e.target.value.length == limit) {
+      return false;
+    }
+
+    var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+
+    if (inputKeyCode != null) {
+      if (inputKeyCode == 43 || inputKeyCode == 45 || inputKeyCode == 101) e.preventDefault();
+    }
+  }
+
+  restrictDotMinus(e, limit) {
+
+    if (e.target.value.length == limit) {
+      return false;
+    }
+
+    var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+
+    if (inputKeyCode != null) {
+      if (inputKeyCode == 43 || inputKeyCode == 45 || inputKeyCode == 46 || inputKeyCode == 101) e.preventDefault();
+    }
   }
 
   toggleButton() {
