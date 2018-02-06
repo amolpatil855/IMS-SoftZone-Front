@@ -161,9 +161,7 @@
                                                         <div class="form-group">
                                                             <label class="fieldLabel col-sm-5">State <span class="requiredField">*</span></label>
                                                             <div class="col-sm-7">
-                                                                <input type="text" class="form-control" [ngClass]="{'red-border-class': stateVal.errors && isFormSubmitted}" #stateVal="ngModel"
-                                                                    required [(ngModel)]="agentObj.state" name="state" placeholder=""
-                                                                    id="state">
+                                                                <p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" #stateVal="ngModel" required [(ngModel)]="agentObj.state" styleClass="{{ stateVal.errors && isFormSubmitted?'red-border-class':''}}" name="state" id="state"></p-dropdown>
                                                             </div>
                                                         </div>
                                                     </div>

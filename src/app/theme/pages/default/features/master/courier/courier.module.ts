@@ -5,8 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from "../../../default.component";
 import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
-// import { RoleService, PermissionService } from '../../_services/index';
-import { CommonService } from '../../../_services/common.service';
 
 import {
   DataTableModule,
@@ -18,9 +16,9 @@ import {
   ConfirmationService,
 } from 'primeng/primeng';
 
-import { AgentService } from "../../../_services/agent.service";
-import { AgentComponent } from "./agent.component";
-import { AgentListComponent } from "./agent-list/agent-list.component";
+import { CourierService } from "../../../_services/courier.service";
+import { CourierComponent } from "./courier.component";
+import { CourierListComponent } from "./courier-list/courier-list.component";
 
 const routes: Routes = [
   {
@@ -29,14 +27,14 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: AgentComponent,
+        component: CourierComponent,
         children: [
           {
             path: 'list',
-            component: AgentListComponent,
+            component: CourierListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['agent']
+              permissions: ['courier']
             }
 
           },
@@ -61,15 +59,13 @@ const routes: Routes = [
     ConfirmDialogModule
   ],
   declarations: [
-    AgentComponent,
-    AgentListComponent,
+    CourierComponent,
+    CourierListComponent,
   ],
   providers: [
-    // RoleService,
-    CommonService,
-    AgentService,
+    CourierService,
     ConfirmationService
   ],
 })
-export class AgentModule {
+export class CourierModule {
 }

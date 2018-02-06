@@ -6,24 +6,23 @@ import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@ang
 import { ConfirmationService, DataTableModule, LazyLoadEvent } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
-import { AgentService } from '../../../../_services/agent.service';
+import { CourierService } from '../../../../_services/courier.service';
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
-import { Agent } from "../../../../_models/agent";
-import { CommonService } from '../../../../_services/common.service';
+import { Courier } from "../../../../_models/courier";
 
 @Component({
-  selector: "app-agent-list",
-  templateUrl: "./agent-list.component.html",
+  selector: "app-courier-list",
+  templateUrl: "./courier-list.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class AgentListComponent implements OnInit {
+export class CourierListComponent implements OnInit {
+
   isFormSubmitted: boolean = false;
-  agentForm: any;
-  agentObj: any;
+  courierForm: any;
+  courierObj: any;
   params: number;
-  agentList = [];
-  states = [];
+  courierList = [];
   pageSize = 50;
   page = 1;
   totalCount = 0;
@@ -34,14 +33,12 @@ export class AgentListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private agentService: AgentService,
+    private courierService: CourierService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
-    private commonService: CommonService,
     private messageService: MessageService) {
   }
   ngOnInit() {
-    this.states = this.commonService.states;
     this.route.params.forEach((params: Params) => {
       this.params = params['id'];
     });
@@ -50,17 +47,10 @@ export class AgentListComponent implements OnInit {
 
   newRecord() {
     this.params = null;
-    this.agentObj = {
+    this.courierObj = {
       id: 0,
       name: '',
-      phone: '',
-      email: '',
-      address1: '',
-      address2: '',
-      city: '',
-      state: '',
-      pin: '',
-      commision: null,
+      docketNumber: '',
     };
   }
 
@@ -76,10 +66,10 @@ export class AgentListComponent implements OnInit {
     this.toggleDiv = false;
     this.newRecord();
   }
-  getAgentsList() {
-    this.agentService.getAllAgents(this.pageSize, this.page, this.search).subscribe(
+  getCouriersList() {
+    this.courierService.getAllCouriers(this.pageSize, this.page, this.search).subscribe(
       results => {
-        this.agentList = results.data;
+        this.courierList = results.data;
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
@@ -101,14 +91,14 @@ export class AgentListComponent implements OnInit {
     this.pageSize = event.rows;
     this.page = event.first;
     this.search = event.globalFilter;
-    this.getAgentsList();
+    this.getCouriersList();
   }
 
-  getAgentById(id) {
-    this.agentService.getAgentById(id).subscribe(
+  getCourierById(id) {
+    this.courierService.getCourierById(id).subscribe(
       results => {
-        this.agentObj = results;
-        console.log('this.agentList', this.agentObj);
+        this.courierObj = results;
+        console.log('this.courierList', this.courierObj);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -119,16 +109,16 @@ export class AgentListComponent implements OnInit {
     this.isFormSubmitted = true;
     if (!valid)
       return;
-    this.saveAgent(this.agentObj);
+    this.saveCourier(this.courierObj);
   }
 
-  saveAgent(value) {
+  saveCourier(value) {
     Helpers.setLoading(true);
     if (this.params) {
-      this.agentService.updateAgent(value)
+      this.courierService.updateCourier(value)
         .subscribe(
         results => {
-          this.getAgentsList();
+          this.getCouriersList();
           this.toggleDiv = false;
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -140,10 +130,10 @@ export class AgentListComponent implements OnInit {
           Helpers.setLoading(false);
         });
     } else {
-      this.agentService.createAgent(value)
+      this.courierService.createCourier(value)
         .subscribe(
         results => {
-          this.getAgentsList();
+          this.getCouriersList();
           this.toggleDiv = false;
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -157,25 +147,25 @@ export class AgentListComponent implements OnInit {
     }
   }
 
-  onEditClick(agent: Agent) {
-    this.agentService.perPage = this.pageSize;
-    this.agentService.currentPos = this.page;
-    this.getAgentById(agent.id);
-    this.params = agent.id;
+  onEditClick(courier: Courier) {
+    this.courierService.perPage = this.pageSize;
+    this.courierService.currentPos = this.page;
+    this.getCourierById(courier.id);
+    this.params = courier.id;
     this.toggleDiv = true;
     this.isFormSubmitted = false;
   }
 
-  onDelete(agent: Agent) {
+  onDelete(courier: Courier) {
     this.confirmationService.confirm({
       message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
-        this.agentService.deleteAgent(agent.id).subscribe(
+        this.courierService.deleteCourier(courier.id).subscribe(
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
-            this.getAgentsList();
+            this.getCouriersList();
             this.toggleDiv = false;
           },
           error => {
