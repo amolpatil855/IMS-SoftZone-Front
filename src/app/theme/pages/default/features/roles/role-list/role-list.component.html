@@ -40,10 +40,10 @@
          </ul>
       </div>
       <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-         <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="roleForm" [ngClass]="(roleFormVal && !roleFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(roleFormVal && roleFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="roleFormVal && !roleFormVal.form.valid" [isAuthorize]="['role']">
+         <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="roleForm" [ngClass]="(roleFormVal && !roleFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(roleFormVal && roleFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="roleFormVal && !roleFormVal.form.valid" [isAuthorize]="['role']" tabindex="4">
          {{ params ? 'Update' : 'Save' }}
          </button>
-         <button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()">
+         <button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()" tabindex="5">
          Cancel
          </button>
       </div>
@@ -115,13 +115,13 @@
                                           <div class="form-group">
                                              <label class="col-md-3 col-sm-3 fieldLabel">Name<span class="requiredField">*</span></label>
                                              <div class="col-md-9 col-sm-9">
-                                                <input type="text" formControlName="roleName" [ngClass]="{'red-border-class': roleForm.get('roleName').hasError('required') && isFormSubmitted}"   name="roleName" class="form-control m-input" required maxlength="50">
+                                                <input type="text" formControlName="roleName" [ngClass]="{'red-border-class': roleForm.get('roleName').hasError('required') && isFormSubmitted}"   name="roleName" class="form-control m-input" required maxlength="50" tabindex="1">
                                              </div>
                                           </div>
                                           <div class="form-group">
                                              <label class="col-md-3 col-sm-3 fieldLabel">Description</label>
                                              <div class="col-md-9 col-sm-9">
-                                                <textarea class="form-control m-input" rows="3" formControlName="roleDescription" name="roleDescription" style="resize:none;" maxlength="100"></textarea>						
+                                                <textarea class="form-control m-input" rows="3" formControlName="roleDescription" name="roleDescription" style="resize:none;" maxlength="100" tabindex="2"></textarea>						
                                              </div>
                                           </div>
                                        </div>
@@ -137,7 +137,7 @@
                                     <div class="panel panel-default">
                                        <div class="panel-heading">Role Details</div>
                                        <div class="panel-body roleTreeListBox">	
-                                          <p-tree [value]="featureList" selectionMode="checkbox" [(selection)]="SelectedFeatureList"></p-tree>		
+                                          <p-tree [value]="featureList" selectionMode="checkbox" [(selection)]="SelectedFeatureList" tabindex="3"></p-tree>		
                                        </div>
                                     </div>
                                  </div>

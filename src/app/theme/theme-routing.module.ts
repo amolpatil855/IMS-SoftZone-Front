@@ -26,6 +26,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/agent\/agent.module#AgentModule"
       },
       {
+        "path": "features\/master\/courier",
+        "loadChildren": ".\/pages\/default\/features\/master\/courier\/courier.module#CourierModule"
+      },
+      {
         "path": "features\/master\/collection",
         "loadChildren": ".\/pages\/default\/features\/master\/collection\/collection.module#CollectionModule"
       },

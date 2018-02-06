@@ -42,10 +42,10 @@
             <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
                   <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="qualityForm" [ngClass]="(qualityFormVal && !qualityFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'"
                         title="{{(qualityFormVal && qualityFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-                        [disabled]="qualityFormVal && !qualityFormVal.form.valid" [isAuthorize]="['quality']">
+                        [disabled]="qualityFormVal && !qualityFormVal.form.valid" [isAuthorize]="['quality']" tabindex="7">
                         {{ params ? 'Update' : 'Save' }}
                   </button>
-                  <button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()">
+                  <button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()" tabindex="8">
                         Cancel
                   </button>
             </div>
@@ -83,7 +83,8 @@
                                                                                                                         [style]="{'width':'100%'}"
                                                                                                                         [disabled]="disabled"
                                                                                                                         (ngModelChange)="onChangeCategory(event)"
-                                                                                                                        name="categoriesDDl"></p-dropdown>
+                                                                                                                        name="categoriesDDl"
+                                                                                                                        tabindex="1"></p-dropdown>
                                                                                                                   <!-- <div class="alertMsg" *ngIf="qualityForm.get('categoryId').hasError('required') && qualityForm.get('categoryId ').touched">
                                                          Please select Category
                                                          </div> -->
@@ -98,7 +99,8 @@
                                                                                                                         required
                                                                                                                         [style]="{'width':'100%'}"
                                                                                                                         [disabled]="disabled"
-                                                                                                                        name="supplierCodeDDl"></p-dropdown>
+                                                                                                                        name="supplierCodeDDl"
+                                                                                                                        tabindex="2"></p-dropdown>
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -109,7 +111,8 @@
                                                                                                                   <input type="text" class="form-control" [ngClass]="{'red-border-class': qualityForm.get('qualityCode').hasError('required') && isFormSubmitted}"
                                                                                                                         formControlName="qualityCode"
                                                                                                                         required
-                                                                                                                        placeholder="">
+                                                                                                                        placeholder=""
+                                                                                                                        tabindex="3">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -125,7 +128,8 @@
                                                                                                                   <input type="text" class="form-control" [ngClass]="{'red-border-class': qualityForm.get('qualityName').hasError('required') && isFormSubmitted}"
                                                                                                                         formControlName="qualityName"
                                                                                                                         required
-                                                                                                                        placeholder="">
+                                                                                                                        placeholder=""
+                                                                                                                        tabindex="4">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -137,7 +141,8 @@
                                                                                                                         formControlName="hsnId"
                                                                                                                         required
                                                                                                                         [style]="{'width':'100%'}"
-                                                                                                                        name="supplierCodeDDl"></p-dropdown>
+                                                                                                                        name="supplierCodeDDl"
+                                                                                                                        tabindex="5"></p-dropdown>
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -145,7 +150,7 @@
                                                                                                       <div class="row">
                                                                                                             <label class="col-md-3 col-sm-3 fieldLabel">Description</label>
                                                                                                             <div class="col-md-9 col-sm-9">
-                                                                                                                  <input type="text" class="form-control" formControlName="description" placeholder="">
+                                                                                                                  <input type="text" class="form-control" formControlName="description" placeholder="" tabindex="6">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>

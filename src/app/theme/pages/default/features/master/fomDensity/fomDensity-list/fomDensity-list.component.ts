@@ -140,6 +140,11 @@ export class FomDensityListComponent implements OnInit {
   }
 
   onCollectionClick() {
+    if (this.selectedCollection == null) {
+      this.qualityList = [];
+      this.qualityList.unshift({ label: '--Select--', value: null });
+      this.selectedQuality = null;
+    } else {
     this.fomDensityService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
       results => {
         this.qualityList = results;
@@ -150,6 +155,7 @@ export class FomDensityListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    }
   }
 
   loadLazy(event: LazyLoadEvent) {
