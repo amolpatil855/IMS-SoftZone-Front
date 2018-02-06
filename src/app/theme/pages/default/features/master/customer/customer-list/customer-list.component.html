@@ -166,7 +166,15 @@
                                           </div>
                                     </div>
                                  </div>
-                              
+                                 <div class="form-group">
+                                       <label class="col-md-2 col-sm-2 fieldLabel">PAN<span class="requiredField">*</span></label>
+                                       <div class="col-md-3 col-sm-3">
+                                       <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': PANVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.PAN" name="PAN"   #PANVal="ngModel" placeholder="" maxlength="10">
+                                       <!-- <div class="alertMsg" *ngIf="PANVal.errors && PANVal.errors.pattern && PANVal.touched">
+                                          Please enter valid PAN
+                                          </div> -->
+                                       </div> 
+                                 </div>   
                                  <div class="form-group" *ngIf="!isHide">
                                     <label class="col-md-4 col-sm-3 fieldLabel">Is Wholsesale Customer?</label>
                                     <div class="col-md-1 col-sm-1">
@@ -185,31 +193,15 @@
                               <div class="panel-heading">Customer Account Person Information</div>
                               <div class="panel-body">
                                  <div class="form-group">
-                                    <label class="col-md-2 col-sm-2 fieldLabel">Name</label>
+                                    <label class="col-md-2 col-sm-2 fieldLabel">Person</label>
                                     <div class="col-md-3 col-sm-4">
-                                       <input class="form-control m-input" type="text"  [ngClass]="{'red-border-class': accountPersonNameVal.errors && isFormSubmitted}"   [(ngModel)]="customerObj.accountPersonName" #accountPersonNameVal="ngModel"  name="accountPersonName" id="accountPersonName" placeholder="">
+                                       <input class="form-control m-input" type="text"  [ngClass]="{'red-border-class': accountPersonNameVal.errors && isFormSubmitted}"   [(ngModel)]="customerObj.accountPersonName" #accountPersonNameVal="ngModel"  name="accountPersonName" id="accountPersonName" placeholder="Name">
                                        <!-- <div class="alertMsg" *ngIf="accountPersonNameVal.errors && accountPersonNameVal.errors.touched">
                                           Please enter Account Person Name
                                           </div> -->
                                     </div>
-                                    <label class="col-md-2 col-sm-2 fieldLabel">PAN</label>
-                                    <!-- <div class="col-md-3 col-sm-3">
-                                       <input class="form-control m-input" type="number" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.gstin" name="gstin" placeholder="GSTIN" maxlength="15" required #gstinVal="ngModel" >
-                                       <div class="alertMsg" *ngIf="gstinVal.errors && !gstinVal.errors.required && gstinVal.errors.pattern && gstinVal.touched">
-                                       	Please enter valid GSTIN
-                                       </div>
-                                       </div>		 -->
-                                    <div class="col-md-3 col-sm-3">
-                                       <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': PANVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.PAN" name="PAN"   #PANVal="ngModel" placeholder="" maxlength="10">
-                                       <!-- <div class="alertMsg" *ngIf="PANVal.errors && PANVal.errors.pattern && PANVal.touched">
-                                          Please enter valid PAN
-                                          </div> -->
-                                    </div>                                    
-                                 </div>
-                                 <div class="form-group">
-									<label class="col-md-2 col-sm-2 fieldLabel">Email</label>
-                                    <div class="col-md-3 col-sm-2">
-                                       <input class="form-control m-input" type="email" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" [ngClass]="{'red-border-class': accountPersonEmailVal.errors && isFormSubmitted}" [(ngModel)]="customerObj.accountPersonEmail" name="accountPersonEmail"  #accountPersonEmailVal="ngModel"  placeholder="" maxlength="254">
+                                    <div class="col-md-3 col-sm-4">
+                                       <input class="form-control m-input" type="email" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" [ngClass]="{'red-border-class': accountPersonEmailVal.errors && isFormSubmitted}" [(ngModel)]="customerObj.accountPersonEmail" name="accountPersonEmail"  #accountPersonEmailVal="ngModel"  placeholder="Email" maxlength="254">
                                        <!-- <div class="alertMsg" *ngIf="accountPersonEmailVal.errors && accountPersonEmailVal.errors.email && accountPersonEmailVal.touched">
                                           Please enter  Alternate Email2
                                           </div> -->
@@ -219,13 +211,12 @@
                                                 </div>
                                           </div>
                                     </div>
-                                    <label class="col-md-2 col-sm-2 fieldLabel">Phone</label>	
                                     <div class="col-md-3 col-sm-2">
-                                       <input class="form-control m-input" type="phone" pattern="^[0-9]+" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.accountPersonPhone" name="accountPersonPhone"  #accountPersonPhoneVal="ngModel" placeholder="" minlength="10" maxlength="10">
+                                       <input class="form-control m-input" type="phone" pattern="^[0-9]+" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.accountPersonPhone" name="accountPersonPhone"  #accountPersonPhoneVal="ngModel" placeholder="Phone" minlength="10" maxlength="10">
                                        <!-- <div class="alertMsg" *ngIf="accountPersonPhoneVal.errors && accountPersonPhoneVal.errors.pattern && accountPersonPhoneVal.touched">
                                           Please enter valid phone number
                                           </div> -->
-                                    <div *ngIf="accountPersonPhoneVal.errors && (accountPersonPhoneVal.dirty || accountPersonPhoneVal.touched)" class="alertMsg">
+                                          <div *ngIf="accountPersonPhoneVal.errors && (accountPersonPhoneVal.dirty || accountPersonPhoneVal.touched)" class="alertMsg">
                                                 <div *ngIf="accountPersonPhoneVal.errors.minlength && !accountPersonPhoneVal.errors.pattern">
                                                       Mobile number should be 10 digit.
                                                 </div>
@@ -234,8 +225,10 @@
                                                 </div>
                                           </div>
                                     </div>
-								 
+                                    
+                                                                 
                                  </div>
+                                 
                               </div>
                            </div>
                         </div>
