@@ -108,14 +108,15 @@
 														<div class="form-group">
 															<label class="fieldLabel col-sm-5">Width <span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<input class="form-control m-input" type="number" min="0" value="" pattern="^\d+(\.\d{1,2})?$" maxlength="10" #widthVal="ngModel"
-																 required (keypress)="restrictMinus($event, 5);" [(ngModel)]="fomSizeObj.width" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
-																 name="width" id="width" placeholder="Enter Width" (change)="onInputChange()" tabindex="5">
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" #widthVal="ngModel"
+																 required [(ngModel)]="fomSizeObj.width" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
+																 name="width" id="width" placeholder="Enter Width" tabindex="5">
 																<div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
 																	<div *ngIf="widthVal.errors.pattern">
 																		Invalid width
 																	</div>
 																</div>
+																
 															</div>
 														</div>
 													</div>
@@ -123,9 +124,9 @@
 														<div class="form-group">
 															<label class="fieldLabel col-sm-5">Length <span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<input class="form-control m-input" type="number" min="0" value="" pattern="^\d+(\.\d{1,2})?$" maxlength="5" #lengthVal="ngModel"
-																 required (keypress)="restrictMinus($event, 5);" [(ngModel)]="fomSizeObj.length" [ngClass]="{'red-border-class': lengthVal.errors && isFormSubmitted}"
-																 name="length" id="length" placeholder="Enter Length" (change)="onInputChange()" tabindex="6">
+																<input class="form-control m-input" #lengthVal="ngModel"
+																 required  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99"  [(ngModel)]="fomSizeObj.length" [ngClass]="{'red-border-class': lengthVal.errors && isFormSubmitted}"
+																 name="length" id="length" placeholder="Enter Length" tabindex="6">
 																<div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
 																	<div *ngIf="lengthVal.errors.pattern">
 																		Invalid Length
