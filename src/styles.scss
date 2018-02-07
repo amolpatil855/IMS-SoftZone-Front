@@ -1744,3 +1744,10 @@ body .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label {
     width: 240px;
     margin: 0 auto;
 }
+.halfWidthTableData{
+    width: 50px !important;
+    max-width: 50px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
