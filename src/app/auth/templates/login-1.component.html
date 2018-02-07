@@ -4,12 +4,16 @@
 			<div class="m-stack__item m-stack__item--fluid">
 				<div class="m-login__wrapper">
 					
+					<!-- Softzone Logo -->
+					<div class="loginLogoImg">
+						<img src="./assets/app/media/img/logos/softZoneLogo.png" />
+					</div>	
+
 					<div class="m-login__signin">
 						<div class="m-login__head">
-							<h3 class="m-login__title">
-								Softzone Login
-							</h3>
-							
+							<h3 class="m-login__title">								
+								Login								
+							</h3>							
 						</div>
 						<form (ngSubmit)="f.form.valid && signin()" #f="ngForm" class="m-login__form m-form" action="">
 							<ng-template #alertSignin></ng-template>
