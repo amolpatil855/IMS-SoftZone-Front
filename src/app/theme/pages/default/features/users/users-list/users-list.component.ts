@@ -107,6 +107,14 @@ export class UsersListComponent implements OnInit {
     }
   }
 
+  onRoleChange(roleId){
+     if (roleId == "null") {
+      this.userForm.patchValue({
+        role: null
+      });
+    }
+  }
+
   loadLazy(event: LazyLoadEvent) {
     //in a real application, make a remote request to load data using state metadata from event
     //event.first = First row offset
@@ -241,7 +249,7 @@ export class UsersListComponent implements OnInit {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
     let params = {};
-    if (value.roleId == null) {
+    if (value.role == null) {
       params = {
         id: value.id,
         username: value.username,

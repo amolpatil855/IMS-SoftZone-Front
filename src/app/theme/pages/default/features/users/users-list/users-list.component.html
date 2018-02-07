@@ -84,7 +84,7 @@
                                         <p-column field="mstRole.roleName" header="Role Name" [style]="{'text-align':'left'}"></p-column>
                                         <p-column field="phone" header="Phone" [style]="{'text-align':'center'}"></p-column>
                                         <p-column field="email" header="Email" [style]="{'text-align':'left'}"></p-column>
-                                        <p-column styleClass="col-button" [style]="{'text-align':'center'}">
+                                        <p-column styleClass="col-button" [style]="{'text-align':'left'}">
                                             <ng-template pTemplate="header">
                                                 Action
                                             </ng-template>
@@ -161,7 +161,7 @@
                                                                 <label class="col-md-3 col-sm-3 fieldLabel">Role<span class="requiredField">*</span></label>
                                                                 <div class="col-md-7">
                                                                     <select class="form-control" required [ngClass]="{'red-border-class': userForm.get('role').hasError('required') && isFormSubmitted}"
-                                                                        formControlName="role" tabindex="5">
+                                                                        formControlName="role" (change)="onRoleChange($event.target.value)" tabindex="5">
                                             
                                                    <option *ngFor="let role of roleList" [value]="role.value">{{role.label}}</option>
                                                 </select>
