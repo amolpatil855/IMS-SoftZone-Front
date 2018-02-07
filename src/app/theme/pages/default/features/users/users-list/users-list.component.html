@@ -1,6 +1,6 @@
 <p-confirmDialog #cd>
-   <p-footer>
-      <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+    <p-footer>
+        <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
       <span>
       <i class="la la-close"></i>
       <span>
@@ -8,7 +8,7 @@
       </span>
       </span>
       </button>
-      <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+        <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
       <span>
       <i class="la la-check"></i>
       <span>
@@ -16,57 +16,59 @@
       </span>
       </span>
       </button>
-   </p-footer>
+    </p-footer>
 </p-confirmDialog>
 <div class="m-subheader">
-   <div class="d-flex align-items-center">
-      <div class="mr-auto">
-         <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-            <li class="m-nav__item m-nav__item--home">
-               <a href="#" class="m-nav__link m-nav__link--icon">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="#" class="m-nav__link m-nav__link--icon">
                <i class="m-nav__link-icon la la-home"></i>
                </a>
-            </li>
-            <li class="m-nav__separator">
-               -
-            </li>
-            <li class="m-nav__item">
-               <a class="m-nav__link">
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a class="m-nav__link">
                <span class="m-nav__link-text">
                Users
                </span>
                </a>
-            </li>
-         </ul>
-      </div>
-      <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-         <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="userForm" [ngClass]="(userFormVal && !userFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(userFormVal && userFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="userFormVal && !userFormVal.form.valid" [isAuthorize]="['user']" tabindex="6">
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="userForm" title="{{(userFormVal && userFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+                [isAuthorize]="['user']" tabindex="6">
          {{ params ? 'Update' : 'Save' }}
          </button>
-         <button class="btn btn-secondary" [isAuthorize]="['user']" (click)="onCancel()" tabindex="7">
+            <button class="btn btn-secondary" [isAuthorize]="['user']" (click)="onCancel()" tabindex="7">
          Cancel
          </button>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
 <!-- END: Subheader -->
 <!-- END: Subheader -->
 <div class="m-content">
-   <div class="row">
-      <div class="col-lg-12">
-         <div class="m-portlet">
-            <div class="row">
-			
-			<div class="col-md-7">
-            <div class="m-portlet__body">
-               <!--begin::Section-->
-               <div class="m-section">
-                  <div class="m-section__content">
-                     <div class="ui-widget-header" style="border-bottom: 0 none">
-                        <i class="fa fa-search searchIcon"></i>
-                        <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
-                        <!-- Add Button -->
-                        <button  *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()" [isAuthorize]="['user']">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet">
+                <div class="row">
+
+                    <div class="col-md-7">
+                        <div class="m-portlet__body">
+                            <!--begin::Section-->
+                            <div class="m-section">
+                                <div class="m-section__content">
+                                    <div class="ui-widget-header" style="border-bottom: 0 none">
+                                        <i class="fa fa-search searchIcon"></i>
+                                        <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+                                        <!-- Add Button -->
+                                        <button *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()"
+                                            [isAuthorize]="['user']">
                         <span>
                         <i class="flaticon-add"></i>
                         <span>
@@ -74,102 +76,113 @@
                         </span>
                         </span>
                         </button>
-                     </div>
-                     <p-dataTable [value]="userList" [emptyMessage]="tableEmptyMesssage" class="table listingTable halfWidthTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
-                     [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                     <p-column field="userName" header="User Name" [style]="{'text-align':'left'}"></p-column>
-                     <p-column field="mstRole.roleName" header="Role Name" [style]="{'text-align':'left'}"></p-column>
-                     <p-column field="phone" header="Phone" [style]="{'text-align':'center'}"></p-column>
-                     <p-column field="email" header="Email" [style]="{'text-align':'left'}"></p-column>
-                     <p-column styleClass="col-button" [style]="{'text-align':'center'}">
-                        <ng-template pTemplate="header">
-                           Action
-                        </ng-template>
-                        <ng-template let-row="rowData" pTemplate="body" >
-                            <button type="button" pButton (click)="toggleActiveButton(row)" icon="fa fa-ban" class="editBtn" title="{{row.isActive? 'Activate':'Deactivate'}}"> </button>
-                           <button type="button" *ngIf="disableEditDeleteButton" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
-                           <button type="button" *ngIf="disableEditDeleteButton" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
-                        </ng-template>
-                     </p-column>
-                     </p-dataTable>
-                  </div>
-               </div>
-               <!--end::Section-->
-            </div>
-			</div>
-		   
-			
-               <div class="col-md-5" *ngIf="toggleDiv">
-                  <div class="">
-                     <div class="col-md-12">
-                        <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate (ngSubmit)="onSubmit(userForm)"  [formGroup]="userForm"  #userFormVal="ngForm"  id="userForm">
-                        <div class="row">
-                           <div class="col-md-12">
-                              <div class="row">
-                                 <div class="col-md-12" style="padding-left: 0;">
-                                    <!-- Basic Information -->
-                                    <div class="panel panel-default">
-                                       <div class="panel-heading">User Details</div>
-                                       <div class="panel-body">
-                                          <div class="form-group">
-                                             <label class="col-md-3 col-sm-3 fieldLabel">Name<span class="requiredField">*</span></label>
-                                             <div class="col-md-7">
-                                                <input class="form-control m-input" type="text"  required [ngClass]="{'red-border-class': userForm.get('username').hasError('required') && isFormSubmitted}"  formControlName="username" name="userName" id="userName" placeholder="User Name" tabindex="1">
-                                             </div>
-                                          </div>
-                                          <div class="form-group">
-                                             <label class="col-md-3 col-sm-3 fieldLabel">Email<span class="requiredField">*</span></label>
-                                             <div class="col-md-7">
-                                                <input class="form-control m-input" type="email"  required [ngClass]="{'red-border-class': userForm.get('email').hasError('required') && isFormSubmitted}"  email formControlName="email" name="email" placeholder="Email" maxlength="254" tabindex="2">
-                                             </div>
-                                             <div class="alertMsg" *ngIf="userForm.get('email').hasError('email') && !userForm.get('email').hasError('required') && isFormSubmitted">
-                                                Please enter valid Email
-                                             </div>
-                                          </div>
-                                          <div class="form-group">
-                                             <label class="col-md-3 col-sm-3 fieldLabel">Contact No.<span class="requiredField">*</span></label>
-                                             <div class="col-md-7">
-                                                <input class="form-control m-input" type="phone" onKeyPress="if(this.value.length==10) return false;" required [ngClass]="{'red-border-class': userForm.get('phone').hasError('required') && isFormSubmitted}"   formControlName="phone" name="contact" placeholder="Contact" minlength="10" maxlength="10" tabindex="3">
-                                                <div class="alertMsg" *ngIf="userForm.get('phone').errors?.minlength">
-                                                Please enter valid Mobile number
-                                             </div>
-                                            </div>
-                                          </div>
-                                        <div class="form-group">
-                                             <label class="col-md-3 col-sm-3 fieldLabel">User Type<span class="requiredField">*</span></label>
-                                             <div class="col-md-7">
-                                                 <select class="form-control" required [ngClass]="{'red-border-class': userForm.get('userType').hasError('required') && isFormSubmitted}" formControlName="userType" (change)="onUserTypeChange($event.target.value)" tabindex="4">
+                                    </div>
+                                    <p-dataTable [value]="userList" [emptyMessage]="tableEmptyMesssage" class="table listingTable halfWidthTable" [rows]="pageSize"
+                                        [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
+                                        [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+                                        <p-column field="userName" header="User Name" [style]="{'text-align':'left'}"></p-column>
+                                        <p-column field="mstRole.roleName" header="Role Name" [style]="{'text-align':'left'}"></p-column>
+                                        <p-column field="phone" header="Phone" [style]="{'text-align':'center'}"></p-column>
+                                        <p-column field="email" header="Email" [style]="{'text-align':'left'}"></p-column>
+                                        <p-column styleClass="col-button" [style]="{'text-align':'center'}">
+                                            <ng-template pTemplate="header">
+                                                Action
+                                            </ng-template>
+                                            <ng-template let-row="rowData" pTemplate="body">
+                                                <button type="button" pButton (click)="toggleActiveButton(row)" icon="fa fa-ban" class="editBtn" title="{{row.isActive? 'Activate':'Deactivate'}}"> </button>
+                                                <button type="button" *ngIf="row.mstRole.id>2" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+                                                <button type="button" *ngIf="row.mstRole.id>2" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
+                                            </ng-template>
+                                        </p-column>
+                                    </p-dataTable>
+                                </div>
+                            </div>
+                            <!--end::Section-->
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-5" *ngIf="toggleDiv">
+                        <div class="">
+                            <div class="col-md-12">
+                                <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
+                                    (ngSubmit)="onSubmit(userForm)" [formGroup]="userForm" #userFormVal="ngForm" id="userForm">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12" style="padding-left: 0;">
+                                                    <!-- Basic Information -->
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">User Details</div>
+                                                        <div class="panel-body">
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 col-sm-3 fieldLabel">Name<span class="requiredField">*</span></label>
+                                                                <div class="col-md-7">
+                                                                    <input class="form-control m-input" type="text" required [ngClass]="{'red-border-class': userForm.get('username').hasError('required') && isFormSubmitted}"
+                                                                        formControlName="username" name="userName" id="userName"
+                                                                        placeholder="User Name" tabindex="1">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 col-sm-3 fieldLabel">Email<span class="requiredField">*</span></label>
+                                                                <div class="col-md-7">
+                                                                    <input class="form-control m-input" type="email" required [ngClass]="{'red-border-class': userForm.get('email').hasError('required') && isFormSubmitted}"
+                                                                        email formControlName="email" name="email" placeholder="Email"
+                                                                        maxlength="254" tabindex="2">
+                                                                </div>
+                                                                <div class="alertMsg" *ngIf="userForm.get('email').hasError('email') && !userForm.get('email').hasError('required') && isFormSubmitted">
+                                                                    Please enter valid Email
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 col-sm-3 fieldLabel">Contact No.<span class="requiredField">*</span></label>
+                                                                <div class="col-md-7">
+                                                                    <input class="form-control m-input" type="phone" onKeyPress="if(this.value.length==10) return false;" required [ngClass]="{'red-border-class': userForm.get('phone').hasError('required') && isFormSubmitted}"
+                                                                        formControlName="phone" name="contact" placeholder="Contact"
+                                                                        minlength="10" maxlength="10" tabindex="3">
+                                                                    <div class="alertMsg" *ngIf="userForm.get('phone').errors?.minlength">
+                                                                        Please enter valid Mobile number
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 col-sm-3 fieldLabel">User Type<span class="requiredField">*</span></label>
+                                                                <div class="col-md-7">
+                                                                    <select class="form-control" required [ngClass]="{'red-border-class': userForm.get('userType').hasError('required') && isFormSubmitted}"
+                                                                        formControlName="userType" (change)="onUserTypeChange($event.target.value)"
+                                                                        tabindex="4">
     
                                                    <option *ngFor="let userType of userTypeList" [value]="userType.value">{{userType.label}}</option>
-                                                </select> 
-                                                <!-- <p-dropdown class="feePlanBox" [options]="userTypeList" [style]="{'width':'100%'}" formControlName="userType"    required styleClass="{{ userForm.get('userType').hasError('required') && isFormSubmitted ?'red-border-class':''}}"  name="userType"></p-dropdown> -->
-                                             </div>
-                                          </div>
-                                          <div class="form-group">
-                                             <label class="col-md-3 col-sm-3 fieldLabel">Role<span class="requiredField">*</span></label>
-                                             <div class="col-md-7">
-                                                 <select class="form-control"  required [ngClass]="{'red-border-class': userForm.get('role').hasError('required') && isFormSubmitted}"  formControlName="role" tabindex="5">
+                                                </select>
+                                                                    <!-- <p-dropdown class="feePlanBox" [options]="userTypeList" [style]="{'width':'100%'}" formControlName="userType"    required styleClass="{{ userForm.get('userType').hasError('required') && isFormSubmitted ?'red-border-class':''}}"  name="userType"></p-dropdown> -->
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 col-sm-3 fieldLabel">Role<span class="requiredField">*</span></label>
+                                                                <div class="col-md-7">
+                                                                    <select class="form-control" required [ngClass]="{'red-border-class': userForm.get('role').hasError('required') && isFormSubmitted}"
+                                                                        formControlName="role" tabindex="5">
                                             
                                                    <option *ngFor="let role of roleList" [value]="role.value">{{role.label}}</option>
-                                                </select> 
-                                                <!-- <p-dropdown class="feePlanBox" [options]="roleList" [style]="{'width':'100%'}" formControlName="role"    required styleClass="{{ userForm.get('role').hasError('required') && isFormSubmitted ?'red-border-class':''}}"  name="role"></p-dropdown> -->
-                                             </div>
-                                          </div>
-                                       </div>
+                                                </select>
+                                                                    <!-- <p-dropdown class="feePlanBox" [options]="roleList" [style]="{'width':'100%'}" formControlName="role"    required styleClass="{{ userForm.get('role').hasError('required') && isFormSubmitted ?'red-border-class':''}}"  name="role"></p-dropdown> -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                 </div>
-                              </div>
-                           </div>
-                           
+                                </form>
+                            </div>
                         </div>
-                        </form>
-                     </div>
-                  </div>
-               </div>
-            
-		   
-		   </div>
-		</div>
-      </div>
-   </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
