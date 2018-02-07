@@ -89,8 +89,9 @@ export class UsersListComponent implements OnInit {
         userType: this.roleList[0].value,
         role: this.roleList[0].value
       });
+      this.butDisabled = false;
+      this.userForm.get('role').enable();
     } else {
-
       if (userTypeId == 1) {
         this.roleService.getRoleLookup(userTypeId).subscribe(
           results => {

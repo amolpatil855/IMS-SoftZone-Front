@@ -27,7 +27,6 @@ export class FomDensityListComponent implements OnInit {
   selectedCollection = null;
   selectedQuality = null;
   slectedCategory = null;
-  selectedThickness = 0;
   collectionList = [];
   qualityList = [];
   thicknessList = [];
@@ -72,8 +71,9 @@ export class FomDensityListComponent implements OnInit {
       rate: '',
     };
     this.selectedCollection = null;
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
     this.selectedQuality = null;
-    this.selectedThickness = 0;
   }
 
   calculateSellingRate() {
@@ -132,7 +132,6 @@ export class FomDensityListComponent implements OnInit {
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
-        console.log('this.collectionList', this.collectionList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -150,7 +149,6 @@ export class FomDensityListComponent implements OnInit {
           this.qualityList = results;
           this.qualityList.unshift({ label: '--Select--', value: null });
           this.selectedQuality = this.fomDensityObj.qualityId;
-          console.log('this.qualityList', this.qualityList);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -182,8 +180,6 @@ export class FomDensityListComponent implements OnInit {
         this.fomDensityObj.sellingRatePerMM = parseFloat(this.fomDensityObj.sellingRatePerMM).toFixed(2);
         this.fomDensityObj.sellingRatePerKG = parseFloat(this.fomDensityObj.sellingRatePerKG).toFixed(2);
 
-
-        console.log('this.fomDensityObj', this.fomDensityObj);
         this.selectedCollection = this.fomDensityObj.collectionId;
         if (this.selectedCollection > 0) {
           this.onCollectionClick();

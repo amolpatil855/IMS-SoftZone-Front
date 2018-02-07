@@ -71,6 +71,10 @@ export class MatSizeListComponent implements OnInit {
       stockReorderLevel: null,
     };
     this.selectedCollection = null;
+     this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.thicknessList = [];
+    this.thicknessList.unshift({ label: '--Select--', value: null });
     this.selectedQuality = null;
     this.selectedThickness = null;
   }
