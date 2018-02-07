@@ -73,7 +73,7 @@
 																<div class="col-md-5 formContentbox">
 																	<label class="fieldLabel col-sm-5">Thickness Code <span class="requiredField">*</span></label>
 																	<div class="col-sm-7">
-																		<input class="form-control m-input" type="text" value="" maxlength="10" #thicknessCodeVal="ngModel" required [ngClass]="{'red-border-class': thicknessCodeVal.errors && isFormSubmitted}" [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="" maxlength="10" tabindex="1">
+																		<input class="form-control m-input" type="text" value="" #thicknessCodeVal="ngModel" required [ngClass]="{'red-border-class': thicknessCodeVal.errors && isFormSubmitted}" [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="" maxlength="10" tabindex="1">
 																		<!-- <div class="alertMsg" *ngIf="thicknessCodeVal.errors   && (thicknessCodeVal.dirty || thicknessCodeVal.touched)">
 																			Please enter Mattress Thickness Code
 																		</div> -->
@@ -84,15 +84,15 @@
 																	<div class="form-group">
 																		<label class="fieldLabel col-sm-5">Size <span class="requiredField">*</span></label>
 																		<div class="col-sm-7">
-																			<input class="form-control m-input" type="number" pattern="^[0-9]+(\.[0-9]{1,2})?$" step=".01" onKeyPress="if(this.value.length==4) return false;" maxlength="4" #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"   [(ngModel)]="matThicknessObj.size" name="size" placeholder="Size" tabindex="2">
-																			<div *ngIf="sizeVal.errors && (sizeVal.dirty || sizeVal.touched)" class="alertMsg">
+																			<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"   [(ngModel)]="matThicknessObj.size" name="size" placeholder="Size" tabindex="2">
+																			<!-- <div *ngIf="sizeVal.errors && (sizeVal.dirty || sizeVal.touched)" class="alertMsg">
 																				<div *ngIf="sizeVal.errors.maxlength && !sizeVal.errors.pattern">
 																					Maximum size limit exceeded.
 																				</div>
 																			<div *ngIf="sizeVal.errors.pattern">
 																				Please enter valid size.
 																			</div>
-																		</div>
+																		</div> -->
 																		</div>
 																	</div>
 																</div>

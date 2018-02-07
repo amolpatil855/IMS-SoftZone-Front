@@ -80,16 +80,16 @@ export class MatSizeListComponent implements OnInit {
   }
 
   onInputChange() {
-    if (parseFloat(this.matSizeObj.rate) > 99999.99) {
-      this.matSizeObj.rate = '';
-    }else{
-      this.matSizeObj.rate = parseFloat(this.matSizeObj.rate);
-    }
-    if (parseFloat(this.matSizeObj.purchaseDiscount) > 99.99) {
-      this.matSizeObj.purchaseDiscount = '';
-    }else{
-      this.matSizeObj.purchaseDiscount = parseFloat(this.matSizeObj.purchaseDiscount);
-    }
+    // if (parseFloat(this.matSizeObj.rate) > 99999.99) {
+    //   this.matSizeObj.rate = '';
+    // }else{
+    //   this.matSizeObj.rate = parseFloat(this.matSizeObj.rate);
+    // }
+    // if (parseFloat(this.matSizeObj.purchaseDiscount) > 99.99) {
+    //   this.matSizeObj.purchaseDiscount = '';
+    // }else{
+    //   this.matSizeObj.purchaseDiscount = parseFloat(this.matSizeObj.purchaseDiscount);
+    // }
     if(this.matSizeObj.rate > 0){
     this.matSizeObj.purchaseRate = this.matSizeObj.rate - ((this.matSizeObj.rate * this.matSizeObj.purchaseDiscount) / 100);
     }
