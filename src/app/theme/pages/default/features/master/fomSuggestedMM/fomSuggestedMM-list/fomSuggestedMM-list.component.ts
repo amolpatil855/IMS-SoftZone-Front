@@ -66,6 +66,10 @@ export class FomSuggestedMMListComponent implements OnInit {
     };
     this.selectedCategory = null;
     this.selectedCollection = null;
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.fomDensityList = [];
+    this.fomDensityList.unshift({ label: '--Select--', value: null });
     this.selectedQuality = null;
     this.selectedDensity = null;
   }

@@ -110,7 +110,7 @@
 									<div class="col-md-3 formContentbox">
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Product Stock<span class="requiredField">*</span></label>
-											    <input class="form-control m-input col-sm-7" type="text" value=""   [ngClass]="{'red-border-class': stockVal.errors && isFormSubmitted}"  #stockVal="ngModel" required [(ngModel)]="trnProductStockObj.stock" name="stock" id="stock" placeholder="Enter Product Stock Code" tabindex="7">
+											    <input class="form-control m-input col-sm-7" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" value=""   [ngClass]="{'red-border-class': stockVal.errors && isFormSubmitted}"  #stockVal="ngModel" required [(ngModel)]="trnProductStockObj.stock" name="stock" id="stock" placeholder="Enter Product Stock Code" tabindex="7">
                                                 <!-- <div class="alertMsg" *ngIf="trnProductStockCodeVal.errors   && (trnProductStockCodeVal.dirty || trnProductStockCodeVal.touched)">
                                                     Please enter Product Stock Code
                                                 </div> -->
@@ -147,13 +147,13 @@
 									</div>
 							<p-dataTable [value]="trnProductStockList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                            <p-column field="mstCategory.name" header="Category" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="mstFWRShade.shadeName" header="Shade Name" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="mstFomSize.sizeCode" header="Foam Size" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="mstMatSize.sizeCode" header="Mattress Size" [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="stock" header="Product Stock" [style]="{'text-align':'center'}"></p-column>
-								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
+                            <p-column field="mstCategory.name" header="Category" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="mstFWRShade.serialNumber" header="Serial Number" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="mstFomSize.sizeCode" header="Foam Size" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="mstMatSize.sizeCode" header="Mattress Size" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="stock" header="Product Stock" [style]="{'text-align':'left'}"></p-column>
+								<p-column styleClass="col-button" [style]="{'text-align':'left'}">
 									<ng-template pTemplate="header">
 										Action
 									</ng-template>

@@ -54,6 +54,7 @@ export class DesignListComponent implements OnInit {
   }
 
   newRecord() {
+    this.params = null;
     this.designObj = {
       categoryId: null,
       collectionId: null,
@@ -61,8 +62,12 @@ export class DesignListComponent implements OnInit {
       designCode: '',
       designName: '',
       description: '',
-    };
+    }; 
     this.selectedCategory = null;
+    this.collectionList = [];
+    this.collectionList.unshift({ label: '--Select--', value: null });
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
     this.selectedCollection = null;
     this.selectedQuality = null;
   }
