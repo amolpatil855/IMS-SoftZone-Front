@@ -70,6 +70,19 @@ export class FomSuggestedMMListComponent implements OnInit {
     this.selectedDensity = null;
   }
 
+  restrictDotMinus(e, limit) {
+
+    if (e.target.value.length == limit) {
+      return false;
+    }
+
+    var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+
+    if (inputKeyCode != null) {
+      if (inputKeyCode == 43 || inputKeyCode == 45 || inputKeyCode == 46 || inputKeyCode == 101) e.preventDefault();
+    }
+  }
+
   toggleButton() {
     this.toggleDiv = !this.toggleDiv;
     if (this.toggleDiv && !this.params) {
@@ -113,14 +126,14 @@ export class FomSuggestedMMListComponent implements OnInit {
   }
 
   onCollectionClick() {
-    if (this.selectedCollection == null) {
-      this.qualityList = [];
-      this.qualityList.unshift({ label: '--Select--', value: null });
-      this.fomDensityList = [];
-      this.fomDensityList.unshift({ label: '--Select--', value: null });
-      this.selectedQuality = null;
-      this.selectedDensity = null;
-    } else {
+
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.fomDensityList = [];
+    this.fomDensityList.unshift({ label: '--Select--', value: null });
+    this.selectedQuality = null;
+    this.selectedDensity = null;
+    if (this.selectedCollection != null) {
       this.fomSuggestedMMService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
         results => {
           this.qualityList = results;
@@ -138,11 +151,11 @@ export class FomSuggestedMMListComponent implements OnInit {
   }
 
   onQualityClick() {
-    if (this.selectedQuality == null) {
-      this.fomDensityList = [];
-      this.fomDensityList.unshift({ label: '--Select--', value: null });
-      this.selectedDensity = null;
-    } else {
+
+    this.fomDensityList = [];
+    this.fomDensityList.unshift({ label: '--Select--', value: null });
+    this.selectedDensity = null;
+    if (this.selectedQuality != null) {
       this.fomSuggestedMMService.getFomDensityLookUpByQuality(this.selectedQuality).subscribe(
         results => {
           this.fomDensityList = results;

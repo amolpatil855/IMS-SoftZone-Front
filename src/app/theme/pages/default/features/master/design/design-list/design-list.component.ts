@@ -109,15 +109,13 @@ export class DesignListComponent implements OnInit {
   }
 
   onCategoryClick() {
-    console.log('selectedCategory', this.selectedCategory);
-    if (this.selectedCategory == null) {
-      this.collectionList = [];
-      this.collectionList.unshift({ label: '--Select--', value: null });
-      this.qualityList = [];
-      this.qualityList.unshift({ label: '--Select--', value: null });
-      this.selectedCollection = null;
-      this.selectedQuality = null;
-    } else {
+    this.collectionList = [];
+    this.collectionList.unshift({ label: '--Select--', value: null });
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.selectedCollection = null;
+    this.selectedQuality = null;
+    if (this.selectedCategory != null) {
       this.designService.getCollectionLookUp(this.selectedCategory).subscribe(
         results => {
           this.collectionList = results;
@@ -135,11 +133,11 @@ export class DesignListComponent implements OnInit {
   }
 
   onCollectionClick() {
-    if (this.selectedCollection == null) {
-      this.qualityList = [];
-      this.qualityList.unshift({ label: '--Select--', value: null });
-      this.selectedQuality = null;
-    } else {
+
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.selectedQuality = null;
+    if (this.selectedCollection != null) {
       this.designService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
         results => {
           this.qualityList = results;
