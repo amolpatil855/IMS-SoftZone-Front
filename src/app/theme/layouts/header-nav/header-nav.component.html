@@ -45,8 +45,12 @@
 					<ul class="m-menu__nav  m-menu__nav--submenu-arrow">
 						<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel" data-menu-submenu-toggle="click" data-redirect="true" aria-haspopup="true">
 							<span class="m-menu__link-text">
-								<h5 style="font-size:1.8rem;margin-bottom: 0;">
-									<img *ngIf="IMSLogoShow" [src]="logoUrl" alt="" class="headerIMSLogo" style="width: 110px; margin-right: 22px;"> {{webHeader}}
+								<h5 class="topCompanyName">
+									<img *ngIf="IMSLogoShow" [src]="logoUrl" alt="" class="headerIMSLogo" style="width: 110px; margin-right: 22px;"><!-- {{webHeader}}  -->
+									
+									<!-- Company Name and Contact No. -->	
+									Eternus Solutions Pvt. Ltd., Pune &nbsp;&nbsp;&nbsp;  <span><i class="fa fa-phone"></i>  9638527410</span>
+
 								</h5>
 							</span>
 						</li>
