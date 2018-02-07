@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { HrefPreventDefaultDirective } from '../../_directives/href-prevent-default.directive';
 import { UnwrapTagDirective } from '../../_directives/unwrap-tag.directive';
 import { IsAuthorizeDirective } from '../../_directives/isAuthorize.directive';
+import { OnlyNumber } from '../../_directives/OnlyNumber.directive';
 import { ImageUploadService } from '../pages/default/_services/imageUpload.service';
 import { UserService } from "../pages/default/_services/user.service";
 import { RoleService } from "../pages/default/_services/role.service";
@@ -25,6 +26,7 @@ import { RoleService } from "../pages/default/_services/role.service";
     HrefPreventDefaultDirective,
     UnwrapTagDirective,
     IsAuthorizeDirective,
+    OnlyNumber
   ],
   exports: [
     LayoutComponent,
@@ -35,7 +37,7 @@ import { RoleService } from "../pages/default/_services/role.service";
     ScrollTopComponent,
     HrefPreventDefaultDirective,
     IsAuthorizeDirective,
-
+    OnlyNumber
   ],
   providers: [
     ImageUploadService,
