@@ -75,6 +75,19 @@ export class ShadeListComponent implements OnInit {
     this.selectedQuality = null;
   }
 
+  restrictDotMinus(e, limit) {
+
+    if (e.target.value.length == limit) {
+      return false;
+    }
+
+    var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+
+    if (inputKeyCode != null) {
+      if (inputKeyCode == 43 || inputKeyCode == 45 || inputKeyCode == 46 || inputKeyCode == 101) e.preventDefault();
+    }
+  }
+
   toggleButton() {
     this.toggleDiv = !this.toggleDiv;
     if (this.toggleDiv && !this.params) {
@@ -121,17 +134,17 @@ export class ShadeListComponent implements OnInit {
 
   onCategoryClick() {
     console.log('selectedCategory', this.selectedCategory);
-    if (this.selectedCategory == null) {
-      this.collectionList = [];
-      this.collectionList.unshift({ label: '--Select--', value: null });
-      this.qualityList = [];
-      this.qualityList.unshift({ label: '--Select--', value: null });
-      this.designList = [];
-      this.designList.unshift({ label: '--Select--', value: null });
-      this.selectedCollection = null;
-      this.selectedDesign = null;
-      this.selectedQuality = null;
-    } else {
+
+    this.collectionList = [];
+    this.collectionList.unshift({ label: '--Select--', value: null });
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.designList = [];
+    this.designList.unshift({ label: '--Select--', value: null });
+    this.selectedCollection = null;
+    this.selectedDesign = null;
+    this.selectedQuality = null;
+    if (this.selectedCategory != null) {
       this.shadeService.getCollectionLookUp(this.selectedCategory).subscribe(
         results => {
           this.collectionList = results;
@@ -149,14 +162,14 @@ export class ShadeListComponent implements OnInit {
   }
 
   onCollectionClick() {
-    if (this.selectedCollection == null) {
-      this.qualityList = [];
-      this.qualityList.unshift({ label: '--Select--', value: null });
-      this.selectedQuality = null;
-      this.designList = [];
-      this.designList.unshift({ label: '--Select--', value: null });
-      this.selectedDesign = null;
-    } else {
+
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.selectedQuality = null;
+    this.designList = [];
+    this.designList.unshift({ label: '--Select--', value: null });
+    this.selectedDesign = null;
+    if (this.selectedCollection != null) {
       this.shadeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
         results => {
           this.qualityList = results;
@@ -174,11 +187,11 @@ export class ShadeListComponent implements OnInit {
   }
 
   onQualityClick() {
-    if (this.selectedQuality == null) {
-      this.designList = [];
-      this.designList.unshift({ label: '--Select--', value: null });
-      this.selectedDesign = null;
-    } else {
+
+    this.designList = [];
+    this.designList.unshift({ label: '--Select--', value: null });
+    this.selectedDesign = null;
+    if (this.selectedQuality != null) {
       this.shadeService.getDesignLookupByQuality(this.selectedQuality).subscribe(
         results => {
           this.designList = results;

@@ -139,100 +139,98 @@ export class TrnProductStockListComponent implements OnInit {
   }
 
   onCategoryClick() {
-    if (this.selectedCategory == null) {
-      this.collectionList = [];
-      this.collectionList.unshift({ label: '--Select--', value: null });
-      this.shadeList = [];
-      this.shadeList.unshift({ label: '--Select--', value: null });
-      this.matSizeList = [];
-      this.matSizeList.unshift({ label: '--Select--', value: null });
-      this.fomSizeList = [];
-      this.fomSizeList.unshift({ label: '--Select--', value: null });
-      this.selectedCollection = null;
-      this.selectedShade = null;
-      this.selectedMatSize = null;
-      this.selectedFomSize = null;
-    } else {
-    this.categoryList.forEach(item => {
-      if (item.value == this.selectedCategory) {
-        if (item.label === "Foam") {
-          this.fomEnable = true;
-          this.matEnable = false;
-          this.shadeEnable = false;
+    this.collectionList = [];
+    this.collectionList.unshift({ label: '--Select--', value: null });
+    this.shadeList = [];
+    this.shadeList.unshift({ label: '--Select--', value: null });
+    this.matSizeList = [];
+    this.matSizeList.unshift({ label: '--Select--', value: null });
+    this.fomSizeList = [];
+    this.fomSizeList.unshift({ label: '--Select--', value: null });
+    this.selectedCollection = null;
+    this.selectedShade = null;
+    this.selectedMatSize = null;
+    this.selectedFomSize = null;
+    if (this.selectedCategory != null) {
+      this.categoryList.forEach(item => {
+        if (item.value == this.selectedCategory) {
+          if (item.label === "Foam") {
+            this.fomEnable = true;
+            this.matEnable = false;
+            this.shadeEnable = false;
+          }
+          if (item.label === "Mattress") {
+            this.matEnable = true;
+            this.fomEnable = false;
+            this.shadeEnable = false;
+          }
+          if (item.label === "Fabric" || item.label === "Rug" || item.label === "Wallpaper") {
+            this.shadeEnable = true;
+            this.matEnable = false;
+            this.fomEnable = false;
+          }
         }
-        if (item.label === "Mattress") {
-          this.matEnable = true;
-          this.fomEnable = false;
-          this.shadeEnable = false;
-        }
-        if (item.label === "Fabric" || item.label === "Rug" || item.label === "Wallpaper") {
-          this.shadeEnable = true;
-          this.matEnable = false;
-          this.fomEnable = false;
-        }
-      }
-    });
-    
-    this.trnProductStockService.getCollectionLookUpByCategory(this.selectedCategory).subscribe(
-      results => {
-        this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: null });
-        this.selectedCollection = this.trnProductStockObj.collectionId;
-        if (this.selectedCollection > 0) {
-          this.onCollectionClick();
-        }
-        console.log('this.collectionList', this.collectionList);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
       });
+
+      this.trnProductStockService.getCollectionLookUpByCategory(this.selectedCategory).subscribe(
+        results => {
+          this.collectionList = results;
+          this.collectionList.unshift({ label: '--Select--', value: null });
+          this.selectedCollection = this.trnProductStockObj.collectionId;
+          if (this.selectedCollection > 0) {
+            this.onCollectionClick();
+          }
+          console.log('this.collectionList', this.collectionList);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        });
     }
   }
 
   onCollectionClick() {
-    if (this.selectedCollection == null) {
-      this.shadeList = [];
-      this.shadeList.unshift({ label: '--Select--', value: null });
-      this.matSizeList = [];
-      this.matSizeList.unshift({ label: '--Select--', value: null });
-      this.fomSizeList = [];
-      this.fomSizeList.unshift({ label: '--Select--', value: null });
-      this.selectedShade = null;
-      this.selectedMatSize = null;
-      this.selectedFomSize = null;
-    } else {
-    this.trnProductStockService.getSerialNumberLookUpByCollection(this.selectedCollection).subscribe(
-      results => {
-        this.shadeList = results;
-        this.shadeList.unshift({ label: '--Select--', value: null });
-        this.selectedShade = this.trnProductStockObj.fwrShadeId;
-        console.log('this.selectedShade', this.selectedShade);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
+    this.shadeList = [];
+    this.shadeList.unshift({ label: '--Select--', value: null });
+    this.matSizeList = [];
+    this.matSizeList.unshift({ label: '--Select--', value: null });
+    this.fomSizeList = [];
+    this.fomSizeList.unshift({ label: '--Select--', value: null });
+    this.selectedShade = null;
+    this.selectedMatSize = null;
+    this.selectedFomSize = null;
+    if (this.selectedCollection != null) {
+      this.trnProductStockService.getSerialNumberLookUpByCollection(this.selectedCollection).subscribe(
+        results => {
+          this.shadeList = results;
+          this.shadeList.unshift({ label: '--Select--', value: null });
+          this.selectedShade = this.trnProductStockObj.fwrShadeId;
+          console.log('this.selectedShade', this.selectedShade);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        });
 
-    this.trnProductStockService.getMatSizeLookUpByCollection(this.selectedCollection).subscribe(
-      results => {
-        this.matSizeList = results;
-        this.matSizeList.unshift({ label: '--Select--', value: null });
-        this.selectedMatSize = this.trnProductStockObj.matSizeId;
-        console.log('this.selectedMatSize', this.selectedMatSize);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
+      this.trnProductStockService.getMatSizeLookUpByCollection(this.selectedCollection).subscribe(
+        results => {
+          this.matSizeList = results;
+          this.matSizeList.unshift({ label: '--Select--', value: null });
+          this.selectedMatSize = this.trnProductStockObj.matSizeId;
+          console.log('this.selectedMatSize', this.selectedMatSize);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        });
 
-    this.trnProductStockService.getFomSizeLookUpByCollection(this.selectedCollection).subscribe(
-      results => {
-        this.fomSizeList = results;
-        this.fomSizeList.unshift({ label: '--Select--', value: null });
-        this.selectedFomSize = this.trnProductStockObj.fomSizeId;
-        console.log('this.selectedFomSize', this.selectedFomSize);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
+      this.trnProductStockService.getFomSizeLookUpByCollection(this.selectedCollection).subscribe(
+        results => {
+          this.fomSizeList = results;
+          this.fomSizeList.unshift({ label: '--Select--', value: null });
+          this.selectedFomSize = this.trnProductStockObj.fomSizeId;
+          console.log('this.selectedFomSize', this.selectedFomSize);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        });
     }
   }
 
