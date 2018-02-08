@@ -107,8 +107,8 @@ export class UsersListComponent implements OnInit {
     }
   }
 
-  onRoleChange(roleId){
-     if (roleId == "null") {
+  onRoleChange(roleId) {
+    if (roleId == "null") {
       this.userForm.patchValue({
         role: null
       });
@@ -184,7 +184,6 @@ export class UsersListComponent implements OnInit {
           role: results.roleId,
           userType: results.userTypeId,
         });
-        this.role = results.roleId;
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -248,25 +247,13 @@ export class UsersListComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    let params = {};
-    if (value.role == null) {
-      params = {
-        id: value.id,
-        username: value.username,
-        email: value.email,
-        phone: value.phone,
-        roleId: value.role,
-        userTypeId: value.userType,
-      }
-    } else {
-      params = {
-        id: value.id,
-        username: value.username,
-        email: value.email,
-        phone: value.phone,
-        roleId: this.role,
-        userTypeId: value.userType,
-      }
+    let params = {
+      id: value.id,
+      username: value.username,
+      email: value.email,
+      phone: value.phone,
+      roleId: value.role,
+      userTypeId: value.userType,
     }
     if (valid)
       this.saveUser(params);

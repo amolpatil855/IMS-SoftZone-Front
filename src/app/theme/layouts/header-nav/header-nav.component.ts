@@ -20,6 +20,7 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
   userRole: string;
   userName: string;
   logoURLtoshow: string;
+  companyPhone: string;
   loggedInUser = { user: null };
   IMSLogoShow: boolean;
   constructor(private _router: Router,
@@ -54,6 +55,7 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
       (results: any) => {
         if (results !== null) {
           this.webHeader = results.companyName;
+          this.companyPhone = results.phone;
           this.logoURLtoshow = AppSettings.IMAGE_API_ENDPOINT + results.companyLogo;
         }
       });
