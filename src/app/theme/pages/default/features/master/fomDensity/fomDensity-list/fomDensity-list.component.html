@@ -79,7 +79,7 @@
 															<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel" required
 															 styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" 
 															 [(ngModel)]="selectedCollection"
-															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" tabindex="1"></p-dropdown>
+															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" tabindex="1"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4">
@@ -89,7 +89,7 @@
 														<div class="col-md-6 col-sm-6">
 															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel" required
 															 styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedQuality"
-															 [disabled]="disabled" name="quality" tabindex="2"></p-dropdown>
+															 [disabled]="disabled" name="quality" filter="true" tabindex="2"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4">

@@ -77,7 +77,7 @@
 														<div class="col-sm-7">
 															<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel" required
 															 styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedCollection"
-															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" tabindex="1"></p-dropdown>
+															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" tabindex="1"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">
@@ -85,7 +85,7 @@
 														<div class="col-sm-7">
 															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel" required
 															 styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedQuality"
-															 [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()" tabindex="2"></p-dropdown>
+															 [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()" filter="true" tabindex="2"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">
@@ -93,7 +93,7 @@
 														<div class="col-sm-7">
 															<p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" #selectedDensityVal="ngModel" required
 															 styleClass="{{ selectedDensityVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedDensity"
-															 [disabled]="disabled" name="density" (ngModelChange)="onDensityClick()" tabindex="3"></p-dropdown>
+															 [disabled]="disabled" name="density" (ngModelChange)="onDensityClick()" filter="true" tabindex="3"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">
@@ -101,7 +101,7 @@
 														<div class="col-sm-7">
 															<p-dropdown class="feePlanBox" [options]="fomSuggestedMMList" [style]="{'width':'100%'}" #selectedSizeVal="ngModel" required
 															 styleClass="{{ selectedSizeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" [(ngModel)]="selectedSize"
-															 name="size" tabindex="4"></p-dropdown>
+															 name="size" filter="true" tabindex="4"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">

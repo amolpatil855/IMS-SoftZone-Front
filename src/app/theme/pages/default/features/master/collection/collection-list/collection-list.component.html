@@ -74,7 +74,7 @@
                                                                                           <div class="col-md-7 col-sm-7">
                                                                                                 <p-dropdown class="feePlanBox" [options]="categoriesCodeList" formControlName="categoryId" required styleClass="{{ collectionForm.get('categoryId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                                                                                       [style]="{'width':'100%'}"
-                                                                                                      [disabled]="disabled" name="categoriesDDl"
+                                                                                                      [disabled]="disabled" name="categoriesDDl" filter="true"
                                                                                                       tabindex="1"></p-dropdown>
                                                                                                 <!-- <div class="alertMsg" *ngIf="collectionForm.get('categoryId').hasError('required') && collectionForm.get('categoryId ').touched">
 													 Please select Category
@@ -87,7 +87,7 @@
                                                                                           <label class="col-md-5 col-sm-5 fieldLabel">Collection Code<span class="requiredField">*</span></label>
                                                                                           <div class="col-md-7 col-sm-7">
                                                                                                 <input type="text" formControlName="collectionCode" required [ngClass]="{'red-border-class': collectionForm.get('collectionCode').hasError('required') && isFormSubmitted}"
-                                                                                                      name="collectionCode" class="form-control m-input"
+                                                                                                      name="collectionCode" class="form-control m-input" filter="true"
                                                                                                       tabindex="2">
                                                                                                 <!-- <div class="alertMsg" *ngIf="collectionForm.get('collectionCode').hasError('required') && collectionForm.get('collectionCode').touched">
 												 Please enter collection code
@@ -118,7 +118,7 @@
                                                                                                 <p-dropdown class="feePlanBox" [options]="supplierCodeList" required styleClass="{{ collectionForm.get('supplierId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                                                                                       formControlName="supplierId"
                                                                                                       required [style]="{'width':'100%'}"
-                                                                                                      name="supplierCodeDDl" tabindex="4"></p-dropdown>
+                                                                                                      name="supplierCodeDDl" filter="true" tabindex="4"></p-dropdown>
                                                                                                 <!-- <div class="alertMsg" *ngIf="collectionForm.get('supplierId').hasError('required') && collectionForm.get('supplierCode').touched">
 												 Please enter supplier Code
 												 </div> -->
