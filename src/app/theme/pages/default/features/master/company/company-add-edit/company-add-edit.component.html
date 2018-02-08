@@ -21,7 +21,7 @@
 			</ul>
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="companyForm" title="{{(companyFormVal && companyFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="companyForm" title="{{(companyFormVal && companyFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['shade']" tabindex="6">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
@@ -112,7 +112,7 @@
 												<div class="form-group">
 													<div class="col-md-5 formContentbox">
 														<div class="form-group">
-															<img src="{{logoURLtoshow}}" alt="Smiley face" height="42" width="42">
+															<img src="{{logoURLtoshow}}" alt="Smiley face">
 														</div>
 													</div>
 												</div>
