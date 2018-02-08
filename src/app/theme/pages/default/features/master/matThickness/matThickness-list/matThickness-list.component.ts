@@ -96,13 +96,16 @@ export class MatThicknessListComponent implements OnInit {
   }
 
   getMatThicknessById(id) {
+    Helpers.setLoading(true);
     this.matThicknessService.getMatThicknessById(id).subscribe(
       results => {
         this.matThicknessObj = results;
         console.log('this.matThicknessList', this.matThicknessObj);
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 

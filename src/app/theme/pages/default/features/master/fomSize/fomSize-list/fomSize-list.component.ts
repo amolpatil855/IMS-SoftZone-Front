@@ -186,6 +186,7 @@ export class FomSizeListComponent implements OnInit {
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -211,6 +212,7 @@ export class FomSizeListComponent implements OnInit {
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -227,9 +229,11 @@ export class FomSizeListComponent implements OnInit {
           this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
           this.selectedSize = this.fomSizeObj.fomSuggestedMMId;
           console.log('this.fomSuggestedMMList', this.fomSuggestedMMList);
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -250,6 +254,7 @@ export class FomSizeListComponent implements OnInit {
   }
 
   getFomSizeById(id) {
+    Helpers.setLoading(true);
     this.fomSizeService.getFomSizeById(id).subscribe(
       results => {
         this.fomSizeObj = results;
@@ -262,6 +267,7 @@ export class FomSizeListComponent implements OnInit {
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
