@@ -145,6 +145,7 @@ export class SupplierListComponent implements OnInit {
 
 
   getSupplierById(id) {
+    Helpers.setLoading(true);
     this.supplierService.getSupplierById(id).subscribe(
       results => {
         this.supplierObj = results;
@@ -154,9 +155,11 @@ export class SupplierListComponent implements OnInit {
           value.contRoleId = Math.floor(Math.random() * 2000);
         });
         console.log('this.supplierList', this.supplierObj);
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
   validateAddress1(addressObj) {

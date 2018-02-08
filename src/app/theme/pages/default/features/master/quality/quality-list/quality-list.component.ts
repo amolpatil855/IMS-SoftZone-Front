@@ -186,7 +186,7 @@ export class QualityListComponent implements OnInit {
   }
 
   getQualityList() {
-    this.qualityService.getAllQualitys().subscribe(
+    this.qualityService.getAllQualitys(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.recordList = results.data;
         this.totalCount = results.totalCount;
@@ -220,6 +220,7 @@ export class QualityListComponent implements OnInit {
 
 
   getQualityById(id) {
+    Helpers.setLoading(true);
     this.qualityService.getQualityById(id).subscribe(
       results => {
         this.qualityObj = results;
@@ -268,9 +269,11 @@ export class QualityListComponent implements OnInit {
           this.qualityForm.get('flatRate').disable();
           this.qualityForm.get('purchaseFlatRate').disable();
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 

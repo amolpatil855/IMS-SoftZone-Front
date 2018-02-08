@@ -133,6 +133,7 @@ export class DesignListComponent implements OnInit {
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -149,9 +150,11 @@ export class DesignListComponent implements OnInit {
           this.qualityList.unshift({ label: '--Select--', value: null });
           this.selectedQuality = this.designObj.qualityId;
           console.log('this.qualityList', this.qualityList);
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -172,6 +175,7 @@ export class DesignListComponent implements OnInit {
   }
 
   getdesignById(id) {
+    Helpers.setLoading(true);
     this.designService.getDesignById(id).subscribe(
       results => {
         this.designObj = results;
