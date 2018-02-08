@@ -95,7 +95,7 @@ export class MatSizeListComponent implements OnInit {
     }
   }
 
-   restrictMinus(e, limit) {
+  restrictMinus(e, limit) {
 
     if (e.target.value.length == limit) {
       return false;

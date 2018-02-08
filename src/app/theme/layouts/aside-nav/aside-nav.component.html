@@ -1,50 +1,50 @@
 <!-- BEGIN: Left Aside -->
 <button class="m-aside-left-close  m-aside-left-close--skin-dark" id="m_aside_left_close_btn" appunwraptag="">
-	<i class="la la-close"></i>
+    <i class="la la-close"></i>
 </button>
 <div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark">
-	<!-- BEGIN: Aside Menu -->
-	<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark" data-menu-vertical="true"
-	 data-menu-scrollable="false" data-menu-dropdown-timeout="500">
-		<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow">
-			<li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
-				<a routerLink="/index" class="m-menu__link">
-					<i class="m-menu__link-icon flaticon-squares-2"></i>
-					<span class="m-menu__link-title">
-						<span class="m-menu__link-wrap">
-							<span class="m-menu__link-text">
-								Dashboard
-							</span>
-						</span>
-					</span>
-				</a>
-			</li>
+    <!-- BEGIN: Aside Menu -->
+    <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark" data-menu-vertical="true"
+        data-menu-scrollable="false" data-menu-dropdown-timeout="500">
+        <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow">
+            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
+                <a routerLink="/index" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-squares-2"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text">
+                                Dashboard
+                            </span>
+                        </span>
+                    </span>
+                </a>
+            </li>
 
-			<li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
-			 [isAuthorize]="['user']">
-				<a routerLink="/features/users/list" class="m-menu__link">
-					<i class="m-menu__link-icon flaticon-users"></i>
-					<span class="m-menu__link-title">
-						<span class="m-menu__link-wrap">
-							<span class="m-menu__link-text">
-								User Management
-							</span>
-						</span>
-					</span>
-				</a>
-			</li>
-			<li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
-			 [isAuthorize]="['role']">
-				<a routerLink="/features/roles/list" class="m-menu__link">
-					<i class="m-menu__link-icon flaticon-interface-1"></i>
-					<span class="m-menu__link-title">
-						<span class="m-menu__link-wrap">
-							<span class="m-menu__link-text">
-								Roles and Permissions
-							</span>
-						</span>
-					</span>
-				</a>
+            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+                [isAuthorize]="['user']">
+                <a routerLink="/features/users/list" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-users"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text">
+                                User Management
+                            </span>
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+                [isAuthorize]="['role']">
+                <a routerLink="/features/roles/list" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-interface-1"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text">
+                                Roles and Permissions
+                            </span>
+                        </span>
+                    </span>
+                </a>
             </li>
             <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
 			 [isAuthorize]="['companyinfo']">
@@ -56,189 +56,189 @@
                 </a>
 			</li>
             
-            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" aria-haspopup="true"  data-menu-submenu-toggle="hover"  [isAuthorize]="['companyinfo','master','supplier','customer']">
-                                <a  href="#" class="m-menu__link m-menu__toggle">
-                                    <i class="m-menu__link-icon flaticon-clipboard"></i>
-                                    <span class="m-menu__link-text">
-                                        Stock
-                                    </span>
-                                    <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                </a>
-                                <div class="m-menu__submenu">
-                                    <span class="m-menu__arrow"></span>
-                                    <ul class="m-menu__subnav">
-                                        <li  [isAuthorize]="['stockmanagement']"  class="m-menu__item " aria-haspopup="true" >
-                                            <a  routerLink="/features/master/trnProductStock/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                   Product Stock
-                                                </span>
-                                            </a>
-										</li>
-                                    </ul>
-                                </div>
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
+                data-menu-submenu-toggle="hover" [isAuthorize]="['productstock','stockmanagement']">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-clipboard"></i>
+                    <span class="m-menu__link-text">
+                        Stock
+                    </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li [isAuthorize]="['stockmanagement']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/master/trnProductStock/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Product Stock
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
 
-			<li class="m-menu__item  m-menu__item--submenu m-menu__item--active" aria-haspopup="true"  data-menu-submenu-toggle="hover"  [isAuthorize]="['companyinfo','master','supplier','customer']">
-                                <a  href="#" class="m-menu__link m-menu__toggle">
-                                    <i class="m-menu__link-icon flaticon-user-settings"></i>
-                                    <span class="m-menu__link-text">
-                                        Master
-                                    </span>
-                                    <i class="m-menu__ver-arrow la la-angle-right"></i>
-                                </a>
-                                <div class="m-menu__submenu">
-                                    <span class="m-menu__arrow"></span>
-                                    <ul class="m-menu__subnav">
-                                        <li  [isAuthorize]="['supplier']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
-                                            <a  routerLink="/features/master/supplier/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                    Supplier
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li  [isAuthorize]="['agent']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
-                                            <a  routerLink="/features/master/agent/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                    Agent
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li  [isAuthorize]="['courier']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
-                                            <a  routerLink="/features/master/courier/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                    Courier
-                                                </span>
-                                            </a>
-										</li>
-										<li  [isAuthorize]="['collection']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
-                                            <a  routerLink="/features/master/collection/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                    Collection
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li  [isAuthorize]="['quality']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
-											<a  routerLink="/features/master/quality/list" class="m-menu__link ">
-												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-													<span></span>
-												</i>
-												<span class="m-menu__link-text">
-													Quality
-												</span>
-											</a>
-										</li>
-										<li  [isAuthorize]="['design']"  class="m-menu__item " aria-haspopup="true" >
-                                            <a  routerLink="/features/master/design/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                   Design
-                                                </span>
-                                            </a>
-										</li>
-										<li  [isAuthorize]="['shade']"  class="m-menu__item " aria-haspopup="true" >
-                                            <a  routerLink="/features/master/shade/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                   Shade
-                                                </span>
-                                            </a>
-										</li>
-										<li  [isAuthorize]="['mattressthickness']"  class="m-menu__item " aria-haspopup="true" >
-                                            <a  routerLink="/features/master/matThickness/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                   Mattress Thickness
-                                                </span>
-                                            </a>
-										</li>
-										<li  [isAuthorize]="['mattresssize']"  class="m-menu__item " aria-haspopup="true" >
-                                            <a  routerLink="/features/master/matSize/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                   Mattress Size
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li  [isAuthorize]="['foamdensity']"  class="m-menu__item " aria-haspopup="true" >
-                                            <a  routerLink="/features/master/fomDensity/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                   Foam Density
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li  [isAuthorize]="['foamsuggestedmm']"  class="m-menu__item " aria-haspopup="true" >
-                                            <a  routerLink="/features/master/fomSuggestedMM/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                   Foam Suggested MM
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li  [isAuthorize]="['foamsize']"  class="m-menu__item " aria-haspopup="true" >
-                                            <a  routerLink="/features/master/fomSize/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                   Foam Size
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li  [isAuthorize]="['customer']"  class="m-menu__item " aria-haspopup="true" >
-                                            <a  routerLink="/features/master/customer/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                   Customer
-                                                </span>
-                                            </a>
-										</li>
-										<li  [isAuthorize]="['hsn']"  class="m-menu__item " aria-haspopup="true" >
-                                            <a  routerLink="/features/master/hsn/list" class="m-menu__link ">
-                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="m-menu__link-text">
-                                                  HSN
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
+                data-menu-submenu-toggle="hover" [isAuthorize]="['companyinfo','master','supplier','customer']">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-user-settings"></i>
+                    <span class="m-menu__link-text">
+                        Master
+                    </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li [isAuthorize]="['supplier']" class="m-menu__item" routerLinkActive="m-menu__item--active" aria-haspopup="true">
+                            <a routerLink="/features/master/supplier/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Supplier
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['agent']" class="m-menu__item" routerLinkActive="m-menu__item--active" aria-haspopup="true">
+                            <a routerLink="/features/master/agent/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Agent
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['courier']" class="m-menu__item" aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/courier/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Courier
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['collection']" class="m-menu__item" aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/collection/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Collection
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['quality']" class="m-menu__item" aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/quality/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Quality
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['design']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/design/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Design
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['shade']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/shade/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Shade
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['mattressthickness']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/matThickness/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Mattress Thickness
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['mattresssize']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/matSize/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Mattress Size
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['foamdensity']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/fomDensity/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Foam Density
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['foamsuggestedmm']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/fomSuggestedMM/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Foam Suggested MM
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['foamsize']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/fomSize/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Foam Size
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['customer']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/customer/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Customer
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['hsn']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/hsn/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    HSN
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
-
-
-	</ul>	
-	</div>
-	<!-- END: Aside Menu -->
+        </ul>
+    </div>
+    <!-- END: Aside Menu -->
 </div>
 <!-- END: Left Aside -->
