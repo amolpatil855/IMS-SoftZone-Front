@@ -117,7 +117,7 @@ export class FinancialYearListComponent implements OnInit {
     this.isFormSubmitted = true;
     if (!valid)
       return;
-    this.saveFinancialYear(this.financialYearObj);
+   this.saveFinancialYear(this.financialYearObj);
   }
 
   saveFinancialYear(value) {
