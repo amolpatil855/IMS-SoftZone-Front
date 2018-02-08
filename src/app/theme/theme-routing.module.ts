@@ -30,6 +30,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/courier\/courier.module#CourierModule"
       },
       {
+        "path": "features\/master\/financialYear",
+        "loadChildren": ".\/pages\/default\/features\/master\/financialYear\/financialYear.module#FinancialYearModule"
+      },
+      {
         "path": "features\/master\/collection",
         "loadChildren": ".\/pages\/default\/features\/master\/collection\/collection.module#CollectionModule"
       },
