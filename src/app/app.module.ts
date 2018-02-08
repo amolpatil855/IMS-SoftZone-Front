@@ -12,6 +12,7 @@ import { GlobalErrorHandler } from "./_services/error-handler.service";
 import { ThemeRoutingModule } from "./theme/theme-routing.module";
 import { AuthModule } from "./auth/auth.module";
 import { StoreService } from "./_services/store.service";
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { TextMaskModule } from 'angular2-text-mask';
 import {
   GrowlModule,
@@ -32,7 +33,7 @@ import {
     TextMaskModule,
     GrowlModule,
   ],
-  providers: [ScriptLoaderService, MessageService, GlobalErrorHandler, StoreService, MenuPermissionService],
+  providers: [ScriptLoaderService, MessageService, GlobalErrorHandler, StoreService, MenuPermissionService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
