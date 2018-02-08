@@ -90,7 +90,7 @@
 										</div>
 									</div>	
 									<div class="col-md-3 formContentbox" *ngIf="shadeEnable">
-										<label class="fieldLabel col-sm-5" >Shade<span class="requiredField">*</span></label>
+										<label class="fieldLabel col-sm-5" >Serial Number<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
                                             <p-dropdown class="feePlanBox" [options]="shadeList" [style]="{'width':'100%'}" [(ngModel)]="selectedShade"   #selectedShadeVal="ngModel"  required styleClass="{{ selectedShadeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="shade" filter="true" tabindex="4"></p-dropdown>
 										</div>
