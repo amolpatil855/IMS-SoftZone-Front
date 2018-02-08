@@ -7,8 +7,8 @@
 				<div class="m-stack m-stack--ver m-stack--general">
 					<div class="m-stack__item m-stack__item--middle m-brand__logo">
 						<a routerLink="/index" class="m-brand__logo-wrapper" style="color: #fff;font-size: 28px;font-weight: 600;padding-top: 7px;">
-							<!-- <img alt="" src="./assets/demo/default/media/img/logo/logo_default_dark.png"/> -->
-							Softzone
+							 <img alt="" src="{{logoURLtoshow}}"/> 
+							
 						</a>
 					</div>
 					<div class="m-stack__item m-stack__item--middle m-brand__tools">
@@ -46,7 +46,7 @@
 						<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel" data-menu-submenu-toggle="click" data-redirect="true" aria-haspopup="true">
 							<span class="m-menu__link-text">
 								<h5 style="font-size:1.8rem;margin-bottom: 0;">
-									<img *ngIf="IMSLogoShow" [src]="logoUrl" alt="" class="headerIMSLogo" style="width: 110px; margin-right: 22px;"> {{webHeader}}
+									<img *ngIf="IMSLogoShow" [src]="logoUrl" alt="{{webHeader}}" class="headerIMSLogo" style="width: 110px; margin-right: 22px;"> {{webHeader}}
 								</h5>
 							</span>
 						</li>

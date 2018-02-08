@@ -213,9 +213,11 @@ export class TrnProductStockListComponent implements OnInit {
           this.shadeList.unshift({ label: '--Select--', value: null });
           this.selectedShade = this.trnProductStockObj.fwrShadeId;
           console.log('this.selectedShade', this.selectedShade);
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
 
       this.trnProductStockService.getMatSizeLookUpByCollection(this.selectedCollection).subscribe(
@@ -224,9 +226,11 @@ export class TrnProductStockListComponent implements OnInit {
           this.matSizeList.unshift({ label: '--Select--', value: null });
           this.selectedMatSize = this.trnProductStockObj.matSizeId;
           console.log('this.selectedMatSize', this.selectedMatSize);
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
 
       this.trnProductStockService.getFomSizeLookUpByCollection(this.selectedCollection).subscribe(
@@ -235,9 +239,11 @@ export class TrnProductStockListComponent implements OnInit {
           this.fomSizeList.unshift({ label: '--Select--', value: null });
           this.selectedFomSize = this.trnProductStockObj.fomSizeId;
           console.log('this.selectedFomSize', this.selectedFomSize);
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -259,6 +265,7 @@ export class TrnProductStockListComponent implements OnInit {
   }
 
   getTrnProductStockById(id) {
+    Helpers.setLoading(true);
     this.trnProductStockService.getTrnProductStockById(id).subscribe(
       results => {
         this.trnProductStockObj = results;
