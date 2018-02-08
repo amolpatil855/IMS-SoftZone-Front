@@ -79,7 +79,7 @@
 															<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel" required
 															 styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" 
 															 [(ngModel)]="selectedCollection"
-															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" tabindex="1"></p-dropdown>
+															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" tabindex="1"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4">
@@ -89,7 +89,7 @@
 														<div class="col-md-6 col-sm-6">
 															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel" required
 															 styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedQuality"
-															 [disabled]="disabled" name="quality" tabindex="2"></p-dropdown>
+															 [disabled]="disabled" name="quality" filter="true" tabindex="2"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4">
@@ -123,7 +123,7 @@
 																<span class="requiredField">*</span>
 															</label>
 															<div class="col-md-6 col-sm-6">
-																<input class="form-control m-input" type="number" value="" maxlength="10" #purchaseRatePerMMVal="ngModel" (blur)="calculateSellingRate()"  required [ngClass]="{'red-border-class': purchaseRatePerMMVal.errors && isFormSubmitted}"
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" maxlength="10" #purchaseRatePerMMVal="ngModel" (blur)="calculateSellingRate()"  required [ngClass]="{'red-border-class': purchaseRatePerMMVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomDensityObj.purchaseRatePerMM" name="purchaseRatePerMM" id="purchaseRatePerMM" tabindex="5">
 															</div>
 														</div>
@@ -132,7 +132,7 @@
 														<div class="form-group">
 															<label class="fieldLabel col-md-6 col-sm-6">Purchase Rate/KG <span class="requiredField">*</span></label>
 															<div class="col-md-6 col-sm-6">
-																<input class="form-control m-input" type="number" value="" #purchaseRatePerKGVal="ngModel" required  (blur)="calculateSellingRate()"  [ngClass]="{'red-border-class': purchaseRatePerKGVal.errors && isFormSubmitted}"
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #purchaseRatePerKGVal="ngModel" required  (blur)="calculateSellingRate()"  [ngClass]="{'red-border-class': purchaseRatePerKGVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomDensityObj.purchaseRatePerKG" name="purchaseRatePerKG" id="purchaseRatePerKG" tabindex="6">
 																<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
 																			Please enter Description
@@ -148,8 +148,8 @@
 																<div class="form-group">
 																	<label class="fieldLabel col-md-6 col-sm-6">Selling Rate %<span class="requiredField">*</span></label>
 																	<div class="col-md-6 col-sm-6">
-																		<input class="form-control m-input" type="text" value="" #sellingRatePercentageVal="ngModel" (blur)="calculateSellingRate()" required [ngClass]="{'red-border-class':sellingRatePercentageVal.errors && isFormSubmitted}"
-																		[textMask]="{mask: mask}"  [(ngModel)]="fomDensityObj.sellingRatePercentage" name="sellingRatePercentage" id="sellingRatePercentage" tabindex="7">
+																		<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" value="" #sellingRatePercentageVal="ngModel" (blur)="calculateSellingRate()" required [ngClass]="{'red-border-class':sellingRatePercentageVal.errors && isFormSubmitted}"
+																		[(ngModel)]="fomDensityObj.sellingRatePercentage" name="sellingRatePercentage" id="sellingRatePercentage" tabindex="7">
 																		<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
 																						Please enter Description
 																					</div> -->
@@ -161,7 +161,7 @@
 															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/MM
 															</label>
 															<div class="col-md-6 col-sm-6">
-																<input class="form-control m-input" type="number" value="" maxlength="10" #sellingRatePerMMVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerMMVal.errors && isFormSubmitted}"
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" maxlength="10" #sellingRatePerMMVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerMMVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomDensityObj.sellingRatePerMM" disabled name="sellingRatePerMM" id="sellingRatePerMM">
 															</div>
 														</div>
@@ -170,7 +170,7 @@
 														<div class="form-group">
 															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/KG</label>
 															<div class="col-md-6 col-sm-6">
-																<input class="form-control m-input" type="number" value="" #sellingRatePerKGVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerKGVal.errors && isFormSubmitted}"
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #sellingRatePerKGVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerKGVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomDensityObj.sellingRatePerKG" disabled name="sellingRatePerKG" id="sellingRatePerKG">
 																<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
 																				Please enter Description

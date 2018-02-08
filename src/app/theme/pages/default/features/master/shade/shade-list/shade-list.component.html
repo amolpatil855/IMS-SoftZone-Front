@@ -73,25 +73,25 @@
 									<div class="col-md-3 formContentbox formContentboxShade">
 										<label class="fieldLabel col-sm-5">Category<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}"   #selectedCategoryVal="ngModel"  required styleClass="{{ selectedCategoryVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedCategory" [disabled]="disabled" name="category" (ngModelChange)="onCategoryClick()" tabindex="1"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}"   #selectedCategoryVal="ngModel"  required styleClass="{{ selectedCategoryVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedCategory" [disabled]="disabled" name="category" (ngModelChange)="onCategoryClick()" filter="true" tabindex="1"></p-dropdown>
 										</div>	
 									</div>
 									<div class="col-md-3 formContentbox formContentboxShade">
 										<label class="fieldLabel col-sm-5">Collection<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection"   #selectedCollectionVal="ngModel"  required styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" tabindex="2"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection"   #selectedCollectionVal="ngModel"  required styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" tabindex="2"></p-dropdown>
 										</div>
 									</div>	
 									<div class="col-md-3 formContentbox formContentboxShade">
 										<label class="fieldLabel col-sm-5">Quality<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality"   #selectedQualityVal="ngModel"  required styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()" tabindex="3"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality"   #selectedQualityVal="ngModel"  required styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()" filter="true" tabindex="3"></p-dropdown>
 										</div>
                                     </div>
                                     <div class="col-md-3 formContentbox formContentboxShade">
 										<label class="fieldLabel col-sm-5">Design<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="designList" [style]="{'width':'100%'}"   #selectedDesignVal="ngModel"  required styleClass="{{ selectedDesignVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedDesign" [disabled]="disabled" name="design" tabindex="4"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="designList" [style]="{'width':'100%'}"   #selectedDesignVal="ngModel"  required styleClass="{{ selectedDesignVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedDesign" [disabled]="disabled" name="design" filter="true" tabindex="4"></p-dropdown>
 										</div>
 									</div>	
 									<div class="col-md-3 formContentbox formContentboxShade">
@@ -118,7 +118,7 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Serial Number<span class="requiredField">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="number" value=""  #serialNumberLevelVal="ngModel" required [ngClass]="{'red-border-class': serialNumberLevelVal.errors && isFormSubmitted}" [(ngModel)]="shadeObj.serialNumber" name="serialNumber" id="serialNumber" placeholder="" tabindex="7">
+												<input class="form-control m-input" type="number" value=""  #serialNumberLevelVal="ngModel" required (keypress)="restrictDotMinus($event, 9);" [ngClass]="{'red-border-class': serialNumberLevelVal.errors && isFormSubmitted}" [(ngModel)]="shadeObj.serialNumber" name="serialNumber" id="serialNumber" placeholder="" tabindex="7">
                                                 <!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
                                                     Please enter StockReorderLevel
                                                 </div> -->

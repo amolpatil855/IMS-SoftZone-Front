@@ -76,6 +76,14 @@ export class TrnProductStockListComponent implements OnInit {
       stock: null,
     };
     this.selectedCategory = null;
+    this.collectionList = [];
+    this.collectionList.unshift({ label: '--Select--', value: null });
+    this.shadeList = [];
+    this.shadeList.unshift({ label: '--Select--', value: null });
+    this.matSizeList = [];
+    this.matSizeList.unshift({ label: '--Select--', value: null });
+    this.fomSizeList = [];
+    this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.selectedCollection = null;
     this.selectedShade = null;
     this.selectedMatSize = null;

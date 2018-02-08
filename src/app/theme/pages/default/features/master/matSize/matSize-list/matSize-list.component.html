@@ -76,7 +76,7 @@
 														<div class="col-sm-7">
 															<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel" required
 															 styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedCollection"
-															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" tabindex="1"></p-dropdown>
+															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" tabindex="1"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4 formContentbox">
@@ -84,7 +84,7 @@
 														<div class="col-sm-7">
 															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel" required
 															 styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedQuality"
-															 [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()" tabindex="2"></p-dropdown>
+															 [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()" filter="true" tabindex="2"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4 formContentbox">
@@ -92,7 +92,7 @@
 														<div class="col-sm-7">
 															<p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" #selectedThicknessVal="ngModel" required
 															 styleClass="{{ selectedThicknessVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedThickness"
-															 name="thickness" tabindex="3"></p-dropdown>
+															 name="thickness" filter="true" tabindex="3"></p-dropdown>
 														</div>
 													</div>
 												</div>
@@ -101,14 +101,14 @@
 														<div class="form-group">
 															<label class="fieldLabel col-sm-5">Length<span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<input class="form-control m-input" type="number" value="" pattern="^[1-9]\d*$" (blur)="calculateSizeCode()" (keypress)="restrictDotMinus($event, 4);"
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" (blur)="calculateSizeCode()"
 																 maxlength="10" #lengthVal="ngModel" required [ngClass]="{'red-border-class': lengthVal.errors && isFormSubmitted}"
 																 [(ngModel)]="matSizeObj.length" name="length" id="length" placeholder="" tabindex="4">
-																<div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
+																<!-- <div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
 																	<div *ngIf="lengthVal.errors.pattern">
 																		Invalid Length
 																	</div>
-																</div>
+																</div> -->
 															</div>
 														</div>
 													</div>
@@ -116,14 +116,15 @@
 														<div class="form-group">
 															<label class="fieldLabel col-sm-5">Width <span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<input class="form-control m-input" type="number" value="" pattern="^[1-9]\d*$" (blur)="calculateSizeCode()" (keypress)="restrictDotMinus($event, 4);"
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" value="" (blur)="calculateSizeCode()"
 																 maxlength="10" #widthVal="ngModel" required [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
 																 [(ngModel)]="matSizeObj.width" name="width" id="width" placeholder="" tabindex="5">
-																<div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
+																<!-- <div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
+																	pattern="^[1-9]\d*$"
 																	<div *ngIf="widthVal.errors.pattern">
 																		Invalid width
 																	</div>
-																</div>
+																</div> -->
 															</div>
 														</div>
 													</div>
@@ -146,14 +147,15 @@
 														<div class="form-group">
 															<label class="fieldLabel col-sm-5">Rate <span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<input class="form-control m-input" type="number" value="" pattern="^\d+(\.\d{1,2})?$" maxlength="10" #rateVal="ngModel"
-																 required (keypress)="restrictMinus($event, 7);" [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}"
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #rateVal="ngModel"
+																 required [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}"
 																 [(ngModel)]="matSizeObj.rate" name="rate" id="rate" placeholder="" (change)="onInputChange()" tabindex="6">
-																<div class="alertMsg" *ngIf="rateVal.errors  && (rateVal.dirty || rateVal.touched)">
+																<!-- <div class="alertMsg" *ngIf="rateVal.errors  && (rateVal.dirty || rateVal.touched)">
+																	pattern="^\d+(\.\d{1,2})?$"
 																	<div *ngIf="rateVal.errors.pattern">
 																		Invalid rate
 																	</div>
-																</div>
+																</div> -->
 															</div>
 														</div>
 													</div>
@@ -161,15 +163,15 @@
 														<div class="form-group">
 															<label class="fieldLabel col-sm-5"> Purchase Disc (%) <span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<input class="form-control m-input" type="number" value="" pattern="^\d+(\.\d{1,2})?$" maxlength="2" #purchaseDiscountVal="ngModel"
-																 required (keypress)="restrictMinus($event, 5);" [ngClass]="{'red-border-class': purchaseDiscountVal.errors && isFormSubmitted}"
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" #purchaseDiscountVal="ngModel"
+																 required  [ngClass]="{'red-border-class': purchaseDiscountVal.errors && isFormSubmitted}"
 																 [(ngModel)]="matSizeObj.purchaseDiscount" name="purchaseDiscount" id="purchaseDiscount" placeholder="" (change)="onInputChange()"
 																 tabindex="7">
-																<div class="alertMsg" *ngIf="purchaseDiscountVal.errors   && (purchaseDiscountVal.dirty || purchaseDiscountVal.touched)">
+																<!-- <div class="alertMsg" *ngIf="purchaseDiscountVal.errors   && (purchaseDiscountVal.dirty || purchaseDiscountVal.touched)">
 																	<div *ngIf="purchaseDiscountVal.errors.pattern">
 																		Invalid purchase discount
 																	</div>
-																</div>
+																</div> -->
 															</div>
 														</div>
 													</div>
