@@ -73,6 +73,12 @@ export class FomSizeListComponent implements OnInit {
       stockReorderLevel: null,
     };
     this.selectedCollection = null;
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.fomDensityList = [];
+    this.fomDensityList.unshift({ label: '--Select--', value: null });
+    this.fomSuggestedMMList = [];
+    this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
     this.selectedQuality = null;
     this.selectedDensity = null;
     this.selectedSize = null;

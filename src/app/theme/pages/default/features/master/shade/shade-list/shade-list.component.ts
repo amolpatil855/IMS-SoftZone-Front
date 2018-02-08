@@ -70,6 +70,12 @@ export class ShadeListComponent implements OnInit {
       stockReorderLevel: null,
     };
     this.selectedCategory = null;
+    this.collectionList = [];
+    this.collectionList.unshift({ label: '--Select--', value: null });
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.designList = [];
+    this.designList.unshift({ label: '--Select--', value: null });
     this.selectedCollection = null;
     this.selectedDesign = null;
     this.selectedQuality = null;

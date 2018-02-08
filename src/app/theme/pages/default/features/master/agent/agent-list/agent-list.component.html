@@ -137,10 +137,10 @@
 
                                                     <div class="col-md-3 formContentbox">
                                                         <div class="form-group">
-                                                            <label class="fieldLabel col-sm-5">Address2 <span class="requiredField">*</span></label>
+                                                            <label class="fieldLabel col-sm-5">Address2</label>
                                                             <div class="col-sm-7">
-                                                                <input type="text" class="form-control" [ngClass]="{'red-border-class': address2Val.errors && isFormSubmitted}" #address2Val="ngModel"
-                                                                    required [(ngModel)]="agentObj.address2" name="address2"
+                                                                <input type="text" class="form-control"  #address2Val="ngModel"
+                                                                    [(ngModel)]="agentObj.address2" name="address2"
                                                                     placeholder="" id="address2" tabindex="5">
                                                             </div>
                                                         </div>
@@ -189,7 +189,7 @@
 
                                                     <div class="col-md-3 formContentbox">
                                                         <div class="form-group">
-                                                            <label class="fieldLabel col-sm-5">Commision <span class="requiredField">*</span></label>
+                                                            <label class="fieldLabel col-sm-5">Commision % <span class="requiredField">*</span></label>
                                                             <div class="col-sm-7">
                                                                 <input type="number" class="form-control" onKeyPress="if(this.value.length==2) return false;" [ngClass]="{'red-border-class': commisionVal.errors && isFormSubmitted}"
                                                                     #commisionVal="ngModel" required [(ngModel)]="agentObj.commision"
@@ -238,12 +238,7 @@
                                 <p-column field="name" header="Name" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="phone" header="phone" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="email" header="Email" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="address1" header="Address1" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="address2" header="Address2" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="city" header="City" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="state" header="State" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="pin" header="Pin" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="commision" header="Commision" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="commision" header="Commision %" [style]="{'text-align':'left'}"></p-column>
                                 <p-column styleClass="col-button" [style]="{'text-align':'left'}">
                                     <ng-template pTemplate="header">
                                         Action

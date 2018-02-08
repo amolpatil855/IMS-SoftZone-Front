@@ -7,6 +7,7 @@ export class Collection {
   supplierId: number;
   collectionCode: string;
   collectionName: string;
+  purchaseDiscount: number;
   description: string;
   manufacturerName: string;
   categoryCode: string;

@@ -42,7 +42,6 @@ export class UsersListComponent implements OnInit {
   isFormSubmitted = false;
   butDisabled: boolean = false;
   disableButton: boolean = false;
-  disableEditDeleteButton: boolean = true;
   tableEmptyMesssage = 'Loading...';
   constructor(
     private formBuilder: FormBuilder,
@@ -57,31 +56,18 @@ export class UsersListComponent implements OnInit {
   ngOnInit() {
     this.roleList = [];
     this.userTypeList = [];
-    // this.roleService.getRoleLookup().subscribe(
-    //   results => {
-    //     this.roleList = results;
-    //     this.roleDuplicateList = this.roleList;
-    //     console.log('this.roleList', this.roleList);
-    //     this.roleList.unshift({ value: null , label: '--Select--'  });
-    //   },
-    //   error => {
-    //     this.globalErrorHandler.handleError(error);
-    //   });
-
     this.userService.getAllUserType().subscribe(
       results => {
         this.userTypeList = results;
-        console.log('this.userTypeList', this.userTypeList);
         this.userTypeList.unshift({ value: null, label: '--Select--' });
       },
       error => {
         this.globalErrorHandler.handleError(error);
       });
+    this.newRecord();
   }
 
   onUserTypeChange(userTypeId) {
-    // let temp = this;
-    //  this.roleList = temp.roleDuplicateList;
     if (userTypeId == "null") {
       this.roleList = [];
       this.roleList.unshift({ value: null, label: '--Select--' });
@@ -89,13 +75,13 @@ export class UsersListComponent implements OnInit {
         userType: this.roleList[0].value,
         role: this.roleList[0].value
       });
+      this.butDisabled = false;
+      this.userForm.get('role').enable();
     } else {
-
       if (userTypeId == 1) {
         this.roleService.getRoleLookup(userTypeId).subscribe(
           results => {
             this.roleList = results;
-            console.log('this.roleList', this.roleList);
             this.roleList.unshift({ value: null, label: '--Select--' });
             this.userForm.patchValue({
               role: this.roleList[1].value
@@ -110,20 +96,22 @@ export class UsersListComponent implements OnInit {
       }
       else {
         if (userTypeId > 1) {
-          // this.roleList.splice(1 , 1);
-          this.roleService.getRoleLookup(userTypeId).subscribe(
-            results => {
-              this.roleList = results;
-              console.log('this.roleList', this.roleList);
-              this.roleList.unshift({ value: null, label: '--Select--' });
-            },
-            error => {
-              this.globalErrorHandler.handleError(error);
-            });
+          this.userForm.patchValue({
+            role: null
+          });
+          this.getRoleList(userTypeId);
           this.butDisabled = false;
           this.userForm.get('role').enable();
         }
       }
+    }
+  }
+
+  onRoleChange(roleId){
+     if (roleId == "null") {
+      this.userForm.patchValue({
+        role: null
+      });
     }
   }
 
@@ -162,21 +150,10 @@ export class UsersListComponent implements OnInit {
     this.userService.getAllUsers(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.userList = results.data;
-        console.log('this.userList', this.userList);
-
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
         }
-
-        this.userList.forEach(
-          user => {
-            console.log('user', user);
-            if (user.mstRole.roleName === "Customer") {
-              this.disableEditDeleteButton = false;
-            }
-          }
-        );
       },
       error => {
         this.tableEmptyMesssage = "No Records Found";
@@ -184,9 +161,21 @@ export class UsersListComponent implements OnInit {
       });
   }
 
+  getRoleList(id) {
+    this.roleService.getRoleLookup(id).subscribe(
+      results => {
+        this.roleList = results;
+        this.roleList.unshift({ value: null, label: '--Select--' });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
   getUserById(id) {
     this.userService.getUserById(id).subscribe(
       results => {
+        this.getRoleList(results.userTypeId);
         this.userForm = this.formBuilder.group({
           id: results.id,
           username: results.userName,
@@ -260,7 +249,7 @@ export class UsersListComponent implements OnInit {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
     let params = {};
-    if (value.roleId == null) {
+    if (value.role == null) {
       params = {
         id: value.id,
         username: value.username,
@@ -279,10 +268,6 @@ export class UsersListComponent implements OnInit {
         userTypeId: value.userType,
       }
     }
-
-
-
-
     if (valid)
       this.saveUser(params);
   }
