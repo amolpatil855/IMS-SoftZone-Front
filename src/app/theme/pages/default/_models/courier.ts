@@ -1,5 +1,5 @@
-export class Courier{
-    id: number;
-    name: string;
-    docketNumber: string;
+export class Courier {
+  id: number;
+  name: string;
+  docketNumber: string;
 }
