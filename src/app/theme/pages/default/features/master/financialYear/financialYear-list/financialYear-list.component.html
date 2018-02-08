@@ -70,24 +70,32 @@
 														<div class="panel-heading">FinancialYear Basic Details</div>
 														<div class="panel-body">	
 															<div class="form-group">
-																<div class="col-md-5 formContentbox">
-																	<label class="fieldLabel col-sm-5">Start Date <span class="requiredField">*</span></label>
-																	<div class="col-sm-7">
-																		<input class="form-control m-input" type="date" value="" #startDateVal="ngModel" required [ngClass]="{'red-border-class': startDateVal.errors && isFormSubmitted}" [(ngModel)]="financialYearObj.startDate" name="startDate" id="startDate" placeholder="" tabindex="1">
-																	</div>
-																</div>
-																<div class="col-md-5 formContentbox">
-																	<label class="fieldLabel col-sm-5">End Date <span class="requiredField">*</span></label>
-																	<div class="col-sm-7">
-																		<input class="form-control m-input" type="date" value="" #endDateVal="ngModel" required [ngClass]="{'red-border-class': endDateVal.errors && isFormSubmitted}" [(ngModel)]="financialYearObj.endDate" name="endDate" id="endDate" placeholder="" tabindex="2">
-																	</div>
+                                                                <div class="form-group">
+                                                                        <div class="col-md-4 formContentbox">
+                                                                            <div class="form-group">
+                                                                                <label class="fieldLabel col-sm-5">Start Date <span class="requiredField">*</span></label>
+                                                                                <div class="col-sm-7">
+                                                                                    <input class="form-control m-input" type="date" value="" #startDateVal="ngModel" required [ngClass]="{'red-border-class': startDateVal.errors && isFormSubmitted}" [ngModel]="financialYearObj.startDate | date:'yyyy-MM-dd'" name="startDate" id="startDate" placeholder="" (ngModelChange)="financialYearObj.startDate = $event" tabindex="1">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 formContentbox">
+                                                                            <div class="form-group">
+                                                                            <label class="fieldLabel col-sm-5">End Date <span class="requiredField">*</span></label>
+                                                                            <div class="col-sm-7">
+                                                                                <input class="form-control m-input" type="date" value="" #endDateVal="ngModel" required [ngClass]="{'red-border-class': endDateVal.errors && isFormSubmitted}" [ngModel]="financialYearObj.endDate | date:'yyyy-MM-dd'" name="endDate" id="endDate" placeholder="" (ngModelChange)="financialYearObj.endDate = $event" tabindex="2">
+                                                                            </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 formContentbox">
+                                                                            <div class="form-group">
+                                                                            <label class="fieldLabel col-sm-5">Financial Year <span class="requiredField">*</span></label>
+                                                                            <div class="col-sm-7">
+                                                                                <input class="form-control m-input" type="text" value="" #financialYearVal="ngModel" required [ngClass]="{'red-border-class': financialYearVal.errors && isFormSubmitted}" [(ngModel)]="financialYearObj.financialYear" name="financialYear" id="financialYear" placeholder="" tabindex="3">
+                                                                            </div>
+                                                                            </div>
+                                                                        </div>
                                                                 </div>
-                                                                <div class="col-md-5 formContentbox">
-																	<label class="fieldLabel col-sm-5">Financial Year <span class="requiredField">*</span></label>
-																	<div class="col-sm-7">
-																		<input class="form-control m-input" type="text" value="" #financialYearVal="ngModel" required [ngClass]="{'red-border-class': endDateVal.errors && isFormSubmitted}" [(ngModel)]="financialYearObj.financialYear" name="financialYear" id="financialYear" placeholder="" tabindex="3">
-																	</div>
-																</div>
 																<div class="form-group">
                                                                 <div class="col-md-4 formContentbox">
                                                                     <div class="form-group">
@@ -95,7 +103,7 @@
                                                                         <div class="col-sm-7">
                                                                             <input class="form-control m-input" OnlyNumber="true" minValue="0" maxValue="2,147,483,647" value="" #poNumberVal="ngModel"
                                                                             required [ngClass]="{'red-border-class': poNumberVal.errors && isFormSubmitted}"
-                                                                            [(ngModel)]="financialYearObj.poNumber" name="rapoNumberte" id="poNumber" placeholder="" (change)="onInputChange()" tabindex="4">
+                                                                            [(ngModel)]="financialYearObj.poNumber" name="rapoNumberte" id="poNumber" placeholder="" tabindex="4">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -105,7 +113,7 @@
                                                                         <div class="col-sm-7">
                                                                             <input class="form-control m-input" OnlyNumber="true" minValue="0" maxValue="2,147,483,647" value="" #soNumberVal="ngModel"
                                                                             required [ngClass]="{'red-border-class': soNumberVal.errors && isFormSubmitted}"
-                                                                            [(ngModel)]="financialYearObj.soNumber" name="soNumber" id="soNumber" placeholder="" (change)="onInputChange()" tabindex="5">
+                                                                            [(ngModel)]="financialYearObj.soNumber" name="soNumber" id="soNumber" placeholder="" tabindex="5">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -115,7 +123,7 @@
                                                                         <div class="col-sm-7">
                                                                             <input class="form-control m-input" OnlyNumber="true" minValue="0" maxValue="2,147,483,647" value="" #grnNumberVal="ngModel"
                                                                             required [ngClass]="{'red-border-class': grnNumberVal.errors && isFormSubmitted}"
-                                                                            [(ngModel)]="financialYearObj.grnNumber" name="grnNumber" id="grnNumber" placeholder="" (change)="onInputChange()" tabindex="6">
+                                                                            [(ngModel)]="financialYearObj.grnNumber" name="grnNumber" id="grnNumber" placeholder="" tabindex="6">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -126,7 +134,7 @@
                                                                         <div class="col-sm-7">
                                                                             <input class="form-control m-input" OnlyNumber="true" minValue="0" maxValue="2,147,483,647" value="" #invoiceNumberVal="ngModel"
                                                                             required [ngClass]="{'red-border-class': invoiceNumberVal.errors && isFormSubmitted}"
-                                                                            [(ngModel)]="financialYearObj.invoiceNumber" name="invoiceNumber" id="invoiceNumber" placeholder="" (change)="onInputChange()" tabindex="7">
+                                                                            [(ngModel)]="financialYearObj.invoiceNumber" name="invoiceNumber" id="invoiceNumber" placeholder="" tabindex="7">
                                                                         </div>
                                                                     </div>
                                                                 </div>
