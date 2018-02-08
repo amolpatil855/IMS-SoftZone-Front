@@ -184,6 +184,7 @@ export class MatSizeListComponent implements OnInit {
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -200,9 +201,11 @@ export class MatSizeListComponent implements OnInit {
           this.thicknessList.unshift({ label: '--Select--', value: null });
           this.selectedThickness = this.matSizeObj.thicknessId;
           console.log('this.thicknessList', this.thicknessList);
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -231,6 +234,7 @@ export class MatSizeListComponent implements OnInit {
   }
 
   getMatSizeById(id) {
+    Helpers.setLoading(true);
     this.matSizeService.getMatSizeById(id).subscribe(
       results => {
         this.matSizeObj = results;
@@ -242,6 +246,7 @@ export class MatSizeListComponent implements OnInit {
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 

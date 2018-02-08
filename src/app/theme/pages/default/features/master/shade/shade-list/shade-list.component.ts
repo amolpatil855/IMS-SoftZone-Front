@@ -163,6 +163,7 @@ export class ShadeListComponent implements OnInit {
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -188,6 +189,7 @@ export class ShadeListComponent implements OnInit {
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -204,9 +206,11 @@ export class ShadeListComponent implements OnInit {
           this.designList.unshift({ label: '--Select--', value: null });
           this.selectedDesign = this.shadeObj.designId;
           console.log('this.designList', this.designList);
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -227,6 +231,7 @@ export class ShadeListComponent implements OnInit {
   }
 
   getshadeById(id) {
+    Helpers.setLoading(true);
     this.shadeService.getShadeById(id).subscribe(
       results => {
         this.shadeObj = results;
@@ -237,6 +242,7 @@ export class ShadeListComponent implements OnInit {
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 

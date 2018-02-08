@@ -97,13 +97,16 @@ export class HsnListComponent implements OnInit {
   }
 
   gethsnById(id) {
+    Helpers.setLoading(true);
     this.hsnService.getHsnById(id).subscribe(
       results => {
         this.hsnObj = results;
         console.log('this.hsnList', this.hsnObj);
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
