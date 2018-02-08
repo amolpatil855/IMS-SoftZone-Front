@@ -23,7 +23,9 @@ export class AsideNavComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
 
     mLayout.initAside();
-    let menu = (<any>$('#m_aside_left')).mMenu(); let item = $(menu).find('a[href="' + window.location.pathname + '"]').parent('.m-menu__item'); (<any>$(menu).data('menu')).setActiveItem(item);
+    let menu = (<any>$('#m_aside_left')).mMenu(); 
+    let item = $(menu).find('a[href="' + window.location.hash + '"]').parent('.m-menu__item');
+    (<any>$(menu).data('menu')).setActiveItem(item);
   }
 
 }

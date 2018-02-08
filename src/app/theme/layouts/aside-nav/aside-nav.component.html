@@ -56,7 +56,7 @@
                 </a>
 			</li>
             
-            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" aria-haspopup="true"  data-menu-submenu-toggle="hover"  [isAuthorize]="['companyinfo','master','supplier','customer']">
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active"  routerLinkActive="m-menu__item--active" aria-haspopup="true"  data-menu-submenu-toggle="hover"  [isAuthorize]="['productstock','stockmanagement']">
                                 <a  href="#" class="m-menu__link m-menu__toggle">
                                     <i class="m-menu__link-icon flaticon-clipboard"></i>
                                     <span class="m-menu__link-text">
@@ -81,7 +81,7 @@
                                 </div>
             </li>
 
-			<li class="m-menu__item  m-menu__item--submenu m-menu__item--active" aria-haspopup="true"  data-menu-submenu-toggle="hover"  [isAuthorize]="['companyinfo','master','supplier','customer']">
+			<li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"  data-menu-submenu-toggle="hover"  [isAuthorize]="['companyinfo','master','supplier','customer']">
                                 <a  href="#" class="m-menu__link m-menu__toggle">
                                     <i class="m-menu__link-icon flaticon-user-settings"></i>
                                     <span class="m-menu__link-text">
@@ -92,7 +92,7 @@
                                 <div class="m-menu__submenu">
                                     <span class="m-menu__arrow"></span>
                                     <ul class="m-menu__subnav">
-                                        <li  [isAuthorize]="['supplier']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
+                                        <li  [isAuthorize]="['supplier']" class="m-menu__item" routerLinkActive="m-menu__item--active" aria-haspopup="true" >
                                             <a  routerLink="/features/master/supplier/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
@@ -102,7 +102,7 @@
                                                 </span>
                                             </a>
                                         </li>
-                                        <li  [isAuthorize]="['agent']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
+                                        <li  [isAuthorize]="['agent']" class="m-menu__item"  routerLinkActive="m-menu__item--active"  aria-haspopup="true" >
                                             <a  routerLink="/features/master/agent/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
@@ -112,7 +112,7 @@
                                                 </span>
                                             </a>
                                         </li>
-                                        <li  [isAuthorize]="['courier']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
+                                        <li  [isAuthorize]="['courier']" class="m-menu__item" aria-haspopup="true"  routerLinkActive="m-menu__item--active"  >
                                             <a  routerLink="/features/master/courier/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
@@ -122,7 +122,7 @@
                                                 </span>
                                             </a>
 										</li>
-										<li  [isAuthorize]="['collection']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
+										<li  [isAuthorize]="['collection']" class="m-menu__item" aria-haspopup="true" routerLinkActive="m-menu__item--active">
                                             <a  routerLink="/features/master/collection/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
@@ -132,7 +132,7 @@
                                                 </span>
                                             </a>
                                         </li>
-                                        <li  [isAuthorize]="['quality']" class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
+                                        <li  [isAuthorize]="['quality']" class="m-menu__item" aria-haspopup="true" routerLinkActive="m-menu__item--active">
 											<a  routerLink="/features/master/quality/list" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
@@ -142,7 +142,7 @@
 												</span>
 											</a>
 										</li>
-										<li  [isAuthorize]="['design']"  class="m-menu__item " aria-haspopup="true" >
+										<li  [isAuthorize]="['design']"  class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
                                             <a  routerLink="/features/master/design/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
@@ -152,7 +152,7 @@
                                                 </span>
                                             </a>
 										</li>
-										<li  [isAuthorize]="['shade']"  class="m-menu__item " aria-haspopup="true" >
+										<li  [isAuthorize]="['shade']"  class="m-menu__item " aria-haspopup="true"  routerLinkActive="m-menu__item--active">
                                             <a  routerLink="/features/master/shade/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
@@ -162,7 +162,7 @@
                                                 </span>
                                             </a>
 										</li>
-										<li  [isAuthorize]="['mattressthickness']"  class="m-menu__item " aria-haspopup="true" >
+										<li  [isAuthorize]="['mattressthickness']"  class="m-menu__item " aria-haspopup="true"  routerLinkActive="m-menu__item--active">
                                             <a  routerLink="/features/master/matThickness/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
@@ -172,7 +172,7 @@
                                                 </span>
                                             </a>
 										</li>
-										<li  [isAuthorize]="['mattresssize']"  class="m-menu__item " aria-haspopup="true" >
+										<li  [isAuthorize]="['mattresssize']"  class="m-menu__item " aria-haspopup="true"  routerLinkActive="m-menu__item--active">
                                             <a  routerLink="/features/master/matSize/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
@@ -182,7 +182,7 @@
                                                 </span>
                                             </a>
                                         </li>
-                                        <li  [isAuthorize]="['foamdensity']"  class="m-menu__item " aria-haspopup="true" >
+                                        <li  [isAuthorize]="['foamdensity']"  class="m-menu__item " aria-haspopup="true"  routerLinkActive="m-menu__item--active">
                                             <a  routerLink="/features/master/fomDensity/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
@@ -192,7 +192,7 @@
                                                 </span>
                                             </a>
                                         </li>
-                                        <li  [isAuthorize]="['foamsuggestedmm']"  class="m-menu__item " aria-haspopup="true" >
+                                        <li  [isAuthorize]="['foamsuggestedmm']"  class="m-menu__item " aria-haspopup="true"  routerLinkActive="m-menu__item--active">
                                             <a  routerLink="/features/master/fomSuggestedMM/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
@@ -202,7 +202,7 @@
                                                 </span>
                                             </a>
                                         </li>
-                                        <li  [isAuthorize]="['foamsize']"  class="m-menu__item " aria-haspopup="true" >
+                                        <li  [isAuthorize]="['foamsize']"  class="m-menu__item " aria-haspopup="true"  routerLinkActive="m-menu__item--active">
                                             <a  routerLink="/features/master/fomSize/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
@@ -212,7 +212,7 @@
                                                 </span>
                                             </a>
                                         </li>
-                                        <li  [isAuthorize]="['customer']"  class="m-menu__item " aria-haspopup="true" >
+                                        <li  [isAuthorize]="['customer']"  class="m-menu__item " aria-haspopup="true"  routerLinkActive="m-menu__item--active">
                                             <a  routerLink="/features/master/customer/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
@@ -222,7 +222,7 @@
                                                 </span>
                                             </a>
 										</li>
-										<li  [isAuthorize]="['hsn']"  class="m-menu__item " aria-haspopup="true" >
+										<li  [isAuthorize]="['hsn']"  class="m-menu__item " aria-haspopup="true"  routerLinkActive="m-menu__item--active">
                                             <a  routerLink="/features/master/hsn/list" class="m-menu__link ">
                                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                     <span></span>
