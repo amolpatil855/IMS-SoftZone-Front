@@ -14,6 +14,7 @@ import { OnlyNumber } from '../../_directives/OnlyNumber.directive';
 import { ImageUploadService } from '../pages/default/_services/imageUpload.service';
 import { UserService } from "../pages/default/_services/user.service";
 import { RoleService } from "../pages/default/_services/role.service";
+import { CompanyService } from "../pages/default/_services/company.service";
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { RoleService } from "../pages/default/_services/role.service";
     ImageUploadService,
     UserService,
     RoleService,
+    CompanyService
   ],
   imports: [
     CommonModule,

@@ -42,10 +42,10 @@
             <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
                   <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="qualityForm" [ngClass]="(qualityFormVal && !qualityFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'"
                         title="{{(qualityFormVal && qualityFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-                        [disabled]="qualityFormVal && !qualityFormVal.form.valid" [isAuthorize]="['quality']" tabindex="7">
+                        [disabled]="qualityFormVal && !qualityFormVal.form.valid" [isAuthorize]="['quality']" tabindex="21">
                         {{ params ? 'Update' : 'Save' }}
                   </button>
-                  <button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()" tabindex="8">
+                  <button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()" tabindex="22">
                         Cancel
                   </button>
             </div>
@@ -75,7 +75,7 @@
                                                                                           <div class="row">
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Category</label>
+                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Category <span class="requiredField">*</span></label>
                                                                                                             <div class="col-md-9 col-sm-9">
                                                                                                                   <p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="slectedCategory" styleClass="{{ qualityForm.get('categoryId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                                                                                                         formControlName="categoryId"
@@ -93,7 +93,7 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Collection</label>
+                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Collection <span class="requiredField">*</span></label>
                                                                                                             <div class="col-md-9 col-sm-9">
                                                                                                                   <p-dropdown class="feePlanBox" [options]="collectionList" formControlName="collectionId" styleClass="{{ qualityForm.get('collectionId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                                                                                                         required
@@ -106,7 +106,7 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Code</label>
+                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Code <span class="requiredField">*</span></label>
                                                                                                             <div class="col-md-9 col-sm-9">
                                                                                                                   <input type="text" class="form-control" [ngClass]="{'red-border-class': qualityForm.get('qualityCode').hasError('required') && isFormSubmitted}"
                                                                                                                         formControlName="qualityCode"
@@ -123,7 +123,7 @@
                                                                                           <div class="row">
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Name</label>
+                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Name <span class="requiredField">*</span></label>
                                                                                                             <div class="col-md-9 col-sm-9">
                                                                                                                   <input type="text" class="form-control" [ngClass]="{'red-border-class': qualityForm.get('qualityName').hasError('required') && isFormSubmitted}"
                                                                                                                         formControlName="qualityName"
@@ -135,7 +135,7 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">HSN Code</label>
+                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">HSN Code <span class="requiredField">*</span></label>
                                                                                                             <div class="col-md-9 col-sm-9">
                                                                                                                   <p-dropdown class="feePlanBox" [options]="hsnCodeList" styleClass="{{ qualityForm.get('hsnId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                                                                                                         formControlName="hsnId"
@@ -174,7 +174,7 @@
                                                                                                             <div class="col-md-7 col-sm-7">
                                                                                                                   <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" required [ngClass]="{'red-border-class': qualityForm.get('custRatePerSqFeet').hasError('required') && isFormSubmitted}"
                                                                                                                         placeholder="" 
-                                                                                                                        formControlName="custRatePerSqFeet">
+                                                                                                                        formControlName="custRatePerSqFeet" tabindex="7">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -182,7 +182,7 @@
                                                                                                       <div class="row">
                                                                                                             <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount %</label>
                                                                                                             <div class="col-md-7 col-sm-7">
-                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" required placeholder="" formControlName="maxDiscout" [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}">
+                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" required placeholder="" formControlName="maxDiscout" [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}" tabindex="8">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -206,8 +206,8 @@
                                                                                                       <div class="row">
                                                                                                             <label class="col-md-5 col-sm-5 fieldLabel">Width</label>
                                                                                                             <div class="col-md-7 col-sm-7">
-                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" *ngIf="slectedCategory==1" formControlName="width" [ngClass]="{'red-border-class': qualityForm.get('width').hasError('required') && isFormSubmitted}">
-                                                                                                                  <input type="text" class="form-control" disabled *ngIf="slectedCategory!=1" >
+                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" *ngIf="slectedCategory==1" formControlName="width" [ngClass]="{'red-border-class': qualityForm.get('width').hasError('required') && isFormSubmitted}" tabindex="9">
+                                                                                                                  <input type="text" class="form-control" disabled *ngIf="slectedCategory!=1"  tabindex="10">
                                                                                                                   
                                                                                                             </div>
                                                                                                       </div>
@@ -216,8 +216,8 @@
                                                                                                       <div class="row">
                                                                                                             <label class="col-md-5 col-sm-5 fieldLabel">Size</label>
                                                                                                             <div class="col-md-7 col-sm-7">
-                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="9999.99" class="form-control" formControlName="size" *ngIf="slectedCategory!=1" [ngClass]="{'red-border-class': qualityForm.get('size').hasError('required') && isFormSubmitted}">
-                                                                                                                  <input type="text" class="form-control" disabled *ngIf="slectedCategory==1" >
+                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="9999.99" class="form-control" formControlName="size" *ngIf="slectedCategory!=1" [ngClass]="{'red-border-class': qualityForm.get('size').hasError('required') && isFormSubmitted}" tabindex="11">
+                                                                                                                  <input type="text" class="form-control" disabled *ngIf="slectedCategory==1" tabindex="12">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -225,7 +225,7 @@
                                                                                                       <div class="row">
                                                                                                             <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate</label>
                                                                                                             <div class="col-md-7 col-sm-7">
-                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="cutRate"   [disabled]="disableRRP" (blur)="onChangeRRP(qualityForm.get('cutRate'),qualityForm.get('flatRate'))" maxlength="6" onKeyPress="if(this.value.length==6) return false;"  required [ngClass]="{'red-border-class': qualityForm.get('cutRate').hasError('required') && isFormSubmitted}">
+                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="cutRate"   [disabled]="disableRRP" (blur)="onChangeRRP(qualityForm.get('cutRate'),qualityForm.get('flatRate'))" maxlength="6" onKeyPress="if(this.value.length==6) return false;"  required [ngClass]="{'red-border-class': qualityForm.get('cutRate').hasError('required') && isFormSubmitted}" tabindex="13">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -239,7 +239,7 @@
                                                                                                                   Dis. %</label>
                                                                                                             <div class="col-md-7 col-sm-7">
                                                                                                                   <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" required    [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('maxCutRateDisc').hasError('required') && isFormSubmitted}"
-                                                                                                                        formControlName="maxCutRateDisc">
+                                                                                                                        formControlName="maxCutRateDisc" tabindex="14">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -247,7 +247,7 @@
                                                                                                       <div class="row">
                                                                                                             <label class="col-md-5 col-sm-5 fieldLabel">Role Rate</label>
                                                                                                             <div class="col-md-7 col-sm-7">
-                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="roleRate"   [disabled]="disableRRP" placeholder="" [ngClass]="{'red-border-class': qualityForm.get('roleRate').hasError('required') && isFormSubmitted}">
+                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="roleRate"   [disabled]="disableRRP" placeholder="" [ngClass]="{'red-border-class': qualityForm.get('roleRate').hasError('required') && isFormSubmitted}" tabindex="15">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -258,7 +258,7 @@
                                                                                                             <div class="col-md-7 col-sm-7">
                                                                                                                   <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" title="Role Rate max discount" formControlName="maxRoleRateDisc"
                                                                                                                         required  [disabled]="disableRRP" 
-                                                                                                                        [ngClass]="{'red-border-class': qualityForm.get('maxRoleRateDisc').hasError('required') && isFormSubmitted}">
+                                                                                                                        [ngClass]="{'red-border-class': qualityForm.get('maxRoleRateDisc').hasError('required') && isFormSubmitted}" tabindex="16">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -272,7 +272,7 @@
                                                                                                             <div class="col-md-7 col-sm-7">
                                                                                                                   <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="rrp"  [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('rrp').hasError('required') && isFormSubmitted}"
                                                                                                                         required
-                                                                                                                        placeholder="">
+                                                                                                                        placeholder="" tabindex="17">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -280,7 +280,7 @@
                                                                                                       <div class="row">
                                                                                                             <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate</label>
                                                                                                             <div class="col-md-7 col-sm-7">
-                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disableFlatRate" (blur)="onChangeFlatRate(qualityForm.get('flatRate'),qualityForm.get('cutRate'))" class="form-control" placeholder="" formControlName="flatRate" required [ngClass]="{'red-border-class': qualityForm.get('flatRate').hasError('required') && isFormSubmitted}">
+                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disableFlatRate" (blur)="onChangeFlatRate(qualityForm.get('flatRate'),qualityForm.get('cutRate'))" class="form-control" placeholder="" formControlName="flatRate" required [ngClass]="{'red-border-class': qualityForm.get('flatRate').hasError('required') && isFormSubmitted}" tabindex="18">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -289,7 +289,7 @@
                                                                                                             <label class="col-md-5 col-sm-5 fieldLabel">Max Flat
                                                                                                                   Cut Rate</label>
                                                                                                             <div class="col-md-7 col-sm-7">
-                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99"  [disabled]="disableFlatRate" class="form-control" placeholder="" formControlName="maxFlatRateDisc" required [ngClass]="{'red-border-class': qualityForm.get('maxFlatRateDisc').hasError('required') && isFormSubmitted}">
+                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99"  [disabled]="disableFlatRate" class="form-control" placeholder="" formControlName="maxFlatRateDisc" required [ngClass]="{'red-border-class': qualityForm.get('maxFlatRateDisc').hasError('required') && isFormSubmitted}" tabindex="19">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -297,7 +297,7 @@
                                                                                                       <div class="row">
                                                                                                             <label class="col-md-5 col-sm-5 fieldLabel">Purchase Flat Rate</label>
                                                                                                             <div class="col-md-7 col-sm-7">
-                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99"  [disabled]="disableFlatRate" class="form-control" placeholder="" formControlName="purchaseFlatRate" required [ngClass]="{'red-border-class': qualityForm.get('purchaseFlatRate').hasError('required') && isFormSubmitted}">
+                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99"  [disabled]="disableFlatRate" class="form-control" placeholder="" formControlName="purchaseFlatRate" required [ngClass]="{'red-border-class': qualityForm.get('purchaseFlatRate').hasError('required') && isFormSubmitted}" tabindex="20">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>
@@ -321,7 +321,7 @@
                                                                                                       <div class="row">
                                                                                                             <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount %</label>
                                                                                                             <div class="col-md-7 col-sm-7">
-                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99"  class="form-control" placeholder="" formControlName="maxDiscout" required [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}">
+                                                                                                                  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99"  class="form-control" placeholder="" formControlName="maxDiscout" required [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}" tabindex="21">
                                                                                                             </div>
                                                                                                       </div>
                                                                                                 </div>

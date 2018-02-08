@@ -142,6 +142,7 @@ export class CollectionListComponent implements OnInit {
 
 
   getsuplierById(id) {
+    Helpers.setLoading(true);
     this.collectionService.getCollectionById(id).subscribe(
       results => {
         this.collectionObj = results;
@@ -156,9 +157,11 @@ export class CollectionListComponent implements OnInit {
           description: results.description,
         });
         console.log('this.collectionList', this.collectionObj);
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
