@@ -105,7 +105,7 @@ export class SupplierListComponent implements OnInit {
   }
 
   onClickPrimary(row) {
-    this.supplierObj.MstSupplierAddresses.forEach(function (value) {
+    this.supplierObj.MstSupplierAddresses.forEach(function(value) {
       value.isPrimary = false;
     })
     row.isPrimary = true;
@@ -145,18 +145,21 @@ export class SupplierListComponent implements OnInit {
 
 
   getSupplierById(id) {
+    Helpers.setLoading(true);
     this.supplierService.getSupplierById(id).subscribe(
       results => {
         this.supplierObj = results;
         this.supplierObj.MstSupplierAddresses = results.mstSupplierAddresses;
         delete this.supplierObj['mstSupplierAddresses'];
-        _.forEach(this.supplierObj.MstSupplierAddresses, function (value) {
+        _.forEach(this.supplierObj.MstSupplierAddresses, function(value) {
           value.contRoleId = Math.floor(Math.random() * 2000);
         });
         console.log('this.supplierList', this.supplierObj);
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
   validateAddress1(addressObj) {
@@ -214,7 +217,7 @@ export class SupplierListComponent implements OnInit {
   validateAddress() {
     let regex = new RegExp("^[A-Z0-9]{15}$");
     let isvalidAddress = true;
-    _.forEach(this.supplierObj.MstSupplierAddresses, function (addressObj) {
+    _.forEach(this.supplierObj.MstSupplierAddresses, function(addressObj) {
       if (!addressObj.addressLine1) {
         addressObj.invalidAddressLine1 = true;
         isvalidAddress = false;
@@ -269,7 +272,7 @@ export class SupplierListComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    _.forEach(this.supplierObj.MstSupplierAddresses, function (addressObj) {
+    _.forEach(this.supplierObj.MstSupplierAddresses, function(addressObj) {
       if (!addressObj.addressLine1) {
         addressObj.invalidAddressLine1 = true;
         valid = false;

@@ -103,11 +103,11 @@ export class QualityListComponent implements OnInit {
       flaterate.disable();
       this.qualityForm.get('maxFlatRateDisc').disable();
       this.qualityForm.get('purchaseFlatRate').disable();
-      
+
       this.disableRRP = false;
       this.qualityForm.patchValue({
         maxFlatRateDisc: '',
-        purchaseFlatRate:'',
+        purchaseFlatRate: '',
         flatRate: '',
       });
     }
@@ -220,6 +220,7 @@ export class QualityListComponent implements OnInit {
 
 
   getQualityById(id) {
+    Helpers.setLoading(true);
     this.qualityService.getQualityById(id).subscribe(
       results => {
         this.qualityObj = results;
@@ -242,7 +243,7 @@ export class QualityListComponent implements OnInit {
           flatRate: results.flatRate,
           custRatePerSqFeet: results.custRatePerSqFeet,
           maxDiscout: results.maxDiscout,
-          purchaseFlatRate:results.purchaseFlatRate
+          purchaseFlatRate: results.purchaseFlatRate
         });
         this.slectedCategory = results.categoryId;
         console.log('this.collectionList', this.qualityObj);
@@ -256,7 +257,7 @@ export class QualityListComponent implements OnInit {
           this.qualityForm.get('maxFlatRateDisc').enable();
           this.qualityForm.get('flatRate').enable();
           this.qualityForm.get('purchaseFlatRate').enable();
-          
+
         }
         else if (results.cutRate) {
           this.qualityForm.get('cutRate').enable();
@@ -268,9 +269,11 @@ export class QualityListComponent implements OnInit {
           this.qualityForm.get('flatRate').disable();
           this.qualityForm.get('purchaseFlatRate').disable();
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
@@ -303,7 +306,7 @@ export class QualityListComponent implements OnInit {
         maxRoleRateDisc: '',
         maxFlatRateDisc: '',
         flatRate: '',
-        purchaseFlatRate:''
+        purchaseFlatRate: ''
       });
     }
     else if (this.slectedCategory == 5 || this.slectedCategory == 6) {
@@ -335,7 +338,7 @@ export class QualityListComponent implements OnInit {
         maxRoleRateDisc: 0,
         maxFlatRateDisc: 0,
         flatRate: 0,
-        purchaseFlatRate:0,
+        purchaseFlatRate: 0,
         custRatePerSqFeet: '',
         maxDiscout: ''
       });
@@ -352,7 +355,7 @@ export class QualityListComponent implements OnInit {
         maxCutRateDisc: 0,
         maxRoleRateDisc: 0,
         maxFlatRateDisc: 0,
-        purchaseFlatRate:0,
+        purchaseFlatRate: 0,
         flatRate: 0,
         custRatePerSqFeet: 0,
         maxDiscout: ''

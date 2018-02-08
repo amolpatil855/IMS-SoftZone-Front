@@ -95,13 +95,16 @@ export class CourierListComponent implements OnInit {
   }
 
   getCourierById(id) {
+    Helpers.setLoading(true);
     this.courierService.getCourierById(id).subscribe(
       results => {
         this.courierObj = results;
         console.log('this.courierList', this.courierObj);
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
