@@ -75,7 +75,7 @@
                                                                                           <div class="row">
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Category</label>
+                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Category <span class="requiredField">*</span></label>
                                                                                                             <div class="col-md-9 col-sm-9">
                                                                                                                   <p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="slectedCategory" styleClass="{{ qualityForm.get('categoryId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                                                                                                         formControlName="categoryId"
@@ -93,7 +93,7 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Collection</label>
+                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Collection <span class="requiredField">*</span></label>
                                                                                                             <div class="col-md-9 col-sm-9">
                                                                                                                   <p-dropdown class="feePlanBox" [options]="collectionList" formControlName="collectionId" styleClass="{{ qualityForm.get('collectionId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                                                                                                         required
@@ -106,7 +106,7 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Code</label>
+                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Code <span class="requiredField">*</span></label>
                                                                                                             <div class="col-md-9 col-sm-9">
                                                                                                                   <input type="text" class="form-control" [ngClass]="{'red-border-class': qualityForm.get('qualityCode').hasError('required') && isFormSubmitted}"
                                                                                                                         formControlName="qualityCode"
@@ -123,7 +123,7 @@
                                                                                           <div class="row">
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Name</label>
+                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">Name <span class="requiredField">*</span></label>
                                                                                                             <div class="col-md-9 col-sm-9">
                                                                                                                   <input type="text" class="form-control" [ngClass]="{'red-border-class': qualityForm.get('qualityName').hasError('required') && isFormSubmitted}"
                                                                                                                         formControlName="qualityName"
@@ -135,7 +135,7 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">HSN Code</label>
+                                                                                                            <label class="col-md-3 col-sm-3 fieldLabel">HSN Code <span class="requiredField">*</span></label>
                                                                                                             <div class="col-md-9 col-sm-9">
                                                                                                                   <p-dropdown class="feePlanBox" [options]="hsnCodeList" styleClass="{{ qualityForm.get('hsnId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                                                                                                         formControlName="hsnId"

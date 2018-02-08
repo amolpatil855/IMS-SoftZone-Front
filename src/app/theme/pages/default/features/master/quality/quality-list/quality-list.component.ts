@@ -186,7 +186,7 @@ export class QualityListComponent implements OnInit {
   }
 
   getQualityList() {
-    this.qualityService.getAllQualitys().subscribe(
+    this.qualityService.getAllQualitys(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.recordList = results.data;
         this.totalCount = results.totalCount;
