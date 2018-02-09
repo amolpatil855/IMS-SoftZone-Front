@@ -104,7 +104,7 @@
 																<span class="requiredField">*</span>
 															</label>
 															<div class="col-sm-7">
-															<input class="form-control m-input" type="file"  #fileupload  value="" name="companyLogo" id="companyLogo"  (change)="onUploadLogo(fileupload.files)" tabindex="5">
+															<input class="form-control m-input" type="file"  #fileupload  value="" name="companyLogo" id="companyLogo"  (change)="onUploadLogo(fileupload.files, $event)" tabindex="5">
 														</div>
 														</div>
 													</div>
