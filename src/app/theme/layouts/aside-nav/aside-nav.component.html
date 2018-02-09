@@ -68,6 +68,11 @@
                 <div class="m-menu__submenu">
                     <span class="m-menu__arrow"></span>
                     <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true" >
+							<a  href="#" class="m-menu__link ">
+								<span class="m-menu__link-text">Stock</span>
+						    </a>
+						</li>
                         <li [isAuthorize]="['stockmanagement']" class="m-menu__item " aria-haspopup="true">
                             <a routerLink="/features/master/trnProductStock/list" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -146,6 +151,11 @@
                 <div class="m-menu__submenu">
                     <span class="m-menu__arrow"></span>
                     <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true" >
+							<a  href="#" class="m-menu__link ">
+								<span class="m-menu__link-text">Master</span>
+						    </a>
+						</li>
                         <li [isAuthorize]="['supplier']" class="m-menu__item" routerLinkActive="m-menu__item--active" aria-haspopup="true">
                             <a routerLink="/features/master/supplier/list" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
