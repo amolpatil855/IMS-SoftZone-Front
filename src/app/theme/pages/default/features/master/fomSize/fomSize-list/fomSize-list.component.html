@@ -110,12 +110,12 @@
 															<div class="col-sm-7">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" #widthVal="ngModel"
 																 required [(ngModel)]="fomSizeObj.width" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
-																 name="width" id="width" placeholder="Enter Width" tabindex="5">
-																<div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
+																 name="width" id="width" placeholder="Enter Width" (input)=" onInputChange()" tabindex="5">
+																<!-- <div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
 																	<div *ngIf="widthVal.errors.pattern">
 																		Invalid width
 																	</div>
-																</div>
+																</div> -->
 																
 															</div>
 														</div>
@@ -126,12 +126,12 @@
 															<div class="col-sm-7">
 																<input class="form-control m-input" #lengthVal="ngModel"
 																 required  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99"  [(ngModel)]="fomSizeObj.length" [ngClass]="{'red-border-class': lengthVal.errors && isFormSubmitted}"
-																 name="length" id="length" placeholder="Enter Length" tabindex="6">
-																<div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
+																 name="length" id="length" placeholder="Enter Length" (input)=" onInputChange()" tabindex="6">
+																<!-- <div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
 																	<div *ngIf="lengthVal.errors.pattern">
 																		Invalid Length
 																	</div>
-																</div>
+																</div> -->
 															</div>
 														</div>
 													</div>
