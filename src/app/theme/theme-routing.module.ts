@@ -87,7 +87,11 @@ const routes: Routes = [
         "path": "features\/roles",
         "loadChildren": ".\/pages\/default\/features\/roles\/roles.module#RolesModule"
       },
+      {
 
+        "path": "features\/purchase\/trnPurchaseOrder",
+        "loadChildren": ".\/pages\/default\/features\/purchase\/trnPurchaseOrder\/trnPurchaseOrder.module#TrnPurchaseOrderModule"
+      },
       {
         "path": "header/changePassword",
         "loadChildren": ".\/pages\/default\/features\/changePassword\/changePassword.module#ChangePasswordModule"

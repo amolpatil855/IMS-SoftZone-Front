@@ -84,14 +84,13 @@ export class FomSizeListComponent implements OnInit {
     this.selectedSize = null;
   }
   onInputChange() {
-    if (parseFloat(this.fomSizeObj.width) > 999.99) {
-      this.fomSizeObj.width = '';
+    if(this.fomSizeObj.width == '' || this.fomSizeObj.length == ''){
+      this.fomSizeObj.sizeCode = '';
     }
-    if (parseFloat(this.fomSizeObj.length) > 999.99) {
-      this.fomSizeObj.length = '';
-    }
-    //this.fomSizeObj.sizeCode = (this.fomSizeObj.width==""?0:parseFloat( this.fomSizeObj.width ).toFixed(2)) + 'x' + ( this.fomSizeObj.length==""?0:parseFloat(this.fomSizeObj.length ).toFixed(2)) ;
-    this.fomSizeObj.sizeCode = this.fomSizeObj.width + 'x' + this.fomSizeObj.length;
+    else
+    {
+      this.fomSizeObj.sizeCode = this.fomSizeObj.width + 'x' + this.fomSizeObj.length;
+    }  
   }
 
   restrictMinus(e, limit) {

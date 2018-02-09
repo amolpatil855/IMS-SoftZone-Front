@@ -83,6 +83,32 @@
             </li>
 
             <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
+                data-menu-submenu-toggle="hover" [isAuthorize]="['purchase','purchaseorder']">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-cart"></i>
+                    <span class="m-menu__link-text">
+                        Purchase
+                    </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li [isAuthorize]="['purchaseorder']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/purchase/trnPurchaseOrder/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                   Purchase Order
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
                 data-menu-submenu-toggle="hover" [isAuthorize]="['companyinfo','master','supplier','customer']">
                 <a href="#" class="m-menu__link m-menu__toggle">
                     <i class="m-menu__link-icon flaticon-user-settings"></i>
@@ -104,13 +130,13 @@
                                 </span>
                             </a>
                         </li>
-                        <li [isAuthorize]="['agent']" class="m-menu__item" routerLinkActive="m-menu__item--active" aria-haspopup="true">
-                            <a routerLink="/features/master/agent/list" class="m-menu__link ">
+                        <li [isAuthorize]="['customer']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/customer/list" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                     <span></span>
                                 </i>
                                 <span class="m-menu__link-text">
-                                    Agent
+                                    Customer
                                 </span>
                             </a>
                         </li>
@@ -121,6 +147,26 @@
                                 </i>
                                 <span class="m-menu__link-text">
                                     Courier
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['agent']" class="m-menu__item" routerLinkActive="m-menu__item--active" aria-haspopup="true">
+                            <a routerLink="/features/master/agent/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Agent
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['hsn']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/hsn/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    HSN
                                 </span>
                             </a>
                         </li>
@@ -221,26 +267,6 @@
                                 </i>
                                 <span class="m-menu__link-text">
                                     Foam Size
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['customer']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
-                            <a routerLink="/features/master/customer/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Customer
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['hsn']" class="m-menu__item " aria-haspopup="true" routerLinkActive="m-menu__item--active">
-                            <a routerLink="/features/master/hsn/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    HSN
                                 </span>
                             </a>
                         </li>
