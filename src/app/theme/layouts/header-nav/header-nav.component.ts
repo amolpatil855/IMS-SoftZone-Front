@@ -4,8 +4,9 @@ import { ImageUploadService } from '../../pages/default/_services/imageUpload.se
 import { UserService } from "../../pages/default/_services/user.service";
 import { CompanyService } from '../../pages/default/_services/company.service';
 import { AppSettings } from "../../../app-settings";
+import { MessageService } from '../../../_services/message.service';
 import { Router } from "@angular/router";
-
+import { Subscription } from 'rxjs/Subscription';
 declare let mLayout: any;
 @Component({
   selector: "app-header-nav",
@@ -13,7 +14,7 @@ declare let mLayout: any;
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderNavComponent implements OnInit, AfterViewInit {
-
+  subscription: Subscription;
   webHeader: string;
   logoUrl: string;
   defaultLogo: string;
@@ -26,10 +27,14 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
   constructor(private _router: Router,
     private userService: UserService,
     private companyService: CompanyService,
-    private imageUploadService: ImageUploadService) {
+    private imageUploadService: ImageUploadService,
+    private messageService: MessageService) {
+       this.subscription = this.messageService.getCompanyDetails().subscribe(message => {  
+       this.getAllCompanyInfo();
+      });
   }
   ngOnInit() {
-
+   
     this.userService.getLoggedInUserDetail().subscribe(res => {
       this.userName = res.userName;
       this.userRole = res.mstRole.roleName;
@@ -63,5 +68,8 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     mLayout.initHeader();
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
