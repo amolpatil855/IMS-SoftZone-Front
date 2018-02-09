@@ -1759,10 +1759,15 @@ body .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label {
 	border-radius:4px;
 	padding:10px;
 	margin:8px 15px;
-	font-family: Roboto;
+    font-family: Roboto;
+    font-size: 13px;
 }
 .shippingAddressBox p{
-	margin-bottom:0;
+    margin-bottom:0;
+    font-weight:400;
+}
+.shippingAddressBox p b{
+	font-weight:600;
 }
 .orderTypeLabel{
 	font-family: Roboto;
