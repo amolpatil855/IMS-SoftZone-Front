@@ -40,14 +40,6 @@
 				</li>
 			</ul>
 		</div>
-		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm" title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['stockmanagement']" tabindex="8">
-						{{ params ? 'Update' : 'Save' }}
-				</button>
-				<button class="btn btn-secondary" [isAuthorize]="['stockmanagement']" (click)="onCancel()" tabindex="9">
-						Cancel
-				</button>
-		</div>
 	</div>
 </div>
 <!-- END: Subheader -->
@@ -59,161 +51,7 @@
                 
                 <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
                
-			<div class="row">
-				
-				<div class="col-md-12">
-					
-					<div class="formContainerSamePage">
-							<form class="">
-								<div class="row">
-								
-									<div class="col-md-12">
-										
-										<div class="row">
-											<div class="col-md-12">
-												<!-- Basic Details -->
-												<div class="panel panel-default">
-												  <div class="panel-heading">Basic Details</div>
-												  <div class="panel-body">	
-													
-													<div class="row">
-														<div class="col-md-3">
-															<label class="col-md-4 col-sm-4 fieldLabel">Order Date</label>
-															<div class="col-md-8 col-sm-8">
-																<input type="text" class="form-control" placeholder="">
-															</div>	
-														</div>
-														<div class="col-md-3">
-															<label class="col-md-4 col-sm-4 fieldLabel">Order No.</label>
-															<div class="col-md-8 col-sm-8">
-																<input type="text" class="form-control" placeholder="">
-															</div>	
-														</div>
-														<div class="col-md-3">
-															<label class="col-md-4 col-sm-4 fieldLabel">Supplier</label>
-															<div class="col-md-8 col-sm-8">
-																<select class="form-control">	
-																	<option selected="" disabled="">- Select -</option>
-																	<option>Supplier 1</option>
-																	<option>Supplier 2</option>
-																	<option>Supplier 3</option>
-																	<option>Supplier 4</option>
-																</select>
-															</div>	
-														</div>
-														<div class="col-md-3">
-															<label class="col-md-4 col-sm-4 fieldLabel">Location</label>
-															<div class="col-md-8 col-sm-8">
-																<select class="form-control">	
-																	<option selected="" disabled="">- Select -</option>
-																	<option>Location 1</option>
-																	<option>Location 2</option>
-																	<option>Location 3</option>
-																	<option>Location 4</option>
-																</select>
-															</div>	
-														</div>
-
-													</div>
-													
-													<!--Shipping Address-->
-													<div class="row">
-														<div class="col-md-12">
-															<div class="shippingAddressBox">													
-																<p>
-																<b>Shipping Address - </b>	84, GANESH PETH, LAXMI ROAD, OPP. GANESH PETH POLICE CHOWKI.,PUNE,MAHARASHTRA,INDIA. PINCODE -411002</p>
-															</div>
-														</div>			
-													</div>
-													
-												  
-												  </div>
-												</div>	
-											</div>
-										
-										</div>								
-										
-									</div>								
-									
-									<div class="col-md-12">
-										<div class="panel panel-default">
-										  <div class="panel-heading">Item Details</div>
-										  <div class="panel-body">
-												<div class="row form-group">
-														<div class="col-md-4">
-															<label class="col-md-4 col-sm-4 fieldLabel">Category</label>
-															<div class="col-md-8 col-sm-8">
-																<select class="form-control">	
-																	<option selected="" disabled="">- Select -</option>
-																	<option>Category 1</option>
-																	<option>Category 2</option>
-																	<option>Category 3</option>
-																	<option>Category 4</option>
-																</select>
-															</div>	
-														</div>
-														<div class="col-md-4">
-															<label class="col-md-4 col-sm-4 fieldLabel">Collection</label>
-															<div class="col-md-8 col-sm-8">
-																<select class="form-control">	
-																	<option selected="" disabled="">- Select -</option>
-																	<option>Collection 1</option>
-																	<option>Collection 2</option>
-																	<option>Collection 3</option>
-																	<option>Collection 4</option>
-																</select>
-															</div>	
-														</div>
-														<div class="col-md-4">
-															<label class="col-md-4 col-sm-4 fieldLabel">Serial No.</label>
-															<div class="col-md-8 col-sm-8">
-																<input type="text" class="form-control" placeholder="">
-															</div>	
-                                                        </div>	
-                                                        <!--
-														<div class="col-md-4">
-															<label class="col-md-4 col-sm-4 fieldLabel">Foam Size</label>
-															<div class="col-md-8 col-sm-8">
-																<input type="text" class="form-control" placeholder="">
-															</div>	
-														</div>	
-														<div class="col-md-4">
-															<label class="col-md-4 col-sm-4 fieldLabel">Matt Size</label>
-															<div class="col-md-8 col-sm-8">
-																<input type="text" class="form-control" placeholder="">
-															</div>	
-														</div>		-->														
-												</div>
-												
-												<div class="row form-group">
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Order Quantity</label>
-														<div class="col-md-8 col-sm-8">
-															<input type="text" class="form-control" placeholder="">
-														</div>	
-													</div>	
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Order Type</label>
-														<div class="col-md-8 col-sm-8">
-															<label class="orderTypeLabel">CL</label>
-														</div>	
-													</div>
-												</div>
-												
-										  </div>
-										</div>
-									</div>
-									
-								</div>
-								
-							</form>
-						
-						</div>
-					
-				</div>
-			</div>
-		
-
+			
                 <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
                 
 
@@ -227,7 +65,7 @@
 										<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
 										
 										<!-- Add Button -->
-										<button  *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()" [isAuthorize]="['stockmanagement']">
+										<button routerLink="/features/purchase/trnPurchaseOrder/add" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="onAddClick()" [isAuthorize]="['purchaseorder']">
 											<span>
 												<i class="flaticon-add"></i>
 												<span>
@@ -236,7 +74,7 @@
 											</span>
 										</button>
 									</div>
-							<p-dataTable [value]="trnProductStockList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
+							<p-dataTable [value]="trnPurchaseOrderList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                             <p-column field="mstCategory.name" header="Category" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
