@@ -17,7 +17,7 @@ import { TrnPurchaseOrder } from "../../../../_models/trnPurchaseOrder";
   encapsulation: ViewEncapsulation.None,
 })
 export class TrnPurchaseOrderListComponent implements OnInit {
-trnPurchaseOrderForm: any;
+  trnPurchaseOrderForm: any;
   trnPurchaseOrderObj: any;
   params: number;
   trnPurchaseOrderList = [];
@@ -67,7 +67,7 @@ trnPurchaseOrderForm: any;
     this.getTrnPurchaseOrdersList();
   }
 
-  onEditClick(trnPurchaseOrder: TrnPurchaseOrder) {
+    onEditClick(trnPurchaseOrder: TrnPurchaseOrder) {
         this.router.navigate(['/features/purchase/trnPurchaseOrder/edit', trnPurchaseOrder.id]);
     }
     onDelete(trnPurchaseOrder: TrnPurchaseOrder) {

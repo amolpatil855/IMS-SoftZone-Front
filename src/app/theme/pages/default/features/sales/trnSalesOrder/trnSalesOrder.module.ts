@@ -20,6 +20,7 @@ import {
 import { TrnSalesOrderService } from "../../../_services/trnSalesOrder.service";
 import { TrnSalesOrderComponent } from "./trnSalesOrder.component";
 import { TrnSalesOrderListComponent } from "./trnSalesOrder-list/trnSalesOrder-list.component";
+import { TrnSalesOrderAddEditComponent } from "./trnSalesOrder-add-edit/trnSalesOrder-add-edit.component";
 
 const routes: Routes = [
   {
@@ -37,7 +38,22 @@ const routes: Routes = [
             data: {
               permissions: ['salesorder']
             }
-
+          },
+          {
+            path: 'add',
+            component: TrnSalesOrderAddEditComponent,
+            canActivate: [AuthGuard],
+            data: {
+              permissions: ['salesorder']
+            }
+          },
+          {
+            path: 'edit/:id',
+            component: TrnSalesOrderAddEditComponent,
+            canActivate: [AuthGuard],
+            data: {
+              permissions: ['salesorder']
+            }
           },
         ]
       }
@@ -62,6 +78,7 @@ const routes: Routes = [
   declarations: [
     TrnSalesOrderComponent,
     TrnSalesOrderListComponent,
+    TrnSalesOrderAddEditComponent
   ],
   providers: [
     // RoleService,
