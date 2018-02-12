@@ -20,6 +20,7 @@ import {
 import { TrnPurchaseOrderService } from "../../../_services/trnPurchaseOrder.service";
 import { TrnPurchaseOrderComponent } from "./trnPurchaseOrder.component";
 import { TrnPurchaseOrderListComponent } from "./trnPurchaseOrder-list/trnPurchaseOrder-list.component";
+import { TrnPurchaseOrderAddEditComponent } from "./trnPurchaseOrder-add-edit/trnPurchaseOrder-add-edit.component";
 
 const routes: Routes = [
   {
@@ -37,7 +38,22 @@ const routes: Routes = [
             data: {
               permissions: ['purchaseorder']
             }
-
+          },
+          {
+            path: 'add',
+            component: TrnPurchaseOrderAddEditComponent,
+            canActivate: [AuthGuard],
+            data: {
+              permissions: ['purchaseorder']
+            }
+          },
+          {
+            path: 'edit/:id',
+            component: TrnPurchaseOrderAddEditComponent,
+            canActivate: [AuthGuard],
+            data: {
+              permissions: ['purchaseorder']
+            }
           },
         ]
       }
@@ -62,6 +78,7 @@ const routes: Routes = [
   declarations: [
     TrnPurchaseOrderComponent,
     TrnPurchaseOrderListComponent,
+    TrnPurchaseOrderAddEditComponent
   ],
   providers: [
     // RoleService,

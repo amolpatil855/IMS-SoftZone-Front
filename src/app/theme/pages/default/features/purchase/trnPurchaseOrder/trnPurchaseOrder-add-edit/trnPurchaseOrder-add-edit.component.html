@@ -1,0 +1,222 @@
+<p-confirmDialog #cd>
+	<p-footer>
+		<button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+			<span>
+				<i class="la la-check"></i>
+				<span>
+					Yes
+				</span>
+			</span>
+		</button>
+		<button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+			<span>
+				<i class="la la-close"></i>
+				<span>
+					No
+				</span>
+			</span>
+		</button>
+	</p-footer>
+</p-confirmDialog>
+
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+		<div class="mr-auto">
+			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+				<li class="m-nav__item m-nav__item--home">
+					<a href="#" class="m-nav__link m-nav__link--icon">
+						<i class="m-nav__link-icon la la-home"></i>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a class="m-nav__link">
+						<span class="m-nav__link-text">
+							Purchase Order
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm" title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['purchaseorder']" tabindex="8">
+						{{ params ? 'Update' : 'Save' }}
+				</button>
+				<button class="btn btn-secondary" [isAuthorize]="['purchaseorder']" (click)="onCancel()" tabindex="9">
+						Cancel
+				</button>
+		</div>
+	</div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+	<div class="row">
+		<div class="col-lg-12">
+			<!--begin::Portlet-->
+			<div class="m-portlet">
+                
+                <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+               
+			<div class="row">
+				
+				<div class="col-md-12">
+					
+					<div class="formContainerSamePage">
+							<form class="">
+								<div class="row">
+								
+									<div class="col-md-12">
+										
+										<div class="row">
+											<div class="col-md-12">
+												<!-- Basic Details -->
+												<div class="panel panel-default">
+												  <div class="panel-heading">Basic Details</div>
+												  <div class="panel-body">	
+													
+													<div class="row">
+														<div class="col-md-3">
+															<label class="col-md-4 col-sm-4 fieldLabel">Order Date</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control" placeholder="">
+															</div>	
+														</div>
+														<div class="col-md-3">
+															<label class="col-md-4 col-sm-4 fieldLabel">Order No.</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control" placeholder="">
+															</div>	
+														</div>
+														<div class="col-md-3">
+															<label class="col-md-4 col-sm-4 fieldLabel">Supplier</label>
+															<div class="col-md-8 col-sm-8">
+																<select class="form-control">	
+																	<option selected="" disabled="">- Select -</option>
+																	<option>Supplier 1</option>
+																	<option>Supplier 2</option>
+																	<option>Supplier 3</option>
+																	<option>Supplier 4</option>
+																</select>
+															</div>	
+														</div>
+														<div class="col-md-3">
+															<label class="col-md-4 col-sm-4 fieldLabel">Location</label>
+															<div class="col-md-8 col-sm-8">
+																<select class="form-control">	
+																	<option selected="" disabled="">- Select -</option>
+																	<option>Location 1</option>
+																	<option>Location 2</option>
+																	<option>Location 3</option>
+																	<option>Location 4</option>
+																</select>
+															</div>	
+														</div>
+
+													</div>
+													
+													<!--Shipping Address-->
+													<div class="row">
+														<div class="col-md-12">
+															<div class="shippingAddressBox">													
+																<p>
+																<b>Shipping Address - </b>	84, GANESH PETH, LAXMI ROAD, OPP. GANESH PETH POLICE CHOWKI.,PUNE,MAHARASHTRA,INDIA. PINCODE -411002</p>
+															</div>
+														</div>			
+													</div>
+													
+												  
+												  </div>
+												</div>	
+											</div>
+										
+										</div>								
+										
+									</div>								
+									
+									<div class="col-md-12">
+										<div class="panel panel-default">
+										  <div class="panel-heading">Item Details</div>
+										  <div class="panel-body">
+												<div class="row form-group">
+														<div class="col-md-4">
+															<label class="col-md-4 col-sm-4 fieldLabel">Category</label>
+															<div class="col-md-8 col-sm-8">
+																<select class="form-control">	
+																	<option selected="" disabled="">- Select -</option>
+																	<option>Category 1</option>
+																	<option>Category 2</option>
+																	<option>Category 3</option>
+																	<option>Category 4</option>
+																</select>
+															</div>	
+														</div>
+														<div class="col-md-4">
+															<label class="col-md-4 col-sm-4 fieldLabel">Collection</label>
+															<div class="col-md-8 col-sm-8">
+																<select class="form-control">	
+																	<option selected="" disabled="">- Select -</option>
+																	<option>Collection 1</option>
+																	<option>Collection 2</option>
+																	<option>Collection 3</option>
+																	<option>Collection 4</option>
+																</select>
+															</div>	
+														</div>
+														<div class="col-md-4">
+															<label class="col-md-4 col-sm-4 fieldLabel">Serial No.</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control" placeholder="">
+															</div>	
+                                                        </div>	
+                                                        <!--
+														<div class="col-md-4">
+															<label class="col-md-4 col-sm-4 fieldLabel">Foam Size</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control" placeholder="">
+															</div>	
+														</div>	
+														<div class="col-md-4">
+															<label class="col-md-4 col-sm-4 fieldLabel">Matt Size</label>
+															<div class="col-md-8 col-sm-8">
+																<input type="text" class="form-control" placeholder="">
+															</div>	
+														</div>		-->														
+												</div>
+												
+												<div class="row form-group">
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Order Quantity</label>
+														<div class="col-md-8 col-sm-8">
+															<input type="text" class="form-control" placeholder="">
+														</div>	
+													</div>	
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Order Type</label>
+														<div class="col-md-8 col-sm-8">
+															<label class="orderTypeLabel">CL</label>
+														</div>	
+													</div>
+												</div>
+												
+										  </div>
+										</div>
+									</div>
+									
+								</div>
+								
+							</form>
+						
+						</div>
+					
+				</div>
+			</div>
+		
+
+                <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+			</div>
+			<!--end::Portlet-->
+		</div>
+	</div>
+</div>
