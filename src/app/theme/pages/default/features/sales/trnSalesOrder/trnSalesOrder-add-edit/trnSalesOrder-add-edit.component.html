@@ -55,7 +55,7 @@
 				<div class="col-md-12">
 					
 					<div class="formContainerSamePage">
-							<form class="">
+							<form class="" role="form" novalidate (ngSubmit)="onSubmit(trnSalesOrderForm)" #trnSalesOrderForm="ngForm" id="trnSalesOrderForm">
 								<div class="row">
 								
 									<div class="col-md-12">
@@ -71,13 +71,14 @@
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Order Date</label>
 															<div class="col-md-8 col-sm-8">
-																<input type="text" class="form-control" placeholder="">
+																<input class="form-control m-input" type="date" value="" #orderDateVal="ngModel" required [ngClass]="{'red-border-class': orderDateVal.errors && isFormSubmitted}" [ngModel]="trnSalesOrderObj.orderDate | date:'yyyy-MM-dd'" name="orderDate" id="orderDate" placeholder="" (ngModelChange)="trnSalesOrderObj.orderDate = $event" tabindex="1">
 															</div>	
 														</div>
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Order No.</label>
 															<div class="col-md-8 col-sm-8">
-																<input type="text" class="form-control" placeholder="">
+																<input class="form-control m-input" type="text" value="" maxlength="10" #orderNumberVal="ngModel" required [ngClass]="{'red-border-class': orderNumberVal.errors && isFormSubmitted}"
+																 [(ngModel)]="trnSalesOrderObj.orderNumber" name="orderNumber" id="orderNumber" placeholder="">
 															</div>	
 														</div>
 														<div class="col-md-3">
@@ -97,11 +98,7 @@
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Courier Mode</label>
 															<div class="col-md-8 col-sm-8">
-																<select class="form-control">	
-																	<option selected="" disabled="">- Select -</option>
-																	<option>Surface</option>
-																	<option>Air</option>
-																</select>
+																<p-dropdown class="feePlanBox" [options]="courierMode" [style]="{'width':'100%'}" #selectedCourierModeVal="ngModel" [(ngModel)]="selectedCourierMode" required styleClass="{{ selectedCourierModeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled"  name="courierMode" filter="true" tabindex="2"></p-dropdown>
 															</div>	
 														</div>
 														<div class="col-md-3">
@@ -113,7 +110,8 @@
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Remark</label>
 															<div class="col-md-8 col-sm-8">
-																<input type="text" class="form-control" placeholder="">
+																<input class="form-control m-input" type="text" value="" maxlength="10" #remarkVal="ngModel" required [ngClass]="{'red-border-class': remarkVal.errors && isFormSubmitted}"
+																 [(ngModel)]="trnSalesOrderObj.remark" name="remark" id="remark" placeholder="">
 															</div>	
 														</div>
 														<div class="col-md-3">
@@ -190,13 +188,13 @@
 												</div>
 												
 												<div class="row form-group">
-													<div class="col-md-4">
+													<div class="col-md-4" *ngIf="selectedMatSize == -1">
 														<label class="col-md-4 col-sm-4 fieldLabel">Width</label>
 														<div class="col-md-8 col-sm-8">
 															<input type="text" class="form-control" placeholder="">
 														</div>	
 													</div>	
-													<div class="col-md-4">
+													<div class="col-md-4" *ngIf="selectedMatSize == -1">
 														<label class="col-md-4 col-sm-4 fieldLabel">Height</label>
 														<div class="col-md-8 col-sm-8">
 															<input type="text" class="form-control" placeholder="">
