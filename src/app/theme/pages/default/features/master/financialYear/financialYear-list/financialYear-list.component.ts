@@ -60,7 +60,15 @@ export class FinancialYearListComponent implements OnInit {
       invoiceNumber: '',
     };
   }
-
+  restrictDotMinus(e, limit) {
+    if (e.target.value.length == limit) {
+      return false;
+    }
+    var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+    if (inputKeyCode != null) {
+      if (inputKeyCode == 43 || inputKeyCode == 45 || inputKeyCode == 46 || inputKeyCode == 101) e.preventDefault();
+    }
+  }
   toggleButton() {
     this.toggleDiv = !this.toggleDiv;
     if (this.toggleDiv && !this.params) {
