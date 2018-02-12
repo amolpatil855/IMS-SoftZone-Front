@@ -102,7 +102,7 @@
 																<label class="col-md-4 col-sm-4 fieldLabel">Location</label>
 																<div class="col-md-8 col-sm-8">
 																	<p-dropdown class="feePlanBox" [options]="locationList" required [(ngModel)]="trnPurchaseOrderObj.locationId" #locationVal="ngModel"  required [style]="{'width':'100%'}"  styleClass="{{ locationVal.errors && isFormSubmitted?'red-border-class':''}}"
-																	 name="LocationDDl" filter="true" tabindex="4"  (ngModelChange)="onChangeLocation(event)" ></p-dropdown>
+																	 name="LocationDDl" filter="true" tabindex="4"  (ngModelChange)="onChangeLocation()" ></p-dropdown>
 																</div>
 															</div>
 
@@ -137,20 +137,20 @@
 														<label class="col-md-4 col-sm-4 fieldLabel">Category</label>
 														<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="slectedCategory" [style]="{'width':'100%'}"  [ngClass]="{'red-border-class': slectedCategoryError && isFormSubmitted}"
-															 [disabled]="disabled" (ngModelChange)="onChangeCategory(event)"  name="categoriesDDl" filter="true" tabindex="5"></p-dropdown>
+															  (ngModelChange)="onChangeCategory()"  name="categoriesDDl" filter="true" tabindex="5"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Collection</label>
 														<div class="col-md-8 col-sm-8">
-															<p-dropdown class="feePlanBox" [options]="collectionList"  [(ngModel)]="slectedCollection" [style]="{'width':'100%'}"  [ngClass]="{'red-border-class': slectedCollectionError && isFormSubmitted}" [disabled]="disabled" name="collectionCodeDDl"
-															 filter="true" tabindex="6" (ngModelChange)="onChangeCollection(event)" ></p-dropdown>
+															<p-dropdown class="feePlanBox" [options]="collectionList"  [(ngModel)]="slectedCollection" [style]="{'width':'100%'}"  [ngClass]="{'red-border-class': slectedCollectionError && isFormSubmitted}"  name="collectionCodeDDl"
+															 filter="true" tabindex="6" (ngModelChange)="onChangeCollection()" ></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Serial No.</label>
 														<div class="col-md-8 col-sm-8">
-																<p-dropdown class="feePlanBox" [options]="serialNumberList"  [(ngModel)]="serialNumber" [style]="{'width':'100%'}"  [ngClass]="{'red-border-class': serialNumberError && isFormSubmitted}" [disabled]="disabled" name="serialNumberDDl"
+																<p-dropdown class="feePlanBox" [options]="serialNumberList"  [(ngModel)]="serialNumber" [style]="{'width':'100%'}"  [ngClass]="{'red-border-class': serialNumberError && isFormSubmitted}"  name="serialNumberDDl"
 																filter="true" tabindex="7"></p-dropdown>
 														</div>
 													</div>

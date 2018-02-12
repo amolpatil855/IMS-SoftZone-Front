@@ -198,7 +198,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       });
   }
 
-  onChangeCategory(event) {
+  onChangeCategory() {
     if (this.slectedCategory) {
       this.getCollectionList(this.slectedCategory);
     }
@@ -208,7 +208,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     }
   }
 
-  onChangeCollection(event) {
+  onChangeCollection() {
     if (this.slectedCollection) {
       this.getSerialNumberList(this.slectedCollection);
     }
@@ -231,7 +231,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       });
   }
 
-  onChangeLocation(event) {
+  onChangeLocation() {
     if (this.trnPurchaseOrderObj.locationId) {
       this.commonService.getLocationById(this.trnPurchaseOrderObj.locationId).subscribe(
         data => {
