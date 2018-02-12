@@ -30,6 +30,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   selectedCategory = null;
   selectedCollection = null;
   selectedShade = null;
+  selectedMatSize = null;
   selectedTrnSalesOrder = null;
   selectedFomSize = null;
   selectedCompanyLocation = null;
@@ -111,6 +112,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.selectedAgent = null;
     this.selectedCollection = null;
     this.selectedShade = null;
+    this.selectedMatSize = null;
     this.selectedTrnSalesOrder = null;
     this.selectedFomSize = null;
     this.selectedCompanyLocation = null;
@@ -211,6 +213,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.selectedCollection = null;
     this.selectedShade = null;
+    this.selectedMatSize = null;
     this.selectedTrnSalesOrder = null;
     this.selectedFomSize = null;
     if (this.selectedCategory != null) {
@@ -258,6 +261,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.fomSizeList = [];
     this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.selectedShade = null;
+    this.selectedMatSize = null;
     this.selectedTrnSalesOrder = null;
     this.selectedFomSize = null;
     if (this.selectedCollection != null) {
@@ -278,7 +282,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
           this.matSizeList = results;
           this.matSizeList.unshift({ label: '--Select--', value: null });
           this.matSizeList.push({ label: 'Custom', value: -1 });
-          this.selectedTrnSalesOrder = this.trnSalesOrderObj.matSizeId;
+          this.selectedMatSize = this.trnSalesOrderObj.matSizeId;
           Helpers.setLoading(false);
         },
         error => {
