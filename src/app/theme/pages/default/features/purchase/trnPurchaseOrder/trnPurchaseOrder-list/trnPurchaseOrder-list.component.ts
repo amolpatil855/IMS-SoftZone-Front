@@ -18,7 +18,7 @@ import { TrnPurchaseOrder } from "../../../../_models/trnPurchaseOrder";
 })
 export class TrnPurchaseOrderListComponent implements OnInit {
 trnPurchaseOrderForm: any;
-  trnPurchaseOrderObj: any;
+  trnPurchaseOrderObj: TrnPurchaseOrder;
   params: number;
   trnPurchaseOrderList = [];
   pageSize = 50;
@@ -26,6 +26,7 @@ trnPurchaseOrderForm: any;
   totalCount = 0;
   search = '';
   tableEmptyMesssage = 'Loading...';
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -37,20 +38,12 @@ trnPurchaseOrderForm: any;
   }
 
   ngOnInit() {
-
+    this.trnPurchaseOrderObj=new TrnPurchaseOrder();
+  
   }
 
   getTrnPurchaseOrdersList(){
-    this.trnPurchaseOrderList = [{
-      id: 1,
-      courierId: 101,
-      courierMode: '',
-      saleOrderId: 11,
-      saleOrderNumber: 0,
-      supplierId: 2,
-      orderNumber: 111,
-      
-    }];
+    this.trnPurchaseOrderList = [];
   }
 
   loadLazy(event: LazyLoadEvent) {

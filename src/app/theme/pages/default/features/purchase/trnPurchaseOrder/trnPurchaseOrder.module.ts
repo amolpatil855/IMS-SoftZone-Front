@@ -5,8 +5,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from "../../../default.component";
 import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
+import { CollectionService } from '../../../_services/collection.service';
 // import { RoleService, PermissionService } from '../../_services/index';
-
+import { CommonService } from '../../../_services/common.service';
 import {
   DataTableModule,
   SharedModule,
@@ -15,8 +16,9 @@ import {
   DropdownModule,
   ConfirmDialogModule,
   ConfirmationService,
+  CalendarModule
 } from 'primeng/primeng';
-
+import { SupplierService } from "../../../_services/supplier.service";
 import { TrnPurchaseOrderService } from "../../../_services/trnPurchaseOrder.service";
 import { TrnPurchaseOrderComponent } from "./trnPurchaseOrder.component";
 import { TrnPurchaseOrderListComponent } from "./trnPurchaseOrder-list/trnPurchaseOrder-list.component";
@@ -73,7 +75,8 @@ const routes: Routes = [
     ButtonModule,
     AutoCompleteModule,
     DropdownModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CalendarModule
   ],
   declarations: [
     TrnPurchaseOrderComponent,
@@ -83,7 +86,10 @@ const routes: Routes = [
   providers: [
     // RoleService,
     TrnPurchaseOrderService,
-    ConfirmationService
+    ConfirmationService,
+    SupplierService,
+    CommonService,
+    CollectionService
   ],
 })
 export class TrnPurchaseOrderModule {
