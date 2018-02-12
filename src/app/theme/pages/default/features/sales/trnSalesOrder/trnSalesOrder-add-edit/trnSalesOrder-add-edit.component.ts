@@ -94,6 +94,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.shadeList.unshift({ label: '--Select--', value: null });
     this.matSizeList = [];
     this.matSizeList.unshift({ label: '--Select--', value: null });
+    this.matSizeList.push({ label: 'Custom', value: -1 });
     this.fomSizeList = [];
     this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.selectedCourier = null;
@@ -171,7 +172,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         this.globalErrorHandler.handleError(error);
       });
   }
-
+  
   onCategoryClick() {
     this.collectionList = [];
     this.collectionList.unshift({ label: '--Select--', value: null });
@@ -179,6 +180,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.shadeList.unshift({ label: '--Select--', value: null });
     this.matSizeList = [];
     this.matSizeList.unshift({ label: '--Select--', value: null });
+    this.matSizeList.push({ label: 'Custom', value: -1 });
     this.fomSizeList = [];
     this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.selectedCollection = null;
@@ -226,6 +228,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.shadeList.unshift({ label: '--Select--', value: null });
     this.matSizeList = [];
     this.matSizeList.unshift({ label: '--Select--', value: null });
+    this.matSizeList.push({ label: 'Custom', value: -1 });
     this.fomSizeList = [];
     this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.selectedShade = null;
@@ -248,6 +251,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         results => {
           this.matSizeList = results;
           this.matSizeList.unshift({ label: '--Select--', value: null });
+          this.matSizeList.push({ label: 'Custom', value: -1 });
           this.selectedMatSize = this.trnSalesOrderObj.matSizeId;
           Helpers.setLoading(false);
         },
