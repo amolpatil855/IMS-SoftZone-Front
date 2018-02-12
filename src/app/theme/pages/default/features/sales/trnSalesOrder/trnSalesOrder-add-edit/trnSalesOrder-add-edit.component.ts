@@ -8,6 +8,7 @@ import { GlobalErrorHandler } from '../../../../../../../_services/error-handler
 import { MessageService } from '../../../../../../../_services/message.service';
 import { TrnSalesOrderService } from '../../../../_services/trnSalesOrder.service';
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
+import { CommonService } from '../../../../_services/common.service';
 import { Helpers } from "../../../../../../../helpers";
 import { TrnSaleOrder } from "../../../../_models/trnSaleOrder";
 
@@ -23,12 +24,13 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   trnSalesOrderList = [];
   categoryList: SelectItem[];
   selectedCourier = null;
+  selectedCourierMode = null;
   selectedCustomer = null;
   selectedAgent = null;
   selectedCategory = null;
   selectedCollection = null;
   selectedShade = null;
-  selectedMatSize = null;
+  selectedTrnSalesOrder = null;
   selectedFomSize = null;
   selectedCompanyLocation = null;
   collectionList = [];
@@ -39,6 +41,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   shadeList = [];
   matSizeList = [];
   fomSizeList = [];
+  courierMode = [];
   disabled: boolean = false;
   shadeEnable: boolean = false;
   matEnable: boolean = false;
@@ -51,10 +54,12 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     private trnSalesOrderService: TrnSalesOrderService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
+    private commonService: CommonService,
     private messageService: MessageService) {
   }
 
   ngOnInit() {
+    this.courierMode = this.commonService.courierMode;
     this.route.params.forEach((params: Params) => {
       this.params = params['id'];
     });
@@ -64,6 +69,9 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.getAgentLookUp();
     this.getCategoryLookUp();
     this.getCompanyLocationLookUp();
+    if (this.params){
+        this.getTrnSaleOrderById();
+    }
   }
 
   newRecord() {
@@ -98,11 +106,12 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.fomSizeList = [];
     this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.selectedCourier = null;
+    this.selectedCourierMode = null;
     this.selectedCustomer = null;
     this.selectedAgent = null;
     this.selectedCollection = null;
     this.selectedShade = null;
-    this.selectedMatSize = null;
+    this.selectedTrnSalesOrder = null;
     this.selectedFomSize = null;
     this.selectedCompanyLocation = null;
     this.shadeEnable = false;
@@ -116,6 +125,23 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.isFormSubmitted = false;
       this.newRecord();
     }
+  }
+
+  getTrnSaleOrderById() {
+    Helpers.setLoading(true);
+    this.trnSalesOrderService.getTrnSaleOrderById(this.params).subscribe(
+      results => {
+        this.trnSalesOrderObj = results;
+        console.log('this.trnSalesOrderObj', this.trnSalesOrderObj);
+        this.selectedCategory = this.trnSalesOrderObj.categoryId;
+        if (this.selectedCategory > 0) {
+          this.onCategoryClick();
+        }
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
   getCourierLookup() {
@@ -172,7 +198,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         this.globalErrorHandler.handleError(error);
       });
   }
-  
+
   onCategoryClick() {
     this.collectionList = [];
     this.collectionList.unshift({ label: '--Select--', value: null });
@@ -185,7 +211,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.selectedCollection = null;
     this.selectedShade = null;
-    this.selectedMatSize = null;
+    this.selectedTrnSalesOrder = null;
     this.selectedFomSize = null;
     if (this.selectedCategory != null) {
       this.categoryList.forEach(item => {
@@ -232,7 +258,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.fomSizeList = [];
     this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.selectedShade = null;
-    this.selectedMatSize = null;
+    this.selectedTrnSalesOrder = null;
     this.selectedFomSize = null;
     if (this.selectedCollection != null) {
       this.trnSalesOrderService.getSerialNumberLookUpByCollection(this.selectedCollection).subscribe(
@@ -252,7 +278,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
           this.matSizeList = results;
           this.matSizeList.unshift({ label: '--Select--', value: null });
           this.matSizeList.push({ label: 'Custom', value: -1 });
-          this.selectedMatSize = this.trnSalesOrderObj.matSizeId;
+          this.selectedTrnSalesOrder = this.trnSalesOrderObj.matSizeId;
           Helpers.setLoading(false);
         },
         error => {
@@ -266,6 +292,51 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
           this.fomSizeList.unshift({ label: '--Select--', value: null });
           this.selectedFomSize = this.trnSalesOrderObj.fomSizeId;
           Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
+  onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted = true;
+    if (!valid)
+      return;
+    if (this.trnSalesOrderObj.id > 0) {
+
+    } else {
+      this.trnSalesOrderObj.customerId = value.customer;
+      this.trnSalesOrderObj.courierId = value.courier;
+      this.trnSalesOrderObj.referById = value.agent;
+    }
+    this.saveTrnSalesOrder(this.trnSalesOrderObj);
+  }
+
+  saveTrnSalesOrder(value) {
+    Helpers.setLoading(true);
+    if (this.params) {
+      this.trnSalesOrderService.updateTrnSaleOrder(value)
+        .subscribe(
+        results => {
+          this.params = null;
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    } else {
+      this.trnSalesOrderService.createTrnSaleOrder(value)
+        .subscribe(
+        results => {
+          this.params = null;
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+
         },
         error => {
           this.globalErrorHandler.handleError(error);
