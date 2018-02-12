@@ -60,7 +60,7 @@ trnPurchaseOrderForm: any;
     this.getTrnPurchaseOrdersList();
   }
 
-  onEditClick(trnPurchaseOrder: TrnPurchaseOrder) {
+    onEditClick(trnPurchaseOrder: TrnPurchaseOrder) {
         this.router.navigate(['/features/purchase/trnPurchaseOrder/edit', trnPurchaseOrder.id]);
     }
     onDelete(trnPurchaseOrder: TrnPurchaseOrder) {

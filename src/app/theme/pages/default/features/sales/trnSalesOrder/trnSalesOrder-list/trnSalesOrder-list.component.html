@@ -1,0 +1,102 @@
+<p-confirmDialog #cd>
+	<p-footer>
+		<button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+			<span>
+				<i class="la la-check"></i>
+				<span>
+					Yes
+				</span>
+			</span>
+		</button>
+		<button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+			<span>
+				<i class="la la-close"></i>
+				<span>
+					No
+				</span>
+			</span>
+		</button>
+	</p-footer>
+</p-confirmDialog>
+
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+		<div class="mr-auto">
+			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+				<li class="m-nav__item m-nav__item--home">
+					<a href="#" class="m-nav__link m-nav__link--icon">
+						<i class="m-nav__link-icon la la-home"></i>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a class="m-nav__link">
+						<span class="m-nav__link-text">
+							Sales Order
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+	<div class="row">
+		<div class="col-lg-12">
+			<!--begin::Portlet-->
+			<div class="m-portlet">
+                
+                <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+               
+			
+                <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+                
+
+				<div class="m-portlet__body">
+					<!--begin::Section-->
+					
+					<div class="m-section">
+						<div class="m-section__content">
+								<div class="ui-widget-header" style="border-bottom: 0 none">
+										<i class="fa fa-search searchIcon"></i>
+										<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+										
+										<!-- Add Button -->
+										<button routerLink="/features/sales/trnSalesOrder/add" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="onAddClick()" [isAuthorize]="['salesorder']">
+											<span>
+												<i class="flaticon-add"></i>
+												<span>
+													Add Sales Order
+												</span>
+											</span>
+										</button>
+									</div>
+							<p-dataTable [value]="trnSalesOrderList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
+                            [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+                            <p-column field="orderNumber" header="Order Number" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="mstCustomer.name" header="Customer Name" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="mstCourier.name" header="Courier Name" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="mstAgent.name" header="Refer By" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="orderDate" header="Order Date" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="status" header="Status" [style]="{'text-align':'left'}"></p-column>
+								<p-column styleClass="col-button" [style]="{'text-align':'left'}">
+									<ng-template pTemplate="header">
+										Action
+									</ng-template>
+									<ng-template let-row="rowData" pTemplate="body" >
+										<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+									</ng-template>
+								</p-column>
+							</p-dataTable>
+						</div>
+					</div>
+					<!--end::Section-->
+				</div>
+			</div>
+			<!--end::Portlet-->
+		</div>
+	</div>
+</div>
