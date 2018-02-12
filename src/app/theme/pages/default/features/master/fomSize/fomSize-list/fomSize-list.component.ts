@@ -84,14 +84,13 @@ export class FomSizeListComponent implements OnInit {
     this.selectedSize = null;
   }
   onInputChange() {
-    if (parseFloat(this.fomSizeObj.width) > 999.99) {
-      this.fomSizeObj.width = '';
+    if(this.fomSizeObj.width == '' || this.fomSizeObj.length == ''){
+      this.fomSizeObj.sizeCode = '';
     }
-    if (parseFloat(this.fomSizeObj.length) > 999.99) {
-      this.fomSizeObj.length = '';
-    }
-    //this.fomSizeObj.sizeCode = (this.fomSizeObj.width==""?0:parseFloat( this.fomSizeObj.width ).toFixed(2)) + 'x' + ( this.fomSizeObj.length==""?0:parseFloat(this.fomSizeObj.length ).toFixed(2)) ;
-    this.fomSizeObj.sizeCode = this.fomSizeObj.width + 'x' + this.fomSizeObj.length;
+    else
+    {
+      this.fomSizeObj.sizeCode = this.fomSizeObj.width + 'x' + this.fomSizeObj.length;
+    }  
   }
 
   restrictMinus(e, limit) {
@@ -186,6 +185,7 @@ export class FomSizeListComponent implements OnInit {
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -211,6 +211,7 @@ export class FomSizeListComponent implements OnInit {
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -227,9 +228,11 @@ export class FomSizeListComponent implements OnInit {
           this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
           this.selectedSize = this.fomSizeObj.fomSuggestedMMId;
           console.log('this.fomSuggestedMMList', this.fomSuggestedMMList);
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -250,6 +253,7 @@ export class FomSizeListComponent implements OnInit {
   }
 
   getFomSizeById(id) {
+    Helpers.setLoading(true);
     this.fomSizeService.getFomSizeById(id).subscribe(
       results => {
         this.fomSizeObj = results;
@@ -262,6 +266,7 @@ export class FomSizeListComponent implements OnInit {
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 

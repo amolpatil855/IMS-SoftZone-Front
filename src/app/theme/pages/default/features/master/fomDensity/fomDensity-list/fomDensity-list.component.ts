@@ -149,9 +149,11 @@ export class FomDensityListComponent implements OnInit {
           this.qualityList = results;
           this.qualityList.unshift({ label: '--Select--', value: null });
           this.selectedQuality = this.fomDensityObj.qualityId;
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -172,6 +174,7 @@ export class FomDensityListComponent implements OnInit {
   }
 
   getFomDensityById(id) {
+    Helpers.setLoading(true);
     this.fomDensityService.getFomDensityById(id).subscribe(
       results => {
         this.fomDensityObj = results;
@@ -187,6 +190,7 @@ export class FomDensityListComponent implements OnInit {
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 

@@ -22,7 +22,7 @@
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
 			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="companyForm" title="{{(companyFormVal && companyFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-			 [isAuthorize]="['shade']" tabindex="6">
+			 [isAuthorize]="['companyinfo']" tabindex="6">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
 			<!-- <button class="btn btn-secondary" [isAuthorize]="['shade']" (click)="onCancel()">
@@ -104,7 +104,7 @@
 																<span class="requiredField">*</span>
 															</label>
 															<div class="col-sm-7">
-															<input class="form-control m-input" type="file"  #fileupload  value="" name="companyLogo" id="companyLogo"  (change)="onUploadLogo(fileupload.files)" tabindex="5">
+															<input class="form-control m-input" type="file"  #fileupload  value="" name="companyLogo" id="companyLogo"  (change)="onUploadLogo(fileupload.files, $event)" tabindex="5">
 														</div>
 														</div>
 													</div>

@@ -1759,10 +1759,15 @@ body .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label {
 	border-radius:4px;
 	padding:10px;
 	margin:8px 15px;
-	font-family: Roboto;
+    font-family: Roboto;
+    font-size: 13px;
 }
 .shippingAddressBox p{
-	margin-bottom:0;
+    margin-bottom:0;
+    font-weight:400;
+}
+.shippingAddressBox p b{
+	font-weight:600;
 }
 .orderTypeLabel{
 	font-family: Roboto;
@@ -1795,4 +1800,12 @@ body .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label {
 }
 .m-brand {
     padding-left: 15px!important;
+}
+
+/**** D. 9 Feb 2018 ****/
+.red-border-class{
+    opacity: 1!important;
+}
+body{
+    overflow-x: hidden!important;
 }

@@ -30,6 +30,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/courier\/courier.module#CourierModule"
       },
       {
+        "path": "features\/master\/financialYear",
+        "loadChildren": ".\/pages\/default\/features\/master\/financialYear\/financialYear.module#FinancialYearModule"
+      },
+      {
         "path": "features\/master\/collection",
         "loadChildren": ".\/pages\/default\/features\/master\/collection\/collection.module#CollectionModule"
       },
@@ -83,7 +87,14 @@ const routes: Routes = [
         "path": "features\/roles",
         "loadChildren": ".\/pages\/default\/features\/roles\/roles.module#RolesModule"
       },
-
+      {
+        "path": "features\/purchase\/trnPurchaseOrder",
+        "loadChildren": ".\/pages\/default\/features\/purchase\/trnPurchaseOrder\/trnPurchaseOrder.module#TrnPurchaseOrderModule"
+      },
+      {
+        "path": "features\/sales\/trnSalesOrder",
+        "loadChildren": ".\/pages\/default\/features\/sales\/trnSalesOrder\/trnSalesOrder.module#TrnSalesOrderModule"
+      },
       {
         "path": "header/changePassword",
         "loadChildren": ".\/pages\/default\/features\/changePassword\/changePassword.module#ChangePasswordModule"

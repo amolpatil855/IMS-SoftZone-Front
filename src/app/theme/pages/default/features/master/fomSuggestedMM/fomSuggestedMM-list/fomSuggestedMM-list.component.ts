@@ -150,6 +150,7 @@ export class FomSuggestedMMListComponent implements OnInit {
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -166,9 +167,11 @@ export class FomSuggestedMMListComponent implements OnInit {
           this.fomDensityList.unshift({ label: '--Select--', value: null });
           this.selectedDensity = this.fomSuggestedMMObj.fomDensityId;
           console.log('this.fomDensityList', this.fomDensityList);
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -189,6 +192,7 @@ export class FomSuggestedMMListComponent implements OnInit {
   }
 
   getFomSuggestedMMById(id) {
+    Helpers.setLoading(true);
     this.fomSuggestedMMService.getFomSuggestedMMById(id).subscribe(
       results => {
         this.fomSuggestedMMObj = results;
@@ -200,6 +204,7 @@ export class FomSuggestedMMListComponent implements OnInit {
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 

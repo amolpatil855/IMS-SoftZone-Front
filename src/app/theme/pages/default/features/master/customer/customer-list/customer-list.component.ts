@@ -333,6 +333,7 @@ export class CustomerListComponent implements OnInit {
     }
   }
   getCustomerById(id) {
+    Helpers.setLoading(true);
     this.customerService.getCustomerById(id).subscribe(
       results => {
         this.customerObj = results;
@@ -359,9 +360,11 @@ export class CustomerListComponent implements OnInit {
         _.forEach(this.customerObj.MstCustomerAddresses, function(value) {
           value.contRoleId = Math.floor(Math.random() * 2000);
         });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
   onEditClick(customer: Customer) {

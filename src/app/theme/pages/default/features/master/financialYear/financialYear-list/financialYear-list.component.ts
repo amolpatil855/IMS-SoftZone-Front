@@ -6,23 +6,24 @@ import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@ang
 import { ConfirmationService, DataTableModule, LazyLoadEvent } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
-import { MatThicknessService } from '../../../../_services/matThickness.service';
+import { FinancialYearService } from '../../../../_services/financialYear.service';
 import { Role } from "../../../../_models/role";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
-import { MatThickness } from "../../../../_models/matThickness";
+import { FinancialYear } from "../../../../_models/financialYear";
 
 @Component({
-  selector: "app-matThickness-list",
-  templateUrl: "./matThickness-list.component.html",
+  selector: "app-financialYear-list",
+  templateUrl: "./financialYear-list.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class MatThicknessListComponent implements OnInit {
+export class FinancialYearListComponent implements OnInit {
+
   isFormSubmitted: boolean = false;
-  matThicknessForm: any;
-  matThicknessObj: any;
+  financialYearForm: any;
+  financialYearObj: any;
   params: number;
-  matThicknessList = [];
+  financialYearList = [];
   pageSize = 50;
   page = 1;
   totalCount = 0;
@@ -34,7 +35,7 @@ export class MatThicknessListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private matThicknessService: MatThicknessService,
+    private financialYearService: FinancialYearService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) {
@@ -48,10 +49,15 @@ export class MatThicknessListComponent implements OnInit {
 
   newRecord() {
     this.params = null;
-    this.matThicknessObj = {
+    this.financialYearObj = {
       id: 0,
-      thicknessCode: '',
-      size: ''
+      startDate: '',
+      endDate: '',
+      financialYear: '',
+      poNumber: '',
+      soNumber: '',
+      grnNumber: '',
+      invoiceNumber: '',
     };
   }
 
@@ -67,10 +73,11 @@ export class MatThicknessListComponent implements OnInit {
     this.toggleDiv = false;
     this.newRecord();
   }
-  getMatThicknesssList() {
-    this.matThicknessService.getAllMatThicknesss(this.pageSize, this.page, this.search).subscribe(
+  getFinancialYearsList() {
+    this.financialYearService.getAllFinancialYears(this.pageSize, this.page, this.search).subscribe(
       results => {
-        this.matThicknessList = results.data;
+        this.financialYearList = results.data;
+        console.log('this.financialYearList', this.financialYearList);
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
@@ -92,20 +99,17 @@ export class MatThicknessListComponent implements OnInit {
     this.pageSize = event.rows;
     this.page = event.first;
     this.search = event.globalFilter;
-    this.getMatThicknesssList();
+    this.getFinancialYearsList();
   }
 
-  getMatThicknessById(id) {
-    Helpers.setLoading(true);
-    this.matThicknessService.getMatThicknessById(id).subscribe(
+  getFinancialYearById(id) {
+    this.financialYearService.getFinancialYearById(id).subscribe(
       results => {
-        this.matThicknessObj = results;
-        console.log('this.matThicknessList', this.matThicknessObj);
-        Helpers.setLoading(false);
+        this.financialYearObj = results;
+        console.log('this.financialYearList', this.financialYearObj);
       },
       error => {
         this.globalErrorHandler.handleError(error);
-        Helpers.setLoading(false);
       });
   }
 
@@ -113,16 +117,16 @@ export class MatThicknessListComponent implements OnInit {
     this.isFormSubmitted = true;
     if (!valid)
       return;
-    this.saveMatThickness(this.matThicknessObj);
+   this.saveFinancialYear(this.financialYearObj);
   }
 
-  saveMatThickness(value) {
+  saveFinancialYear(value) {
     Helpers.setLoading(true);
     if (this.params) {
-      this.matThicknessService.updateMatThickness(value)
+      this.financialYearService.updateFinancialYear(value)
         .subscribe(
         results => {
-          this.getMatThicknesssList();
+          this.getFinancialYearsList();
           this.toggleDiv = false;
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -134,10 +138,10 @@ export class MatThicknessListComponent implements OnInit {
           Helpers.setLoading(false);
         });
     } else {
-      this.matThicknessService.createMatThickness(value)
+      this.financialYearService.createFinancialYear(value)
         .subscribe(
         results => {
-          this.getMatThicknesssList();
+          this.getFinancialYearsList();
           this.toggleDiv = false;
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -151,33 +155,12 @@ export class MatThicknessListComponent implements OnInit {
     }
   }
 
-  onEditClick(matThickness: MatThickness) {
-    this.matThicknessService.perPage = this.pageSize;
-    this.matThicknessService.currentPos = this.page;
-    this.getMatThicknessById(matThickness.id);
-    this.params = matThickness.id;
+  onEditClick(financialYear: FinancialYear) {
+    this.financialYearService.perPage = this.pageSize;
+    this.financialYearService.currentPos = this.page;
+    this.getFinancialYearById(financialYear.id);
+    this.params = financialYear.id;
     this.toggleDiv = true;
     this.isFormSubmitted = false;
-  }
-
-  onDelete(matThickness: MatThickness) {
-    this.confirmationService.confirm({
-      message: 'Do you want to delete this record?',
-      header: 'Delete Confirmation',
-      icon: 'fa fa-trash',
-      accept: () => {
-        this.matThicknessService.deleteMatThickness(matThickness.id).subscribe(
-          results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
-            this.getMatThicknesssList();
-            this.toggleDiv = false;
-          },
-          error => {
-            this.globalErrorHandler.handleError(error);
-          })
-      },
-      reject: () => {
-      }
-    });
   }
 }

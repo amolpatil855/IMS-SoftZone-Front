@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation ,ViewChild, ElementRef} from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
@@ -18,9 +18,9 @@ export class CompanyAddEditComponent implements OnInit {
   companyForm: FormGroup;
   imageFileName: string;
   fileInput: string;
-  myInputVariable: any;
   logoURLtoshow: string;
   isFormSubmitted = false;
+  @ViewChild('fileupload') myInputVariable: ElementRef;
   constructor(
     private formBuilder: FormBuilder,
     private globalErrorHandler: GlobalErrorHandler,
@@ -76,7 +76,7 @@ export class CompanyAddEditComponent implements OnInit {
     }
     this.saveCompany(value);
   }
-  onUploadLogo(fileInput: any) {
+  onUploadLogo(fileInput: any,e) {
     var rec = this;
     var fr = new FileReader;
 
@@ -86,6 +86,8 @@ export class CompanyAddEditComponent implements OnInit {
     if (ext != 'jpeg' && ext != 'jpg' && ext != 'png') {
       this.messageService.addMessage({ severity: 'fail', summary: 'Fail', detail: 'Wrong extention' });
       this.myInputVariable.nativeElement.value = "";
+     // e.target.files=[];
+     fileInput=[];
       return;
     }
     rec.imageFileName = fileInput[0].name;
@@ -123,7 +125,7 @@ export class CompanyAddEditComponent implements OnInit {
         .subscribe(
         results => {
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
-
+          this.messageService.updateCompanyDetails('RefereshCompanyDetails');
           this.getCompanyInfo();
         },
         error => {
