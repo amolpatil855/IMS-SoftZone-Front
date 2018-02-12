@@ -42,5 +42,10 @@ export class CommonService {
   getCategoryCodes() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-
+  getLocation() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+  getLocationById(id) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationById?locationId='+id, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
 }
