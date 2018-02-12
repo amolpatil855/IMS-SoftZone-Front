@@ -12,12 +12,12 @@ import { Helpers } from "../../../../../../../helpers";
 import { TrnPurchaseOrder } from "../../../../_models/trnPurchaseOrder";
 
 @Component({
-  selector: "app-trnPurchaseOrder-list",
-  templateUrl: "./trnPurchaseOrder-list.component.html",
+  selector: "app-trnPurchaseOrder-add-edit",
+  templateUrl: "./trnPurchaseOrder-add-edit.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class TrnPurchaseOrderListComponent implements OnInit {
-trnPurchaseOrderForm: any;
+export class TrnPurchaseOrderAddEditComponent implements OnInit {
+  trnPurchaseOrderForm: any;
   trnPurchaseOrderObj: any;
   params: number;
   trnPurchaseOrderList = [];
@@ -37,45 +37,9 @@ trnPurchaseOrderForm: any;
   }
 
   ngOnInit() {
-
   }
 
-  getTrnPurchaseOrdersList(){
-    this.trnPurchaseOrderList = [{
-      id: 1,
-      courierId: 101,
-      courierMode: '',
-      saleOrderId: 11,
-      saleOrderNumber: 0,
-      supplierId: 2,
-      orderNumber: 111,
-      
-    }];
+  onCancel(){
+       this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
   }
-
-  loadLazy(event: LazyLoadEvent) {
-    //in a real application, make a remote request to load data using state metadata from event
-    //event.first = First row offset
-    //event.rows = Number of rows per page
-    //event.sortField = Field name to sort with
-    //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
-    //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
-    //imitate db connection over a network
-    this.pageSize = event.rows;
-    this.page = event.first;
-    this.search = event.globalFilter;
-    this.getTrnPurchaseOrdersList();
-  }
-
-  onEditClick(trnPurchaseOrder: TrnPurchaseOrder) {
-        this.router.navigate(['/features/purchase/trnPurchaseOrder/edit', trnPurchaseOrder.id]);
-    }
-    onDelete(trnPurchaseOrder: TrnPurchaseOrder) {
-        
-    }
-
-    onAddClick() {
-        this.router.navigate(['/features/purchase/trnPurchaseOrder/add']);
-    }
-
 }
