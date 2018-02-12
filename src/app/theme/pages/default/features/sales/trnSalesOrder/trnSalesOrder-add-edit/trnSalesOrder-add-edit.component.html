@@ -1,4 +1,55 @@
+<p-confirmDialog #cd>
+	<p-footer>
+		<button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+			<span>
+				<i class="la la-check"></i>
+				<span>
+					Yes
+				</span>
+			</span>
+		</button>
+		<button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+			<span>
+				<i class="la la-close"></i>
+				<span>
+					No
+				</span>
+			</span>
+		</button>
+	</p-footer>
+</p-confirmDialog>
 
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+		<div class="mr-auto">
+			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+				<li class="m-nav__item m-nav__item--home">
+					<a href="#" class="m-nav__link m-nav__link--icon">
+						<i class="m-nav__link-icon la la-home"></i>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a class="m-nav__link">
+						<span class="m-nav__link-text">
+								Sales Order
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+				<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesOrderForm" title="{{(trnSalesOrderForm && trnSalesOrderForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['salesorder']" tabindex="8">
+						{{ params ? 'Update' : 'Save' }}
+				</button>
+				<button class="btn btn-secondary" [isAuthorize]="['salesorder']" (click)="onCancel()" tabindex="9">
+						Cancel
+				</button>
+		</div>
+	</div>
+</div>
 			<div class="row">
 				
 				<div class="col-md-12">
@@ -32,24 +83,14 @@
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Customer</label>
 															<div class="col-md-8 col-sm-8">
-																<select class="form-control">	
-																	<option selected="" disabled="">- Select -</option>
-																	<option>Customer 1</option>
-																	<option>Customer 2</option>
-																	<option>Customer 3</option>
-																	<option>Customer 4</option>
-																</select>
+															<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="selectedCustomer" required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled"  name="customer" filter="true" tabindex="1"></p-dropdown>
 															</div>	
 														</div>
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Courier</label>
 															<div class="col-md-8 col-sm-8">
-																<select class="form-control">	
-																	<option selected="" disabled="">- Select -</option>
-																	<option>YES</option>
-																	<option>NO</option>
-																</select>
-															</div>	
+															<p-dropdown class="feePlanBox" [options]="courierList" [style]="{'width':'100%'}" #selectedCourierVal="ngModel" [(ngModel)]="selectedCourier" required styleClass="{{ selectedCourierVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled"  name="courier" filter="true" tabindex="2"></p-dropdown>
+															</div>
 														</div>
 													</div>
 													<div class="row">
@@ -58,19 +99,15 @@
 															<div class="col-md-8 col-sm-8">
 																<select class="form-control">	
 																	<option selected="" disabled="">- Select -</option>
-																	<option>Mode 1</option>
-																	<option>Mode 2</option>
+																	<option>Surface</option>
+																	<option>Air</option>
 																</select>
 															</div>	
 														</div>
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Refered by</label>
 															<div class="col-md-8 col-sm-8">
-																<select class="form-control">	
-																	<option selected="" disabled="">- Select -</option>
-																	<option>Mode 1</option>
-																	<option>Mode 2</option>
-																</select>
+																<p-dropdown class="feePlanBox" [options]="agentList" [style]="{'width':'100%'}" #selectedAgentVal="ngModel" [(ngModel)]="selectedAgent" required styleClass="{{ selectedAgentVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled"  name="agent" filter="true" tabindex="3"></p-dropdown>
 															</div>	
 														</div>
 														<div class="col-md-3">
@@ -90,13 +127,7 @@
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Shipping Address</label>
 															<div class="col-md-8 col-sm-8">
-																<select class="form-control">	
-																	<option selected="" disabled="">- Select -</option>
-																	<option>Location 1</option>
-																	<option>Location 2</option>
-																	<option>Location 3</option>
-																	<option>Location 4</option>
-																</select>
+																<p-dropdown class="feePlanBox" [options]="companyLocationList" [style]="{'width':'100%'}" #selectedCompanyLocationVal="ngModel" [(ngModel)]="selectedCompanyLocation" required styleClass="{{ selectedCompanyLocationVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled"  name="company" filter="true" tabindex="4"></p-dropdown>
 															</div>	
 														</div>
 
@@ -129,45 +160,33 @@
 														<div class="col-md-4">
 															<label class="col-md-4 col-sm-4 fieldLabel">Category</label>
 															<div class="col-md-8 col-sm-8">
-																<select class="form-control">	
-																	<option selected="" disabled="">- Select -</option>
-																	<option>Category 1</option>
-																	<option>Category 2</option>
-																	<option>Category 3</option>
-																	<option>Category 4</option>
-																</select>
+																<p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}" #selectedCategoryVal="ngModel" [(ngModel)]="selectedCategory" required styleClass="{{ selectedCategoryVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled"  name="category" (ngModelChange)="onCategoryClick()" filter="true" tabindex="5"></p-dropdown>
 															</div>	
 														</div>
 														<div class="col-md-4">
 															<label class="col-md-4 col-sm-4 fieldLabel">Collection</label>
 															<div class="col-md-8 col-sm-8">
-																<select class="form-control">	
-																	<option selected="" disabled="">- Select -</option>
-																	<option>Collection 1</option>
-																	<option>Collection 2</option>
-																	<option>Collection 3</option>
-																	<option>Collection 4</option>
-																</select>
+																<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}"  #selectedCollectionVal="ngModel" [(ngModel)]="selectedCollection" required styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" tabindex="6"></p-dropdown>
 															</div>	
 														</div>
-														<div class="col-md-4">
+														<div class="col-md-4" *ngIf="shadeEnable">
 															<label class="col-md-4 col-sm-4 fieldLabel">Serial No.</label>
 															<div class="col-md-8 col-sm-8">
-																<input type="text" class="form-control" placeholder="">
+																<p-dropdown class="feePlanBox" [options]="shadeList" [style]="{'width':'100%'}" [(ngModel)]="selectedShade"   #selectedShadeVal="ngModel"  required styleClass="{{ selectedShadeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="shade" filter="true" tabindex="7"></p-dropdown>
 															</div>	
 														</div>	
-														<!--<div class="col-md-4">
+														<div class="col-md-4" *ngIf="fomEnable">
 															<label class="col-md-4 col-sm-4 fieldLabel">Foam Size</label>
 															<div class="col-md-8 col-sm-8">
-																<input type="text" class="form-control" placeholder="">
+																<p-dropdown class="feePlanBox" [options]="fomSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedFomSize"   #selectedFomSizeVal="ngModel"  required styleClass="{{ selectedFomSizeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="fomSize" filter="true" tabindex="8"></p-dropdown>
 															</div>	
 														</div>	
-														<div class="col-md-4">
+														<div class="col-md-4" *ngIf="matEnable">
 															<label class="col-md-4 col-sm-4 fieldLabel">Matt Size</label>
 															<div class="col-md-8 col-sm-8">
-																<input type="text" class="form-control" placeholder="">
+																<p-dropdown class="feePlanBox" [options]="matSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedMatSize"   #selectedMatSizeVal="ngModel"  required styleClass="{{ selectedMatSizeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="matSize" filter="true" tabindex="5"></p-dropdown>
 															</div>	
-														</div>	 -->															
+														</div>															
 												</div>
 												
 												<div class="row form-group">

@@ -21,6 +21,14 @@ export class TrnSalesOrderService {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnSaleOrder/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
   
+  getCompanyLocationLookUp() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getAgentLookUp() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetAgentLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   getCustomerLookUp() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCustomerLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
@@ -33,7 +41,7 @@ export class TrnSalesOrderService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getCollectionLookUp(categoryId) {
+  getCollectionLookUpByCategory(categoryId) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
