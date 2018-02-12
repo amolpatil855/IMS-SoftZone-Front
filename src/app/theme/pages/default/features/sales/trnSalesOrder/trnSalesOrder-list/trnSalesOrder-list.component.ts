@@ -39,58 +39,54 @@ export class TrnSalesOrderListComponent implements OnInit {
 
   }
 
-  getTrnSalesOrdersList(){
-    this.trnSalesOrderList = [{
-    id: 1,
-    orderNumber: 101,
-    customerId: 1,
-    shippingAddress: 'Nashik',
-    courierId: 1,
-    courierMode: 'XYZ',
-    referById: 1,
-    orderDate: '2017/12/12',
-    remark: 'Nice',
-    status: 'Y',
-    financialYear: '2017-18',
-    mstAgent: {
-    id: 1,
-    name: "Agent Name",
-    },
-    mstCourier: {
-    id: 1,
-    name: "Courier Name",
-    },
-    mstCustomer: {
-    id: 1,
-    code: "sample string 2",
-    name: "Customer Name",
-    },
-    }];
+  getTrnSalesOrdersList() {
+    this.trnSalesOrderService.getAllTrnSaleOrders(this.pageSize, this.page, this.search).subscribe(
+      results => {
+        this.trnSalesOrderList = results.data;
+        this.totalCount = results.totalCount;
+        if (this.totalCount == 0) {
+          this.tableEmptyMesssage = "No Records Found";
+        }
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found";
+        this.globalErrorHandler.handleError(error);
+      });
   }
 
   loadLazy(event: LazyLoadEvent) {
-    //in a real application, make a remote request to load data using state metadata from event
-    //event.first = First row offset
-    //event.rows = Number of rows per page
-    //event.sortField = Field name to sort with
-    //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
-    //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
-    //imitate db connection over a network
     this.pageSize = event.rows;
     this.page = event.first;
     this.search = event.globalFilter;
     this.getTrnSalesOrdersList();
   }
 
-    onEditClick(trnSalesOrder: TrnSaleOrder) {
-        this.router.navigate(['/features/sales/trnSalesOrder/edit', trnSalesOrder.id]);
-    }
-    onDelete(trnSalesOrder: TrnSaleOrder) {
-        
-    }
+  onEditClick(trnSalesOrder: TrnSaleOrder) {
+    this.router.navigate(['/features/sales/trnSalesOrder/edit', trnSalesOrder.id]);
+  }
 
-    onAddClick() {
-        this.router.navigate(['/features/sales/trnSalesOrder/add']);
-    }
+  onDelete(trnSalesOrder: TrnSaleOrder) {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'fa fa-trash',
+      accept: () => {
+        this.trnSalesOrderService.deleteTrnSaleOrder(trnSalesOrder.id).subscribe(
+          results => {
+            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+            this.getTrnSalesOrdersList();
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+          })
+      },
+      reject: () => {
+      }
+    });
+  }
+
+  onAddClick() {
+    this.router.navigate(['/features/sales/trnSalesOrder/add']);
+  }
 
 }
