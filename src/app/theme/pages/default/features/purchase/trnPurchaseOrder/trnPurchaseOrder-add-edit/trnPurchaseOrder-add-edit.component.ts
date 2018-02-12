@@ -32,12 +32,24 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   trnPurchaseOrderObj: TrnPurchaseOrder;
   collectionList = [];
   categoriesCodeList = [];
+  serialNumberList = [];
   slectedCategory = null;
-  slectedCollection=null;
+  slectedCollection = null;
   itemDetails = [];
-  serialNumber=null;
-  orderQuantity=null;
-  orderType=null;
+  serialNumber = null;
+  orderQuantity = null;
+  orderType = null;
+  locationObj = null;
+  length = null;
+  width = null;
+  sizecode = null;
+  isFormSubmitted = false;
+  slectedCategoryError = false;
+  slectedCollectionError = false;
+  serialNumberError = false;
+  lengthError = false;
+  widthError=false;
+  orderQuantityError=false;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -56,85 +68,123 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.getSupplierCodeList();
     this.getLocationList();
     this.getCategoryCodeList();
-   // this.newItem();
+    this.locationObj = {};
+    // this.newItem();
   }
 
   newItem() {
-   this.slectedCategory=null;
-   this.slectedCollection=null;
-   this.serialNumber='';
-   this.orderQuantity='';
-   this.orderType='';
+    this.slectedCategory = null;
+    this.slectedCollection = null;
+    this.serialNumber = '';
+    this.orderQuantity = '';
+    this.orderType = '';
+    this.length = null;
+    this.width = null;
+    this.sizecode = null;
   }
 
-addItemToList(){
+  addItemToList() {
 
-  let catObj=_.find(this.categoriesCodeList, ['value', this.slectedCategory]);
-  let collObj=_.find(this.collectionList, ['value', this.slectedCollection]);
-  let itemObj = {
-    categotryId: this.slectedCategory,
-    categotryName:catObj.label,
-    collectionName:collObj.label,
-    collectionid: this.slectedCollection,
-    serialno: this.serialNumber,
-    quantity: this.orderQuantity,
-    orderType: this.orderType
-  };
-  this.itemDetails.push(itemObj);
-}
+    if (!this.slectedCategory)
+      this.slectedCategoryError = true;
+    else
+      this.slectedCategoryError = false;
 
-enableEdit(row) {
-  row.enable = true;
-}
-cancelEdit(row) {
-  row.enable = false;
-}
+    if (!this.slectedCollection)
+      this.slectedCollectionError = true;
+    else
+      this.slectedCollectionError = false;
 
-onSaveItemDetails(row) {
-  if (!row.id) {
-      row.id=null;
+    if (!this.serialNumber)
+      this.serialNumberError = true;
+    else
+      this.serialNumberError = false;
+
+
+    if (this.slectedCollection == 4 && this.serialNumber == -1 && !this.length)
+      this.lengthError = true;
+    else
+      this.lengthError = false;
+
+    if (this.slectedCollection == 4 && this.serialNumber == -1 && !this.width)
+      this.widthError = true;
+    else
+      this.widthError = false;
+
+    if(!this.orderQuantity)
+    this.orderQuantityError = true;
+    else
+      this.orderQuantityError = false;
+
+    let catObj = _.find(this.categoriesCodeList, ['value', this.slectedCategory]);
+    let collObj = _.find(this.collectionList, ['value', this.slectedCollection]);
+    let itemObj = {
+      categotryId: this.slectedCategory,
+      categotryName: catObj ? catObj.label : '',
+      collectionName: collObj ? catObj.label : '',
+      collectionid: this.slectedCollection,
+      serialno: this.serialNumber,
+      quantity: this.orderQuantity,
+      orderType: this.orderType,
+      length: null,
+      width: null,
+      sizecode: null
+    };
+    this.itemDetails.push(itemObj);
+  }
+
+  enableEdit(row) {
+    row.enable = true;
+  }
+  cancelEdit(row) {
+    row.enable = false;
+  }
+
+  onSaveItemDetails(row) {
+    if (!row.id) {
+      row.id = null;
       this.trnPurchaseOrderService.getTrnPurchaseOrderById(row).subscribe(
-          data => {
-              this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Added Successfully' });
-              // this.getAllMerchants();
+        data => {
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Added Successfully' });
+          // this.getAllMerchants();
 
-          }, error => {
-              this.globalErrorHandler.handleError(error);
-          });
-  }
-  else {
+        }, error => {
+          this.globalErrorHandler.handleError(error);
+        });
+    }
+    else {
       this.trnPurchaseOrderService.updateTrnPurchaseOrder(row).subscribe(
-          data => {
-              this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Updated Successfully' });
-             // this.getAllMerchants();
-          }, error => {
-              this.globalErrorHandler.handleError(error);
-          });
+        data => {
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Updated Successfully' });
+          // this.getAllMerchants();
+        }, error => {
+          this.globalErrorHandler.handleError(error);
+        });
+    }
   }
-}
-onDeleteItemDetails(id, index) {
-  if (id) {
+  onDeleteItemDetails(id, index) {
+    if (id) {
       this.confirmationService.confirm({
-          message: 'Do you want to delete this record?',
-          header: 'Delete Confirmation',
-          icon: 'fa fa-trash',
-          accept: () => {
-              // this.trnPurchaseOrderService.deleteItem(id).subscribe(
-              //     data => {
-              //         this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Deleted Successfully' });
-              //        // this.getAllMerchants();
-              //     }, error => {
-              //         this.globalErrorHandler.handleError(error);
-              //     });
-          },
-          reject: () => {
-          }
+        message: 'Do you want to delete this record?',
+        header: 'Delete Confirmation',
+        icon: 'fa fa-trash',
+        accept: () => {
+          // this.trnPurchaseOrderService.deleteItem(id).subscribe(
+          //     data => {
+          //         this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Deleted Successfully' });
+          //        // this.getAllMerchants();
+          //     }, error => {
+          //         this.globalErrorHandler.handleError(error);
+          //     });
+        },
+        reject: () => {
+        }
       });
-  }
-  else {
+    }
+    else {
       this.itemDetails.splice(index, 1);
+    }
   }
-}
 
 
   getCategoryCodeList() {
@@ -155,6 +205,43 @@ onDeleteItemDetails(id, index) {
     else {
       this.collectionList = [];
       this.collectionList.unshift({ label: '--Select--', value: null });
+    }
+  }
+
+  onChangeCollection(event) {
+    if (this.slectedCollection) {
+      this.getSerialNumberList(this.slectedCollection);
+    }
+    else {
+      this.serialNumberList = [];
+      this.serialNumberList.unshift({ label: '--Select--', value: null });
+    }
+  }
+
+  getSerialNumberList(id) {
+    this.trnPurchaseOrderService.getSerialNumberPurchaseOrders(id).subscribe(
+      results => {
+        this.serialNumberList = results;
+        this.serialNumberList.unshift({ label: '--Select--', value: null });
+        if (id == 4)
+          this.serialNumberList.push({ label: 'Custom', value: -1 });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  onChangeLocation(event) {
+    if (this.trnPurchaseOrderObj.locationId) {
+      this.commonService.getLocationById(this.trnPurchaseOrderObj.locationId).subscribe(
+        data => {
+          this.locationObj = data;
+        }, error => {
+          this.globalErrorHandler.handleError(error);
+        });
+    }
+    else {
+      this.locationObj = {};
     }
   }
 
@@ -190,5 +277,9 @@ onDeleteItemDetails(id, index) {
   }
   onCancel() {
     this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
+  }
+
+  onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted = true;
   }
 }
