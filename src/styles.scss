@@ -1362,6 +1362,7 @@ body .ui-dialog .ui-dialog-titlebar {
 }
 .panel-body {
     padding: 5px 5px!important;
+    background: #fff;
 }
 .formAddressTable tr th {   
     padding-top: 3px!important;
@@ -1809,3 +1810,39 @@ body .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label {
 body{
     overflow-x: hidden!important;
 }
+
+/*** D. 13 Feb 2018 ***/
+#orderDate{
+    height: 22px!important;
+}
+.purchaseOrderDate .ui-inputtext {
+    width:100%;
+    padding: 2px 2px !important;
+    font-size: 13px !important;
+}
+select {
+    text-transform: none;
+    padding: 2px 2px !important;
+    font-size: 13px !important;
+    height: 22px!important;
+    border-radius: 3px!important;
+    border-color: #ebedf2!important;
+}
+select option {
+    font-family: Arial;
+    font-size: 13px;    
+}
+.purchaseRemarkBox{
+    padding-left: 10px!important;   
+}
+.formAddItemBox{
+    margin-top: 10px;
+}
+.ui-datatable-tablewrapper{
+    max-height: 68vh;
+    overflow-y: auto;
+}
+/*.m-aside-menu .m-menu__nav {    
+    max-height: 85vh;
+    overflow-y: auto;
+}*/

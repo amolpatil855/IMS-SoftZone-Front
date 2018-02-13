@@ -91,7 +91,7 @@ export class HsnListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first;
+    this.page = event.first/event.rows;
     this.search = event.globalFilter;
     this.getHsnsList();
   }
@@ -160,6 +160,7 @@ export class HsnListComponent implements OnInit {
     // this.router.navigate(['/features/master/hsn/edit', hsn.id]);
     this.isFormSubmitted = false;
     this.toggleDiv = true;
+    window.scrollTo(0, 0);
   }
 
   onDelete(hsn: Hsn) {
