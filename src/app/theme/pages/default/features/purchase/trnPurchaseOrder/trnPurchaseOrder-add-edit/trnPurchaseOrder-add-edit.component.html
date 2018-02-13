@@ -78,11 +78,11 @@
 													<div class="panel-heading">Basic Details</div>
 													<div class="panel-body">
 
-														<div class="row">
+														<div class="row form-group">
 															<div class="col-md-4">
 																<label class="col-md-4 col-sm-4 fieldLabel">Date</label>
 																<div class="col-md-8 col-sm-8">
-																	<p-calendar class="feePlanBox" #orderDateVal="ngModel" [(ngModel)]="trnPurchaseOrderObj.orderDate" name="orderDate" [monthNavigator]="true"
+																	<p-calendar class="purchaseOrderDate" #orderDateVal="ngModel" [(ngModel)]="trnPurchaseOrderObj.orderDate" name="orderDate" [monthNavigator]="true"
 																	 [yearNavigator]="true" tabindex="1" yearRange="2015:2030" styleClass="{{ orderDateVal.errors && isFormSubmitted?'red-border-class':''}}"
 																	 required></p-calendar>
 																</div>
@@ -148,7 +148,7 @@
 														<div class="row">
 																<div class="col-md-8">
 																		<label class="col-md-2 col-sm-2 fieldLabel">Remark</label>
-																		<div class="col-md-10 col-sm-10">
+																		<div class="col-md-10 col-sm-10 purchaseRemarkBox">
 																				<input type="text" [(ngModel)]="trnPurchaseOrderObj.remark" name="remark" class="form-control" #remarkVal="ngModel"
 																				 tabindex="7" placeholder="">
 																		</div>
@@ -228,12 +228,10 @@
 														</div>
 													</div>
 												</div>
-												<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-													<input type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom" value="Add To List" tabindex="9"
-													 (click)="addItemToList()" />
+
+												<div class="m-form__actions m-form__actions--solid formTopActionBtnBox formAddItemBox">
+													<input type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add To List" tabindex="9" (click)="addItemToList()" />
 													<input type="button" class="btn btn-secondary" value="Cancel" (click)="onCancelItemDetails()" tabindex="10">
-														
-													
 												</div>
 											</div>
 										</div>
