@@ -50,6 +50,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   lengthError = false;
   widthError=false;
   orderQuantityError=false;
+  courierList=[];
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -68,6 +69,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.getSupplierCodeList();
     this.getLocationList();
     this.getCategoryCodeList();
+    this.getCourierList();
     this.locationObj = {};
     // this.newItem();
   }
@@ -192,6 +194,19 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       results => {
         this.categoriesCodeList = results;
         this.categoriesCodeList.unshift({ label: '--Select--', value: null });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  
+
+  getCourierList() {
+    this.trnPurchaseOrderService.getCourierLookUp().subscribe(
+      results => {
+        this.courierList = results;
+        this.courierList.unshift({ label: '--Select--', value: null });
       },
       error => {
         this.globalErrorHandler.handleError(error);
