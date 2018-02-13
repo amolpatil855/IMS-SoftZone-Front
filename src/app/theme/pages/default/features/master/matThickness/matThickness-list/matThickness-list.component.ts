@@ -90,7 +90,7 @@ export class MatThicknessListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first;
+    this.page = event.first/event.rows;
     this.search = event.globalFilter;
     this.getMatThicknesssList();
   }
@@ -158,6 +158,7 @@ export class MatThicknessListComponent implements OnInit {
     this.params = matThickness.id;
     this.toggleDiv = true;
     this.isFormSubmitted = false;
+    window.scrollTo(0, 0);
   }
 
   onDelete(matThickness: MatThickness) {

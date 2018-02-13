@@ -48,9 +48,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   slectedCollectionError = false;
   serialNumberError = false;
   lengthError = false;
-  widthError=false;
-  orderQuantityError=false;
-  courierList=[];
+  widthError = false;
+  orderQuantityError = false;
+  courierList = [];
+  courierModeList = [];
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -70,16 +71,22 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.getLocationList();
     this.getCategoryCodeList();
     this.getCourierList();
+    let today = new Date();
     this.locationObj = {};
+
+    this.trnPurchaseOrderObj.orderDate=  today  ;
     // this.newItem();
+    this.courierModeList.push({ label: '--Select--', value: null });
+    this.courierModeList.push({ label: 'Surface', value: 'Surface' });
+    this.courierModeList.push({ label: 'Air', value: 'Air' });
   }
 
   newItem() {
     this.slectedCategory = null;
     this.slectedCollection = null;
-    this.serialNumber = '';
-    this.orderQuantity = '';
-    this.orderType = '';
+    this.serialNumber = null;
+    this.orderQuantity = null;
+    this.orderType = null;
     this.length = null;
     this.width = null;
     this.sizecode = null;
@@ -113,10 +120,13 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     else
       this.widthError = false;
 
-    if(!this.orderQuantity)
-    this.orderQuantityError = true;
+    if (!this.orderQuantity)
+      this.orderQuantityError = true;
     else
       this.orderQuantityError = false;
+    if(this.orderQuantityError || this.widthError || this.lengthError || this.serialNumberError || this.slectedCollectionError ||  this.slectedCategoryError){
+      return;
+    }
 
     let catObj = _.find(this.categoriesCodeList, ['value', this.slectedCategory]);
     let collObj = _.find(this.collectionList, ['value', this.slectedCollection]);
@@ -133,6 +143,22 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       sizecode: null
     };
     this.itemDetails.push(itemObj);
+  }
+
+  onCancelItemDetails(){
+
+    this.slectedCategoryError = false;
+    this.slectedCollectionError = false;
+    this.serialNumberError = false;
+    this.lengthError = false;
+    this.widthError = false;
+    this.orderQuantityError = false;
+    this.slectedCategory=null;
+    this.slectedCollection=null;
+    this.serialNumber=null;
+    this.lengthError=null;
+    this.widthError = null;
+    this.orderQuantity=null;
   }
 
   enableEdit(row) {
@@ -200,7 +226,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       });
   }
 
-  
+
 
   getCourierList() {
     this.trnPurchaseOrderService.getCourierLookUp().subscribe(
