@@ -62,7 +62,7 @@ export class DesignListComponent implements OnInit {
       designCode: '',
       designName: '',
       description: '',
-    }; 
+    };
     this.selectedCategory = null;
     this.collectionList = [];
     this.collectionList.unshift({ label: '--Select--', value: null });
@@ -168,7 +168,7 @@ export class DesignListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getDesignsList();
     this.getCategoryLookUp();
@@ -250,6 +250,7 @@ export class DesignListComponent implements OnInit {
     this.toggleDiv = true;
     this.disabled = true;
     this.isFormSubmitted = false;
+    window.scrollTo(0, 0);
   }
 
   onDelete(design: Design) {
