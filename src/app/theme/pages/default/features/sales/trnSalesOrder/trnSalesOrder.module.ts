@@ -13,6 +13,9 @@ import {
   ButtonModule,
   AutoCompleteModule,
   DropdownModule,
+  OverlayPanelModule,
+  DialogModule,
+  RadioButtonModule,
   ConfirmDialogModule,
   ConfirmationService,
 } from 'primeng/primeng';
@@ -73,6 +76,9 @@ const routes: Routes = [
     ButtonModule,
     AutoCompleteModule,
     DropdownModule,
+    OverlayPanelModule,
+    DialogModule,
+    RadioButtonModule,
     ConfirmDialogModule
   ],
   declarations: [

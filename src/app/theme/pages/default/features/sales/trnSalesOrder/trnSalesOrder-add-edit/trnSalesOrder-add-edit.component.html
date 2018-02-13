@@ -77,14 +77,14 @@
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Order No.</label>
 															<div class="col-md-8 col-sm-8">
-																<input class="form-control m-input" type="text" value="" maxlength="10" #orderNumberVal="ngModel" required [ngClass]="{'red-border-class': orderNumberVal.errors && isFormSubmitted}"
-																 [(ngModel)]="trnSalesOrderObj.orderNumber" name="orderNumber" id="orderNumber" placeholder="">
+																<input class="form-control m-input" type="text" value="" maxheight="10" #orderNumberVal="ngModel" required [ngClass]="{'red-border-class': orderNumberVal.errors && isFormSubmitted}"
+																 [(ngModel)]="trnSalesOrderObj.orderNumber" name="orderNumber" id="orderNumber" placeholder="" readonly>
 															</div>	
 														</div>
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Customer</label>
 															<div class="col-md-8 col-sm-8">
-															<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="selectedCustomer" required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled"  name="customer" filter="true" tabindex="1"></p-dropdown>
+															<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="selectedCustomer" required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled"  name="customer" (ngModelChange)="onCustomerChange()" filter="true" tabindex="1"></p-dropdown>
 															</div>	
 														</div>
 														<div class="col-md-3">
@@ -110,7 +110,7 @@
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Remark</label>
 															<div class="col-md-8 col-sm-8">
-																<input class="form-control m-input" type="text" value="" maxlength="10" #remarkVal="ngModel" required [ngClass]="{'red-border-class': remarkVal.errors && isFormSubmitted}"
+																<input class="form-control m-input" type="text" value="" maxheight="10" #remarkVal="ngModel" required [ngClass]="{'red-border-class': remarkVal.errors && isFormSubmitted}"
 																 [(ngModel)]="trnSalesOrderObj.remark" name="remark" id="remark" placeholder="">
 															</div>	
 														</div>
@@ -119,7 +119,7 @@
 															<div class="col-md-8 col-sm-8">
 																<input type="text" class="form-control" placeholder="">
 															</div>	
-														</div>	
+														</div>
 													</div>
 													<div class="row">	
 														<div class="col-md-3">
@@ -130,18 +130,21 @@
 														</div>
 
 													</div>
-													
+													<div class="col-md-3">
+															<div class="col-md-8 col-sm-8">
+																<!-- <button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"></button> -->
+															</div>	
+														</div>
 													<!--Shipping Address-->
 													<div class="row">
 														<div class="col-md-12">
 															<div class="shippingAddressBox">													
 																<p>
-																<b>Shipping Address - </b>	84, GANESH PETH, LAXMI ROAD, OPP. GANESH PETH POLICE CHOWKI.,PUNE,MAHARASHTRA,INDIA. PINCODE -411002</p>
+																<a href="#" (click)="showDialog()"><b>Shipping Address  </b></a> -	{{this.shippingAddressObj.addressLine1}} {{this.shippingAddressObj.addressLine2}} , {{this.shippingAddressObj.state}} ,{{this.shippingAddressObj.city}}  
+																		PINCODE -{{this.shippingAddressObj.pin}}</p>
 															</div>
 														</div>			
 													</div>
-													
-												  
 												  </div>
 												</div>	
 											</div>
@@ -191,19 +194,19 @@
 													<div class="col-md-4" *ngIf="selectedMatSize == -1">
 														<label class="col-md-4 col-sm-4 fieldLabel">Width</label>
 														<div class="col-md-8 col-sm-8">
-															<input type="text" class="form-control" placeholder="">
+															<input type="text" class="form-control"  OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" #widthVal="ngModel" required [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}" [(ngModel)]="width" name="width" placeholder="">
 														</div>	
 													</div>	
 													<div class="col-md-4" *ngIf="selectedMatSize == -1">
 														<label class="col-md-4 col-sm-4 fieldLabel">Height</label>
 														<div class="col-md-8 col-sm-8">
-															<input type="text" class="form-control" placeholder="">
+															<input type="text" class="form-control"  OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" #heightVal="ngModel" required [ngClass]="{'red-border-class': heightVal.errors && isFormSubmitted}" (input)="onInputChange()" [(ngModel)]="height" name="height" placeholder="">
 														</div>	
 													</div>	
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Size</label>
 														<div class="col-md-8 col-sm-8">
-															<label class="orderTypeLabel">300 * 600</label>
+															<input type="text" class="form-control" readonly required #sizeVal="ngModel"  [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}" [(ngModel)]="size" name="size" placeholder="">
 														</div>	
 													</div>
 												</div>
@@ -212,19 +215,19 @@
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Rate</label>
 														<div class="col-md-8 col-sm-8">
-															<input type="text" class="form-control" placeholder="">
+															<input class="form-control"  OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999"  #rateVal="ngModel" required [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}"  [(ngModel)]="rate" name="rate" tabindex="8" placeholder="">
 														</div>	
 													</div>	
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Available Stock</label>
 														<div class="col-md-8 col-sm-8">
-															<input type="text" class="form-control" placeholder="">
+															<input class="form-control"  OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" #availableStockVal="ngModel" required [ngClass]="{'red-border-class': availableStockVal.errors && isFormSubmitted}"  [(ngModel)]="availableStock" name="availableStock" tabindex="8" placeholder="">
 														</div>	
 													</div>	
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Quantity</label>
 														<div class="col-md-8 col-sm-8">
-															<input type="text" class="form-control" placeholder="">
+															<input class="form-control"  OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999"  #quantityVal="ngModel" required [ngClass]="{'red-border-class': quantityVal.errors && isFormSubmitted}" (input)="calculateAmount()" [(ngModel)]="quantity" name="quantity" tabindex="8" placeholder="">
 														</div>	
 													</div>													
 												</div>
@@ -233,10 +236,17 @@
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Amount</label>
 														<div class="col-md-8 col-sm-8">
-															<label class="orderTypeLabel">Rs. 60,000</label>
+															<input class="form-control"  OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" readonly #amountVal="ngModel"  [ngClass]="{'red-border-class': amountVal.errors && isFormSubmitted}"  [(ngModel)]="amount" name="amount" tabindex="8" placeholder="">
 														</div>	
 													</div>
 												</div>
+
+												<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+														<input type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add To List" tabindex="9" (click)="addItemToList()" />
+														<button class="btn btn-secondary" (click)="onCancel()" tabindex="10">
+															Cancel
+														</button>
+													</div>
 												
 										  </div>
 										</div>
@@ -245,9 +255,105 @@
 								</div>
 								
 							</form>
-						
+							<div class="row">
+								<div class="col-md-12">
+									<table class="staticTable merchantTable" id="">
+										<thead>
+											<tr>
+												<th title="">
+													Category
+												</th>
+												<th title="">
+													Collection
+												</th>
+												<th title="">
+													Serial No
+												</th>
+												<th title="">
+													Foam Size
+												</th>
+												<th title="">
+													Mattress Size
+												</th>
+												<th title="">
+													Size
+												</th>
+												<th title="">
+													Rate
+												</th>
+												<th title="">
+													Available Stock
+												</th>
+												<th title="">
+													Quantity
+												</th>
+												<th title="">
+													Amount
+												</th>
+												<th title="">
+													Action
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr *ngIf="itemDetails.height==0">
+												<td colspan="5">
+														No Record Found
+												</td>
+											</tr>
+											<tr *ngFor="let row of itemDetails;let rowNum=index;let lastRowNum=last;">
+												<td>{{row.categotryName}}</td>
+												<td>{{row.collectionName}}</td>
+												<td>{{row.serialno}}</td>
+												<td>{{row.fomSize}}</td>
+												<td>{{row.matSize}}</td>
+												<td>{{row.size}}</td>
+												<td>{{row.rate}}</td>
+												<td>{{row.availableStock}}</td>
+												<td>{{row.quantity}}</td>
+												<td>{{row.amount}}</td>
+												<td>
+												<div class="">
+														<!-- <button title="Edit" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+															*ngIf="!row.enable" (click)="enableEdit(row)">
+															<i class="la la-edit" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
+														</button> -->
+														<!-- <button title="Cancel" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+														*ngIf="row.enable" (click)="cancelEdit(row)">
+														<i class="la la-undo" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
+													</button> -->
+														<button title="Delete" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+														*ngIf="row.enable ||!row.id" (click)="onDeleteItemDetails(row.id,rowNum)">
+															<i class="la la-close" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
+														</button>
+														<!-- <button title="Save" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+															*ngIf="row.enable ||!row.id" (click)="onSaveItemDetails(row,isDefaultSelected)">
+															<i class="la la-save" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
+														</button> -->
+														
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
 						</div>
 					
 				</div>
 			</div>
-		
+		<p-dialog header="Customer Address Details" [(visible)]="display" modal="modal" [responsive]="true" >
+																	<p-dataTable [value]="addressList" >
+																		<p-column field="addressLine1" header="AddressLine1"></p-column>
+																		<p-column field="addressLine2" header="AddressLine2"></p-column>
+																		<p-column field="city" header="City"></p-column>
+																		<p-column field="gstin" header="Gstin"></p-column>
+																		<p-column field="pin" header="pin"></p-column>
+																		<p-column field="state" header="state"></p-column>
+																		<p-column field="isPrimary" header="IsPrimary">
+																			 <ng-template let-data="rowData"  pTemplate="body">
+																				<p-radioButton name="groupname" value="val2" [(ngModel)]="selectedRadio" (onClick)="onRadioBtnClick(data)"></p-radioButton>
+																			</ng-template>
+																		</p-column>
+																	</p-dataTable>
+																</p-dialog>
