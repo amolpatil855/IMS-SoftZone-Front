@@ -83,7 +83,7 @@
 																<label class="col-md-4 col-sm-4 fieldLabel">Date</label>
 																<div class="col-md-8 col-sm-8">
 																	<p-calendar class="feePlanBox" #orderDateVal="ngModel" [(ngModel)]="trnPurchaseOrderObj.orderDate" name="orderDate" [monthNavigator]="true"
-																	 [yearNavigator]="true" tabindex="1" yearRange="2015:2030" styleClass="{{ orderDateVal.errors && isFormSubmitted?'red-border-class':''}}"
+																	 [yearNavigator]="true" tabindex="1" yearRange="2015:2030" dateFormat="dd/mm/yy" styleClass="{{ orderDateVal.errors && isFormSubmitted?'red-border-class':''}}" 
 																	 required></p-calendar>
 																</div>
 															</div>
@@ -122,8 +122,8 @@
 																		<option value="Surface">Surface</option>
 																	</select> -->
 																	<p-dropdown class="feePlanBox" [options]="courierModeList" required [(ngModel)]="trnPurchaseOrderObj.courierMode" #courierModeVal="ngModel"
-																	required [style]="{'width':'100%'}" styleClass="{{ courierModeVal.errors && isFormSubmitted?'red-border-class':''}}"
-																	name="courierModeDDl" filter="true" tabindex="5"></p-dropdown>
+																	 required [style]="{'width':'100%'}" styleClass="{{ courierModeVal.errors && isFormSubmitted?'red-border-class':''}}"
+																	 name="courierModeDDl" filter="true" tabindex="5"></p-dropdown>
 																</div>
 															</div>
 															<div class="col-md-4">
@@ -145,16 +145,17 @@
 																</div>
 															</div>
 														</div>
-														<div class="row">
+														<div class="row ">
+															
 																<div class="col-md-8">
-																		<label class="col-md-2 col-sm-2 fieldLabel">Remark</label>
-																		<div class="col-md-10 col-sm-10">
-																				<input type="text" [(ngModel)]="trnPurchaseOrderObj.remark" name="remark" class="form-control" #remarkVal="ngModel"
-																				 tabindex="7" placeholder="">
-																		</div>
+																	<label class="col-md-2 col-sm-2 fieldLabel">Remark</label>
+																	<div class="col-md-10 col-sm-10">
+																		<input type="text" [(ngModel)]="trnPurchaseOrderObj.remark" name="remark" class="form-control" #remarkVal="ngModel" tabindex="7"
+																		 placeholder="">
+																	</div>
 																</div>
+															
 														</div>
-
 													</div>
 												</div>
 											</div>
@@ -229,11 +230,11 @@
 													</div>
 												</div>
 												<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-													<input type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom" value="Add To List" tabindex="9"
-													 (click)="addItemToList()" />
+													<input type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom" value="Add To List" tabindex="9" (click)="addItemToList()"
+													/>
 													<input type="button" class="btn btn-secondary" value="Cancel" (click)="onCancelItemDetails()" tabindex="10">
-														
-													
+
+
 												</div>
 											</div>
 										</div>
