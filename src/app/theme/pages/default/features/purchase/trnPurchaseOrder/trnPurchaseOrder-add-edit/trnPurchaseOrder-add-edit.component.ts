@@ -52,6 +52,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   orderQuantityError = false;
   courierList = [];
   courierModeList = [];
+  matSizeList=[];
+  foamSizeList=[];
+  matsizeId=null;
+  foamSizeId=null;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
