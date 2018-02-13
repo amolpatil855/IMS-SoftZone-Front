@@ -81,7 +81,6 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.shippingAddressObj = {};
     this.courierMode = this.commonService.courierMode;
     this.route.params.forEach((params: Params) => {
       this.params = params['id'];
@@ -107,7 +106,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       courierId: null,
       courierMode: '',
       referById: null,
-      orderDate: '',
+      orderDate: new Date(),
       remark: '',
       status: '',
       financialYear: '',
@@ -238,12 +237,12 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
 
   onCustomerChange() {
-
     if (this.selectedCustomer != null) {
       this.trnSalesOrderService.getCustomerAddressByCustomerId(this.selectedCustomer).subscribe(
         results => {
           this.addressList = results;
           console.log('this.addressList', this.addressList);
+          this.shippingAddressObj = _.find(this.addressList, ['isPrimary', true]);
           this.selectedAddress = this.trnSalesOrderObj.customerId;
           Helpers.setLoading(false);
         },
@@ -324,6 +323,9 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.selectedMatSize = null;
     this.selectedTrnSalesOrder = null;
     this.selectedFomSize = null;
+    this.shadeEnable = false;
+    this.matEnable = false;
+    this.fomEnable = false;
     if (this.selectedCategory != null) {
       this.categoryList.forEach(item => {
         if (item.value == this.selectedCategory) {

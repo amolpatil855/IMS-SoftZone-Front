@@ -71,7 +71,9 @@
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Order Date</label>
 															<div class="col-md-8 col-sm-8">
-																<input class="form-control m-input" type="date" value="" #orderDateVal="ngModel" required [ngClass]="{'red-border-class': orderDateVal.errors && isFormSubmitted}" [ngModel]="trnSalesOrderObj.orderDate | date:'yyyy-MM-dd'" name="orderDate" id="orderDate" placeholder="" (ngModelChange)="trnSalesOrderObj.orderDate = $event" tabindex="1">
+																<p-calendar class="purchaseOrderDate" #orderDateVal="ngModel" [(ngModel)]="trnSalesOrderObj.orderDate" name="orderDate" [monthNavigator]="true"
+																	 [yearNavigator]="true" tabindex="1" yearRange="2015:2030"  dateFormat="dd/mm/yy"  styleClass="{{ orderDateVal.errors && isFormSubmitted?'red-border-class':''}}"
+																	 required></p-calendar>
 															</div>	
 														</div>
 														<div class="col-md-3">
@@ -121,15 +123,6 @@
 															</div>	
 														</div>
 													</div>
-													<div class="row">	
-														<div class="col-md-3">
-															<label class="col-md-4 col-sm-4 fieldLabel">Shipping Address</label>
-															<div class="col-md-8 col-sm-8">
-																<p-dropdown class="feePlanBox" [options]="companyLocationList" [style]="{'width':'100%'}" #selectedCompanyLocationVal="ngModel" [(ngModel)]="selectedCompanyLocation" required styleClass="{{ selectedCompanyLocationVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled"  name="company" filter="true" tabindex="4"></p-dropdown>
-															</div>	
-														</div>
-
-													</div>
 													<div class="col-md-3">
 															<div class="col-md-8 col-sm-8">
 																<!-- <button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"></button> -->
@@ -139,9 +132,14 @@
 													<div class="row">
 														<div class="col-md-12">
 															<div class="shippingAddressBox">													
-																<p>
-																<a href="#" (click)="showDialog()"><b>Shipping Address  </b></a> -	{{this.shippingAddressObj.addressLine1}} {{this.shippingAddressObj.addressLine2}} , {{this.shippingAddressObj.state}} ,{{this.shippingAddressObj.city}}  
-																		PINCODE -{{this.shippingAddressObj.pin}}</p>
+																
+																<a href="#" (click)="showDialog()"><b>Shipping Address  </b></a> 
+																		<p *ngIf="shippingAddressObj == null">
+																			Please select shipping address by clicking on the link.
+																		</p>
+																		<p *ngIf="shippingAddressObj != null">-	{{this.shippingAddressObj.addressLine1}} {{this.shippingAddressObj.addressLine2}} , {{this.shippingAddressObj.state}} ,{{this.shippingAddressObj.city}}  
+																			PINCODE -{{this.shippingAddressObj.pin}}
+																		</p>
 															</div>
 														</div>			
 													</div>
@@ -352,7 +350,7 @@
 																		<p-column field="state" header="state"></p-column>
 																		<p-column field="isPrimary" header="IsPrimary">
 																			 <ng-template let-data="rowData"  pTemplate="body">
-																				<p-radioButton name="groupname" value="val2" [(ngModel)]="selectedRadio" (onClick)="onRadioBtnClick(data)"></p-radioButton>
+																				<p-radioButton name="groupname" [value]="true" [(ngModel)]="data.isPrimary" (onClick)="onRadioBtnClick(data)"></p-radioButton>
 																			</ng-template>
 																		</p-column>
 																	</p-dataTable>
