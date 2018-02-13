@@ -254,14 +254,53 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
 
   onChangeCollection() {
-    if (this.slectedCollection) {
+    // if (this.slectedCollection) {
+    //   this.getSerialNumberList(this.slectedCollection);
+    // }
+
+    if (this.slectedCategory==1 || this.slectedCategory==5 || this.slectedCategory==6) {
       this.getSerialNumberList(this.slectedCollection);
+    }
+    else if(this.slectedCategory==2 ){
+      this.getFoamSizeList(this.slectedCollection);
+    }
+    else if(this.slectedCategory==4 ){
+      this.getMatSizeList(this.slectedCollection);
     }
     else {
       this.serialNumberList = [];
       this.serialNumberList.unshift({ label: '--Select--', value: null });
+      this.matSizeList = [];
+      this.matSizeList.unshift({ label: '--Select--', value: null });
+      this.serialNumberList = [];
+      this.serialNumberList.unshift({ label: '--Select--', value: null });
     }
   }
+
+  getMatSizeList(id) {
+    this.trnPurchaseOrderService.getMatsizePurchaseOrders(id).subscribe(
+      results => {
+        this.matSizeList = results;
+        this.matSizeList.unshift({ label: '--Select--', value: null });
+        if (id == 4)
+          this.serialNumberList.push({ label: 'Custom', value: -1 });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  getFoamSizeList(id) {
+    this.trnPurchaseOrderService.getFoamSizePurchaseOrders(id).subscribe(
+      results => {
+        this.foamSizeList = results;
+        this.foamSizeList.unshift({ label: '--Select--', value: null });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
 
   getSerialNumberList(id) {
     this.trnPurchaseOrderService.getSerialNumberPurchaseOrders(id).subscribe(
