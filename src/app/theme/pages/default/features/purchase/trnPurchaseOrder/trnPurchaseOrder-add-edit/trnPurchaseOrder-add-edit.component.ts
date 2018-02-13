@@ -71,7 +71,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.getLocationList();
     this.getCategoryCodeList();
     this.getCourierList();
+    let today = new Date();
     this.locationObj = {};
+
+    this.trnPurchaseOrderObj.orderDate=  today  ;
     // this.newItem();
     this.courierModeList.push({ label: '--Select--', value: null });
     this.courierModeList.push({ label: 'Surface', value: 'Surface' });

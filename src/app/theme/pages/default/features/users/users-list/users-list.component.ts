@@ -124,7 +124,7 @@ export class UsersListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first;
+    this.page = event.first/event.rows;
     this.search = event.globalFilter;
     this.getAllUserList();
   }
@@ -200,6 +200,7 @@ export class UsersListComponent implements OnInit {
     this.isFormSubmitted = false;
     this.toggleDiv = true;
     this.butDisabled = false;
+    window.scrollTo(0, 0);
   }
 
   newRecord() {
