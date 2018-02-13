@@ -229,6 +229,7 @@ export class RoleListComponent implements OnInit {
     // this.roleService.currentPageNumber = this.currentPageNumber;
     // this.router.navigate(['/features/master/supplier/edit', supplier.id]);
     this.toggleDiv = true;
+    window.scrollTo(0, 0);
   }
   getRoleList() {
     this.roleService.getAllRoles(this.pageSize, this.page, this.search).subscribe(
@@ -261,7 +262,7 @@ export class RoleListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first;
+    this.page = event.first/event.rows;
     this.search = event.globalFilter;
     this.getRoleList();
   }

@@ -135,7 +135,7 @@ export class CollectionListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first;
+    this.page = event.first/event.rows;
     this.search = event.globalFilter;
     this.getCollectionList();
   }
@@ -218,6 +218,7 @@ export class CollectionListComponent implements OnInit {
     this.toggleDiv = true;
     this.disabled = true;
     this.isFormSubmitted = false;
+    window.scrollTo(0, 0);
   }
 
   onDelete(Collection: Collection) {

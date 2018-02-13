@@ -183,15 +183,29 @@
 															 name="collectionCodeDDl" filter="true" tabindex="6" (ngModelChange)="onChangeCollection()"></p-dropdown>
 														</div>
 													</div>
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Serial No.</label>
+													<div class="col-md-4" *ngIf="slectedCategory==1 || slectedCategory==5 || slectedCategory==6">
+															<label class="col-md-4 col-sm-4 fieldLabel">Serial No.</label>
+															<div class="col-md-8 col-sm-8">
+																<p-dropdown class="feePlanBox" [options]="serialNumberList" [(ngModel)]="serialNumber" [style]="{'width':'100%'}" styleClass="{{serialNumberError?'red-border-class':'' }}"
+																 name="serialNumberDDl" filter="true" tabindex="7"></p-dropdown>
+															</div>
+														</div>
+													<div class="col-md-4" *ngIf="slectedCategory==4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Mat size</label>
 														<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="serialNumberList" [(ngModel)]="serialNumber" [style]="{'width':'100%'}" styleClass="{{serialNumberError?'red-border-class':'' }}"
 															 name="serialNumberDDl" filter="true" tabindex="7"></p-dropdown>
 														</div>
 													</div>
+													<div class="col-md-4" *ngIf="slectedCategory==2">
+															<label class="col-md-4 col-sm-4 fieldLabel">Foam size</label>
+															<div class="col-md-8 col-sm-8">
+																<p-dropdown class="feePlanBox" [options]="serialNumberList" [(ngModel)]="serialNumber" [style]="{'width':'100%'}" styleClass="{{serialNumberError?'red-border-class':'' }}"
+																 name="serialNumberDDl" filter="true" tabindex="7"></p-dropdown>
+															</div>
+														</div>
 												</div>
-												<div class="row form-group" *ngIf="slectedCollection==4 && serialNumber==-1">
+												<div class="row form-group" *ngIf="slectedCategory==4 && slectedCollection==4 && matsizeId==-1">
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Length</label>
 														<div class="col-md-8 col-sm-8">
