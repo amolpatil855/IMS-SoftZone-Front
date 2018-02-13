@@ -117,10 +117,13 @@
 															<div class="col-md-4">
 																<label class="col-md-5 col-sm-5 fieldLabel">Courier Mode</label>
 																<div class="col-md-7 col-sm-7">
-																	<select name="CourierMode" [(ngModel)]="trnPurchaseOrderObj.courierMode" required style="width:100%;"  tabindex="5">
+																	<!-- <select name="CourierMode" class="feePlanBox" [(ngModel)]="trnPurchaseOrderObj.courierMode" required style="width:100%;"  tabindex="5">
 																		<option value="Air">Air</option>
 																		<option value="Surface">Surface</option>
-																	</select>
+																	</select> -->
+																	<p-dropdown class="feePlanBox" [options]="courierModeList" required [(ngModel)]="trnPurchaseOrderObj.courierMode" #courierModeVal="ngModel"
+																	required [style]="{'width':'100%'}" styleClass="{{ courierModeVal.errors && isFormSubmitted?'red-border-class':''}}"
+																	name="courierModeDDl" filter="true" tabindex="5"></p-dropdown>
 																</div>
 															</div>
 															<div class="col-md-4">
@@ -168,21 +171,21 @@
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Category</label>
 														<div class="col-md-8 col-sm-8">
-															<p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="slectedCategory" [style]="{'width':'100%'}" [ngClass]="{'red-border-class': slectedCategoryError && isFormSubmitted}"
+															<p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="slectedCategory" [style]="{'width':'100%'}" styleClass="{{slectedCategoryError?'red-border-class':'' }}"
 															 (ngModelChange)="onChangeCategory()" name="categoriesDDl" filter="true" tabindex="5"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Collection</label>
 														<div class="col-md-8 col-sm-8">
-															<p-dropdown class="feePlanBox" [options]="collectionList" [(ngModel)]="slectedCollection" [style]="{'width':'100%'}" [ngClass]="{'red-border-class': slectedCollectionError && isFormSubmitted}"
+															<p-dropdown class="feePlanBox" [options]="collectionList" [(ngModel)]="slectedCollection" [style]="{'width':'100%'}" styleClass="{{slectedCollectionError?'red-border-class': ''}}"
 															 name="collectionCodeDDl" filter="true" tabindex="6" (ngModelChange)="onChangeCollection()"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Serial No.</label>
 														<div class="col-md-8 col-sm-8">
-															<p-dropdown class="feePlanBox" [options]="serialNumberList" [(ngModel)]="serialNumber" [style]="{'width':'100%'}" [ngClass]="{'red-border-class': serialNumberError && isFormSubmitted}"
+															<p-dropdown class="feePlanBox" [options]="serialNumberList" [(ngModel)]="serialNumber" [style]="{'width':'100%'}" styleClass="{{serialNumberError?'red-border-class':'' }}"
 															 name="serialNumberDDl" filter="true" tabindex="7"></p-dropdown>
 														</div>
 													</div>
@@ -191,14 +194,14 @@
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Length</label>
 														<div class="col-md-8 col-sm-8">
-															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': lengthErrors && isFormSubmitted}"
+															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': lengthErrors}"
 															 [(ngModel)]="length" name="length" placeholder="">
 														</div>
 													</div>
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Width</label>
 														<div class="col-md-8 col-sm-8">
-															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': widthErrors && isFormSubmitted}"
+															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': widthErrors}"
 															 (blur)="calculateSizeCode();" [(ngModel)]="width" name="width" placeholder="">
 														</div>
 													</div>
@@ -214,7 +217,7 @@
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Order Quantity</label>
 														<div class="col-md-8 col-sm-8">
-															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': orderQuantityError && isFormSubmitted}"
+															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': orderQuantityError}"
 															 [(ngModel)]="orderQuantity" name="orderQunatity" tabindex="8" placeholder="">
 														</div>
 													</div>
@@ -225,12 +228,10 @@
 														</div>
 													</div>
 												</div>
+
 												<div class="m-form__actions m-form__actions--solid formTopActionBtnBox formAddItemBox">
-													<input type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add To List" tabindex="9"
-													 (click)="addItemToList()" />
-													<button class="btn btn-secondary" (click)="onCancel()" tabindex="10">
-														Cancel
-													</button>
+													<input type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add To List" tabindex="9" (click)="addItemToList()" />
+													<input type="button" class="btn btn-secondary" value="Cancel" (click)="onCancelItemDetails()" tabindex="10">
 												</div>
 											</div>
 										</div>
