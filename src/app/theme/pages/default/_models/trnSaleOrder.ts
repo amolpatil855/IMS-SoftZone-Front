@@ -11,6 +11,7 @@ export class TrnSaleOrder {
     courierMode: string;
     referById: number;
     orderDate: Date;
+    expectedDeliveryDate: Date;
     remark: string;
     status: string;
     financialYear: string;
