@@ -1838,3 +1838,11 @@ select option {
 .formAddItemBox{
     margin-top: 10px;
 }
+.ui-datatable-tablewrapper{
+    max-height: 68vh;
+    overflow-y: auto;
+}
+/*.m-aside-menu .m-menu__nav {    
+    max-height: 85vh;
+    overflow-y: auto;
+}*/
