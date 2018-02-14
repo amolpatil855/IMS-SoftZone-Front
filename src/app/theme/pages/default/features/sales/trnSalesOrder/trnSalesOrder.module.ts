@@ -25,6 +25,9 @@ import { TrnSalesOrderService } from "../../../_services/trnSalesOrder.service";
 import { TrnSalesOrderComponent } from "./trnSalesOrder.component";
 import { TrnSalesOrderListComponent } from "./trnSalesOrder-list/trnSalesOrder-list.component";
 import { TrnSalesOrderAddEditComponent } from "./trnSalesOrder-add-edit/trnSalesOrder-add-edit.component";
+import { ShadeService } from "../../../_services/shade.service";
+import { FomSizeService } from "../../../_services/fomSize.service";
+import { MatSizeService } from "../../../_services/matSize.service";
 
 const routes: Routes = [
   {
@@ -91,6 +94,9 @@ const routes: Routes = [
   providers: [
     CommonService,
     TrnSalesOrderService,
+    ShadeService,
+    FomSizeService,
+    MatSizeService,
     ConfirmationService
   ],
 })
