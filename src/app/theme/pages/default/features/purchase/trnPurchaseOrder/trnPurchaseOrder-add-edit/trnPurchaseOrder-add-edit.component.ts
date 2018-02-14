@@ -82,7 +82,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.locationObj = {};
 
     this.trnPurchaseOrderObj.orderDate=  today  ;
-    // this.newItem();
+    this.newItem();
     this.courierModeList.push({ label: '--Select--', value: null });
     this.courierModeList.push({ label: 'Surface', value: 'Surface' });
     this.courierModeList.push({ label: 'Air', value: 'Air' });
@@ -93,7 +93,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.slectedCollection = null;
     this.shadeId = null;
     this.orderQuantity = null;
-    this.orderType = null;
+    this.orderType = 'RL';
     this.length = null;
     this.width = null;
     this.sizecode = null;
@@ -166,6 +166,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       sizecode: null
     };
     this.itemDetails.push(itemObj);
+   this.onCancelItemDetails();
   }
 
   onCancelItemDetails(){
