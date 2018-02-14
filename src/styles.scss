@@ -1861,8 +1861,13 @@ select option {
     font-size: 14px;
 }
 .ui-dialog{
-    width: 60%!important;
+    width: 70%!important;
     margin: 0 auto!important;
     left: 0!important;
     right: 0!important;
+}
+.fa-inr{
+    vertical-align: middle!important;
+    font-size: 12px!important;
+    margin-top: 1px!important;
 }
