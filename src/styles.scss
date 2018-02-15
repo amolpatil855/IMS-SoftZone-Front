@@ -1889,3 +1889,92 @@ select option {
     list-style: none;
     padding: 5px 0 30px 0;
 }
+
+/*************** D. 15 Feb 2018 - Sales order & purchase order table ******************/
+.itemAddTable tr th{
+	background: #e3ebf1!important;
+    font-family: Roboto;
+    font-size: 11px!important;
+    padding-top: 4px!important;
+    padding-bottom: 4px!important;
+    border: none!important;
+    vertical-align: middle;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.itemAddTable tr th:last-child{
+	background:#fff!important;
+}
+.itemAddTable tr td{
+	background: #fff!important;
+    font-family: Roboto;
+    font-size: 12px!important;
+    border-bottom: 1px solid #ddd!important;
+    border-top: none!important;
+    vertical-align: middle!important;
+	padding-top: 2px!important;
+    padding-bottom: 2px!important;
+	border:none!important;
+}
+.itemAddTable tr td  i{
+	vertical-align: middle;
+    font-size: 16px!important;
+    margin-top: -2px;
+}
+
+.itemAddTablePurchase tr td:first-child{
+	width:20%;
+}
+.itemAddTablePurchase tr td:nth-child(2){
+	width:20%;
+}
+.itemAddTablePurchase tr td:nth-child(3){
+	width:20%;
+}
+.itemAddTablePurchase tr td:nth-child(4){
+	width:10%;
+}
+.itemAddTablePurchase tr td:nth-child(5){
+	width:10%;
+}
+.itemAddTablePurchase tr td:nth-child(6){
+	width:20%;
+}
+
+.itemAddTableSales tr td:first-child{
+	width:12%;
+}
+.itemAddTableSales tr td:nth-child(2){
+	width:12%;
+}
+.itemAddTableSales tr td:nth-child(3){
+	width:12%;
+}
+.itemAddTableSales tr td:nth-child(4){
+	width:8%;
+}
+.itemAddTableSales tr td:nth-child(5){
+	width:8%;
+}
+.itemAddTableSales tr td:nth-child(6){
+	width:12%;
+}
+.itemAddTableSales tr td:nth-child(7){
+	width:12%;
+}
+.form-control{
+    padding: 2px 2px !important;
+    font-size: 13px !important;
+}
+.itemAddHeading{
+    font-family: Roboto;
+    font-weight: 600;
+    color: #000;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+.siteSearchbox {
+    height: 32px;
+    padding-left: 30px!important;
+}
