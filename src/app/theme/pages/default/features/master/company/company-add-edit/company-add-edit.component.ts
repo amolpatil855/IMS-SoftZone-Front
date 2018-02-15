@@ -96,7 +96,7 @@ export class CompanyAddEditComponent implements OnInit {
     fr.onload = function() {
       success = 1;
       img.onload = function() {
-        if (img.height <= 50 && img.width <= 160) {
+        if (img.height <= 1000 && img.width <= 1000) {
           //
           success = 1;
 
