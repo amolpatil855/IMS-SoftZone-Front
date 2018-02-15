@@ -21,6 +21,7 @@ import {
 import { MatSizeService } from "../../../_services/matSize.service";
 import { MatSizeComponent } from "./matSize.component";
 import { MatSizeListComponent } from "./matSize-list/matSize-list.component";
+import { CollectionService } from "../../../_services/collection.service";
 
 const routes: Routes = [
   {
@@ -68,6 +69,7 @@ const routes: Routes = [
   providers: [
     // RoleService,
     MatSizeService,
+    CollectionService,
     ConfirmationService
   ],
 })
