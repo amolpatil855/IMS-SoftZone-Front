@@ -1882,5 +1882,10 @@ select option {
     font-family: Roboto;
 }
 .m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__heading, .m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__link {
-    height: 35px
+    height: 35px;
+    padding: 9px 20px;
+}
+.m-aside-menu .m-menu__nav {
+    list-style: none;
+    padding: 5px 0 30px 0;
 }
