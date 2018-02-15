@@ -26,7 +26,7 @@ export class DesignService {
   }
 
   getCategoryLookUp() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetFWRCategoryLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getCollectionLookUp(categoryId) {
