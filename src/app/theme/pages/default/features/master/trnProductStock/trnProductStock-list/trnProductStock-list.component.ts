@@ -159,6 +159,9 @@ export class TrnProductStockListComponent implements OnInit {
     this.selectedShade = null;
     this.selectedMatSize = null;
     this.selectedFomSize = null;
+    this.shadeEnable = false;
+    this.matEnable = false;
+    this.fomEnable = false;
     if (this.selectedCategory != null) {
       this.categoryList.forEach(item => {
         if (item.value == this.selectedCategory) {

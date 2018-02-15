@@ -82,12 +82,22 @@
                             </a>
                         </li>
                         <li [isAuthorize]="['stockmanagement']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/master/trnProductStock/list" class="m-menu__link ">
+                            <a routerLink="/features/master/trnProductStockDetail/list" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                     <span></span>
                                 </i>
                                 <span class="m-menu__link-text">
                                     Product Stock
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['stockmanagement']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/master/trnProductStock/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Product Stock Detail
                                 </span>
                             </a>
                         </li>
