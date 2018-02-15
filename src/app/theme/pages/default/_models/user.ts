@@ -4,6 +4,7 @@ export class User {
   id: number;
   roleId: number;
   userTypeId: number;
+  locationId: number;
   userName: string;
   email: string;
   phone: string;

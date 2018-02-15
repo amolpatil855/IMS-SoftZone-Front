@@ -119,7 +119,7 @@
 															</div>
 													<div class="col-md-4">
 														<div class="form-group">
-															<label class="fieldLabel col-md-6 col-sm-6">Purchase Rate/MM
+															<label class="fieldLabel col-md-6 col-sm-6">Purchase Rate/MM <i class="fa fa-inr"></i>
 																<span class="requiredField">*</span>
 															</label>
 															<div class="col-md-6 col-sm-6">
@@ -130,7 +130,7 @@
 													</div>
 													<div class="col-md-4">
 														<div class="form-group">
-															<label class="fieldLabel col-md-6 col-sm-6">Purchase Rate/KG <span class="requiredField">*</span></label>
+															<label class="fieldLabel col-md-6 col-sm-6">Purchase Rate/KG <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
 															<div class="col-md-6 col-sm-6">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #purchaseRatePerKGVal="ngModel" required  (blur)="calculateSellingRate()"  [ngClass]="{'red-border-class': purchaseRatePerKGVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomDensityObj.purchaseRatePerKG" name="purchaseRatePerKG" id="purchaseRatePerKG" tabindex="6">
@@ -158,7 +158,7 @@
 															</div>
 													<div class="col-md-4">
 														<div class="form-group">
-															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/MM
+															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/MM <i class="fa fa-inr"></i>
 															</label>
 															<div class="col-md-6 col-sm-6">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" maxlength="10" #sellingRatePerMMVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerMMVal.errors && isFormSubmitted}"
@@ -168,7 +168,7 @@
 													</div>
 													<div class="col-md-4">
 														<div class="form-group">
-															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/KG</label>
+															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/KG <i class="fa fa-inr"></i></label>
 															<div class="col-md-6 col-sm-6">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #sellingRatePerKGVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerKGVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomDensityObj.sellingRatePerKG" disabled name="sellingRatePerKG" id="sellingRatePerKG">
