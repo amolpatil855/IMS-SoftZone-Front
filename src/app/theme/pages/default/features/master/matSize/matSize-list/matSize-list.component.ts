@@ -24,6 +24,7 @@ export class MatSizeListComponent implements OnInit {
   matSizeObj: any;
   collectionObj: any;
   params: number;
+  purchaseDiscount = null;
   matSizeList = [];
   categoryList: SelectItem[];
   selectedCollection = null;
@@ -69,12 +70,12 @@ export class MatSizeListComponent implements OnInit {
       thicknessId: null,
       sizeCode: '',
       rate: '',
-      purchaseDiscount: null,
       purchaseRate: null,
       stockReorderLevel: null,
     };
+    this.purchaseDiscount = null;
     this.selectedCollection = null;
-     this.qualityList = [];
+    this.qualityList = [];
     this.qualityList.unshift({ label: '--Select--', value: null });
     this.thicknessList = [];
     this.thicknessList.unshift({ label: '--Select--', value: null });
@@ -84,9 +85,20 @@ export class MatSizeListComponent implements OnInit {
 
   onInputChange() {
     if(this.matSizeObj.rate > 0){
-    this.matSizeObj.purchaseRate = this.matSizeObj.rate - ((this.matSizeObj.rate * this.matSizeObj.purchaseDiscount) / 100);
+    this.matSizeObj.purchaseRate = this.roundTo((this.matSizeObj.rate - ((this.matSizeObj.rate * this.purchaseDiscount) / 100)), 2);
     }
   }
+
+  roundTo(n, digits) {
+     if (digits === undefined) {
+       digits = 0;
+     }
+
+     let multiplicator = Math.pow(10, digits);
+     n = parseFloat((n * multiplicator).toFixed(11));
+     let test =(Math.round(n) / multiplicator);
+     return +(test.toFixed(digits));
+   }
 
   restrictMinus(e, limit) {
 
@@ -144,18 +156,21 @@ export class MatSizeListComponent implements OnInit {
   }
 
   getMatCollectionLookUp() {
+    Helpers.setLoading(true);
     this.matSizeService.getMatCollectionLookUp().subscribe(
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   onCollectionClick() {
-
+    this.purchaseDiscount = null;
     this.qualityList = [];
     this.qualityList.unshift({ label: '--Select--', value: null });
     this.thicknessList = [];
@@ -167,7 +182,7 @@ export class MatSizeListComponent implements OnInit {
       this.collectionService.getCollectionById(this.selectedCollection).subscribe(
       results => {
         this.collectionObj = results;
-        this.matSizeObj.purchaseDiscount = this.collectionObj.purchaseDiscount;
+        this.purchaseDiscount = this.collectionObj.purchaseDiscount;
         Helpers.setLoading(false);
       },
       error => {
