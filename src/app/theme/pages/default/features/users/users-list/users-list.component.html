@@ -146,14 +146,25 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
+                                                                <label class="col-md-3 col-sm-3 fieldLabel">Location</label>
+                                                                <div class="col-md-7">
+                                                                    <select class="form-control"
+                                                                        formControlName="location" (change)="onLocationChange($event.target.value)"
+                                                                        tabindex="4">
+    
+                                                                    <option *ngFor="let location of companyLocationList" [value]="location.value">{{location.label}}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
                                                                 <label class="col-md-3 col-sm-3 fieldLabel">User Type<span class="requiredField">*</span></label>
                                                                 <div class="col-md-7">
                                                                     <select class="form-control" required [ngClass]="{'red-border-class': userForm.get('userType').hasError('required') && isFormSubmitted}"
                                                                         formControlName="userType" (change)="onUserTypeChange($event.target.value)"
                                                                         tabindex="4">
     
-                                                   <option *ngFor="let userType of userTypeList" [value]="userType.value">{{userType.label}}</option>
-                                                </select>
+                                                                    <option *ngFor="let userType of userTypeList" [value]="userType.value">{{userType.label}}</option>
+                                                                    </select>
                                                                     <!-- <p-dropdown class="feePlanBox" [options]="userTypeList" [style]="{'width':'100%'}" formControlName="userType"    required styleClass="{{ userForm.get('userType').hasError('required') && isFormSubmitted ?'red-border-class':''}}"  name="userType"></p-dropdown> -->
                                                                 </div>
                                                             </div>
@@ -163,8 +174,8 @@
                                                                     <select class="form-control" required [ngClass]="{'red-border-class': userForm.get('role').hasError('required') && isFormSubmitted}"
                                                                         formControlName="role" (change)="onRoleChange($event.target.value)" tabindex="5">
                                             
-                                                   <option *ngFor="let role of roleList" [value]="role.value">{{role.label}}</option>
-                                                </select>
+                                                                    <option *ngFor="let role of roleList" [value]="role.value">{{role.label}}</option>
+                                                                    </select>
                                                                     <!-- <p-dropdown class="feePlanBox" [options]="roleList" [style]="{'width':'100%'}" formControlName="role"    required styleClass="{{ userForm.get('role').hasError('required') && isFormSubmitted ?'red-border-class':''}}"  name="role"></p-dropdown> -->
                                                                 </div>
                                                             </div>
