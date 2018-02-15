@@ -20,6 +20,7 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
   defaultLogo: string;
   userRole: string;
   userName: string;
+  location: string;
   logoURLtoshow: string;
   companyPhone: string;
   loggedInUser = { user: null };
@@ -38,6 +39,7 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
     this.userService.getLoggedInUserDetail().subscribe(res => {
       this.userName = res.userName;
       this.userRole = res.mstRole.roleName;
+      this.location = res.mstCompanyLocation.locationCode;
       if (this.userName !== undefined && this.userRole !== undefined) {
         this.loggedInUser = { user: { username: this.userName, role: this.userRole } };
       }

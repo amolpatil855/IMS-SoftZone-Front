@@ -26,7 +26,7 @@ export class ShadeService {
   }
 
   getCategoryLookup() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetFWRCategoryLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getSerialNumberLookUpByDesign(designId) {
