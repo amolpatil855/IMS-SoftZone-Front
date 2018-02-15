@@ -32,11 +32,11 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   trnPurchaseOrderObj: TrnPurchaseOrder;
   collectionList = [];
   categoriesCodeList = [];
-  serialNumberList = [];
+  shadeIdList = [];
   slectedCategory = null;
   slectedCollection = null;
   itemDetails = [];
-  serialNumber = null;
+  shadeId = null;
   orderQuantity = null;
   orderType = null;
   locationObj = null;
@@ -46,16 +46,19 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   isFormSubmitted = false;
   slectedCategoryError = false;
   slectedCollectionError = false;
-  serialNumberError = false;
+  shadeIdError = false;
   lengthError = false;
   widthError = false;
   orderQuantityError = false;
+  foamSizeIdError=false;
+  matsizeIdError=false;
   courierList = [];
   courierModeList = [];
   matSizeList=[];
   foamSizeList=[];
   matsizeId=null;
   foamSizeId=null;
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -79,7 +82,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.locationObj = {};
 
     this.trnPurchaseOrderObj.orderDate=  today  ;
-    // this.newItem();
+    this.newItem();
     this.courierModeList.push({ label: '--Select--', value: null });
     this.courierModeList.push({ label: 'Surface', value: 'Surface' });
     this.courierModeList.push({ label: 'Air', value: 'Air' });
@@ -88,12 +91,14 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   newItem() {
     this.slectedCategory = null;
     this.slectedCollection = null;
-    this.serialNumber = null;
+    this.shadeId = null;
     this.orderQuantity = null;
-    this.orderType = null;
+    this.orderType = 'RL';
     this.length = null;
     this.width = null;
     this.sizecode = null;
+    this.foamSizeId=null;
+    this.matsizeId=null;
   }
 
   addItemToList() {
@@ -108,18 +113,32 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     else
       this.slectedCollectionError = false;
 
-    if (!this.serialNumber)
-      this.serialNumberError = true;
+    if (!this.shadeId && (this.slectedCategory==1 || this.slectedCategory==5 || this.slectedCategory==6))
+      this.shadeIdError = true;
     else
-      this.serialNumberError = false;
+      this.shadeIdError = false;
 
+      if (!this.matsizeId && this.slectedCategory==4)
+      this.matsizeIdError = true;
+    else
+      this.matsizeIdError = false;
 
-    if (this.slectedCollection == 4 && this.serialNumber == -1 && !this.length)
+      if (!this.foamSizeId && this.slectedCategory==2)
+      this.foamSizeIdError = true;
+    else
+      this.foamSizeIdError = false;
+
+      if (!this.shadeId)
+      this.shadeIdError = true;
+    else
+      this.shadeIdError = false;
+
+    if (this.slectedCollection == 4 && this.shadeId == -1 && !this.length)
       this.lengthError = true;
     else
       this.lengthError = false;
 
-    if (this.slectedCollection == 4 && this.serialNumber == -1 && !this.width)
+    if (this.slectedCollection == 4 && this.shadeId == -1 && !this.width)
       this.widthError = true;
     else
       this.widthError = false;
@@ -128,7 +147,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = true;
     else
       this.orderQuantityError = false;
-    if(this.orderQuantityError || this.widthError || this.lengthError || this.serialNumberError || this.slectedCollectionError ||  this.slectedCategoryError){
+    if(this.orderQuantityError || this.widthError|| this.foamSizeIdError || this.matsizeIdError || this.lengthError || this.shadeIdError || this.slectedCollectionError ||  this.slectedCategoryError){
       return;
     }
 
@@ -138,8 +157,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       categotryId: this.slectedCategory,
       categotryName: catObj ? catObj.label : '',
       collectionName: collObj ? catObj.label : '',
-      collectionid: this.slectedCollection,
-      serialno: this.serialNumber,
+      collectionId: this.slectedCollection,
+      serialno: this.shadeId,
       quantity: this.orderQuantity,
       orderType: this.orderType,
       length: null,
@@ -147,19 +166,20 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       sizecode: null
     };
     this.itemDetails.push(itemObj);
+   this.onCancelItemDetails();
   }
 
   onCancelItemDetails(){
 
     this.slectedCategoryError = false;
     this.slectedCollectionError = false;
-    this.serialNumberError = false;
+    this.shadeIdError = false;
     this.lengthError = false;
     this.widthError = false;
     this.orderQuantityError = false;
     this.slectedCategory=null;
     this.slectedCollection=null;
-    this.serialNumber=null;
+    this.shadeId=null;
     this.lengthError=null;
     this.widthError = null;
     this.orderQuantity=null;
@@ -255,11 +275,11 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   onChangeCollection() {
     // if (this.slectedCollection) {
-    //   this.getSerialNumberList(this.slectedCollection);
+    //   this.getshadeIdList(this.slectedCollection);
     // }
 
     if (this.slectedCategory==1 || this.slectedCategory==5 || this.slectedCategory==6) {
-      this.getSerialNumberList(this.slectedCollection);
+      this.getshadeIdList(this.slectedCollection);
     }
     else if(this.slectedCategory==2 ){
       this.getFoamSizeList(this.slectedCollection);
@@ -268,12 +288,12 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.getMatSizeList(this.slectedCollection);
     }
     else {
-      this.serialNumberList = [];
-      this.serialNumberList.unshift({ label: '--Select--', value: null });
+      this.shadeIdList = [];
+      this.shadeIdList.unshift({ label: '--Select--', value: null });
       this.matSizeList = [];
       this.matSizeList.unshift({ label: '--Select--', value: null });
-      this.serialNumberList = [];
-      this.serialNumberList.unshift({ label: '--Select--', value: null });
+      this.shadeIdList = [];
+      this.shadeIdList.unshift({ label: '--Select--', value: null });
     }
   }
 
@@ -283,7 +303,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         this.matSizeList = results;
         this.matSizeList.unshift({ label: '--Select--', value: null });
         if (id == 4)
-          this.serialNumberList.push({ label: 'Custom', value: -1 });
+          this.shadeIdList.push({ label: 'Custom', value: -1 });
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -302,13 +322,13 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
 
 
-  getSerialNumberList(id) {
-    this.trnPurchaseOrderService.getSerialNumberPurchaseOrders(id).subscribe(
+  getshadeIdList(id) {
+    this.trnPurchaseOrderService.getshadeIdPurchaseOrders(id).subscribe(
       results => {
-        this.serialNumberList = results;
-        this.serialNumberList.unshift({ label: '--Select--', value: null });
+        this.shadeIdList = results;
+        this.shadeIdList.unshift({ label: '--Select--', value: null });
         if (id == 4)
-          this.serialNumberList.push({ label: 'Custom', value: -1 });
+          this.shadeIdList.push({ label: 'Custom', value: -1 });
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -365,5 +385,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
+    this.trnPurchaseOrderObj.TrnPurchaseOrderItems=this.itemDetails;
+
   }
 }
