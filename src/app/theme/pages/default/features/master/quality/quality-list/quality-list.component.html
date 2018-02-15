@@ -223,7 +223,7 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate</label>
+                                                                                                            <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate <i class="fa fa-inr"></i></label>
                                                                                                             <div class="col-md-7 col-sm-7">
                                                                                                                   <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="cutRate"   [disabled]="disableRRP" (blur)="onChangeRRP(qualityForm.get('cutRate'),qualityForm.get('flatRate'))" maxlength="6" onKeyPress="if(this.value.length==6) return false;"  required [ngClass]="{'red-border-class': qualityForm.get('cutRate').hasError('required') && isFormSubmitted}" tabindex="13">
                                                                                                             </div>
@@ -245,7 +245,7 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-5 col-sm-5 fieldLabel">Role Rate</label>
+                                                                                                            <label class="col-md-5 col-sm-5 fieldLabel">Role Rate <i class="fa fa-inr"></i></label>
                                                                                                             <div class="col-md-7 col-sm-7">
                                                                                                                   <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="roleRate"   [disabled]="disableRRP" placeholder="" [ngClass]="{'red-border-class': qualityForm.get('roleRate').hasError('required') && isFormSubmitted}" tabindex="15">
                                                                                                             </div>
@@ -268,7 +268,7 @@
                                                                                           <div class="row">
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-5 col-sm-5 fieldLabel">RRP</label>
+                                                                                                            <label class="col-md-5 col-sm-5 fieldLabel">RRP <i class="fa fa-inr"></i></label>
                                                                                                             <div class="col-md-7 col-sm-7">
                                                                                                                   <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="rrp"  [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('rrp').hasError('required') && isFormSubmitted}"
                                                                                                                         required
@@ -286,8 +286,7 @@
                                                                                                 </div>
                                                                                                 <div class="col-md-4">
                                                                                                       <div class="row">
-                                                                                                            <label class="col-md-5 col-sm-5 fieldLabel">Max Flat
-                                                                                                                  Cut Rate</label>
+                                                                                                            <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate Max Dis. %</label>
                                                                                                             <div class="col-md-7 col-sm-7">
                                                                                                                   <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99"  [disabled]="disableFlatRate" class="form-control" placeholder="" formControlName="maxFlatRateDisc" required [ngClass]="{'red-border-class': qualityForm.get('maxFlatRateDisc').hasError('required') && isFormSubmitted}" tabindex="19">
                                                                                                             </div>
@@ -361,7 +360,7 @@
                                                 [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                                                 <p-column field="mstCategory.code" header="Category" [style]="{'text-align':'left'}"></p-column>
                                                 <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
-                                                <p-column field="qualityCode" header="Code" [style]="{'text-align':'left'}"></p-column>
+                                                <p-column field="qualityCode" header="Quality Code" [style]="{'text-align':'left'}"></p-column>
                                                 <p-column field="qualityName" header="Name" [style]="{'text-align':'left'}"></p-column>
                                                 <p-column field="mstHsn.hsnCode" header="HSN Code" [style]="{'text-align':'left'}"></p-column>
                                                 <!-- <p-column field="collection" header="Description" [style]="{'text-align':'center'}"></p-column>

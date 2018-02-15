@@ -7,6 +7,7 @@ import { ConfirmationService, DataTableModule, LazyLoadEvent, SelectItem } from 
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
 import { MatSizeService } from '../../../../_services/matSize.service';
+import { CollectionService } from '../../../../_services/collection.service';
 import { Role } from "../../../../_models/role";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
@@ -21,6 +22,7 @@ export class MatSizeListComponent implements OnInit {
   isFormSubmitted = false;
   matSizeForm: any;
   matSizeObj: any;
+  collectionObj: any;
   params: number;
   matSizeList = [];
   categoryList: SelectItem[];
@@ -44,6 +46,7 @@ export class MatSizeListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private matSizeService: MatSizeService,
+    private collectionService: CollectionService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) {
@@ -80,16 +83,6 @@ export class MatSizeListComponent implements OnInit {
   }
 
   onInputChange() {
-    // if (parseFloat(this.matSizeObj.rate) > 99999.99) {
-    //   this.matSizeObj.rate = '';
-    // }else{
-    //   this.matSizeObj.rate = parseFloat(this.matSizeObj.rate);
-    // }
-    // if (parseFloat(this.matSizeObj.purchaseDiscount) > 99.99) {
-    //   this.matSizeObj.purchaseDiscount = '';
-    // }else{
-    //   this.matSizeObj.purchaseDiscount = parseFloat(this.matSizeObj.purchaseDiscount);
-    // }
     if(this.matSizeObj.rate > 0){
     this.matSizeObj.purchaseRate = this.matSizeObj.rate - ((this.matSizeObj.rate * this.matSizeObj.purchaseDiscount) / 100);
     }
@@ -155,7 +148,6 @@ export class MatSizeListComponent implements OnInit {
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
-        console.log('this.collectionList', this.collectionList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -171,6 +163,18 @@ export class MatSizeListComponent implements OnInit {
     this.selectedQuality = null;
     this.selectedThickness = null;
     if (this.selectedCollection != null) {
+      Helpers.setLoading(true);
+      this.collectionService.getCollectionById(this.selectedCollection).subscribe(
+      results => {
+        this.collectionObj = results;
+        this.matSizeObj.purchaseDiscount = this.collectionObj.purchaseDiscount;
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+
       this.matSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
         results => {
           this.qualityList = results;
@@ -179,8 +183,7 @@ export class MatSizeListComponent implements OnInit {
           if (this.selectedQuality > 0) {
             this.onQualityClick();
           }
-
-          console.log('this.qualityList', this.qualityList);
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -195,12 +198,12 @@ export class MatSizeListComponent implements OnInit {
     this.thicknessList.unshift({ label: '--Select--', value: null });
     this.selectedThickness = null;
     if (this.selectedQuality != null) {
+      Helpers.setLoading(true);
       this.matSizeService.getMatThicknessLookUp().subscribe(
         results => {
           this.thicknessList = results;
           this.thicknessList.unshift({ label: '--Select--', value: null });
           this.selectedThickness = this.matSizeObj.thicknessId;
-          console.log('this.thicknessList', this.thicknessList);
           Helpers.setLoading(false);
         },
         error => {
@@ -238,11 +241,11 @@ export class MatSizeListComponent implements OnInit {
     this.matSizeService.getMatSizeById(id).subscribe(
       results => {
         this.matSizeObj = results;
-        console.log('this.matSizeObj', this.matSizeObj);
         this.selectedCollection = this.matSizeObj.collectionId;
         if (this.selectedCollection > 0) {
           this.onCollectionClick();
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);

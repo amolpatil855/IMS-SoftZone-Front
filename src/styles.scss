@@ -1661,7 +1661,7 @@ body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item {
     margin-top: 5px;
 }
 .roleTreeListBox{
-    height: 170px;
+    height: 520px;
     overflow-y: auto;
 }
 .formContentboxShade{
@@ -1846,3 +1846,28 @@ select option {
     max-height: 85vh;
     overflow-y: auto;
 }*/
+
+.ui-calendar {
+    width: 100%;
+}
+.customerNameBox{
+    padding-left: 10px!important;   
+}
+.noPadding{
+    padding: 0!important;
+}
+.shippingAddressLabel{
+    font-weight: 600;
+    font-size: 14px;
+}
+.ui-dialog{
+    width: 70%!important;
+    margin: 0 auto!important;
+    left: 0!important;
+    right: 0!important;
+}
+.fa-inr{
+    vertical-align: middle!important;
+    font-size: 12px!important;
+    margin-top: 1px!important;
+}
