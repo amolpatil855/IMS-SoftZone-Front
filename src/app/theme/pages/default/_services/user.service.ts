@@ -33,6 +33,10 @@ export class UserService {
     return this.http.get(AppSettings.API_ENDPOINT + 'User/' + id, requestOptions).map((response: Response) => response.json());
   }
 
+  getCompanyLocationLookUp() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   createUser(user: User) {
     return this.http.post(AppSettings.API_ENDPOINT + 'User', user, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
