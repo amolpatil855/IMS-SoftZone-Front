@@ -1674,7 +1674,7 @@ tbody .ui-widget-content{
     font-size: 9px!important;
 }
 .m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__heading, .m-aside-menu .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link {
-    height: 30px;
+    height: 25px;
 }
 @media (min-width: 993px){
 .m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__link-text {
@@ -1870,4 +1870,17 @@ select option {
     vertical-align: middle!important;
     font-size: 12px!important;
     margin-top: 1px!important;
+}
+
+/*** D. 15 Feb 2018 ***/
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item > .m-menu__link .m-menu__link-text {
+    color: #c5c5c7 !important;
+    font-size: 13px !important;
+    font-family: Roboto;
+}
+.m-aside-menu.m-aside-menu--skin-dark .m-menu__nav > .m-menu__item .m-menu__submenu .m-menu__item > .m-menu__link .m-menu__link-text {
+    font-family: Roboto;
+}
+.m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__heading, .m-aside-menu .m-menu__nav > .m-menu__item > .m-menu__link {
+    height: 35px
 }
