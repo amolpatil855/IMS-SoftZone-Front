@@ -139,11 +139,11 @@ export class FomDensityListComponent implements OnInit {
   }
 
   onCollectionClick() {
-
     this.qualityList = [];
     this.qualityList.unshift({ label: '--Select--', value: null });
     this.selectedQuality = null;
     if (this.selectedCollection != null) {
+      Helpers.setLoading(true);
       this.fomDensityService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
         results => {
           this.qualityList = results;
