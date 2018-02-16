@@ -148,7 +148,7 @@
                                                             <div class="form-group">
                                                                 <label class="col-md-3 col-sm-3 fieldLabel">Location</label>
                                                                 <div class="col-md-7">
-                                                                    <select class="form-control"
+                                                                    <select class="form-control" required [ngClass]="{'red-border-class': userForm.get('location').hasError('required') && isFormSubmitted}"
                                                                         formControlName="location" (change)="onLocationChange($event.target.value)"
                                                                         tabindex="4">
     

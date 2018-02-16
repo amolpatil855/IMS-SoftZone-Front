@@ -47,8 +47,8 @@
 								<h5 class="topCompanyName">
 									<img *ngIf="IMSLogoShow" [src]="logoUrl" alt="" class="headerIMSLogo" style="width: 110px; margin-right: 22px;"><!-- {{webHeader}}  -->
 									
-									<!-- Company Name and Contact No. -->	
-									{{webHeader}} &nbsp;&nbsp;&nbsp;  <span><i class="fa fa-phone"></i> {{companyPhone}} </span> <span>&nbsp;&nbsp;<i class="fa fa-dot-circle-o"></i> {{location}}</span>
+									<!-- Company Name and Contact No. -->
+									{{webHeader}} &nbsp;&nbsp;&nbsp;  <span><i class="fa fa-phone"></i> {{companyPhone}} </span> <span *ngIf="show">&nbsp;&nbsp;<i class="fa fa-dot-circle-o"></i> {{location}}</span>
 								</h5>
 							</span>
 						</li>
