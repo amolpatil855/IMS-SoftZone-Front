@@ -270,126 +270,21 @@
 								</div>
 							</form>
 
-					<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->		
-					<div class="col-md-12 formContentbox">
-										<div class="table-responsive" style="margin-bottom: 8px;">
-											<h5 class="itemAddHeading">Item Details:</h5>
-											<table class="table itemAddTable itemAddTablePurchase">
-												<thead>
-												  <tr>
-													<th>Category</th>													
-													<th>Collection</th>
-													<th>Serial No.</th>
-													<th>Order Quantity</th>
-													<th>Order Type</th>
-													<th></th>
-												  </tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>
-															<select class="form-control">	
-																<option selected="" disabled="">- Select -</option>
-																<option>Category 1</option>
-																<option>Category 2</option>
-																<option>Category 3</option>
-																<option>Category 4</option>
-															</select>
-														</td>
-														<td>
-															<select class="form-control">	
-																<option selected="" disabled="">- Select -</option>
-																<option>Collection 1</option>
-																<option>Collection 2</option>
-																<option>Collection 3</option>
-																<option>Collection 4</option>
-															</select>
-														</td>
-														<td>
-															<select class="form-control">	
-																<option selected="" disabled="">- Select -</option>
-																<option>No. 1</option>
-																<option>No. 2</option>
-																<option>No. 3</option>
-																<option>No. 4</option>
-															</select>
-														</td>
-														<td>
-															<input type="text" class="form-control" placeholder="">
-														</td>													
-														<td>
-															<b style="font-weight:800;">RL</b>															
-														</td>
-														<td>
-															<i aria-hidden="true" class="fa fa-plus addBtnIcon"></i>
-															<i aria-hidden="true" class="fa fa-minus addBtnIcon"></i>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<select class="form-control">	
-																<option selected="" disabled="">- Select -</option>
-																<option>Category 1</option>
-																<option>Category 2</option>
-																<option>Category 3</option>
-																<option>Category 4</option>
-															</select>
-														</td>
-														<td>
-															<select class="form-control">	
-																<option selected="" disabled="">- Select -</option>
-																<option>Collection 1</option>
-																<option>Collection 2</option>
-																<option>Collection 3</option>
-																<option>Collection 4</option>
-															</select>
-														</td>
-														<td>
-															<select class="form-control">	
-																<option selected="" disabled="">- Select -</option>
-																<option>No. 1</option>
-																<option>No. 2</option>
-																<option>No. 3</option>
-																<option>No. 4</option>
-															</select>
-														</td>
-														<td>
-															<input type="text" class="form-control" placeholder="">
-														</td>													
-														<td>
-															<b style="font-weight:800;">RL</b>
-														</td>
-														<td>
-															<i aria-hidden="true" class="fa fa-plus addBtnIcon"></i>
-															<i aria-hidden="true" class="fa fa-minus addBtnIcon"></i>
-														</td>
-													</tr>
-												  
-												</tbody>
-											  </table>
-										</div>
-									</div>			
-
-
-
-					<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->		
-
-							<div class="row">
-								<div class="col-md-12">
-									<table class="staticTable merchantTable" id="">
+							<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+							<div class="col-md-12 formContentbox">
+								<div class="table-responsive" style="margin-bottom: 8px;">
+									<h5 class="itemAddHeading">Item Details:</h5>
+									<table class="table itemAddTable itemAddTablePurchase">
 										<thead>
 											<tr>
-												<th title="">
-													Category
-												</th>
-												<th title="">
-													Collection
-												</th>
-												<th title="">
-													Serial No
-												</th>
+												<th>Category</th>
+												<th>Collection</th>
+												<th>Serial No.</th>
 												<th>
 													Size
+												</th>
+												<th>
+													Height X Width
 												</th>
 												<th title="">
 													Quantity
@@ -400,18 +295,15 @@
 												<th title="">
 													Action
 												</th>
+
 											</tr>
 										</thead>
 										<tbody>
-											<tr *ngIf="itemDetails.length==0">
-												<td colspan="5">
-													No Record Found
-												</td>
-											</tr>
 											<tr *ngFor="let row of itemDetails;let rowNum=index;let lastRowNum=last;">
 												<td>
 													<p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="row.categoryId" styleClass="{{row.categoryIdError?'red-border-class':'' }}"
 													 (ngModelChange)="onChangeCategory(row)" name="categoriesDDl" filter="true" tabindex="5"></p-dropdown>
+
 												</td>
 												<td>
 													<p-dropdown class="feePlanBox" [options]="row.collectionList" [(ngModel)]="row.collectionId" styleClass="{{row.collectionIdError?'red-border-class': ''}}"
@@ -427,43 +319,55 @@
 													 name="shadeIdDDl" filter="true" tabindex="7"></p-dropdown>
 													<p-dropdown class="feePlanBox" *ngIf="categoryId==2" [options]="foamSizeList" [(ngModel)]="row.foamSizeId" styleClass="{{row.shadeIdError?'red-border-class':'' }}"
 													 name="shadeIdDDl" filter="true" tabindex="7"></p-dropdown>
-													<input type="text" class="form-control" OnlyNumber="true" *ngIf="row.categoryId==4 && row.collectionId==4 && row.matSizeId==-1"
-													 DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': lengthErrors}" [(ngModel)]="row.length"
-													 name="length" placeholder="" (blur)="calculateSizeCode(row);">
-													<input type="text" class="form-control" OnlyNumber="true" *ngIf="row.categoryId==4 && row.collectionId==4 && row.matSizeId==-1"
-													 DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': widthErrors}" (blur)="calculateSizeCode(row);"
-													 [(ngModel)]="row.width" name="width" placeholder="">
+
+													<!-- <input type="text" class="form-control" placeholder=""> -->
+												</td>
+												<td>
+													<span>
+														<input type="text" class="form-control" OnlyNumber="true" *ngIf="row.categoryId==4 && row.collectionId==4 && row.matSizeId==-1"
+														 DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': lengthErrors}" [(ngModel)]="row.length"
+														 name="length" placeholder="" (blur)="calculateSizeCode(row);">
+														<input type="text" class="form-control" OnlyNumber="true" *ngIf="row.categoryId==4 && row.collectionId==4 && row.matSizeId==-1"
+														 DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': widthErrors}" (blur)="calculateSizeCode(row);"
+														 [(ngModel)]="row.width" name="width" placeholder="">
+													</span>
 												</td>
 												<td>
 													<input class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': orderQuantityError}"
 													 [(ngModel)]="row.orderQuantity" (blur)="changeOrderType(row)" name="orderQunatity" tabindex="8" placeholder="">
+													<!-- <b style="font-weight:800;">RL</b>															 -->
 												</td>
-												<td>{{row.orderType}}</td>
+												<td>
+													<b style="font-weight:800;">{{row.orderType}}</b>
+												</td>
 												<td>
 
-														<!-- <button title="Edit" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+													<!-- <button title="Edit" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
 															*ngIf="!row.enable" (click)="enableEdit(row)">
 															<i class="la la-edit" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 														</button> -->
-														<!-- <button title="Cancel" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+													<!-- <button title="Cancel" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
 														*ngIf="row.enable" (click)="cancelEdit(row)">
 														<i class="la la-undo" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 													</button> -->
-														<button title="Delete" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-														 *ngIf="rowNum>0" (click)="onDeleteItemDetails(row.id,rowNum)">
-															<i class="la la-close" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
-														</button>
-														<button title="Save" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-														 *ngIf="row.enable ||!row.id" (click)="addItemToList(row)">
-															<i class="la la-save" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
-														</button>
-
+													<button title="Delete" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+													 *ngIf="rowNum>0" (click)="onDeleteItemDetails(row.id,rowNum)">
+														<i class="la la-close" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
+													</button>
+													<button title="Save" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+													 *ngIf="row.enable ||!row.id" (click)="addItemToList(row)">
+														<i class="la la-save" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
+													</button>
 												</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
 							</div>
+
+
+
+							<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 						</div>
 
 					</div>

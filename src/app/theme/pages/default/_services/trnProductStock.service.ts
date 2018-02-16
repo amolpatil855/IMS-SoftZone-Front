@@ -14,11 +14,11 @@ export class TrnProductStockService {
   currentPageNumber: any = 1;
 
   getAllTrnProductStocks(pageSize = 0, page = 0, search = '') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStock?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStockDetail?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getTrnProductStockById(id: number) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStock/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStockDetail/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getCategoryLookUp() {
@@ -46,11 +46,11 @@ export class TrnProductStockService {
   }
 
   createTrnProductStock(trnProductStock: TrnProductStock) {
-    return this.http.post(AppSettings.API_ENDPOINT + 'TrnProductStock', trnProductStock, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.post(AppSettings.API_ENDPOINT + 'TrnProductStockDetail', trnProductStock, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   updateTrnProductStock(trnProductStock: TrnProductStock) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'TrnProductStock/' + trnProductStock.id, trnProductStock, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnProductStockDetail/' + trnProductStock.id, trnProductStock, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
 }
