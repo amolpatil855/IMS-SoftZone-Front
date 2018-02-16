@@ -43,10 +43,10 @@
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
 			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="fomSizeForm" [ngClass]="(fomSizeForm && !fomSizeForm.form.valid) ?'cursorNotAllowed':'cursorPointer'"
 			 title="{{(fomSizeForm && fomSizeForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-			 [disabled]="fomSizeForm && !fomSizeForm.form.valid" [isAuthorize]="['foamsize']" tabindex="8">
+			 [disabled]="fomSizeForm && !fomSizeForm.form.valid" [isAuthorize]="['foamsize']" tabindex="9">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
-			<button class="btn btn-secondary" [isAuthorize]="['foamsize']" (click)="onCancel()" tabindex="9">
+			<button class="btn btn-secondary" [isAuthorize]="['foamsize']" (click)="onCancel()" tabindex="10">
 					Cancel
 			</button>
 		</div>
@@ -149,7 +149,7 @@
 															<label class="fieldLabel col-sm-5">Item Code</label>
 															<div class="col-sm-7">
 																<input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==50) return false;" maxlength="50" [(ngModel)]="fomSizeObj.itemCode"
-																name="itemCode" id="itemCode">
+																name="itemCode" id="itemCode" tabindex="7">
 															</div>
 														</div>
 													</div>
@@ -159,7 +159,7 @@
 															<div class="col-sm-7">
 																<input class="form-control m-input" type="number" value="" maxlength="5" #stockReorderLevelVal="ngModel" required (keypress)="restrictDotMinus($event, 4);"
 																 [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel"
-																 name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel" tabindex="7">
+																 name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel" tabindex="8">
 																<!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
 															Please enter StockReorderLevel
 														</div> -->
