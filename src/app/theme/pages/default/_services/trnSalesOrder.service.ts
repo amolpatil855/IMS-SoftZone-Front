@@ -49,6 +49,10 @@ export class TrnSalesOrderService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getProductStockAvailabilty(categoryId, collectionId, parameterId) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStock/GetProductStockAvailabilty?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   getSerialNumberLookUpByCollection(collectionId) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpByCollection?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

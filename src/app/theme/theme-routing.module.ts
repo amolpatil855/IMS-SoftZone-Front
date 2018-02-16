@@ -76,6 +76,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/trnProductStock\/trnProductStock.module#TrnProductStockModule"
       },
       {
+        "path": "features\/master\/trnProductStockDetail",
+        "loadChildren": ".\/pages\/default\/features\/master\/trnProductStockDetail\/trnProductStockDetail.module#TrnProductStockDetailModule"
+      },
+      {
         "path": "features\/master\/hsn",
         "loadChildren": ".\/pages\/default\/features\/master\/hsn\/hsn.module#HsnModule"
       },
