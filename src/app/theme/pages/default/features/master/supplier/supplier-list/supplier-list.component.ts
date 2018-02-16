@@ -72,6 +72,7 @@ export class SupplierListComponent implements OnInit {
       dispatchPersonName: '',
       dispatchPersonEmail: '',
       dispatchPersonPhone: '',
+      creditPeriodDays: null,
       MstSupplierAddresses: [],
     };
 
