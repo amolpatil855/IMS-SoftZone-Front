@@ -1731,13 +1731,12 @@ body .ui-tree .ui-treenode .ui-treenode-content .ui-treenode-label {
 .topCompanyName span i{
     vertical-align: middle;
     margin-top: -2px;
-    font-size: 17px;
+    font-size: 22px;
 }
 .loginLogoImg{
     width: 240px;
     background-color: rgba(255,255,255,0.8);
-    margin: 0 auto;
-    text-align: center;
+    margin: 0 auto;text-align: center;
     margin-bottom: 20px;
     border-radius: 0px;
 }
@@ -1978,3 +1977,8 @@ select option {
     height: 32px;
     padding-left: 30px!important;
 }
+
+/******* D. 16 Feb 2018 ******/
+.editBtn, .delBtn {
+    padding: 0px!important;
+} 
