@@ -21,6 +21,7 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
   userRole: string;
   userName: string;
   location: string;
+  show: boolean = false;
   logoURLtoshow: string;
   companyPhone: string;
   loggedInUser = { user: null };
@@ -30,16 +31,22 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
     private companyService: CompanyService,
     private imageUploadService: ImageUploadService,
     private messageService: MessageService) {
-       this.subscription = this.messageService.getCompanyDetails().subscribe(message => {  
-       this.getAllCompanyInfo();
-      });
+    this.subscription = this.messageService.getCompanyDetails().subscribe(message => {
+      this.getAllCompanyInfo();
+    });
   }
   ngOnInit() {
-   
+
     this.userService.getLoggedInUserDetail().subscribe(res => {
       this.userName = res.userName;
       this.userRole = res.mstRole.roleName;
-      this.location = res.mstCompanyLocation.locationCode;
+      if (this.userRole != "Administrator") {
+        this.show = true;
+        if (res.mstCompanyLocation != null) {
+          this.location = res.mstCompanyLocation.locationCode;
+          localStorage.setItem('location', JSON.stringify(this.location));
+        }
+      }
       if (this.userName !== undefined && this.userRole !== undefined) {
         this.loggedInUser = { user: { username: this.userName, role: this.userRole } };
       }
@@ -57,6 +64,7 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
       }
     }
   }
+
   getAllCompanyInfo() {
     this.companyService.getAllCompanyInfo().subscribe(
       (results: any) => {
@@ -71,6 +79,7 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     mLayout.initHeader();
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

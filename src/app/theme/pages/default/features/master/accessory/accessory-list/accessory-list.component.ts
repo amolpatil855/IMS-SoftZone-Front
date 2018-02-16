@@ -6,28 +6,26 @@ import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@ang
 import { ConfirmationService, DataTableModule, LazyLoadEvent, SelectItem } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
-import { DesignService } from '../../../../_services/design.service';
+import { AccessoryService } from '../../../../_services/accessory.service';
 import { Role } from "../../../../_models/role";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
-import { Design } from "../../../../_models/design";
+import { Accessory } from "../../../../_models/accessory";
 @Component({
-  selector: "app-design-list",
-  templateUrl: "./design-list.component.html",
+  selector: "app-accessory-list",
+  templateUrl: "./accessory-list.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class DesignListComponent implements OnInit {
-
-  designForm: any;
-  designObj: any;
+export class AccessoryListComponent implements OnInit {
+  accessoryForm: any;
+  accessoryObj: any;
   params: number;
-  designList = [];
+  accessoryList = [];
   categoryList: SelectItem[];
-  selectedCategory = null;
-  selectedCollection = null;
-  selectedQuality = null;
-  collectionList = [];
-  qualityList = [];
+  selectedUnitOfMeasure = null;
+  selectedHsn = null;
+  unitOfMeasureList = [];
+  hsnList = [];
   pageSize = 50;
   page = 1;
   totalCount = 0;
@@ -40,7 +38,7 @@ export class DesignListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private designService: DesignService,
+    private accessoryService: AccessoryService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) {
@@ -55,21 +53,19 @@ export class DesignListComponent implements OnInit {
 
   newRecord() {
     this.params = null;
-    this.designObj = {
+    this.accessoryObj = {
       categoryId: null,
-      collectionId: null,
-      qualityId: null,
-      designCode: '',
-      designName: '',
+      name: '',
+      itemCode: '',
+      hsnId: null,
+      uomId: null,
+      sellingRate: null,
+      purchaseRate: null,
+      size: '',
       description: '',
     };
-    this.selectedCategory = null;
-    this.collectionList = [];
-    this.collectionList.unshift({ label: '--Select--', value: null });
-    this.qualityList = [];
-    this.qualityList.unshift({ label: '--Select--', value: null });
-    this.selectedCollection = null;
-    this.selectedQuality = null;
+    this.selectedUnitOfMeasure = null;
+    this.selectedHsn = null;
   }
 
   toggleButton() {
@@ -86,10 +82,10 @@ export class DesignListComponent implements OnInit {
     this.disabled = false;
     this.newRecord();
   }
-  getDesignsList() {
-    this.designService.getAllDesigns(this.pageSize, this.page, this.search).subscribe(
+  getAccessorysList() {
+    this.accessoryService.getAllAccessories(this.pageSize, this.page, this.search).subscribe(
       results => {
-        this.designList = results.data;
+        this.accessoryList = results.data;
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
@@ -101,63 +97,35 @@ export class DesignListComponent implements OnInit {
       });
   }
 
-  getCategoryLookUp() {
-    this.designService.getCategoryLookUp().subscribe(
+  getUnitOfMeasureLookup() {
+    Helpers.setLoading(true);
+    this.accessoryService.getUnitOfMeasureLookup().subscribe(
       results => {
-        this.categoryList = results;
-        this.categoryList.unshift({ label: '--Select--', value: null });
-        console.log('this.categoryList', this.categoryList);
+        this.unitOfMeasureList = results;
+        this.unitOfMeasureList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
-  onCategoryClick() {
-    this.collectionList = [];
-    this.collectionList.unshift({ label: '--Select--', value: null });
-    this.qualityList = [];
-    this.qualityList.unshift({ label: '--Select--', value: null });
-    this.selectedCollection = null;
-    this.selectedQuality = null;
-    if (this.selectedCategory != null) {
-      this.designService.getCollectionLookUp(this.selectedCategory).subscribe(
-        results => {
-          this.collectionList = results;
-          this.collectionList.unshift({ label: '--Select--', value: null });
-          this.selectedCollection = this.designObj.collectionId;
-          if (this.selectedCollection > 0) {
-            this.onCollectionClick();
-          }
-          console.log('this.collectionList', this.collectionList);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
-    }
+  getHsnLookUp() {
+    Helpers.setLoading(true);
+    this.accessoryService.getHsnLookUp().subscribe(
+      results => {
+        this.hsnList = results;
+        this.hsnList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
-  onCollectionClick() {
 
-    this.qualityList = [];
-    this.qualityList.unshift({ label: '--Select--', value: null });
-    this.selectedQuality = null;
-    if (this.selectedCollection != null) {
-      this.designService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
-        results => {
-          this.qualityList = results;
-          this.qualityList.unshift({ label: '--Select--', value: null });
-          this.selectedQuality = this.designObj.qualityId;
-          console.log('this.qualityList', this.qualityList);
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
-    }
-  }
 
   loadLazy(event: LazyLoadEvent) {
     //in a real application, make a remote request to load data using state metadata from event
@@ -170,20 +138,18 @@ export class DesignListComponent implements OnInit {
     this.pageSize = event.rows;
     this.page = event.first / event.rows;
     this.search = event.globalFilter;
-    this.getDesignsList();
-    this.getCategoryLookUp();
+    this.getAccessorysList();
+    this.getUnitOfMeasureLookup();
+    this.getHsnLookUp();
   }
 
-  getdesignById(id) {
+  getAccessoryById(id) {
     Helpers.setLoading(true);
-    this.designService.getDesignById(id).subscribe(
+    this.accessoryService.getAccessoryById(id).subscribe(
       results => {
-        this.designObj = results;
-        console.log('this.designObj', this.designObj);
-        this.selectedCategory = this.designObj.categoryId;
-        if (this.selectedCategory > 0) {
-          this.onCategoryClick();
-        }
+        this.accessoryObj = results;
+        this.selectedUnitOfMeasure = this.accessoryObj.uomId;
+        this.selectedHsn = this.accessoryObj.hsnId;
         Helpers.setLoading(false);
       },
       error => {
@@ -198,39 +164,37 @@ export class DesignListComponent implements OnInit {
     this.isFormSubmitted = true;
     if (!valid)
       return;
-    if (this.designObj.id > 0) {
+    if (this.accessoryObj.id > 0) {
 
     }
     else {
-      this.designObj.categoryId = value.category;
-      this.designObj.collectionId = value.collection;
-      this.designObj.qualityId = value.quality;
+      this.accessoryObj.hsnId = value.hsn;
+      this.accessoryObj.uomId = value.uom;
     }
-    this.saveDesign(this.designObj);
+    this.saveAccessory(this.accessoryObj);
   }
 
-  saveDesign(value) {
+  saveAccessory(value) {
     Helpers.setLoading(true);
     if (this.params) {
-      this.designService.updateDesign(value)
+      this.accessoryService.updateAccessory(value)
         .subscribe(
         results => {
-          this.getDesignsList();
+          this.getAccessorysList();
           this.toggleDiv = false;
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-
         },
         error => {
           this.globalErrorHandler.handleError(error);
           Helpers.setLoading(false);
         });
     } else {
-      this.designService.createDesign(value)
+      this.accessoryService.createAccessory(value)
         .subscribe(
         results => {
-          this.getDesignsList();
+          this.getAccessorysList();
           this.toggleDiv = false;
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
@@ -244,27 +208,27 @@ export class DesignListComponent implements OnInit {
     }
   }
 
-  onEditClick(design: Design) {
-    this.designService.perPage = this.pageSize;
-    this.designService.currentPos = this.page;
-    this.getdesignById(design.id);
-    this.params = design.id;
+  onEditClick(accessory: Accessory) {
+    this.accessoryService.perPage = this.pageSize;
+    this.accessoryService.currentPos = this.page;
+    this.getAccessoryById(accessory.id);
+    this.params = accessory.id;
     this.toggleDiv = true;
     this.disabled = true;
     this.isFormSubmitted = false;
     window.scrollTo(0, 0);
   }
 
-  onDelete(design: Design) {
+  onDelete(accessory: Accessory) {
     this.confirmationService.confirm({
       message: 'Do you want to delete this record?',
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
-        this.designService.deleteDesign(design.id).subscribe(
+        this.accessoryService.deleteAccessory(accessory.id).subscribe(
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
-            this.getDesignsList();
+            this.getAccessorysList();
             this.toggleDiv = false;
           },
           error => {
