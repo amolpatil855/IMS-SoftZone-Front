@@ -217,14 +217,14 @@
 														<label class="col-md-4 col-sm-4 fieldLabel">Length</label>
 														<div class="col-md-8 col-sm-8">
 															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': lengthErrors}"
-															 [(ngModel)]="length" name="length" placeholder="">
+															 [(ngModel)]="length" name="length" placeholder="" autocomplete="off">
 														</div>
 													</div>
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Width</label>
 														<div class="col-md-8 col-sm-8">
 															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': widthErrors}"
-															 (blur)="calculateSizeCode();" [(ngModel)]="width" name="width" placeholder="">
+															 (blur)="calculateSizeCode();" [(ngModel)]="width" name="width" placeholder="" autocomplete="off">
 														</div>
 													</div>
 													<div class="col-md-4">
@@ -240,7 +240,7 @@
 														<label class="col-md-4 col-sm-4 fieldLabel">Order Quantity</label>
 														<div class="col-md-8 col-sm-8">
 															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': orderQuantityError}"
-															 [(ngModel)]="orderQuantity" name="orderQunatity" tabindex="8" placeholder="">
+															 [(ngModel)]="orderQuantity" name="orderQunatity" tabindex="8" placeholder="" autocomplete="off">
 														</div>
 													</div>
 													<div class="col-md-4">

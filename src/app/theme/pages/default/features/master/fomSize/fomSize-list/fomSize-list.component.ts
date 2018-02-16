@@ -70,6 +70,7 @@ export class FomSizeListComponent implements OnInit {
       width: '',
       length: '',
       sizeCode: '',
+      itemCode: '',
       stockReorderLevel: null,
     };
     this.selectedCollection = null;

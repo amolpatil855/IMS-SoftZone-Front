@@ -14,6 +14,7 @@ import { AuthenticationService } from "./_services/authentication.service";
 import { UserService } from "./_services/user.service";
 import { fakeBackendProvider } from "./_helpers/index";
 import { CookieService } from 'ngx-cookie-service';
+import { CompanyService } from "../theme/pages/default/_services/company.service";
 @NgModule({
   declarations: [
     AuthComponent,
@@ -31,6 +32,7 @@ import { CookieService } from 'ngx-cookie-service';
     AlertService,
     AuthenticationService,
     UserService,
+    CompanyService,
     // api backend simulation
     fakeBackendProvider,
     MockBackend,

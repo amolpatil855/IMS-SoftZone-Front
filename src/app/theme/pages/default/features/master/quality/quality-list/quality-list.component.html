@@ -1,6 +1,6 @@
 <p-confirmDialog #cd>
-   <p-footer>
-      <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+  <p-footer>
+    <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
       <span>
       <i class="la la-check"></i>
       <span>
@@ -8,7 +8,7 @@
       </span>
       </span>
       </button>
-      <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+    <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
       <span>
       <i class="la la-close"></i>
       <span>
@@ -16,380 +16,381 @@
       </span>
       </span>
       </button>
-   </p-footer>
+  </p-footer>
 </p-confirmDialog>
 <div class="m-subheader">
-   <div class="d-flex align-items-center">
-      <div class="mr-auto">
-         <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-            <li class="m-nav__item m-nav__item--home">
-               <a href="#" class="m-nav__link m-nav__link--icon">
+  <div class="d-flex align-items-center">
+    <div class="mr-auto">
+      <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+        <li class="m-nav__item m-nav__item--home">
+          <a href="#" class="m-nav__link m-nav__link--icon">
                <i class="m-nav__link-icon la la-home"></i>
                </a>
-            </li>
-            <li class="m-nav__separator">
-               -
-            </li>
-            <li class="m-nav__item">
-               <a class="m-nav__link">
+        </li>
+        <li class="m-nav__separator">
+          -
+        </li>
+        <li class="m-nav__item">
+          <a class="m-nav__link">
                <span class="m-nav__link-text">
                Quality
                </span>
                </a>
-            </li>
-         </ul>
-      </div>
-      <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-         <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="qualityForm" [ngClass]="(qualityFormVal && !qualityFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'"
-         title="{{(qualityFormVal && qualityFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-         [disabled]="qualityFormVal && !qualityFormVal.form.valid" [isAuthorize]="['quality']" tabindex="21">
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+      <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="qualityForm" [ngClass]="(qualityFormVal && !qualityFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'"
+        title="{{(qualityFormVal && qualityFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+        [disabled]="qualityFormVal && !qualityFormVal.form.valid" [isAuthorize]="['quality']" tabindex="21">
          {{ params ? 'Update' : 'Save' }}
          </button>
-         <button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()" tabindex="22">
+      <button class="btn btn-secondary" [isAuthorize]="['quality']" (click)="onCancel()" tabindex="22">
          Cancel
          </button>
-      </div>
-   </div>
+    </div>
+  </div>
 </div>
 <!-- END: Subheader -->
 <div class="m-content">
-   <div class="row">
-      <div class="col-lg-12">
-         <!--begin::Portlet-->
-         <div class="m-portlet">
-            <div class="row">
-               <div class="col-md-12" *ngIf="toggleDiv">
-                  <div class="">
-                     <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
-                     (ngSubmit)="onSubmit(qualityForm)" [formGroup]="qualityForm" #qualityFormVal="ngForm"
-                     id="qualityForm">
-                     <div class="row">
-                        <div class="col-md-12">
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <!-- Basic Information -->
-                                 <div class="panel panel-default">
-                                    <div class="panel-heading">Quality Basic Information</div>
-                                    <div class="panel-body">
-                                       <div class="form-group">
-                                          <div class="row">
-                                             <div class="col-md-3">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Category <span class="requiredField">*</span></label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="slectedCategory" styleClass="{{ qualityForm.get('categoryId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
-                                                      formControlName="categoryId"
-                                                      required
-                                                      [style]="{'width':'100%'}"
-                                                      [disabled]="disabled"
-                                                      (ngModelChange)="onChangeCategory(event)"
-                                                      name="categoriesDDl" filter="true"
-                                                      tabindex="1"></p-dropdown>
-                                                      <!-- <div class="alertMsg" *ngIf="qualityForm.get('categoryId').hasError('required') && qualityForm.get('categoryId ').touched">
+  <div class="row">
+    <div class="col-lg-12">
+      <!--begin::Portlet-->
+      <div class="m-portlet">
+        <div class="row">
+          <div class="col-md-12" *ngIf="toggleDiv">
+            <div class="">
+              <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
+                (ngSubmit)="onSubmit(qualityForm)" [formGroup]="qualityForm" #qualityFormVal="ngForm" id="qualityForm">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <!-- Basic Information -->
+                        <div class="panel panel-default">
+                          <div class="panel-heading">Quality Basic Information</div>
+                          <div class="panel-body">
+                            <div class="form-group">
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Category <span class="requiredField">*</span></label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="slectedCategory" styleClass="{{ qualityForm.get('categoryId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
+                                        formControlName="categoryId" required [style]="{'width':'100%'}" [disabled]="disabled"
+                                        (ngModelChange)="onChangeCategory(event)" name="categoriesDDl" filter="true" tabindex="1"></p-dropdown>
+                                      <!-- <div class="alertMsg" *ngIf="qualityForm.get('categoryId').hasError('required') && qualityForm.get('categoryId ').touched">
                                                          Please select Category
                                                          </div> -->
-                                                   </div>
-                                                </div>
-                                             </div>
-                                             <div class="col-md-3">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Collection <span class="requiredField">*</span></label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <p-dropdown class="feePlanBox" [options]="collectionList" formControlName="collectionId" styleClass="{{ qualityForm.get('collectionId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
-                                                      required
-                                                      [style]="{'width':'100%'}"
-                                                      [disabled]="disabled"
-                                                      name="supplierCodeDDl" filter="true"
-                                                      tabindex="2"></p-dropdown>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                             <div class="col-md-3">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Code <span class="requiredField">*</span></label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <input type="text" class="form-control" [ngClass]="{'red-border-class': qualityForm.get('qualityCode').hasError('required') && isFormSubmitted}"
-                                                         formControlName="qualityCode"
-                                                         required
-                                                         placeholder=""
-                                                         tabindex="3">
-                                                   </div>
-                                                </div>
-                                             </div>
-											 <div class="col-md-3">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Name <span class="requiredField">*</span></label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <input type="text" class="form-control" [ngClass]="{'red-border-class': qualityForm.get('qualityName').hasError('required') && isFormSubmitted}"
-                                                         formControlName="qualityName"
-                                                         required
-                                                         placeholder=""
-                                                         tabindex="4">
-                                                   </div>
-                                                </div>
-                                             </div>
-											 
-                                          </div>
-                                       </div>
-                                       <div class="form-group">
-                                          <div class="row">
-                                             
-                                             <div class="col-md-3">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">HSN Code <span class="requiredField">*</span></label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <p-dropdown class="feePlanBox" [options]="hsnCodeList" styleClass="{{ qualityForm.get('hsnId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
-                                                      formControlName="hsnId"
-                                                      required
-                                                      [style]="{'width':'100%'}"
-                                                      name="supplierCodeDDl" filter="true"
-                                                      tabindex="5"></p-dropdown>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                             <div class="col-md-3">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Description</label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <input type="text" class="form-control" formControlName="description" placeholder="" tabindex="6">
-                                                   </div>
-                                                </div>
-                                             </div>
-											 <div class="col-md-3">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Width</label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" *ngIf="slectedCategory==1" formControlName="width" [ngClass]="{'red-border-class': qualityForm.get('width').hasError('required') && isFormSubmitted}" tabindex="9">
-                                                      <input type="text" class="form-control" disabled *ngIf="slectedCategory!=1"  tabindex="10">
-                                                   </div>
-                                                </div>
-                                             </div>
-                                             <div class="col-md-3">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Size</label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="9999.99" class="form-control" formControlName="size" *ngIf="slectedCategory!=1" [ngClass]="{'red-border-class': qualityForm.get('size').hasError('required') && isFormSubmitted}" tabindex="11">
-                                                      <input type="text" class="form-control" disabled *ngIf="slectedCategory==1" tabindex="12">
-                                                   </div>
-                                                </div>
-                                             </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Collection <span class="requiredField">*</span></label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <p-dropdown class="feePlanBox" [options]="collectionList" formControlName="collectionId" styleClass="{{ qualityForm.get('collectionId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
+                                        required [style]="{'width':'100%'}" [disabled]="disabled" name="supplierCodeDDl" filter="true"
+                                        tabindex="2"></p-dropdown>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Code <span class="requiredField">*</span></label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input type="text" class="form-control" [ngClass]="{'red-border-class': qualityForm.get('qualityCode').hasError('required') && isFormSubmitted}"
+                                        formControlName="qualityCode" required placeholder="" tabindex="3">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Name <span class="requiredField">*</span></label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input type="text" class="form-control" [ngClass]="{'red-border-class': qualityForm.get('qualityName').hasError('required') && isFormSubmitted}"
+                                        formControlName="qualityName" required placeholder="" tabindex="4">
+                                    </div>
+                                  </div>
+                                </div>
 
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
                               </div>
-                           </div>
-                           <div class="row" *ngIf="slectedCategory==4">
-                              <div class="col-md-12">
-                                 <!-- For Mattress -->
-                                 <div class="panel panel-default">
-                                    <div class="panel-heading">Mattress Information</div>
-                                    <div class="panel-body">
-                                       <div class="form-group">
-                                          <div class="row">
-                                             <div class="col-md-4">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Cust Rate/Sq.Mtr</label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" required [ngClass]="{'red-border-class': qualityForm.get('custRatePerSqFeet').hasError('required') && isFormSubmitted}"
-                                                         placeholder="" 
-                                                         formControlName="custRatePerSqFeet" tabindex="7">
-                                                   </div>
-                                                </div>
-                                             </div>
-                                             <div class="col-md-4">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount %</label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" required placeholder="" formControlName="maxDiscout" [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}" tabindex="8">
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="row">
+
+                                <div class="col-md-3">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">HSN Code <span class="requiredField">*</span></label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <p-dropdown class="feePlanBox" [options]="hsnCodeList" styleClass="{{ qualityForm.get('hsnId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
+                                        formControlName="hsnId" required [style]="{'width':'100%'}" name="supplierCodeDDl"
+                                        filter="true" tabindex="5"></p-dropdown>
                                     </div>
-                                 </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Description</label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input type="text" class="form-control" formControlName="description" placeholder="" tabindex="6">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Width</label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" *ngIf="slectedCategory==1"
+                                        formControlName="width" [ngClass]="{'red-border-class': qualityForm.get('width').hasError('required') && isFormSubmitted}"
+                                        autocomplete="off" tabindex="9">
+                                      <input type="text" class="form-control" disabled *ngIf="slectedCategory!=1" tabindex="10">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Size</label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="9999.99" class="form-control" formControlName="size"
+                                        *ngIf="slectedCategory!=1" [ngClass]="{'red-border-class': qualityForm.get('size').hasError('required') && isFormSubmitted}"
+                                        autocomplete="off" tabindex="11">
+                                      <input type="text" class="form-control" disabled *ngIf="slectedCategory==1" tabindex="12">
+                                    </div>
+                                  </div>
+                                </div>
+
                               </div>
-                           </div>
+                            </div>
+                          </div>
                         </div>
-						
-						<!-- Fabric, Wallpapers, Rugs -->
-                        <div class="col-md-12">
-                           <div class="row" *ngIf="slectedCategory==1 || slectedCategory==5 || slectedCategory==6">
-                              <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
-							  <!-- Purchase Section -->
-							  <div class="col-md-6">								
-                                 <div class="panel panel-default">
-                                    <div class="panel-heading">Purchase Section</div>
-                                    <div class="panel-body">
-									
-										<div class="form-group">
-                                          <div class="row">    
-										  
-                                             <div class="col-md-6">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate <i class="fa fa-inr"></i></label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="cutRate"   [disabled]="disableRRP" (blur)="onChangeRRP(qualityForm.get('cutRate'),qualityForm.get('flatRate'))" maxlength="6" onKeyPress="if(this.value.length==6) return false;"  required [ngClass]="{'red-border-class': qualityForm.get('cutRate').hasError('required') && isFormSubmitted}" tabindex="13">
-                                                   </div>
-                                                </div>
-                                             </div>
-											 
-											 <div class="col-md-6">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Role Rate <i class="fa fa-inr"></i></label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="roleRate"   [disabled]="disableRRP" placeholder="" [ngClass]="{'red-border-class': qualityForm.get('roleRate').hasError('required') && isFormSubmitted}" tabindex="15">
-                                                   </div>
-                                                </div>
-                                             </div>
-											</div>
-											</div>
-											
-											<div class="form-group">
-											<div class="row">
-											 
-											  <div class="col-md-6">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Purchase Flat Rate</label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99"  [disabled]="disableFlatRate" class="form-control" placeholder="" formControlName="purchaseFlatRate" required [ngClass]="{'red-border-class': qualityForm.get('purchaseFlatRate').hasError('required') && isFormSubmitted}" tabindex="20">
-                                                   </div>
-                                                </div>
-                                             </div>
-											 
-											 
-											</div>
-										</div>
-									   
-									</div>
-								 </div>	
-							  
-							  </div>
-							  
-							  <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
-							  
-							  <!-- Selling Section -->
-							  <div class="col-md-6">
-                                 
-								<div class="panel panel-default">
-                                    <div class="panel-heading">Selling Section</div>
-                                    <div class="panel-body">
-									
-										<div class="form-group">
-											<div class="row">
-												<div class="col-md-6">
-													<div class="row">
-														<label class="col-md-5 col-sm-5 fieldLabel">Cut Rate Max Dis. %</label>
-														<div class="col-md-7 col-sm-7">
-															<input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" required    [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('maxCutRateDisc').hasError('required') && isFormSubmitted}"
-															  formControlName="maxCutRateDisc" tabindex="14">
-														</div>
-													</div>
-												</div>
-											
-												
-												<div class="col-md-6">
-													<div class="row">
-														<label class="col-md-5 col-sm-5 fieldLabel">Role Rate Max Dis. %</label>
-														<div class="col-md-7 col-sm-7">
-															<input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" title="Role Rate max discount" formControlName="maxRoleRateDisc"
-															  required  [disabled]="disableRRP" 
-															  [ngClass]="{'red-border-class': qualityForm.get('maxRoleRateDisc').hasError('required') && isFormSubmitted}" tabindex="16">
-														</div>
-													</div>
-												</div>
-											</div>											
-										</div>			
-											 
-										<div class="form-group">
-											<div class="row">
-												<div class="col-md-6">
-													<div class="row">
-														<label class="col-md-5 col-sm-5 fieldLabel">RRP <i class="fa fa-inr"></i></label>
-														<div class="col-md-7 col-sm-7">
-															<input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="rrp"  [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('rrp').hasError('required') && isFormSubmitted}"
-															  required
-															  placeholder="" tabindex="17">
-														</div>
-													</div>
-												</div>
-												
-												<div class="col-md-6">
-													<div class="row">
-														<label class="col-md-5 col-sm-5 fieldLabel">Flat Rate</label>
-														<div class="col-md-7 col-sm-7">
-															  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disableFlatRate" (blur)="onChangeFlatRate(qualityForm.get('flatRate'),qualityForm.get('cutRate'))" class="form-control" placeholder="" formControlName="flatRate" required [ngClass]="{'red-border-class': qualityForm.get('flatRate').hasError('required') && isFormSubmitted}" tabindex="18">
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>		
-											
-										<div class="form-group">
-											<div class="row">	
-												<div class="col-md-6">
-													<div class="row">
-														<label class="col-md-5 col-sm-5 fieldLabel">Flat Rate Max Dis. %</label>
-														<div class="col-md-7 col-sm-7">
-															  <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99"  [disabled]="disableFlatRate" class="form-control" placeholder="" formControlName="maxFlatRateDisc" required [ngClass]="{'red-border-class': qualityForm.get('maxFlatRateDisc').hasError('required') && isFormSubmitted}" tabindex="19">
-														</div>
-													</div>
-												</div>
-												
-											</div>	
-										</div>
-										
-										
-										
-									</div>
-								</div>								  
-							  
-							  </div>
-							  
-							  <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
-                           </div>
-						   
-                           <div class="row" *ngIf="slectedCategory==2">
-                              <div class="col-md-12" >
-                                 <!-- For Foam -->
-                                 <div class="panel panel-default">
-                                    <div class="panel-heading">Foam Information</div>
-                                    <div class="panel-body">
-                                       <div class="form-group">
-                                          <div class="row">
-                                             <div class="col-md-4">
-                                                <div class="row">
-                                                   <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount %</label>
-                                                   <div class="col-md-7 col-sm-7">
-                                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99"  class="form-control" placeholder="" formControlName="maxDiscout" required [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}" tabindex="21">
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="slectedCategory==4">
+                      <div class="col-md-12">
+                        <!-- For Mattress -->
+                        <div class="panel panel-default">
+                          <div class="panel-heading">Mattress Information</div>
+                          <div class="panel-body">
+                            <div class="form-group">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Cust Rate/Sq.Mtr</label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" required [ngClass]="{'red-border-class': qualityForm.get('custRatePerSqFeet').hasError('required') && isFormSubmitted}"
+                                        placeholder="" formControlName="custRatePerSqFeet" autocomplete="off" tabindex="7">
                                     </div>
-                                 </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount %</label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" required placeholder=""
+                                        formControlName="maxDiscout" [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}"
+                                        autocomplete="off" tabindex="8">
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                           </div>
+                            </div>
+                          </div>
                         </div>
-                     </div>
-                     </form>
+                      </div>
+                    </div>
                   </div>
-               </div>
+
+                  <!-- Fabric, Wallpapers, Rugs -->
+                  <div class="col-md-12">
+                    <div class="row" *ngIf="slectedCategory==1 || slectedCategory==5 || slectedCategory==6">
+                      <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+                      <!-- Purchase Section -->
+                      <div class="col-md-6">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">Purchase Section</div>
+                          <div class="panel-body">
+
+                            <div class="form-group">
+                              <div class="row">
+
+                                <div class="col-md-6">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate <i class="fa fa-inr"></i></label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="cutRate"
+                                        [disabled]="disableRRP" (blur)="onChangeRRP(qualityForm.get('cutRate'),qualityForm.get('flatRate'))"
+                                        maxlength="6" onKeyPress="if(this.value.length==6) return false;" required [ngClass]="{'red-border-class': qualityForm.get('cutRate').hasError('required') && isFormSubmitted}"
+                                        autocomplete="off" tabindex="13">
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Role Rate <i class="fa fa-inr"></i></label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="roleRate"
+                                        [disabled]="disableRRP" placeholder="" [ngClass]="{'red-border-class': qualityForm.get('roleRate').hasError('required') && isFormSubmitted}"
+                                        autocomplete="off" tabindex="15">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <div class="row">
+
+                                <div class="col-md-6">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Purchase Flat Rate</label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disableFlatRate" class="form-control"
+                                        placeholder="" formControlName="purchaseFlatRate" required [ngClass]="{'red-border-class': qualityForm.get('purchaseFlatRate').hasError('required') && isFormSubmitted}"
+                                        autocomplete="off" tabindex="20">
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+                      <!-- Selling Section -->
+                      <div class="col-md-6">
+
+                        <div class="panel panel-default">
+                          <div class="panel-heading">Selling Section</div>
+                          <div class="panel-body">
+
+                            <div class="form-group">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate Max Dis. %</label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" required
+                                        [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('maxCutRateDisc').hasError('required') && isFormSubmitted}"
+                                        autocomplete="off" formControlName="maxCutRateDisc" tabindex="14">
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Role Rate Max Dis. %</label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" title="Role Rate max discount"
+                                        formControlName="maxRoleRateDisc" required [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('maxRoleRateDisc').hasError('required') && isFormSubmitted}"
+                                        autocomplete="off" tabindex="16">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">RRP <i class="fa fa-inr"></i></label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="rrp"
+                                        [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('rrp').hasError('required') && isFormSubmitted}"
+                                        required placeholder="" autocomplete="off" tabindex="17">
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate</label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disableFlatRate" (blur)="onChangeFlatRate(qualityForm.get('flatRate'),qualityForm.get('cutRate'))"
+                                        class="form-control" placeholder="" formControlName="flatRate" required [ngClass]="{'red-border-class': qualityForm.get('flatRate').hasError('required') && isFormSubmitted}"
+                                        autocomplete="off" tabindex="18">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate Max Dis. %</label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" [disabled]="disableFlatRate" class="form-control"
+                                        placeholder="" formControlName="maxFlatRateDisc" required [ngClass]="{'red-border-class': qualityForm.get('maxFlatRateDisc').hasError('required') && isFormSubmitted}"
+                                        autocomplete="off" tabindex="19">
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+
+
+
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+                    </div>
+
+                    <div class="row" *ngIf="slectedCategory==2">
+                      <div class="col-md-12">
+                        <!-- For Foam -->
+                        <div class="panel panel-default">
+                          <div class="panel-heading">Foam Information</div>
+                          <div class="panel-body">
+                            <div class="form-group">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <div class="row">
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount %</label>
+                                    <div class="col-md-7 col-sm-7">
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" formControlName="maxDiscout"
+                                        required [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}"
+                                        autocomplete="off" tabindex="21">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
-         </div>
-         <div class="m-portlet__body">
-            <!--begin::Section-->
-            <div class="m-section">
-               <div class="m-section__content">
-                  <div class="ui-widget-header" style="border-bottom: 0 none">
-                     <i class="fa fa-search searchIcon"></i>
-                     <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
-                     <!-- Add Button -->
-                     <button *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()"
-                     [isAuthorize]="['quality']">
+          </div>
+        </div>
+      </div>
+      <div class="m-portlet__body">
+        <!--begin::Section-->
+        <div class="m-section">
+          <div class="m-section__content">
+            <div class="ui-widget-header" style="border-bottom: 0 none">
+              <i class="fa fa-search searchIcon"></i>
+              <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+              <!-- Add Button -->
+              <button *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()"
+                [isAuthorize]="['quality']">
                      <span>
                      <i class="flaticon-add"></i>
                      <span>
@@ -397,32 +398,31 @@
                      </span>
                      </span>
                      </button>
-                  </div>
-                  <p-dataTable [value]="recordList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb"
-                  #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
-                  [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                  <p-column field="mstCategory.code" header="Category" [style]="{'text-align':'left'}"></p-column>
-                  <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
-                  <p-column field="qualityCode" header="Quality Code" [style]="{'text-align':'left'}"></p-column>
-                  <p-column field="qualityName" header="Name" [style]="{'text-align':'left'}"></p-column>
-                  <p-column field="mstHsn.hsnCode" header="HSN Code" [style]="{'text-align':'left'}"></p-column>
-                  <!-- <p-column field="collection" header="Description" [style]="{'text-align':'center'}"></p-column>
-                     <p-column field="manufacturerName" header="Manu FacturerName" [style]="{'text-align':'center'}"></p-column> -->
-                  <p-column styleClass="col-button" [style]="{'text-align':'center'}">
-                     <ng-template pTemplate="header">
-                        Action
-                     </ng-template>
-                     <ng-template let-row="rowData" pTemplate="body">
-                        <button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
-                        <button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
-                     </ng-template>
-                  </p-column>
-                  </p-dataTable>
-               </div>
             </div>
-            <!--end::Section-->
-         </div>
-         <!--end::Portlet-->
+            <p-dataTable [value]="recordList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb"
+              #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+              <p-column field="mstCategory.code" header="Category" [style]="{'text-align':'left'}"></p-column>
+              <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
+              <p-column field="qualityCode" header="Quality Code" [style]="{'text-align':'left'}"></p-column>
+              <p-column field="qualityName" header="Name" [style]="{'text-align':'left'}"></p-column>
+              <p-column field="mstHsn.hsnCode" header="HSN Code" [style]="{'text-align':'left'}"></p-column>
+              <!-- <p-column field="collection" header="Description" [style]="{'text-align':'center'}"></p-column>
+                     <p-column field="manufacturerName" header="Manu FacturerName" [style]="{'text-align':'center'}"></p-column> -->
+              <p-column styleClass="col-button" [style]="{'text-align':'center'}">
+                <ng-template pTemplate="header">
+                  Action
+                </ng-template>
+                <ng-template let-row="rowData" pTemplate="body">
+                  <button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+                  <button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
+                </ng-template>
+              </p-column>
+            </p-dataTable>
+          </div>
+        </div>
+        <!--end::Section-->
       </div>
-   </div>
+      <!--end::Portlet-->
+    </div>
+  </div>
 </div>
