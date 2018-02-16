@@ -66,13 +66,13 @@
                               <div class="panel-body">
                                  <div class="form-group">
                                     <div class="col-md-4 formContentbox">
-                                       <label class="fieldLabel col-sm-5">Unit Of Measure</label>
+                                       <label class="fieldLabel col-sm-5">Unit Of Measure<span class="requiredField">*</span></label>
                                        <div class="col-sm-7">
                                           <p-dropdown class="feePlanBox" [options]="unitOfMeasureList" [style]="{'width':'100%'}"  [(ngModel)]="selectedUnitOfMeasure"  #selectedUomVal="ngModel"  required styleClass="{{ selectedUomVal.errors && isFormSubmitted?'red-border-class':''}}" name="uom" filter="true" tabindex="1"></p-dropdown>
                                        </div>
                                     </div>
                                     <div class="col-md-4 formContentbox">
-                                       <label class="fieldLabel col-sm-5">HSN</label>
+                                       <label class="fieldLabel col-sm-5">HSN<span class="requiredField">*</span></label>
                                        <div class="col-sm-7">
                                           <p-dropdown class="feePlanBox" [options]="hsnList" [style]="{'width':'100%'}" [(ngModel)]="selectedHsn"   #selectedHsnVal="ngModel"  required styleClass="{{ selectedHsnVal.errors && isFormSubmitted?'red-border-class':''}}" name="hsn" filter="true" tabindex="2"></p-dropdown>
                                        </div>
@@ -120,7 +120,7 @@
                                     </div>
                                     <div class="col-md-4 formContentbox">
                                        <div class="form-group">
-                                          <label class="fieldLabel col-sm-5">Size</label>
+                                          <label class="fieldLabel col-sm-5">Size<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
                                              <input class="form-control m-input" type="text" value="" maxlength="10" #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"
 																 [(ngModel)]="accessoryObj.size" name="size" id="size" placeholder="" tabindex="7">
@@ -129,7 +129,7 @@
                                     </div>
                                     <div class="col-md-4 formContentbox">
                                        <div class="form-group">
-                                          <label class="fieldLabel col-sm-5">Description</label>
+                                          <label class="fieldLabel col-sm-5">Description<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
                                              <input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel" [(ngModel)]="accessoryObj.description" name="description" id="description" placeholder="" tabindex="8">
                                           </div>
