@@ -1,0 +1,192 @@
+<p-confirmDialog #cd>
+   <p-footer>
+      <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+      <span>
+      <i class="la la-check"></i>
+      <span>
+      Yes
+      </span>
+      </span>
+      </button>
+      <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+      <span>
+      <i class="la la-close"></i>
+      <span>
+      No
+      </span>
+      </span>
+      </button>
+   </p-footer>
+</p-confirmDialog>
+<div class="m-subheader">
+   <div class="d-flex align-items-center">
+      <div class="mr-auto">
+         <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+            <li class="m-nav__item m-nav__item--home">
+               <a href="#" class="m-nav__link m-nav__link--icon">
+               <i class="m-nav__link-icon la la-home"></i>
+               </a>
+            </li>
+            <li class="m-nav__separator">
+               -
+            </li>
+            <li class="m-nav__item">
+               <a class="m-nav__link">
+               <span class="m-nav__link-text">
+               Accessories
+               </span>
+               </a>
+            </li>
+         </ul>
+      </div>
+      <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+         <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="accessoryForm" title="{{(accessoryForm && accessoryForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['accessories']" tabindex="9">
+         {{ params ? 'Update' : 'Save' }}
+         </button>
+         <button class="btn btn-secondary" [isAuthorize]="['accessories']" (click)="onCancel()" tabindex="10">
+         Cancel
+         </button>
+      </div>
+   </div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+   <div class="row">
+      <div class="col-lg-12">
+         <!--begin::Portlet-->
+         <div class="m-portlet">
+            <div class="row">
+               <div class="col-md-12" *ngIf="toggleDiv">
+                  <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(accessoryForm)"  #accessoryForm="ngForm"  id="accessoryForm">
+                  <div class="formContainerSamePage">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="panel panel-default">
+                              <div class="panel-heading">Accessory Basic Details</div>
+                              <div class="panel-body">
+                                 <div class="form-group">
+                                    <div class="col-md-4 formContentbox">
+                                       <label class="fieldLabel col-sm-5">Unit Of Measure<span class="requiredField">*</span></label>
+                                       <div class="col-sm-7">
+                                          <p-dropdown class="feePlanBox" [options]="unitOfMeasureList" [style]="{'width':'100%'}"  [(ngModel)]="selectedUnitOfMeasure"  #selectedUomVal="ngModel"  required styleClass="{{ selectedUomVal.errors && isFormSubmitted?'red-border-class':''}}" name="uom" filter="true" tabindex="1"></p-dropdown>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4 formContentbox">
+                                       <label class="fieldLabel col-sm-5">HSN<span class="requiredField">*</span></label>
+                                       <div class="col-sm-7">
+                                          <p-dropdown class="feePlanBox" [options]="hsnList" [style]="{'width':'100%'}" [(ngModel)]="selectedHsn"   #selectedHsnVal="ngModel"  required styleClass="{{ selectedHsnVal.errors && isFormSubmitted?'red-border-class':''}}" name="hsn" filter="true" tabindex="2"></p-dropdown>
+                                       </div>
+                                    </div>
+									<div class="col-md-4 formContentbox">
+                                       <div class="form-group">
+                                          <label class="fieldLabel col-sm-5">Accessory Name<span class="requiredField">*</span></label>
+                                          <div class="col-sm-7">
+                                             <input class="form-control m-input" type="text" value=""   [ngClass]="{'red-border-class': accessoryNameVal.errors && isFormSubmitted}"  #accessoryNameVal="ngModel" required [(ngModel)]="accessoryObj.name" name="name" id="name" placeholder="" tabindex="3">
+                                             <!-- <div class="alertMsg" *ngIf="accessoryNameVal.errors   && (accessoryNameVal.dirty || accessoryNameVal.touched)">
+                                                Please enter Accessory Name
+                                                </div> -->
+                                          </div>
+                                       </div>
+                                    </div>
+                                    </div>
+									<div class="form-group">
+                                    <div class="col-md-4 formContentbox">
+                                       <div class="form-group">
+                                          <label class="fieldLabel col-sm-5">Accessory Code<span class="requiredField">*</span></label>
+                                          <div class="col-sm-7">
+                                            <input class="form-control m-input" type="text" value=""   [ngClass]="{'red-border-class': accessoryCodeVal.errors && isFormSubmitted}"  #accessoryCodeVal="ngModel" required [(ngModel)]="accessoryObj.itemCode" name="itemCode" id="itemCode" placeholder="" tabindex="4">
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4 formContentbox">
+                                       <div class="form-group">
+                                          <label class="fieldLabel col-sm-5">Selling Rate<span class="requiredField">*</span></label>
+                                          <div class="col-sm-7">
+                                          <input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #sellingRateVal="ngModel"
+																 required [ngClass]="{'red-border-class': sellingRateVal.errors && isFormSubmitted}"
+																 [(ngModel)]="accessoryObj.sellingRate" name="sellingRate" id="sellingRate" placeholder="" tabindex="5">
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4 formContentbox">
+                                       <div class="form-group">
+                                          <label class="fieldLabel col-sm-5">Purchase Rate<span class="requiredField">*</span></label>
+                                        <div class="col-sm-7">
+                                          <input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #purchaseRateVal="ngModel"
+																 required [ngClass]="{'red-border-class': purchaseRateVal.errors && isFormSubmitted}"
+																 [(ngModel)]="accessoryObj.purchaseRate" name="purchaseRate" id="purchaseRate" placeholder="" tabindex="6">
+                                        </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4 formContentbox">
+                                       <div class="form-group">
+                                          <label class="fieldLabel col-sm-5">Size<span class="requiredField">*</span></label>
+                                          <div class="col-sm-7">
+                                             <input class="form-control m-input" type="text" value="" maxlength="10" #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"
+																 [(ngModel)]="accessoryObj.size" name="size" id="size" placeholder="" tabindex="7">
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-4 formContentbox">
+                                       <div class="form-group">
+                                          <label class="fieldLabel col-sm-5">Description<span class="requiredField">*</span></label>
+                                          <div class="col-sm-7">
+                                             <input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel" [(ngModel)]="accessoryObj.description" name="description" id="description" placeholder="" tabindex="8">
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+								 
+								 
+								 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  </form>
+               </div>
+            </div>
+            <div class="m-portlet__body">
+               <!--begin::Section-->
+               <div class="m-section">
+                  <div class="m-section__content">
+                     <div class="ui-widget-header" style="border-bottom: 0 none">
+                        <i class="fa fa-search searchIcon"></i>
+                        <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+                        <!-- Add Button -->
+                        <button  *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()" [isAuthorize]="['accessories']">
+                        <span>
+                        <i class="flaticon-add"></i>
+                        <span>
+                        Add Accessory
+                        </span>
+                        </span>
+                        </button>
+                     </div>
+                     <p-dataTable [value]="accessoryList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
+                     [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+                     <p-column field="name" header="Name" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="itemCode" header="Code" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="sellingRate" header="Selling Rate" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="purchaseRate" header="Purchase Rate" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="size" header="Size" [style]="{'text-align':'left'}"></p-column>
+                     <p-column styleClass="col-button" [style]="{'text-align':'left'}">
+                        <ng-template pTemplate="header">
+                           Action
+                        </ng-template>
+                        <ng-template let-row="rowData" pTemplate="body" >
+                           <button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+                           <button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
+                        </ng-template>
+                     </p-column>
+                     </p-dataTable>
+                  </div>
+               </div>
+               <!--end::Section-->
+            </div>
+         </div>
+         <!--end::Portlet-->
+      </div>
+   </div>
+</div>
