@@ -146,6 +146,15 @@
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">
 														<div class="form-group">
+															<label class="fieldLabel col-sm-5">Item Code</label>
+															<div class="col-sm-7">
+																<input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==50) return false;" maxlength="50" [(ngModel)]="fomSizeObj.itemCode"
+																name="itemCode" id="itemCode">
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3 formContentbox formContentboxShade">
+														<div class="form-group">
 															<label class="fieldLabel col-sm-5">Stock Reorder Level <span class="requiredField">*</span></label>
 															<div class="col-sm-7">
 																<input class="form-control m-input" type="number" value="" maxlength="5" #stockReorderLevelVal="ngModel" required (keypress)="restrictDotMinus($event, 4);"
