@@ -41,7 +41,9 @@
 			</ul>
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="matThicknessForm" [ngClass]="(matThicknessForm && !matThicknessForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(matThicknessForm && matThicknessForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="matThicknessForm && !matThicknessForm.form.valid" [isAuthorize]="['mattressthickness']" tabindex="3">
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="matThicknessForm" [ngClass]="(matThicknessForm && !matThicknessForm.form.valid) ?'cursorNotAllowed':'cursorPointer'"
+			 title="{{(matThicknessForm && matThicknessForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			 [disabled]="matThicknessForm && !matThicknessForm.form.valid" [isAuthorize]="['mattressthickness']" tabindex="3">
 					{{ params ? 'Update' : 'Save' }}
 			</button>
 			<button class="btn btn-secondary" [isAuthorize]="['mattressthickness']" (click)="onCancel()" tabindex="4">
@@ -56,36 +58,41 @@
 		<div class="col-lg-12">
 			<!--begin::Portlet-->
 			<div class="m-portlet">
-				
+
 				<div class="row">
-				
-				<div class="col-md-12" *ngIf="toggleDiv">
-					<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(matThicknessForm)"  #matThicknessForm="ngForm"  id="matThicknessForm">
-					<div class="formContainerSamePage">
-						
+
+					<div class="col-md-12" *ngIf="toggleDiv">
+						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(matThicknessForm)"
+						 #matThicknessForm="ngForm" id="matThicknessForm">
+							<div class="formContainerSamePage">
+
 								<div class="row">
-									
-										<div class="col-md-12">
-												<div class="panel panel-default">
-														<div class="panel-heading">Mattress Thickness Basic Details</div>
-														<div class="panel-body">	
-															<div class="form-group">
-																<div class="col-md-5 formContentbox">
-																	<label class="fieldLabel col-sm-5">Thickness Code <span class="requiredField">*</span></label>
-																	<div class="col-sm-7">
-																		<input class="form-control m-input" type="text" value="" #thicknessCodeVal="ngModel" required [ngClass]="{'red-border-class': thicknessCodeVal.errors && isFormSubmitted}" [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="" maxlength="10" tabindex="1">
-																		<!-- <div class="alertMsg" *ngIf="thicknessCodeVal.errors   && (thicknessCodeVal.dirty || thicknessCodeVal.touched)">
+
+									<div class="col-md-12">
+										<div class="panel panel-default">
+											<div class="panel-heading">Mattress Thickness Basic Details</div>
+											<div class="panel-body">
+												<div class="form-group">
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">Thickness Code <span class="requiredField">*</span></label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="text" value="" #thicknessCodeVal="ngModel" required [ngClass]="{'red-border-class': thicknessCodeVal.errors && isFormSubmitted}"
+															 [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="" maxlength="10"
+															 tabindex="1">
+															<!-- <div class="alertMsg" *ngIf="thicknessCodeVal.errors   && (thicknessCodeVal.dirty || thicknessCodeVal.touched)">
 																			Please enter Mattress Thickness Code
 																		</div> -->
-																	</div>
-																</div>
-																
-																<div class="col-md-3 formContentbox">
-																	<div class="form-group">
-																		<label class="fieldLabel col-sm-5">Size <span class="requiredField">*</span></label>
-																		<div class="col-sm-7">
-																			<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"   [(ngModel)]="matThicknessObj.size" name="size" placeholder="Size" tabindex="2">
-																			<!-- <div *ngIf="sizeVal.errors && (sizeVal.dirty || sizeVal.touched)" class="alertMsg">
+														</div>
+													</div>
+
+													<div class="col-md-3 formContentbox">
+														<div class="form-group">
+															<label class="fieldLabel col-sm-5">Size <span class="requiredField">*</span></label>
+															<div class="col-sm-7">
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" #sizeVal="ngModel"
+																 required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}" [(ngModel)]="matThicknessObj.size"
+																 name="size" placeholder="Size" autocomplete="off" tabindex="2">
+																<!-- <div *ngIf="sizeVal.errors && (sizeVal.dirty || sizeVal.touched)" class="alertMsg">
 																				<div *ngIf="sizeVal.errors.maxlength && !sizeVal.errors.pattern">
 																					Maximum size limit exceeded.
 																				</div>
@@ -93,20 +100,20 @@
 																				Please enter valid size.
 																			</div>
 																		</div> -->
-																		</div>
-																	</div>
-																</div>
 															</div>
 														</div>
+													</div>
 												</div>
+											</div>
 										</div>
+									</div>
 
 
 
 								</div>
-								
-								
-				<!-- <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
+
+
+								<!-- <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
 					<div class="m-form__actions m-form__actions--solid">
 						<div class="row">
 							<div class="col-lg-6">
@@ -120,24 +127,25 @@
 						</div>
 					</div>
 				</div> -->
-							
-						
+
+
+							</div>
+
+						</form>
 					</div>
-					
-					</form>
 				</div>
-			</div>
 				<div class="m-portlet__body">
 					<!--begin::Section-->
-					
+
 					<div class="m-section">
 						<div class="m-section__content">
-								<div class="ui-widget-header" style="border-bottom: 0 none">
-										<i class="fa fa-search searchIcon"></i>
-										<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
-										
-										<!-- Add Button -->
-										<button  *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()" [isAuthorize]="['mattressthickness']">
+							<div class="ui-widget-header" style="border-bottom: 0 none">
+								<i class="fa fa-search searchIcon"></i>
+								<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+
+								<!-- Add Button -->
+								<button *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()"
+								 [isAuthorize]="['mattressthickness']">
 											<span>
 												<i class="flaticon-add"></i>
 												<span>
@@ -145,16 +153,17 @@
 												</span>
 											</span>
 										</button>
-									</div>
-							<p-dataTable [value]="matThicknessList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
-							[totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                                <p-column field="thicknessCode" header="Thickness Code" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="size" header="Size" [style]="{'text-align':'left'}"></p-column>
+							</div>
+							<p-dataTable [value]="matThicknessList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize"
+							 [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount"
+							 (onLazyLoad)="loadLazy($event)">
+								<p-column field="thicknessCode" header="Thickness Code" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="size" header="Size" [style]="{'text-align':'left'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'left'}">
 									<ng-template pTemplate="header">
 										Action
 									</ng-template>
-									<ng-template let-row="rowData" pTemplate="body" >
+									<ng-template let-row="rowData" pTemplate="body">
 										<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
 										<button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
 									</ng-template>

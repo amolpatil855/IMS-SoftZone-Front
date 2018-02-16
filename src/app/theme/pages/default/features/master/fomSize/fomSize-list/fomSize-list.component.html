@@ -110,7 +110,7 @@
 															<div class="col-sm-7">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" #widthVal="ngModel"
 																 required [(ngModel)]="fomSizeObj.width" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
-																 name="width" id="width" placeholder="Enter Width" (input)=" onInputChange()" tabindex="5">
+																 name="width" id="width" placeholder="Enter Width" (input)=" onInputChange()" autocomplete="off" tabindex="5">
 																<!-- <div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
 																	<div *ngIf="widthVal.errors.pattern">
 																		Invalid width
@@ -126,7 +126,7 @@
 															<div class="col-sm-7">
 																<input class="form-control m-input" #lengthVal="ngModel"
 																 required  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99"  [(ngModel)]="fomSizeObj.length" [ngClass]="{'red-border-class': lengthVal.errors && isFormSubmitted}"
-																 name="length" id="length" placeholder="Enter Length" (input)=" onInputChange()" tabindex="6">
+																 name="length" id="length" placeholder="Enter Length" (input)=" onInputChange()" autocomplete="off" tabindex="6">
 																<!-- <div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
 																	<div *ngIf="lengthVal.errors.pattern">
 																		Invalid Length
@@ -159,7 +159,7 @@
 															<div class="col-sm-7">
 																<input class="form-control m-input" type="number" value="" maxlength="5" #stockReorderLevelVal="ngModel" required (keypress)="restrictDotMinus($event, 4);"
 																 [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel"
-																 name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel" tabindex="8">
+																 name="stockReorderLevel" id="stockReorderLevel" placeholder="Enter StockReorderLevel" autocomplete="off" tabindex="8">
 																<!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
 															Please enter StockReorderLevel
 														</div> -->

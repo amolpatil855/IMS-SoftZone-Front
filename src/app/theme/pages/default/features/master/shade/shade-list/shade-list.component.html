@@ -118,7 +118,7 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Serial Number<span class="requiredField">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="number" value=""  #serialNumberLevelVal="ngModel" required (keypress)="restrictDotMinus($event, 9);" [ngClass]="{'red-border-class': serialNumberLevelVal.errors && isFormSubmitted}" [(ngModel)]="shadeObj.serialNumber" name="serialNumber" id="serialNumber" placeholder="" tabindex="7">
+												<input class="form-control m-input" type="number" value=""  #serialNumberLevelVal="ngModel" required (keypress)="restrictDotMinus($event, 9);" [ngClass]="{'red-border-class': serialNumberLevelVal.errors && isFormSubmitted}" [(ngModel)]="shadeObj.serialNumber" name="serialNumber" id="serialNumber" placeholder="" autocomplete="off" tabindex="7">
                                                 <!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
                                                     Please enter StockReorderLevel
                                                 </div> -->
@@ -140,7 +140,7 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Stock Reorder Level <span class="requiredField">*</span></label>
 											<div class="col-sm-7">
-												<input class="form-control m-input" type="number" value=""  #stockReorderLevelVal="ngModel" required (keypress)="restrictDotMinus($event, 4);" [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="shadeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="" tabindex="9">
+												<input class="form-control m-input" type="number" value=""  #stockReorderLevelVal="ngModel" required (keypress)="restrictDotMinus($event, 4);" [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="shadeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder="" autocomplete="off" tabindex="9">
                                                 <!-- <div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
                                                     Please enter StockReorderLevel
                                                 </div> -->
