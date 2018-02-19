@@ -70,7 +70,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     gst:null,
     roleRate:null,
     cutRate:null,
-    purchaseFlatRate:null
+    purchaseFlatRate:null,
+    stock:null
   };
   constructor(
     private formBuilder: FormBuilder,
@@ -220,7 +221,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       gst:null,
       roleRate:null,
       cutRate:null,
-      purchaseFlatRate:null
+      purchaseFlatRate:null,
+      stock:null
     };
   }
 
