@@ -64,8 +64,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   rate = null;
   amount = null;
   gstRate = null;
-  thicknessId=null;
-  qualityList=[];
+  thicknessId = null;
+  qualityList = [];
   thicknessList = [];
   productDetails = {
     purchaseRatePerMM: null,
@@ -90,7 +90,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     private collectionService: CollectionService,
     private messageService: MessageService,
     private trnProductStockService: TrnProductStockService,
-    private matSizeService:MatSizeService
+    private matSizeService: MatSizeService
   ) {
   }
 
@@ -220,7 +220,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.lengthError = null;
     this.widthError = null;
     this.orderQuantity = null;
-    this.gstRate=null;
+    this.gstRate = null;
     this.productDetails = {
       purchaseRatePerMM: null,
       suggestedMM: null,
@@ -242,14 +242,18 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
 
   calculateProductStockDetails() {
-    
-    let parameterId = null;
-    if( this.categoryId==1)
-    parameterId= this.shadeId;
 
-    
-    this.shadeId ? this.shadeId : this.foamSizeId ? this.foamSizeId : this.matSizeId!=-1?this.matSizeId:null;
-    this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId,parameterId, this.qualityId).subscribe(
+    let parameterId = null;
+    if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6)
+      parameterId = this.shadeId;
+    else if (this.categoryId == 2)
+      parameterId = this.foamSizeId;
+    else if (this.categoryId == 4 && this.matSizeId != -1)
+      parameterId = this.matSizeId;
+    else
+      parameterId = null;
+    //this.shadeId ? this.shadeId : this.foamSizeId ? this.foamSizeId : this.matSizeId != -1 ? this.matSizeId : null;
+    this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
       data => {
         this.productDetails = data;
       }, error => {
@@ -257,38 +261,38 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       });
   }
 
-getMatQualityList(){
-  this.matSizeService.getQualityLookUpByCollection(this.collectionId).subscribe(
-    results => {
-      this.qualityList = results;
-      this.qualityList.unshift({ label: '--Select--', value: null });
-      Helpers.setLoading(false);
-    },
-    error => {
-      this.globalErrorHandler.handleError(error);
-      Helpers.setLoading(false);
-    });
-}
+  getMatQualityList() {
+    this.matSizeService.getQualityLookUpByCollection(this.collectionId).subscribe(
+      results => {
+        this.qualityList = results;
+        this.qualityList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
 
   onQualityClick() {
-    
-        this.thicknessList = [];
-        this.thicknessList.unshift({ label: '--Select--', value: null });
-        this.thicknessId = null;
-        if (this.qualityId != null) {
-          Helpers.setLoading(true);
-          this.matSizeService.getMatThicknessLookUp().subscribe(
-            results => {
-              this.thicknessList = results;
-              this.thicknessList.unshift({ label: '--Select--', value: null });
-              Helpers.setLoading(false);
-            },
-            error => {
-              this.globalErrorHandler.handleError(error);
-              Helpers.setLoading(false);
-            });
-        }
-      }
+
+    this.thicknessList = [];
+    this.thicknessList.unshift({ label: '--Select--', value: null });
+    this.thicknessId = null;
+    if (this.qualityId != null) {
+      Helpers.setLoading(true);
+      this.matSizeService.getMatThicknessLookUp().subscribe(
+        results => {
+          this.thicknessList = results;
+          this.thicknessList.unshift({ label: '--Select--', value: null });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
 
   onSaveItemDetails(row) {
     if (!row.id) {
