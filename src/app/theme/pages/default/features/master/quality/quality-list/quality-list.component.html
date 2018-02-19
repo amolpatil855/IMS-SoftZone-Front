@@ -206,7 +206,7 @@
                     <div class="row" *ngIf="slectedCategory==1 || slectedCategory==5 || slectedCategory==6">
                       <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
                       <!-- Purchase Section -->
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                         <div class="panel panel-default">
                           <div class="panel-heading">Purchase Section</div>
                           <div class="panel-body">
@@ -214,7 +214,7 @@
                             <div class="form-group">
                               <div class="row">
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                   <div class="row">
                                     <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate <i class="fa fa-inr"></i></label>
                                     <div class="col-md-7 col-sm-7">
@@ -226,7 +226,7 @@
                                   </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                   <div class="row">
                                     <label class="col-md-5 col-sm-5 fieldLabel">Role Rate <i class="fa fa-inr"></i></label>
                                     <div class="col-md-7 col-sm-7">
@@ -236,13 +236,8 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                            </div>
-
-                            <div class="form-group">
-                              <div class="row">
-
-                                <div class="col-md-6">
+								
+								<div class="col-md-4">
                                   <div class="row">
                                     <label class="col-md-5 col-sm-5 fieldLabel">Purchase Flat Rate</label>
                                     <div class="col-md-7 col-sm-7">
@@ -252,8 +247,8 @@
                                     </div>
                                   </div>
                                 </div>
-
-
+								
+								
                               </div>
                             </div>
 
@@ -265,7 +260,7 @@
                       <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
                       <!-- Selling Section -->
-                      <div class="col-md-6">
+                      <div class="col-md-12">
 
                         <div class="panel panel-default">
                           <div class="panel-heading">Selling Section</div>
@@ -273,9 +268,9 @@
 
                             <div class="form-group">
                               <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate Max Dis. %</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate Max Dis.%</label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" required
                                         [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('maxCutRateDisc').hasError('required') && isFormSubmitted}"
@@ -285,9 +280,9 @@
                                 </div>
 
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Role Rate Max Dis. %</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Role Rate Max Dis.%</label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" title="Role Rate max discount"
                                         formControlName="maxRoleRateDisc" required [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('maxRoleRateDisc').hasError('required') && isFormSubmitted}"
@@ -295,12 +290,8 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                            </div>
-
-                            <div class="form-group">
-                              <div class="row">
-                                <div class="col-md-6">
+								
+								<div class="col-md-4">
                                   <div class="row">
                                     <label class="col-md-5 col-sm-5 fieldLabel">RRP <i class="fa fa-inr"></i></label>
                                     <div class="col-md-7 col-sm-7">
@@ -310,8 +301,15 @@
                                     </div>
                                   </div>
                                 </div>
+								
+								
+                              </div>
+                            </div>
 
-                                <div class="col-md-6">
+                            <div class="form-group">
+                              <div class="row">
+                                
+                                <div class="col-md-4">
                                   <div class="row">
                                     <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate</label>
                                     <div class="col-md-7 col-sm-7">
@@ -321,14 +319,10 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                            </div>
-
-                            <div class="form-group">
-                              <div class="row">
-                                <div class="col-md-6">
+								
+								<div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate Max Dis. %</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate Max Dis.%</label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" [disabled]="disableFlatRate" class="form-control"
                                         placeholder="" formControlName="maxFlatRateDisc" required [ngClass]="{'red-border-class': qualityForm.get('maxFlatRateDisc').hasError('required') && isFormSubmitted}"
@@ -336,11 +330,10 @@
                                     </div>
                                   </div>
                                 </div>
-
+								
+								
                               </div>
                             </div>
-
-
 
                           </div>
                         </div>
@@ -360,7 +353,7 @@
                               <div class="row">
                                 <div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount %</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount%</label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" formControlName="maxDiscout"
                                         required [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}"
