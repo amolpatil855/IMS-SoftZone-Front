@@ -68,6 +68,7 @@ export class CustomerListComponent implements OnInit {
       accountPersonName: '',
       accountPersonPhone: '',
       accountPersonEmail: '',
+      creditPeriodDays: null,
       username: '',
       MstCustomerAddresses: [],
     };

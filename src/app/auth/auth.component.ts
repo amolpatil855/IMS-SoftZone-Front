@@ -13,6 +13,8 @@ import { Observable } from 'rxjs/Rx';
 import * as _ from 'lodash/index';
 // import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { CookieService } from 'ngx-cookie-service';
+import { CompanyService } from "../theme/pages/default/_services/company.service";
+import { AppSettings } from "../app-settings";
 @Component({
   selector: ".m-grid.m-grid--hor.m-grid--root.m-page",
   templateUrl: './templates/login-1.component.html',
@@ -23,6 +25,7 @@ export class AuthComponent implements OnInit {
   model: any = {};
   loading = false;
   returnUrl: string;
+  logoUrl: string;
 
   @ViewChild('alertSignin', { read: ViewContainerRef }) alertSignin: ViewContainerRef;
   @ViewChild('alertSignup', { read: ViewContainerRef }) alertSignup: ViewContainerRef;
@@ -31,6 +34,7 @@ export class AuthComponent implements OnInit {
   constructor(private _router: Router,
     private _script: ScriptLoaderService,
     private _userService: UserService,
+    private companyService: CompanyService,
     private _route: ActivatedRoute,
     private _authService: AuthenticationService,
     private _alertService: AlertService,
@@ -48,6 +52,7 @@ export class AuthComponent implements OnInit {
   ngOnInit() {
     this.model.remember = true;
     Helpers.setLoading(false);
+    this.getCompanyLogo();
     // get return url from route parameters or default to '/'
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
     this._router.navigate([this.returnUrl]);
@@ -56,6 +61,15 @@ export class AuthComponent implements OnInit {
       .then(() => {
         Helpers.setLoading(false);
         LoginCustom.init();
+      });
+  }
+
+  getCompanyLogo() {
+    this.companyService.getCompanyLogo().subscribe(
+      (results: any) => {
+        if (results !== null) {
+          this.logoUrl = AppSettings.IMAGE_API_ENDPOINT + results;
+        }
       });
   }
 

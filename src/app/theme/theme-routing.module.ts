@@ -34,6 +34,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/financialYear\/financialYear.module#FinancialYearModule"
       },
       {
+        "path": "features\/master\/accessory",
+        "loadChildren": ".\/pages\/default\/features\/master\/accessory\/accessory.module#AccessoryModule"
+      },
+      {
         "path": "features\/master\/collection",
         "loadChildren": ".\/pages\/default\/features\/master\/collection\/collection.module#CollectionModule"
       },

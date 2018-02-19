@@ -14,6 +14,7 @@ export class FomSize {
   width: number;
   length: number;
   sizeCode: string;
+  itemCode: string;
   stockReorderLevel: number;
   MstCategory: Category;
   MstCollection: Collection;
