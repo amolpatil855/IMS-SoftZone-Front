@@ -102,14 +102,16 @@ export class DesignListComponent implements OnInit {
   }
 
   getCategoryLookUp() {
+    Helpers.setLoading(true);
     this.designService.getCategoryLookUp().subscribe(
       results => {
         this.categoryList = results;
         this.categoryList.unshift({ label: '--Select--', value: null });
-        console.log('this.categoryList', this.categoryList);
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
@@ -121,6 +123,7 @@ export class DesignListComponent implements OnInit {
     this.selectedCollection = null;
     this.selectedQuality = null;
     if (this.selectedCategory != null) {
+      Helpers.setLoading(true);
       this.designService.getCollectionLookUp(this.selectedCategory).subscribe(
         results => {
           this.collectionList = results;
@@ -129,7 +132,7 @@ export class DesignListComponent implements OnInit {
           if (this.selectedCollection > 0) {
             this.onCollectionClick();
           }
-          console.log('this.collectionList', this.collectionList);
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -144,12 +147,12 @@ export class DesignListComponent implements OnInit {
     this.qualityList.unshift({ label: '--Select--', value: null });
     this.selectedQuality = null;
     if (this.selectedCollection != null) {
+      Helpers.setLoading(true);
       this.designService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
         results => {
           this.qualityList = results;
           this.qualityList.unshift({ label: '--Select--', value: null });
           this.selectedQuality = this.designObj.qualityId;
-          console.log('this.qualityList', this.qualityList);
           Helpers.setLoading(false);
         },
         error => {
@@ -179,7 +182,6 @@ export class DesignListComponent implements OnInit {
     this.designService.getDesignById(id).subscribe(
       results => {
         this.designObj = results;
-        console.log('this.designObj', this.designObj);
         this.selectedCategory = this.designObj.categoryId;
         if (this.selectedCategory > 0) {
           this.onCategoryClick();
