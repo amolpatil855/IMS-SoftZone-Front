@@ -18,7 +18,7 @@ export class TrnProductStockService {
   }
   
   getAllTrnProductStocks(categoryId, collectionId, parameterId, qualityId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStockDetail?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId+ '&qualityId=' + qualityId, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStock/GetProductDetails?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId+ '&qualityId=' + qualityId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getTrnProductStockById(id: number) {

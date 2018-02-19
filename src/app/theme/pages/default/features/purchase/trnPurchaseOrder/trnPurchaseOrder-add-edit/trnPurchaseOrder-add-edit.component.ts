@@ -62,6 +62,16 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   qualityId = null;
   rate = null;
   amount = null;
+  productDetails = {
+    purchaseRatePerMM:null,
+    suggestedMM:null,
+    length:null,
+    width:null,
+    gst:null,
+    roleRate:null,
+    cutRate:null,
+    purchaseFlatRate:null
+  };
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -176,6 +186,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       foamSizeId: this.foamSizeId,
       matSizeId: this.matSizeId,
       orderQuantity: this.orderQuantity,
+      rate:this.rate,
+      ammount:this.amount,
       orderType: this.orderType,
       length: this.length,
       width: this.width,
@@ -200,6 +212,16 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.lengthError = null;
     this.widthError = null;
     this.orderQuantity = null;
+    this.productDetails = {
+      purchaseRatePerMM:null,
+      suggestedMM:null,
+      length:null,
+      width:null,
+      gst:null,
+      roleRate:null,
+      cutRate:null,
+      purchaseFlatRate:null
+    };
   }
 
   enableEdit(row) {
@@ -210,24 +232,25 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
 
   calculateProductStockDetails() {
+    let parameterId=this.shadeId?this.shadeId:this.foamSizeId?this.foamSizeId:this.matSizeId;
     this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, this.shadeId, this.qualityId).subscribe(
       data => {
         // this.rate
         // availableStock
         // quantiy
         // ammount
-
+        this.productDetails = data;
         // Foam Calculation 
         // rate=(selling rate x Suggested MM)/2592]x length x width x GST%
         // Amount= Rate x Quantity
-        if (this.categoryId == 2) {
-          this.rate = ((((data.purchaseRatePerMM * data.suggestedMM) / 2592) * data.length * data.width) * data.gst) / 100;
-          this.amount = this.rate * this.orderQuantity;
-        }
-        else if(this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6){
-          this.rate = data.purchaseFlatRate ? (data.purchaseFlatRate * data.gst) / 100:this.orderQuantity>50?(data.roleRate * data.gst) / 100:(data.cutRate * data.gst) / 100;
-          this.amount = this.rate * this.orderQuantity;
-        }
+        // if (this.categoryId == 2) {
+        //   this.rate = ((((data.purchaseRatePerMM * data.suggestedMM) / 2592) * data.length * data.width) * data.gst) / 100;
+        //   //this.amount = this.rate * this.orderQuantity;
+        // }
+        // else if(this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6){
+        //   this.rate = data.purchaseFlatRate ? (data.purchaseFlatRate * data.gst) / 100:this.orderQuantity>50?(data.roleRate * data.gst) / 100:(data.cutRate * data.gst) / 100;
+        //   //this.amount = this.rate * this.orderQuantity;
+        // }
 
         // Mattress Calulation
         // Rate=define selling rate x GST%
@@ -237,7 +260,6 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
         // Custom Rate= [(Length x Width x Custom Rate)/1550.5] x Mat Thinkness (size)x 10 x GST%
         // Amount= Rate x Quantity
-        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Added Successfully' });
       }, error => {
         this.globalErrorHandler.handleError(error);
       });
@@ -328,6 +350,17 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     }
     else
       this.orderType = 'CL';
+
+    if (this.categoryId == 2) {
+      this.rate = ((((this.productDetails.purchaseRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width) * this.productDetails.gst) / 100;
+      this.amount = this.rate * this.orderQuantity;
+    }
+    else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
+      this.rate = this.productDetails.purchaseFlatRate ? (this.productDetails.purchaseFlatRate * this.productDetails.gst) / 100 : this.orderQuantity > 50 ? (this.productDetails.roleRate * this.productDetails.gst) / 100 : (this.productDetails.cutRate * this.productDetails.gst) / 100;
+      this.amount = this.rate * this.orderQuantity;
+    }
+
+
   }
 
 

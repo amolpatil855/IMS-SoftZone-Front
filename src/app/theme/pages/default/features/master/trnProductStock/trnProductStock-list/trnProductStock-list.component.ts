@@ -109,7 +109,7 @@ export class TrnProductStockListComponent implements OnInit {
     this.newRecord();
   }
   getTrnProductStocksList() {
-    this.trnProductStockService.getAllTrnProductStocks(this.pageSize, this.page, this.search).subscribe(
+    this.trnProductStockService.getProductDetails(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.trnProductStockList = results.data;
         this.totalCount = results.totalCount;
