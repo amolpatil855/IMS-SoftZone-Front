@@ -164,9 +164,9 @@
 															<thead>
 															  <tr>
 																<td></td>													
-																<td>Name<!--<span class="requiredField">*</span>--></td>
-																<td>Email<!--<span class="requiredField">*</span>--></td>
-																<td>Phone<!--<span class="requiredField">*</span>--></td>																
+																<td>Name</td>
+																<td>Email</td>
+																<td>Phone</td>																
 															  </tr>
 															</thead>
 															<tbody>
@@ -277,7 +277,7 @@
 														<thead>
 														  <tr>
 															<th>Address 1<span class="requiredField">*</span></th>	
-															<th>Address 2<!-- <span class="requiredField">*</span> --></th>	
+															<th>Address 2</th>	
 															<th>GST<span class="requiredField">*</span></th>	
 															<th>PIN<span class="requiredField">*</span></th>										
 															<th>State<span class="requiredField">*</span></th>
@@ -293,9 +293,6 @@
 																</td>
 																<td>
 																	<input type="text" class="form-control" [(ngModel)]="supAdd.addressLine2" name="{{'addressLine2'+supAdd.contRoleId}}" maxlength="500" tabindex="17"/>
-																	  <!-- <div class="alertMsg" *ngIf="supAdd.invalidAddressLine2">
-																			Please enter AddressLine2
-																	</div>   -->
 																</td>
 																<td>
 																	<input class="form-control" type="text" (blur)="validateGSTIN(supAdd)" #gstinVal="ngModel" onKeyPress="if(this.value.length==15) return false;" [(ngModel)]="supAdd.gstin" [ngClass]="{'red-border-class': gstinVal.errors && isFormSubmitted}" name="{{'gstin'+supAdd.contRoleId}}" minlength="15" tabindex="18">
