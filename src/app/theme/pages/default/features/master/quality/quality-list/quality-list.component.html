@@ -153,9 +153,9 @@
                                     <label class="col-md-5 col-sm-5 fieldLabel">Size</label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="9999.99" class="form-control" formControlName="size"
-                                        *ngIf="slectedCategory!=1" [ngClass]="{'red-border-class': qualityForm.get('size').hasError('required') && isFormSubmitted}"
+                                        *ngIf="slectedCategory==5 || slectedCategory==6" [ngClass]="{'red-border-class': qualityForm.get('size').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="11">
-                                      <input type="text" class="form-control" disabled *ngIf="slectedCategory==1" tabindex="12">
+                                      <input type="text" class="form-control" disabled *ngIf="slectedCategory!=5 && slectedCategory!=6" tabindex="12">
                                     </div>
                                   </div>
                                 </div>

@@ -24,6 +24,8 @@ import { TrnPurchaseOrderComponent } from "./trnPurchaseOrder.component";
 import { TrnPurchaseOrderListComponent } from "./trnPurchaseOrder-list/trnPurchaseOrder-list.component";
 import { TrnPurchaseOrderAddEditComponent } from "./trnPurchaseOrder-add-edit/trnPurchaseOrder-add-edit.component";
 import {TrnProductStockService} from "../../../_services/trnProductStock.service";
+import {MatSizeService} from "../../../_services/matSize.service";
+
 const routes: Routes = [
   {
     path: "",
@@ -90,7 +92,8 @@ const routes: Routes = [
     ConfirmationService,
     SupplierService,
     CommonService,
-    CollectionService
+    CollectionService,
+    MatSizeService
   ],
 })
 export class TrnPurchaseOrderModule {
