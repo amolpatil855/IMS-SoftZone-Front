@@ -156,7 +156,6 @@ export class CollectionListComponent implements OnInit {
           manufacturerName: results.manufacturerName,
           description: results.description,
         });
-        console.log('this.collectionList', this.collectionObj);
         Helpers.setLoading(false);
       },
       error => {

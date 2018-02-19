@@ -109,7 +109,6 @@ export class AgentListComponent implements OnInit {
     this.agentService.getAgentById(id).subscribe(
       results => {
         this.agentObj = results;
-        console.log('this.agentList', this.agentObj);
         Helpers.setLoading(false);
       },
       error => {

@@ -84,7 +84,6 @@ export class RoleListComponent implements OnInit {
         this.featureList = MainMenu;
         // this.SelectedFeatureList=MainMenu;  
         // console.log(MainMenu);
-        console.log("featureList", MainMenu);
         if (this.params)
           this.getAllUserMenu(this.params);
       }, error => {

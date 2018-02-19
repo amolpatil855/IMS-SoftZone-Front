@@ -138,7 +138,6 @@ export class FomSizeListComponent implements OnInit {
     this.fomSizeService.getAllFomSizes(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.fomSizeList = results.data;
-        console.log('this.fomSizeList', this.fomSizeList);
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
@@ -155,7 +154,6 @@ export class FomSizeListComponent implements OnInit {
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
-        console.log('this.collectionList', this.collectionList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -182,7 +180,6 @@ export class FomSizeListComponent implements OnInit {
           if (this.selectedQuality > 0) {
             this.onQualityClick();
           }
-          console.log('this.qualityList', this.qualityList);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -208,7 +205,6 @@ export class FomSizeListComponent implements OnInit {
           if (this.selectedDensity > 0) {
             this.onDensityClick();
           }
-          console.log('this.selectedDensity', this.selectedDensity);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -228,7 +224,6 @@ export class FomSizeListComponent implements OnInit {
           this.fomSuggestedMMList = results;
           this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
           this.selectedSize = this.fomSizeObj.fomSuggestedMMId;
-          console.log('this.fomSuggestedMMList', this.fomSuggestedMMList);
           Helpers.setLoading(false);
         },
         error => {
@@ -258,9 +253,7 @@ export class FomSizeListComponent implements OnInit {
     this.fomSizeService.getFomSizeById(id).subscribe(
       results => {
         this.fomSizeObj = results;
-        console.log('this.fomSizeObj', this.fomSizeObj);
         this.selectedCollection = this.fomSizeObj.collectionId;
-        console.log('this.selectedCollection', this.selectedCollection);
         if (this.selectedCollection > 0) {
           this.onCollectionClick();
         }
