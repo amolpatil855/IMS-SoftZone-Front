@@ -105,7 +105,6 @@ export class FomSuggestedMMListComponent implements OnInit {
     this.fomSuggestedMMService.getAllFomSuggestedMMs(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.fomSuggestedMMList = results.data;
-        console.log('this.fomSuggestedMMList', this.fomSuggestedMMList);
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
@@ -122,7 +121,6 @@ export class FomSuggestedMMListComponent implements OnInit {
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
-        console.log('this.collectionList', this.collectionList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -146,7 +144,6 @@ export class FomSuggestedMMListComponent implements OnInit {
           if (this.selectedQuality > 0) {
             this.onQualityClick();
           }
-          console.log('this.qualityList', this.qualityList);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -166,7 +163,6 @@ export class FomSuggestedMMListComponent implements OnInit {
           this.fomDensityList = results;
           this.fomDensityList.unshift({ label: '--Select--', value: null });
           this.selectedDensity = this.fomSuggestedMMObj.fomDensityId;
-          console.log('this.fomDensityList', this.fomDensityList);
           Helpers.setLoading(false);
         },
         error => {
@@ -196,7 +192,6 @@ export class FomSuggestedMMListComponent implements OnInit {
     this.fomSuggestedMMService.getFomSuggestedMMById(id).subscribe(
       results => {
         this.fomSuggestedMMObj = results;
-        console.log('this.fomSuggestedMMObj', this.fomSuggestedMMObj);
         this.selectedCollection = this.fomSuggestedMMObj.collectionId;
         if (this.selectedCollection > 0) {
           this.onCollectionClick();

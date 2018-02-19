@@ -246,7 +246,6 @@ export class QualityListComponent implements OnInit {
           purchaseFlatRate: results.purchaseFlatRate
         });
         this.slectedCategory = results.categoryId;
-        console.log('this.collectionList', this.qualityObj);
 
         if (results.flatRate) {
           this.qualityForm.get('cutRate').disable();

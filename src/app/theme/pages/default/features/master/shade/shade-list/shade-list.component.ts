@@ -128,10 +128,6 @@ export class ShadeListComponent implements OnInit {
       results => {
         this.categoryList = results;
         this.categoryList.unshift({ label: '--Select--', value: null });
-        // this.collectionList.unshift({ label: '--Select--', value: null });
-        // this.qualityList.unshift({ label: '--Select--', value: null });
-        // this.designList.unshift({ label: '--Select--', value: null });
-        console.log('this.categoryList', this.categoryList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -139,8 +135,6 @@ export class ShadeListComponent implements OnInit {
   }
 
   onCategoryClick() {
-    console.log('selectedCategory', this.selectedCategory);
-
     this.collectionList = [];
     this.collectionList.unshift({ label: '--Select--', value: null });
     this.qualityList = [];
@@ -159,7 +153,6 @@ export class ShadeListComponent implements OnInit {
           if (this.selectedCollection > 0) {
             this.onCollectionClick();
           }
-          console.log('this.collectionList', this.collectionList);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -185,7 +178,6 @@ export class ShadeListComponent implements OnInit {
           if (this.selectedQuality > 0) {
             this.onQualityClick();
           }
-          console.log('this.qualityList', this.qualityList);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -205,7 +197,6 @@ export class ShadeListComponent implements OnInit {
           this.designList = results;
           this.designList.unshift({ label: '--Select--', value: null });
           this.selectedDesign = this.shadeObj.designId;
-          console.log('this.designList', this.designList);
           Helpers.setLoading(false);
         },
         error => {
