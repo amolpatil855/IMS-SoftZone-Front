@@ -100,7 +100,7 @@
                                     </div>
                                     <div class="col-md-4 formContentbox">
                                        <div class="form-group">
-                                          <label class="fieldLabel col-sm-5">Selling Rate<span class="requiredField">*</span></label>
+                                          <label class="fieldLabel col-sm-5">Selling Rate <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
                                           <input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #sellingRateVal="ngModel"
 																 required [ngClass]="{'red-border-class': sellingRateVal.errors && isFormSubmitted}"
@@ -110,7 +110,7 @@
                                     </div>
                                     <div class="col-md-4 formContentbox">
                                        <div class="form-group">
-                                          <label class="fieldLabel col-sm-5">Purchase Rate<span class="requiredField">*</span></label>
+                                          <label class="fieldLabel col-sm-5">Purchase Rate <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                         <div class="col-sm-7">
                                           <input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #purchaseRateVal="ngModel"
 																 required [ngClass]="{'red-border-class': purchaseRateVal.errors && isFormSubmitted}"
@@ -129,9 +129,9 @@
                                     </div>
                                     <div class="col-md-4 formContentbox">
                                        <div class="form-group">
-                                          <label class="fieldLabel col-sm-5">Description<span class="requiredField">*</span></label>
+                                          <label class="fieldLabel col-sm-5">Description</label>
                                           <div class="col-sm-7">
-                                             <input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel" [(ngModel)]="accessoryObj.description" name="description" id="description" placeholder="" tabindex="8">
+                                             <input class="form-control m-input" type="text" value="" [(ngModel)]="accessoryObj.description" name="description" id="description" placeholder="" tabindex="8">
                                           </div>
                                        </div>
                                     </div>
