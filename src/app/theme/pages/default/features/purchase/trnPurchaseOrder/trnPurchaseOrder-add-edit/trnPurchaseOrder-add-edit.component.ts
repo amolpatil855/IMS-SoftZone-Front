@@ -62,16 +62,17 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   qualityId = null;
   rate = null;
   amount = null;
+  gstRate = null;
   productDetails = {
-    purchaseRatePerMM:null,
-    suggestedMM:null,
-    length:null,
-    width:null,
-    gst:null,
-    roleRate:null,
-    cutRate:null,
-    purchaseFlatRate:null,
-    stock:null
+    purchaseRatePerMM: null,
+    suggestedMM: null,
+    length: null,
+    width: null,
+    gst: null,
+    roleRate: null,
+    cutRate: null,
+    purchaseFlatRate: null,
+    stock: null
   };
   constructor(
     private formBuilder: FormBuilder,
@@ -187,8 +188,9 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       foamSizeId: this.foamSizeId,
       matSizeId: this.matSizeId,
       orderQuantity: this.orderQuantity,
-      rate:this.rate,
-      ammount:this.amount,
+      gstRate: this.gstRate,
+      rate: this.rate,
+      ammount: this.amount,
       orderType: this.orderType,
       length: this.length,
       width: this.width,
@@ -214,15 +216,15 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.widthError = null;
     this.orderQuantity = null;
     this.productDetails = {
-      purchaseRatePerMM:null,
-      suggestedMM:null,
-      length:null,
-      width:null,
-      gst:null,
-      roleRate:null,
-      cutRate:null,
-      purchaseFlatRate:null,
-      stock:null
+      purchaseRatePerMM: null,
+      suggestedMM: null,
+      length: null,
+      width: null,
+      gst: null,
+      roleRate: null,
+      cutRate: null,
+      purchaseFlatRate: null,
+      stock: null
     };
   }
 
@@ -234,7 +236,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
 
   calculateProductStockDetails() {
-    let parameterId=this.shadeId?this.shadeId:this.foamSizeId?this.foamSizeId:this.matSizeId;
+    let parameterId = this.shadeId ? this.shadeId : this.foamSizeId ? this.foamSizeId : this.matSizeId;
     this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, this.shadeId, this.qualityId).subscribe(
       data => {
         // this.rate
@@ -354,12 +356,15 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderType = 'CL';
 
     if (this.categoryId == 2) {
-      this.rate = ((((this.productDetails.purchaseRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width) * this.productDetails.gst) / 100;
-      this.amount = this.rate * this.orderQuantity;
+
+      this.rate = Math.round((((this.productDetails.purchaseRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width));
+      this.gstRate = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
+      this.amount = Math.round(this.gstRate * this.orderQuantity);
     }
     else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
-      this.rate = this.productDetails.purchaseFlatRate ? (this.productDetails.purchaseFlatRate * this.productDetails.gst) / 100 : this.orderQuantity > 50 ? (this.productDetails.roleRate * this.productDetails.gst) / 100 : (this.productDetails.cutRate * this.productDetails.gst) / 100;
-      this.amount = this.rate * this.orderQuantity;
+      this.rate = Math.round(this.productDetails.purchaseFlatRate ? this.productDetails.purchaseFlatRate : this.orderQuantity > 50 ? this.productDetails.roleRate : this.productDetails.cutRate);
+      this.gstRate = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
+      this.amount = Math.round(this.gstRate * this.orderQuantity);
     }
 
 
