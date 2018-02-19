@@ -72,6 +72,7 @@ export class SupplierListComponent implements OnInit {
       dispatchPersonName: '',
       dispatchPersonEmail: '',
       dispatchPersonPhone: '',
+      creditPeriodDays: null,
       MstSupplierAddresses: [],
     };
 
@@ -154,7 +155,6 @@ export class SupplierListComponent implements OnInit {
         _.forEach(this.supplierObj.MstSupplierAddresses, function(value) {
           value.contRoleId = Math.floor(Math.random() * 2000);
         });
-        console.log('this.supplierList', this.supplierObj);
         Helpers.setLoading(false);
       },
       error => {

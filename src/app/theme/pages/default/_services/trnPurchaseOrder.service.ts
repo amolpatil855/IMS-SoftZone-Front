@@ -33,7 +33,7 @@ export class TrnPurchaseOrderService {
     return this.http.put(AppSettings.API_ENDPOINT + 'TrnPurchaseOrder/' + trnPurchaseOrder.id, trnPurchaseOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getSerialNumberPurchaseOrders(id) {
+  getshadeIdPurchaseOrders(id) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpByCollection?collectionId=' + id , AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 

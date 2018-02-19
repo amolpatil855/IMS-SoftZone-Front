@@ -20,42 +20,54 @@
                 </a>
             </li>
 
-            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
-                [isAuthorize]="['user']">
-                <a routerLink="/features/users/list" class="m-menu__link">
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
+                data-menu-submenu-toggle="hover" [isAuthorize]="['user','role']">
+                <a href="#" class="m-menu__link m-menu__toggle">
                     <i class="m-menu__link-icon flaticon-users"></i>
-                    <span class="m-menu__link-title">
-                        <span class="m-menu__link-wrap">
-                            <span class="m-menu__link-text">
-                                User Management
-                            </span>
-                        </span>
-                    </span>
-                </a>
-            </li>
-            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
-                [isAuthorize]="['role']">
-                <a routerLink="/features/roles/list" class="m-menu__link">
-                    <i class="m-menu__link-icon flaticon-interface-1"></i>
-                    <span class="m-menu__link-title">
-                        <span class="m-menu__link-wrap">
-                            <span class="m-menu__link-text">
-                                Roles and Permissions
-                            </span>
-                        </span>
-                    </span>
-                </a>
-            </li>
-            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
-			 [isAuthorize]="['companyinfo']">
-				<a  routerLink="/features/master/company/add" class="m-menu__link ">
-                    <i class="m-menu__link-icon flaticon-folder"></i>
                     <span class="m-menu__link-text">
-                        Company Info
+                        User Management
                     </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
                 </a>
-			</li>
-            
+                <div class="m-menu__submenu">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a href="#" class="m-menu__link ">
+                                <span class="m-menu__link-text"> User Management</span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['user']" class="m-menu__item" routerLinkActive="m-menu__item--active" aria-haspopup="true">
+                            <a routerLink="/features/users/list" class="m-menu__link">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-title">
+                                    <span class="m-menu__link-wrap">
+                                        <span class="m-menu__link-text">
+                                            User
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['role']" class="m-menu__item" routerLinkActive="m-menu__item--active" aria-haspopup="true">
+                            <a routerLink="/features/roles/list" class="m-menu__link">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-title">
+                                    <span class="m-menu__link-wrap">
+                                        <span class="m-menu__link-text">
+                                            Roles
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
                 data-menu-submenu-toggle="hover" [isAuthorize]="['productstock','stockmanagement']">
                 <a href="#" class="m-menu__link m-menu__toggle">
@@ -68,18 +80,28 @@
                 <div class="m-menu__submenu">
                     <span class="m-menu__arrow"></span>
                     <ul class="m-menu__subnav">
-                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true" >
-							<a  href="#" class="m-menu__link ">
-								<span class="m-menu__link-text">Stock</span>
-						    </a>
-						</li>
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a href="#" class="m-menu__link ">
+                                <span class="m-menu__link-text">Stock</span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['stockmanagement']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/master/trnProductStockDetail/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Product Stock
+                                </span>
+                            </a>
+                        </li>
                         <li [isAuthorize]="['stockmanagement']" class="m-menu__item " aria-haspopup="true">
                             <a routerLink="/features/master/trnProductStock/list" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                     <span></span>
                                 </i>
                                 <span class="m-menu__link-text">
-                                    Product Stock
+                                    Product Stock Detail
                                 </span>
                             </a>
                         </li>
@@ -105,7 +127,7 @@
                                     <span></span>
                                 </i>
                                 <span class="m-menu__link-text">
-                                   Purchase Order
+                                    Purchase Order
                                 </span>
                             </a>
                         </li>
@@ -131,7 +153,7 @@
                                     <span></span>
                                 </i>
                                 <span class="m-menu__link-text">
-                                   Sales Order
+                                    Sales Order
                                 </span>
                             </a>
                         </li>
@@ -140,7 +162,7 @@
             </li>
 
             <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['companyinfo','master','supplier','customer']">
+                data-menu-submenu-toggle="hover" [isAuthorize]="['companyinfo','master','supplier','customer','courier','agent','hsn','financialyear']">
                 <a href="#" class="m-menu__link m-menu__toggle">
                     <i class="m-menu__link-icon flaticon-user-settings"></i>
                     <span class="m-menu__link-text">
@@ -151,11 +173,24 @@
                 <div class="m-menu__submenu">
                     <span class="m-menu__arrow"></span>
                     <ul class="m-menu__subnav">
-                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true" >
-							<a  href="#" class="m-menu__link ">
-								<span class="m-menu__link-text">Master</span>
-						    </a>
-						</li>
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a href="#" class="m-menu__link ">
+                                <span class="m-menu__link-text">Master</span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+                            [isAuthorize]="['companyinfo']">
+                            <a routerLink="/features/master/company/add" class="m-menu__link ">
+                                <!--<i class="m-menu__link-icon flaticon-folder"></i>-->
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Company Info
+                                </span>
+                            </a>
+                        </li>
+
                         <li [isAuthorize]="['supplier']" class="m-menu__item" routerLinkActive="m-menu__item--active" aria-haspopup="true">
                             <a routerLink="/features/master/supplier/list" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -213,6 +248,36 @@
                                 </i>
                                 <span class="m-menu__link-text">
                                     Financial Year
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
+                data-menu-submenu-toggle="hover" [isAuthorize]="['collection','quality','design','shade','mattressthickness','mattresssize','foamdensity','foamsuggestedmm','foamsize']">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-user-ok"></i>
+                    <span class="m-menu__link-text">
+                        Product master
+                    </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a href="#" class="m-menu__link ">
+                                <span class="m-menu__link-text"> Product master</span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['accessories']" class="m-menu__item" aria-haspopup="true" routerLinkActive="m-menu__item--active">
+                            <a routerLink="/features/master/accessory/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Accessory
                                 </span>
                             </a>
                         </li>

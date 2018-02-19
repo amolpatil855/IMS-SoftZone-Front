@@ -18,5 +18,6 @@ export class Supplier {
   dispatchPersonName: string;
   dispatchPersonEmail: string;
   dispatchPersonPhone: string;
+  creditPeriodDays: number;
   MstSupplierAddressDetails: SupplierAddress;
 }

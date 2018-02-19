@@ -34,6 +34,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/financialYear\/financialYear.module#FinancialYearModule"
       },
       {
+        "path": "features\/master\/accessory",
+        "loadChildren": ".\/pages\/default\/features\/master\/accessory\/accessory.module#AccessoryModule"
+      },
+      {
         "path": "features\/master\/collection",
         "loadChildren": ".\/pages\/default\/features\/master\/collection\/collection.module#CollectionModule"
       },
@@ -74,6 +78,10 @@ const routes: Routes = [
       {
         "path": "features\/master\/trnProductStock",
         "loadChildren": ".\/pages\/default\/features\/master\/trnProductStock\/trnProductStock.module#TrnProductStockModule"
+      },
+      {
+        "path": "features\/master\/trnProductStockDetail",
+        "loadChildren": ".\/pages\/default\/features\/master\/trnProductStockDetail\/trnProductStockDetail.module#TrnProductStockDetailModule"
       },
       {
         "path": "features\/master\/hsn",

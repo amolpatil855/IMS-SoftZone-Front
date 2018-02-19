@@ -29,6 +29,7 @@ export class UsersListComponent implements OnInit {
   selectedInstitute: any;
   roleList: any;
   userTypeList: any;
+  companyLocationList: any;
   role = null;
   selectedSchoolsValidationError: boolean = false;
   hideInstituteAndSchool: boolean = false;
@@ -56,6 +57,8 @@ export class UsersListComponent implements OnInit {
   ngOnInit() {
     this.roleList = [];
     this.userTypeList = [];
+    this.companyLocationList = [];
+    this.getCompanyLocationLookUp();
     this.userService.getAllUserType().subscribe(
       results => {
         this.userTypeList = results;
@@ -65,6 +68,20 @@ export class UsersListComponent implements OnInit {
         this.globalErrorHandler.handleError(error);
       });
     this.newRecord();
+  }
+
+  getCompanyLocationLookUp() {
+    Helpers.setLoading(true);
+    this.userService.getCompanyLocationLookUp().subscribe(
+      results => {
+        this.companyLocationList = results;
+        this.companyLocationList.unshift({ value: null, label: '--Select--' });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
   onUserTypeChange(userTypeId) {
@@ -104,6 +121,14 @@ export class UsersListComponent implements OnInit {
           this.userForm.get('role').enable();
         }
       }
+    }
+  }
+
+  onLocationChange(locationId) {
+    if (locationId == "null") {
+      this.userForm.patchValue({
+        location: null
+      });
     }
   }
 
@@ -181,6 +206,7 @@ export class UsersListComponent implements OnInit {
           username: results.userName,
           email: results.email,
           phone: results.phone,
+          location: results.locationId,
           role: results.roleId,
           userType: results.userTypeId,
         });
@@ -210,6 +236,7 @@ export class UsersListComponent implements OnInit {
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]],
+      location: null,
       role: ['', [Validators.required]],
       userType: [{ value: '', disabled: this.butDisabled }, [Validators.required]],
     });
@@ -253,6 +280,7 @@ export class UsersListComponent implements OnInit {
       username: value.username,
       email: value.email,
       phone: value.phone,
+      locationId: value.location,
       roleId: value.role,
       userTypeId: value.userType,
     }

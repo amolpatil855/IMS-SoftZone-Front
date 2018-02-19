@@ -109,7 +109,7 @@ export class TrnProductStockListComponent implements OnInit {
     this.newRecord();
   }
   getTrnProductStocksList() {
-    this.trnProductStockService.getAllTrnProductStocks(this.pageSize, this.page, this.search).subscribe(
+    this.trnProductStockService.getProductDetails(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.trnProductStockList = results.data;
         this.totalCount = results.totalCount;
@@ -139,7 +139,6 @@ export class TrnProductStockListComponent implements OnInit {
       results => {
         this.companyLocationList = results;
         this.companyLocationList.unshift({ label: '--Select--', value: null });
-        console.log('this.companyLocationList', this.companyLocationList);
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -159,6 +158,9 @@ export class TrnProductStockListComponent implements OnInit {
     this.selectedShade = null;
     this.selectedMatSize = null;
     this.selectedFomSize = null;
+    this.shadeEnable = false;
+    this.matEnable = false;
+    this.fomEnable = false;
     if (this.selectedCategory != null) {
       this.categoryList.forEach(item => {
         if (item.value == this.selectedCategory) {
@@ -188,7 +190,6 @@ export class TrnProductStockListComponent implements OnInit {
           if (this.selectedCollection > 0) {
             this.onCollectionClick();
           }
-          console.log('this.collectionList', this.collectionList);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -212,7 +213,6 @@ export class TrnProductStockListComponent implements OnInit {
           this.shadeList = results;
           this.shadeList.unshift({ label: '--Select--', value: null });
           this.selectedShade = this.trnProductStockObj.fwrShadeId;
-          console.log('this.selectedShade', this.selectedShade);
           Helpers.setLoading(false);
         },
         error => {
@@ -225,7 +225,6 @@ export class TrnProductStockListComponent implements OnInit {
           this.matSizeList = results;
           this.matSizeList.unshift({ label: '--Select--', value: null });
           this.selectedMatSize = this.trnProductStockObj.matSizeId;
-          console.log('this.selectedMatSize', this.selectedMatSize);
           Helpers.setLoading(false);
         },
         error => {
@@ -238,7 +237,6 @@ export class TrnProductStockListComponent implements OnInit {
           this.fomSizeList = results;
           this.fomSizeList.unshift({ label: '--Select--', value: null });
           this.selectedFomSize = this.trnProductStockObj.fomSizeId;
-          console.log('this.selectedFomSize', this.selectedFomSize);
           Helpers.setLoading(false);
         },
         error => {
@@ -269,7 +267,6 @@ export class TrnProductStockListComponent implements OnInit {
     this.trnProductStockService.getTrnProductStockById(id).subscribe(
       results => {
         this.trnProductStockObj = results;
-        console.log('this.trnProductStockObj', this.trnProductStockObj);
         this.selectedCategory = this.trnProductStockObj.categoryId;
         this.selectedCompanyLocation = this.trnProductStockObj.locationId;
         if (this.selectedCategory > 0) {

@@ -141,7 +141,7 @@ export class CollectionListComponent implements OnInit {
   }
 
 
-  getsuplierById(id) {
+  getCollectionById(id) {
     Helpers.setLoading(true);
     this.collectionService.getCollectionById(id).subscribe(
       results => {
@@ -156,7 +156,6 @@ export class CollectionListComponent implements OnInit {
           manufacturerName: results.manufacturerName,
           description: results.description,
         });
-        console.log('this.collectionList', this.collectionObj);
         Helpers.setLoading(false);
       },
       error => {
@@ -211,7 +210,7 @@ export class CollectionListComponent implements OnInit {
   onEditClick(Collection: Collection) {
     this.collectionService.perPage = this.pageSize;
     this.collectionService.currentPos = this.page;
-    this.getsuplierById(Collection.id);
+    this.getCollectionById(Collection.id);
     this.params = Collection.id;
     // this.roleService.currentPageNumber = this.currentPageNumber;
     // this.router.navigate(['/features/master/Collection/edit', Collection.id]);

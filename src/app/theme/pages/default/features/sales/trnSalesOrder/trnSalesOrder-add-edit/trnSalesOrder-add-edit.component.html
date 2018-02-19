@@ -69,7 +69,7 @@
 													
 													<div class="row form-group">
 														<div class="col-md-3">
-															<label class="col-md-4 col-sm-4 fieldLabel">Order Date</label>
+															<label class="col-md-4 col-sm-4 fieldLabel">Date</label>
 															<div class="col-md-8 col-sm-8">
 																<p-calendar class="purchaseOrderDate" #orderDateVal="ngModel" [(ngModel)]="trnSalesOrderObj.orderDate" name="orderDate" [monthNavigator]="true"
 																	 [yearNavigator]="true" tabindex="1" yearRange="2015:2030"  dateFormat="dd/mm/yy"  styleClass="{{ orderDateVal.errors && isFormSubmitted?'red-border-class':''}}"
@@ -77,65 +77,65 @@
 															</div>	
 														</div>
 														<div class="col-md-3">
-															<label class="col-md-4 col-sm-4 fieldLabel">Order No.<span class="requiredField">*</span></label>
-															<div class="col-md-8 col-sm-8">
-																<input class="form-control m-input" type="text" value="" maxheight="10"
+															<label class="col-md-5 col-sm-5 fieldLabel">Order No.<span class="requiredField">*</span></label>
+															<div class="col-md-7 col-sm-7">
+																<input class="form-control m-input" type="text" value=""
 																 [(ngModel)]="trnSalesOrderObj.orderNumber" name="orderNumber" id="orderNumber" placeholder="" readonly>
 															</div>	
 														</div>
-														<div class="col-md-3">
-															<label class="col-md-4 col-sm-4 fieldLabel">Customer<span class="requiredField">*</span></label>
-															<div class="col-md-8 col-sm-8">
+														<div class="col-md-6">
+															<label class="col-md-2 col-sm-2 fieldLabel">Customer<span class="requiredField">*</span></label>
+															<div class="col-md-10 col-sm-10 customerNameBox">
 															<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="selectedCustomer" required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer" (ngModelChange)="onCustomerChange()" filter="true" tabindex="2"></p-dropdown>
 															</div>	
 														</div>
+														
+													</div>
+													<div class="row form-group">
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Courier</label>
 															<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="courierList" [style]="{'width':'100%'}" [(ngModel)]="selectedCourier" name="courier" filter="true" tabindex="3"></p-dropdown>
 															</div>
 														</div>
-													</div>
-													<div class="row">
 														<div class="col-md-3">
-															<label class="col-md-4 col-sm-4 fieldLabel">Courier Mode</label>
-															<div class="col-md-8 col-sm-8">
+															<label class="col-md-5 col-sm-5 fieldLabel">Courier Mode</label>
+															<div class="col-md-7 col-sm-7">
 																<p-dropdown class="feePlanBox" [options]="courierMode" [style]="{'width':'100%'}" [(ngModel)]="selectedCourierMode" name="courierMode" filter="true" tabindex="4"></p-dropdown>
 															</div>	
 														</div>
 														<div class="col-md-3">
-															<label class="col-md-4 col-sm-4 fieldLabel">Refered by</label>
+															<label class="col-md-4 col-sm-4 fieldLabel">Referred</label>
 															<div class="col-md-8 col-sm-8">
 																<p-dropdown class="feePlanBox" [options]="agentList" [style]="{'width':'100%'}" [(ngModel)]="selectedAgent"  name="agent" filter="true" tabindex="5"></p-dropdown>
 															</div>	
 														</div>
 														<div class="col-md-3">
-															<label class="col-md-4 col-sm-4 fieldLabel">Remark</label>
-															<div class="col-md-8 col-sm-8">
-																<input class="form-control m-input" type="text" value="" maxheight="10"
-																 [(ngModel)]="trnSalesOrderObj.remark" name="remark" id="remark" placeholder="" tabindex="6">
-															</div>	
-														</div>
-														<div class="col-md-3">
-															<label class="col-md-4 col-sm-4 fieldLabel">Exp.Delivery Date</label>
-															<div class="col-md-8 col-sm-8">
+															<label class="col-md-6 col-sm-6 fieldLabel">Exp.Delivery Date</label>
+															<div class="col-md-6 col-sm-6">
 																<p-calendar class="purchaseOrderDate" #expectedDeliveryDateVal="ngModel" [(ngModel)]="trnSalesOrderObj.expectedDeliveryDate" name="expectedDeliveryDate" [monthNavigator]="true"
 																	 [yearNavigator]="true" tabindex="7" yearRange="2015:2030"  dateFormat="dd/mm/yy"  styleClass="{{ expectedDeliveryDateVal.errors && isFormSubmitted?'red-border-class':''}}" (onSelect)="onDateSelect()"
 																	 required></p-calendar>
 															</div>	
 														</div>
+														
 													</div>
-													<div class="col-md-3">
-															<div class="col-md-8 col-sm-8">
-																<!-- <button type="text" (click)="showDialog()" pButton icon="fa-external-link-square" label="Show"></button> -->
+													<div class="row form-group">														
+														<div class="col-md-6">
+															<label class="col-md-2 col-sm-2 fieldLabel">Remark</label>
+															<div class="col-md-10 col-sm-10 purchaseRemarkBox">
+																<input class="form-control m-input" type="text" value="" maxheight="10"
+																 [(ngModel)]="trnSalesOrderObj.remark" name="remark" id="remark" placeholder="" tabindex="6">
 															</div>	
 														</div>
+													</div>
+													
 													<!--Shipping Address-->
 													<div class="row">
 														<div class="col-md-12">
 															<div class="shippingAddressBox">													
 																
-																<a href="#" (click)="showDialog()"><b>Shipping Address<span class="requiredField">*</span></b></a> 
+																<a href="#" (click)="showDialog()"><b class="shippingAddressLabel">Shipping Address<span class="requiredField">*</span></b></a> 
 																		<p *ngIf="shippingAddressObj == null">
 																			Please select shipping address by clicking on the link.
 																		</p>
@@ -194,13 +194,13 @@
 													<div class="col-md-4" *ngIf="selectedMatSize == -1">
 														<label class="col-md-4 col-sm-4 fieldLabel">Width</label>
 														<div class="col-md-8 col-sm-8">
-															<input type="text" class="form-control"  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" [(ngModel)]="width" name="width" placeholder="" tabindex="13">
+															<input type="text" class="form-control"  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" [(ngModel)]="width" name="width" placeholder="" autocomplete="off" tabindex="13">
 														</div>	
 													</div>	
 													<div class="col-md-4" *ngIf="selectedMatSize == -1">
 														<label class="col-md-4 col-sm-4 fieldLabel">Height</label>
 														<div class="col-md-8 col-sm-8">
-															<input type="text" class="form-control"  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" (input)="onInputChange()" [(ngModel)]="height" name="height" placeholder="" tabindex="14">
+															<input type="text" class="form-control"  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" (input)="onInputChange()" [(ngModel)]="height" name="height" placeholder="" autocomplete="off" tabindex="14">
 														</div>	
 													</div>	
 													<div class="col-md-4">
@@ -213,30 +213,30 @@
 												
 												<div class="row form-group">
 													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Rate</label>
+														<label class="col-md-4 col-sm-4 fieldLabel">Rate <i class="fa fa-inr"></i></label>
 														<div class="col-md-8 col-sm-8">
-															<input class="form-control"  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" #rateVal="ngModel" required [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}"  [(ngModel)]="rate" name="rate" tabindex="15" placeholder="">
+															<input class="form-control"  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" #rateVal="ngModel" required [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}"  [(ngModel)]="rate" name="rate" placeholder="" autocomplete="off" tabindex="15">
 														</div>	
 													</div>	
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Available Stock</label>
 														<div class="col-md-8 col-sm-8">
-															<input class="form-control" readonly OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" [(ngModel)]="availableStock" name="availableStock" placeholder="">
+															<input class="form-control" readonly OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" [(ngModel)]="availableStock" name="availableStock" placeholder="" autocomplete="off">
 														</div>	
 													</div>	
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Quantity</label>
 														<div class="col-md-8 col-sm-8">
-															<input class="form-control"  OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999"  #quantityVal="ngModel" required [ngClass]="{'red-border-class': quantityVal.errors && isFormSubmitted}" (input)="calculateAmount()" [(ngModel)]="quantity" name="quantity" tabindex="17" placeholder="">
+															<input class="form-control"  OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999"  #quantityVal="ngModel" required [ngClass]="{'red-border-class': quantityVal.errors && isFormSubmitted}" (input)="calculateAmount()" [(ngModel)]="quantity" name="quantity" placeholder="" autocomplete="off" tabindex="17">
 														</div>	
 													</div>													
 												</div>
 												
 												<div class="row form-group">													
 													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Amount</label>
+														<label class="col-md-4 col-sm-4 fieldLabel">Amount <i class="fa fa-inr"></i></label>
 														<div class="col-md-8 col-sm-8">
-															<input class="form-control"  OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" readonly #amountVal="ngModel"  [ngClass]="{'red-border-class': amountVal.errors && isFormSubmitted}"  [(ngModel)]="amount" name="amount" placeholder="">
+															<input class="form-control"  OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" readonly #amountVal="ngModel"  [ngClass]="{'red-border-class': amountVal.errors && isFormSubmitted}"  [(ngModel)]="amount" name="amount" placeholder="" autocomplete="off">
 														</div>	
 													</div>
 												</div>
@@ -255,6 +255,133 @@
 								</div>
 								
 							</form>
+
+							<!--+++++++++++++++++++++ Sales Order Item ++++++++++++++++++++++++++++-->
+									<div class="col-md-12 formContentbox">
+										<div class="table-responsive" style="margin-bottom: 8px;">
+											<h5 class="itemAddHeading">Item Details:</h5>
+											<table class="table itemAddTable itemAddTableSales">
+												<thead>
+												  <tr>
+													<th>Category</th>													
+													<th>Collection</th>
+													<th>Serial No.</th>
+													<th>Size</th>
+													<th>Rate</th>
+													<th>Available Stock</th>
+													<th>Quantity</th>
+													<th>Amount</th>
+													<th></th>
+												  </tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>
+															<select class="form-control">	
+																<option selected="" disabled="">- Select -</option>
+																<option>Category 1</option>
+																<option>Category 2</option>
+																<option>Category 3</option>
+																<option>Category 4</option>
+															</select>
+														</td>
+														<td>
+															<select class="form-control">	
+																<option selected="" disabled="">- Select -</option>
+																<option>Collection 1</option>
+																<option>Collection 2</option>
+																<option>Collection 3</option>
+																<option>Collection 4</option>
+															</select>
+														</td>
+														<td>
+															<select class="form-control">	
+																<option selected="" disabled="">- Select -</option>
+																<option>No. 1</option>
+																<option>No. 2</option>
+																<option>No. 3</option>
+																<option>No. 4</option>
+															</select>
+														</td>
+														<td>
+															<input type="text" class="form-control" placeholder="">
+														</td>
+														<td>
+															<input type="text" class="form-control" placeholder="">
+														</td>															
+														<td>
+															<input type="text" class="form-control" placeholder="">
+														</td>	
+														<td>
+															<input type="text" class="form-control" placeholder="">
+														</td>
+														<td>
+															<input type="text" class="form-control" placeholder="">
+														</td>															
+														<td>
+															<i aria-hidden="true" class="fa fa-plus addBtnIcon"></i>
+															<i aria-hidden="true" class="fa fa-minus addBtnIcon"></i>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<select class="form-control">	
+																<option selected="" disabled="">- Select -</option>
+																<option>Category 1</option>
+																<option>Category 2</option>
+																<option>Category 3</option>
+																<option>Category 4</option>
+															</select>
+														</td>
+														<td>
+															<select class="form-control">	
+																<option selected="" disabled="">- Select -</option>
+																<option>Collection 1</option>
+																<option>Collection 2</option>
+																<option>Collection 3</option>
+																<option>Collection 4</option>
+															</select>
+														</td>
+														<td>
+															<select class="form-control">	
+																<option selected="" disabled="">- Select -</option>
+																<option>No. 1</option>
+																<option>No. 2</option>
+																<option>No. 3</option>
+																<option>No. 4</option>
+															</select>
+														</td>
+														<td>
+															<input type="text" class="form-control" placeholder="">
+														</td>
+														<td>
+															<input type="text" class="form-control" placeholder="">
+														</td>															
+														<td>
+															<input type="text" class="form-control" placeholder="">
+														</td>	
+														<td>
+															<input type="text" class="form-control" placeholder="">
+														</td>			
+														<td>
+															<input type="text" class="form-control" placeholder="">
+														</td>												
+														<td>
+															<i aria-hidden="true" class="fa fa-plus addBtnIcon"></i>
+															<i aria-hidden="true" class="fa fa-minus addBtnIcon"></i>
+														</td>
+													</tr>
+												  
+												</tbody>
+											  </table>
+										</div>
+									</div>
+									
+									<!--+++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+
+
+
 							<div class="row">
 								<div class="col-md-12">
 									<table class="staticTable merchantTable" id="">

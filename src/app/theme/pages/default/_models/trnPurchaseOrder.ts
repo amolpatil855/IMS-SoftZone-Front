@@ -18,4 +18,5 @@ export class TrnPurchaseOrder {
     MstCompanyLocation: CompanyLocation;
     MstCourier: Courier;
     MstSupplier: Supplier;
+    TrnPurchaseOrderItems=[]
 }

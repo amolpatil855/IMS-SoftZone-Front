@@ -270,6 +270,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
   onSerialNoChange(){
     this.rate = null;
+    this.availableStock = null;
     if (this.selectedShade != null) {
     Helpers.setLoading(true);
     this.shadeService.getShadeById(this.selectedShade).subscribe(
@@ -281,11 +282,24 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         this.globalErrorHandler.handleError(error);
         Helpers.setLoading(false);
       });
+
+      if((this.selectedCategory != null) && (this.selectedCollection != null)){
+      this.trnSalesOrderService.getProductStockAvailabilty(this.selectedCategory, this.selectedCollection, this.selectedShade).subscribe(
+        results => {
+          this.availableStock = results;
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+      }
     }
   }
 
   onFoamSizeChange(){
     this.rate = null;
+    this.availableStock = null;
     if (this.selectedFomSize != null) {
     Helpers.setLoading(true);
     this.fomSizeService.getFomSizeById(this.selectedFomSize).subscribe(
@@ -297,11 +311,24 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         this.globalErrorHandler.handleError(error);
         Helpers.setLoading(false);
       });
+
+      if((this.selectedCategory != null) && (this.selectedCollection != null)){
+      this.trnSalesOrderService.getProductStockAvailabilty(this.selectedCategory, this.selectedCollection, this.selectedFomSize).subscribe(
+        results => {
+          this.availableStock = results;
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+      }
     }
   }
 
   onMatSizeChange(){
     this.rate = null;
+    this.availableStock = null;
     if (this.selectedMatSize != null) {
     Helpers.setLoading(true);
     this.matSizeService.getMatSizeById(this.selectedMatSize).subscribe(
@@ -313,6 +340,18 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         this.globalErrorHandler.handleError(error);
         Helpers.setLoading(false);
       });
+
+      if((this.selectedCategory != null) && (this.selectedCollection != null)){
+      this.trnSalesOrderService.getProductStockAvailabilty(this.selectedCategory, this.selectedCollection, this.selectedMatSize).subscribe(
+        results => {
+          this.availableStock = results;
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+      }
       Helpers.setLoading(false);
     }
   }
@@ -403,6 +442,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.selectedTrnSalesOrder = null;
     this.selectedFomSize = null;
     this.rate = null;
+    this.availableStock = null;
     this.shadeEnable = false;
     this.matEnable = false;
     this.fomEnable = false;
@@ -457,6 +497,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.selectedTrnSalesOrder = null;
     this.selectedFomSize = null;
     this.rate = null;
+    this.availableStock = null;
     if (this.selectedCollection != null) {
       Helpers.setLoading(true);
       this.trnSalesOrderService.getSerialNumberLookUpByCollection(this.selectedCollection).subscribe(

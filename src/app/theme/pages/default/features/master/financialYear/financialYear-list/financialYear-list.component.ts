@@ -85,7 +85,6 @@ export class FinancialYearListComponent implements OnInit {
     this.financialYearService.getAllFinancialYears(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.financialYearList = results.data;
-        console.log('this.financialYearList', this.financialYearList);
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
@@ -114,7 +113,6 @@ export class FinancialYearListComponent implements OnInit {
     this.financialYearService.getFinancialYearById(id).subscribe(
       results => {
         this.financialYearObj = results;
-        console.log('this.financialYearList', this.financialYearObj);
       },
       error => {
         this.globalErrorHandler.handleError(error);

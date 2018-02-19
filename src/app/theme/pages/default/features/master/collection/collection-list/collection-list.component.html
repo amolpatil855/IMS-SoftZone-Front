@@ -150,10 +150,10 @@
                                                                         <div class="form-group">
                                                                               <div class="col-md-4 formContentbox">
                                                                                     <div class="">
-                                                                                          <label class="fieldLabel col-sm-5">Purchase Discount<span class="requiredField">*</span></label>
+                                                                                          <label class="fieldLabel col-sm-5">Purchase Discount %<span class="requiredField">*</span></label>
                                                                                           <div class="col-sm-7">
                                                                                                 <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" formControlName="purchaseDiscount" required [ngClass]="{'red-border-class': collectionForm.get('purchaseDiscount').hasError('required') && isFormSubmitted}"
-                                                                                                      name="purchaseDiscount" class="form-control m-input"
+                                                                                                      name="purchaseDiscount" class="form-control m-input" autocomplete="off"
                                                                                                       tabindex="5">
                                                                                                 <!-- <div class="alertMsg" *ngIf="collectionForm.get('manufacturerName').hasError('required') && collectionForm.get('manufacturerName').touched">
                                                 Please manufacturer Name
