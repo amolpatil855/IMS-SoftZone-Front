@@ -18,6 +18,7 @@ export class Customer {
   accountPersonEmail: string;
   accountPersonPhone: string;
   userId: number;
+  creditPeriodDays: number;
   userName: string;
   MstUser: User;
   MstCustomerAddresses: CustomerAddress;
