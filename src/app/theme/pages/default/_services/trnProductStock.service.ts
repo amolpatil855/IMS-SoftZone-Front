@@ -13,8 +13,12 @@ export class TrnProductStockService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllTrnProductStocks(pageSize = 0, page = 0, search = '') {
+  getProductDetails(pageSize = 0, page = 0, search = '') {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStockDetail?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+  
+  getAllTrnProductStocks(categoryId, collectionId, parameterId, qualityId) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStockDetail?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId+ '&qualityId=' + qualityId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getTrnProductStockById(id: number) {
