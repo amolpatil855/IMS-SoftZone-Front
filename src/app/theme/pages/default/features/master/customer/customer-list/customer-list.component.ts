@@ -268,13 +268,6 @@ export class CustomerListComponent implements OnInit {
       else {
         addressObj.invalidAdd = false;
       }
-      if (!addressObj.gstin) {
-        addressObj.invalidGstin = true;
-        valid = false;
-      }
-      else {
-        addressObj.invalidGstin = false;
-      }
       if (!addressObj.state || addressObj.state == '0' || addressObj.state == 0) {
         addressObj.invalidState = true;
         valid = false;
