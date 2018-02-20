@@ -250,6 +250,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       parameterId = this.foamSizeId;
     else if (this.categoryId == 4 && this.matSizeId != -1)
       parameterId = this.matSizeId;
+    else if (this.categoryId == 4 && this.matSizeId != -1 && !this.qualityId)
+      return;
     else
       parameterId = null;
     //this.shadeId ? this.shadeId : this.foamSizeId ? this.foamSizeId : this.matSizeId != -1 ? this.matSizeId : null;
@@ -279,6 +281,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.thicknessList = [];
     this.thicknessList.unshift({ label: '--Select--', value: null });
     this.thicknessId = null;
+    this.calculateProductStockDetails();
     if (this.qualityId != null) {
       Helpers.setLoading(true);
       this.matSizeService.getMatThicknessLookUp().subscribe(

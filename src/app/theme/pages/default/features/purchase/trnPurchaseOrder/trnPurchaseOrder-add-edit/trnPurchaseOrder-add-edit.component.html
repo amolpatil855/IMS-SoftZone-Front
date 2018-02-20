@@ -224,7 +224,8 @@
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Quality<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
-															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="qualityId" styleClass="{{qualityIdError?'red-border-class':'' }}"
+															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="qualityId"
+															 styleClass="{{qualityIdError?'red-border-class':'' }}"  (ngModelChange)="onQualityClick()"
 															 name="quality"  filter="true" tabindex="2"></p-dropdown>
 														</div>
 													</div>
