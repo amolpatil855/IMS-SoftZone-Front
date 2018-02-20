@@ -100,7 +100,7 @@ export class CollectionListComponent implements OnInit {
   }
 
   getCategoryCodeList() {
-    this.commonService.getCategoryCodes().subscribe(
+    this.commonService.getCategoryWithoutAccessory().subscribe(
       results => {
         this.categoriesCodeList = results;
         this.categoriesCodeList.unshift({ label: '--Select--', value: null });
