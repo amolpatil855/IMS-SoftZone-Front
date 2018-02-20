@@ -64,6 +64,15 @@ export class AgentListComponent implements OnInit {
     };
   }
 
+  validateState(agentObj) {
+    if (!agentObj.state || agentObj.state == '0' || agentObj.state == 0) {
+      agentObj.invalidState = true;
+    }
+    else {
+      agentObj.invalidState = false;
+    }
+  }
+
   toggleButton() {
     this.toggleDiv = !this.toggleDiv;
     if (this.toggleDiv && !this.params) {
@@ -119,6 +128,13 @@ export class AgentListComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
+    if (!this.agentObj.state || this.agentObj.state == '0' || this.agentObj.state == 0) {
+      this.agentObj.invalidState = true;
+      valid = false;
+    }
+    else {
+      this.agentObj.invalidState = false;
+    }
     if (!valid)
       return;
     this.saveAgent(this.agentObj);

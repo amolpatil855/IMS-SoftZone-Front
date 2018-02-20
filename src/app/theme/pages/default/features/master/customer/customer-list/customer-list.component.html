@@ -95,7 +95,7 @@
                                           </div> 
                                     </div>
                                     <div class="col-md-3 col-sm-3">
-                                       <input class="form-control" type="email" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" [ngClass]="{'red-border-class': alternateEmail1Val.errors && isFormSubmitted}"  #alternateEmail1Val="ngModel" [(ngModel)]="customerObj.alternateEmail1" name="alternateEmail1" placeholder="Alternate email1" maxlength="254" tabindex="5">
+                                       <input class="form-control" type="email" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" [ngClass]="{'red-border-class': alternateEmail1Val.errors && isFormSubmitted}"  #alternateEmail1Val="ngModel" [(ngModel)]="customerObj.alternateEmail1" name="alternateEmail1" placeholder="Alternate Email 1" maxlength="254" tabindex="5">
                                           <div *ngIf="alternateEmail1Val.errors && (alternateEmail1Val.dirty || alternateEmail1Val.touched)" class="alertMsg">
                                                 <div *ngIf="alternateEmail1Val.errors.pattern">
                                                 Please enter valid email. 
@@ -103,7 +103,7 @@
                                           </div>
                                     </div>
                                     <div class="col-md-3 col-sm-3">
-                                       <input class="form-control m-input" type="email"  pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" #alternateEmail2Val="ngModel" [ngClass]="{'red-border-class': alternateEmail2Val.errors && isFormSubmitted}" [(ngModel)]="customerObj.alternateEmail2" name="alternateEmail2" placeholder="Alternate email2" maxlength="254" tabindex="6">
+                                       <input class="form-control m-input" type="email"  pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" #alternateEmail2Val="ngModel" [ngClass]="{'red-border-class': alternateEmail2Val.errors && isFormSubmitted}" [(ngModel)]="customerObj.alternateEmail2" name="alternateEmail2" placeholder="Alternate Email 2" maxlength="254" tabindex="6">
                                           <div *ngIf="alternateEmail2Val.errors && (alternateEmail2Val.dirty || alternateEmail2Val.touched)" class="alertMsg">
                                                 <div *ngIf="alternateEmail2Val.errors.pattern">
                                                 Please enter valid email. 
@@ -145,9 +145,10 @@
                                  <div class="form-group">
                                        <label class="col-md-2 col-sm-2 fieldLabel">PAN</label>
                                        <div class="col-md-3 col-sm-3">
-                                       <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': PANVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.pan" name="PAN"   #PANVal="ngModel" placeholder="" maxlength="10" tabindex="10">
+                                       <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': PANVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.pan" name="PAN"   #PANVal="ngModel" placeholder="PAN" maxlength="10" tabindex="10">
                                        </div> 
-                                
+                                 </div>
+                                    <div class="form-group">
                                     <label class="col-md-3 col-sm-3 fieldLabel"  *ngIf="!isHide">Wholesale Customer?
                                           <input type="checkbox" name="isWholesaleCustomer"[(ngModel)]="customerObj.isWholesaleCustomer" value="1" class="formCheckBox" style="float: right;" tabindex="11"> 
                                     </label>
@@ -155,9 +156,9 @@
                                           <input type="text" class="form-control" placeholder="Username" required [ngClass]="{'red-border-class': codeVal.errors }" #codeVal="ngModel" [required]="customerObj.isWholesaleCustomer" [(ngModel)]="customerObj.username" name="username" id="username" tabindex="12">
                                     </div>
                                     <div  class="col-md-3 col-sm-3" *ngIf="customerObj.isWholesaleCustomer && !isHide">
-                                          <input class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [(ngModel)]="customerObj.creditPeriodDays" name="creditPeriodDays" placeholder="" autocomplete="off" tabindex="12">
+                                          <input class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [(ngModel)]="customerObj.creditPeriodDays" name="creditPeriodDays" placeholder="Credit Period Days" autocomplete="off" tabindex="12">
                                     </div>
-                                 </div>
+                                    </div>
                               </div>
                            </div>
                         </div>
@@ -169,13 +170,13 @@
                                  <div class="form-group">
                                     <label class="col-md-2 col-sm-2 fieldLabel">Name</label>
                                     <div class="col-md-10 col-sm-10">
-                                       <input class="form-control m-input" type="text"  [ngClass]="{'red-border-class': accountPersonNameVal.errors && isFormSubmitted}"   [(ngModel)]="customerObj.accountPersonName" #accountPersonNameVal="ngModel"  name="accountPersonName" id="accountPersonName" placeholder="" tabindex="13">
+                                       <input class="form-control m-input" type="text"  [ngClass]="{'red-border-class': accountPersonNameVal.errors && isFormSubmitted}"   [(ngModel)]="customerObj.accountPersonName" #accountPersonNameVal="ngModel"  name="accountPersonName" id="accountPersonName" placeholder="Account Person Name" tabindex="13">
                                     </div>                       
                                  </div>
                                  <div class="form-group">
 									<label class="col-md-2 col-sm-2 fieldLabel">Email</label>
                                     <div class="col-md-10 col-sm-10">
-                                       <input class="form-control m-input" type="email" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" [ngClass]="{'red-border-class': accountPersonEmailVal.errors && isFormSubmitted}" [(ngModel)]="customerObj.accountPersonEmail" name="accountPersonEmail"  #accountPersonEmailVal="ngModel"  placeholder="" maxlength="254" tabindex="14">
+                                       <input class="form-control m-input" type="email" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" [ngClass]="{'red-border-class': accountPersonEmailVal.errors && isFormSubmitted}" [(ngModel)]="customerObj.accountPersonEmail" name="accountPersonEmail"  #accountPersonEmailVal="ngModel"  placeholder="Account Person Email" maxlength="254" tabindex="14">
                                           <div *ngIf="accountPersonEmailVal.errors && (accountPersonEmailVal.dirty || accountPersonEmailVal.touched)" class="alertMsg">
                                                 <div *ngIf="accountPersonEmailVal.errors.pattern">
                                                 Please enter valid email. 
@@ -186,7 +187,7 @@
                                  <div class="form-group">
                                     <label class="col-md-2 col-sm-2 fieldLabel">Phone</label>	
                                     <div class="col-md-10 col-sm-10">
-                                       <input class="form-control m-input" type="phone" pattern="^[0-9]+" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.accountPersonPhone" name="accountPersonPhone"  #accountPersonPhoneVal="ngModel" placeholder="" minlength="10" maxlength="10" tabindex="15">
+                                       <input class="form-control m-input" type="phone" pattern="^[0-9]+" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.accountPersonPhone" name="accountPersonPhone"  #accountPersonPhoneVal="ngModel" placeholder="Account Person Phone" minlength="10" maxlength="10" tabindex="15">
                                           <div *ngIf="accountPersonPhoneVal.errors && (accountPersonPhoneVal.dirty || accountPersonPhoneVal.touched)" class="alertMsg">
                                                 <div *ngIf="accountPersonPhoneVal.errors.minlength && !accountPersonPhoneVal.errors.pattern">
                                                       Mobile number should be 10 digit.
@@ -213,26 +214,26 @@
                                     <table class="table formAddressTable">
                                        <thead>
                                           <tr>
-                                             <th>Address 1<span class="requiredField">*</span></th>
-                                             <th>Address 2</th>
+                                             <th>Address Line 1<span class="requiredField">*</span></th>
+                                             <th>Address Line 2</th>
                                              <th>GST</th>
                                              <th>PIN<span class="requiredField">*</span></th>
                                              <th>State<span class="requiredField">*</span></th>
                                              <th>City<span class="requiredField">*</span></th>
-                                             <th>Is Primary?</th>
+                                             <th>Primary Address</th>
                                              <th></th>
                                           </tr>
                                        </thead>
                                        <tbody>
                                           <tr  *ngFor="let supAdd of customerObj.MstCustomerAddresses;let rowNum=index;let lastRowNum=last">
                                              <td>
-                                                <input type="text" class="form-control" (blur)="validateAddress1(supAdd)"  [(ngModel)]="supAdd.addressLine1" [ngClass]="{'red-border-class': supAdd.invalidAddressLine1}" name="{{'addressLine1'+supAdd.contRoleId}}" maxlength="500" tabindex="16"/>
+                                                <input type="text" class="form-control" (blur)="validateAddress1(supAdd)"  [(ngModel)]="supAdd.addressLine1" [ngClass]="{'red-border-class': supAdd.invalidAddressLine1}" name="{{'addressLine1'+supAdd.contRoleId}}" placeholder="Address Line 1" maxlength="500" tabindex="16"/>
                                              </td>
                                              <td>
-                                                <input type="text" class="form-control"  [(ngModel)]="supAdd.addressLine2" name="{{'addressLine2'+supAdd.contRoleId}}" maxlength="500" tabindex="17"/>
+                                                <input type="text" class="form-control"  [(ngModel)]="supAdd.addressLine2" name="{{'addressLine2'+supAdd.contRoleId}}" placeholder="Address Line 2" maxlength="500" tabindex="17"/>
                                              </td>
                                              <td>
-                                                <input class="form-control" type="text" onKeyPress="if(this.value.length==15) return false;" #gstinVal="ngModel" [(ngModel)]="supAdd.gstin" [ngClass]="{'red-border-class': gstinVal.errors && isFormSubmitted}" name="{{'gstin'+supAdd.contRoleId}}" minlength="15" maxlength="15" tabindex="18">
+                                                <input class="form-control" type="text" onKeyPress="if(this.value.length==15) return false;" #gstinVal="ngModel" [(ngModel)]="supAdd.gstin" [ngClass]="{'red-border-class': gstinVal.errors && isFormSubmitted}" placeholder="GST" name="{{'gstin'+supAdd.contRoleId}}" minlength="15" maxlength="15" tabindex="18">
                                                 <div *ngIf="gstinVal.errors && (gstinVal.dirty || gstinVal.touched)" class="alertMsg">
                                                       <div *ngIf="gstinVal.errors.minlength">
                                                            Invalid GST.
@@ -240,13 +241,13 @@
                                                 </div>
                                              </td>
                                              <td>
-                                                <input type="text" class="form-control" (blur)="validatePin(supAdd)" onKeyPress="if(this.value.length==6) return false;" [ngClass]="{'red-border-class': supAdd.invalidPin}" name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin" maxlength="6" tabindex="19"/>
+                                                <input type="text" class="form-control" (blur)="validatePin(supAdd)" onKeyPress="if(this.value.length==6) return false;" [ngClass]="{'red-border-class': supAdd.invalidPin}" name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin" placeholder="PIN" maxlength="6" tabindex="19"/>
                                              </td>
                                              <td>
                                                 <p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" (onChange)="validateState(supAdd)" [(ngModel)]="supAdd.state" styleClass="{{ supAdd.invalidState?'red-border-class':''}}" name="{{'stateDDL'+supAdd.contRoleId}}" tabindex="20"></p-dropdown>
                                              </td>
                                              <td>
-                                                <input type="text" class="form-control"  name="{{'city'+supAdd.contRoleId}}" (blur)="validateCity(supAdd)" [(ngModel)]="supAdd.city" [ngClass]="{'red-border-class': supAdd.invalidCity}" maxlength="50" tabindex="21"/>
+                                                <input type="text" class="form-control"  name="{{'city'+supAdd.contRoleId}}" (blur)="validateCity(supAdd)" [(ngModel)]="supAdd.city" [ngClass]="{'red-border-class': supAdd.invalidCity}" placeholder="City" maxlength="50" tabindex="21"/>
                                              </td>
                                              <td>
                                           	<input type="radio" class="formCheckbox"  [(ngModel)]="supAdd.isPrimary"  [value]="true" name="{{'chkbox'+supAdd.contRoleId}}" [checked]="supAdd.isPrimary == true" (click)="onClickPrimary(supAdd)" tabindex="22"/>   
