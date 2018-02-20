@@ -79,14 +79,14 @@
                                                             <div class="col-sm-7">
                                                                 <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==100) return false;" [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"
                                                                     #nameVal="ngModel" required [(ngModel)]="agentObj.name" name="name"
-                                                                    id="name" placeholder="" tabindex="1">
+                                                                    id="name" placeholder="Name" tabindex="1">
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-3 formContentbox">
                                                         <div class="form-group">
-                                                            <label class="fieldLabel col-sm-5">Phone <span class="requiredField">*</span></label>
+                                                            <label class="fieldLabel col-sm-5">Phone<span class="requiredField">*</span></label>
                                                             <div class="col-sm-7">
                                                                 <input type="phone" class="form-control" pattern="^[0-9]+" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}"
                                                                     [(ngModel)]="agentObj.phone" name="phone" required #phoneVal="ngModel"
@@ -106,7 +106,7 @@
 
                                                     <div class="col-md-3 formContentbox">
                                                         <div class="form-group">
-                                                            <label class="fieldLabel col-sm-5">Email <span class="requiredField">*</span></label>
+                                                            <label class="fieldLabel col-sm-5">Email<span class="requiredField">*</span></label>
                                                             <div class="col-sm-7">
                                                                 <input type="email" class="form-control" email pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"
                                                                     [ngClass]="{'red-border-class': emailVal.errors && isFormSubmitted}"
@@ -126,32 +126,32 @@
 
                                                     <div class="col-md-3 formContentbox">
                                                         <div class="form-group">
-                                                            <label class="fieldLabel col-sm-5">Address1 <span class="requiredField">*</span></label>
+                                                            <label class="fieldLabel col-sm-5">Address 1<span class="requiredField">*</span></label>
                                                             <div class="col-sm-7">
                                                                 <input type="text" class="form-control" [ngClass]="{'red-border-class': address1Val.errors && isFormSubmitted}" #address1Val="ngModel"
                                                                     required [(ngModel)]="agentObj.address1" name="address1"
-                                                                    placeholder="" id="address1" tabindex="4">
+                                                                    placeholder="Address 1" id="address1" tabindex="4">
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-3 formContentbox">
                                                         <div class="form-group">
-                                                            <label class="fieldLabel col-sm-5">Address2</label>
+                                                            <label class="fieldLabel col-sm-5">Address 2</label>
                                                             <div class="col-sm-7">
                                                                 <input type="text" class="form-control"  #address2Val="ngModel"
                                                                     [(ngModel)]="agentObj.address2" name="address2"
-                                                                    placeholder="" id="address2" tabindex="5">
+                                                                    placeholder="Address 2" id="address2" tabindex="5">
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-3 formContentbox">
                                                         <div class="form-group">
-                                                            <label class="fieldLabel col-sm-5">City <span class="requiredField">*</span></label>
+                                                            <label class="fieldLabel col-sm-5">City<span class="requiredField">*</span></label>
                                                             <div class="col-sm-7">
                                                                 <input type="text" class="form-control" [ngClass]="{'red-border-class': cityVal.errors && isFormSubmitted}" #cityVal="ngModel"
-                                                                    required [(ngModel)]="agentObj.city" name="city" placeholder=""
+                                                                    required [(ngModel)]="agentObj.city" name="city" placeholder="City"
                                                                     id="city" tabindex="6">
                                                             </div>
                                                         </div>
@@ -159,11 +159,9 @@
 
                                                     <div class="col-md-3 formContentbox">
                                                         <div class="form-group">
-                                                            <label class="fieldLabel col-sm-5">State <span class="requiredField">*</span></label>
+                                                            <label class="fieldLabel col-sm-5">State<span class="requiredField">*</span></label>
                                                             <div class="col-sm-7">
-                                                                <input type="text" class="form-control" [ngClass]="{'red-border-class': stateVal.errors && isFormSubmitted}" #stateVal="ngModel"
-                                                                    required [(ngModel)]="agentObj.state" name="state" placeholder=""
-                                                                    id="state" tabindex="7">
+                                                                <p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" required styleClass="{{ agentObj.invalidState && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="agentObj.state" (onChange)="validateState(agentObj)" name="state"  filter="true" tabindex="7"></p-dropdown>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -174,7 +172,7 @@
                                                             <div class="col-sm-7">
                                                                 <input type="text" class="form-control" pattern="^[0-9]+" onKeyPress="if(this.value.length==6) return false;" [ngClass]="{'red-border-class': pinVal.errors && isFormSubmitted}"
                                                                     #pinVal="ngModel" required [(ngModel)]="agentObj.pin" name="pin"
-                                                                    placeholder="" id="pin" minlength="6" maxlength="6" tabindex="8">
+                                                                    placeholder="PIN" id="pin" minlength="6" maxlength="6" tabindex="8">
                                                                 <div *ngIf="pinVal.errors && (pinVal.dirty || pinVal.touched)" class="alertMsg">
                                                                     <div *ngIf="pinVal.errors.minlength && !pinVal.errors.pattern">
                                                                         Pin number should be 6 digit.
@@ -193,7 +191,7 @@
                                                             <div class="col-sm-7">
                                                                 <input type="number" class="form-control" onKeyPress="if(this.value.length==2) return false;" [ngClass]="{'red-border-class': commisionVal.errors && isFormSubmitted}"
                                                                     #commisionVal="ngModel" required [(ngModel)]="agentObj.commision"
-                                                                    name="commision" placeholder="" id="commision" tabindex="9">
+                                                                    name="commision" placeholder="Commision" id="commision" tabindex="9">
                                                             </div>
                                                         </div>
                                                     </div>

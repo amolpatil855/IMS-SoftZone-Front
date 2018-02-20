@@ -133,13 +133,13 @@
 														</div>
 															<label class="col-md-2 col-sm-2 fieldLabel">Credit Period Days</label>
 																<div class="col-md-4 col-sm-4">
-																	<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [(ngModel)]="supplierObj.creditPeriodDays" name="creditPeriodDays" placeholder="" autocomplete="off" tabindex="5">
+																	<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [(ngModel)]="supplierObj.creditPeriodDays" name="creditPeriodDays" placeholder="Credit Period Days" autocomplete="off" tabindex="5">
 																</div>
 													</div>																							
 													<div class="form-group">
 														<label class="col-md-2 col-sm-2 fieldLabel">Description</label>
 														<div class="col-md-10 col-sm-10">
-															<input type="text" class="form-control"   [(ngModel)]="supplierObj.description" name="description" id="description" placeholder="" tabindex="6">
+															<input type="text" class="form-control"   [(ngModel)]="supplierObj.description" name="description" id="description" placeholder="Description" tabindex="6">
 														</div>																						
 													</div>
 												  </div>
@@ -276,26 +276,26 @@
 													<table class="table formAddressTable">
 														<thead>
 														  <tr>
-															<th>Address 1<span class="requiredField">*</span></th>	
-															<th>Address 2</th>	
+															<th>Address Line 1<span class="requiredField">*</span></th>	
+															<th>Address Line 2</th>	
 															<th>GST<span class="requiredField">*</span></th>	
 															<th>PIN<span class="requiredField">*</span></th>										
 															<th>State<span class="requiredField">*</span></th>
 															<th>City<span class="requiredField">*</span></th>
-															<th>Is Primary?</th>															
+															<th>Primary Adress</th>															
 															<th></th>
 														  </tr>
 														</thead>
 														<tbody>
 															<tr  *ngFor="let supAdd of supplierObj.MstSupplierAddresses;let rowNum=index;let lastRowNum=last">
 																<td>
-																 <input type="text" class="form-control" (blur)="validateAddress1(supAdd)"  [(ngModel)]="supAdd.addressLine1" [ngClass]="{'red-border-class': supAdd.invalidAddressLine1}" name="{{'address'+supAdd.contRoleId}}" maxlength="500" tabindex="16"/>
+																 <input type="text" class="form-control" (blur)="validateAddress1(supAdd)"  [(ngModel)]="supAdd.addressLine1" [ngClass]="{'red-border-class': supAdd.invalidAddressLine1}" name="{{'address'+supAdd.contRoleId}}" placeholder="Address Line 1" maxlength="500" tabindex="16"/>
 																</td>
 																<td>
-																	<input type="text" class="form-control" [(ngModel)]="supAdd.addressLine2" name="{{'addressLine2'+supAdd.contRoleId}}" maxlength="500" tabindex="17"/>
+																	<input type="text" class="form-control" [(ngModel)]="supAdd.addressLine2" name="{{'addressLine2'+supAdd.contRoleId}}" placeholder="Address Line 2" maxlength="500" tabindex="17"/>
 																</td>
 																<td>
-																	<input class="form-control" type="text" (blur)="validateGSTIN(supAdd)" #gstinVal="ngModel" onKeyPress="if(this.value.length==15) return false;" [(ngModel)]="supAdd.gstin" [ngClass]="{'red-border-class': gstinVal.errors && isFormSubmitted}" name="{{'gstin'+supAdd.contRoleId}}" minlength="15" tabindex="18">
+																	<input class="form-control" type="text" (blur)="validateGSTIN(supAdd)" #gstinVal="ngModel" required onKeyPress="if(this.value.length==15) return false;" [(ngModel)]="supAdd.gstin" [ngClass]="{'red-border-class': gstinVal.errors && isFormSubmitted}" name="{{'gstin'+supAdd.contRoleId}}" placeholder="GSTIN" minlength="15" tabindex="18">
 																		<div *ngIf="gstinVal.errors && (gstinVal.dirty || gstinVal.touched)" class="alertMsg">
 																			<div *ngIf="gstinVal.errors.minlength">
 																				Invalid GST.
@@ -303,13 +303,13 @@
 																		</div>
 																</td>
 																<td>
-																	<input type="text" class="form-control" (blur)="validatePin(supAdd)" onKeyPress="if(this.value.length==6) return false;" [ngClass]="{'red-border-class': supAdd.invalidPin}" name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin" maxlength="6" tabindex="19"/>
+																	<input type="text" class="form-control" (blur)="validatePin(supAdd)" onKeyPress="if(this.value.length==6) return false;" [ngClass]="{'red-border-class': supAdd.invalidPin}" name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin" placeholder="PIN" maxlength="6" tabindex="19"/>
 																</td>
 																<td>
 																	<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" (onChange)="validateState(supAdd)" [(ngModel)]="supAdd.state" styleClass="{{ supAdd.invalidState?'red-border-class':''}}" name="{{'stateDDL'+supAdd.contRoleId}}" tabindex="20"></p-dropdown>
 																</td>
 																<td>
-																	<input type="text" class="form-control"  name="{{'city'+supAdd.contRoleId}}" (blur)="validateCity(supAdd)" [(ngModel)]="supAdd.city" [ngClass]="{'red-border-class': supAdd.invalidCity}"  maxlength="50" tabindex="21"/>
+																	<input type="text" class="form-control"  name="{{'city'+supAdd.contRoleId}}" (blur)="validateCity(supAdd)" [(ngModel)]="supAdd.city" [ngClass]="{'red-border-class': supAdd.invalidCity}" placeholder="City" maxlength="50" tabindex="21"/>
 																</td>	
 																<td>
 																	<input type="radio" class="formCheckbox"  [(ngModel)]="supAdd.isPrimary"  [value]="true" name="{{'chkbox'+supAdd.contRoleId}}" [checked]="supAdd.isPrimary == true" (click)="onClickPrimary(supAdd)" tabindex="22"/>
