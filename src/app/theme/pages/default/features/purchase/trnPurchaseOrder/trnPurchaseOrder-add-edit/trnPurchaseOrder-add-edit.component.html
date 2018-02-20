@@ -337,12 +337,12 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr *ngIf="itemDetails.length==0">
+											<tr *ngIf="trnPurchaseOrderItems.length==0">
 												<td colspan="5">
 													No Record Found
 												</td>
 											</tr>
-											<tr *ngFor="let row of itemDetails;let rowNum=index;let lastRowNum=last;">
+											<tr *ngFor="let row of trnPurchaseOrderItems;let rowNum=index;let lastRowNum=last;">
 												<td>{{row.categoryName}}</td>
 												<td>{{row.collectionName}}</td>
 												<td>{{row.serialno}} {{row.size}}</td>

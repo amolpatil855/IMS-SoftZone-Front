@@ -37,7 +37,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   shadeIdList = [];
   categoryId = null;
   collectionId = null;
-  itemDetails = [];
+  trnPurchaseOrderItems = [];
   shadeId = null;
   orderQuantity = null;
   orderType = null;
@@ -78,10 +78,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     purchaseFlatRate: null,
     stock: null,
     purchaseRate: null,
-    custRatePerSqFeet:null
+    custRatePerSqFeet: null
   };
-  accessoryId=null;
-  accessoryCodeList=[];
+  accessoryId = null;
+  accessoryCodeList = [];
   amount = null;
   constructor(
     private formBuilder: FormBuilder,
@@ -114,6 +114,31 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.courierModeList.push({ label: '--Select--', value: null });
     this.courierModeList.push({ label: 'Surface', value: 'Surface' });
     this.courierModeList.push({ label: 'Air', value: 'Air' });
+    this.route.params.forEach((params: Params) => {
+      this.params = params['id'];
+    });
+    if (this.params) {
+      this.getTrnPurchaseOrderById(this.params);
+    }
+  }
+
+  getTrnPurchaseOrderById(id) {
+    Helpers.setLoading(true);
+    this.trnPurchaseOrderService.getTrnPurchaseOrderById(id).subscribe(
+      results => {
+        this.trnPurchaseOrderObj = results;
+        this.trnPurchaseOrderItems = results.trnPurchaseOrderItems;
+        _.forEach(this.trnPurchaseOrderItems, function(value) {
+         value.categoryName=value.mstCategory.code;
+         value.collectionName=value.mstCollection.collectionCode;
+        });
+        delete this.trnPurchaseOrderObj['trnPurchaseOrderItems'];
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
   // newItem() {
@@ -133,7 +158,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   //     width: null,
   //     sizecode: null
   //   };
-  //   this.itemDetails.push(itemObj);
+  //   this.trnPurchaseOrderItems.push(itemObj);
   // }
 
   addItemToList() {
@@ -207,7 +232,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       width: this.width,
       sizecode: this.sizecode
     };
-    this.itemDetails.push(itemObj);
+    this.trnPurchaseOrderItems.push(itemObj);
     this.onCancelItemDetails();
   }
 
@@ -238,7 +263,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       purchaseFlatRate: null,
       stock: null,
       purchaseRate: null,
-      custRatePerSqFeet:null
+      custRatePerSqFeet: null
     };
   }
 
@@ -261,7 +286,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     else if (this.categoryId == 4 && this.matSizeId != -1 && !this.qualityId)
       return;
     else if (this.categoryId == 7)
-    parameterId = this.accessoryId;
+      parameterId = this.accessoryId;
     else
       parameterId = null;
     //this.shadeId ? this.shadeId : this.foamSizeId ? this.foamSizeId : this.matSizeId != -1 ? this.matSizeId : null;
@@ -363,7 +388,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       });
     }
     else {
-      this.itemDetails.splice(index, 1);
+      this.trnPurchaseOrderItems.splice(index, 1);
     }
   }
 
@@ -427,16 +452,16 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
         this.amount = Math.round(this.rate * this.orderQuantity);
       }
-      else{
-        this.rate = Math.round(((this.length * this.width )/ 1550.5)*this.productDetails.custRatePerSqFeet);
-        this.rate= this.rate -Math.round(( this.rate * 10)/100);
+      else {
+        this.rate = Math.round(((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet);
+        this.rate = this.rate - Math.round((this.rate * 10) / 100);
         this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
         this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
         this.amount = Math.round(this.rate * this.orderQuantity);
       }
     }
     else if (this.categoryId == 7) {
-      this.rate = Math.round(this.productDetails.purchaseRate );
+      this.rate = Math.round(this.productDetails.purchaseRate);
       this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
       this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
       this.amount = Math.round(this.rate * this.orderQuantity);
@@ -571,7 +596,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    this.trnPurchaseOrderObj.TrnPurchaseOrderItems = this.itemDetails;
+    this.trnPurchaseOrderObj.TrnPurchaseOrderItems = this.trnPurchaseOrderItems;
     if (valid) {
       let supplierObj = _.find(this.supplierCodeList, ['value', this.trnPurchaseOrderObj.supplierId]);
       let couierObj = _.find(this.courierList, ['value', this.trnPurchaseOrderObj.courierId]);
