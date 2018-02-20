@@ -188,7 +188,7 @@
                                     <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount %</label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" required placeholder=""
-                                        formControlName="maxDiscout" [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}"
+                                        formControlName="maxDiscount" [ngClass]="{'red-border-class': qualityForm.get('maxDiscount').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="8">
                                     </div>
                                   </div>
@@ -244,7 +244,7 @@
 
                                 <div class="col-md-6">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Purchase Flat Rate</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Purchase Flat Rate <i class="fa fa-inr"></i></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disableFlatRate" class="form-control"
                                         placeholder="" formControlName="purchaseFlatRate" required [ngClass]="{'red-border-class': qualityForm.get('purchaseFlatRate').hasError('required') && isFormSubmitted}"
@@ -313,7 +313,7 @@
 
                                 <div class="col-md-6">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate <i class="fa fa-inr"></i></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disableFlatRate" (blur)="onChangeFlatRate(qualityForm.get('flatRate'),qualityForm.get('cutRate'))"
                                         class="form-control" placeholder="" formControlName="flatRate" required [ngClass]="{'red-border-class': qualityForm.get('flatRate').hasError('required') && isFormSubmitted}"
@@ -362,8 +362,8 @@
                                   <div class="row">
                                     <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount %</label>
                                     <div class="col-md-7 col-sm-7">
-                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" formControlName="maxDiscout"
-                                        required [ngClass]="{'red-border-class': qualityForm.get('maxDiscout').hasError('required') && isFormSubmitted}"
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" formControlName="maxDiscount"
+                                        required [ngClass]="{'red-border-class': qualityForm.get('maxDiscount').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="21">
                                     </div>
                                   </div>
