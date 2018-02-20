@@ -191,7 +191,7 @@
 															 (ngModelChange)="onChangeCategory()" name="categoriesDDl" filter="true" tabindex="5"></p-dropdown>
 														</div>
 													</div>
-													<div class="col-md-4">
+													<div class="col-md-4" *ngIf="categoryId!=7">
 														<label class="col-md-4 col-sm-4 fieldLabel">Collection</label>
 														<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="collectionList" [(ngModel)]="collectionId" [style]="{'width':'100%'}" styleClass="{{collectionIdError?'red-border-class': ''}}"
@@ -199,24 +199,31 @@
 														</div>
 													</div>
 													<div class="col-md-4" *ngIf="categoryId==1 || categoryId==5 || categoryId==6">
-														<label class="col-md-4 col-sm-4 fieldLabel">Serial No.</label>
+														<label class="col-md-4 col-sm-4 fieldLabel">Serial No.<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="shadeIdList" [(ngModel)]="shadeId" [style]="{'width':'100%'}" styleClass="{{shadeIdError?'red-border-class':'' }}"
 															 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4" *ngIf="categoryId==4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Mat size</label>
+														<label class="col-md-4 col-sm-4 fieldLabel">Mat size<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="matSizeList" [(ngModel)]="matSizeId" [style]="{'width':'100%'}" styleClass="{{matSizeIdError?'red-border-class':'' }}"
 															 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4" *ngIf="categoryId==2">
-														<label class="col-md-4 col-sm-4 fieldLabel">Foam size</label>
+														<label class="col-md-4 col-sm-4 fieldLabel">Foam size<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="foamSizeList" [(ngModel)]="foamSizeId" [style]="{'width':'100%'}" styleClass="{{shadeIdError?'red-border-class':'' }}"
 															 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+														</div>
+													</div>
+													<div class="col-md-4" *ngIf="categoryId==7">
+														<label class="col-md-4 col-sm-4 fieldLabel">Accessory Code<span class="requiredField">*</span></label>
+														<div class="col-md-8 col-sm-8">
+															<p-dropdown class="feePlanBox" [options]="accessoryCodeList" [(ngModel)]="accessoryId" [style]="{'width':'100%'}" styleClass="{{accessoryIdError?'red-border-class':'' }}"
+															 name="accessoryIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 														</div>
 													</div>
 												</div>
@@ -229,13 +236,6 @@
 															 name="quality"  filter="true" tabindex="2"></p-dropdown>
 														</div>
 													</div>
-													<div class="col-md-4">
-															<label class="col-md-4 col-sm-4 fieldLabel">Thickness<span class="requiredField">*</span></label>
-															<div class="col-md-8 col-sm-8">
-																<p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="thicknessId" styleClass="{{thicknessIdError?'red-border-class':'' }}"
-																 name="thickness" filter="true" tabindex="2"></p-dropdown>
-															</div>
-														</div>
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Length</label>
 														<div class="col-md-8 col-sm-8">
@@ -250,12 +250,12 @@
 															 (blur)="calculateSizeCode();" [(ngModel)]="width" name="width" placeholder="" autocomplete="off">
 														</div>
 													</div>
-													<div class="col-md-4">
+													<!-- <div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Size Code</label>
 														<div class="col-md-8 col-sm-8">
 															<input type="text" class="form-control" disabled [(ngModel)]="sizecode" name="sizecode" placeholder="">
 														</div>
-													</div>
+													</div> -->
 												</div>
 
 												<div class="row form-group">
@@ -268,14 +268,14 @@
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Order Quantity</label>
 														<div class="col-md-8 col-sm-8">
-															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': orderQuantityError}"
+															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': orderQuantityError}"
 															 [(ngModel)]="orderQuantity" name="orderQunatity" tabindex="8" placeholder="" (blur)="changeOrderType()">
 														</div>
 													</div>
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Rate(GST) </label>
 														<div class="col-md-8 col-sm-8">
-															<input class="form-control" [(ngModel)]="gstRate" disabled name="gstRate" tabindex="8">
+															<input class="form-control" [(ngModel)]="rateWithGST" disabled name="rateWithGST" tabindex="8">
 														</div>
 													</div>
 
@@ -288,9 +288,9 @@
 														</div>
 													</div>
 													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Amount</label>
+														<label class="col-md-4 col-sm-4 fieldLabel">Amount(GST)</label>
 														<div class="col-md-8 col-sm-8">
-															<label class="orderTypeLabel">{{amount}}</label>
+															<label class="orderTypeLabel">{{amountWithGST}}</label>
 														</div>
 													</div>
 												</div>
@@ -329,7 +329,7 @@
 													Rate(GST)
 												</th>
 												<th title="">
-													Ammount
+													amountWithGST
 												</th>
 												<th title="">
 													Action
@@ -343,13 +343,13 @@
 												</td>
 											</tr>
 											<tr *ngFor="let row of itemDetails;let rowNum=index;let lastRowNum=last;">
-												<td>{{row.categotryName}}</td>
+												<td>{{row.categoryName}}</td>
 												<td>{{row.collectionName}}</td>
 												<td>{{row.serialno}} {{row.size}}</td>
 												<td> {{row.orderQuantity}}</td>
 												<td>{{row.orderType}}</td>
-												<td>{{row.gstRate}}</td>
-												<td>{{row.ammount}}</td>
+												<td>{{row.rateWithGST}}</td>
+												<td>{{row.amountWithGST}}</td>
 												<td>
 													<div class="">
 														<!-- <button title="Edit" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"

@@ -38,12 +38,23 @@ trnPurchaseOrderForm: any;
   }
 
   ngOnInit() {
-    this.trnPurchaseOrderObj=new TrnPurchaseOrder();
+    this.getTrnPurchaseOrdersList();
   
   }
 
   getTrnPurchaseOrdersList(){
-    this.trnPurchaseOrderList = [];
+    this.trnPurchaseOrderService.getAllTrnPurchaseOrders(this.pageSize, this.page, this.search).subscribe(
+      results => {
+        this.trnPurchaseOrderList = results.data;
+        this.totalCount = results.totalCount;
+        if (this.totalCount == 0) {
+          this.tableEmptyMesssage = "No Records Found";
+        }
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found";
+        this.globalErrorHandler.handleError(error);
+      });
   }
 
   loadLazy(event: LazyLoadEvent) {

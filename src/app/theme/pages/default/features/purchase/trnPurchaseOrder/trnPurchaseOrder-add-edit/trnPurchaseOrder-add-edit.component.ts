@@ -62,8 +62,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   foamSizeId = null;
   qualityId = null;
   rate = null;
-  amount = null;
-  gstRate = null;
+  amountWithGST = null;
+  rateWithGST = null;
   thicknessId = null;
   qualityList = [];
   thicknessList = [];
@@ -76,8 +76,13 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     roleRate: null,
     cutRate: null,
     purchaseFlatRate: null,
-    stock: null
+    stock: null,
+    purchaseRate: null,
+    custRatePerSqFeet:null
   };
+  accessoryId=null;
+  accessoryCodeList=[];
+  amount = null;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -100,6 +105,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.getLocationList();
     this.getCategoryCodeList();
     this.getCourierList();
+    this.getAccessoryLookup();
     let today = new Date();
     this.locationObj = {};
 
@@ -113,7 +119,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   // newItem() {
   //   let itemObj = {
   //     categotryId: this.categoryId,
-  //     // categotryName: catObj ? catObj.label : '',
+  //     // categoryName: catObj ? catObj.label : '',
   //     // collectionName: collObj ? catObj.label : '',
   //     collectionId: null,
   //     // serialno:  this.shadeId ?shadeObj.label:'',
@@ -184,8 +190,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     }
     let itemObj = {
       categoryId: this.categoryId,
-      categotryName: catObj ? catObj.label : '',
-      collectionName: collObj ? catObj.label : '',
+      categoryName: catObj ? catObj.label : '',
+      collectionName: collObj ? collObj.label : '',
       collectionId: this.collectionId,
       serialno: this.shadeId ? shadeObj.label : '',
       size: this.foamSizeId ? foamSizeObj.label : this.matSizeId ? matSizeObj.label : '',
@@ -193,9 +199,9 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       foamSizeId: this.foamSizeId,
       matSizeId: this.matSizeId,
       orderQuantity: this.orderQuantity,
-      gstRate: this.gstRate,
+      rateWithGST: this.rateWithGST,
       rate: this.rate,
-      ammount: this.amount,
+      amountWithGST: this.amountWithGST,
       orderType: this.orderType,
       length: this.length,
       width: this.width,
@@ -220,7 +226,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.lengthError = null;
     this.widthError = null;
     this.orderQuantity = null;
-    this.gstRate = null;
+    this.rateWithGST = null;
     this.productDetails = {
       purchaseRatePerMM: null,
       suggestedMM: null,
@@ -230,7 +236,9 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       roleRate: null,
       cutRate: null,
       purchaseFlatRate: null,
-      stock: null
+      stock: null,
+      purchaseRate: null,
+      custRatePerSqFeet:null
     };
   }
 
@@ -252,6 +260,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       parameterId = this.matSizeId;
     else if (this.categoryId == 4 && this.matSizeId != -1 && !this.qualityId)
       return;
+    else if (this.categoryId == 7)
+    parameterId = this.accessoryId;
     else
       parameterId = null;
     //this.shadeId ? this.shadeId : this.foamSizeId ? this.foamSizeId : this.matSizeId != -1 ? this.matSizeId : null;
@@ -275,6 +285,20 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         Helpers.setLoading(false);
       });
   }
+
+  getAccessoryLookup() {
+    this.commonService.getAccessoryLookUp().subscribe(
+      results => {
+        this.accessoryCodeList = results;
+        this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
 
   onQualityClick() {
 
@@ -386,16 +410,37 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     if (this.categoryId == 2) {
 
       this.rate = Math.round((((this.productDetails.purchaseRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width));
-      this.gstRate = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
-      this.amount = Math.round(this.gstRate * this.orderQuantity);
+      this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
+      this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
+      this.amount = Math.round(this.rate * this.orderQuantity);
     }
     else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
       this.rate = Math.round(this.productDetails.purchaseFlatRate ? this.productDetails.purchaseFlatRate : this.orderQuantity > 50 ? this.productDetails.roleRate : this.productDetails.cutRate);
-      this.gstRate = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
-      this.amount = Math.round(this.gstRate * this.orderQuantity);
+      this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
+      this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
+      this.amount = Math.round(this.rate * this.orderQuantity);
     }
-
-
+    else if (this.categoryId == 4) {
+      if (this.matSizeId != -1) {
+        this.rate = Math.round(this.productDetails.purchaseRate);
+        this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
+        this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
+        this.amount = Math.round(this.rate * this.orderQuantity);
+      }
+      else{
+        this.rate = Math.round(((this.length * this.width )/ 1550.5)*this.productDetails.custRatePerSqFeet);
+        this.rate= this.rate -Math.round(( this.rate * 10)/100);
+        this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
+        this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
+        this.amount = Math.round(this.rate * this.orderQuantity);
+      }
+    }
+    else if (this.categoryId == 7) {
+      this.rate = Math.round(this.productDetails.purchaseRate );
+      this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
+      this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
+      this.amount = Math.round(this.rate * this.orderQuantity);
+    }
   }
 
 
@@ -528,6 +573,12 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.isFormSubmitted = true;
     this.trnPurchaseOrderObj.TrnPurchaseOrderItems = this.itemDetails;
     if (valid) {
+      let supplierObj = _.find(this.supplierCodeList, ['value', this.trnPurchaseOrderObj.supplierId]);
+      let couierObj = _.find(this.courierList, ['value', this.trnPurchaseOrderObj.courierId]);
+      let shippingAddress = "";
+      this.trnPurchaseOrderObj.courierName = supplierObj.label,
+        this.trnPurchaseOrderObj.supplierName = couierObj.label,
+        this.trnPurchaseOrderObj.shippingAddress = "";
       this.saveTrnPurchaseOrder(this.trnPurchaseOrderObj);
     }
   }
