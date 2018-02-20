@@ -13,6 +13,8 @@ export class TrnProductStock {
   fomSizeId: number;
   locationId: number;
   stock: number;
+  stockInKg: number;
+  kgPerUnit: number;
   MstCategory: Category;
   MstCollection: Collection;
   MstFomSize: FomSize;

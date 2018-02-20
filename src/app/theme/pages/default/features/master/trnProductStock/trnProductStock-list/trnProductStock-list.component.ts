@@ -74,6 +74,8 @@ export class TrnProductStockListComponent implements OnInit {
       fomSizeId: null,
       locationId: null,
       stock: null,
+      stockInKg: null,
+      kgPerUnit: null
     };
     this.selectedCategory = null;
     this.collectionList = [];
@@ -272,9 +274,11 @@ export class TrnProductStockListComponent implements OnInit {
         if (this.selectedCategory > 0) {
           this.onCategoryClick();
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+         Helpers.setLoading(false);
       });
   }
 

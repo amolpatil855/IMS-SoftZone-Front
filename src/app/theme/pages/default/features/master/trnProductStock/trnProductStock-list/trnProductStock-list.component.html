@@ -111,9 +111,12 @@
 										<div class="form-group">
 											<label class="fieldLabel col-sm-5">Product Stock<span class="requiredField">*</span></label>
 											    <input class="form-control m-input col-sm-7" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" value=""   [ngClass]="{'red-border-class': stockVal.errors && isFormSubmitted}"  #stockVal="ngModel" required [(ngModel)]="trnProductStockObj.stock" name="stock" id="stock" placeholder="Enter Product Stock Code" autocomplete="off" tabindex="7">
-                                                <!-- <div class="alertMsg" *ngIf="trnProductStockCodeVal.errors   && (trnProductStockCodeVal.dirty || trnProductStockCodeVal.touched)">
-                                                    Please enter Product Stock Code
-                                                </div> -->
+										</div>
+									</div>
+									<div class="col-md-3 formContentbox" *ngIf="fomEnable">
+										<div class="form-group">
+											<label class="fieldLabel col-sm-5">Stock (Kg)<span class="requiredField">*</span></label>
+											    <input class="form-control m-input col-sm-7" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" value=""   [ngClass]="{'red-border-class': stockInKgVal.errors && isFormSubmitted}"  #stockInKgVal="ngModel" required [(ngModel)]="trnProductStockObj.stockInKg" name="stockInKg" id="stockInKg" placeholder="Stock In Kg" autocomplete="off" tabindex="8">
 										</div>
 									</div>
 								</div>
