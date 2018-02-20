@@ -83,7 +83,7 @@ export class QualityListComponent implements OnInit {
       maxFlatRateDisc: [{ value: '', disabled: this.disableFlatRate }, [Validators.required]],
       purchaseFlatRate: [{ value: '', disabled: this.disableFlatRate }, [Validators.required]],
       custRatePerSqFeet: ['', [Validators.required]],
-      maxDiscout: ['', [Validators.required]],
+      maxDiscount: ['', [Validators.required]],
     });
     this.qualityForm.get('cutRate').enable();
     this.qualityForm.get('roleRate').enable();
@@ -242,7 +242,7 @@ export class QualityListComponent implements OnInit {
           maxFlatRateDisc: results.maxFlatRateDisc,
           flatRate: results.flatRate,
           custRatePerSqFeet: results.custRatePerSqFeet,
-          maxDiscout: results.maxDiscout,
+          maxDiscount: results.maxDiscount,
           purchaseFlatRate: results.purchaseFlatRate
         });
         this.slectedCategory = results.categoryId;
@@ -296,7 +296,7 @@ export class QualityListComponent implements OnInit {
         size: 0,
         custRatePerSqFeet: 0,
         collectionId: null,
-        maxDiscout: 0,
+        maxDiscount: 0,
         width: '',
         roleRate: '',
         cutRate: '',
@@ -313,7 +313,7 @@ export class QualityListComponent implements OnInit {
         width: 0,
         custRatePerSqFeet: 0,
         collectionId: null,
-        maxDiscout: 0,
+        maxDiscount: 0,
         size: '',
         roleRate: '',
         cutRate: '',
@@ -339,7 +339,7 @@ export class QualityListComponent implements OnInit {
         flatRate: 0,
         purchaseFlatRate: 0,
         custRatePerSqFeet: '',
-        maxDiscout: ''
+        maxDiscount: ''
       });
 
     }
@@ -357,7 +357,7 @@ export class QualityListComponent implements OnInit {
         purchaseFlatRate: 0,
         flatRate: 0,
         custRatePerSqFeet: 0,
-        maxDiscout: ''
+        maxDiscount: ''
       });
     }
 

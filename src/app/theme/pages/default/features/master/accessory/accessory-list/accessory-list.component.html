@@ -81,7 +81,7 @@
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Accessory Name<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
-                                             <input class="form-control m-input" type="text" value=""   [ngClass]="{'red-border-class': accessoryNameVal.errors && isFormSubmitted}"  #accessoryNameVal="ngModel" required [(ngModel)]="accessoryObj.name" name="name" id="name" placeholder="" tabindex="3">
+                                             <input class="form-control m-input" type="text" value=""  onKeyPress="if(this.value.length==50) return false;" [ngClass]="{'red-border-class': accessoryNameVal.errors && isFormSubmitted}"  #accessoryNameVal="ngModel" required [(ngModel)]="accessoryObj.name" name="name" id="name" placeholder="" tabindex="3">
                                              <!-- <div class="alertMsg" *ngIf="accessoryNameVal.errors   && (accessoryNameVal.dirty || accessoryNameVal.touched)">
                                                 Please enter Accessory Name
                                                 </div> -->
@@ -94,13 +94,13 @@
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Accessory Code<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
-                                            <input class="form-control m-input" type="text" value=""   [ngClass]="{'red-border-class': accessoryCodeVal.errors && isFormSubmitted}"  #accessoryCodeVal="ngModel" required [(ngModel)]="accessoryObj.itemCode" name="itemCode" id="itemCode" placeholder="" tabindex="4">
+                                            <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==50) return false;"  [ngClass]="{'red-border-class': accessoryCodeVal.errors && isFormSubmitted}"  #accessoryCodeVal="ngModel" required [(ngModel)]="accessoryObj.itemCode" name="itemCode" id="itemCode" placeholder="" tabindex="4">
                                           </div>
                                        </div>
                                     </div>
                                     <div class="col-md-4 formContentbox">
                                        <div class="form-group">
-                                          <label class="fieldLabel col-sm-5">Selling Rate<span class="requiredField">*</span></label>
+                                          <label class="fieldLabel col-sm-5">Selling Rate <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
                                           <input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #sellingRateVal="ngModel"
 																 required [ngClass]="{'red-border-class': sellingRateVal.errors && isFormSubmitted}"
@@ -110,7 +110,7 @@
                                     </div>
                                     <div class="col-md-4 formContentbox">
                                        <div class="form-group">
-                                          <label class="fieldLabel col-sm-5">Purchase Rate<span class="requiredField">*</span></label>
+                                          <label class="fieldLabel col-sm-5">Purchase Rate <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                         <div class="col-sm-7">
                                           <input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #purchaseRateVal="ngModel"
 																 required [ngClass]="{'red-border-class': purchaseRateVal.errors && isFormSubmitted}"
@@ -122,16 +122,16 @@
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Size<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
-                                             <input class="form-control m-input" type="text" value="" maxlength="10" #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"
+                                             <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==20) return false;" maxlength="10" #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"
 																 [(ngModel)]="accessoryObj.size" name="size" id="size" placeholder="" tabindex="7">
                                           </div>
                                        </div>
                                     </div>
                                     <div class="col-md-4 formContentbox">
                                        <div class="form-group">
-                                          <label class="fieldLabel col-sm-5">Description<span class="requiredField">*</span></label>
+                                          <label class="fieldLabel col-sm-5">Description</label>
                                           <div class="col-sm-7">
-                                             <input class="form-control m-input" type="text" value=""  #descriptionVal="ngModel" [(ngModel)]="accessoryObj.description" name="description" id="description" placeholder="" tabindex="8">
+                                             <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==500) return false;" [(ngModel)]="accessoryObj.description" name="description" id="description" placeholder="" tabindex="8">
                                           </div>
                                        </div>
                                     </div>
