@@ -11,6 +11,7 @@ export class TrnProductStock {
   fwrShadeId: number;
   matSizeId: number;
   fomSizeId: number;
+  accessoryId: number;
   locationId: number;
   stock: number;
   stockInKg: number;

@@ -83,12 +83,18 @@
                                             <p-dropdown class="feePlanBox" [options]="companyLocationList" [style]="{'width':'100%'}" #selectedCompanyLocationVal="ngModel" [(ngModel)]="selectedCompanyLocation" required styleClass="{{ selectedCompanyLocationVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="location" filter="true" tabindex="2"></p-dropdown>
 										</div>	
 									</div>
-									<div class="col-md-3 formContentbox">
+									<div class="col-md-3 formContentbox" *ngIf="selectedCategory != 7">
 										<label class="fieldLabel col-sm-5">Collection<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
                                             <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}"  #selectedCollectionVal="ngModel" [(ngModel)]="selectedCollection" required styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" tabindex="3"></p-dropdown>
 										</div>
-									</div>	
+									</div>
+									<div class="col-md-3 formContentbox" *ngIf="selectedCategory == 7">
+										<label class="fieldLabel col-sm-5">Accessory Code<span class="requiredField">*</span></label>
+										<div class="col-sm-7">
+                                            <p-dropdown class="feePlanBox" [options]="accessoryCodeList" [style]="{'width':'100%'}"  #selectedAccessoryVal="ngModel" [(ngModel)]="selectedAccessory" required styleClass="{{ selectedAccessoryVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="accessoryId" (ngModelChange)="onCollectionClick()" filter="true" tabindex="3"></p-dropdown>
+										</div>
+									</div>
 									<div class="col-md-3 formContentbox" *ngIf="shadeEnable">
 										<label class="fieldLabel col-sm-5" >Serial Number<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
@@ -102,7 +108,7 @@
 										</div>
                                     </div>	
                                     <div class="col-md-3 formContentbox"  *ngIf="fomEnable">
-										<label class="fieldLabel col-sm-5">Foam Size<span class="requiredField">*</span></label>
+										<label class="fieldLabel col-sm-5">Foam Item<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
                                             <p-dropdown class="feePlanBox" [options]="fomSizeList" [style]="{'width':'100%'}" [(ngModel)]="selectedFomSize"   #selectedFomSizeVal="ngModel"  required styleClass="{{ selectedFomSizeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="fomSize" filter="true" tabindex="6"></p-dropdown>
 										</div>
@@ -151,10 +157,11 @@
 							<p-dataTable [value]="trnProductStockList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                             <p-column field="mstCategory.name" header="Category" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstFWRShade.serialNumber" header="Serial Number" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstFomSize.sizeCode" header="Foam Size" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstMatSize.sizeCode" header="Mattress Size" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="accessoryCode" header="Accessory Code" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="serialno" header="Serial Number" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="fomItem" header="Foam Item" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="matSize" header="Mattress Size" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="stock" header="Product Stock" [style]="{'text-align':'left'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'left'}">
 									<ng-template pTemplate="header">
