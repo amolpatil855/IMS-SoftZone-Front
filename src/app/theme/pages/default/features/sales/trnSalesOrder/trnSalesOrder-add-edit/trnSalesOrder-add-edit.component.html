@@ -164,10 +164,16 @@
 																<p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}" #selectedCategoryVal="ngModel" [(ngModel)]="selectedCategory" required styleClass="{{ selectedCategoryVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled"  name="category" (ngModelChange)="onCategoryClick()" filter="true" tabindex="8"></p-dropdown>
 															</div>	
 														</div>
-														<div class="col-md-4">
+														<div class="col-md-4" *ngIf="selectedCategory != 7">
 															<label class="col-md-4 col-sm-4 fieldLabel">Collection<span class="requiredField">*</span></label>
 															<div class="col-md-8 col-sm-8">
 																<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}"  #selectedCollectionVal="ngModel" [(ngModel)]="selectedCollection" required styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" tabindex="9"></p-dropdown>
+															</div>	
+														</div>
+														<div class="col-md-4" *ngIf="selectedCategory == 7">
+															<label class="col-md-4 col-sm-4 fieldLabel">Accessory Code<span class="requiredField">*</span></label>
+															<div class="col-md-8 col-sm-8">
+																<p-dropdown class="feePlanBox" [options]="accessoryCodeList" [style]="{'width':'100%'}"  #selectedAccessoryVal="ngModel" [(ngModel)]="selectedAccessory" required styleClass="{{ selectedAccessoryVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="accessoryId" (ngModelChange)="onCollectionClick()" filter="true" tabindex="9"></p-dropdown>
 															</div>	
 														</div>
 														<div class="col-md-4" *ngIf="shadeEnable">
@@ -198,15 +204,9 @@
 														</div>	
 													</div>	
 													<div class="col-md-4" *ngIf="selectedMatSize == -1">
-														<label class="col-md-4 col-sm-4 fieldLabel">Height</label>
+														<label class="col-md-4 col-sm-4 fieldLabel">Length</label>
 														<div class="col-md-8 col-sm-8">
-															<input type="text" class="form-control"  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" (input)="onInputChange()" [(ngModel)]="height" name="height" placeholder="" autocomplete="off" tabindex="14">
-														</div>	
-													</div>	
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Size</label>
-														<div class="col-md-8 col-sm-8">
-															<input type="text" class="form-control" readonly [(ngModel)]="size" name="size" placeholder="">
+															<input type="text" class="form-control"  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" (input)="onInputChange()" [(ngModel)]="length" name="length" placeholder="" autocomplete="off" tabindex="14">
 														</div>	
 													</div>
 												</div>
@@ -243,7 +243,7 @@
 
 												<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
 														<input type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add To List" (click)="addItemToList()" tabindex="18"/>
-														<button class="btn btn-secondary" (click)="onCancel()" tabindex="19">
+														<button class="btn btn-secondary" (click)="onCancelItemDetails()" tabindex="19">
 															Cancel
 														</button>
 													</div>
@@ -257,7 +257,7 @@
 							</form>
 
 							<!--+++++++++++++++++++++ Sales Order Item ++++++++++++++++++++++++++++-->
-									<div class="col-md-12 formContentbox">
+									<!-- <div class="col-md-12 formContentbox">
 										<div class="table-responsive" style="margin-bottom: 8px;">
 											<h5 class="itemAddHeading">Item Details:</h5>
 											<table class="table itemAddTable itemAddTableSales">
@@ -375,7 +375,7 @@
 												</tbody>
 											  </table>
 										</div>
-									</div>
+									</div> -->
 									
 									<!--+++++++++++++++++++++++++++++++++++++++++++++++++-->
 
@@ -394,16 +394,13 @@
 													Collection
 												</th>
 												<th title="">
+													Accessory Code
+												</th>
+												<th title="">
 													Serial No
 												</th>
 												<th title="">
 													Foam Size
-												</th>
-												<th title="">
-													Mattress Size
-												</th>
-												<th title="">
-													Size
 												</th>
 												<th title="">
 													Rate
@@ -423,18 +420,17 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr *ngIf="itemDetails.length==0">
+											<tr *ngIf="trnSalesOrderItems.length==0">
 												<td colspan="5">
 														No Record Found
 												</td>
 											</tr>
-											<tr *ngFor="let row of itemDetails;let rowNum=index;let lastRowNum=last;">
+											<tr *ngFor="let row of trnSalesOrderItems;let rowNum=index;let lastRowNum=last;">
 												<td>{{row.categotryName}}</td>
 												<td>{{row.collectionName}}</td>
+												<td>{{row.accessory}}</td>
 												<td>{{row.serialno}}</td>
 												<td>{{row.fomSize}}</td>
-												<td>{{row.matSize}}</td>
-												<td>{{row.size}}</td>
 												<td>{{row.rate}}</td>
 												<td>{{row.availableStock}}</td>
 												<td>{{row.quantity}}</td>
