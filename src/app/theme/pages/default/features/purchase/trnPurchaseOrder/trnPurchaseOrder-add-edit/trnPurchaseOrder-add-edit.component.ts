@@ -601,10 +601,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       let supplierObj = _.find(this.supplierCodeList, ['value', this.trnPurchaseOrderObj.supplierId]);
       let couierObj = _.find(this.courierList, ['value', this.trnPurchaseOrderObj.courierId]);
       let shippingAddress = "";
-      this.trnPurchaseOrderObj.courierName = supplierObj.label,
-        this.trnPurchaseOrderObj.supplierName = couierObj.label,
-        this.trnPurchaseOrderObj.shippingAddress = "";
-      this.saveTrnPurchaseOrder(this.trnPurchaseOrderObj);
+      this.trnPurchaseOrderObj.courierName = couierObj.label,
+        this.trnPurchaseOrderObj.supplierName = supplierObj.label,
+        this.trnPurchaseOrderObj.shippingAddress = this.locationObj.addressLine1 + this.locationObj.addressLine2 +", " + this.locationObj.state +", "+this.locationObj.city+", PINCODE -"+this.locationObj.pin;
+        this.saveTrnPurchaseOrder(this.trnPurchaseOrderObj);
     }
   }
 

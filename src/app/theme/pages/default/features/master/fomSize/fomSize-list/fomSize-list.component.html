@@ -73,7 +73,7 @@
 											<div class="panel-body">
 												<div class="form-group">
 													<div class="col-md-3 formContentbox formContentboxShade">
-														<label class="fieldLabel col-sm-5">Collection <span class="requiredField">*</span></label>
+														<label class="fieldLabel col-sm-5">Collection<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
 															<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel" required
 															 styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedCollection"
@@ -81,7 +81,7 @@
 														</div>
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">
-														<label class="fieldLabel col-sm-5">Quality <span class="requiredField">*</span></label>
+														<label class="fieldLabel col-sm-5">Quality<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
 															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel" required
 															 styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedQuality"
@@ -89,7 +89,7 @@
 														</div>
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">
-														<label class="fieldLabel col-sm-5">Density <span class="requiredField">*</span></label>
+														<label class="fieldLabel col-sm-5">Density<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
 															<p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" #selectedDensityVal="ngModel" required
 															 styleClass="{{ selectedDensityVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedDensity"
@@ -97,7 +97,7 @@
 														</div>
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">
-														<label class="fieldLabel col-sm-5">SuggestedMM <span class="requiredField">*</span></label>
+														<label class="fieldLabel col-sm-5">SuggestedMM<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
 															<p-dropdown class="feePlanBox" [options]="fomSuggestedMMList" [style]="{'width':'100%'}" #selectedSizeVal="ngModel" required
 															 styleClass="{{ selectedSizeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" [(ngModel)]="selectedSize"
@@ -106,7 +106,22 @@
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">
 														<div class="form-group">
-															<label class="fieldLabel col-sm-5">Width <span class="requiredField">*</span></label>
+															<label class="fieldLabel col-sm-5">Length<span class="requiredField">*</span></label>
+															<div class="col-sm-7">
+																<input class="form-control m-input" #lengthVal="ngModel"
+																 required  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99"  [(ngModel)]="fomSizeObj.length" [ngClass]="{'red-border-class': lengthVal.errors && isFormSubmitted}"
+																 name="length" id="length" placeholder="Enter Length" (input)=" onInputChange()" autocomplete="off" tabindex="6">
+																<!-- <div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
+																	<div *ngIf="lengthVal.errors.pattern">
+																		Invalid Length
+																	</div>
+																</div> -->
+															</div>
+														</div>
+													</div>
+													<div class="col-md-3 formContentbox formContentboxShade">
+														<div class="form-group">
+															<label class="fieldLabel col-sm-5">Width<span class="requiredField">*</span></label>
 															<div class="col-sm-7">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" #widthVal="ngModel"
 																 required [(ngModel)]="fomSizeObj.width" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
@@ -122,21 +137,6 @@
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">
 														<div class="form-group">
-															<label class="fieldLabel col-sm-5">Length <span class="requiredField">*</span></label>
-															<div class="col-sm-7">
-																<input class="form-control m-input" #lengthVal="ngModel"
-																 required  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99"  [(ngModel)]="fomSizeObj.length" [ngClass]="{'red-border-class': lengthVal.errors && isFormSubmitted}"
-																 name="length" id="length" placeholder="Enter Length" (input)=" onInputChange()" autocomplete="off" tabindex="6">
-																<!-- <div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
-																	<div *ngIf="lengthVal.errors.pattern">
-																		Invalid Length
-																	</div>
-																</div> -->
-															</div>
-														</div>
-													</div>
-													<div class="col-md-3 formContentbox formContentboxShade">
-														<div class="form-group">
 															<label class="fieldLabel col-sm-5">Size Code</label>
 															<div class="col-sm-7">
 																<input class="form-control m-input" type="text" value="" maxlength="10" #sizeCodeVal="ngModel" required [(ngModel)]="fomSizeObj.sizeCode"
@@ -146,16 +146,16 @@
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">
 														<div class="form-group">
-															<label class="fieldLabel col-sm-5">Item Code</label>
+															<label class="fieldLabel col-sm-5">Item Code<span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==50) return false;" maxlength="50" [(ngModel)]="fomSizeObj.itemCode"
-																name="itemCode" id="itemCode" tabindex="7">
+																<input class="form-control m-input" type="text" value="" #itemCodeVal="ngModel" required [ngClass]="{'red-border-class': itemCodeVal.errors && isFormSubmitted}" onKeyPress="if(this.value.length==50) return false;" maxlength="50" [(ngModel)]="fomSizeObj.itemCode"
+																name="itemCode" id="itemCode" placeholder="Enter Item Code" tabindex="7">
 															</div>
 														</div>
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">
 														<div class="form-group">
-															<label class="fieldLabel col-sm-5">Stock Reorder Level <span class="requiredField">*</span></label>
+															<label class="fieldLabel col-sm-5">Stock Reorder Level<span class="requiredField">*</span></label>
 															<div class="col-sm-7">
 																<input class="form-control m-input" type="number" value="" maxlength="5" #stockReorderLevelVal="ngModel" required (keypress)="restrictDotMinus($event, 4);"
 																 [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}" [(ngModel)]="fomSizeObj.stockReorderLevel"
@@ -221,6 +221,7 @@
 								<p-column field="mstFomDensity.density" header="Density" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="mstFomSuggestedMM.suggestedMM" header="Suggested MM" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="sizeCode" header="Size Code" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="itemCode" header="Item Code" [style]="{'text-align':'left'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action
