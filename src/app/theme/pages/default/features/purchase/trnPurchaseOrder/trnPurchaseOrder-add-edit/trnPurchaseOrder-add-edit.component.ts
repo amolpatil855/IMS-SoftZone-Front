@@ -52,14 +52,14 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   lengthError = false;
   widthError = false;
   orderQuantityError = false;
-  foamSizeIdError = false;
+  fomSizeIdError = false;
   matSizeIdError = false;
   courierList = [];
   courierModeList = [];
   matSizeList = [];
-  foamSizeList = [];
+  fomSizeList = [];
   matSizeId = null;
-  foamSizeId = null;
+  fomSizeId = null;
   qualityId = null;
   rate = null;
   amountWithGST = null;
@@ -83,6 +83,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   accessoryId = null;
   accessoryCodeList = [];
   amount = null;
+  disabled: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -108,7 +109,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.getAccessoryLookup();
     let today = new Date();
     this.locationObj = {};
-
+    this.disabled = false;
     this.trnPurchaseOrderObj.orderDate = today;
     // this.newItem();
     this.courierModeList.push({ label: '--Select--', value: null });
@@ -118,6 +119,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.params = params['id'];
     });
     if (this.params) {
+      this.disabled = true;
       this.getTrnPurchaseOrderById(this.params);
     }
   }
@@ -148,9 +150,9 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   //     // collectionName: collObj ? catObj.label : '',
   //     collectionId: null,
   //     // serialno:  this.shadeId ?shadeObj.label:'',
-  //     // size:  this.foamSizeId ?foamSizeObj.label :this.matSizeId? matSizeObj.label:'',
+  //     // size:  this.fomSizeId ?fomSizeObj.label :this.matSizeId? matSizeObj.label:'',
   //     shadeId:null,
-  //     foamSizeId:null,
+  //     fomSizeId:null,
   //     matSizeId:null,
   //     quantity: null,
   //     orderType: null,
@@ -182,10 +184,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     else
       this.matSizeIdError = false;
 
-    if (!this.foamSizeId && this.categoryId == 2)
-      this.foamSizeIdError = true;
+    if (!this.fomSizeId && this.categoryId == 2)
+      this.fomSizeIdError = true;
     else
-      this.foamSizeIdError = false;
+      this.fomSizeIdError = false;
 
     if (this.collectionId == 4 && this.shadeId == -1 && !this.length)
       this.lengthError = true;
@@ -201,14 +203,14 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = true;
     else
       this.orderQuantityError = false;
-    if (this.orderQuantityError || this.widthError || this.foamSizeIdError || this.matSizeIdError || this.lengthError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
+    if (this.orderQuantityError || this.widthError || this.fomSizeIdError || this.matSizeIdError || this.lengthError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
       return false;
     }
 
     let catObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
     let collObj = _.find(this.collectionList, ['value', this.collectionId]);
     let shadeObj = _.find(this.shadeIdList, ['value', this.shadeId]);
-    let foamSizeObj = _.find(this.foamSizeList, ['value', this.foamSizeId]);
+    let fomSizeObj = _.find(this.fomSizeList, ['value', this.fomSizeId]);
     let matSizeObj = _.find(this.matSizeList, ['value', this.matSizeId]);
     if (matSizeObj && matSizeObj.value == -1) {
       matSizeObj.label = this.sizecode;
@@ -219,9 +221,9 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       collectionName: collObj ? collObj.label : '',
       collectionId: this.collectionId,
       serialno: this.shadeId ? shadeObj.label : '',
-      size: this.foamSizeId ? foamSizeObj.label : this.matSizeId ? matSizeObj.label : '',
+      size: this.fomSizeId ? fomSizeObj.label : this.matSizeId ? matSizeObj.label : '',
       shadeId: this.shadeId,
-      foamSizeId: this.foamSizeId,
+      fomSizeId: this.fomSizeId,
       matSizeId: this.matSizeId,
       orderQuantity: this.orderQuantity,
       rateWithGST: this.rateWithGST,
@@ -246,7 +248,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.categoryId = null;
     this.collectionId = null;
     this.shadeId = null;
-    this.foamSizeId = null;
+    this.fomSizeId = null;
     this.matSizeId = null;
     this.lengthError = null;
     this.widthError = null;
@@ -280,7 +282,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6)
       parameterId = this.shadeId;
     else if (this.categoryId == 2)
-      parameterId = this.foamSizeId;
+      parameterId = this.fomSizeId;
     else if (this.categoryId == 4 && this.matSizeId != -1)
       parameterId = this.matSizeId;
     else if (this.categoryId == 4 && this.matSizeId != -1 && !this.qualityId)
@@ -289,7 +291,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       parameterId = this.accessoryId;
     else
       parameterId = null;
-    //this.shadeId ? this.shadeId : this.foamSizeId ? this.foamSizeId : this.matSizeId != -1 ? this.matSizeId : null;
+    //this.shadeId ? this.shadeId : this.fomSizeId ? this.fomSizeId : this.matSizeId != -1 ? this.matSizeId : null;
     this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
       data => {
         this.productDetails = data;
@@ -375,6 +377,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         header: 'Delete Confirmation',
         icon: 'fa fa-trash',
         accept: () => {
+          this.trnPurchaseOrderItems.splice(index, 1);
           // this.trnPurchaseOrderService.deleteItem(id).subscribe(
           //     data => {
           //         this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Deleted Successfully' });
@@ -526,8 +529,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   getFoamSizeList() {
     this.trnPurchaseOrderService.getFoamSizePurchaseOrders(this.collectionId).subscribe(
       results => {
-        this.foamSizeList = results;
-        this.foamSizeList.unshift({ label: '--Select--', value: null });
+        this.fomSizeList = results;
+        this.fomSizeList.unshift({ label: '--Select--', value: null });
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -592,6 +595,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
   onCancel() {
     this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
+    this.disabled = false;
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
@@ -618,7 +622,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-
+          this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -631,7 +635,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-
+          this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
         },
         error => {
           this.globalErrorHandler.handleError(error);

@@ -106,7 +106,7 @@
 																<div class="col-md-10 col-sm-10 customerNameBox">
 
 																	<p-dropdown class="feePlanBox" [options]="supplierCodeList" required [(ngModel)]="trnPurchaseOrderObj.supplierId" #supplierCodeVal="ngModel"
-																	 required styleClass="{{ supplierCodeVal.errors && isFormSubmitted?'red-border-class':''}}" [style]="{'width':'100%'}"
+																	 required styleClass="{{ supplierCodeVal.errors && isFormSubmitted?'red-border-class':''}}" [style]="{'width':'100%'}" [disabled]="disabled"
 																	 name="supplierCodeDDl" filter="true" tabindex="3"></p-dropdown>
 																</div>
 															</div>
@@ -215,7 +215,7 @@
 													<div class="col-md-4" *ngIf="categoryId==2">
 														<label class="col-md-4 col-sm-4 fieldLabel">Foam size<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
-															<p-dropdown class="feePlanBox" [options]="foamSizeList" [(ngModel)]="foamSizeId" [style]="{'width':'100%'}" styleClass="{{shadeIdError?'red-border-class':'' }}"
+															<p-dropdown class="feePlanBox" [options]="fomSizeList" [(ngModel)]="fomSizeId" [style]="{'width':'100%'}" styleClass="{{shadeIdError?'red-border-class':'' }}"
 															 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 														</div>
 													</div>
@@ -361,7 +361,7 @@
 														<i class="la la-undo" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 													</button> -->
 														<button title="Delete" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-														 *ngIf="row.enable ||!row.id" (click)="onDeleteItemDetails(row.id,rowNum)">
+														 *ngIf="row.enable || row.id || !row.id" (click)="onDeleteItemDetails(row.id,rowNum)">
 															<i class="la la-close" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 														</button>
 														<!-- <button title="Save" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
