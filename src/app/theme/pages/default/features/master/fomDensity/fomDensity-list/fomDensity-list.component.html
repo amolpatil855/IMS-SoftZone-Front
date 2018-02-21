@@ -42,10 +42,10 @@
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
 			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="fomDensityForm" title="{{(fomDensityForm && fomDensityForm.form.valid)? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-			 [isAuthorize]="['foamdensity']" tabindex="8">
+			 [isAuthorize]="['foamdensity']" tabindex="9">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
-			<button class="btn btn-secondary" [isAuthorize]="['foamdensity']" (click)="onCancel()" tabindex="9">
+			<button class="btn btn-secondary" [isAuthorize]="['foamdensity']" (click)="onCancel()" tabindex="10">
 				Cancel
 			</button>
 		</div>
@@ -149,7 +149,7 @@
 															</label>
 															<div class="col-md-6 col-sm-6">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" maxlength="10" #sellingRatePerMMVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerMMVal.errors && isFormSubmitted}"
-																 [(ngModel)]="fomDensityObj.sellingRatePerMM" name="sellingRatePerMM" id="sellingRatePerMM" autocomplete="off">
+																 [(ngModel)]="fomDensityObj.sellingRatePerMM" name="sellingRatePerMM" id="sellingRatePerMM" autocomplete="off" tabindex="7">
 															</div>
 														</div>
 													</div>
@@ -158,7 +158,7 @@
 															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/KG <i class="fa fa-inr"></i></label>
 															<div class="col-md-6 col-sm-6">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #sellingRatePerKGVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerKGVal.errors && isFormSubmitted}"
-																 [(ngModel)]="fomDensityObj.sellingRatePerKG" name="sellingRatePerKG" id="sellingRatePerKG" autocomplete="off">
+																 [(ngModel)]="fomDensityObj.sellingRatePerKG" name="sellingRatePerKG" id="sellingRatePerKG" autocomplete="off" tabindex="8">
 																<!-- <div class="alertMsg" *ngIf="descriptionVal.errors   && (descriptionVal.dirty || descriptionVal.touched)">
 																				Please enter Description
 																			</div> -->
@@ -202,7 +202,6 @@
 									<p-column field="density" header="Density" [style]="{'text-align':'left'}"></p-column>
 									<p-column field="purchaseRatePerMM" header="Purchase Rate/MM" [style]="{'text-align':'left'}"></p-column>
 									<p-column field="purchaseRatePerKG" header="Purchase Rate/Kg" [style]="{'text-align':'left'}"></p-column>
-									<p-column field="sellingRatePercentage" header="Selling Rate%" [style]="{'text-align':'left'}"></p-column>
 									<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 										<ng-template pTemplate="header">
 											Action
