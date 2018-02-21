@@ -18,6 +18,7 @@
                         </span>
                     </span>
                 </a>
+                
             </li>
 
             <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
@@ -121,6 +122,11 @@
                 <div class="m-menu__submenu">
                     <span class="m-menu__arrow"></span>
                     <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a href="#" class="m-menu__link ">
+                                <span class="m-menu__link-text">Purchase</span>
+                            </a>
+                        </li>
                         <li [isAuthorize]="['purchaseorder']" class="m-menu__item " aria-haspopup="true">
                             <a routerLink="/features/purchase/trnPurchaseOrder/list" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -147,6 +153,11 @@
                 <div class="m-menu__submenu">
                     <span class="m-menu__arrow"></span>
                     <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a href="#" class="m-menu__link ">
+                                <span class="m-menu__link-text">Sales</span>
+                            </a>
+                        </li>
                         <li [isAuthorize]="['salesorder']" class="m-menu__item " aria-haspopup="true">
                             <a routerLink="/features/sales/trnSalesOrder/list" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
