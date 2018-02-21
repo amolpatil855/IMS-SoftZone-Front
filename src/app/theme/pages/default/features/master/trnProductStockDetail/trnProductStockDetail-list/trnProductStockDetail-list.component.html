@@ -66,9 +66,10 @@
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                             <p-column field="mstCategory.name" header="Category" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="mstCollection.collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstFWRShade.serialNumber" header="Serial Number" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstFomSize.sizeCode" header="Foam Size" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstMatSize.sizeCode" header="Mattress Size" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="accessoryCode" header="Accessory Code" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="serialno" header="Serial Number" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="fomItem" header="Foam Item" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="matSize" header="Mattress Size" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="stock" header="Product Stock" [style]="{'text-align':'left'}"></p-column>
 							</p-dataTable>
 						</div>

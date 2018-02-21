@@ -20,6 +20,7 @@ import { Helpers } from "../../../../../../helpers";
 export class UsersListComponent implements OnInit {
   errorMessage: any;
   params: number;
+  userObj: any;
   userList: any;
   userForm: FormGroup;
   userRole: string;
@@ -200,8 +201,9 @@ export class UsersListComponent implements OnInit {
   getUserById(id) {
     this.userService.getUserById(id).subscribe(
       results => {
+        this.userObj = results;       
         this.getRoleList(results.userTypeId);
-        this.userForm = this.formBuilder.group({
+        this.userForm.setValue({
           id: results.id,
           username: results.userName,
           email: results.email,
@@ -219,12 +221,10 @@ export class UsersListComponent implements OnInit {
   onEditClick(user: User) {
     this.userService.perPage = this.pageSize;
     this.userService.currentPos = this.page;
-    this.getUserById(user.id);
     this.params = user.id;
-    // this.roleService.currentPageNumber = this.currentPageNumber;
-    // this.router.navigate(['/features/master/supplier/edit', supplier.id]);
     this.isFormSubmitted = false;
     this.toggleDiv = true;
+    this.getUserById(user.id);
     this.butDisabled = false;
     window.scrollTo(0, 0);
   }
@@ -277,7 +277,7 @@ export class UsersListComponent implements OnInit {
     this.isFormSubmitted = true;
     let params = {
       id: value.id,
-      username: value.username,
+      userName: value.username,
       email: value.email,
       phone: value.phone,
       locationId: value.location,
@@ -291,7 +291,13 @@ export class UsersListComponent implements OnInit {
   saveUser(value) {
     Helpers.setLoading(true);
     if (this.params) {
-      this.userService.updateUser(value)
+      this.userObj.userName = value.userName;
+      this.userObj.email = value.email;
+      this.userObj.phone = value.phone;
+      this.userObj.locationId = value.locationId;
+      this.userObj.roleId = value.roleId;
+      this.userObj.userTypeId = value.userTypeId;
+      this.userService.updateUser(this.userObj)
         .subscribe(
         results => {
           this.getAllUserList();

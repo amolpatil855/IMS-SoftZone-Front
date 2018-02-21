@@ -90,7 +90,7 @@ export class FomSizeListComponent implements OnInit {
     }
     else
     {
-      this.fomSizeObj.sizeCode = this.fomSizeObj.width + 'x' + this.fomSizeObj.length;
+      this.fomSizeObj.sizeCode = this.fomSizeObj.length + 'x' + this.fomSizeObj.width;
     }  
   }
 

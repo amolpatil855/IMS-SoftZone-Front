@@ -26,12 +26,14 @@ export class TrnProductStockListComponent implements OnInit {
   categoryList: SelectItem[];
   selectedCategory = null;
   selectedCollection = null;
+  selectedAccessory = null;
   selectedShade = null;
   selectedMatSize = null;
   selectedFomSize = null;
   selectedCompanyLocation = null;
   collectionList = [];
   companyLocationList = [];
+  accessoryCodeList = [];
   shadeList = [];
   matSizeList = [];
   fomSizeList = [];
@@ -72,10 +74,15 @@ export class TrnProductStockListComponent implements OnInit {
       fwrShadeId: null,
       matSizeId: null,
       fomSizeId: null,
+      accessoryId: null,
       locationId: null,
       stock: null,
+      stockInKg: null,
+      kgPerUnit: null
     };
     this.selectedCategory = null;
+    this.accessoryCodeList = [];
+    this.accessoryCodeList.unshift({ label: '--Select--', value: null });
     this.collectionList = [];
     this.collectionList.unshift({ label: '--Select--', value: null });
     this.shadeList = [];
@@ -85,6 +92,7 @@ export class TrnProductStockListComponent implements OnInit {
     this.fomSizeList = [];
     this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.selectedCollection = null;
+    this.selectedAccessory = null;
     this.selectedShade = null;
     this.selectedMatSize = null;
     this.selectedFomSize = null;
@@ -146,6 +154,8 @@ export class TrnProductStockListComponent implements OnInit {
   }
 
   onCategoryClick() {
+    this.accessoryCodeList = [];
+    this.accessoryCodeList.unshift({ label: '--Select--', value: null });
     this.collectionList = [];
     this.collectionList.unshift({ label: '--Select--', value: null });
     this.shadeList = [];
@@ -155,6 +165,7 @@ export class TrnProductStockListComponent implements OnInit {
     this.fomSizeList = [];
     this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.selectedCollection = null;
+    this.selectedAccessory = null;
     this.selectedShade = null;
     this.selectedMatSize = null;
     this.selectedFomSize = null;
@@ -182,7 +193,20 @@ export class TrnProductStockListComponent implements OnInit {
         }
       });
 
-      this.trnProductStockService.getCollectionLookUpByCategory(this.selectedCategory).subscribe(
+      if(this.selectedCategory == 7){
+        Helpers.setLoading(true);
+        this.trnProductStockService.getAccessoryLookUp().subscribe(
+        results => {
+          this.accessoryCodeList = results;
+          this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+      } else {
+        this.trnProductStockService.getCollectionLookUpByCategory(this.selectedCategory).subscribe(
         results => {
           this.collectionList = results;
           this.collectionList.unshift({ label: '--Select--', value: null });
@@ -194,6 +218,7 @@ export class TrnProductStockListComponent implements OnInit {
         error => {
           this.globalErrorHandler.handleError(error);
         });
+      }
     }
   }
 
@@ -272,9 +297,11 @@ export class TrnProductStockListComponent implements OnInit {
         if (this.selectedCategory > 0) {
           this.onCategoryClick();
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+         Helpers.setLoading(false);
       });
   }
 
@@ -293,6 +320,7 @@ export class TrnProductStockListComponent implements OnInit {
       this.trnProductStockObj.fwrShadeId = value.shade;
       this.trnProductStockObj.matSizeId = value.matSize;
       this.trnProductStockObj.fomSizeId = value.fomSize;
+      this.trnProductStockObj.accessoryId = value.accessoryId;
       this.trnProductStockObj.locationId = value.location;
     }
     this.saveTrnProductStock(this.trnProductStockObj);
