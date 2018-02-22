@@ -210,7 +210,18 @@
 														</div>	
 													</div>
 												</div>
-												
+												<div class="col-md-4">
+													<label class="col-md-4 col-sm-4 fieldLabel">Available Stock</label>
+													<div class="col-md-8 col-sm-8">
+														<input class="form-control" readonly OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" [(ngModel)]="productDetails.stock" name="availableStock" placeholder="" autocomplete="off">
+													</div>	
+												</div>	
+												<div class="col-md-4">
+													<label class="col-md-4 col-sm-4 fieldLabel">Quantity</label>
+													<div class="col-md-8 col-sm-8">
+														<input class="form-control"  OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999"  #quantityVal="ngModel" required [ngClass]="{'red-border-class': quantityVal.errors && isFormSubmitted}" (input)="calculateAmount()" [(ngModel)]="quantity" name="quantity" placeholder="" autocomplete="off" tabindex="17">
+													</div>	
+												</div>	
 												<div class="row form-group">
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Rate <i class="fa fa-inr"></i></label>
@@ -218,18 +229,7 @@
 															<input class="form-control"  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" #rateVal="ngModel" required [ngClass]="{'red-border-class': rateVal.errors && isFormSubmitted}"  [(ngModel)]="rate" name="rate" placeholder="" autocomplete="off" tabindex="15">
 														</div>	
 													</div>	
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Available Stock</label>
-														<div class="col-md-8 col-sm-8">
-															<input class="form-control" readonly OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" [(ngModel)]="productDetails.stock" name="availableStock" placeholder="" autocomplete="off">
-														</div>	
-													</div>	
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Quantity</label>
-														<div class="col-md-8 col-sm-8">
-															<input class="form-control"  OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999"  #quantityVal="ngModel" required [ngClass]="{'red-border-class': quantityVal.errors && isFormSubmitted}" (input)="calculateAmount()" [(ngModel)]="quantity" name="quantity" placeholder="" autocomplete="off" tabindex="17">
-														</div>	
-													</div>													
+																								
 												</div>
 												
 												<div class="row form-group">													
