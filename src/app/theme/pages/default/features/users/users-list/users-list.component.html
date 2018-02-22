@@ -89,7 +89,7 @@
                                                 Action
                                             </ng-template>
                                             <ng-template let-row="rowData" pTemplate="body">
-                                                <button type="button" pButton (click)="toggleActiveButton(row)" icon="fa fa-ban" class="editBtn" title="{{row.isActive? 'Activate':'Deactivate'}}"> </button>
+                                                <button type="button" pButton (click)="toggleActiveButton(row)" icon="{{row.isActive? 'fa fa-ban' : 'fa-check'}}" class="editBtn" title="{{row.isActive? 'Deactivate':'Activate'}}"> </button>
                                                 <button type="button" *ngIf="row.mstRole.id>2" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
                                                 <button type="button" *ngIf="row.mstRole.id>2" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
                                             </ng-template>
@@ -120,7 +120,7 @@
                                                                 <div class="col-md-7">
                                                                     <input class="form-control m-input" type="text" required [ngClass]="{'red-border-class': userForm.get('username').hasError('required') && isFormSubmitted}"
                                                                         formControlName="username" name="userName" id="userName"
-                                                                        placeholder="User Name" tabindex="1">
+                                                                        placeholder="User Name" autofocus tabindex="1">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">

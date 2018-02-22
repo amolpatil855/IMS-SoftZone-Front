@@ -82,7 +82,7 @@ export class CustomerListComponent implements OnInit {
       state: '',
       country: '',
       pin: '',
-      gstin: 0,
+      gstin: '',
       isPrimary: true,
       contRoleId: Math.floor(Math.random() * 2000),
     });
