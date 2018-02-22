@@ -104,6 +104,8 @@ export class QualityListComponent implements OnInit {
       this.qualityForm.get('maxFlatRateDisc').disable();
       this.qualityForm.get('purchaseFlatRate').disable();
 
+      this.qualityForm.get('purchaseFlatRate').setValidators(false);
+      this.qualityForm.get('maxFlatRateDisc').setValidators(false);
       this.disableRRP = false;
       this.qualityForm.patchValue({
         maxFlatRateDisc: '',
@@ -117,6 +119,8 @@ export class QualityListComponent implements OnInit {
       flaterate.enable();
       this.qualityForm.get('maxFlatRateDisc').enable();
       this.qualityForm.get('purchaseFlatRate').enable();
+      this.qualityForm.get('maxFlatRateDisc').setValidators([Validators.required]);
+      this.qualityForm.get('purchaseFlatRate').setValidators([Validators.required]);
     }
   }
 
@@ -129,6 +133,12 @@ export class QualityListComponent implements OnInit {
       this.qualityForm.get('rrp').disable();
       this.qualityForm.get('maxCutRateDisc').disable();
       this.qualityForm.get('maxRoleRateDisc').disable();
+
+      this.qualityForm.get('cutRate').setValidators(false);
+      this.qualityForm.get('roleRate').setValidators(false);
+      this.qualityForm.get('rrp').setValidators(false);
+      this.qualityForm.get('maxCutRateDisc').setValidators(false);
+      this.qualityForm.get('maxRoleRateDisc').setValidators(false);
       this.qualityForm.patchValue({
         roleRate: '',
         cutRate: '',
@@ -145,6 +155,12 @@ export class QualityListComponent implements OnInit {
       this.qualityForm.get('rrp').enable();
       this.qualityForm.get('maxCutRateDisc').enable();
       this.qualityForm.get('maxRoleRateDisc').enable();
+
+      this.qualityForm.get('maxRoleRateDisc').setValidators([Validators.required]);
+      this.qualityForm.get('maxCutRateDisc').setValidators([Validators.required]);
+      this.qualityForm.get('rrp').setValidators([Validators.required]);
+      this.qualityForm.get('roleRate').setValidators([Validators.required]);
+      this.qualityForm.get('cutRate').setValidators([Validators.required]);
     }
   }
 
@@ -213,7 +229,7 @@ export class QualityListComponent implements OnInit {
   }
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getQualityList();
   }
@@ -247,12 +263,38 @@ export class QualityListComponent implements OnInit {
         });
         this.slectedCategory = results.categoryId;
 
+        if (results.categoryId == 1) {
+          this.qualityForm.get('size').setValidators(false);
+          this.qualityForm.get('width').setValidators([Validators.required]);
+          this.qualityForm.get('size').disable();
+        }
+        else if (results.categoryId == 5 || results.categoryId == 6) {
+          this.qualityForm.get('width').setValidators(false);
+          this.qualityForm.get('size').setValidators([Validators.required]);
+          this.qualityForm.get('width').disable();
+        }
+        else {
+          this.qualityForm.get('size').setValidators(false);
+          this.qualityForm.get('width').setValidators(false);
+          this.qualityForm.get('width').disable();
+          this.qualityForm.get('size').disable();
+        }
+
         if (results.flatRate) {
           this.qualityForm.get('cutRate').disable();
           this.qualityForm.get('roleRate').disable();
           this.qualityForm.get('rrp').disable();
           this.qualityForm.get('maxCutRateDisc').disable();
           this.qualityForm.get('maxRoleRateDisc').disable();
+
+
+          this.qualityForm.get('cutRate').setValidators(false);
+          this.qualityForm.get('roleRate').setValidators(false);
+          this.qualityForm.get('rrp').setValidators(false);
+          this.qualityForm.get('maxCutRateDisc').setValidators(false);
+          this.qualityForm.get('maxRoleRateDisc').setValidators(false);
+
+
           this.qualityForm.get('maxFlatRateDisc').enable();
           this.qualityForm.get('flatRate').enable();
           this.qualityForm.get('purchaseFlatRate').enable();
@@ -264,6 +306,16 @@ export class QualityListComponent implements OnInit {
           this.qualityForm.get('rrp').enable();
           this.qualityForm.get('maxCutRateDisc').enable();
           this.qualityForm.get('maxRoleRateDisc').enable();
+
+          this.qualityForm.get('maxRoleRateDisc').setValidators([Validators.required]);
+          this.qualityForm.get('maxCutRateDisc').setValidators([Validators.required]);
+          this.qualityForm.get('rrp').setValidators([Validators.required]);
+          this.qualityForm.get('roleRate').setValidators([Validators.required]);
+          this.qualityForm.get('cutRate').setValidators([Validators.required]);
+
+          this.qualityForm.get('purchaseFlatRate').setValidators(false);
+          this.qualityForm.get('flatRate').setValidators(false);
+          this.qualityForm.get('maxFlatRateDisc').setValidators(false);
           this.qualityForm.get('maxFlatRateDisc').disable();
           this.qualityForm.get('flatRate').disable();
           this.qualityForm.get('purchaseFlatRate').disable();
@@ -293,10 +345,10 @@ export class QualityListComponent implements OnInit {
     }
     if (this.slectedCategory == 1) {
       this.qualityForm.patchValue({
-        size: 0,
-        custRatePerSqFeet: 0,
+        size: '',
+        custRatePerSqFeet: '',
         collectionId: null,
-        maxDiscount: 0,
+        maxDiscount: '',
         width: '',
         roleRate: '',
         cutRate: '',
@@ -310,10 +362,10 @@ export class QualityListComponent implements OnInit {
     }
     else if (this.slectedCategory == 5 || this.slectedCategory == 6) {
       this.qualityForm.patchValue({
-        width: 0,
-        custRatePerSqFeet: 0,
+        width: '',
+        custRatePerSqFeet: '',
         collectionId: null,
-        maxDiscount: 0,
+        maxDiscount: '',
         size: '',
         roleRate: '',
         cutRate: '',
@@ -327,17 +379,17 @@ export class QualityListComponent implements OnInit {
     }
     else if (this.slectedCategory == 4) {
       this.qualityForm.patchValue({
-        width: 0,
-        size: 0,
+        width: '',
+        size: '',
         collectionId: null,
-        roleRate: 0,
-        cutRate: 0,
-        rrp: 0,
-        maxCutRateDisc: 0,
-        maxRoleRateDisc: 0,
-        maxFlatRateDisc: 0,
-        flatRate: 0,
-        purchaseFlatRate: 0,
+        roleRate: '',
+        cutRate: '',
+        rrp: '',
+        maxCutRateDisc: '',
+        maxRoleRateDisc: '',
+        maxFlatRateDisc: '',
+        flatRate: '',
+        purchaseFlatRate: '',
         custRatePerSqFeet: '',
         maxDiscount: ''
       });
@@ -345,18 +397,18 @@ export class QualityListComponent implements OnInit {
     }
     else if (this.slectedCategory == 2) {
       this.qualityForm.patchValue({
-        width: 0,
-        size: 0,
-        roleRate: 0,
+        width: '',
+        size: '',
+        roleRate: '',
         collectionId: null,
-        rrp: 0,
-        cutRate: 0,
-        maxCutRateDisc: 0,
-        maxRoleRateDisc: 0,
-        maxFlatRateDisc: 0,
-        purchaseFlatRate: 0,
-        flatRate: 0,
-        custRatePerSqFeet: 0,
+        rrp: '',
+        cutRate: '',
+        maxCutRateDisc: '',
+        maxRoleRateDisc: '',
+        maxFlatRateDisc: '',
+        purchaseFlatRate: '',
+        flatRate: '',
+        custRatePerSqFeet: '',
         maxDiscount: ''
       });
     }
