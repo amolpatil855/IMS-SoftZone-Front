@@ -157,7 +157,7 @@ export class UsersListComponent implements OnInit {
 
   toggleActiveButton(user: User) {
     user.isActive = !user.isActive;
-    this.userService.updateUser(user)
+    this.userService.updateActivateDeActivateUserStatus(user)
       .subscribe(
       results => {
         this.getAllUserList();
@@ -291,13 +291,13 @@ export class UsersListComponent implements OnInit {
   saveUser(value) {
     Helpers.setLoading(true);
     if (this.params) {
-      this.userObj.userName = value.userName;
-      this.userObj.email = value.email;
-      this.userObj.phone = value.phone;
-      this.userObj.locationId = value.locationId;
-      this.userObj.roleId = value.roleId;
-      this.userObj.userTypeId = value.userTypeId;
-      this.userService.updateUser(this.userObj)
+      // this.userObj.userName = value.userName;
+      // this.userObj.email = value.email;
+      // this.userObj.phone = value.phone;
+      // this.userObj.locationId = value.locationId;
+      // this.userObj.roleId = value.roleId;
+      // this.userObj.userTypeId = value.userTypeId;
+      this.userService.updateUser(value)
         .subscribe(
         results => {
           this.getAllUserList();

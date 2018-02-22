@@ -50,7 +50,11 @@ export class CourierListComponent implements OnInit {
     this.courierObj = {
       id: 0,
       name: '',
-      docketNumber: '',
+      phone: '',
+      mobile: '',
+      email: '',
+      address: '',
+      pin: ''
     };
   }
 

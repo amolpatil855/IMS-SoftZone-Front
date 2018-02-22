@@ -76,10 +76,7 @@
                                                                                                       [style]="{'width':'100%'}"
                                                                                                       [disabled]="disabled" name="categoriesDDl" filter="true"
                                                                                                       tabindex="1"></p-dropdown>
-                                                                                                <!-- <div class="alertMsg" *ngIf="collectionForm.get('categoryId').hasError('required') && collectionForm.get('categoryId ').touched">
-													 Please select Category
-													 </div> -->
-                                                                                          </div>
+                                                                                                </div>
                                                                                     </div>
                                                                               </div>
                                                                               <div class="col-md-4 formContentbox">
@@ -89,9 +86,6 @@
                                                                                                 <input type="text" formControlName="collectionCode" required [ngClass]="{'red-border-class': collectionForm.get('collectionCode').hasError('required') && isFormSubmitted}"
                                                                                                       name="collectionCode" class="form-control m-input" filter="true"
                                                                                                       tabindex="2">
-                                                                                                <!-- <div class="alertMsg" *ngIf="collectionForm.get('collectionCode').hasError('required') && collectionForm.get('collectionCode').touched">
-												 Please enter collection code
-												 </div> -->
                                                                                           </div>
                                                                                     </div>
                                                                               </div>
@@ -102,9 +96,6 @@
                                                                                                 <input type="text" formControlName="collectionName" required [ngClass]="{'red-border-class': collectionForm.get('collectionName').hasError('required') && isFormSubmitted}"
                                                                                                       name="Name" class="form-control m-input"
                                                                                                       tabindex="3">
-                                                                                                <!-- <div class="alertMsg" *ngIf="collectionForm.get('collectionName').hasError('required') && collectionForm.get('collectionName').touched">
-													Please enter Name
-													</div> -->
                                                                                           </div>
                                                                                     </div>
 
@@ -113,15 +104,12 @@
                                                                         <div class="form-group">
                                                                               <div class="col-md-4 formContentbox">
                                                                                     <div class="">
-                                                                                          <label class="fieldLabel col-sm-5">Supplier Code<span class="requiredField">*</span></label>
+                                                                                          <label class="fieldLabel col-sm-5">Supplier<span class="requiredField">*</span></label>
                                                                                           <div class="col-sm-7">
                                                                                                 <p-dropdown class="feePlanBox" [options]="supplierCodeList" required styleClass="{{ collectionForm.get('supplierId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                                                                                       formControlName="supplierId"
-                                                                                                      required [style]="{'width':'100%'}"
+                                                                                                      required [style]="{'width':'100%'}" [disabled]="disabled"
                                                                                                       name="supplierCodeDDl" filter="true" tabindex="4"></p-dropdown>
-                                                                                                <!-- <div class="alertMsg" *ngIf="collectionForm.get('supplierId').hasError('required') && collectionForm.get('supplierCode').touched">
-												 Please enter supplier Code
-												 </div> -->
                                                                                           </div>
                                                                                     </div>
                                                                               </div>
@@ -132,9 +120,6 @@
                                                                                                 <input type="text" formControlName="manufacturerName" required [ngClass]="{'red-border-class': collectionForm.get('manufacturerName').hasError('required') && isFormSubmitted}"
                                                                                                       name="manufacturerName" class="form-control m-input"
                                                                                                       tabindex="5">
-                                                                                                <!-- <div class="alertMsg" *ngIf="collectionForm.get('manufacturerName').hasError('required') && collectionForm.get('manufacturerName').touched">
-                                                Please manufacturer Name
-                                                </div> -->
                                                                                           </div>
                                                                                     </div>
                                                                               </div>
@@ -155,9 +140,6 @@
                                                                                                 <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" formControlName="purchaseDiscount" required [ngClass]="{'red-border-class': collectionForm.get('purchaseDiscount').hasError('required') && isFormSubmitted}"
                                                                                                       name="purchaseDiscount" class="form-control m-input" autocomplete="off"
                                                                                                       tabindex="5">
-                                                                                                <!-- <div class="alertMsg" *ngIf="collectionForm.get('manufacturerName').hasError('required') && collectionForm.get('manufacturerName').touched">
-                                                Please manufacturer Name
-                                                </div> -->
                                                                                           </div>
                                                                                     </div>
                                                                               </div>
@@ -168,18 +150,6 @@
                                                 </div>
                                           </div>
                                           <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
-                                                <!-- <div class="m-form__actions m-form__actions--solid">
-                        <div class="row">
-                        	<div class="col-lg-6">
-                        		<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" [ngClass]="collectionForm.invalid ?'cursorNotAllowed':'cursorPointer'" title="{{ collectionForm.invalid ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="collectionForm.invalid" [isAuthorize]="['collection']">
-                        				{{ params ? 'Update' : 'Save' }}
-                        		</button>
-                        		<button class="btn btn-secondary" [isAuthorize]="['supplier']" (click)="onCancel()">
-                        				Cancel
-                        		</button>
-                        	</div>
-                        </div>
-                        </div> -->
                                           </div>
                                     </form>
                               </div>

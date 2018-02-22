@@ -1,5 +1,9 @@
 export class Courier {
   id: number;
   name: string;
-  docketNumber: string;
+  phone: string;
+  mobile: string;
+  email: string;
+  address: string;
+  pin: string;
 }

@@ -49,6 +49,10 @@ export class UserService {
     return this.http.patch(AppSettings.API_ENDPOINT + 'User/' + user.id, user, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  updateActivateDeActivateUserStatus(user: User) {
+    return this.http.put(AppSettings.API_ENDPOINT + 'User/ActivateDeActivateUser/' + user.id + '?isActive=' + user.isActive, user, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   deleteUser(id: number) {
     return this.http.delete(AppSettings.API_ENDPOINT + 'User/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
