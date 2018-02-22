@@ -105,7 +105,7 @@
 									</div>
 									<div class="col-md-3 formContentbox formContentboxShade">
 										<div class="form-group">
-											<label class="fieldLabel col-sm-5">Shade Name<span class="requiredField">*</span></label>
+											<label class="fieldLabel col-sm-5">Color<span class="requiredField">*</span></label>
 											<div class="col-sm-7">
 												<input class="form-control m-input" type="text" value=""  #shadeNameVal="ngModel" required [ngClass]="{'red-border-class': shadeNameVal.errors && isFormSubmitted}"  [(ngModel)]="shadeObj.shadeName" name="shadeName" id="shadeName" placeholder="" tabindex="6">
                                                 <!-- <div class="alertMsg" *ngIf="shadeNameVal.errors   && (shadeNameVal.dirty || shadeNameVal.touched)">
