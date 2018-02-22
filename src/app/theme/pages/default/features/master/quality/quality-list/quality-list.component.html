@@ -78,7 +78,7 @@
                                     <div class="col-md-7 col-sm-7">
                                       <p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="slectedCategory" styleClass="{{ qualityForm.get('categoryId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                         formControlName="categoryId" required [style]="{'width':'100%'}" [disabled]="disabled"
-                                        (ngModelChange)="onChangeCategory(event)" name="categoriesDDl" filter="true" tabindex="1"></p-dropdown>
+                                        (ngModelChange)="onChangeCategory(event)" name="categoriesDDl" filter="true" autofocus tabindex="1"></p-dropdown>
                                       <!-- <div class="alertMsg" *ngIf="qualityForm.get('categoryId').hasError('required') && qualityForm.get('categoryId ').touched">
                                                          Please select Category
                                                          </div> -->

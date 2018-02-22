@@ -77,7 +77,7 @@
 														<div class="col-sm-7">
 															<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel" required
 															 styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedCollection"
-															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" tabindex="1"></p-dropdown>
+															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" autofocus tabindex="1"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-3 formContentbox formContentboxShade">
@@ -110,7 +110,7 @@
 															<div class="col-sm-7">
 																<input class="form-control m-input" #lengthVal="ngModel"
 																 required  OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99"  [(ngModel)]="fomSizeObj.length" [ngClass]="{'red-border-class': lengthVal.errors && isFormSubmitted}"
-																 name="length" id="length" placeholder="Enter Length" (input)=" onInputChange()" autocomplete="off" tabindex="6">
+																 name="length" id="length" placeholder="Enter Length" (input)=" onInputChange()" autocomplete="off" tabindex="5">
 																<!-- <div class="alertMsg" *ngIf="lengthVal.errors   && (lengthVal.dirty || lengthVal.touched)">
 																	<div *ngIf="lengthVal.errors.pattern">
 																		Invalid Length
@@ -125,7 +125,7 @@
 															<div class="col-sm-7">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="999.99" #widthVal="ngModel"
 																 required [(ngModel)]="fomSizeObj.width" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
-																 name="width" id="width" placeholder="Enter Width" (input)=" onInputChange()" autocomplete="off" tabindex="5">
+																 name="width" id="width" placeholder="Enter Width" (input)=" onInputChange()" autocomplete="off" tabindex="6">
 																<!-- <div class="alertMsg" *ngIf="widthVal.errors   && (widthVal.dirty || widthVal.touched)">
 																	<div *ngIf="widthVal.errors.pattern">
 																		Invalid width

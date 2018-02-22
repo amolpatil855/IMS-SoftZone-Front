@@ -73,7 +73,7 @@
 									<div class="col-md-3 formContentbox formContentboxShade">
 										<label class="fieldLabel col-sm-5">Category<span class="requiredField">*</span></label>
 										<div class="col-sm-7">
-                                            <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}"   #selectedCategoryVal="ngModel"  required styleClass="{{ selectedCategoryVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedCategory" [disabled]="disabled" name="category" (ngModelChange)="onCategoryClick()" filter="true" tabindex="1"></p-dropdown>
+                                            <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}"   #selectedCategoryVal="ngModel"  required styleClass="{{ selectedCategoryVal.errors && isFormSubmitted?'red-border-class':''}}"  [(ngModel)]="selectedCategory" [disabled]="disabled" name="category" (ngModelChange)="onCategoryClick()" filter="true" autofocus tabindex="1"></p-dropdown>
 										</div>	
 									</div>
 									<div class="col-md-3 formContentbox formContentboxShade">
