@@ -86,7 +86,7 @@
 														<div class="col-md-6">
 															<label class="col-md-2 col-sm-2 fieldLabel">Customer<span class="requiredField">*</span></label>
 															<div class="col-md-10 col-sm-10 customerNameBox">
-															<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="selectedCustomer" required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer" (ngModelChange)="onCustomerChange()" filter="true" tabindex="2"></p-dropdown>
+															<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="trnSalesOrderObj.customerId" required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer" (ngModelChange)="onCustomerChange()" filter="true" tabindex="2"></p-dropdown>
 															</div>	
 														</div>
 														
@@ -95,19 +95,19 @@
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Courier</label>
 															<div class="col-md-8 col-sm-8">
-															<p-dropdown class="feePlanBox" [options]="courierList" [style]="{'width':'100%'}" [(ngModel)]="selectedCourier" name="courier" filter="true" tabindex="3"></p-dropdown>
+															<p-dropdown class="feePlanBox" [options]="courierList" [style]="{'width':'100%'}" [(ngModel)]="trnSalesOrderObj.courierId" name="courier" filter="true" tabindex="3"></p-dropdown>
 															</div>
 														</div>
 														<div class="col-md-3">
 															<label class="col-md-5 col-sm-5 fieldLabel">Courier Mode</label>
 															<div class="col-md-7 col-sm-7">
-																<p-dropdown class="feePlanBox" [options]="courierMode" [style]="{'width':'100%'}" [(ngModel)]="selectedCourierMode" name="courierMode" filter="true" tabindex="4"></p-dropdown>
+																<p-dropdown class="feePlanBox" [options]="courierMode" [style]="{'width':'100%'}" [(ngModel)]="trnSalesOrderObj.courierMode" name="courierMode" filter="true" tabindex="4"></p-dropdown>
 															</div>	
 														</div>
 														<div class="col-md-3">
 															<label class="col-md-4 col-sm-4 fieldLabel">Referred</label>
 															<div class="col-md-8 col-sm-8">
-																<p-dropdown class="feePlanBox" [options]="agentList" [style]="{'width':'100%'}" [(ngModel)]="selectedAgent"  name="agent" filter="true" tabindex="5"></p-dropdown>
+																<p-dropdown class="feePlanBox" [options]="agentList" [style]="{'width':'100%'}" [(ngModel)]="trnSalesOrderObj.referById"  name="agent" filter="true" tabindex="5"></p-dropdown>
 															</div>	
 														</div>
 														<div class="col-md-3">

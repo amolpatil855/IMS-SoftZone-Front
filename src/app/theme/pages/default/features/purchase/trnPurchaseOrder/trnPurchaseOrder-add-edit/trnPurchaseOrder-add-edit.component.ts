@@ -135,8 +135,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         _.forEach(this.trnPurchaseOrderItems, function(value) {
          value.categoryName=value.mstCategory.code;
          value.collectionName=value.mstCollection.collectionCode;
+         
         });
         delete this.trnPurchaseOrderObj['trnPurchaseOrderItems'];
+        this.locationObj=results.mstCompanyLocation;
         Helpers.setLoading(false);
       },
       error => {
