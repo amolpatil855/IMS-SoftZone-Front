@@ -161,7 +161,7 @@ export class UsersListComponent implements OnInit {
       .subscribe(
       results => {
         this.getAllUserList();
-        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+        this.messageService.addMessage({ severity: 'success', summary: results.type, detail: results.message });
         Helpers.setLoading(false);
         this.toggleDiv = false;
         this.newRecord();
@@ -259,7 +259,7 @@ export class UsersListComponent implements OnInit {
       accept: () => {
         this.userService.deleteUser(user.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Deleted Successfully' });
+            this.messageService.addMessage({ severity: 'success', summary: results.type, detail: results.message });
             this.getAllUserList();
             this.toggleDiv = false;
             this.newRecord();
@@ -301,7 +301,7 @@ export class UsersListComponent implements OnInit {
         .subscribe(
         results => {
           this.getAllUserList();
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.messageService.addMessage({ severity: 'success', summary: results.type, detail: results.message });
           Helpers.setLoading(false);
           this.toggleDiv = false;
           this.newRecord();
