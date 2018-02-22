@@ -144,7 +144,7 @@
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" *ngIf="slectedCategory==1"
                                         formControlName="width" [ngClass]="{'red-border-class': qualityForm.get('width').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="9">
-                                      <input type="text" class="form-control" disabled tabindex="10">
+                                      <input type="text" class="form-control" disabled tabindex="7">
                                     </div>
                                   </div>
                                 </div>
@@ -154,8 +154,8 @@
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="9999.99" class="form-control" formControlName="size"
                                         *ngIf="slectedCategory==5 || slectedCategory==6" [ngClass]="{'red-border-class': qualityForm.get('size').hasError('required') && isFormSubmitted}"
-                                        autocomplete="off" tabindex="11">
-                                      <input type="text" class="form-control" disabled tabindex="12">
+                                        autocomplete="off" tabindex="8">
+                                      <input type="text" class="form-control" disabled tabindex="8">
                                     </div>
                                   </div>
                                 </div>
@@ -179,7 +179,7 @@
                                     <label class="col-md-5 col-sm-5 fieldLabel">Cust Rate/Sq.Mtr<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" required [ngClass]="{'red-border-class': qualityForm.get('custRatePerSqFeet').hasError('required') && isFormSubmitted}"
-                                        placeholder="" formControlName="custRatePerSqFeet" autocomplete="off" tabindex="7">
+                                        placeholder="" formControlName="custRatePerSqFeet" autocomplete="off" tabindex="9">
                                     </div>
                                   </div>
                                 </div>
@@ -189,7 +189,7 @@
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" required placeholder=""
                                         formControlName="maxDiscount" [ngClass]="{'red-border-class': qualityForm.get('maxDiscount').hasError('required') && isFormSubmitted}"
-                                        autocomplete="off" tabindex="8">
+                                        autocomplete="off" tabindex="10">
                                     </div>
                                   </div>
                                 </div>
@@ -221,7 +221,7 @@
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="cutRate"
                                         [disabled]="disableRRP" (blur)="onChangeRRP(qualityForm.get('cutRate'),qualityForm.get('flatRate'))"
                                         maxlength="6" onKeyPress="if(this.value.length==6) return false;" required [ngClass]="{'red-border-class': qualityForm.get('cutRate').hasError('required') && isFormSubmitted}"
-                                        autocomplete="off" tabindex="13">
+                                        autocomplete="off" tabindex="9">
                                     </div>
                                   </div>
                                 </div>
@@ -232,7 +232,7 @@
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="roleRate"
                                         [disabled]="disableRRP" placeholder="" [ngClass]="{'red-border-class': qualityForm.get('roleRate').hasError('required') && isFormSubmitted}"
-                                        autocomplete="off" tabindex="15">
+                                        autocomplete="off" tabindex="10">
                                     </div>
                                   </div>
                                 </div>
@@ -243,7 +243,7 @@
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disableFlatRate" class="form-control"
                                         placeholder="" formControlName="purchaseFlatRate" required [ngClass]="{'red-border-class': qualityForm.get('purchaseFlatRate').hasError('required') && isFormSubmitted}"
-                                        autocomplete="off" tabindex="20">
+                                        autocomplete="off" tabindex="11">
                                     </div>
                                   </div>
                                 </div>
@@ -274,7 +274,7 @@
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" required
                                         [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('maxCutRateDisc').hasError('required') && isFormSubmitted}"
-                                        autocomplete="off" formControlName="maxCutRateDisc" tabindex="14">
+                                        autocomplete="off" formControlName="maxCutRateDisc" tabindex="12">
                                     </div>
                                   </div>
                                 </div>
@@ -286,7 +286,7 @@
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" title="Role Rate max discount"
                                         formControlName="maxRoleRateDisc" required [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('maxRoleRateDisc').hasError('required') && isFormSubmitted}"
-                                        autocomplete="off" tabindex="16">
+                                        autocomplete="off" tabindex="13">
                                     </div>
                                   </div>
                                 </div>
@@ -297,7 +297,7 @@
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="rrp"
                                         [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('rrp').hasError('required') && isFormSubmitted}"
-                                        required placeholder="" autocomplete="off" tabindex="17">
+                                        required placeholder="" autocomplete="off" tabindex="14">
                                     </div>
                                   </div>
                                 </div>
@@ -315,7 +315,7 @@
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disableFlatRate" (blur)="onChangeFlatRate(qualityForm.get('flatRate'),qualityForm.get('cutRate'))"
                                         class="form-control" placeholder="" formControlName="flatRate" required [ngClass]="{'red-border-class': qualityForm.get('flatRate').hasError('required') && isFormSubmitted}"
-                                        autocomplete="off" tabindex="18">
+                                        autocomplete="off" tabindex="15">
                                     </div>
                                   </div>
                                 </div>
@@ -326,7 +326,7 @@
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" [disabled]="disableFlatRate" class="form-control"
                                         placeholder="" formControlName="maxFlatRateDisc" required [ngClass]="{'red-border-class': qualityForm.get('maxFlatRateDisc').hasError('required') && isFormSubmitted}"
-                                        autocomplete="off" tabindex="19">
+                                        autocomplete="off" tabindex="16">
                                     </div>
                                   </div>
                                 </div>
@@ -357,7 +357,7 @@
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" formControlName="maxDiscount"
                                         required [ngClass]="{'red-border-class': qualityForm.get('maxDiscount').hasError('required') && isFormSubmitted}"
-                                        autocomplete="off" tabindex="21">
+                                        autocomplete="off" tabindex="9">
                                     </div>
                                   </div>
                                 </div>
