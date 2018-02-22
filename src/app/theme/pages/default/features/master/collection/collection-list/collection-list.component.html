@@ -42,10 +42,10 @@
             <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
                   <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="collectionForm" [ngClass]="(collectionFormVal && !collectionFormVal.form.valid) ?'cursorNotAllowed':'cursorPointer'"
                         title="{{(collectionFormVal && collectionFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-                        [disabled]="collectionFormVal && !collectionFormVal.form.valid" [isAuthorize]="['collection']" tabindex="7">
+                        [disabled]="collectionFormVal && !collectionFormVal.form.valid" [isAuthorize]="['collection']" tabindex="8">
          {{ params ? 'Update' : 'Save' }}
          </button>
-                  <button class="btn btn-secondary" [isAuthorize]="['collection']" (click)="onCancel()" tabindex="8">
+                  <button class="btn btn-secondary" [isAuthorize]="['collection']" (click)="onCancel()" tabindex="9">
          Cancel
          </button>
             </div>
@@ -74,7 +74,7 @@
                                                                                           <div class="col-md-7 col-sm-7">
                                                                                                 <p-dropdown class="feePlanBox" [options]="categoriesCodeList" formControlName="categoryId" required styleClass="{{ collectionForm.get('categoryId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                                                                                       [style]="{'width':'100%'}"
-                                                                                                      [disabled]="disabled" name="categoriesDDl" filter="true"
+                                                                                                      [disabled]="disabled" name="categoriesDDl" filter="true" autofocus
                                                                                                       tabindex="1"></p-dropdown>
                                                                                                 </div>
                                                                                     </div>
@@ -139,7 +139,7 @@
                                                                                           <div class="col-sm-7">
                                                                                                 <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" formControlName="purchaseDiscount" required [ngClass]="{'red-border-class': collectionForm.get('purchaseDiscount').hasError('required') && isFormSubmitted}"
                                                                                                       name="purchaseDiscount" class="form-control m-input" autocomplete="off"
-                                                                                                      tabindex="5">
+                                                                                                      tabindex="7">
                                                                                           </div>
                                                                                     </div>
                                                                               </div>
