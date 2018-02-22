@@ -267,17 +267,23 @@ export class QualityListComponent implements OnInit {
           this.qualityForm.get('size').setValidators(false);
           this.qualityForm.get('width').setValidators([Validators.required]);
           this.qualityForm.get('size').disable();
+          this.qualityForm.get('custRatePerSqFeet').disable();
+          this.qualityForm.get('maxDiscount').disable();
         }
         else if (results.categoryId == 5 || results.categoryId == 6) {
           this.qualityForm.get('width').setValidators(false);
           this.qualityForm.get('size').setValidators([Validators.required]);
           this.qualityForm.get('width').disable();
+          this.qualityForm.get('custRatePerSqFeet').disable();
+          this.qualityForm.get('maxDiscount').disable();
         }
         else {
           this.qualityForm.get('size').setValidators(false);
           this.qualityForm.get('width').setValidators(false);
           this.qualityForm.get('width').disable();
           this.qualityForm.get('size').disable();
+          this.qualityForm.get('custRatePerSqFeet').disable();
+          this.qualityForm.get('maxDiscount').disable();
         }
 
         if (results.flatRate) {
