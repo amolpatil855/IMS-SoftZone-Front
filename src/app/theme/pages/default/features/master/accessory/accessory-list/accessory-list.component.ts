@@ -11,6 +11,7 @@ import { Role } from "../../../../_models/role";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
 import { Accessory } from "../../../../_models/accessory";
+import { SupplierService } from '../../../../_services/supplier.service';
 @Component({
   selector: "app-accessory-list",
   templateUrl: "./accessory-list.component.html",
@@ -21,9 +22,11 @@ export class AccessoryListComponent implements OnInit {
   accessoryObj: any;
   params: number;
   accessoryList = [];
+  supplierCodeList = [];
   categoryList: SelectItem[];
   selectedUnitOfMeasure = null;
   selectedHsn = null;
+  selectedSupplier = null;
   unitOfMeasureList = [];
   hsnList = [];
   pageSize = 50;
@@ -39,6 +42,7 @@ export class AccessoryListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private accessoryService: AccessoryService,
+    private supplierService: SupplierService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) {
@@ -57,6 +61,7 @@ export class AccessoryListComponent implements OnInit {
       categoryId: null,
       name: '',
       itemCode: '',
+      supplierId: null,
       hsnId: null,
       uomId: null,
       sellingRate: null,
@@ -66,6 +71,7 @@ export class AccessoryListComponent implements OnInit {
     };
     this.selectedUnitOfMeasure = null;
     this.selectedHsn = null;
+    this.selectedSupplier = null;
   }
 
   toggleButton() {
@@ -125,7 +131,16 @@ export class AccessoryListComponent implements OnInit {
       });
   }
 
-
+  getSupplierCodeList() {
+    this.supplierService.getSupplierLookUp().subscribe(
+      results => {
+        this.supplierCodeList = results;
+        this.supplierCodeList.unshift({ label: '--Select--', value: null });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
 
   loadLazy(event: LazyLoadEvent) {
     //in a real application, make a remote request to load data using state metadata from event
@@ -141,6 +156,7 @@ export class AccessoryListComponent implements OnInit {
     this.getAccessorysList();
     this.getUnitOfMeasureLookup();
     this.getHsnLookUp();
+    this.getSupplierCodeList();
   }
 
   getAccessoryById(id) {
@@ -150,6 +166,7 @@ export class AccessoryListComponent implements OnInit {
         this.accessoryObj = results;
         this.selectedUnitOfMeasure = this.accessoryObj.uomId;
         this.selectedHsn = this.accessoryObj.hsnId;
+        this.selectedSupplier = this.accessoryObj.supplierId;
         Helpers.setLoading(false);
       },
       error => {
@@ -165,11 +182,13 @@ export class AccessoryListComponent implements OnInit {
     if (!valid)
       return;
     if (this.accessoryObj.id > 0) {
-
+      this.accessoryObj.hsnId = value.hsnId;
+      this.accessoryObj.uomId = value.uomId;
     }
     else {
-      this.accessoryObj.hsnId = value.hsn;
-      this.accessoryObj.uomId = value.uom;
+      this.accessoryObj.hsnId = value.hsnId;
+      this.accessoryObj.uomId = value.uomId;
+      this.accessoryObj.supplierId = value.supplierId;
     }
     this.saveAccessory(this.accessoryObj);
   }
