@@ -31,6 +31,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   selectedCustomer = null;
   selectedAgent = null;
   selectedCategory = null;
+  selectedAccessory = null;
   selectedCollection = null;
   selectedShade = null;
   selectedMatSize = null;
@@ -43,27 +44,34 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   addressList = [];
   courierList = [];
   customerList = [];
+  accessoryCodeList = [];
   agentList = [];
   shadeList = [];
   matSizeList = [];
   fomSizeList = [];
   courierMode = [];
-  itemDetails = [];
-  //itemDetails properties
+  trnSalesOrderItems = [];
+  //trnSalesOrderItems properties
   width = null;
-  height = null;
+  length = null;
   size = null;
   rate = null;
   availableStock = null;
   quantity = null;
   amount = null;
-  // widthError = false;
-  // heightError=false;
-  // sizeError=false;
-  // rateError=false;
-  // availableStockError=false;
-  // quantityError=false;
-  // amountError=false;
+  productDetails = {
+    purchaseRatePerMM: null,
+    suggestedMM: null,
+    length: null,
+    width: null,
+    gst: null,
+    roleRate: null,
+    cutRate: null,
+    purchaseFlatRate: null,
+    stock: null,
+    purchaseRate: null,
+    custRatePerSqFeet: null
+  };
   shippingAddressObj = null;
   selectedRadio: boolean;
   display: boolean = false;
@@ -125,6 +133,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.customerList.unshift({ label: '--Select--', value: null });
     this.agentList = [];
     this.agentList.unshift({ label: '--Select--', value: null });
+    this.accessoryCodeList = [];
+    this.accessoryCodeList.unshift({ label: '--Select--', value: null });
     this.collectionList = [];
     this.collectionList.unshift({ label: '--Select--', value: null });
     this.shadeList = [];
@@ -138,6 +148,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.selectedCourierMode = null;
     this.selectedCustomer = null;
     this.selectedAgent = null;
+    this.selectedAccessory = null;
     this.selectedCollection = null;
     this.selectedShade = null;
     this.selectedMatSize = null;
@@ -157,7 +168,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.newRecord();
     }
   }
-
+  
   onRadioBtnClick(data) {
     this.shippingAddressObj = data;
     this.display = false;
@@ -174,11 +185,11 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
 
   onInputChange() {
-    if (this.width == '' || this.height == '') {
+    if (this.width == '' || this.length == '') {
       this.size = '';
     }
     else {
-      this.size = this.width + 'x' + this.height;
+      this.size = this.width + 'x' + this.length;
     }
   }
 
@@ -194,6 +205,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   addItemToList() {
     let catObj = _.find(this.categoryList, ['value', this.selectedCategory]);
     let collObj = _.find(this.collectionList, ['value', this.selectedCollection]);
+    let accessoryObj = _.find(this.accessoryCodeList, ['value', this.selectedAccessory]);
     let fomObj = _.find(this.fomSizeList, ['value', this.selectedFomSize]);
     let matObj = _.find(this.matSizeList, ['value', this.selectedMatSize]);
     let itemObj = {
@@ -201,18 +213,36 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       categotryName: catObj ? catObj.label : '',
       collectionName: collObj ? catObj.label : '',
       collectionid: this.selectedCollection,
+      accessory: accessoryObj ? accessoryObj.label : '',
       serialno: this.selectedShade,
       fomSize: fomObj ? fomObj.label : '',
       matSize: matObj ? matObj.label : '',
       width: null,
-      height: null,
+      length: null,
       size: this.size,
       rate: this.rate,
       availableStock: this.availableStock,
       quantity: this.quantity,
       amount: this.amount,
     };
-    this.itemDetails.push(itemObj);
+    this.trnSalesOrderItems.push(itemObj);
+    this.onCancelItemDetails();
+  }
+
+  onCancelItemDetails() {
+    this.productDetails = {
+      purchaseRatePerMM: null,
+      suggestedMM: null,
+      length: null,
+      width: null,
+      gst: null,
+      roleRate: null,
+      cutRate: null,
+      purchaseFlatRate: null,
+      stock: null,
+      purchaseRate: null,
+      custRatePerSqFeet: null
+    };
   }
 
   onDeleteItemDetails(id, index) {
@@ -222,13 +252,14 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         header: 'Delete Confirmation',
         icon: 'fa fa-trash',
         accept: () => {
+          this.trnSalesOrderItems.splice(index, 1);
         },
         reject: () => {
         }
       });
     }
     else {
-      this.itemDetails.splice(index, 1);
+      this.trnSalesOrderItems.splice(index, 1);
     }
   }
 
@@ -284,9 +315,10 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       });
 
       if((this.selectedCategory != null) && (this.selectedCollection != null)){
-      this.trnSalesOrderService.getProductStockAvailabilty(this.selectedCategory, this.selectedCollection, this.selectedShade).subscribe(
+      this.trnSalesOrderService.getProductStockAvailabilty(this.selectedCategory, this.selectedCollection, this.selectedShade, null).subscribe(
         results => {
-          this.availableStock = results;
+          this.productDetails = results;
+          //this.availableStock = results.stock;
           Helpers.setLoading(false);
         },
         error => {
@@ -313,9 +345,10 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       });
 
       if((this.selectedCategory != null) && (this.selectedCollection != null)){
-      this.trnSalesOrderService.getProductStockAvailabilty(this.selectedCategory, this.selectedCollection, this.selectedFomSize).subscribe(
+      this.trnSalesOrderService.getProductStockAvailabilty(this.selectedCategory, this.selectedCollection, this.selectedFomSize, null).subscribe(
         results => {
-          this.availableStock = results;
+          this.productDetails = results;
+          //this.availableStock = results.stock;
           Helpers.setLoading(false);
         },
         error => {
@@ -342,9 +375,9 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       });
 
       if((this.selectedCategory != null) && (this.selectedCollection != null)){
-      this.trnSalesOrderService.getProductStockAvailabilty(this.selectedCategory, this.selectedCollection, this.selectedMatSize).subscribe(
+      this.trnSalesOrderService.getProductStockAvailabilty(this.selectedCategory, this.selectedCollection, this.selectedMatSize, null).subscribe(
         results => {
-          this.availableStock = results;
+          this.availableStock = results.stock;
           Helpers.setLoading(false);
         },
         error => {
@@ -427,6 +460,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
 
   onCategoryClick() {
+    this.accessoryCodeList = [];
+    this.accessoryCodeList.unshift({ label: '--Select--', value: null });
     this.collectionList = [];
     this.collectionList.unshift({ label: '--Select--', value: null });
     this.shadeList = [];
@@ -466,7 +501,43 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
           }
         }
       });
-      Helpers.setLoading(true);
+
+
+      if(this.selectedCategory == 7){
+        Helpers.setLoading(true);
+        this.trnSalesOrderService.getAccessoryLookUp().subscribe(
+        results => {
+          this.accessoryCodeList = results;
+          this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+          this.selectedAccessory = this.trnSalesOrderObj.accessoryId;
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+      }
+
+      if(this.selectedCategory == 1){
+        Helpers.setLoading(true);
+      this.trnSalesOrderService.getCollectionLookUpByFabricCategory(this.selectedCategory).subscribe(
+        results => {
+          this.collectionList = results;
+          this.collectionList.unshift({ label: '--Select--', value: null });
+          this.selectedCollection = this.trnSalesOrderObj.collectionId;
+          if (this.selectedCollection > 0) {
+            this.onCollectionClick();
+          }
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+      }
+
+      if(this.selectedCategory == 2){
+        Helpers.setLoading(true);
       this.trnSalesOrderService.getCollectionLookUpByCategory(this.selectedCategory).subscribe(
         results => {
           this.collectionList = results;
@@ -481,6 +552,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
           this.globalErrorHandler.handleError(error);
           Helpers.setLoading(false);
         });
+      }
     }
   }
 
@@ -569,7 +641,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-
+          this.router.navigate(['/features/sales/trnSalesOrder/list']);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -582,7 +654,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-
+          this.router.navigate(['/features/sales/trnSalesOrder/list']);
         },
         error => {
           this.globalErrorHandler.handleError(error);

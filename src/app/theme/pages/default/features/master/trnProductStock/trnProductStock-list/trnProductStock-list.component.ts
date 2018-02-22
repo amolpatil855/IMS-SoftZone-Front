@@ -199,6 +199,7 @@ export class TrnProductStockListComponent implements OnInit {
         results => {
           this.accessoryCodeList = results;
           this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+          this.selectedAccessory = this.trnProductStockObj.accessoryId;
           Helpers.setLoading(false);
         },
         error => {

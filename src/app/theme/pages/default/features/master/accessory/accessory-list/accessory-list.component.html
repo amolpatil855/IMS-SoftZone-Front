@@ -40,10 +40,10 @@
          </ul>
       </div>
       <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-         <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="accessoryForm" title="{{(accessoryForm && accessoryForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['accessories']" tabindex="9">
+         <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="accessoryForm" title="{{(accessoryForm && accessoryForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [isAuthorize]="['accessories']" tabindex="10">
          {{ params ? 'Update' : 'Save' }}
          </button>
-         <button class="btn btn-secondary" [isAuthorize]="['accessories']" (click)="onCancel()" tabindex="10">
+         <button class="btn btn-secondary" [isAuthorize]="['accessories']" (click)="onCancel()" tabindex="11">
          Cancel
          </button>
       </div>
@@ -65,46 +65,53 @@
                               <div class="panel-heading">Accessory Basic Details</div>
                               <div class="panel-body">
                                  <div class="form-group">
-                                    <div class="col-md-4 formContentbox">
-                                       <label class="fieldLabel col-sm-5">Unit Of Measure<span class="requiredField">*</span></label>
-                                       <div class="col-sm-7">
-                                          <p-dropdown class="feePlanBox" [options]="unitOfMeasureList" [style]="{'width':'100%'}"  [(ngModel)]="selectedUnitOfMeasure"  #selectedUomVal="ngModel"  required styleClass="{{ selectedUomVal.errors && isFormSubmitted?'red-border-class':''}}" name="uom" filter="true" tabindex="1"></p-dropdown>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-4 formContentbox">
-                                       <label class="fieldLabel col-sm-5">HSN<span class="requiredField">*</span></label>
-                                       <div class="col-sm-7">
-                                          <p-dropdown class="feePlanBox" [options]="hsnList" [style]="{'width':'100%'}" [(ngModel)]="selectedHsn"   #selectedHsnVal="ngModel"  required styleClass="{{ selectedHsnVal.errors && isFormSubmitted?'red-border-class':''}}" name="hsn" filter="true" tabindex="2"></p-dropdown>
-                                       </div>
-                                    </div>
-									<div class="col-md-4 formContentbox">
+                                    
+									                  <div class="col-md-4 formContentbox">
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Accessory Name<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
-                                             <input class="form-control m-input" type="text" value=""  onKeyPress="if(this.value.length==50) return false;" [ngClass]="{'red-border-class': accessoryNameVal.errors && isFormSubmitted}"  #accessoryNameVal="ngModel" required [(ngModel)]="accessoryObj.name" name="name" id="name" placeholder="" tabindex="3">
-                                             <!-- <div class="alertMsg" *ngIf="accessoryNameVal.errors   && (accessoryNameVal.dirty || accessoryNameVal.touched)">
-                                                Please enter Accessory Name
-                                                </div> -->
+                                             <input class="form-control m-input" type="text" value=""  onKeyPress="if(this.value.length==50) return false;" [ngClass]="{'red-border-class': accessoryNameVal.errors && isFormSubmitted}"  #accessoryNameVal="ngModel" required [(ngModel)]="accessoryObj.name" name="name" id="name" placeholder="" tabindex="1">
                                           </div>
+                                       </div>
+                                    </div>
+                                      <div class="col-md-4 formContentbox">
+                                       <div class="form-group">
+                                          <label class="fieldLabel col-sm-5">Accessory Code<span class="requiredField">*</span></label>
+                                          <div class="col-sm-7">
+                                            <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==50) return false;"  [ngClass]="{'red-border-class': accessoryCodeVal.errors && isFormSubmitted}"  #accessoryCodeVal="ngModel" required [(ngModel)]="accessoryObj.itemCode" name="itemCode" id="itemCode" placeholder="" tabindex="2">
+                                          </div>
+                                       </div>
+                                    </div>
+                                       <div class="col-md-4 formContentbox">
+                                       <label class="fieldLabel col-sm-5">Unit Of Measure<span class="requiredField">*</span></label>
+                                       <div class="col-sm-7">
+                                          <p-dropdown class="feePlanBox" [options]="unitOfMeasureList" [style]="{'width':'100%'}"  [(ngModel)]="selectedUnitOfMeasure"  #selectedUomVal="ngModel"  required styleClass="{{ selectedUomVal.errors && isFormSubmitted?'red-border-class':''}}" name="uomId" filter="true" tabindex="3"></p-dropdown>
                                        </div>
                                     </div>
                                     </div>
 									<div class="form-group">
+                                   
                                     <div class="col-md-4 formContentbox">
-                                       <div class="form-group">
-                                          <label class="fieldLabel col-sm-5">Accessory Code<span class="requiredField">*</span></label>
-                                          <div class="col-sm-7">
-                                            <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==50) return false;"  [ngClass]="{'red-border-class': accessoryCodeVal.errors && isFormSubmitted}"  #accessoryCodeVal="ngModel" required [(ngModel)]="accessoryObj.itemCode" name="itemCode" id="itemCode" placeholder="" tabindex="4">
-                                          </div>
+                                       <label class="fieldLabel col-sm-5">HSN<span class="requiredField">*</span></label>
+                                       <div class="col-sm-7">
+                                          <p-dropdown class="feePlanBox" [options]="hsnList" [style]="{'width':'100%'}" [(ngModel)]="selectedHsn"   #selectedHsnVal="ngModel"  required styleClass="{{ selectedHsnVal.errors && isFormSubmitted?'red-border-class':''}}" name="hsnId" filter="true" tabindex="4"></p-dropdown>
                                        </div>
                                     </div>
+                                    
+                                    <div class="col-md-4 formContentbox">
+                                       <label class="fieldLabel col-sm-5">Supplier<span class="requiredField">*</span></label>
+                                       <div class="col-sm-7">
+                                          <p-dropdown class="feePlanBox" [options]="supplierCodeList" [style]="{'width':'100%'}" [(ngModel)]="selectedSupplier"   #selectedSupplierVal="ngModel"  required styleClass="{{ selectedSupplierVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="supplierId" filter="true" tabindex="5"></p-dropdown>
+                                       </div>
+                                    </div>
+
                                     <div class="col-md-4 formContentbox">
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Selling Rate <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
                                           <input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #sellingRateVal="ngModel"
 																 required [ngClass]="{'red-border-class': sellingRateVal.errors && isFormSubmitted}"
-																 [(ngModel)]="accessoryObj.sellingRate" name="sellingRate" id="sellingRate" placeholder="" autocomplete="off" tabindex="5">
+																 [(ngModel)]="accessoryObj.sellingRate" name="sellingRate" id="sellingRate" placeholder="" autocomplete="off" tabindex="6">
                                           </div>
                                        </div>
                                     </div>
@@ -114,7 +121,7 @@
                                         <div class="col-sm-7">
                                           <input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #purchaseRateVal="ngModel"
 																 required [ngClass]="{'red-border-class': purchaseRateVal.errors && isFormSubmitted}"
-																 [(ngModel)]="accessoryObj.purchaseRate" name="purchaseRate" id="purchaseRate" placeholder="" autocomplete="off" tabindex="6">
+																 [(ngModel)]="accessoryObj.purchaseRate" name="purchaseRate" id="purchaseRate" placeholder="" autocomplete="off" tabindex="7">
                                         </div>
                                        </div>
                                     </div>
@@ -123,7 +130,7 @@
                                           <label class="fieldLabel col-sm-5">Size<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
                                              <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==20) return false;" maxlength="10" #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"
-																 [(ngModel)]="accessoryObj.size" name="size" id="size" placeholder="" tabindex="7">
+																 [(ngModel)]="accessoryObj.size" name="size" id="size" placeholder="" tabindex="8">
                                           </div>
                                        </div>
                                     </div>
@@ -131,7 +138,7 @@
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Description</label>
                                           <div class="col-sm-7">
-                                             <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==500) return false;" [(ngModel)]="accessoryObj.description" name="description" id="description" placeholder="" tabindex="8">
+                                             <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==500) return false;" [(ngModel)]="accessoryObj.description" name="description" id="description" placeholder="" tabindex="9">
                                           </div>
                                        </div>
                                     </div>
@@ -168,6 +175,7 @@
                      [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                      <p-column field="name" header="Name" [style]="{'text-align':'left'}"></p-column>
                      <p-column field="itemCode" header="Code" [style]="{'text-align':'left'}"></p-column>
+                     <p-column field="mstSupplier.code" header="Supplier" [style]="{'text-align':'left'}"></p-column>
                      <p-column field="sellingRate" header="Selling Rate" [style]="{'text-align':'left'}"></p-column>
                      <p-column field="purchaseRate" header="Purchase Rate" [style]="{'text-align':'left'}"></p-column>
                      <p-column field="size" header="Size" [style]="{'text-align':'left'}"></p-column>

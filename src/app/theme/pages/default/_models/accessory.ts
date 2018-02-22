@@ -7,6 +7,7 @@ export class Accessory {
     categoryId: number;
     name: string;
     itemCode: string;
+    supplierId: number;
     hsnId: number;
     uomId: number;
     sellingRate: number;

@@ -79,22 +79,93 @@
                                                             <div class="col-sm-7">
                                                                 <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==100) return false;" [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"
                                                                     #nameVal="ngModel" required [(ngModel)]="courierObj.name" name="name"
-                                                                    id="name" placeholder="" tabindex="1">
+                                                                    id="name" placeholder="Name" tabindex="1">
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-3 formContentbox">
                                                         <div class="form-group">
-                                                            <label class="fieldLabel col-sm-5">Docket Number <span class="requiredField">*</span></label>
+                                                            <label class="fieldLabel col-sm-5">Email</label>
                                                             <div class="col-sm-7">
-                                                                <input type="text" class="form-control" onKeyPress="if(this.value.length==50) return false;" [ngClass]="{'red-border-class': docketNumberVal.errors && isFormSubmitted}" #docketNumberVal="ngModel"
-                                                                    required [(ngModel)]="courierObj.docketNumber" name="docketNumber" placeholder=""
-                                                                    id="docketNumber" tabindex="2">
+                                                                <input type="email" class="form-control" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"
+                                                                    [ngClass]="{'red-border-class': emailVal.errors && isFormSubmitted}"
+                                                                    #emailVal="ngModel" [(ngModel)]="courierObj.email"
+                                                                    name="email" placeholder="Email" maxlength="254" tabindex="2">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                   
+
+                                                    <div class="col-md-3 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">Phone</label>
+                                                            <div class="col-sm-7">
+                                                                <input type="text" class="form-control" pattern="^[0-9]\d{2,4}-\d{6,8}$" onKeyPress="if(this.value.length==12) return false;" [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}"
+                                                                    [(ngModel)]="courierObj.phone" name="phone" #phoneVal="ngModel"
+                                                                    placeholder="Phone" minlength="10" autocomplete="off" tabindex="3">
+
+                                                                <div *ngIf="phoneVal.errors && (phoneVal.dirty || phoneVal.touched)" class="alertMsg">
+                                                                    <div *ngIf="phoneVal.errors.minlength && !phoneVal.errors.pattern">
+                                                                        Phone No. must be min 6 digit.
+                                                                    </div>
+                                                                    <div *ngIf="phoneVal.errors.pattern">
+                                                                        Invalid Phone.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">Mobile<span class="requiredField">*</span></label>
+                                                            <div class="col-sm-7">
+                                                                <input type="phone" class="form-control" pattern="^[0-9]+" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': mobileVal.errors && isFormSubmitted}"
+                                                                    [(ngModel)]="courierObj.mobile" name="mobile" required #mobileVal="ngModel"
+                                                                    placeholder="Mobile" minlength="10" maxlength="10" tabindex="4">
+
+                                                                <div *ngIf="mobileVal.errors && (mobileVal.dirty || mobileVal.touched)" class="alertMsg">
+                                                                    <div *ngIf="mobileVal.errors.minlength && !mobileVal.errors.pattern">
+                                                                        Mobile number should be 10 digit.
+                                                                    </div>
+                                                                    <div *ngIf="mobileVal.errors.pattern">
+                                                                        Mobile number must be a number.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">Address<span class="requiredField">*</span></label>
+                                                            <div class="col-sm-7">
+                                                                <input type="text" class="form-control" [ngClass]="{'red-border-class': addressVal.errors && isFormSubmitted}" #addressVal="ngModel"
+                                                                    required [(ngModel)]="courierObj.address" name="address"
+                                                                    placeholder="Address" id="address" tabindex="5">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">Pin<span class="requiredField">*</span></label>
+                                                            <div class="col-sm-7">
+                                                                <input type="text" class="form-control" pattern="^[0-9]+" onKeyPress="if(this.value.length==6) return false;" [ngClass]="{'red-border-class': pinVal.errors && isFormSubmitted}"
+                                                                    #pinVal="ngModel" required [(ngModel)]="courierObj.pin" name="pin"
+                                                                    placeholder="PIN" id="pin" minlength="6" maxlength="6" tabindex="6">
+                                                                <div *ngIf="pinVal.errors && (pinVal.dirty || pinVal.touched)" class="alertMsg">
+                                                                    <div *ngIf="pinVal.errors.minlength && !pinVal.errors.pattern">
+                                                                        Pin number should be 6 digit.
+                                                                    </div>
+                                                                    <div *ngIf="pinVal.errors.pattern">
+                                                                        Pin number must be a number.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -133,7 +204,10 @@
                                 #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount"
                                 (onLazyLoad)="loadLazy($event)">
                                 <p-column field="name" header="Name" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="docketNumber" header="Docket Number" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="email" header="Email" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="phone" header="Phone" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="mobile" header="Mobile" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="pin" header="Pin" [style]="{'text-align':'left'}"></p-column>
                                 <p-column styleClass="col-button" [style]="{'text-align':'left'}">
                                     <ng-template pTemplate="header">
                                         Action

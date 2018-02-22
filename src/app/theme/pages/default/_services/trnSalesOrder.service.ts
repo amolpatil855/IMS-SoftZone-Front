@@ -38,7 +38,11 @@ export class TrnSalesOrderService {
   }
 
   getCategoryLookUp() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookupForSO', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getAccessoryLookUp() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetAccessoryLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getCustomerAddressByCustomerId(customerId) {
@@ -49,12 +53,16 @@ export class TrnSalesOrderService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getProductStockAvailabilty(categoryId, collectionId, parameterId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStock/GetProductStockAvailabilty?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getCollectionLookUpByFabricCategory(categoryId) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpForSO?categoryId=' + categoryId, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getProductStockAvailabilty(categoryId, collectionId, parameterId, qualityId) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStock/GetProductDetails?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId + '&qualityId=' + qualityId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getSerialNumberLookUpByCollection(collectionId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpByCollection?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpForSO?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getMatSizeLookUpByCollection(collectionId) {
