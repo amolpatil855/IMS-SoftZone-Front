@@ -72,8 +72,7 @@
 											<div class="panel-body">
 												<div class="form-group">
 													<div class="col-md-4">
-														<label class="fieldLabel col-md-6 col-sm-6">Collection
-															<span class="requiredField">*</span>
+														<label class="fieldLabel col-md-6 col-sm-6">Collection<span class="requiredField">*</span>
 														</label>
 														<div class="col-md-6 col-sm-6">
 															<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel" required
@@ -83,8 +82,7 @@
 														</div>
 													</div>
 													<div class="col-md-4">
-														<label class="fieldLabel  col-md-6 col-sm-6">Quality
-															<span class="requiredField">*</span>
+														<label class="fieldLabel  col-md-6 col-sm-6">Quality<span class="requiredField">*</span>
 														</label>
 														<div class="col-md-6 col-sm-6">
 															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel" required
@@ -94,8 +92,7 @@
 													</div>
 													<div class="col-md-4">
 															<div class="form-group">
-																<label class="fieldLabel col-md-6 col-sm-6">Density
-																	<span class="requiredField">*</span>
+																<label class="fieldLabel col-md-6 col-sm-6">Density<span class="requiredField">*</span>
 																</label>
 																<div class="col-md-6 col-sm-6">
 																	<input class="form-control m-input" type="text" value="" maxlength="10" #densityVal="ngModel" required [ngClass]="{'red-border-class': densityVal.errors && isFormSubmitted}"
@@ -145,7 +142,7 @@
 												<div class="form-group">
 													<div class="col-md-4">
 														<div class="form-group">
-															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/MM <i class="fa fa-inr"></i>
+															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/MM <i class="fa fa-inr"></i><span class="requiredField">*</span>
 															</label>
 															<div class="col-md-6 col-sm-6">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" maxlength="10" #sellingRatePerMMVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerMMVal.errors && isFormSubmitted}"
@@ -155,7 +152,7 @@
 													</div>
 													<div class="col-md-4">
 														<div class="form-group">
-															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/KG <i class="fa fa-inr"></i></label>
+															<label class="fieldLabel col-md-6 col-sm-6">Selling Rate/KG <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
 															<div class="col-md-6 col-sm-6">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" value="" #sellingRatePerKGVal="ngModel" required [ngClass]="{'red-border-class': sellingRatePerKGVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomDensityObj.sellingRatePerKG" name="sellingRatePerKG" id="sellingRatePerKG" autocomplete="off" tabindex="8">
