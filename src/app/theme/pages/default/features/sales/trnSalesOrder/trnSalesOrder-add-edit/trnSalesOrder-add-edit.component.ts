@@ -26,9 +26,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   params: number;
   trnSalesOrderList = [];
   categoryList: SelectItem[];
-  selectedCourier = null;
+
   selectedCourierMode = null;
-  selectedCustomer = null;
   selectedAgent = null;
   selectedCategory = null;
   selectedAccessory = null;
@@ -96,18 +95,23 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
   ngOnInit() {
     this.courierMode = this.commonService.courierMode;
-    this.route.params.forEach((params: Params) => {
-      this.params = params['id'];
-    });
+
     this.newRecord();
     this.getCustomerLookUp();
     this.getCourierLookup();
     this.getAgentLookUp();
     this.getCategoryLookUp();
     this.getCompanyLocationLookUp();
+
+
+    this.route.params.forEach((params: Params) => {
+      this.params = params['id'];
+    });
     if (this.params) {
+      this.disabled = true;
       this.getTrnSaleOrderById();
     }
+
   }
 
   newRecord() {
@@ -144,9 +148,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.matSizeList.push({ label: 'Custom', value: -1 });
     this.fomSizeList = [];
     this.fomSizeList.unshift({ label: '--Select--', value: null });
-    this.selectedCourier = null;
     this.selectedCourierMode = null;
-    this.selectedCustomer = null;
+    this.trnSalesOrderObj.customerId = null;
     this.selectedAgent = null;
     this.selectedAccessory = null;
     this.selectedCollection = null;
@@ -282,9 +285,9 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
   onCustomerChange() {
     this.shippingAddressObj = null;
-    if (this.selectedCustomer != null) {
+    if (this.trnSalesOrderObj.customerId != null) {
       Helpers.setLoading(true);
-      this.trnSalesOrderService.getCustomerAddressByCustomerId(this.selectedCustomer).subscribe(
+      this.trnSalesOrderService.getCustomerAddressByCustomerId(this.trnSalesOrderObj.customerId).subscribe(
         results => {
           this.addressList = results;
           console.log('this.addressList', this.addressList);

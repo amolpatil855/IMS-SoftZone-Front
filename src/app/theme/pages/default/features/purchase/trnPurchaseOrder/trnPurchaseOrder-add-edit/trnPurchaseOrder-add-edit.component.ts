@@ -36,6 +36,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   categoriesCodeList = [];
   shadeIdList = [];
   categoryId = null;
+  matThicknessId=null;
   collectionId = null;
   trnPurchaseOrderItems = [];
   shadeId = null;
@@ -44,7 +45,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   locationObj = null;
   length = null;
   width = null;
-  sizecode = null;
+  matSizeCode = null;
   isFormSubmitted = false;
   categoryIdError = false;
   collectionIdError = false;
@@ -52,8 +53,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   lengthError = false;
   widthError = false;
   orderQuantityError = false;
+  matThicknessIdError = false;
   fomSizeIdError = false;
   matSizeIdError = false;
+  qualityIdError=false;
   courierList = [];
   courierModeList = [];
   matSizeList = [];
@@ -64,7 +67,6 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   rate = null;
   amountWithGST = null;
   rateWithGST = null;
-  thicknessId = null;
   qualityList = [];
   thicknessList = [];
   productDetails = {
@@ -133,8 +135,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         _.forEach(this.trnPurchaseOrderItems, function(value) {
          value.categoryName=value.mstCategory.code;
          value.collectionName=value.mstCollection.collectionCode;
+         
         });
         delete this.trnPurchaseOrderObj['trnPurchaseOrderItems'];
+        this.locationObj=results.mstCompanyLocation;
         Helpers.setLoading(false);
       },
       error => {
@@ -158,7 +162,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   //     orderType: null,
   //     length: null,
   //     width: null,
-  //     sizecode: null
+  //     matSizeCode: null
   //   };
   //   this.trnPurchaseOrderItems.push(itemObj);
   // }
@@ -169,7 +173,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     else
       this.categoryIdError = false;
 
-    if (!this.collectionId)
+    if (!this.collectionId && this.categoryId != 7)
       this.collectionIdError = true;
     else
       this.collectionIdError = false;
@@ -189,21 +193,32 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     else
       this.fomSizeIdError = false;
 
-    if (this.collectionId == 4 && this.shadeId == -1 && !this.length)
+    if (this.categoryId == 4 && this.matSizeId == -1 && !this.length)
       this.lengthError = true;
     else
       this.lengthError = false;
 
-    if (this.collectionId == 4 && this.shadeId == -1 && !this.width)
+    if (this.categoryId == 4 && this.matSizeId == -1 && !this.width)
       this.widthError = true;
     else
       this.widthError = false;
+
+      if (this.categoryId == 4 && this.matSizeId == -1 && !this.matThicknessId)
+      this.matThicknessIdError = true;
+    else
+      this.matThicknessIdError = false;
+      
+      if (this.categoryId == 4 && this.matSizeId == -1 && !this.qualityId)
+      this.qualityIdError = true;
+    else
+      this.qualityIdError = false;
 
     if (!this.orderQuantity)
       this.orderQuantityError = true;
     else
       this.orderQuantityError = false;
-    if (this.orderQuantityError || this.widthError || this.fomSizeIdError || this.matSizeIdError || this.lengthError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
+    if (this.orderQuantityError || this.widthError || this.fomSizeIdError || this.matSizeIdError || this.matSizeIdError
+        || this.lengthError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
       return false;
     }
 
@@ -213,7 +228,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     let fomSizeObj = _.find(this.fomSizeList, ['value', this.fomSizeId]);
     let matSizeObj = _.find(this.matSizeList, ['value', this.matSizeId]);
     if (matSizeObj && matSizeObj.value == -1) {
-      matSizeObj.label = this.sizecode;
+      matSizeObj.label = this.matSizeCode;
     }
     let itemObj = {
       categoryId: this.categoryId,
@@ -232,7 +247,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       orderType: this.orderType,
       length: this.length,
       width: this.width,
-      sizecode: this.sizecode
+      matSizeCode: this.matSizeCode
     };
     this.trnPurchaseOrderItems.push(itemObj);
     this.onCancelItemDetails();
@@ -331,7 +346,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
     this.thicknessList = [];
     this.thicknessList.unshift({ label: '--Select--', value: null });
-    this.thicknessId = null;
+    this.matThicknessId = null;
     this.calculateProductStockDetails();
     if (this.qualityId != null) {
       Helpers.setLoading(true);
@@ -422,10 +437,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   calculateSizeCode() {
     if (this.width && this.length) {
-      this.sizecode = this.length + 'x' + this.width;
+      this.matSizeCode = this.length + 'x' + this.width;
     }
     else
-      this.sizecode = '';
+      this.matSizeCode = '';
   }
 
   changeOrderType() {
