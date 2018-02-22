@@ -317,7 +317,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       if((this.selectedCategory != null) && (this.selectedCollection != null)){
       this.trnSalesOrderService.getProductStockAvailabilty(this.selectedCategory, this.selectedCollection, this.selectedShade, null).subscribe(
         results => {
-          this.availableStock = results.stock;
+          this.productDetails = results;
+          //this.availableStock = results.stock;
           Helpers.setLoading(false);
         },
         error => {
@@ -346,7 +347,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       if((this.selectedCategory != null) && (this.selectedCollection != null)){
       this.trnSalesOrderService.getProductStockAvailabilty(this.selectedCategory, this.selectedCollection, this.selectedFomSize, null).subscribe(
         results => {
-          this.availableStock = results.stock;
+          this.productDetails = results;
+          //this.availableStock = results.stock;
           Helpers.setLoading(false);
         },
         error => {

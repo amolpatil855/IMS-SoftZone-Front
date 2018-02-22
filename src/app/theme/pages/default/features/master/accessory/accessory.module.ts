@@ -6,6 +6,7 @@ import { DefaultComponent } from "../../../default.component";
 import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
 // import { RoleService, PermissionService } from '../../_services/index';
+import { SupplierService } from '../../../_services/supplier.service';
 import { CommonService } from '../../../_services/common.service';
 
 import {
@@ -65,8 +66,8 @@ const routes: Routes = [
     AccessoryListComponent,
   ],
   providers: [
-    // RoleService,
     CommonService,
+    SupplierService,
     AccessoryService,
     ConfirmationService
   ],
