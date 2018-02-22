@@ -9,6 +9,10 @@ export class FomDensity {
   qualityId: number;
   density: string;
   description: string;
+  purchaseRatePerMM: number;
+  purchaseRatePerKG: number;
+  sellingRatePerMM: number;
+  sellingRatePerKG: number;
   MstCategory: Category;
   MstCollection: Collection;
   MstQuality: Quality;

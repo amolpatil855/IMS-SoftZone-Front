@@ -66,9 +66,12 @@ export class FomDensityListComponent implements OnInit {
       categoryId: 0,
       collectionId: 0,
       qualityId: 0,
-      thicknessId: 0,
-      sizeCode: '',
-      rate: '',
+      density: '',
+      description: '',
+      purchaseRatePerMM: '',
+      purchaseRatePerKG: '',
+      sellingRatePerMM: '',
+      sellingRatePerKG: '',
     };
     this.selectedCollection = null;
     this.qualityList = [];
