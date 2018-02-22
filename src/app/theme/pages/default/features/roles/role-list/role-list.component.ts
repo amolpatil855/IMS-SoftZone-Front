@@ -275,7 +275,7 @@ export class RoleListComponent implements OnInit {
       accept: () => {
         this.roleService.deleteRole(role.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+            this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
             this.getRoleList();
           },
           error => {

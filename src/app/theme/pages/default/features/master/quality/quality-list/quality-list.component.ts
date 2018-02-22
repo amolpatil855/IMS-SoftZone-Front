@@ -345,10 +345,10 @@ export class QualityListComponent implements OnInit {
     }
     if (this.slectedCategory == 1) {
       this.qualityForm.patchValue({
-        size: 0,
-        custRatePerSqFeet: 0,
+        size: '',
+        custRatePerSqFeet: '',
         collectionId: null,
-        maxDiscount: 0,
+        maxDiscount: '',
         width: '',
         roleRate: '',
         cutRate: '',
@@ -362,10 +362,10 @@ export class QualityListComponent implements OnInit {
     }
     else if (this.slectedCategory == 5 || this.slectedCategory == 6) {
       this.qualityForm.patchValue({
-        width: 0,
-        custRatePerSqFeet: 0,
+        width: '',
+        custRatePerSqFeet: '',
         collectionId: null,
-        maxDiscount: 0,
+        maxDiscount: '',
         size: '',
         roleRate: '',
         cutRate: '',
@@ -379,17 +379,17 @@ export class QualityListComponent implements OnInit {
     }
     else if (this.slectedCategory == 4) {
       this.qualityForm.patchValue({
-        width: 0,
-        size: 0,
+        width: '',
+        size: '',
         collectionId: null,
-        roleRate: 0,
-        cutRate: 0,
-        rrp: 0,
-        maxCutRateDisc: 0,
-        maxRoleRateDisc: 0,
-        maxFlatRateDisc: 0,
-        flatRate: 0,
-        purchaseFlatRate: 0,
+        roleRate: '',
+        cutRate: '',
+        rrp: '',
+        maxCutRateDisc: '',
+        maxRoleRateDisc: '',
+        maxFlatRateDisc: '',
+        flatRate: '',
+        purchaseFlatRate: '',
         custRatePerSqFeet: '',
         maxDiscount: ''
       });
@@ -397,18 +397,18 @@ export class QualityListComponent implements OnInit {
     }
     else if (this.slectedCategory == 2) {
       this.qualityForm.patchValue({
-        width: 0,
-        size: 0,
-        roleRate: 0,
+        width: '',
+        size: '',
+        roleRate: '',
         collectionId: null,
-        rrp: 0,
-        cutRate: 0,
-        maxCutRateDisc: 0,
-        maxRoleRateDisc: 0,
-        maxFlatRateDisc: 0,
-        purchaseFlatRate: 0,
-        flatRate: 0,
-        custRatePerSqFeet: 0,
+        rrp: '',
+        cutRate: '',
+        maxCutRateDisc: '',
+        maxRoleRateDisc: '',
+        maxFlatRateDisc: '',
+        purchaseFlatRate: '',
+        flatRate: '',
+        custRatePerSqFeet: '',
         maxDiscount: ''
       });
     }

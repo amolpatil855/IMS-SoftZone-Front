@@ -1,0 +1,41 @@
+import { Accessory } from "./accessory";
+import { Category } from "./category";
+import { Collection } from "./collection";
+import { FomSize } from "./fomSize";
+import { Shade } from "./shade";
+import { MatSize } from "./matSize";
+import { MatThickness } from "./matThickness";
+import { Quality } from "./quality";
+import { TrnPurchaseOrder } from "./trnPurchaseOrder";
+
+export class TrnGoodReceiveNoteItem {
+    id: number;
+    grnId: number;
+    categoryId: number;
+    collectionId: number;
+    shadeId: number;
+    fomSizeId: number;
+    matSizeId: number;
+    matQualityId: number;
+    matThicknessId: number;
+    matSizeCode: string;
+    accessoryId: number;
+    purchaseOrderId: number;
+    orderQuantity: number;
+    receivedQuantity: number;
+    fomQuantityInKG: number;
+    rate: number;
+    amount: number;
+    rateWithGST: number;
+    amountWithGST: number;
+    gst: number;
+    MstAccessory: Accessory;
+    MstCategory: Category;
+    MstCollection: Collection;
+    MstFomSize: FomSize;
+    MstFWRShade: Shade;
+    MstMatSize: MatSize;
+    MstMatThickness: MatThickness;
+    MstQuality: Quality;
+    TrnPurchaseOrder: TrnPurchaseOrder;
+}

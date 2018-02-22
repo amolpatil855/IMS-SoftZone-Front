@@ -157,11 +157,11 @@ export class UsersListComponent implements OnInit {
 
   toggleActiveButton(user: User) {
     user.isActive = !user.isActive;
-    this.userService.updateUser(user)
+    this.userService.updateActivateDeActivateUserStatus(user)
       .subscribe(
       results => {
         this.getAllUserList();
-        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+        this.messageService.addMessage({ severity: 'success', summary: results.type, detail: results.message });
         Helpers.setLoading(false);
         this.toggleDiv = false;
         this.newRecord();
@@ -259,7 +259,7 @@ export class UsersListComponent implements OnInit {
       accept: () => {
         this.userService.deleteUser(user.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Deleted Successfully' });
+            this.messageService.addMessage({ severity: 'success', summary: results.type, detail: results.message });
             this.getAllUserList();
             this.toggleDiv = false;
             this.newRecord();
@@ -291,17 +291,17 @@ export class UsersListComponent implements OnInit {
   saveUser(value) {
     Helpers.setLoading(true);
     if (this.params) {
-      this.userObj.userName = value.userName;
-      this.userObj.email = value.email;
-      this.userObj.phone = value.phone;
-      this.userObj.locationId = value.locationId;
-      this.userObj.roleId = value.roleId;
-      this.userObj.userTypeId = value.userTypeId;
-      this.userService.updateUser(this.userObj)
+      // this.userObj.userName = value.userName;
+      // this.userObj.email = value.email;
+      // this.userObj.phone = value.phone;
+      // this.userObj.locationId = value.locationId;
+      // this.userObj.roleId = value.roleId;
+      // this.userObj.userTypeId = value.userTypeId;
+      this.userService.updateUser(value)
         .subscribe(
         results => {
           this.getAllUserList();
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.messageService.addMessage({ severity: 'success', summary: results.type, detail: results.message });
           Helpers.setLoading(false);
           this.toggleDiv = false;
           this.newRecord();
