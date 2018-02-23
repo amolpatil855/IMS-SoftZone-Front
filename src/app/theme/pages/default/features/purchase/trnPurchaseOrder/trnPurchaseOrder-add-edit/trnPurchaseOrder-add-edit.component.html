@@ -41,6 +41,9 @@
 			</ul>
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+			<button type="submit" class="btn btn-success" *ngIf="adminFlag && status" [isAuthorize]="['purchaseorder']" title="Approve" (click)="onApprove()" tabindex="9">
+				Approve
+			</button>
 			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm" title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['purchaseorder']" tabindex="8">
 				{{ params ? 'Update' : 'Save' }}
@@ -100,8 +103,7 @@
 																</div>
 															</div>
 															<div class="col-md-6">
-																<label class="col-md-2 col-sm-2 fieldLabel">Supplier
-																	<span class="requiredField">*</span>
+																<label class="col-md-2 col-sm-2 fieldLabel">Supplier<span class="requiredField">*</span>
 																</label>
 																<div class="col-md-10 col-sm-10 customerNameBox">
 
@@ -115,8 +117,7 @@
 
 														<div class="row form-group">
 															<div class="col-md-3">
-																<label class="col-md-4 col-sm-4 fieldLabel">Courier
-																	<span class="requiredField">*</span>
+																<label class="col-md-4 col-sm-4 fieldLabel">Courier<span class="requiredField">*</span>
 																</label>
 																<div class="col-md-8 col-sm-8">
 																	<p-dropdown class="feePlanBox" [options]="courierList" required [(ngModel)]="trnPurchaseOrderObj.courierId" #courierVal="ngModel"
@@ -126,8 +127,7 @@
 															</div>
 
 															<div class="col-md-3">
-																<label class="col-md-5 col-sm-5 fieldLabel noPadding">Courier Mode
-																	<span class="requiredField">*</span>
+																<label class="col-md-5 col-sm-5 fieldLabel noPadding">Courier Mode<span class="requiredField">*</span>
 																</label>
 																<div class="col-md-7 col-sm-7">
 																	<!-- <select name="CourierMode" class="feePlanBox" [(ngModel)]="trnPurchaseOrderObj.courierMode" required style="width:100%;"  tabindex="5">
@@ -140,8 +140,7 @@
 																</div>
 															</div>
 															<div class="col-md-3">
-																<label class="col-md-4 col-sm-4 fieldLabel">Location
-																	<span class="requiredField">*</span>
+																<label class="col-md-4 col-sm-4 fieldLabel">Location<span class="requiredField">*</span>
 																</label>
 																<div class="col-md-8 col-sm-8">
 																	<p-dropdown class="feePlanBox" [options]="locationList" required [(ngModel)]="trnPurchaseOrderObj.locationId" #locationVal="ngModel"

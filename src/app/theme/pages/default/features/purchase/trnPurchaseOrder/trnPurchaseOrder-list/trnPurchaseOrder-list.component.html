@@ -89,12 +89,14 @@
 								<p-column field="mstCourier.name" header="Couier" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="courierMode" header="Courier Mode" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="totalAmount" header="Total" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="status" header="Status" [style]="{'text-align':'left'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'left'}">
 									<ng-template pTemplate="header">
 										Action
 									</ng-template>
 									<ng-template let-row="rowData" pTemplate="body">
 										<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+										<button type="button" pButton *ngIf="adminFlag && row.status == 'Generated'" (click)="onApprove(row)" icon="fa fa-check" class="editBtn" title="Approve"></button>
 									</ng-template>
 								</p-column>
 							</p-dataTable>

@@ -100,18 +100,10 @@
 														<div class="form-group">
 															<label class="fieldLabel col-sm-5">SuggestedMM <span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<input class="form-control m-input" type="number" value="" pattern="^[1-9]\d*$" maxlength="4" #suggestedMMVal="ngModel" required
-																 (keypress)="restrictDotMinus($event, 4);" [ngClass]="{'red-border-class': suggestedMMVal.errors && isFormSubmitted}"
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="9999" #suggestedMMVal="ngModel" required
+																[ngClass]="{'red-border-class': suggestedMMVal.errors && isFormSubmitted}"
 																 [(ngModel)]="fomSuggestedMMObj.suggestedMM" name="suggestedMM" id="suggestedMM" placeholder="Enter SuggestedMM"
 																 autocomplete="off" tabindex="4">
-																<!-- <div class="alertMsg" *ngIf="suggestedMMVal.errors   && (suggestedMMVal.dirty || suggestedMMVal.touched)">
-															Please enter SuggestedMM
-														</div> -->
-																<div *ngIf="suggestedMMVal.errors && (suggestedMMVal.dirty || suggestedMMVal.touched)" class="alertMsg">
-																	<div *ngIf="suggestedMMVal.errors.pattern">
-																		Invalid SuggestedMM.
-																	</div>
-																</div>
 															</div>
 														</div>
 													</div>

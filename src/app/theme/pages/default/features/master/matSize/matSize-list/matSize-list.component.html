@@ -193,15 +193,10 @@
 														<div class="form-group">
 															<label class="fieldLabel col-sm-5">Stock Reorder Level<span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<input class="form-control m-input" type="number" value="" pattern="^[1-9]\d*$" maxlength="10" #stockReorderLevelVal="ngModel"
-																 (keypress)="restrictDotMinus($event, 4);" required [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}"
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="9999" #stockReorderLevelVal="ngModel"
+																 required [ngClass]="{'red-border-class': stockReorderLevelVal.errors && isFormSubmitted}"
 																 [(ngModel)]="matSizeObj.stockReorderLevel" name="stockReorderLevel" id="stockReorderLevel" placeholder=""
 																 autocomplete="off" tabindex="8">
-																<div class="alertMsg" *ngIf="stockReorderLevelVal.errors   && (stockReorderLevelVal.dirty || stockReorderLevelVal.touched)">
-																	<div *ngIf="stockReorderLevelVal.errors.pattern">
-																		Invalid StockReorderLevel
-																	</div>
-																</div>
 															</div>
 														</div>
 													</div>
