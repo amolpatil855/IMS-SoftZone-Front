@@ -144,7 +144,7 @@
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" *ngIf="slectedCategory==1"
                                         formControlName="width" [ngClass]="{'red-border-class': qualityForm.get('width').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="9">
-                                      <input type="text" class="form-control" disabled tabindex="10">
+                                      <!-- <input type="text" class="form-control"  *ngIf="slectedCategory!=1" disabled tabindex="10"> -->
                                     </div>
                                   </div>
                                 </div>
@@ -155,7 +155,7 @@
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="9999.99" class="form-control" formControlName="size"
                                         *ngIf="slectedCategory==5 || slectedCategory==6" [ngClass]="{'red-border-class': qualityForm.get('size').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="11">
-                                      <input type="text" class="form-control" disabled tabindex="12">
+                                      <!-- <input type="text" class="form-control"  disabled tabindex="12"> -->
                                     </div>
                                   </div>
                                 </div>
@@ -179,7 +179,7 @@
                                     <label class="col-md-5 col-sm-5 fieldLabel">Cust Rate/Sq.Mtr<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" required [ngClass]="{'red-border-class': qualityForm.get('custRatePerSqFeet').hasError('required') && isFormSubmitted}"
-                                        placeholder="" formControlName="custRatePerSqFeet" autocomplete="off" tabindex="7">
+                                        placeholder=""  [disabled]="slectedCategory!=4" formControlName="custRatePerSqFeet" autocomplete="off" tabindex="7">
                                     </div>
                                   </div>
                                 </div>
@@ -188,7 +188,7 @@
                                     <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount %<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" required placeholder=""
-                                        formControlName="maxDiscount" [ngClass]="{'red-border-class': qualityForm.get('maxDiscount').hasError('required') && isFormSubmitted}"
+                                        formControlName="maxDiscount" [disabled]="slectedCategory!=4"  [ngClass]="{'red-border-class': qualityForm.get('maxDiscount').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="8">
                                     </div>
                                   </div>
@@ -220,7 +220,7 @@
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="cutRate"
                                         [disabled]="disableRRP" (blur)="onChangeRRP(qualityForm.get('cutRate'),qualityForm.get('flatRate'))"
-                                        maxlength="6" onKeyPress="if(this.value.length==6) return false;" required [ngClass]="{'red-border-class': qualityForm.get('cutRate').hasError('required') && isFormSubmitted}"
+                                        maxlength="6" onKeyPress="if(this.value.length==6) return false;" required [ngClass]="{'red-border-class': qualityForm.get('flatRate').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="13">
                                     </div>
                                   </div>
