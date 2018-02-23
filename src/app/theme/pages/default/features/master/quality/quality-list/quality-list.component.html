@@ -74,11 +74,11 @@
                               <div class="row">
                                 <div class="col-md-3">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Category <span class="requiredField">*</span></label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Category<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="slectedCategory" styleClass="{{ qualityForm.get('categoryId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                         formControlName="categoryId" required [style]="{'width':'100%'}" [disabled]="disabled"
-                                        (ngModelChange)="onChangeCategory(event)" name="categoriesDDl" filter="true" tabindex="1"></p-dropdown>
+                                        (ngModelChange)="onChangeCategory(event)" name="categoriesDDl" filter="true" autofocus tabindex="1"></p-dropdown>
                                       <!-- <div class="alertMsg" *ngIf="qualityForm.get('categoryId').hasError('required') && qualityForm.get('categoryId ').touched">
                                                          Please select Category
                                                          </div> -->
@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="col-md-3">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Collection <span class="requiredField">*</span></label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Collection<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <p-dropdown class="feePlanBox" [options]="collectionList" formControlName="collectionId" styleClass="{{ qualityForm.get('collectionId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                         required [style]="{'width':'100%'}" [disabled]="disabled" name="supplierCodeDDl" filter="true"
@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="col-md-3">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Code <span class="requiredField">*</span></label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Code<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input type="text" class="form-control" [ngClass]="{'red-border-class': qualityForm.get('qualityCode').hasError('required') && isFormSubmitted}"
                                         formControlName="qualityCode" required placeholder="" tabindex="3">
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="col-md-3">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Name <span class="requiredField">*</span></label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Name<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input type="text" class="form-control" [ngClass]="{'red-border-class': qualityForm.get('qualityName').hasError('required') && isFormSubmitted}"
                                         formControlName="qualityName" required placeholder="" tabindex="4">
@@ -121,7 +121,7 @@
 
                                 <div class="col-md-3">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">HSN Code <span class="requiredField">*</span></label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">HSN Code<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <p-dropdown class="feePlanBox" [options]="hsnCodeList" styleClass="{{ qualityForm.get('hsnId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                         formControlName="hsnId" required [style]="{'width':'100%'}" name="supplierCodeDDl"
@@ -139,23 +139,23 @@
                                 </div>
                                 <div class="col-md-3" *ngIf="slectedCategory==1">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Width</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Width<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" *ngIf="slectedCategory==1"
                                         formControlName="width" [ngClass]="{'red-border-class': qualityForm.get('width').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="9">
-                                      <input type="text" class="form-control" disabled tabindex="10">
+                                      <!-- <input type="text" class="form-control"  *ngIf="slectedCategory!=1" disabled tabindex="10"> -->
                                     </div>
                                   </div>
                                 </div>
                                 <div class="col-md-3" *ngIf="slectedCategory==5 || slectedCategory==6">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Size</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Size<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="9999.99" class="form-control" formControlName="size"
                                         *ngIf="slectedCategory==5 || slectedCategory==6" [ngClass]="{'red-border-class': qualityForm.get('size').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="11">
-                                      <input type="text" class="form-control" disabled tabindex="12">
+                                      <!-- <input type="text" class="form-control"  disabled tabindex="12"> -->
                                     </div>
                                   </div>
                                 </div>
@@ -176,19 +176,19 @@
                               <div class="row">
                                 <div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Cust Rate/Sq.Mtr</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Cust Rate/Sq.Mtr<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" required [ngClass]="{'red-border-class': qualityForm.get('custRatePerSqFeet').hasError('required') && isFormSubmitted}"
-                                        placeholder="" formControlName="custRatePerSqFeet" autocomplete="off" tabindex="7">
+                                        placeholder=""  [disabled]="slectedCategory!=4" formControlName="custRatePerSqFeet" autocomplete="off" tabindex="7">
                                     </div>
                                   </div>
                                 </div>
                                 <div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount %</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount %<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" required placeholder=""
-                                        formControlName="maxDiscount" [ngClass]="{'red-border-class': qualityForm.get('maxDiscount').hasError('required') && isFormSubmitted}"
+                                        formControlName="maxDiscount" [disabled]="slectedCategory!=4"  [ngClass]="{'red-border-class': qualityForm.get('maxDiscount').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="8">
                                     </div>
                                   </div>
@@ -216,11 +216,11 @@
 
                                 <div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate <i class="fa fa-inr"></i></label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="cutRate"
                                         [disabled]="disableRRP" (blur)="onChangeRRP(qualityForm.get('cutRate'),qualityForm.get('flatRate'))"
-                                        maxlength="6" onKeyPress="if(this.value.length==6) return false;" required [ngClass]="{'red-border-class': qualityForm.get('cutRate').hasError('required') && isFormSubmitted}"
+                                        maxlength="6" onKeyPress="if(this.value.length==6) return false;" required [ngClass]="{'red-border-class': qualityForm.get('flatRate').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="13">
                                     </div>
                                   </div>
@@ -228,7 +228,7 @@
 
                                 <div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Role Rate <i class="fa fa-inr"></i></label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Role Rate <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="roleRate"
                                         [disabled]="disableRRP" placeholder="" [ngClass]="{'red-border-class': qualityForm.get('roleRate').hasError('required') && isFormSubmitted}"
@@ -239,7 +239,7 @@
 								
 								<div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Purchase Flat Rate <i class="fa fa-inr"></i></label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Purchase Flat Rate <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disableFlatRate" class="form-control"
                                         placeholder="" formControlName="purchaseFlatRate" required [ngClass]="{'red-border-class': qualityForm.get('purchaseFlatRate').hasError('required') && isFormSubmitted}"
@@ -270,7 +270,7 @@
                               <div class="row">
                                 <div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate Max Dis.%</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Cut Rate Max Dis.%<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" required
                                         [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('maxCutRateDisc').hasError('required') && isFormSubmitted}"
@@ -282,7 +282,7 @@
 
                                 <div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Role Rate Max Dis.%</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Role Rate Max Dis.%<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" title="Role Rate max discount"
                                         formControlName="maxRoleRateDisc" required [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('maxRoleRateDisc').hasError('required') && isFormSubmitted}"
@@ -293,7 +293,7 @@
 								
 								<div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">RRP <i class="fa fa-inr"></i></label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">RRP <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="rrp"
                                         [disabled]="disableRRP" [ngClass]="{'red-border-class': qualityForm.get('rrp').hasError('required') && isFormSubmitted}"
@@ -311,7 +311,7 @@
                                 
                                 <div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate <i class="fa fa-inr"></i></label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disableFlatRate" (blur)="onChangeFlatRate(qualityForm.get('flatRate'),qualityForm.get('cutRate'))"
                                         class="form-control" placeholder="" formControlName="flatRate" required [ngClass]="{'red-border-class': qualityForm.get('flatRate').hasError('required') && isFormSubmitted}"
@@ -322,7 +322,7 @@
 								
 								<div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate Max Dis.%</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Flat Rate Max Dis.%<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" [disabled]="disableFlatRate" class="form-control"
                                         placeholder="" formControlName="maxFlatRateDisc" required [ngClass]="{'red-border-class': qualityForm.get('maxFlatRateDisc').hasError('required') && isFormSubmitted}"
@@ -353,7 +353,7 @@
                               <div class="row">
                                 <div class="col-md-4">
                                   <div class="row">
-                                    <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount%</label>
+                                    <label class="col-md-5 col-sm-5 fieldLabel">Max. Discount%<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99.99" class="form-control" placeholder="" formControlName="maxDiscount"
                                         required [ngClass]="{'red-border-class': qualityForm.get('maxDiscount').hasError('required') && isFormSubmitted}"

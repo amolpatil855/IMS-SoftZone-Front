@@ -77,7 +77,7 @@
 														<label class="fieldLabel col-sm-5">Thickness Code <span class="requiredField">*</span></label>
 														<div class="col-sm-7">
 															<input class="form-control m-input" type="text" value="" #thicknessCodeVal="ngModel" required [ngClass]="{'red-border-class': thicknessCodeVal.errors && isFormSubmitted}"
-															 [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="" maxlength="10"
+															 [(ngModel)]="matThicknessObj.thicknessCode" name="thicknessCode" id="thicknessCode" placeholder="" maxlength="10" autofocus
 															 tabindex="1">
 															<!-- <div class="alertMsg" *ngIf="thicknessCodeVal.errors   && (thicknessCodeVal.dirty || thicknessCodeVal.touched)">
 																			Please enter Mattress Thickness Code
