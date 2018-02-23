@@ -100,6 +100,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/purchase\/trnPurchaseOrder\/trnPurchaseOrder.module#TrnPurchaseOrderModule"
       },
       {
+        "path": "features\/purchase\/trnGoodReceiveNote",
+        "loadChildren": ".\/pages\/default\/features\/purchase\/trnGoodReceiveNote\/trnGoodReceiveNote.module#TrnGoodReceiveNoteModule"
+      },
+      {
         "path": "features\/sales\/trnSalesOrder",
         "loadChildren": ".\/pages\/default\/features\/sales\/trnSalesOrder\/trnSalesOrder.module#TrnSalesOrderModule"
       },

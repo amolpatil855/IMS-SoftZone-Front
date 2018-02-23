@@ -70,7 +70,7 @@
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Accessory Name<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
-                                             <input class="form-control m-input" type="text" value=""  onKeyPress="if(this.value.length==50) return false;" [ngClass]="{'red-border-class': accessoryNameVal.errors && isFormSubmitted}"  #accessoryNameVal="ngModel" required [(ngModel)]="accessoryObj.name" name="name" id="name" placeholder="" autofocus tabindex="1">
+                                             <input class="form-control m-input" type="text" value=""  onKeyPress="if(this.value.length==50) return false;" [ngClass]="{'red-border-class': accessoryNameVal.errors && isFormSubmitted}"  #accessoryNameVal="ngModel" required [(ngModel)]="accessoryObj.name" name="name" id="name" placeholder="" autofocus="true" tabindex="1">
                                           </div>
                                        </div>
                                     </div>
