@@ -1982,3 +1982,10 @@ select option {
 .editBtn, .delBtn {
     padding: 0px!important;
 } 
+
+/******* D. 23 Feb 2018 *******/
+@media (min-width: 993px){
+    .m-footer--push.m-aside-left--enabled:not(.m-footer--fixed) .m-aside-right, .m-footer--push.m-aside-left--enabled:not(.m-footer--fixed) .m-wrapper {
+        margin-bottom: 20px!important;
+    }
+}
