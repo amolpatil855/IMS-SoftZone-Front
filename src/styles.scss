@@ -1989,3 +1989,38 @@ select option {
         margin-bottom: 20px!important;
     }
 }
+
+@media (max-width: 767px){
+    .m-login.m-login--1 .m-login__aside {        
+        padding: 2rem 0rem !important;
+    }
+    .m-login.m-login--1 .m-login__wrapper {
+        overflow: hidden !important;
+        padding: 5% 1rem 2rem 1rem !important;
+        width: 100%!important;
+        margin: 0 auto !important;
+    }
+    .m-login__form .m-checkbox {   
+        font-size: 12px !important;
+    }
+    .forgot-pass-link {
+        font-size: 12px !important;
+    }
+    .eternusFooter {
+        position: relative;
+        bottom: 0px;
+        right: 0px;
+        left: 0;
+        width: auto;
+        z-index: 10000;
+        font-family: Roboto;
+        font-size: 13px;
+        color: #292929;
+        font-weight: 600;
+        background: #fff;
+        padding: 2px 10px;
+        text-align: center;
+        border-top: 1px solid #f5f5f5;
+        background: #f5f5f5;
+    }
+}
