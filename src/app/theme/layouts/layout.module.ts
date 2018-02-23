@@ -15,7 +15,7 @@ import { ImageUploadService } from '../pages/default/_services/imageUpload.servi
 import { UserService } from "../pages/default/_services/user.service";
 import { RoleService } from "../pages/default/_services/role.service";
 import { CompanyService } from "../pages/default/_services/company.service";
-
+import { AutofocusDirective } from '../../_directives/autoFocus.directive';
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -27,7 +27,8 @@ import { CompanyService } from "../pages/default/_services/company.service";
     HrefPreventDefaultDirective,
     UnwrapTagDirective,
     IsAuthorizeDirective,
-    OnlyNumber
+    OnlyNumber,
+    AutofocusDirective
   ],
   exports: [
     LayoutComponent,
@@ -38,7 +39,8 @@ import { CompanyService } from "../pages/default/_services/company.service";
     ScrollTopComponent,
     HrefPreventDefaultDirective,
     IsAuthorizeDirective,
-    OnlyNumber
+    OnlyNumber,
+    AutofocusDirective
   ],
   providers: [
     ImageUploadService,
