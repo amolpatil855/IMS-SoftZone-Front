@@ -40,6 +40,8 @@ export class QualityListComponent implements OnInit {
   tableEmptyMesssage = 'Loading...';
   disableFlatRate = false;
   disableRRP = false;
+  flatRateValue = '';
+  purchaseFlatRateValue = '';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
