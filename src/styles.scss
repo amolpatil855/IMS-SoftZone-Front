@@ -2036,4 +2036,10 @@ select option {
         clear: both;
         display: block;
     }
+    body .ui-widget-header {   
+        text-align: left!important;
+    }
+    .ui-widget-header .btnAddForm {        
+        margin-top: 8px!important;
+    }
 }
