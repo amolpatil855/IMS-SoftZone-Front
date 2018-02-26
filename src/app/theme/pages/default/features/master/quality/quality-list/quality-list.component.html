@@ -241,7 +241,7 @@
                                   <div class="row">
                                     <label class="col-md-5 col-sm-5 fieldLabel">Purchase Flat Rate <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
-                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disableFlatRate" class="form-control"
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" [disabled]="disablePurchaseFlatRate" class="form-control" (blur)="onChangePurchaseFlatRate(qualityForm.get('purchaseFlatRate'),qualityForm.get('cutRate'))"
                                         placeholder="" formControlName="purchaseFlatRate" required [ngClass]="{'red-border-class': qualityForm.get('purchaseFlatRate').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="11">
                                     </div>
