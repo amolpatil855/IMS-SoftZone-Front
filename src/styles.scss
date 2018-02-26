@@ -2029,3 +2029,17 @@ select option {
    float: left;
    margin-right: 5px;
 }
+
+/**** D.26 Feb 2018 ****/
+@media (max-width: 991px){
+    .formContentbox {       
+        clear: both;
+        display: block;
+    }
+    body .ui-widget-header {   
+        text-align: left!important;
+    }
+    .ui-widget-header .btnAddForm {        
+        margin-top: 8px!important;
+    }
+}
