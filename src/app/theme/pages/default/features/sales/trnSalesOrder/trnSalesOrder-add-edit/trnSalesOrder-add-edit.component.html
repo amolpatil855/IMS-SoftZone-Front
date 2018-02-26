@@ -41,7 +41,7 @@
 			</ul>
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm" title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesStockForm" title="{{(trnSalesStockForm && trnSalesStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['purchaseorder']" tabindex="8">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
@@ -66,7 +66,7 @@
 
 						<div class="formContainerSamePage">
 							<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
-							 (ngSubmit)="onSubmit(trnProductStockForm)" #trnProductStockForm="ngForm" id="trnProductStockForm">
+							 (ngSubmit)="onSubmit(trnSalesStockForm)" #trnSalesStockForm="ngForm" id="trnSalesStockForm">
 								<div class="row">
 
 									<div class="col-md-12">
@@ -160,11 +160,10 @@
 																		<div class="shippingAddressBox">													
 																			
 																			<a href="#" (click)="showDialog()"><b class="shippingAddressLabel">Shipping Address<span class="requiredField">*</span></b></a> 
-																					<p *ngIf="shippingAddressObj == null">
+																					<p *ngIf="!trnSalesOrderObj.shippingAddress">
 																						Please select shipping address by clicking on the link.
 																					</p>
-																					<p *ngIf="shippingAddressObj != null">-	{{this.shippingAddressObj.addressLine1}} {{this.shippingAddressObj.addressLine2}} , {{this.shippingAddressObj.state}} ,{{this.shippingAddressObj.city}}  
-																						PINCODE -{{this.shippingAddressObj.pin}}
+																					<p *ngIf="trnSalesOrderObj.shippingAddress">-	{{trnSalesOrderObj.shippingAddress}}
 																					</p>
 																		</div>
 																	</div>			
@@ -313,6 +312,12 @@
 																<label class="orderTypeLabel">{{amountWithGST}}</label>
 															</div>
 														</div>
+														<div class="col-md-4"  *ngIf="categoryId!=7">
+															<label class="col-md-4 col-sm-4 fieldLabel">Discount</label>
+															<div class="col-md-8 col-sm-8">
+																<input class="form-control" (blur)="onChangeDiscountAmount()" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="{{discountOnRate}}" [(ngModel)]="givenDiscount"  name="discountOnRate" tabindex="9">
+															</div>
+														</div>
 													</div>
 
 													<div class="m-form__actions m-form__actions--solid formTopActionBtnBox formAddItemBox">
@@ -359,14 +364,14 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr *ngIf="trnPurchaseOrderItems.length==0">
+											<tr *ngIf="trnSaleOrderItems.length==0">
 												<td colspan="5">
 													No Record Found
 												</td>
 											</tr>
-											<tr *ngFor="let row of trnPurchaseOrderItems;let rowNum=index;let lastRowNum=last;">
+											<tr *ngFor="let row of trnSaleOrderItems;let rowNum=index;let lastRowNum=last;">
 												<td>{{row.categoryName}}</td>
-												<td>{{row.collectionName}}</td>
+												<td>{{row.collectionName|| row.accessoryName}}</td>
 												<td>{{row.serialno}} {{row.size}} {{row.matSizeCode}}</td>
 												<td> {{row.orderQuantity}}</td>
 												<td>{{row.orderType}}</td>

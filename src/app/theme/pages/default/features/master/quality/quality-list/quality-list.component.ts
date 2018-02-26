@@ -127,7 +127,7 @@ export class QualityListComponent implements OnInit {
   }
 
   onChangeFlatRate(flaterate) {
-    if (flaterate.value) {
+    if ( this.qualityForm.get('purchaseFlatRate').value ||  this.qualityForm.get('flatRate').value) {
       this.disableFlatRate = false;
       this.disableRRP = true;
       this.qualityForm.get('cutRate').disable();
