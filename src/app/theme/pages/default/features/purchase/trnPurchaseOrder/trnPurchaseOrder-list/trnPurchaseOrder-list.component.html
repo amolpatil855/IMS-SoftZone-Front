@@ -96,7 +96,7 @@
 									</ng-template>
 									<ng-template let-row="rowData" pTemplate="body">
 										<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
-										<button type="button" pButton *ngIf="adminFlag && row.status == 'Generated'" (click)="onApprove(row)" icon="fa fa-check" class="editBtn" title="Approve"></button>
+										<button type="button" pButton *ngIf="adminFlag && row.status == 'Created'" (click)="onApprove(row)" icon="fa fa-check" class="editBtn" title="Approve"></button>
 									</ng-template>
 								</p-column>
 							</p-dataTable>

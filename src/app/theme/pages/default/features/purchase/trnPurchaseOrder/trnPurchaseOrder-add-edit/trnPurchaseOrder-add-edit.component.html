@@ -214,7 +214,7 @@
 													<div class="col-md-4" *ngIf="categoryId==2">
 														<label class="col-md-4 col-sm-4 fieldLabel">Foam size<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
-															<p-dropdown class="feePlanBox" [options]="fomSizeList" [(ngModel)]="fomSizeId" [style]="{'width':'100%'}" styleClass="{{shadeIdError?'red-border-class':'' }}"
+															<p-dropdown class="feePlanBox" [options]="fomSizeList" [(ngModel)]="fomSizeId" [style]="{'width':'100%'}" styleClass="{{fomSizeIdError?'red-border-class':'' }}"
 															 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 														</div>
 													</div>
