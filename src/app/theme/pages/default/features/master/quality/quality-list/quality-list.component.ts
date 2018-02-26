@@ -39,7 +39,6 @@ export class QualityListComponent implements OnInit {
   slectedCategory = null;
   tableEmptyMesssage = 'Loading...';
   disableFlatRate = false;
-  disablePurchaseFlatRate = false;
   disableRRP = false;
   flatRateValue = '';
   purchaseFlatRateValue = '';
@@ -128,8 +127,7 @@ export class QualityListComponent implements OnInit {
   }
 
   onChangeFlatRate(flaterate) {
-    this.flatRateValue = flaterate.value;
-    if (this.flatRateValue || this.purchaseFlatRateValue ) {
+    if (flaterate.value) {
       this.disableFlatRate = false;
       this.disableRRP = true;
       this.qualityForm.get('cutRate').disable();
@@ -153,47 +151,6 @@ export class QualityListComponent implements OnInit {
     }
     else {
       this.disableFlatRate = false;
-      this.disableRRP = false;
-      this.qualityForm.get('cutRate').enable();
-      this.qualityForm.get('roleRate').enable();
-      this.qualityForm.get('rrp').enable();
-      this.qualityForm.get('maxCutRateDisc').enable();
-      this.qualityForm.get('maxRoleRateDisc').enable();
-
-      this.qualityForm.get('maxRoleRateDisc').setValidators([Validators.required]);
-      this.qualityForm.get('maxCutRateDisc').setValidators([Validators.required]);
-      this.qualityForm.get('rrp').setValidators([Validators.required]);
-      this.qualityForm.get('roleRate').setValidators([Validators.required]);
-      this.qualityForm.get('cutRate').setValidators([Validators.required]);
-    }
-  }
-
-  onChangePurchaseFlatRate(purchaseFlatRateValue) {
-    this.purchaseFlatRateValue = purchaseFlatRateValue.value;
-    if (this.purchaseFlatRateValue || this.flatRateValue) {
-      this.disablePurchaseFlatRate = false;
-      this.disableRRP = true;
-      this.qualityForm.get('cutRate').disable();
-      this.qualityForm.get('roleRate').disable();
-      this.qualityForm.get('rrp').disable();
-      this.qualityForm.get('maxCutRateDisc').disable();
-      this.qualityForm.get('maxRoleRateDisc').disable();
-
-      this.qualityForm.get('cutRate').setValidators(false);
-      this.qualityForm.get('roleRate').setValidators(false);
-      this.qualityForm.get('rrp').setValidators(false);
-      this.qualityForm.get('maxCutRateDisc').setValidators(false);
-      this.qualityForm.get('maxRoleRateDisc').setValidators(false);
-      this.qualityForm.patchValue({
-        roleRate: '',
-        cutRate: '',
-        rrp: '',
-        maxCutRateDisc: '',
-        maxRoleRateDisc: '',
-      });
-    }
-    else {
-      this.disablePurchaseFlatRate = false;
       this.disableRRP = false;
       this.qualityForm.get('cutRate').enable();
       this.qualityForm.get('roleRate').enable();

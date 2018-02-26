@@ -277,14 +277,13 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   }
 
   calculateProductStockDetails() {
-
     let parameterId = null;
     if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6){
       if(this.shadeId){
         this.shadeIdError = false;
         parameterId = this.shadeId;
       }else{
-        this.shadeIdError = false;
+        this.shadeIdError = true;
         parameterId = this.shadeId;
       }
     }
