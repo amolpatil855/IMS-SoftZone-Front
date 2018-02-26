@@ -7,6 +7,7 @@ import { ConfirmationService, DataTableModule, LazyLoadEvent, SelectItem } from 
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
 import { TrnPurchaseOrderService } from '../../../../_services/trnPurchaseOrder.service';
+import { UserService } from "../../../../_services/user.service";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
 import { TrnPurchaseOrder } from "../../../../_models/trnPurchaseOrder";
@@ -20,6 +21,9 @@ export class TrnPurchaseOrderListComponent implements OnInit {
 trnPurchaseOrderForm: any;
   trnPurchaseOrderObj: TrnPurchaseOrder;
   params: number;
+  userRole: string;
+  adminFlag: boolean = false;
+  status: boolean = false;
   trnPurchaseOrderList = [];
   pageSize = 50;
   page = 1;
@@ -32,6 +36,7 @@ trnPurchaseOrderForm: any;
     private route: ActivatedRoute,
     private router: Router,
     private trnPurchaseOrderService: TrnPurchaseOrderService,
+    private userService: UserService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) {
@@ -39,9 +44,36 @@ trnPurchaseOrderForm: any;
 
   ngOnInit() {
     this.getTrnPurchaseOrdersList();
-  
+    this.getLoggedInUserDetail();
   }
 
+  getLoggedInUserDetail(){
+    this.userService.getLoggedInUserDetail().subscribe(res => {
+      this.userRole = res.mstRole.roleName;
+      if (this.userRole == "Administrator") {
+        this.adminFlag = true;
+      }else{
+        this.adminFlag = false;
+      }
+    });
+  }
+
+  onApprove(purchaseOrderObj){
+    Helpers.setLoading(true);
+    if (purchaseOrderObj.id) {
+      this.trnPurchaseOrderService.approvePurchaseOrder(purchaseOrderObj)
+        .subscribe(
+        results => {
+          this.getTrnPurchaseOrdersList();
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
   getTrnPurchaseOrdersList(){
     this.trnPurchaseOrderService.getAllTrnPurchaseOrders(this.pageSize, this.page, this.search).subscribe(
       results => {

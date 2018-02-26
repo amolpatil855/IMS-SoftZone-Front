@@ -11,6 +11,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 import { Helpers } from "../../../../../../../helpers";
 import { TrnPurchaseOrder } from "../../../../_models/trnPurchaseOrder";
 import { SupplierService } from '../../../../_services/supplier.service';
+import { UserService } from "../../../../_services/user.service";
 import { CommonService } from '../../../../_services/common.service';
 import { CollectionService } from '../../../../_services/collection.service';
 import { TrnProductStockService } from '../../../../_services/trnProductStock.service';
@@ -23,6 +24,9 @@ import { MatSizeService } from '../../../../_services/matSize.service';
 export class TrnPurchaseOrderAddEditComponent implements OnInit {
   trnPurchaseOrderForm: any;
   params: number;
+  userRole: string;
+  adminFlag: boolean = false;
+  status: boolean = false;
   trnPurchaseOrderList = [];
   pageSize = 50;
   page = 1;
@@ -91,6 +95,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private supplierService: SupplierService,
+    private userService: UserService,
     private commonService: CommonService,
     private trnPurchaseOrderService: TrnPurchaseOrderService,
     private globalErrorHandler: GlobalErrorHandler,
@@ -104,6 +109,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   ngOnInit() {
     this.trnPurchaseOrderObj = new TrnPurchaseOrder();
+    this.getLoggedInUserDetail();
     this.getSupplierCodeList();
     this.getLocationList();
     this.getCategoryCodeList();
@@ -126,11 +132,45 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     }
   }
 
+  getLoggedInUserDetail(){
+    this.userService.getLoggedInUserDetail().subscribe(res => {
+      this.userRole = res.mstRole.roleName;
+      if (this.userRole == "Administrator") {
+        this.adminFlag = true;
+      }else{
+        this.adminFlag = false;
+      }
+    });
+  }
+
+  onApprove(){
+    Helpers.setLoading(true);
+    if (this.params) {
+      this.trnPurchaseOrderService.approvePurchaseOrder(this.trnPurchaseOrderObj)
+        .subscribe(
+        results => {
+          this.params=null;
+          this.status = false;
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
   getTrnPurchaseOrderById(id) {
     Helpers.setLoading(true);
     this.trnPurchaseOrderService.getTrnPurchaseOrderById(id).subscribe(
       results => {
         this.trnPurchaseOrderObj = results;
+        if(this.trnPurchaseOrderObj.status == "Generated"){
+          this.status = true;
+        }else{
+          this.status = false;
+        }
         this.trnPurchaseOrderItems = results.trnPurchaseOrderItems;
         _.forEach(this.trnPurchaseOrderItems, function(value) {
          value.categoryName=value.mstCategory.code;

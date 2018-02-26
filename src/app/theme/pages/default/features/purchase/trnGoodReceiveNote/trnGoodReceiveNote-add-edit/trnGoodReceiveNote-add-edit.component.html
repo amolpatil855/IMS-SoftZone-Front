@@ -141,7 +141,133 @@
 									 <div class="col-md-12">
 										<div class="panel panel-default">
 											<div class="panel-heading">Item Details</div>
-											<!-- Add Table Here -->
+											<div class="panel-body">
+												<div class="row form-group">
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Category</label>
+														<div class="col-md-8 col-sm-8">
+															<p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="categoryId" [style]="{'width':'100%'}" styleClass="{{categoryIdError?'red-border-class':'' }}"
+															 (ngModelChange)="onChangeCategory()" name="categoriesDDl" filter="true" tabindex="5"></p-dropdown>
+														</div>
+													</div>
+													<div class="col-md-4" *ngIf="categoryId!=7">
+														<label class="col-md-4 col-sm-4 fieldLabel">Collection</label>
+														<div class="col-md-8 col-sm-8">
+															<p-dropdown class="feePlanBox" [options]="collectionList" [(ngModel)]="collectionId" [style]="{'width':'100%'}" styleClass="{{collectionIdError?'red-border-class': ''}}"
+															 name="collectionCodeDDl" filter="true" tabindex="6" (ngModelChange)="onChangeCollection()"></p-dropdown>
+														</div>
+													</div>
+													<div class="col-md-4" *ngIf="categoryId==1 || categoryId==5 || categoryId==6">
+														<label class="col-md-4 col-sm-4 fieldLabel">Serial No.<span class="requiredField">*</span></label>
+														<div class="col-md-8 col-sm-8">
+															<p-dropdown class="feePlanBox" [options]="shadeIdList" [(ngModel)]="shadeId" [style]="{'width':'100%'}" styleClass="{{shadeIdError?'red-border-class':'' }}"
+															 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+														</div>
+													</div>
+													<div class="col-md-4" *ngIf="categoryId==4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Mat size<span class="requiredField">*</span></label>
+														<div class="col-md-8 col-sm-8">
+															<p-dropdown class="feePlanBox" [options]="matSizeList" [(ngModel)]="matSizeId" [style]="{'width':'100%'}" styleClass="{{matSizeIdError?'red-border-class':'' }}"
+															 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+														</div>
+													</div>
+													<div class="col-md-4" *ngIf="categoryId==2">
+														<label class="col-md-4 col-sm-4 fieldLabel">Foam size<span class="requiredField">*</span></label>
+														<div class="col-md-8 col-sm-8">
+															<p-dropdown class="feePlanBox" [options]="fomSizeList" [(ngModel)]="fomSizeId" [style]="{'width':'100%'}" styleClass="{{shadeIdError?'red-border-class':'' }}"
+															 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+														</div>
+													</div>
+													<div class="col-md-4" *ngIf="categoryId==7">
+														<label class="col-md-4 col-sm-4 fieldLabel">Accessory Code<span class="requiredField">*</span></label>
+														<div class="col-md-8 col-sm-8">
+															<p-dropdown class="feePlanBox" [options]="accessoryCodeList" [(ngModel)]="accessoryId" [style]="{'width':'100%'}" styleClass="{{accessoryIdError?'red-border-class':'' }}"
+															 name="accessoryIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+														</div>
+													</div>
+												</div>
+												<div class="row form-group" *ngIf="categoryId==4 && matSizeId==-1">
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Quality<span class="requiredField">*</span></label>
+														<div class="col-md-8 col-sm-8">
+															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="qualityId"
+															 styleClass="{{qualityIdError?'red-border-class':'' }}"  (ngModelChange)="onQualityClick()"
+															 name="quality"  filter="true" tabindex="2"></p-dropdown>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Length x Width</label>
+														<div class="col-md-3 col-sm-3">
+															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': lengthError}"
+															 [(ngModel)]="length" name="length" placeholder="" autocomplete="off">
+														</div>
+
+														<label class="col-md-2 col-sm-2 fieldLabel">x</label> 
+														<div class="col-md-3 col-sm-3">
+															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': widthError}"
+															 (blur)="calculateSizeCode();" [(ngModel)]="width" name="width" placeholder="" autocomplete="off">
+														</div>
+													</div>
+													<div class="col-md-4">
+														<label class="fieldLabel col-md-4 col-sm-4">Thickness<span class="requiredField">*</span></label>
+														<div class="col-md-8 col-sm-8">
+															 <p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="matThicknessId"
+															 styleClass="{{matThicknessIdError?'red-border-class':'' }}" name="matSizeIdval"  filter="true" ></p-dropdown>
+														</div>
+													</div>
+												</div>
+
+												<div class="row form-group">
+													
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Order Quantity</label>
+														<div class="col-md-8 col-sm-8">
+															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': orderQuantityError}"
+															 [(ngModel)]="orderQuantity" name="orderQuantity" tabindex="8" disabled placeholder="" (blur)="changeOrderType()">
+														</div>
+													</div>
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Received Quantity</label>
+														<div class="col-md-8 col-sm-8">
+															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': orderQuantityError}"
+															 [(ngModel)]="receivedQuantity" name="receivedQuantity" tabindex="8" placeholder="" (blur)="changeOrderType()">
+														</div>
+													</div>
+													<div class="col-md-4" *ngIf="categoryId==2">
+														<label class="col-md-4 col-sm-4 fieldLabel">Foam Quantity(KG)</label>
+														<div class="col-md-8 col-sm-8">
+															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': orderQuantityError}"
+															 [(ngModel)]="fomQuantityInKG" name="fomQuantityInKG" tabindex="8" placeholder="">
+														</div>
+													</div>
+												</div>
+												<div class="row form-group">
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Rate(GST) </label>
+														<div class="col-md-8 col-sm-8">
+															<input class="form-control" [(ngModel)]="rateWithGST" disabled name="rateWithGST" tabindex="8">
+														</div>
+													</div>
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Order Type</label>
+														<div class="col-md-8 col-sm-8">
+															<label class="orderTypeLabel">{{orderType}}</label>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Amount(GST)</label>
+														<div class="col-md-8 col-sm-8">
+															<label class="orderTypeLabel">{{amountWithGST}}</label>
+														</div>
+													</div>
+												</div>
+
+												<div class="m-form__actions m-form__actions--solid formTopActionBtnBox formAddItemBox">
+													<input type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add To List" tabindex="9"
+													 (click)="addItemToList()" />
+													<input type="button" class="btn btn-secondary" value="Cancel" (click)="onCancelItemDetails()" tabindex="10">
+												</div>
+											</div>
 										</div>
 									</div> 
 								</div>
