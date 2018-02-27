@@ -10,7 +10,5 @@ export class TrnGoodReceiveNote {
     locationId: number;
     totalAmount: number;
     supplierName:string;
-    MstCompanyLocation: CompanyLocation;
-    MstSupplier: Supplier;
     TrnGoodReceiveNoteItems=[];
 }
