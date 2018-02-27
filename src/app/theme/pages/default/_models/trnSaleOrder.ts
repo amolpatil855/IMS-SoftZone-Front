@@ -12,6 +12,7 @@ export class TrnSaleOrder {
     referById: number;
     orderDate: Date;
     expectedDeliveryDate: Date;
+    totalAmount: number;
     remark: string;
     status: string;
     financialYear: string;

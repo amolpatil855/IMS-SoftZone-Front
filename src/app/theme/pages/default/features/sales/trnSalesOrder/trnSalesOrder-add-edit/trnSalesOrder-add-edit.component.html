@@ -100,8 +100,7 @@
 																</div>
 															</div>
 															<div class="col-md-6">
-																<label class="col-md-2 col-sm-2 fieldLabel">Customer
-																	<span class="requiredField">*</span>
+																<label class="col-md-2 col-sm-2 fieldLabel">Customer<span class="requiredField">*</span>
 																</label>
 																<div class="col-md-10 col-sm-10 customerNameBox">
 																	<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="trnSalesOrderObj.customerId"
@@ -113,8 +112,7 @@
 														</div>
 														<div class="row form-group">
 															<div class="col-md-3">
-																<label class="col-md-4 col-sm-4 fieldLabel">Courier
-																	<span class="requiredField">*</span>
+																<label class="col-md-4 col-sm-4 fieldLabel">Courier<span class="requiredField">*</span>
 																</label>
 																<div class="col-md-8 col-sm-8">
 																	<p-dropdown class="feePlanBox" [options]="courierList" required [(ngModel)]="trnSalesOrderObj.courierId" #courierVal="ngModel"
@@ -123,8 +121,7 @@
 																</div>
 															</div>
 															<div class="col-md-3">
-																<label class="col-md-5 col-sm-5 fieldLabel noPadding">Courier Mode
-																	<span class="requiredField">*</span>
+																<label class="col-md-5 col-sm-5 fieldLabel noPadding">Courier Mode<span class="requiredField">*</span>
 																</label>
 																<div class="col-md-7 col-sm-7">
 																	<!-- <select name="CourierMode" class="feePlanBox" [(ngModel)]="trnSalesOrderObj.courierMode" required style="width:100%;"  tabindex="5">
@@ -148,18 +145,24 @@
 																<label class="col-md-6 col-sm-6 fieldLabel">Exp.Delivery Date</label>
 																<div class="col-md-6 col-sm-6">
 																	<p-calendar class="purchaseOrderDate" #expectedDeliveryDateVal="ngModel" [(ngModel)]="trnSalesOrderObj.expectedDeliveryDate"
-																	 name="expectedDeliveryDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="7" yearRange="2015:2030"
+																	 name="expectedDeliveryDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="6" yearRange="2015:2030"
 																	 dateFormat="dd/mm/yy" styleClass="{{ expectedDeliveryDateVal.errors && isFormSubmitted?'red-border-class':''}}"
-																	 (onSelect)="onDateSelect()" required></p-calendar>
+																	 (onSelect)="onDateSelect()"></p-calendar>
 																</div>
 															</div>
-									
+															<div class="col-md-3">
+																		<label class="col-md-5 col-sm-5 fieldLabel noPadding">Total Amount</label>
+																		<div class="col-md-7 col-sm-7">
+																			<input type="number" [(ngModel)]="trnSalesOrderObj.totalAmount" name="totalAmount" class="form-control"
+																			 readonly placeholder="">
+																		</div>
+															</div>	
 															<div class="row form-group">
 																
 																	<div class="col-md-12">
 																		<div class="shippingAddressBox">													
 																			
-																			<a href="#" (click)="showDialog()"><b class="shippingAddressLabel">Shipping Address<span class="requiredField">*</span></b></a> 
+																			<a href="#" (click)="showDialog()" tabindex="7"><b class="shippingAddressLabel">Shipping Address<span class="requiredField">*</span></b></a> 
 																					<p *ngIf="!trnSalesOrderObj.shippingAddress">
 																						Please select shipping address by clicking on the link.
 																					</p>
@@ -171,7 +174,7 @@
 																<div class="col-md-6">
 																	<label class="col-md-2 col-sm-2 fieldLabel">Remark</label>
 																	<div class="col-md-10 col-sm-10 purchaseRemarkBox">
-																		<input type="text" [(ngModel)]="trnSalesOrderObj.remark" name="remark" class="form-control" #remarkVal="ngModel" tabindex="7"
+																		<input type="text" [(ngModel)]="trnSalesOrderObj.remark" name="remark" class="form-control" #remarkVal="ngModel" tabindex="8"
 																		 placeholder="">
 																	</div>
 																</div>
@@ -193,68 +196,63 @@
 												<div class="panel-body">
 													<div class="row form-group">
 														<div class="col-md-4">
-															<label class="col-md-4 col-sm-4 fieldLabel">Category</label>
+															<label class="col-md-4 col-sm-4 fieldLabel">Category<span class="requiredField">*</span></label>
 															<div class="col-md-8 col-sm-8">
 																<p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="categoryId" [style]="{'width':'100%'}" styleClass="{{categoryIdError?'red-border-class':'' }}"
-																 (ngModelChange)="onChangeCategory()" name="categoriesDDl" filter="true" tabindex="5"></p-dropdown>
+																 (ngModelChange)="onChangeCategory()" name="categoriesDDl" filter="true" tabindex="9"></p-dropdown>
 															</div>
 														</div>
 														<div class="col-md-4" *ngIf="categoryId!=7">
-															<label class="col-md-4 col-sm-4 fieldLabel">Collection</label>
+															<label class="col-md-4 col-sm-4 fieldLabel">Collection<span class="requiredField">*</span></label>
 															<div class="col-md-8 col-sm-8">
 																<p-dropdown class="feePlanBox" [options]="collectionList" [(ngModel)]="collectionId" [style]="{'width':'100%'}" styleClass="{{collectionIdError?'red-border-class': ''}}"
-																 name="collectionCodeDDl" filter="true" tabindex="6" (ngModelChange)="onChangeCollection()"></p-dropdown>
+																 name="collectionCodeDDl" filter="true" tabindex="10" (ngModelChange)="onChangeCollection()"></p-dropdown>
 															</div>
 														</div>
 														<div class="col-md-4" *ngIf="categoryId==1 || categoryId==5 || categoryId==6">
-															<label class="col-md-4 col-sm-4 fieldLabel">Serial No.
-																<span class="requiredField">*</span>
+															<label class="col-md-4 col-sm-4 fieldLabel">Serial No.<span class="requiredField">*</span>
 															</label>
 															<div class="col-md-8 col-sm-8">
 																<p-dropdown class="feePlanBox" [options]="shadeIdList" [(ngModel)]="shadeId" [style]="{'width':'100%'}" styleClass="{{shadeIdError?'red-border-class':'' }}"
-																 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+																 name="shadeIdDDl" filter="true" tabindex="11" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 															</div>
 														</div>
 														<div class="col-md-4" *ngIf="categoryId==4">
-															<label class="col-md-4 col-sm-4 fieldLabel">Mat size
-																<span class="requiredField">*</span>
+															<label class="col-md-4 col-sm-4 fieldLabel">Mat size<span class="requiredField">*</span>
 															</label>
 															<div class="col-md-8 col-sm-8">
 																<p-dropdown class="feePlanBox" [options]="matSizeList" [(ngModel)]="matSizeId" [style]="{'width':'100%'}" styleClass="{{matSizeIdError?'red-border-class':'' }}"
-																 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+																 name="shadeIdDDl" filter="true" tabindex="11" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 															</div>
 														</div>
 														<div class="col-md-4" *ngIf="categoryId==2">
-															<label class="col-md-4 col-sm-4 fieldLabel">Foam size
-																<span class="requiredField">*</span>
+															<label class="col-md-4 col-sm-4 fieldLabel">Foam size<span class="requiredField">*</span>
 															</label>
 															<div class="col-md-8 col-sm-8">
 																<p-dropdown class="feePlanBox" [options]="fomSizeList" [(ngModel)]="fomSizeId" [style]="{'width':'100%'}" styleClass="{{fomSizeIdError?'red-border-class':'' }}"
-																 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+																 name="shadeIdDDl" filter="true" tabindex="11" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 															</div>
 														</div>
 														<div class="col-md-4" *ngIf="categoryId==7">
-															<label class="col-md-4 col-sm-4 fieldLabel">Accessory Code
-																<span class="requiredField">*</span>
+															<label class="col-md-4 col-sm-4 fieldLabel">Accessory Code<span class="requiredField">*</span>
 															</label>
 															<div class="col-md-8 col-sm-8">
 																<p-dropdown class="feePlanBox" [options]="accessoryCodeList" [(ngModel)]="accessoryId" [style]="{'width':'100%'}" styleClass="{{accessoryIdError?'red-border-class':'' }}"
-																 name="accessoryIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+																 name="accessoryIdDDl" filter="true" tabindex="10" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 															</div>
 														</div>
 													</div>
 													<div class="row form-group" *ngIf="categoryId==4 && matSizeId==-1">
 														<div class="col-md-4">
-															<label class="col-md-4 col-sm-4 fieldLabel">Quality
-																<span class="requiredField">*</span>
+															<label class="col-md-4 col-sm-4 fieldLabel">Quality<span class="requiredField">*</span>
 															</label>
 															<div class="col-md-8 col-sm-8">
 																<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="qualityId" styleClass="{{qualityIdError?'red-border-class':'' }}"
-																 (ngModelChange)="onQualityClick()" name="quality" filter="true" tabindex="2"></p-dropdown>
+																 (ngModelChange)="onQualityClick()" name="quality" filter="true" tabindex="12"></p-dropdown>
 															</div>
 														</div>
 														<div class="col-md-4">
-															<label class="col-md-4 col-sm-4 fieldLabel">Length x Width</label>
+															<label class="col-md-4 col-sm-4 fieldLabel">Length x Width<span class="requiredField">*</span></label>
 															<div class="col-md-3 col-sm-3">
 																<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': lengthError}"
 																 [(ngModel)]="length" name="length" placeholder="" autocomplete="off">
@@ -267,8 +265,7 @@
 															</div>
 														</div>
 														<div class="col-md-4">
-															<label class="fieldLabel col-md-4 col-sm-4">Thickness
-																<span class="requiredField">*</span>
+															<label class="fieldLabel col-md-4 col-sm-4">Thickness<span class="requiredField">*</span>
 															</label>
 															<div class="col-md-8 col-sm-8">
 																<p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="matThicknessId" styleClass="{{matThicknessIdError?'red-border-class':'' }}"
@@ -285,16 +282,16 @@
 															</div>
 														</div>
 														<div class="col-md-4">
-															<label class="col-md-4 col-sm-4 fieldLabel">Order Quantity</label>
+															<label class="col-md-4 col-sm-4 fieldLabel">Order Quantity<span class="requiredField">*</span></label>
 															<div class="col-md-8 col-sm-8">
 																<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': orderQuantityError}"
-																 [(ngModel)]="orderQuantity" name="orderQunatity" tabindex="8" placeholder="" (blur)="changeOrderType()">
+																 [(ngModel)]="orderQuantity" name="orderQunatity" tabindex="11" placeholder="" (blur)="changeOrderType()">
 															</div>
 														</div>
 														<div class="col-md-4">
 															<label class="col-md-4 col-sm-4 fieldLabel">Rate(GST) </label>
 															<div class="col-md-8 col-sm-8">
-																<input class="form-control" [(ngModel)]="rateWithGST" disabled name="rateWithGST" tabindex="8">
+																<input class="form-control" [(ngModel)]="rateWithGST" disabled name="rateWithGST">
 															</div>
 														</div>
 
@@ -315,15 +312,15 @@
 														<div class="col-md-4"  *ngIf="categoryId!=7">
 															<label class="col-md-4 col-sm-4 fieldLabel">Discount</label>
 															<div class="col-md-8 col-sm-8">
-																<input class="form-control" (blur)="onChangeDiscountAmount()" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="{{discountOnRate}}" [(ngModel)]="givenDiscount"  name="discountOnRate" tabindex="9">
+																<input class="form-control" (blur)="onChangeDiscountAmount()" OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="{{discountOnRate}}" [(ngModel)]="givenDiscount"  name="discountOnRate" tabindex="12">
 															</div>
 														</div>
 													</div>
 
 													<div class="m-form__actions m-form__actions--solid formTopActionBtnBox formAddItemBox">
-														<input type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add To List" tabindex="9"
+														<input type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add To List" tabindex="13"
 														 (click)="addItemToList()" />
-														<input type="button" class="btn btn-secondary" value="Cancel" (click)="onCancelItemDetails()" tabindex="10">
+														<input type="button" class="btn btn-secondary" value="Cancel" (click)="onCancelItemDetails()" tabindex="14">
 													</div>
 												</div>
 											</div>
@@ -342,6 +339,9 @@
 												</th>
 												<th title="">
 													Collection
+												</th>
+												<th title="">
+													Accessory
 												</th>
 												<th title="">
 													Serial No/Size
@@ -371,7 +371,8 @@
 											</tr>
 											<tr *ngFor="let row of trnSaleOrderItems;let rowNum=index;let lastRowNum=last;">
 												<td>{{row.categoryName}}</td>
-												<td>{{row.collectionName|| row.accessoryName}}</td>
+												<td>{{row.collectionId ? row.collectionName:''}}</td>
+												<td>{{row.accessoryId ? row.accessoryName : ''}}<td>
 												<td>{{row.serialno}} {{row.size}} {{row.matSizeCode}}</td>
 												<td> {{row.orderQuantity}}</td>
 												<td>{{row.orderType}}</td>

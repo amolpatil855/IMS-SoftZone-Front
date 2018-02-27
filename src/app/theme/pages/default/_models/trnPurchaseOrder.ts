@@ -11,6 +11,8 @@ export class TrnPurchaseOrder {
     supplierId: number;
     orderNumber: number;
     orderDate: Date;
+    expectedDeliveryDate: Date;
+    totalAmount: number;
     locationId: number;
     remark: string;
     status: string;
