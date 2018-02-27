@@ -134,11 +134,11 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       results => {
         this.trnGoodReceiveNoteObj = results;
         this.trnGoodReceiveNoteItems = results.trnGoodReceiveNoteItems;
-        _.forEach(this.trnGoodReceiveNoteItems, function (value) {
-          value.categoryName = value.mstCategory.code;
-          value.collectionName = value.mstCollection.collectionCode;
-
-        });
+        // _.forEach(this.trnGoodReceiveNoteItems, function (value) {
+        //   value.categoryName = value.mstCategory.code;
+        //   value.collectionName = value.mstCollection?value.mstCollection.collectionCode:'';
+        //   value.accessoryName = value.mstCollection?value.mstCollection.collectionCode:'';
+        // });
         delete this.trnGoodReceiveNoteObj['trnGoodReceiveNoteItems'];
         this.locationObj = results.mstCompanyLocation;
         Helpers.setLoading(false);
