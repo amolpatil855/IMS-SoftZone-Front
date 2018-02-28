@@ -108,6 +108,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/sales\/trnSalesOrder\/trnSalesOrder.module#TrnSalesOrderModule"
       },
       {
+        "path": "features\/sales\/trnGoodIssueNote",
+        "loadChildren": ".\/pages\/default\/features\/sales\/trnGoodIssueNote\/trnGoodIssueNote.module#TrnGoodIssueNoteModule"
+      },
+      {
         "path": "header/changePassword",
         "loadChildren": ".\/pages\/default\/features\/changePassword\/changePassword.module#ChangePasswordModule"
       },
