@@ -44,7 +44,7 @@
 			<button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && status" [isAuthorize]="['purchaseorder']" title="Approve" (click)="onApprove()" tabindex="9">
 				Approve
 			</button>
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm" title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			<button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm" title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['purchaseorder']" tabindex="8">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
@@ -185,7 +185,7 @@
 
 									</div>
 
-									<div class="col-md-12">
+									<div class="col-md-12" *ngIf="viewItem">
 										<div class="panel panel-default">
 											<div class="panel-heading">Item Details</div>
 											<div class="panel-body">
@@ -371,7 +371,7 @@
 														<i class="la la-undo" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 													</button> -->
 														<button title="Delete" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-														 *ngIf="row.enable || row.id || !row.id" (click)="onDeleteItemDetails(row.id,rowNum)">
+														 *ngIf="(row.enable || row.id || !row.id) && viewItem" (click)="onDeleteItemDetails(row.id,rowNum)">
 															<i class="la la-close" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 														</button>
 														<!-- <button title="Save" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"

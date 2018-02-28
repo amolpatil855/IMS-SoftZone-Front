@@ -24,6 +24,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   trnGoodReceiveNoteForm: any;
   params: number;
   trnGoodReceiveNoteList = [];
+  showUpdateBtn: boolean = true;
   pageSize = 50;
   page = 1;
   totalCount = 0;
@@ -115,7 +116,8 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     let today = new Date();
     this.locationObj = {};
     this.disabled = false;
-    this.trnGoodReceiveNoteObj.grnDate = today;
+    this.showUpdateBtn = true;
+    this.trnGoodReceiveNoteObj.grnDate=today;
     this.courierModeList.push({ label: '--Select--', value: null });
     this.courierModeList.push({ label: 'Surface', value: 'Surface' });
     this.courierModeList.push({ label: 'Air', value: 'Air' });
@@ -124,6 +126,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     });
     if (this.params) {
       this.disabled = true;
+      this.showUpdateBtn = false;
       this.getTrnGoodReceiveNoteById(this.params);
     }
   }
@@ -704,6 +707,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   onCancel() {
     this.router.navigate(['/features/purchase/trnGoodReceiveNote/list']);
     this.disabled = false;
+    this.showUpdateBtn = true;
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {

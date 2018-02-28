@@ -41,7 +41,7 @@
 			</ul>
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnGoodReceiveNote" title="{{(trnGoodReceiveNote && trnGoodReceiveNote.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			<button type="submit" *ngIf="showUpdateBtn" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnGoodReceiveNote" title="{{(trnGoodReceiveNote && trnGoodReceiveNote.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['grn']" tabindex="8">
 				{{ params ? 'Update' : 'Save' }}
 			</button>

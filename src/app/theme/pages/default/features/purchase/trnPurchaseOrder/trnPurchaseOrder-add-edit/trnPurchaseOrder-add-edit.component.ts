@@ -27,6 +27,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   userRole: string;
   adminFlag: boolean = false;
   status: boolean = false;
+  viewItem: boolean = true;
   trnPurchaseOrderList = [];
   pageSize = 50;
   page = 1;
@@ -152,6 +153,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         results => {
           this.params = null;
           this.status = false;
+          this.viewItem = false;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
         },
@@ -172,10 +174,18 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         } else {
           this.status = false;
         }
+        if (this.trnPurchaseOrderObj.status == "Approved") {
+          this.viewItem = false;
+        } else {
+          this.viewItem = true;
+        }
         this.trnPurchaseOrderItems = results.trnPurchaseOrderItems;
         _.forEach(this.trnPurchaseOrderItems, function (value) {
-          value.categoryName = value.mstCategory.code;
-          value.collectionName = value.mstCollection.collectionCode;
+          if (value.mstCategory != null)
+            value.categoryName = value.mstCategory.code;
+
+          if (value.mstCollection != null)
+            value.collectionName = value.mstCollection.collectionCode;
 
         });
         delete this.trnPurchaseOrderObj['trnPurchaseOrderItems'];
@@ -416,7 +426,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     } else if (this.categoryId == 4 && this.matSizeId == -1) {
       this.matSizeIdError = false;
       this.orderQuantityError = false;
-      if(this.collectionId != null){
+      if (this.collectionId != null) {
         this.getMatQualityList();
       }
     }
@@ -480,15 +490,15 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.thicknessList.unshift({ label: '--Select--', value: null });
     this.matThicknessId = null;
     this.calculateProductStockDetails();
-    if(this.qualityId){
-      this.qualityIdError = false;  
-    }else{
-       this.qualityIdError = true;
+    if (this.qualityId) {
+      this.qualityIdError = false;
+    } else {
+      this.qualityIdError = true;
     }
-      this.lengthError = false;
-      this.widthError = false;
-      this.matThicknessIdError = false;
-      this.orderQuantityError = false;
+    this.lengthError = false;
+    this.widthError = false;
+    this.matThicknessIdError = false;
+    this.orderQuantityError = false;
     if (this.qualityId != null) {
       Helpers.setLoading(true);
       this.matSizeService.getMatThicknessLookUp().subscribe(
@@ -534,7 +544,11 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         icon: 'fa fa-trash',
         accept: () => {
           if (this.trnPurchaseOrderObj.totalAmount >= 0) {
-            this.trnPurchaseOrderObj.totalAmount = this.trnPurchaseOrderObj.totalAmount - this.trnPurchaseOrderItems[index].amountWithGST;
+            if (this.trnPurchaseOrderItems.length > 0) {
+              this.trnPurchaseOrderObj.totalAmount = this.trnPurchaseOrderObj.totalAmount - this.trnPurchaseOrderItems[index].amountWithGST;
+            } else {
+              this.trnPurchaseOrderObj.totalAmount = 0;
+            }
           }
           this.trnPurchaseOrderItems.splice(index, 1);
           // this.trnPurchaseOrderService.deleteItem(id).subscribe(
@@ -551,7 +565,11 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     }
     else {
       if (this.trnPurchaseOrderObj.totalAmount >= 0) {
-        this.trnPurchaseOrderObj.totalAmount = this.trnPurchaseOrderObj.totalAmount - this.trnPurchaseOrderItems[index].amountWithGST;
+        if (this.trnPurchaseOrderItems.length > 0) {
+          this.trnPurchaseOrderObj.totalAmount = this.trnPurchaseOrderObj.totalAmount - this.trnPurchaseOrderItems[index].amountWithGST;
+        } else {
+          this.trnPurchaseOrderObj.totalAmount = 0;
+        }
       }
       this.trnPurchaseOrderItems.splice(index, 1);
     }
@@ -804,14 +822,16 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
 
   getCollectionList() {
-    this.collectionService.getCollectionLookUp(this.categoryId).subscribe(
-      results => {
-        this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: null });
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
+    if ((this.trnPurchaseOrderObj.supplierId != null) && (this.categoryId != null)) {
+      this.trnPurchaseOrderService.getCollectionBySuppliernCategoryId(this.trnPurchaseOrderObj.supplierId, this.categoryId).subscribe(
+        results => {
+          this.collectionList = results;
+          this.collectionList.unshift({ label: '--Select--', value: null });
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        });
+    }
   }
   getLocationList() {
     this.commonService.getLocation().subscribe(
@@ -836,6 +856,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   onCancel() {
     this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
     this.disabled = false;
+    this.viewItem = true;
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
@@ -856,7 +877,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       } else {
         this.trnPurchaseOrderObj.shippingAddress = "";
       }
-       this.saveTrnPurchaseOrder(this.trnPurchaseOrderObj);
+      this.saveTrnPurchaseOrder(this.trnPurchaseOrderObj);
     }
   }
 
