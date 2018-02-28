@@ -7,6 +7,7 @@ import { ConfirmationService, DataTableModule, LazyLoadEvent, SelectItem } from 
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
 import { TrnSalesOrderService } from '../../../../_services/trnSalesOrder.service';
+import { UserService } from "../../../../_services/user.service";
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
 import { TrnSaleOrder } from "../../../../_models/trnSaleOrder";
@@ -19,6 +20,9 @@ export class TrnSalesOrderListComponent implements OnInit {
   trnSalesOrderForm: any;
   trnSalesOrderObj: any;
   params: number;
+  userRole: string;
+  adminFlag: boolean = false;
+  status: boolean = false;
   trnSalesOrderList = [];
   pageSize = 50;
   page = 1;
@@ -30,13 +34,42 @@ export class TrnSalesOrderListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private trnSalesOrderService: TrnSalesOrderService,
+    private userService: UserService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) {
   }
 
   ngOnInit() {
+    this.getLoggedInUserDetail();
+  }
 
+  getLoggedInUserDetail(){
+    this.userService.getLoggedInUserDetail().subscribe(res => {
+      this.userRole = res.mstRole.roleName;
+      if (this.userRole == "Administrator") {
+        this.adminFlag = true;
+      }else{
+        this.adminFlag = false;
+      }
+    });
+  }
+
+  onApprove(saleOrderObj){
+    Helpers.setLoading(true);
+    if (saleOrderObj.id) {
+      this.trnSalesOrderService.approveSalesOrder(saleOrderObj)
+        .subscribe(
+        results => {
+          this.getTrnSalesOrdersList();
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
   }
 
   getTrnSalesOrdersList() {

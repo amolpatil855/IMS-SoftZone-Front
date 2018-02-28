@@ -21,6 +21,10 @@ export class TrnPurchaseOrderService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCourierLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getCollectionBySuppliernCategoryId(supplierId, categoryId) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnPurchaseOrder/GetCollectionBySuppliernCategoryId?supplierId=' + supplierId + '&categoryId=' + categoryId, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   getTrnPurchaseOrderById(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnPurchaseOrder/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

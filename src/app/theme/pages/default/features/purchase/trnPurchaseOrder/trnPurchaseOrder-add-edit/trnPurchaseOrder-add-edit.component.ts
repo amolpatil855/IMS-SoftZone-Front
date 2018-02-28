@@ -27,6 +27,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   userRole: string;
   adminFlag: boolean = false;
   status: boolean = false;
+  viewItem: boolean = false;
   trnPurchaseOrderList = [];
   pageSize = 50;
   page = 1;
@@ -152,6 +153,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         results => {
           this.params = null;
           this.status = false;
+          this.viewItem = true;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
         },
@@ -171,6 +173,11 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
           this.status = true;
         } else {
           this.status = false;
+        }
+        if (this.trnPurchaseOrderObj.status == "Approved") {
+          this.viewItem = false;
+        } else {
+          this.viewItem = true;
         }
         this.trnPurchaseOrderItems = results.trnPurchaseOrderItems;
         _.forEach(this.trnPurchaseOrderItems, function (value) {
@@ -815,14 +822,16 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
 
   getCollectionList() {
-    this.collectionService.getCollectionLookUp(this.categoryId).subscribe(
-      results => {
-        this.collectionList = results;
-        this.collectionList.unshift({ label: '--Select--', value: null });
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-      });
+    if ((this.trnPurchaseOrderObj.supplierId != null) && (this.categoryId != null)) {
+      this.trnPurchaseOrderService.getCollectionBySuppliernCategoryId(this.trnPurchaseOrderObj.supplierId, this.categoryId).subscribe(
+        results => {
+          this.collectionList = results;
+          this.collectionList.unshift({ label: '--Select--', value: null });
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        });
+    }
   }
   getLocationList() {
     this.commonService.getLocation().subscribe(

@@ -6,6 +6,7 @@ import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@ang
 import { ConfirmationService, DataTableModule, LazyLoadEvent, SelectItem } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
+import { UserService } from "../../../../_services/user.service";
 import { TrnSalesOrderService } from '../../../../_services/trnSalesOrder.service';
 import { ShadeService } from '../../../../_services/shade.service';
 import { FomSizeService } from '../../../../_services/fomSize.service';
@@ -25,7 +26,11 @@ import { CollectionService } from '../../../../_services/collection.service';
 export class TrnSalesOrderAddEditComponent implements OnInit {
   trnSalesOrderForm: any;
   trnSalesOrderObj: any;
+  userRole: string;
   params: number;
+  adminFlag: boolean = false;
+  status: boolean = false;
+  viewItem: boolean = false;
   trnSalesOrderList = [];
   categoryList: SelectItem[];
   discountOnRate: 0;
@@ -109,6 +114,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private userService: UserService,
     private trnSalesOrderService: TrnSalesOrderService,
     private shadeService: ShadeService,
     private fomSizeService: FomSizeService,
@@ -123,6 +129,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
   ngOnInit() {
     this.trnSalesOrderObj = new TrnSaleOrder();
+    this.getLoggedInUserDetail();
     this.getCategoryCodeList();
     this.getCourierList();
     this.getAccessoryLookup();
@@ -145,6 +152,36 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     }
   }
 
+  getLoggedInUserDetail() {
+    this.userService.getLoggedInUserDetail().subscribe(res => {
+      this.userRole = res.mstRole.roleName;
+      if (this.userRole == "Administrator") {
+        this.adminFlag = true;
+      } else {
+        this.adminFlag = false;
+      }
+    });
+  }
+
+  onApprove() {
+    Helpers.setLoading(true);
+    if (this.params) {
+      this.trnSalesOrderService.approveSalesOrder(this.trnSalesOrderObj)
+        .subscribe(
+        results => {
+          this.params = null;
+          this.status = false;
+          this.viewItem = true;
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
   getCustomerLookUp() {
     Helpers.setLoading(true);
     this.trnSalesOrderService.getCustomerLookUp().subscribe(
@@ -164,13 +201,25 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.trnSalesOrderService.getTrnSaleOrderById(id).subscribe(
       results => {
         this.trnSalesOrderObj = results;
+        if (this.trnSalesOrderObj.status == "Created") {
+          this.status = true;
+        } else {
+          this.status = false;
+        }
+        if (this.trnSalesOrderObj.status == "Approved") {
+          this.viewItem = false;
+        } else {
+          this.viewItem = true;
+        }
         this.trnSalesOrderObj.orderDate = new Date(this.trnSalesOrderObj.orderDate);
         this.trnSalesOrderObj.expectedDeliveryDate = new Date(this.trnSalesOrderObj.expectedDeliveryDate);
         this.trnSaleOrderItems = results.trnSaleOrderItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
         _.forEach(this.trnSaleOrderItems, function (value) {
-          value.categoryName = value.mstCategory.code;
-          value.collectionName = value.mstCollection.collectionCode;
+          if (value.mstCategory != null)
+            value.categoryName = value.mstCategory.code;
+          if (value.mstCollection != null)
+            value.collectionName = value.mstCollection.collectionCode;
 
         });
         delete this.trnSalesOrderObj['trnSaleOrderItems'];
@@ -857,5 +906,6 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
   onCancel() {
     this.router.navigate(['/features/sales/trnSalesOrder/list']);
+    this.disabled = false;
   }
 }
