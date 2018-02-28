@@ -512,7 +512,11 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         icon: 'fa fa-trash',
         accept: () => {
           if (this.trnSalesOrderObj.totalAmount >= 0) {
-            this.trnSalesOrderObj.totalAmount = this.trnSalesOrderObj.totalAmount - this.trnSaleOrderItems[index].amountWithGST;
+            if (this.trnSaleOrderItems.length > 0) {
+              this.trnSalesOrderObj.totalAmount = this.trnSalesOrderObj.totalAmount - this.trnSaleOrderItems[index].amountWithGST;
+            } else {
+              this.trnSalesOrderObj.totalAmount = 0;
+            }
           }
           this.trnSaleOrderItems.splice(index, 1);
           // this.trnSalesOrderService.deleteItem(id).subscribe(
@@ -529,7 +533,11 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     }
     else {
       if (this.trnSalesOrderObj.totalAmount >= 0) {
-        this.trnSalesOrderObj.totalAmount = this.trnSalesOrderObj.totalAmount - this.trnSaleOrderItems[index].amountWithGST;
+        if (this.trnSaleOrderItems.length > 0) {
+          this.trnSalesOrderObj.totalAmount = this.trnSalesOrderObj.totalAmount - this.trnSaleOrderItems[index].amountWithGST;
+        } else {
+          this.trnSalesOrderObj.totalAmount = 0;
+        }
       }
       this.trnSaleOrderItems.splice(index, 1);
     }
