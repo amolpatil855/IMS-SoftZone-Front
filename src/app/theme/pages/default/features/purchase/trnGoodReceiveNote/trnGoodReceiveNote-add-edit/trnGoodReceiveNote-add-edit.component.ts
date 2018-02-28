@@ -52,6 +52,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   isFormSubmitted = false;
   categoryIdError = false;
   collectionIdError = false;
+  purchaseOrderIdIdError=false;
   shadeIdError = false;
   lengthError = false;
   widthError = false;
@@ -182,6 +183,11 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.accessoryIdError = true;
     else
       this.accessoryIdError = false;
+
+    if(!this.purchaseOrderId)
+     this.purchaseOrderIdIdError=true;
+     else
+     this.purchaseOrderIdIdError=false;
 
     if (this.categoryId == 4 && this.matSizeId == -1 && !this.length)
       this.lengthError = true;
