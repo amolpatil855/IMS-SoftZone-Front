@@ -31,14 +31,14 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   search = '';
   tableEmptyMesssage = 'Loading...';
   supplierCodeList = [];
-  receivedQuantity=0;
+  receivedQuantity = 0;
   locationList = [];
   trnGoodReceiveNoteObj: TrnGoodReceiveNote;
   collectionList = [];
   categoriesCodeList = [];
   shadeIdList = [];
   categoryId = null;
-  purchaseOrderId=null;
+  purchaseOrderId = null;
   matThicknessId = null;
   collectionId = null;
   trnGoodReceiveNoteItems = [];
@@ -233,7 +233,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       fomSizeId: this.fomSizeId,
       matSizeId: this.matSizeId,
       orderQuantity: this.orderQuantity,
-      receivedQuantity:this.receivedQuantity,
+      receivedQuantity: this.receivedQuantity,
       rateWithGST: this.rateWithGST,
       rate: this.rate,
       amountWithGST: this.amountWithGST,
@@ -242,7 +242,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       width: this.width,
       matSizeCode: this.matSizeCode,
       accessoryId: this.accessoryId,
-      purchaseOrderId:this.purchaseOrderId
+      purchaseOrderId: this.purchaseOrderId
     };
     this.trnGoodReceiveNoteItems.push(itemObj);
     this.onCancelItemDetails();
@@ -346,11 +346,11 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.trnGoodReceiveNoteService.getPOListForSelectedItem(this.categoryId, this.collectionId, parameterId, this.matSizeCode).subscribe(
       data => {
         this.purchaseItemList = data;
-        this.purchaseOrderList=[];
-        let vm=this;
+        this.purchaseOrderList = [];
+        let vm = this;
         console.log('this.purchaseItemList', this.purchaseItemList);
-        _.forEach(this.purchaseItemList, function(value) {
-            vm.purchaseOrderList.push({ label: value.purchaseOrderNumber, value: value.purchaseOrderId });
+        _.forEach(this.purchaseItemList, function (value) {
+          vm.purchaseOrderList.push({ label: value.purchaseOrderNumber, value: value.purchaseOrderId });
         });
         this.purchaseOrderList.unshift({ label: '--Select--', value: null });
         console.log('this.purchaseOrderList', this.purchaseOrderList);
@@ -359,17 +359,17 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       });
   }
 
-  onPuchaseOrderChange(){
-    let poObj=_.find( this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId});
-    this.orderQuantity=poObj.orderQuantity;
-    this.rateWithGST=poObj.rateWithGST;
-    this.orderType=poObj.orderType;
-    this.rate=poObj.rate;
+  onPuchaseOrderChange() {
+    let poObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
+    this.orderQuantity = poObj.orderQuantity;
+    this.rateWithGST = poObj.rateWithGST;
+    this.orderType = poObj.orderType;
+    this.rate = poObj.rate;
   }
 
-  changeRecivedQuantity(){
-    let poObj=_.find( this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId});
-    this.amountWithGST=poObj.rateWithGST * this.receivedQuantity;
+  changeRecivedQuantity() {
+    let poObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
+    this.amountWithGST = poObj.rateWithGST * this.receivedQuantity;
   }
 
   getMatQualityList() {
@@ -532,14 +532,16 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
 
   onChangeCategory() {
-    if (this.categoryId && this.categoryId!=7) {
+    if (this.categoryId && this.categoryId != 7) {
       this.categoryIdError = false;
-      this.accessoryCodeList=[];
+      this.accessoryCodeList = [];
+      this.accessoryId = null;
       this.getCollectionList();
     }
-    else if(this.categoryId && this.categoryId==7){
+    else if (this.categoryId && this.categoryId == 7) {
       this.categoryIdError = false;
       this.collectionList = [];
+      this.collectionId = null;
       this.getAccessoryLookup();
     }
     else {
@@ -673,7 +675,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   }
 
   getCollectionList() {
-    this.collectionService.getCollectionForGRNByCategorynSupplierId(this.categoryId,this.trnGoodReceiveNoteObj.supplierId).subscribe(
+    this.collectionService.getCollectionForGRNByCategorynSupplierId(this.categoryId, this.trnGoodReceiveNoteObj.supplierId).subscribe(
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
