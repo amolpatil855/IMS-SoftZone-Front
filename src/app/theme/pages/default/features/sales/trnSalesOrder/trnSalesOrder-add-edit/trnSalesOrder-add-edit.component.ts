@@ -30,7 +30,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   params: number;
   adminFlag: boolean = false;
   status: boolean = false;
-  viewItem: boolean = false;
+  viewItem: boolean = true;
   trnSalesOrderList = [];
   categoryList: SelectItem[];
   discountOnRate: 0;
@@ -171,7 +171,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         results => {
           this.params = null;
           this.status = false;
-          this.viewItem = true;
+          this.viewItem = false;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
         },
@@ -907,5 +907,6 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   onCancel() {
     this.router.navigate(['/features/sales/trnSalesOrder/list']);
     this.disabled = false;
+    this.viewItem = true;
   }
 }

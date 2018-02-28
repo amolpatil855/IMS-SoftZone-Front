@@ -44,7 +44,7 @@
 			<button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && status" [isAuthorize]="['purchaseorder']" title="Approve" (click)="onApprove()" tabindex="9">
 				Approve
 			</button>
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm" title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			<button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm" title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['purchaseorder']" tabindex="8">
 				{{ params ? 'Update' : 'Save' }}
 			</button>

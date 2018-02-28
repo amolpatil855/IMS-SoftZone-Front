@@ -27,7 +27,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   userRole: string;
   adminFlag: boolean = false;
   status: boolean = false;
-  viewItem: boolean = false;
+  viewItem: boolean = true;
   trnPurchaseOrderList = [];
   pageSize = 50;
   page = 1;
@@ -153,7 +153,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         results => {
           this.params = null;
           this.status = false;
-          this.viewItem = true;
+          this.viewItem = false;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
         },
@@ -856,6 +856,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   onCancel() {
     this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
     this.disabled = false;
+    this.viewItem = true;
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
