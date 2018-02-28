@@ -185,7 +185,7 @@
 
 									</div>
 
-									<div class="col-md-12">
+									<div class="col-md-12" *ngIf="viewItem">
 										<div class="panel panel-default">
 											<div class="panel-heading">Item Details</div>
 											<div class="panel-body">
@@ -354,7 +354,7 @@
 											<tr *ngFor="let row of trnPurchaseOrderItems;let rowNum=index;let lastRowNum=last;">
 												<td>{{row.categoryName}}</td>
 												<td>{{row.collectionId ? row.collectionName:''}}</td>
-												<td>{{row.accessoryId ? row.accessoryName : ''}}<td>
+												<td>{{row.accessoryId ? row.accessoryName : ''}}</td>
 												<td>{{row.serialno}} {{row.size}} {{row.matSizeCode}}</td>
 												<td> {{row.orderQuantity}}</td>
 												<td>{{row.orderType}}</td>
@@ -371,7 +371,7 @@
 														<i class="la la-undo" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 													</button> -->
 														<button title="Delete" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-														 *ngIf="row.enable || row.id || !row.id" (click)="onDeleteItemDetails(row.id,rowNum)">
+														 *ngIf="(row.enable || row.id || !row.id) && viewItem" (click)="onDeleteItemDetails(row.id,rowNum)">
 															<i class="la la-close" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 														</button>
 														<!-- <button title="Save" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"

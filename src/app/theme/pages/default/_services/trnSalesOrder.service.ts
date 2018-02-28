@@ -61,6 +61,10 @@ export class TrnSalesOrderService {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStock/GetProductDetails?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId + '&qualityId=' + qualityId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  approveSalesOrder(trnSaleOrder: TrnSaleOrder) {
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnSaleOrder/ApproveSO/' + trnSaleOrder.id, trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   getSerialNumberLookUpByCollection(collectionId) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpForSO?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
