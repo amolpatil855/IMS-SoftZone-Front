@@ -220,7 +220,7 @@
                                     <div class="col-md-7 col-sm-7">
                                       <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" formControlName="cutRate"
                                         [disabled]="disableRRP" (blur)="onChangeRRP(qualityForm.get('cutRate'),qualityForm.get('flatRate'))"
-                                        maxlength="6" onKeyPress="if(this.value.length==6) return false;" required [ngClass]="{'red-border-class': qualityForm.get('flatRate').hasError('required') && isFormSubmitted}"
+                                         required [ngClass]="{'red-border-class': qualityForm.get('flatRate').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="9">
                                     </div>
                                   </div>
