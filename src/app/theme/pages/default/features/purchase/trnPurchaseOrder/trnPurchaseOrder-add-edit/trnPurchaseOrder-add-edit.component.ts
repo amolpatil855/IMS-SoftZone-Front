@@ -129,8 +129,13 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.params = params['id'];
     });
     if (this.params) {
+     
+      this.viewItem = false;
       this.disabled = true;
       this.getTrnPurchaseOrderById(this.params);
+    }
+    else{
+      this.status = true;
     }
   }
 
@@ -174,7 +179,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         } else {
           this.status = false;
         }
-        if (this.trnPurchaseOrderObj.status == "Approved") {
+        if (this.trnPurchaseOrderObj.status != "Created") {
           this.viewItem = false;
         } else {
           this.viewItem = true;

@@ -87,7 +87,7 @@
 										Action
 									</ng-template>
 									<ng-template let-row="rowData" pTemplate="body" >
-										<button type="button" pButton (click)="onEditClick(row)" icon="{{row.status != 'Approved' ? 'fa fa-pencil' : 'fa fa-info-circle'}}" class="editBtn" title="{{row.status != 'Approved' ? 'Edit' : 'View Details'}}"></button>
+										<button type="button" pButton (click)="onEditClick(row)" icon="{{row.status == 'Created' ? 'fa fa-pencil' : 'fa fa-info-circle'}}" class="editBtn" title="{{row.status != 'Approved' ? 'Edit' : 'View Details'}}"></button>
 										<button type="button" pButton *ngIf="adminFlag && row.status == 'Created'" (click)="onApprove(row)" icon="fa fa-check" class="editBtn" title="Approve"></button>
 									</ng-template>
 								</p-column>

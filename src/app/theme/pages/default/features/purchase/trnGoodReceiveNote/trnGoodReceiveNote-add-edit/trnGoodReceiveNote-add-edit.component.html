@@ -138,7 +138,7 @@
 
 									</div>
 
-									 <div class="col-md-12">
+									 <div class="col-md-12"  *ngIf="showUpdateBtn">
 										<div class="panel panel-default">
 											<div class="panel-heading">Item Details</div>
 											<div class="panel-body">
@@ -339,7 +339,7 @@
 														<i class="la la-undo" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 													</button> -->
 														<button title="Delete" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-														 *ngIf="row.enable || row.id || !row.id" (click)="onDeleteItemDetails(row.id,rowNum)">
+														 *ngIf="showUpdateBtn && (row.enable || row.id || !row.id)"  (click)="onDeleteItemDetails(row.id,rowNum)">
 															<i class="la la-close" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 														</button>
 														<!-- <button title="Save" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
