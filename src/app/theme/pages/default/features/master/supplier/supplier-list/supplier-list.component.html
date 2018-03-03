@@ -92,19 +92,19 @@
 												  <div class="panel-heading">Supplier Basic Information</div>
 												  <div class="panel-body">	
 													<div class="form-group">
-														<label class="col-md-2 col-sm-2 fieldLabel">Code<span class="requiredField">*</span></label>
-														<div class="col-md-4 col-sm-4">
+														<label class="col-lg-2 col-md-6 col-sm-2 fieldLabel">Code<span class="requiredField">*</span></label>
+														<div class="col-lg-4 col-md-12 col-sm-4">
 															<input type="text" class="form-control"    [ngClass]="{'red-border-class': codeVal.errors && isFormSubmitted}"  #codeVal="ngModel" required [(ngModel)]="supplierObj.code" name="code"  placeholder="Code" id="code" maxlength="50" autofocus tabindex="1">
 														</div>	
 														
-														<label class="col-md-2 col-sm-2 fieldLabel">Name<span class="requiredField">*</span></label>
-														<div class="col-md-4 col-sm-4">
+														<label class="col-lg-2 col-md-6 col-sm-2 fieldLabel">Name<span class="requiredField">*</span></label>
+														<div class="col-lg-4 col-md-12 col-sm-4">
 															<input type="text" class="form-control"  [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"  #nameVal="ngModel" required [(ngModel)]="supplierObj.name" name="name"  placeholder="Name" id="name" maxlength="100" tabindex="2">
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-2 col-sm-2 fieldLabel">Email<span class="requiredField">*</span></label>
-														<div class="col-md-4 col-sm-4">
+														<label class="col-lg-2 col-md-6 col-sm-2 fieldLabel">Email<span class="requiredField">*</span></label>
+														<div class="col-lg-4 col-md-12 col-sm-4">
 															<input type="email" class="form-control" email   pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" [ngClass]="{'red-border-class': emailVal.errors && isFormSubmitted}"   #emailVal="ngModel" required [(ngModel)]="supplierObj.email" name="email" placeholder="Email" maxlength="254" tabindex="3">
 															<div *ngIf="emailVal.errors && (emailVal.dirty || emailVal.touched)" class="alertMsg">
 																	<div *ngIf="emailVal.errors.pattern">
@@ -113,14 +113,14 @@
 																</div>
 														</div>	
 														
-														<label class="col-md-2 col-sm-2 fieldLabel">Firm Name<span class="requiredField">*</span></label>
-														<div class="col-md-4 col-sm-4">
+														<label class="col-lg-2 col-md-6 col-sm-2 fieldLabel">Firm Name<span class="requiredField">*</span></label>
+														<div class="col-lg-4 col-md-12 col-sm-4">
 															<input type="text" class="form-control"    [ngClass]="{'red-border-class': firmNameVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.firmName"  required  #firmNameVal="ngModel"   name="firmName" id="firmName"  placeholder="FirmName" maxlength="50" tabindex="4">
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-2 col-sm-2 fieldLabel">Phone<span class="requiredField">*</span></label>
-														<div class="col-md-4 col-sm-4">
+														<label class="col-lg-2 col-md-6 col-sm-2 fieldLabel">Phone<span class="requiredField">*</span></label>
+														<div class="col-lg-4 col-md-12 col-sm-4">
 															<input type="phone" class="form-control"  pattern="^[0-9]+"  onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}" [(ngModel)]="supplierObj.phone" name="phone" required #phoneVal="ngModel" placeholder="Phone" minlength="10" maxlength="10" tabindex="5">
 																<div *ngIf="phoneVal.errors && (phoneVal.dirty || phoneVal.touched)" class="alertMsg">
 																	<div *ngIf="phoneVal.errors.minlength && !phoneVal.errors.pattern">
@@ -131,14 +131,14 @@
 																	</div>
 																</div>
 														</div>
-															<label class="col-md-2 col-sm-2 fieldLabel">Credit Period Days</label>
-																<div class="col-md-4 col-sm-4">
+															<label class="col-lg-2 col-md-6 col-sm-2 fieldLabel">Credit Period Days</label>
+																<div class="col-lg-4 col-md-12 col-sm-4">
 																	<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [(ngModel)]="supplierObj.creditPeriodDays" name="creditPeriodDays" placeholder="Credit Period Days" autocomplete="off" tabindex="5">
 																</div>
 													</div>																							
 													<div class="form-group">
-														<label class="col-md-2 col-sm-2 fieldLabel">Description</label>
-														<div class="col-md-10 col-sm-10">
+														<label class="col-lg-2 col-md-6 col-sm-2 fieldLabel">Description</label>
+														<div class="col-lg-10 col-md-12 col-sm-10">
 															<input type="text" class="form-control"   [(ngModel)]="supplierObj.description" name="description" id="description" placeholder="Description" tabindex="6">
 														</div>																						
 													</div>
