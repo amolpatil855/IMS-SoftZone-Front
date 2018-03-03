@@ -66,7 +66,7 @@
                               <div class="panel-body">
                                  <div class="form-group">
                                     
-									                  <div class="col-md-4 formContentbox">
+									                  <div class="col-lg-4 col-md-6 formContentbox">
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Accessory Name<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
@@ -74,7 +74,7 @@
                                           </div>
                                        </div>
                                     </div>
-                                      <div class="col-md-4 formContentbox">
+                                      <div class="col-lg-4 col-md-6 formContentbox">
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Accessory Code<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
@@ -82,7 +82,7 @@
                                           </div>
                                        </div>
                                     </div>
-                                       <div class="col-md-4 formContentbox">
+                                       <div class="col-lg-4 col-md-6 formContentbox">
                                        <label class="fieldLabel col-sm-5">Unit Of Measure<span class="requiredField">*</span></label>
                                        <div class="col-sm-7">
                                           <p-dropdown class="feePlanBox" [options]="unitOfMeasureList" [style]="{'width':'100%'}"  [(ngModel)]="selectedUnitOfMeasure"  #selectedUomVal="ngModel"  required styleClass="{{ selectedUomVal.errors && isFormSubmitted?'red-border-class':''}}" name="uomId" filter="true" tabindex="3"></p-dropdown>
@@ -91,21 +91,21 @@
                                     </div>
 									<div class="form-group">
                                    
-                                    <div class="col-md-4 formContentbox">
+                                    <div class="col-lg-4 col-md-6 formContentbox">
                                        <label class="fieldLabel col-sm-5">HSN<span class="requiredField">*</span></label>
                                        <div class="col-sm-7">
                                           <p-dropdown class="feePlanBox" [options]="hsnList" [style]="{'width':'100%'}" [(ngModel)]="selectedHsn"   #selectedHsnVal="ngModel"  required styleClass="{{ selectedHsnVal.errors && isFormSubmitted?'red-border-class':''}}" name="hsnId" filter="true" tabindex="4"></p-dropdown>
                                        </div>
                                     </div>
                                     
-                                    <div class="col-md-4 formContentbox">
+                                    <div class="col-lg-4 col-md-6 formContentbox">
                                        <label class="fieldLabel col-sm-5">Supplier<span class="requiredField">*</span></label>
                                        <div class="col-sm-7">
                                           <p-dropdown class="feePlanBox" [options]="supplierCodeList" [style]="{'width':'100%'}" [(ngModel)]="selectedSupplier"   #selectedSupplierVal="ngModel"  required styleClass="{{ selectedSupplierVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="supplierId" filter="true" tabindex="5"></p-dropdown>
                                        </div>
                                     </div>
 
-                                    <div class="col-md-4 formContentbox">
+                                    <div class="col-lg-4 col-md-6 formContentbox">
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Selling Rate <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
@@ -115,7 +115,7 @@
                                           </div>
                                        </div>
                                     </div>
-                                    <div class="col-md-4 formContentbox">
+                                    <div class="col-lg-4 col-md-6 formContentbox">
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Purchase Rate <i class="fa fa-inr"></i><span class="requiredField">*</span></label>
                                         <div class="col-sm-7">
@@ -125,7 +125,7 @@
                                         </div>
                                        </div>
                                     </div>
-                                    <div class="col-md-4 formContentbox">
+                                    <div class="col-lg-4 col-md-6 formContentbox">
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Size<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
@@ -134,7 +134,7 @@
                                           </div>
                                        </div>
                                     </div>
-                                    <div class="col-md-4 formContentbox">
+                                    <div class="col-lg-4 col-md-6 formContentbox">
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Description</label>
                                           <div class="col-sm-7">

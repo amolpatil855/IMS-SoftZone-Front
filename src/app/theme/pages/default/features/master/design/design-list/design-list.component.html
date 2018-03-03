@@ -65,19 +65,19 @@
                               <div class="panel-heading">Design Basic Details</div>
                               <div class="panel-body">
                                  <div class="form-group">
-                                    <div class="col-md-4 formContentbox">
+                                    <div class="col-lg-4 col-md-6 formContentbox">
                                        <label class="fieldLabel col-sm-5">Category<span class="requiredField">*</span></label>
                                        <div class="col-sm-7">
                                           <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}"  #selectedCategoryVal="ngModel" [(ngModel)]="selectedCategory" required styleClass="{{ selectedCategoryVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="category" (ngModelChange)="onCategoryClick()" filter="true" autofocus tabindex="1"></p-dropdown>
                                        </div>
                                     </div>
-                                    <div class="col-md-4 formContentbox">
+                                    <div class="col-lg-4 col-md-6 formContentbox">
                                        <label class="fieldLabel col-sm-5">Collection<span class="requiredField">*</span></label>
                                        <div class="col-sm-7">
                                           <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}"  #selectedCollectionVal="ngModel" [(ngModel)]="selectedCollection" required styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" tabindex="2"></p-dropdown>
                                        </div>
                                     </div>
-                                    <div class="col-md-4 formContentbox">
+                                    <div class="col-lg-4 col-md-6 formContentbox">
                                        <label class="fieldLabel col-sm-5">Quality<span class="requiredField">*</span></label>
                                        <div class="col-sm-7">
                                           <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality"   #selectedQualityVal="ngModel"  required styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" name="quality" filter="true" tabindex="3"></p-dropdown>
@@ -86,7 +86,7 @@
 									</div>
 									
 									<div class="form-group">
-                                    <div class="col-md-4 formContentbox">
+                                    <div class="col-lg-4 col-md-6 formContentbox">
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Design Code<span class="requiredField">*</span></label>
                                           <input class="form-control m-input col-sm-7" type="text" value=""   [ngClass]="{'red-border-class': designCodeVal.errors && isFormSubmitted}"  #designCodeVal="ngModel" required [(ngModel)]="designObj.designCode" name="designCode" id="designCode" placeholder="" tabindex="4">
@@ -95,7 +95,7 @@
                                              </div> -->
                                        </div>
                                     </div>
-                                    <div class="col-md-4 formContentbox">
+                                    <div class="col-lg-4 col-md-6 formContentbox">
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Design Name<span class="requiredField">*</span></label>
                                           <div class="col-sm-7">
@@ -106,7 +106,7 @@
                                           </div>
                                        </div>
                                     </div>
-                                    <div class="col-md-4 formContentbox">
+                                    <div class="col-lg-4 col-md-6 formContentbox">
                                        <div class="form-group">
                                           <label class="fieldLabel col-sm-5">Description</label>
                                           <div class="col-sm-7">
