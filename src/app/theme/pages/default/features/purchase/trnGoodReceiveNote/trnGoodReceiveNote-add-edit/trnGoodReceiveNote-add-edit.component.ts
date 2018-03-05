@@ -544,50 +544,6 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.matSizeCode = '';
   }
 
-  // changeOrderType() {
-  //   if (this.orderQuantity > 50) {
-  //     this.orderType = 'RL';
-  //   }
-  //   else
-  //     this.orderType = 'CL';
-
-  //   if (this.categoryId == 2) {
-
-  //     this.rate = Math.round((((this.productDetails.purchaseRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width));
-  //     this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
-  //     this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
-  //     this.amount = Math.round(this.rate * this.orderQuantity);
-  //   }
-  //   else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
-  //     this.rate = Math.round(this.productDetails.purchaseFlatRate ? this.productDetails.purchaseFlatRate : this.orderQuantity > 50 ? this.productDetails.roleRate : this.productDetails.cutRate);
-  //     this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
-  //     this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
-  //     this.amount = Math.round(this.rate * this.orderQuantity);
-  //   }
-  //   else if (this.categoryId == 4) {
-  //     if (this.matSizeId != -1) {
-  //       this.rate = Math.round(this.productDetails.purchaseRate);
-  //       this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
-  //       this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
-  //       this.amount = Math.round(this.rate * this.orderQuantity);
-  //     }
-  //     else {
-  //       this.rate = Math.round(((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet);
-  //       this.rate = this.rate - Math.round((this.rate * 10) / 100);
-  //       this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
-  //       this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
-  //       this.amount = Math.round(this.rate * this.orderQuantity);
-  //     }
-  //   }
-  //   else if (this.categoryId == 7) {
-  //     this.rate = Math.round(this.productDetails.purchaseRate);
-  //     this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
-  //     this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
-  //     this.amount = Math.round(this.rate * this.orderQuantity);
-  //   }
-  // }
-
-
   onChangeCategory() {
     if (this.categoryId && this.categoryId != 7) {
       this.categoryIdError = false;
