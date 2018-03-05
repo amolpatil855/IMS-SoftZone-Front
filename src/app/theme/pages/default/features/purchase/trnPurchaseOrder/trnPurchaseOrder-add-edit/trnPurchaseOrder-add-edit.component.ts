@@ -429,16 +429,16 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         this.orderQuantityError = false;
         this.productDetails.stock = null;
       }
-    } else if (this.categoryId == 4 && this.matSizeId == -1) {
-      this.matSizeIdError = false;
-      this.orderQuantityError = false;
-      if (this.collectionId != null) {
-        this.getMatQualityList();
-      }
-    }
+    } 
     else if (this.categoryId == 4 && this.matSizeId != -1 && !this.qualityId) {
       return;
     }
+    else if (this.categoryId == 4 && this.matSizeId == -1) {
+      this.matSizeIdError = false;
+      this.orderQuantityError = false;
+        this.getMatQualityList();      
+    }
+ 
     else if (this.categoryId == 7) {
       if (this.accessoryId) {
         this.accessoryIdError = false;
@@ -495,9 +495,24 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.thicknessList = [];
     this.thicknessList.unshift({ label: '--Select--', value: null });
     this.matThicknessId = null;
-    this.calculateProductStockDetails();
+    //this.calculateProductStockDetails();
     if (this.qualityId) {
       this.qualityIdError = false;
+      if (this.collectionId) {
+        this.matSizeIdError = false;
+        this.orderQuantityError = false;
+       
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, null, this.qualityId).subscribe(
+          data => {
+            this.productDetails = data;
+          }, error => {
+            this.globalErrorHandler.handleError(error);
+          });
+      } else {
+        this.matSizeIdError = true;
+        this.orderQuantityError = false;
+        this.productDetails.stock = null;
+      }
     } else {
       this.qualityIdError = true;
     }
@@ -624,35 +639,38 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
     if (this.categoryId == 2) {
 
-      this.rate = Math.round((((this.productDetails.purchaseRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width));
-      this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
+      this.rate =((this.productDetails.purchaseRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width;
+      this.rate=parseFloat( this.rate).toFixed(2);
+      this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
       this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
       this.amount = Math.round(this.rate * this.orderQuantity);
     }
     else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
-      this.rate = Math.round(this.productDetails.purchaseFlatRate ? this.productDetails.purchaseFlatRate : this.orderQuantity > 50 ? this.productDetails.roleRate : this.productDetails.cutRate);
-      this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
+      this.rate = (this.productDetails.purchaseFlatRate ? this.productDetails.purchaseFlatRate : this.orderQuantity > 50 ? this.productDetails.roleRate : this.productDetails.cutRate);
+      this.rate=parseFloat( this.rate).toFixed(2);
+      this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
       this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
       this.amount = Math.round(this.rate * this.orderQuantity);
     }
     else if (this.categoryId == 4) {
       if (this.matSizeId != -1) {
-        this.rate = Math.round(this.productDetails.purchaseRate);
-        this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
+        this.rate =this.productDetails.purchaseRate;
+        this.rateWithGST =parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
         this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
         this.amount = Math.round(this.rate * this.orderQuantity);
       }
       else {
-        this.rate = Math.round(((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet);
-        this.rate = this.rate - Math.round((this.rate * 10) / 100);
-        this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
+        this.rate = ((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet;
+        this.rate=parseFloat( this.rate).toFixed(2);
+        // this.rate = this.rate - Math.round((this.rate) / 100);
+        this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
         this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
         this.amount = Math.round(this.rate * this.orderQuantity);
       }
     }
     else if (this.categoryId == 7) {
-      this.rate = Math.round(this.productDetails.purchaseRate);
-      this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
+      this.rate = this.productDetails.purchaseRate;
+      this.rateWithGST =parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
       this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
       this.amount = Math.round(this.rate * this.orderQuantity);
     }
@@ -868,6 +886,11 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
     this.trnPurchaseOrderObj.TrnPurchaseOrderItems = this.trnPurchaseOrderItems;
+    if(this.trnPurchaseOrderItems.length==0)
+    {
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
+      return false;
+    }
     if (valid) {
       let supplierObj = _.find(this.supplierCodeList, ['value', this.trnPurchaseOrderObj.supplierId]);
       let couierObj = _.find(this.courierList, ['value', this.trnPurchaseOrderObj.courierId]);

@@ -646,29 +646,31 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderType = 'CL';
 
     if (this.categoryId == 2) {
-      this.rate = Math.round((((this.productDetails.sellingRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width));
+      this.rate = ((this.productDetails.sellingRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width;
+      this.rate=parseFloat(this.rate).toFixed(2);
       this.discountOnRate = this.productDetails.maxDiscount;
       this.calculateAmount();
     }
     else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
-      this.rate = Math.round(this.productDetails.flatRate ? this.productDetails.flatRate : this.productDetails.rrp);
+      this.rate =parseFloat(this.productDetails.flatRate ? this.productDetails.flatRate : this.productDetails.rrp).toFixed(2);
       this.discountOnRate = this.productDetails.flatRate ? this.productDetails.maxFlatRateDisc : this.orderQuantity >= 50 ? this.productDetails.maxRoleRateDisc : this.productDetails.maxCutRateDisc;
       this.calculateAmount();
     }
     else if (this.categoryId == 4) {
       if (this.matSizeId != -1) {
-        this.rate = Math.round(this.productDetails.sellingRate);
+        this.rate =this.productDetails.sellingRate;
         this.discountOnRate = this.productDetails.maxDiscount;
         this.calculateAmount();
       }
       else {
-        this.rate = Math.round(((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet);
-        this.rate = this.rate - Math.round((this.rate * 10) / 100);
+        this.rate = (((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet);
+        this.rate=parseFloat(this.rate).toFixed(2);
+       // this.rate = this.rate - Math.round((this.rate * 10) / 100);
         this.calculateAmount();
       }
     }
     else if (this.categoryId == 7) {
-      this.rate = Math.round(this.productDetails.purchaseRate);
+      this.rate =this.productDetails.purchaseRate;
       this.discountOnRate = null;
       this.calculateAmount();
     }
@@ -676,9 +678,11 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
 
   calculateAmount(givenDicount = 0) {
-    this.rateWithGST = Math.round(this.rate + (this.rate * this.productDetails.gst) / 100);
-    this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
-    this.amount = Math.round(this.rate * this.orderQuantity);
+    this.rateWithGST =parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);;
+    this.amountWithGST =this.rateWithGST * this.orderQuantity;
+    this.amountWithGST =parseFloat(this.amountWithGST).toFixed(2);
+    this.amount = this.rate * this.orderQuantity;
+    this.amount =parseFloat(this.amount).toFixed(2);
     this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
     this.amount = Math.round(this.amount - ((this.amount * givenDicount) / 100));
   }
