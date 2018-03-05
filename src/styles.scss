@@ -2042,6 +2042,210 @@ select option {
   
 }
 
+
+/************* 28 Feb 2018 - Invoice Report **************/
+
+.invoiceMainBox{
+	background:#fff;
+	border:1px solid #ddd;
+	border-radius:3px;
+	padding:15px;
+}
+.invoiceMainHeading{
+	font-family:Roboto;
+	color:#000;
+	margin-top:0;
+	font-size: 22px;
+}
+.invoiceAddressBox{
+	border:1px solid #f1f1f1;
+	background:#fff;
+	/*-webkit-box-shadow: 1px 9px 30px -8px rgb(199, 199, 199);
+	box-shadow: 1px 9px 30px -8px rgb(199, 199, 199);*/
+	padding:15px;
+	margin-bottom:12px;
+	border-radius:4px;
+}
+.invoiceAddressBox h4{
+	font-family: Poppins;
+    color: #38a9e2;
+    margin-top: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+.invoiceAddressBox p{
+	font-family:Roboto;
+	color:#000;
+	margin-top:0;
+	font-size: 13px;
+	margin-bottom:0px;
+}
+.invoiceAddressBox h5{
+	font-family:Roboto;
+	color:#585858;
+	margin-top:0;
+	font-size: 14px;
+	font-weight:600;
+	text-transform:uppercase;
+	letter-spacing:2px;
+}
+.invoiceStatContainer h5{
+	font-family: Poppins;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-top: 0;
+	margin-bottom: 5px;
+    color: #585757;
+}
+.invoiceStatContainer h4{
+	/*font-family:Roboto;
+	letter-spacing:0px;
+	font-size: 15px;
+	font-weight:500;
+	margin-top:0;
+	color: #2298F1;*/
+	
+	font-family: Poppins;
+    color: #2298F1;
+    margin-top: 0;
+    font-size: 14px;
+    font-weight: 600;
+	margin-bottom: 0;
+}
+.invoiceStatContainer{
+	padding: 10px 15px;
+	margin-bottom:5px;
+	background:#fbfbfb;
+	border-radius:4px;
+}
+
+.invoiceItemTable tr th{
+	background:#f5f5f5;
+	font-family: Poppins;
+    color: #000;
+	text-transform:uppercase;
+	letter-spacing:0px;
+	font-size: 13px;
+	font-weight: 500;
+}
+.invoiceItemTable tr td{
+	background: #fff;
+    font-family: Roboto;
+    color: #4a4a4a;
+    font-size: 14px;
+    font-weight: 400;
+}
+.invoiceItemTable tr th:last-child{
+	text-align:right;
+}
+.invoiceItemTable tr td:last-child{
+	text-align:right;
+}
+.gstCell{
+	text-align:right;
+	font-weight:600!important;
+	color:#000;
+	font-size: 13px!important;
+	font-style:italic;
+}
+.totalRow td{
+	background:#f9f9f9!important;
+	font-weight:600!important;
+}
+.amountWordsBox h5{
+	font-family: Roboto;
+    color: #2f2f2f;
+    margin-top: 0;
+    font-size: 14px;
+    font-weight: 400!important;
+}
+.amountWordsBox h5 span{
+	float:right;
+	font-weight:500;
+	font-style:italic;
+}
+.amountWordsBox h4{
+	font-family: Roboto;
+    color: #000;
+    margin-top: 0;
+    font-size: 17px;
+	font-weight:600!important;
+	margin-bottom: 0;
+}
+.amountWordsBox {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background: #f2f2f2;
+    border-radius: 4px;
+	margin-top:10px;
+}
+.alignRight{
+	text-align:right;
+}
+.alignCenter{
+	text-align:Center;
+}
+.boldTD{
+	font-weight:600;
+}
+.taxAmtSpan{
+	font-family: Roboto;
+    color: #2f2f2f;
+    margin-top: 0;
+    font-size: 14px;
+    font-weight: 400!important;
+}
+.DeclarationBox h5{
+	font-family: Roboto;
+    color: #000;
+    margin-top: 0;
+    font-size: 14px;
+    font-weight: 500!important;
+	text-decoration:underline;
+}
+.DeclarationBox p{
+	font-family: Roboto;
+    color: #545454;
+    margin-top: 0;
+    font-size: 16px;
+    font-weight: 400!important;
+    margin-bottom: 0;
+}
+.DeclarationBox{
+	margin-top:12px;
+}
+.bankDetailsBox h5{
+	font-family: Roboto;
+    color: #000;
+    margin-top: 0;
+    font-size: 15px;
+    font-weight: 500!important;
+}
+.bankDetailsBox p{
+
+}
+.bankDetailsBox{
+	margin-top:12px;
+}
+.bankDetailTable tr td{
+	font-family: Roboto;
+    color: #000;
+    margin-top: 0;
+    font-size: 13px;
+    font-weight: 500!important;
+	border:none!important;
+	padding:3px!important;
+}
+.bankDetailTable tr td:first-child{
+	font-weight: 400!important;
+}
+.invoiceTaxTable tr td:first-child{
+	width:41.7%!important;
+}
+/************* 28 Feb 2018 - Invoice Report Ends **************/
+
 /***** D. 1 March 2018 *****/
 @media (max-width: 767px){
     .ui-widget-header .btnAddForm {        
