@@ -228,26 +228,6 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       });
   }
 
-  // newItem() {
-  //   let itemObj = {
-  //     categotryId: this.categoryId,
-  //     // categoryName: catObj ? catObj.label : '',
-  //     // collectionName: collObj ? catObj.label : '',
-  //     collectionId: null,
-  //     // serialno:  this.shadeId ?shadeObj.label:'',
-  //     // size:  this.fomSizeId ?fomSizeObj.label :this.matSizeId? matSizeObj.label:'',
-  //     shadeId:null,
-  //     fomSizeId:null,
-  //     matSizeId:null,
-  //     quantity: null,
-  //     orderType: null,
-  //     length: null,
-  //     width: null,
-  //     matSizeCode: null
-  //   };
-  //   this.trnPurchaseOrderItems.push(itemObj);
-  // }
-
   addItemToList() {
     if (!this.categoryId)
       this.categoryIdError = true;
@@ -700,6 +680,11 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     }
   }
 
+
+  onChangeSupplier(){
+    this.categoryId=null;
+    this.onChangeCategory();
+  }
 
   onChangeCategory() {
     if (this.categoryId) {
