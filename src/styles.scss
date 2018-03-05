@@ -2039,7 +2039,21 @@ select option {
     body .ui-widget-header {   
         text-align: left!important;
     }
+  
+}
+
+/***** D. 1 March 2018 *****/
+@media (max-width: 767px){
     .ui-widget-header .btnAddForm {        
         margin-top: 8px!important;
+    }
+    .siteSearchbox {        
+        clear: both;
+        display: block!important;
+    }
+}
+@media (min-width:768px) and (max-width:991px){
+    .panel .col-md-3{
+        float: left;
     }
 }

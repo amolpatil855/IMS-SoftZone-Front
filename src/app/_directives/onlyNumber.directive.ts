@@ -50,10 +50,12 @@ export class OnlyNumber {
       valInFloat = (valInFloat * 10) + parseFloat(e.key);
     }
     else {
-      var splitArr = e.target.value.split('.');
-      valInFloat = parseFloat(splitArr[0]) + parseFloat("0." + splitArr[1] + e.key);
-      if (splitArr[1].length >= (parseInt(this.DecimalPlaces)))
-        e.preventDefault();
+      if (e.target.selectionEnd - e.target.selectionStart < 1) {
+        var splitArr = e.target.value.split('.');
+        valInFloat = parseFloat(splitArr[0]) + parseFloat("0." + splitArr[1] + e.key);
+        if (splitArr[1].length >= (parseInt(this.DecimalPlaces)))
+          e.preventDefault();
+      }
     }
     if (this.minValue.length) {
       // (isNaN(valInFloat) && e.key === "0") - When user enters value for first time valInFloat will be NaN, e.key condition is 
@@ -65,30 +67,34 @@ export class OnlyNumber {
     }
 
     if (this.maxValue.length) {
-      if (valInFloat > parseFloat(this.maxValue)) {
-        e.preventDefault();
+      if (e.target.selectionEnd - e.target.selectionStart < 1) {
+        if (valInFloat > parseFloat(this.maxValue)) {
+          e.preventDefault();
+        }
       }
     }
 
     if (this.DecimalPlaces) {
-      let currentCursorPos: number = -1;
-      if (typeof this.elemRef.nativeElement.selectionStart == "number") {
-        currentCursorPos = this.elemRef.nativeElement.selectionStart;
-      } else {
-        // Probably an old IE browser 
-        console.log("This browser doesn't support selectionStart");
-      }
+      if (e.target.selectionEnd - e.target.selectionStart < 1) {
+        let currentCursorPos: number = -1;
+        if (typeof this.elemRef.nativeElement.selectionStart == "number") {
+          currentCursorPos = this.elemRef.nativeElement.selectionStart;
+        } else {
+          // Probably an old IE browser 
+          console.log("This browser doesn't support selectionStart");
+        }
 
-      let dotLength: number = e.target.value.replace(/[^\.]/g, '').length
-      // If user has not entered a dot(.) e.target.value.split(".")[1] will be undefined
-      let decimalLength = e.target.value.split(".")[1] ? e.target.value.split(".")[1].length : 0;
+        let dotLength: number = e.target.value.replace(/[^\.]/g, '').length
+        // If user has not entered a dot(.) e.target.value.split(".")[1] will be undefined
+        let decimalLength = e.target.value.split(".")[1] ? e.target.value.split(".")[1].length : 0;
 
-      // (this.DecimalPlaces - 1) because we don't get decimalLength including currently pressed character 
-      // currentCursorPos > e.target.value.indexOf(".") because we must allow user's to enter value before dot(.)
-      // Checking Backspace etc.. keys because firefox doesn't pressing them while chrome does by default
-      if (dotLength > 1 || (dotLength === 1 && e.key === ".") || (decimalLength > (parseInt(this.DecimalPlaces) - 1) &&
-        currentCursorPos > e.target.value.indexOf(".") && parseInt(this.DecimalPlaces) > 0) && ["Backspace", "ArrowLeft", "ArrowRight"].indexOf(e.key) === -1) {
-        e.preventDefault();
+        // (this.DecimalPlaces - 1) because we don't get decimalLength including currently pressed character 
+        // currentCursorPos > e.target.value.indexOf(".") because we must allow user's to enter value before dot(.)
+        // Checking Backspace etc.. keys because firefox doesn't pressing them while chrome does by default
+        if (dotLength > 1 || (dotLength === 1 && e.key === ".") || (decimalLength > (parseInt(this.DecimalPlaces) - 1) &&
+          currentCursorPos > e.target.value.indexOf(".") && parseInt(this.DecimalPlaces) > 0) && ["Backspace", "ArrowLeft", "ArrowRight"].indexOf(e.key) === -1) {
+          e.preventDefault();        
+        }
       }
     }
   }

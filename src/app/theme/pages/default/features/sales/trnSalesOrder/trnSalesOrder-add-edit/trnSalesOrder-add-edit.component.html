@@ -41,10 +41,10 @@
 			</ul>
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && status" [isAuthorize]="['purchaseorder']" title="Approve" (click)="onApprove()" tabindex="9">
+			<button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnSalesOrderObj.status == 'Created'" [isAuthorize]="['purchaseorder']" title="Approve" (click)="onApprove()" tabindex="9">
 				Approve
 			</button>
-			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesStockForm" title="{{(trnSalesStockForm && trnSalesStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			<button type="submit"  *ngIf="adminFlag && status" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesStockForm" title="{{(trnSalesStockForm && trnSalesStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['purchaseorder']" tabindex="8">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
@@ -119,7 +119,7 @@
 																</label>
 																<div class="col-md-8 col-sm-8">
 																	<p-dropdown class="feePlanBox" [options]="courierList" required [(ngModel)]="trnSalesOrderObj.courierId" #courierVal="ngModel"
-																	 required [style]="{'width':'100%'}" styleClass="{{ courierVal.errors && isFormSubmitted?'red-border-class':''}}"
+																	 required [style]="{'width':'100%'}"  [disabled]="!status" styleClass="{{ courierVal.errors && isFormSubmitted?'red-border-class':''}}"
 																	 name="courierDDl" filter="true" tabindex="4"></p-dropdown>
 																</div>
 															</div>
@@ -131,7 +131,7 @@
 																		<option value="Air">Air</option>
 																		<option value="Surface">Surface</option>
 																	</select> -->
-																	<p-dropdown class="feePlanBox" [options]="courierModeList" required [(ngModel)]="trnSalesOrderObj.courierMode" #courierModeVal="ngModel"
+																	<p-dropdown class="feePlanBox" [options]="courierModeList"  [disabled]="!status" required [(ngModel)]="trnSalesOrderObj.courierMode" #courierModeVal="ngModel"
 																	 required [style]="{'width':'100%'}" styleClass="{{ courierModeVal.errors && isFormSubmitted?'red-border-class':''}}"
 																	 name="courierModeDDl" filter="true" tabindex="5"></p-dropdown>
 																</div>
@@ -140,14 +140,14 @@
 																<label class="col-md-4 col-sm-4 fieldLabel">Referred
 																</label>
 																<div class="col-md-8 col-sm-8">
-																	<p-dropdown class="feePlanBox" [options]="agentList" [style]="{'width':'100%'}" [(ngModel)]="trnSalesOrderObj.referById"
+																	<p-dropdown class="feePlanBox" [options]="agentList"  [disabled]="!status"  [style]="{'width':'100%'}" [(ngModel)]="trnSalesOrderObj.referById"
 																	 name="agent" filter="true" tabindex="5"></p-dropdown>
 																</div>
 															</div>
 															<div class="col-md-3">
 																<label class="col-md-6 col-sm-6 fieldLabel">Exp.Delivery Date</label>
 																<div class="col-md-6 col-sm-6">
-																	<p-calendar class="purchaseOrderDate" #expectedDeliveryDateVal="ngModel" [(ngModel)]="trnSalesOrderObj.expectedDeliveryDate"
+																	<p-calendar class="purchaseOrderDate"  [disabled]="!status"  #expectedDeliveryDateVal="ngModel" [(ngModel)]="trnSalesOrderObj.expectedDeliveryDate"
 																	 name="expectedDeliveryDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="6" yearRange="2015:2030"
 																	 dateFormat="dd/mm/yy" styleClass="{{ expectedDeliveryDateVal.errors && isFormSubmitted?'red-border-class':''}}"
 																	 (onSelect)="onDateSelect()"></p-calendar>
@@ -177,7 +177,7 @@
 																<div class="col-md-6">
 																	<label class="col-md-2 col-sm-2 fieldLabel">Remark</label>
 																	<div class="col-md-10 col-sm-10 purchaseRemarkBox">
-																		<input type="text" [(ngModel)]="trnSalesOrderObj.remark" name="remark" class="form-control" #remarkVal="ngModel" tabindex="8"
+																		<input type="text" [(ngModel)]="trnSalesOrderObj.remark"  [disabled]="!status"  name="remark" class="form-control" #remarkVal="ngModel" tabindex="8"
 																		 placeholder="">
 																	</div>
 																</div>
@@ -375,7 +375,7 @@
 											<tr *ngFor="let row of trnSaleOrderItems;let rowNum=index;let lastRowNum=last;">
 												<td>{{row.categoryName}}</td>
 												<td>{{row.collectionId ? row.collectionName:''}}</td>
-												<td>{{row.accessoryId ? row.accessoryName : ''}}<td>
+												<td>{{row.accessoryId ? row.accessoryName : ''}}</td>
 												<td>{{row.serialno}} {{row.size}} {{row.matSizeCode}}</td>
 												<td> {{row.orderQuantity}}</td>
 												<td>{{row.orderType}}</td>
