@@ -857,6 +857,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
     this.trnSalesOrderObj.TrnSaleOrderItems = this.trnSaleOrderItems;
+    let custObj = _.find(this.customerList, ['value', this.trnSalesOrderObj.customerId]);
+    this.trnSalesOrderObj.customerName=custObj?custObj.label: '';
     if(this.trnSaleOrderItems.length==0)
     {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
