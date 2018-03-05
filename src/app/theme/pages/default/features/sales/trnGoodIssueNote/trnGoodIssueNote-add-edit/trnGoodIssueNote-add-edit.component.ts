@@ -144,7 +144,7 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
-          this.router.navigate(['/features/sales/TrnGoodIssueNote/list']);
+          this.router.navigate(['/features/sales/trnGoodIssueNote/list']);
         },
         error => {
           this.globalErrorHandler.handleError(error);

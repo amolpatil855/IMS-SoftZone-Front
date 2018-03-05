@@ -92,18 +92,18 @@
                                                                 <span class="requiredField">*</span>
                                                             </label>
                                                             <div class="col-sm-7">
-                                                                <input type="phone" class="form-control" pattern="^[0-9]+" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}"
+                                                                <input type="phone" class="form-control" pattern="^[0-9]+" [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}"
                                                                     [(ngModel)]="agentObj.phone" name="phone" required #phoneVal="ngModel"
                                                                     placeholder="Phone" minlength="10" maxlength="10" tabindex="2">
 
-                                                                <div *ngIf="phoneVal.errors && (phoneVal.dirty || phoneVal.touched)" class="alertMsg">
+                                                                <!-- <div *ngIf="phoneVal.errors && (phoneVal.dirty || phoneVal.touched)" class="alertMsg">
                                                                     <div *ngIf="phoneVal.errors.minlength && !phoneVal.errors.pattern">
                                                                         Mobile number should be 10 digit.
                                                                     </div>
                                                                     <div *ngIf="phoneVal.errors.pattern">
                                                                         Mobile number must be a number.
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </div>
                                                     </div>

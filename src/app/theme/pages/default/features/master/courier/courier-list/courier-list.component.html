@@ -120,18 +120,18 @@
                                                         <div class="form-group">
                                                             <label class="fieldLabel col-sm-5">Mobile<span class="requiredField">*</span></label>
                                                             <div class="col-sm-7">
-                                                                <input type="phone" class="form-control" pattern="^[0-9]+" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': mobileVal.errors && isFormSubmitted}"
+                                                                <input type="phone" class="form-control" pattern="^[0-9]+" [ngClass]="{'red-border-class': mobileVal.errors && isFormSubmitted}"
                                                                     [(ngModel)]="courierObj.mobile" name="mobile" required #mobileVal="ngModel"
                                                                     placeholder="Mobile" minlength="10" maxlength="10" tabindex="4">
 
-                                                                <div *ngIf="mobileVal.errors && (mobileVal.dirty || mobileVal.touched)" class="alertMsg">
+                                                                <!-- <div *ngIf="mobileVal.errors && (mobileVal.dirty || mobileVal.touched)" class="alertMsg">
                                                                     <div *ngIf="mobileVal.errors.minlength && !mobileVal.errors.pattern">
                                                                         Mobile number should be 10 digit.
                                                                     </div>
                                                                     <div *ngIf="mobileVal.errors.pattern">
                                                                         Mobile number must be a number.
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </div>
                                                     </div>

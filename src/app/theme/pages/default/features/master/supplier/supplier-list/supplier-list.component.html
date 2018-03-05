@@ -121,15 +121,15 @@
 													<div class="form-group">
 														<label class="col-lg-2 col-md-6 col-sm-2 fieldLabel">Phone<span class="requiredField">*</span></label>
 														<div class="col-lg-4 col-md-12 col-sm-4">
-															<input type="phone" class="form-control"  pattern="^[0-9]+"  onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}" [(ngModel)]="supplierObj.phone" name="phone" required #phoneVal="ngModel" placeholder="Phone" minlength="10" maxlength="10" tabindex="5">
-																<div *ngIf="phoneVal.errors && (phoneVal.dirty || phoneVal.touched)" class="alertMsg">
+															<input type="phone" class="form-control" pattern="^[0-9]+" [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}" [(ngModel)]="supplierObj.phone" name="phone" required #phoneVal="ngModel" placeholder="Phone" minlength="10" maxlength="10" tabindex="5">
+																<!-- <div *ngIf="phoneVal.errors && (phoneVal.dirty || phoneVal.touched)" class="alertMsg">
 																	<div *ngIf="phoneVal.errors.minlength && !phoneVal.errors.pattern">
 																		Mobile number should be 10 digit.
 																	</div>
 																	<div *ngIf="phoneVal.errors.pattern">
 																	Mobile number must be a number.
 																	</div>
-																</div>
+																</div> -->
 														</div>
 															<label class="col-lg-2 col-md-6 col-sm-2 fieldLabel">Credit Period Days</label>
 																<div class="col-lg-4 col-md-12 col-sm-4">
@@ -186,8 +186,8 @@
 																		</div>
 																	</td>													
 																	<td>
-																		<input type="phone" class="form-control"  #accountPersonPhoneVal="ngModel" pattern="^[0-9]+"  onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.accountPersonPhone" name="accountPersonPhone" placeholder="AccountPersonPhone" minlength="10" maxlength="10" tabindex="9">
-																			<div *ngIf="accountPersonPhoneVal.errors && (accountPersonPhoneVal.dirty || accountPersonPhoneVal.touched)" class="alertMsg">
+																		<input type="phone" class="form-control"  #accountPersonPhoneVal="ngModel" pattern="^[0-9]+" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.accountPersonPhone" name="accountPersonPhone" placeholder="AccountPersonPhone" minlength="10" maxlength="10" tabindex="9">
+																			<!-- <div *ngIf="accountPersonPhoneVal.errors && (accountPersonPhoneVal.dirty || accountPersonPhoneVal.touched)" class="alertMsg">
 																				<div *ngIf="accountPersonPhoneVal.errors.minlength && !accountPersonPhoneVal.errors.pattern">
 																				 Mobile number should be 10 digit.
 																				</div>
@@ -195,7 +195,7 @@
 																				Mobile number must be a number.
 																			   </div>
 																			</div>
-																			
+																			 -->
 																	</td>
 																</tr>
 																<tr>
@@ -214,15 +214,15 @@
 																		</div>
 																	</td>													 
 																	<td>
-																		<input type="phone" class="form-control" pattern="^[0-9]+"  [(ngModel)]="supplierObj.dispatchPersonPhone" onKeyPress="if(this.value.length==10) return false;" [ngClass]="{'red-border-class': dispatchPersonPhoneVal.errors && isFormSubmitted}"  name="dispatchPersonPhone"   #dispatchPersonPhoneVal="ngModel" placeholder="DispatchPersonPhone" minlength="10" maxlength="10" tabindex="12">
-																		<div *ngIf="dispatchPersonPhoneVal.errors && (dispatchPersonPhoneVal.dirty || dispatchPersonPhoneVal.touched)" class="alertMsg">
+																		<input type="phone" class="form-control" pattern="^[0-9]+"  [(ngModel)]="supplierObj.dispatchPersonPhone" [ngClass]="{'red-border-class': dispatchPersonPhoneVal.errors && isFormSubmitted}"  name="dispatchPersonPhone"   #dispatchPersonPhoneVal="ngModel" placeholder="DispatchPersonPhone" minlength="10" maxlength="10" tabindex="12">
+																		<!-- <div *ngIf="dispatchPersonPhoneVal.errors && (dispatchPersonPhoneVal.dirty || dispatchPersonPhoneVal.touched)" class="alertMsg">
 																				<div *ngIf="dispatchPersonPhoneVal.errors.minlength && !dispatchPersonPhoneVal.errors.pattern">
 																				Mobile number should be 10 digit.
 																				</div>
 																			   <div *ngIf="dispatchPersonPhoneVal.errors.pattern">
 																				Mobile number must be a number.
 																			   </div>
-																		</div>
+																		</div> -->
 																	</td>
 																</tr>
 																<tr>
@@ -241,15 +241,15 @@
 																		</div>
 																	</td>													
 																	<td>
-																		<input type="phone" class="form-control" pattern="^[0-9]+" onKeyPress="if(this.value.length==10) return false;"  [ngClass]="{'red-border-class': warehousePersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.warehousePersonPhone" name="warehousePersonPhone"   #warehousePersonPhoneVal="ngModel" placeholder="WarehousePersonPhone" minlength="10" maxlength="10" tabindex="15">
-																			<div *ngIf="warehousePersonPhoneVal.errors && (warehousePersonPhoneVal.dirty || warehousePersonPhoneVal.touched)" class="alertMsg">
+																		<input type="phone" class="form-control" pattern="^[0-9]+"  [ngClass]="{'red-border-class': warehousePersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="supplierObj.warehousePersonPhone" name="warehousePersonPhone"   #warehousePersonPhoneVal="ngModel" placeholder="WarehousePersonPhone" minlength="10" maxlength="10" tabindex="15">
+																			<!-- <div *ngIf="warehousePersonPhoneVal.errors && (warehousePersonPhoneVal.dirty || warehousePersonPhoneVal.touched)" class="alertMsg">
 																				<div *ngIf="warehousePersonPhoneVal.errors.minlength && !warehousePersonPhoneVal.errors.pattern">
 																				Mobile number should be 10 digit.
 																				</div>
 																			   <div *ngIf="warehousePersonPhoneVal.errors.pattern">
 																				Mobile number must be a number.
 																			   </div>
-																			</div>
+																			</div> -->
 																	</td>
 																</tr>
 															  
@@ -295,15 +295,15 @@
 																	<input type="text" class="form-control" [(ngModel)]="supAdd.addressLine2" name="{{'addressLine2'+supAdd.contRoleId}}" placeholder="Address Line 2" maxlength="500" tabindex="17"/>
 																</td>
 																<td>
-																	<input class="form-control" type="text" (blur)="validateGSTIN(supAdd)" #gstinVal="ngModel" required onKeyPress="if(this.value.length==15) return false;" [(ngModel)]="supAdd.gstin" [ngClass]="{'red-border-class': gstinVal.errors && isFormSubmitted}" name="{{'gstin'+supAdd.contRoleId}}" placeholder="GSTIN" minlength="15" tabindex="18">
-																		<div *ngIf="gstinVal.errors && (gstinVal.dirty || gstinVal.touched)" class="alertMsg">
+																	<input class="form-control" type="text" (blur)="validateGSTIN(supAdd)" #gstinVal="ngModel" required [(ngModel)]="supAdd.gstin" [ngClass]="{'red-border-class': gstinVal.errors && isFormSubmitted}" name="{{'gstin'+supAdd.contRoleId}}" placeholder="GSTIN" minlength="15" maxlength="15" tabindex="18">
+																		<!-- <div *ngIf="gstinVal.errors && (gstinVal.dirty || gstinVal.touched)" class="alertMsg">
 																			<div *ngIf="gstinVal.errors.minlength">
 																				Invalid GST.
 																			</div>
-																		</div>
+																		</div> -->
 																</td>
 																<td>
-																	<input type="text" class="form-control" (blur)="validatePin(supAdd)" onKeyPress="if(this.value.length==6) return false;" [ngClass]="{'red-border-class': supAdd.invalidPin}" name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin" placeholder="PIN" maxlength="6" tabindex="19"/>
+																	<input type="phone" pattern="^[0-9]+" class="form-control" (blur)="validatePin(supAdd)" #pinVal="ngModel" [ngClass]="{'red-border-class': pinVal.errors && isFormSubmitted}" name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin" placeholder="PIN" minlength="6" maxlength="6" autocomplete="off" tabindex="19"/>
 																</td>
 																<td>
 																	<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" (onChange)="validateState(supAdd)" [(ngModel)]="supAdd.state" styleClass="{{ supAdd.invalidState?'red-border-class':''}}" name="{{'stateDDL'+supAdd.contRoleId}}" tabindex="20"></p-dropdown>
