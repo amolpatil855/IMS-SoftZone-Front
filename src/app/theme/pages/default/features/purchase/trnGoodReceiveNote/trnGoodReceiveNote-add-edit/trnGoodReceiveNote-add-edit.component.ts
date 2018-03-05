@@ -825,6 +825,11 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
     this.trnGoodReceiveNoteObj.TrnGoodReceiveNoteItems = this.trnGoodReceiveNoteItems;
+    if(this.trnGoodReceiveNoteItems.length==0)
+    {
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
+      return false;
+    }
     if (valid) {
       let supplierObj = _.find(this.supplierCodeList, ['value', this.trnGoodReceiveNoteObj.supplierId]);
       this.trnGoodReceiveNoteObj.supplierName = supplierObj.label,

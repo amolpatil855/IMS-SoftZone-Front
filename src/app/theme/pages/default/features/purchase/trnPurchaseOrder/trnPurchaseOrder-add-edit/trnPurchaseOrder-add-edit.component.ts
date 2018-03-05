@@ -868,6 +868,11 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
     this.trnPurchaseOrderObj.TrnPurchaseOrderItems = this.trnPurchaseOrderItems;
+    if(this.trnPurchaseOrderItems.length==0)
+    {
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
+      return false;
+    }
     if (valid) {
       let supplierObj = _.find(this.supplierCodeList, ['value', this.trnPurchaseOrderObj.supplierId]);
       let couierObj = _.find(this.courierList, ['value', this.trnPurchaseOrderObj.courierId]);
