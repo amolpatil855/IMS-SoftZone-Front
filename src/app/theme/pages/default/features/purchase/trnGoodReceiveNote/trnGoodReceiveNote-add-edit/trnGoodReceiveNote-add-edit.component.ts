@@ -280,6 +280,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.widthError = null;
     this.orderQuantity = null;
     this.rateWithGST = null;
+    this.receivedQuantity=null;
     this.productDetails = {
       purchaseRatePerMM: null,
       suggestedMM: null,
@@ -291,7 +292,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       purchaseFlatRate: null,
       stock: null,
       purchaseRate: null,
-      custRatePerSqFeet: null
+      custRatePerSqFeet: null,
     };
     this.orderType = '';
     this.amountWithGST = '';
