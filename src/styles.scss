@@ -2057,3 +2057,13 @@ select option {
         float: left;
     }
 }
+
+/*** D. 5 March 2018 ***/
+@media (max-width: 767px){
+    .ui-datatable table {
+        width: auto!important;
+    }
+    .ui-button-icon-only {
+        width: 1.5em!important;
+    }
+}
