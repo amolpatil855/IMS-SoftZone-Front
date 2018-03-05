@@ -149,6 +149,30 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       }
     });
   }
+  
+  onCancelPO(){
+    Helpers.setLoading(true);
+    if (this.params) {
+      this.trnPurchaseOrderService.cancelPurchaseOrder(this.trnPurchaseOrderObj)
+        .subscribe(
+        results => {
+          this.params = null;
+          this.status = false;
+          this.viewItem = false;
+          Helpers.setLoading(false);
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
+          this.disabled = false;
+          this.viewItem = true;
+         
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
 
   onApprove() {
     Helpers.setLoading(true);
