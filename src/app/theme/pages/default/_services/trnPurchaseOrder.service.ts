@@ -37,9 +37,14 @@ export class TrnPurchaseOrderService {
     return this.http.put(AppSettings.API_ENDPOINT + 'TrnPurchaseOrder/' + trnPurchaseOrder.id, trnPurchaseOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  cancelPurchaseOrder(trnPurchaseOrder: TrnPurchaseOrder) {
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnPurchaseOrder/CancelPO/' + trnPurchaseOrder.id, trnPurchaseOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   approvePurchaseOrder(trnPurchaseOrder: TrnPurchaseOrder) {
     return this.http.put(AppSettings.API_ENDPOINT + 'TrnPurchaseOrder/ApprovePO/' + trnPurchaseOrder.id, trnPurchaseOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
+
 
   getshadeIdPurchaseOrders(id) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpByCollection?collectionId=' + id , AppSettings.requestOptions()).map((response: Response) => response.json());
