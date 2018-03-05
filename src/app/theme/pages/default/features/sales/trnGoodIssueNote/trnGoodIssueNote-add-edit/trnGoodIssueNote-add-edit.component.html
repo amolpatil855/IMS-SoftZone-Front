@@ -160,7 +160,7 @@
 
                                     <p-dataTable  [value]="trnGoodIssueNoteObj.trnGoodIssueNoteItems" [editable]="true" [emptyMessage]="tableEmptyMesssage" class="table listingTable">
                                             <p-column field="categoryName" header="Catagory" [editable]="false"></p-column>
-                                            <p-column field="collectionName" header="Collection" [editable]="fasle"></p-column>
+                                            <p-column field="collectionName" header="Collection" [editable]="false"></p-column>
                                             <p-column  header="Serial No/Size/Accessory">
                                                     <ng-template let-row="rowData" pTemplate="body">
                                                         <span > {{row.serialno}} {{row.size}} {{row.accessoryName}}</span>
