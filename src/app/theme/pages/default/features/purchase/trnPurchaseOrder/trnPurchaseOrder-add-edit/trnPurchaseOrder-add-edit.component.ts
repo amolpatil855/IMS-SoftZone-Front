@@ -159,6 +159,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
           this.params = null;
           this.status = false;
           this.viewItem = false;
+          this. trnPurchaseOrderObj.status ='Approved';
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
         },

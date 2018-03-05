@@ -29,12 +29,12 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   userRole: string;
   params: number;
   adminFlag: boolean = false;
-  status: boolean = false;
+  status: boolean = true;
   viewItem: boolean = true;
   trnSalesOrderList = [];
   categoryList: SelectItem[];
-  discountOnRate: 0;
-  givenDiscount: 0;
+  discountOnRate: null;
+  givenDiscount: null;
   selectedCourierMode = null;
   selectedAgent = null;
   agentList = [];
@@ -370,9 +370,10 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.orderQuantity = null;
     this.orderType = null;
     this.amountWithGST = null;
-    this.discountOnRate = 0;
-    this.givenDiscount = 0;
+    this.discountOnRate = null;
+    this.givenDiscount = null;
     this.rateWithGST = null;
+    this.rate=null;
     this.productDetails = {
       sellingRate: null,
       flatRate: null,
@@ -668,7 +669,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     }
     else if (this.categoryId == 7) {
       this.rate = Math.round(this.productDetails.purchaseRate);
-      this.discountOnRate = 0;
+      this.discountOnRate = null;
       this.calculateAmount();
     }
   }
