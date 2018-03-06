@@ -148,7 +148,7 @@
 																<label class="col-md-6 col-sm-6 fieldLabel">Exp.Delivery Date</label>
 																<div class="col-md-6 col-sm-6">
 																	<p-calendar class="purchaseOrderDate"  [disabled]="!status"  #expectedDeliveryDateVal="ngModel" [(ngModel)]="trnSalesOrderObj.expectedDeliveryDate"
-																	 name="expectedDeliveryDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="6" yearRange="2015:2030"
+																	 name="expectedDeliveryDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="6" yearRange="2015:2030" [minDate]="trnSalesOrderObj.orderDate"
 																	 dateFormat="dd/mm/yy" styleClass="{{ expectedDeliveryDateVal.errors && isFormSubmitted?'red-border-class':''}}"
 																	 (onSelect)="onDateSelect()"></p-calendar>
 																</div>
