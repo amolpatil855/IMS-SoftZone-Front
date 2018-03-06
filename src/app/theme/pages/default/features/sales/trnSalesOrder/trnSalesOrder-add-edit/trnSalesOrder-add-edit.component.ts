@@ -670,7 +670,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       }
     }
     else if (this.categoryId == 7) {
-      this.rate =this.productDetails.purchaseRate;
+      this.rate =this.productDetails.sellingRate;
       this.discountOnRate = null;
       this.calculateAmount();
     }
