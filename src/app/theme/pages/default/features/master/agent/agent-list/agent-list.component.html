@@ -211,7 +211,7 @@
                                                                 <span class="requiredField">*</span>
                                                             </label>
                                                             <div class="col-sm-7">
-                                                                <input type="number" class="form-control" onKeyPress="if(this.value.length==2) return false;" [ngClass]="{'red-border-class': commisionVal.errors && isFormSubmitted}"
+                                                                <input class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="100" [ngClass]="{'red-border-class': commisionVal.errors && isFormSubmitted}"
                                                                     #commisionVal="ngModel" required [(ngModel)]="agentObj.commision"
                                                                     name="commision" placeholder="Commision" id="commision" autocomplete="off"
                                                                     tabindex="9">
