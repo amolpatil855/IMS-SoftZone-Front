@@ -670,7 +670,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       }
     }
     else if (this.categoryId == 7) {
-      this.rate =this.productDetails.purchaseRate;
+      this.rate =this.productDetails.sellingRate;
       this.discountOnRate = null;
       this.calculateAmount();
     }
@@ -678,13 +678,14 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
 
   calculateAmount(givenDicount = 0) {
-    this.rateWithGST =parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);;
+    let rate=parseFloat(this.rate);
+    this.rateWithGST =rate + (rate * this.productDetails.gst) / 100;
     this.amountWithGST =this.rateWithGST * this.orderQuantity;
-    this.amountWithGST =parseFloat(this.amountWithGST).toFixed(2);
-    this.amount = this.rate * this.orderQuantity;
+    this.amount = rate * this.orderQuantity;
     this.amount =parseFloat(this.amount).toFixed(2);
     this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
     this.amount = Math.round(this.amount - ((this.amount * givenDicount) / 100));
+    this.amountWithGST =parseFloat(this.amountWithGST).toFixed(2);
   }
 
   onChangeDiscountAmount() {
@@ -857,6 +858,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
     this.trnSalesOrderObj.TrnSaleOrderItems = this.trnSaleOrderItems;
+    let custObj = _.find(this.customerList, ['value', this.trnSalesOrderObj.customerId]);
+    this.trnSalesOrderObj.customerName=custObj?custObj.label: '';
     if(this.trnSaleOrderItems.length==0)
     {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });

@@ -63,7 +63,7 @@ export class AgentListComponent implements OnInit {
       commision: null,
     };
   }
-
+  
   validateState(agentObj) {
     if (!agentObj.state || agentObj.state == '0' || agentObj.state == 0) {
       agentObj.invalidState = true;
