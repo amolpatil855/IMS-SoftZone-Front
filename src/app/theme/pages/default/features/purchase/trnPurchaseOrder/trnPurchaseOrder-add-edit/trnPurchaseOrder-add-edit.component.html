@@ -44,6 +44,9 @@
 			<button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnPurchaseOrderObj.status == 'Created'" [isAuthorize]="['purchaseorder']" title="Approve" (click)="onApprove()" tabindex="9">
 				Approve
 			</button>
+			<button type="submit" class="topBtn btn btn-error" *ngIf="adminFlag && trnPurchaseOrderObj.status == 'Created'" [isAuthorize]="['purchaseorder']" title="Cancel PO" (click)="onCancelPO()" tabindex="9">
+				Cancel PO
+			</button>
 			<button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm" title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['purchaseorder']" tabindex="8">
 				{{ params ? 'Update' : 'Save' }}
@@ -97,7 +100,7 @@
 																		<label class="col-md-5 col-sm-5 fieldLabel noPadding">Purchase Ord No.</label>
 																		<div class="col-md-7 col-sm-7">
 																			<input type="text" [(ngModel)]="trnPurchaseOrderObj.orderNumber" name="PurchaseOrderNo" class="form-control" #orderNoVal="ngModel"
-																			 readonly tabindex="2" placeholder="">
+																			 disabled tabindex="2" placeholder="">
 																		</div>
 																	</div>
 																</div>
@@ -109,7 +112,7 @@
 
 																	<p-dropdown class="feePlanBox" [options]="supplierCodeList"  [disabled]="!status" required [(ngModel)]="trnPurchaseOrderObj.supplierId" #supplierCodeVal="ngModel"
 																	 required styleClass="{{ supplierCodeVal.errors && isFormSubmitted?'red-border-class':''}}" [style]="{'width':'100%'}" [disabled]="disabled"
-																	 name="supplierCodeDDl" filter="true" tabindex="3"></p-dropdown>
+																	 name="supplierCodeDDl" filter="true" tabindex="3"  (ngModelChange)="onChangeSupplier()"></p-dropdown>
 																</div>
 															</div>
 
@@ -152,7 +155,7 @@
 																		<label class="col-md-5 col-sm-5 fieldLabel noPadding">Total Amount</label>
 																		<div class="col-md-7 col-sm-7">
 																			<input type="number" [(ngModel)]="trnPurchaseOrderObj.totalAmount" name="totalAmount" class="form-control"
-																			 readonly placeholder="">
+																			disabled placeholder="">
 																		</div>
 															</div>
 														</div>
