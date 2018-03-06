@@ -1,15 +1,26 @@
 <div class="invoiceMainBox">
 							<h3 class="invoiceMainHeading">Tax Invoice</h3>
-							
+							<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+								<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesInvoice"
+									title="{{(trnSalesInvoice && trnSalesInvoice.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+									[isAuthorize]="['invoice']" tabindex="8">
+									{{ params ? 'Update' : 'Save' }}
+								</button>
+								<button class="btn btn-secondary" [isAuthorize]="['invoice']" (click)="onCancel()" tabindex="9">
+									Cancel
+								</button>
+							</div>
+						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
+                                (ngSubmit)="onSubmit(trnSalesInvoice)" #trnSalesInvoice="ngForm" id="trnSalesInvoice">
 							<div class="row">
 								<div class="col-md-6">
 									<div class="invoiceAddressBox">
 										<h4>Softzone</h4>
 										<p>
-											 {{trnSalesInvoiceObj["mstCompanyLocation"] ? trnSalesInvoiceObj["mstCompanyLocation"][1]["addressLine1"] : ""}}, Code : {{trnSalesInvoiceObj["mstCompanyLocation"] ? trnSalesInvoiceObj["mstCompanyLocation"][1]["locationCode"] : ""}}
+											 {{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["address1"] : ""}}, Code : {{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["locationCode"] : ""}}
 										</p>
 										<p>
-											{{trnSalesInvoiceObj["mstCompanyLocation"] ? trnSalesInvoiceObj["mstCompanyLocation"][1]["addressLine2"] : ""}},{{trnSalesInvoiceObj["mstCompanyLocation"] ? trnSalesInvoiceObj["mstCompanyLocation"][1]["city"] : ""}}
+											{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["address2"] : ""}},{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["city"] : ""}}
 										</p>
 										<p>
 											PH. {{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["phone"] : ""}}
@@ -18,7 +29,7 @@
 											GSTIN/UIN: {{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["gstin"] : ""}}
 										</p>
 										<p>
-											State Name :  {{trnSalesInvoiceObj["mstCompanyLocation"] ? trnSalesInvoiceObj["mstCompanyLocation"][1]["state"] : ""}}, Code : {{trnSalesInvoiceObj["mstCompanyLocation"] ? trnSalesInvoiceObj["mstCompanyLocation"][1]["locationCode"] : ""}}
+											State Name :  {{"Maharashtra"}}, Code : {{"27"}}
 										</p>
 										<p>
 											E-Mail : {{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["email"] : ""}}
@@ -66,7 +77,7 @@
 											<div class="col-md-6">
 												<div class="invoiceStatContainer">
 													<h5>Delivery Note</h5>
-													<h4>2393/6.1</h4>
+													<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["orderNumber"] : ""}}/{{trnSalesInvoiceObj["trnGoodIssueNote"] ? trnSalesInvoiceObj["trnGoodIssueNote"]["ginNumber"] : ""}}</h4>
 												</div>
 											</div>
 											
@@ -80,7 +91,10 @@
 											<div class="col-md-6">
 												<div class="invoiceStatContainer">
 													<h5>Buyer's Order No.</h5>
-													<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["orderNumber"] : ""}}</h4>
+													<input class="form-control m-input" type="text" value=""
+															 [(ngModel)]="orderNumber" name="orderNumber" id="orderNumber" placeholder="" maxlength="50" autofocus
+															 tabindex="1">
+													<!-- <h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["orderNumber"] : ""}}</h4> -->
 												</div>
 											</div>
 											
@@ -94,14 +108,17 @@
 											<div class="col-md-6">
 												<div class="invoiceStatContainer">
 													<h5>Dispatch Document No.</h5>
-													<h4>{{trnSalesInvoiceObj.courierDockYardNumber}}</h4>
+													<input class="form-control m-input" type="text" value=""
+															 [(ngModel)]="trnSalesInvoiceObj.courierDockYardNumber" name="courierDockYardNumber" id="courierDockYardNumber" placeholder="" maxlength="20"
+															 tabindex="2">
+													<!-- <h4>{{trnSalesInvoiceObj.courierDockYardNumber}}</h4> -->
 												</div>
 											</div>
 											
 											<div class="col-md-6">
 												<div class="invoiceStatContainer">
 													<h5>Delivery Note Date</h5>
-													<h4>6-Jan-2018</h4>
+													<h4>{{trnSalesInvoiceObj.invoiceDate | date: 'dd/MM/yyyy'}}</h4>
 												</div>
 											</div>
 											
@@ -113,11 +130,18 @@
 											</div>
 											
 											<div class="col-md-6">
-												<div class="invoiceStatContainer" *ngFor="let address of customerAddresses">
-													<h5>Destination</h5>
-													<h4>{{address.city}}</h4>
+												<div class="invoiceStatContainer">
+													<h5>Courier Mode</h5>
+													<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["courierMode"] : ""}}</h4>
 												</div>
 											</div>
+
+											<!-- <div class="col-md-6">
+												<div class="invoiceStatContainer" *ngFor="let address of customerAddresses">
+													<h5>Courier Mode</h5>
+													<h4>{{address.city}}</h4>
+												</div>
+											</div> -->
 											
 											<div class="col-md-12">
 												<div class="invoiceStatContainer">
@@ -160,6 +184,7 @@
                                    </p-dataTable>
 								</div>
 							</div>
+						</form>
 							<div class="table-responsive">
 								
 								<table class="table invoiceItemTable table-bordered">
@@ -194,7 +219,7 @@
                                       
 									   <tr class="gstRow">
 										<td></td>
-										<td class="gstCell">CGST-ALL-(1.7.17)</td>
+										<td class="gstCell">CGST-ALL</td>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -205,7 +230,7 @@
 									  </tr>
 									  <tr class="gstRow">
 										<td></td>
-										<td class="gstCell">SGST-ALL-(1.7.17)</td>
+										<td class="gstCell">SGST-ALL</td>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -216,7 +241,7 @@
                                       </tr>
                                       <tr class="gstRow">
 										<td></td>
-										<td class="gstCell">IGST-ALL-(1.7.17)</td>
+										<td class="gstCell">IGST-ALL</td>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -274,19 +299,21 @@
 									  <tr class="">
 										<td class="alignRight">7,000.00</td>
 										<td class="alignRight">9%</td>
-										<td class="alignRight">630.00</td>
+										<td class="alignRight">{{gstAll}}</td>
 										<td class="alignRight">9%</td>
-										<td class="alignRight">630.00</td>
-										<td class="alignRight">9%</td>
-										<td class="alignRight">630.00</td>
+										<td class="alignRight">{{gstAll}}</td>
+										<td class="alignRight"></td>
+										<td class="alignRight">{{iGstAll}}</td>
 										<td class="alignRight">1,260.00</td>
 									  </tr>
 									  <tr class="totalRow">
 										<td class="alignRight">Total : {{trnSalesInvoiceObj.totalAmount}}</td>
 										<td class="alignRight"></td>
-										<td class="alignRight">630.00</td>
+										<td class="alignRight">{{gstAll}}</td>
 										<td class="alignRight"></td>
-										<td class="alignRight">630.00</td>
+										<td class="alignRight">{{gstAll}}</td>
+										<td class="alignRight"></td>
+										<td class="alignRight">{{iGstAll}}</td>
 										<td class="alignRight">1,260.00</td>
 									  </tr>
 									 
