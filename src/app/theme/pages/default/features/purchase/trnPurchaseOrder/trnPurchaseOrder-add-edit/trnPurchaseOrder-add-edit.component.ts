@@ -86,7 +86,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     purchaseFlatRate: null,
     stock: null,
     purchaseRate: null,
-    custRatePerSqFeet: null
+    custRatePerSqFeet: null,
+    purchaseDiscount:null
   };
   accessoryId = null;
   accessoryCodeList = [];
@@ -359,7 +360,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       purchaseFlatRate: null,
       stock: null,
       purchaseRate: null,
-      custRatePerSqFeet: null
+      custRatePerSqFeet: null,
+      purchaseDiscount:null
     };
     this.amount = null,
       this.orderType = '';
@@ -643,21 +645,35 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
     if (this.categoryId == 2) {
 
+<<<<<<< HEAD
       this.rate = ((this.productDetails.purchaseRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width;
       this.rate = parseFloat(this.rate).toFixed(2);
+=======
+      this.rate =((this.productDetails.purchaseRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width;
+>>>>>>> f2c7cba3baea7b887b91eb47133004b988e2f062
       this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
-      this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
-      this.amount = Math.round(this.rate * this.orderQuantity);
+      this.amountWithGST = this.rateWithGST * this.orderQuantity;
+      this.amount =this.rate * this.orderQuantity;
+      this.rate=parseFloat(this.rate).toFixed(2);
+      this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
+      this.amount=Math.round( this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
     }
     else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
       this.rate = (this.productDetails.purchaseFlatRate ? this.productDetails.purchaseFlatRate : this.orderQuantity > 50 ? this.productDetails.roleRate : this.productDetails.cutRate);
+<<<<<<< HEAD
       this.rate = parseFloat(this.rate).toFixed(2);
+=======
+>>>>>>> f2c7cba3baea7b887b91eb47133004b988e2f062
       this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
-      this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
-      this.amount = Math.round(this.rate * this.orderQuantity);
+      this.amountWithGST = this.rateWithGST * this.orderQuantity;
+      this.amount = this.rate * this.orderQuantity;
+      this.rate=parseFloat( this.rate).toFixed(2);
+      this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
+      this.amount=Math.round( this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
     }
     else if (this.categoryId == 4) {
       if (this.matSizeId != -1) {
+<<<<<<< HEAD
         this.rate = this.productDetails.purchaseRate;
         this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
         this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
@@ -666,17 +682,35 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       else {
         this.rate = ((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet;
         this.rate = parseFloat(this.rate).toFixed(2);
+=======
+        this.rate =this.productDetails.purchaseRate;
+        this.rateWithGST =parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
+        this.amountWithGST = this.rateWithGST * this.orderQuantity;
+        this.amount = this.rate * this.orderQuantity;
+        this.rate=parseFloat( this.rate).toFixed(2);
+        this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
+        this.amount=Math.round( this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
+      }
+      else {
+        this.rate = ((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet;
+>>>>>>> f2c7cba3baea7b887b91eb47133004b988e2f062
         // this.rate = this.rate - Math.round((this.rate) / 100);
         this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
-        this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
-        this.amount = Math.round(this.rate * this.orderQuantity);
+        this.amountWithGST = this.rateWithGST * this.orderQuantity;
+        this.amount = this.rate * this.orderQuantity;
+        this.rate=parseFloat( this.rate).toFixed(2);
+        this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
+        this.amount=Math.round( this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
+        
       }
     }
     else if (this.categoryId == 7) {
       this.rate = this.productDetails.purchaseRate;
-      this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
-      this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
-      this.amount = Math.round(this.rate * this.orderQuantity);
+      this.rateWithGST =parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
+      this.amountWithGST =this.rateWithGST * this.orderQuantity;
+      this.amount = this.rate * this.orderQuantity;
+      this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
+      this.amount=Math.round( this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
     }
   }
 
@@ -742,6 +776,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.fomSizeId = null;
       this.matSizeId = null;
       this.productDetails.stock = null;
+      this.onCancelItemDetails();
     }
   }
 

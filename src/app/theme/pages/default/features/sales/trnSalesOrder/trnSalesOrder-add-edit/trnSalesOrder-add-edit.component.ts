@@ -670,7 +670,11 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       }
     }
     else if (this.categoryId == 7) {
+<<<<<<< HEAD
       this.rate = this.productDetails.purchaseRate;
+=======
+      this.rate =this.productDetails.sellingRate;
+>>>>>>> f2c7cba3baea7b887b91eb47133004b988e2f062
       this.discountOnRate = null;
       this.calculateAmount();
     }
@@ -678,13 +682,14 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
 
   calculateAmount(givenDicount = 0) {
-    this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);;
-    this.amountWithGST = this.rateWithGST * this.orderQuantity;
-    this.amountWithGST = parseFloat(this.amountWithGST).toFixed(2);
-    this.amount = this.rate * this.orderQuantity;
-    this.amount = parseFloat(this.amount).toFixed(2);
+    let rate=parseFloat(this.rate);
+    this.rateWithGST =rate + (rate * this.productDetails.gst) / 100;
+    this.amountWithGST =this.rateWithGST * this.orderQuantity;
+    this.amount = rate * this.orderQuantity;
+    this.amount =parseFloat(this.amount).toFixed(2);
     this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
     this.amount = Math.round(this.amount - ((this.amount * givenDicount) / 100));
+    this.amountWithGST =parseFloat(this.amountWithGST).toFixed(2);
   }
 
   onChangeDiscountAmount() {

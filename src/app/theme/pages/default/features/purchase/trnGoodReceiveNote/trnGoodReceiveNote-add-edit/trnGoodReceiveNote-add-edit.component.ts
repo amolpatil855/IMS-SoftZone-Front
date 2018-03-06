@@ -428,6 +428,12 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       });
   }
 
+  onChangeSupplier(){
+    this.categoryId=null;
+    this.categoryIdError=false;
+    this.onChangeCategory();
+  }
+
   getAccessoryLookup() {
     this.commonService.getAccessoryLookUp().subscribe(
       results => {
@@ -586,6 +592,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.shadeId = null;
       this.fomSizeId = null;
       this.matSizeId = null;
+      this.onCancelItemDetails();
     }
   }
 
