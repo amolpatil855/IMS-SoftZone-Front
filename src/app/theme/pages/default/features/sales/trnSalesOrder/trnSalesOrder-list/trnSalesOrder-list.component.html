@@ -80,7 +80,11 @@
                                 <p-column field="mstCustomer.name" header="Customer Name" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="mstCourier.name" header="Courier Name" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="mstAgent.name" header="Refer By" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="orderDate" header="Order Date" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="orderDate" header="Order Date" [style]="{'text-align':'left'}">
+									<ng-template let-col let-data="rowData" pTemplate="body">
+										{{data[col.field]|date: 'dd/MM/yyyy' }}
+									</ng-template>
+								</p-column>
                                 <p-column field="status" header="Status" [style]="{'text-align':'left'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'left'}">
 									<ng-template pTemplate="header">

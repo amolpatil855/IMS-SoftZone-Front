@@ -137,12 +137,9 @@
                                                             <div class="form-group">
                                                                 <label class="col-md-3 col-sm-3 fieldLabel">Contact No.<span class="requiredField">*</span></label>
                                                                 <div class="col-md-7">
-                                                                    <input class="form-control m-input" type="phone" onKeyPress="if(this.value.length==10) return false;" required [ngClass]="{'red-border-class': userForm.get('phone').hasError('required') && isFormSubmitted}"
+                                                                    <input class="form-control m-input" type="phone" pattern="^[0-9]+" required [ngClass]="{'red-border-class': (userForm.get('phone').hasError('required') || userForm.get('phone').errors?.minlength || userForm.get('phone').errors?.maxlength || userForm.get('phone').errors?.pattern) && isFormSubmitted}"
                                                                         formControlName="phone" name="contact" placeholder="Contact"
                                                                         minlength="10" maxlength="10" tabindex="3">
-                                                                    <div class="alertMsg" *ngIf="userForm.get('phone').errors?.minlength">
-                                                                        Please enter valid Mobile number
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">

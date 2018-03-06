@@ -100,16 +100,15 @@ export class UsersListComponent implements OnInit {
         this.roleService.getRoleLookup(userTypeId).subscribe(
           results => {
             this.roleList = results;
-            this.roleList.unshift({ value: null, label: '--Select--' });
             this.userForm.patchValue({
-              role: this.roleList[1].value
+              role: this.roleList[0].value
             });
           },
           error => {
             this.globalErrorHandler.handleError(error);
           });
 
-        this.userForm.get('role').disable();
+       // this.userForm.get('role').disable();
         this.butDisabled = true;
       }
       else {
