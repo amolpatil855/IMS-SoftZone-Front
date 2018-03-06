@@ -697,6 +697,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   onChangeSupplier(){
     this.categoryId=null;
+    this.categoryIdError=false;
     this.onChangeCategory();
   }
 
@@ -735,6 +736,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.fomSizeId = null;
       this.matSizeId = null;
       this.productDetails.stock = null;
+      this.onCancelItemDetails();
     }
   }
 
