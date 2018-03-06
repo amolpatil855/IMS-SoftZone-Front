@@ -58,4 +58,8 @@ export class CommonService {
   getAccessoryLookUp() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetAccessoryLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
+
+  getAccessoryLookUpBySupplierId(supplierId){
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetAccessoryLookUpBySupplierId?supplierId=' + supplierId, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
 }
