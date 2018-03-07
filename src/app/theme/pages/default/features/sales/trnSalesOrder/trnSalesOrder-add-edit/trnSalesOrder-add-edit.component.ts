@@ -397,7 +397,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     };
     this.amount = null,
       this.orderType = '';
-    this.amountWithGST = '';
+    this.amountWithGST = null;
   }
 
   enableEdit(row) {
@@ -670,11 +670,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       }
     }
     else if (this.categoryId == 7) {
-<<<<<<< HEAD
-      this.rate = this.productDetails.purchaseRate;
-=======
       this.rate =this.productDetails.sellingRate;
->>>>>>> f2c7cba3baea7b887b91eb47133004b988e2f062
       this.discountOnRate = null;
       this.calculateAmount();
     }
