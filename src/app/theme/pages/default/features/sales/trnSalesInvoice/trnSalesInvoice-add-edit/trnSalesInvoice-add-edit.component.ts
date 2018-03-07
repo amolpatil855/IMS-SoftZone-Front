@@ -92,6 +92,25 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
     }
   }
 
+  print(): void {
+    let printContents, popupWin;
+    printContents = document.getElementById('invoiceMainBox').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Print tab</title>
+          <style>
+          //........Customized style.......
+          </style>
+        </head>
+    <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
+}
+
   getTrnSalesInvoiceById(id) {
     Helpers.setLoading(true);
     this.TrnSalesInvoiceService.getTrnSalesInvoiceById(id).subscribe(
@@ -139,7 +158,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
       let taxsableValue = 0;
       _.forEach(invoiceItems, function (item) {
         if (item.gst == gstVal) {
-          gstTotal = gstTotal + (item.amount * item.gst / 100);
+          gstTotal =Math.round( gstTotal + (item.amount * item.gst / 100));
           taxsableValue =taxsableValue +item.amount;
           totalTax=totalTax+gstTotal;
         }

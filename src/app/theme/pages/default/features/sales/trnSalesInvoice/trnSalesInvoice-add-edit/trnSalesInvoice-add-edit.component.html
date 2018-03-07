@@ -1,15 +1,17 @@
-<div class="invoiceMainBox">
+<div class="m-form__actions m-form__actions--solid formTopActionBtnBox" style="float:right">
+	<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesInvoice"
+		title="{{(trnSalesInvoice && trnSalesInvoice.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+		[isAuthorize]="['invoice']" tabindex="8">
+		{{ params ? 'Update' : 'Save' }}
+	</button>
+	<button class="btn btn-secondary" [isAuthorize]="['invoice']" (click)="onCancel()" tabindex="9">
+		Cancel
+	</button>
+	<button (click)="print()">print</button>
+</div>
+<div class="invoiceMainBox" id="invoiceMainBox">
 							<h3 class="invoiceMainHeading">Tax Invoice</h3>
-							<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-								<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesInvoice"
-									title="{{(trnSalesInvoice && trnSalesInvoice.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-									[isAuthorize]="['invoice']" tabindex="8">
-									{{ params ? 'Update' : 'Save' }}
-								</button>
-								<button class="btn btn-secondary" [isAuthorize]="['invoice']" (click)="onCancel()" tabindex="9">
-									Cancel
-								</button>
-							</div>
+
 						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
                                 (ngSubmit)="onSubmit(trnSalesInvoice)" #trnSalesInvoice="ngForm" id="trnSalesInvoice">
 							<div class="row">
@@ -38,7 +40,7 @@
 									
 									<div class="invoiceAddressBox">
 										<h5>Buyer</h5>
-										<h4>HARI OM FURNITURE-(SINGHGAD RD)</h4>
+										<h4>{{trnSalesInvoiceObj["trnGoodIssueNote"] ? trnSalesInvoiceObj["trnGoodIssueNote"]["mstCustomer"]?trnSalesInvoiceObj["trnGoodIssueNote"]["mstCustomer"]["name"]:"": ""}}</h4>
 										<p>
 											{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["shippingAddress"] : ""}}
 										</p>
@@ -272,7 +274,7 @@
 										<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
 										<td class="alignRight" *ngIf="iGstAll>0">{{row.gst}}%</td>
 										<td class="alignRight" *ngIf="iGstAll>0">{{row.amount}}</td>
-										<td class="alignRight" *ngIf="iGstAll>0">{{row.amount}}</td>
+										<td class="alignRight" >{{row.amount}}</td>
 									  </tr>
 									  <tr class="totalRow">
 										<td class="alignRight">Total : {{trnSalesInvoiceObj.totalAmount -totalTaxAmount}}</td>
@@ -282,7 +284,7 @@
 										<td class="alignRight"  *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
 										<td class="alignRight" *ngIf="iGstAll>0"></td>
 										<td class="alignRight" *ngIf="iGstAll>0">{{iGstAll}}</td>
-										<td class="alignRight" *ngIf="iGstAll>0">{{ totalTaxAmount}}</td>
+										<td class="alignRight" >{{ totalTaxAmount}}</td>
 									  </tr>
 									 
 									</tbody>
