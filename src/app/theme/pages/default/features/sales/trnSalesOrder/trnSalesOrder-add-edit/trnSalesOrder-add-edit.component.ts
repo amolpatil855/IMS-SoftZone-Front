@@ -68,6 +68,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   qualityIdError = false;
   courierList = [];
   courierModeList = [];
+  paymentModeList = [];
   matSizeList = [];
   fomSizeList = [];
   matSizeId = null;
@@ -132,7 +133,6 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.getLoggedInUserDetail();
     this.getCategoryCodeList();
     this.getCourierList();
-    this.getAccessoryLookup();
     this.getAgentLookUp();
     this.getCustomerLookUp();
     let today = new Date();
@@ -143,6 +143,12 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.courierModeList.push({ label: '--Select--', value: null });
     this.courierModeList.push({ label: 'Surface', value: 'Surface' });
     this.courierModeList.push({ label: 'Air', value: 'Air' });
+    this.paymentModeList.push({ label: '--Select--', value: null });
+    this.paymentModeList.push({ label: 'Cash', value: 'Cash' });
+    this.paymentModeList.push({ label: 'Card', value: 'Card' });
+    this.paymentModeList.push({ label: 'Credit', value: 'Credit' });
+    this.paymentModeList.push({ label: 'Bank Transfer', value: 'Bank Transfer' });
+    this.paymentModeList.push({ label: 'Cheque', value: 'Cheque' });
     this.route.params.forEach((params: Params) => {
       this.params = params['id'];
     });
@@ -206,13 +212,14 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         } else {
           this.status = false;
         }
-        if (this.trnSalesOrderObj.status == "Approved") {
+        if (this.trnSalesOrderObj.status == "Approved" || this.trnSalesOrderObj.status == "Completed" || this.trnSalesOrderObj.status == "Cancelled" ) {
           this.viewItem = false;
         } else {
           this.viewItem = true;
         }
         this.trnSalesOrderObj.orderDate = new Date(this.trnSalesOrderObj.orderDate);
         this.trnSalesOrderObj.expectedDeliveryDate = new Date(this.trnSalesOrderObj.expectedDeliveryDate);
+        this.trnSalesOrderObj.chequeDate = new Date(this.trnSalesOrderObj.chequeDate);
         this.trnSaleOrderItems = results.trnSaleOrderItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
         _.forEach(this.trnSaleOrderItems, function (value) {
@@ -396,7 +403,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       maxDiscount: null
     };
     this.amount = null,
-      this.orderType = '';
+    this.orderType = '';
     this.amountWithGST = null;
   }
 
@@ -487,15 +494,19 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
 
   onCustomerChange() {
-    this.shippingAddressObj = null;
+    this.shippingAddressObj = '';
     if (this.trnSalesOrderObj.customerId != null) {
       Helpers.setLoading(true);
       this.trnSalesOrderService.getCustomerAddressByCustomerId(this.trnSalesOrderObj.customerId).subscribe(
         results => {
           this.addressList = results;
-          console.log('this.addressList', this.addressList);
           this.shippingAddressObj = _.find(this.addressList, ['isPrimary', true]);
-          this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
+          
+            if(this.shippingAddressObj.addressLine2 == null){
+              this.shippingAddressObj.addressLine2 = '';
+            }
+            this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
+            
           this.selectedAddress = this.trnSalesOrderObj.customerId;
           Helpers.setLoading(false);
         },
@@ -504,6 +515,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
           Helpers.setLoading(false);
         });
     }
+    this.trnSalesOrderObj.shippingAddress = '';
   }
 
   getMatQualityList() {
@@ -693,18 +705,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
 
   onChangeCategory() {
-    if (this.categoryId) {
-      this.categoryIdError = false;
-      this.orderQuantityError = false;
-      this.matSizeIdError = false;
-      this.fomSizeIdError = false;
-      this.shadeIdError = false;
-      this.accessoryIdError = false;
-      this.collectionIdError = false;
-      this.getCollectionList();
-    }
-    else {
-      this.collectionList = [];
+    this.collectionList = [];
       this.collectionList.unshift({ label: '--Select--', value: null });
       this.shadeIdList = [];
       this.shadeIdList.unshift({ label: '--Select--', value: null });
@@ -714,7 +715,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.fomSizeList.unshift({ label: '--Select--', value: null });
       this.accessoryCodeList = [];
       this.accessoryCodeList.unshift({ label: '--Select--', value: null });
-      this.categoryIdError = true;
+      this.categoryIdError = false;
       this.orderQuantityError = false;
       this.matSizeIdError = false;
       this.fomSizeIdError = false;
@@ -727,7 +728,23 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.fomSizeId = null;
       this.matSizeId = null;
       this.productDetails.stock = null;
-    }
+      this.length = null;
+      this.lengthError = false;
+      this.width = null;
+      this.widthError = false;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
+      this.givenDiscount = null;
+      this.amount = null,
+      this.orderType = '';
+      this.amountWithGST = null;
+      if(this.categoryId != null){
+        if (this.categoryId == 7) {
+          this.getAccessoryLookup();
+        } else {
+          this.getCollectionList();
+        }
+      }
   }
 
   onChangeCollection() {
@@ -891,7 +908,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         .subscribe(
         results => {
           this.params = null;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
           this.router.navigate(['/features/sales/trnSalesOrder/list']);
         },
@@ -904,7 +921,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         .subscribe(
         results => {
           this.params = null;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
           this.router.navigate(['/features/sales/trnSalesOrder/list']);
         },
