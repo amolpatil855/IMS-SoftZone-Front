@@ -428,12 +428,6 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       });
   }
 
-  onChangeSupplier(){
-    this.categoryId=null;
-    this.categoryIdError=false;
-    this.onChangeCategory();
-  }
-
   getAccessoryLookup() {
     this.commonService.getAccessoryLookUp().subscribe(
       results => {
