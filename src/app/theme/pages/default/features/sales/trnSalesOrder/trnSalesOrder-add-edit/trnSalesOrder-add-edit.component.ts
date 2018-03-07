@@ -66,6 +66,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   fomSizeIdError = false;
   matSizeIdError = false;
   qualityIdError = false;
+  givenDiscountError=false;
   courierList = [];
   courierModeList = [];
   paymentModeList = [];
@@ -209,13 +210,10 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         this.trnSalesOrderObj = results;
         if (this.trnSalesOrderObj.status == "Created") {
           this.status = true;
+          this.viewItem = true;
         } else {
           this.status = false;
-        }
-        if (this.trnSalesOrderObj.status == "Approved" || this.trnSalesOrderObj.status == "Completed" || this.trnSalesOrderObj.status == "Cancelled" ) {
           this.viewItem = false;
-        } else {
-          this.viewItem = true;
         }
         this.trnSalesOrderObj.orderDate = new Date(this.trnSalesOrderObj.orderDate);
         this.trnSalesOrderObj.expectedDeliveryDate = new Date(this.trnSalesOrderObj.expectedDeliveryDate);
@@ -259,6 +257,12 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.categoryIdError = true;
     else
       this.categoryIdError = false;
+
+
+    if (!this.givenDiscount && (this.categoryId == 1 || this.categoryId == 6 || this.categoryId == 5))
+      this.givenDiscountError = true;
+    else
+      this.givenDiscountError = false;
 
     if (!this.collectionId && this.categoryId != 7)
       this.collectionIdError = true;
@@ -310,7 +314,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     else
       this.orderQuantityError = false;
     if (this.orderQuantityError || this.widthError || this.fomSizeIdError || this.matSizeIdError || this.qualityIdError || this.accessoryIdError
-      || this.lengthError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
+      || this.lengthError || this.shadeIdError || this.collectionIdError || this.categoryIdError || this.givenDiscountError) {
       return false;
     }
 
@@ -328,7 +332,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     if (this.trnSalesOrderObj.totalAmount == null) {
       this.trnSalesOrderObj.totalAmount = 0;
     }
-    this.trnSalesOrderObj.totalAmount = this.trnSalesOrderObj.totalAmount + this.amountWithGST;
+    this.trnSalesOrderObj.totalAmount=Math.round(parseFloat( this.trnSalesOrderObj.totalAmount) + parseFloat( this.amountWithGST));
 
     let itemObj = {
       categoryId: this.categoryId,
@@ -346,6 +350,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       rateWithGST: this.rateWithGST,
       rate: this.rate,
       gst: this.productDetails.gst,
+      discountPercentage:this.givenDiscount,
       amount: this.amount,
       amountWithGST: this.amountWithGST,
       orderType: this.orderType,
@@ -697,7 +702,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.amount =parseFloat(this.amount).toFixed(2);
     this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
     this.amount = Math.round(this.amount - ((this.amount * givenDicount) / 100));
-    this.amountWithGST =parseFloat(this.amountWithGST).toFixed(2);
+    this.rateWithGST =parseFloat(this.rateWithGST).toFixed(2);
   }
 
   onChangeDiscountAmount() {
@@ -821,6 +826,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.shadeId = null;
       this.matSizeId = null;
+      this.givenDiscountError=false;
       this.fomSizeId = null;
     }
   }
