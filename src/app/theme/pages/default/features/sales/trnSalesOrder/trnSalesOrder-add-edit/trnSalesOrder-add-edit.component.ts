@@ -33,8 +33,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   viewItem: boolean = true;
   trnSalesOrderList = [];
   categoryList: SelectItem[];
-  discountOnRate: null;
-  givenDiscount: null;
+  discountOnRate = null;
+  givenDiscount = null;
   selectedCourierMode = null;
   selectedAgent = null;
   agentList = [];
@@ -373,7 +373,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.discountOnRate = null;
     this.givenDiscount = null;
     this.rateWithGST = null;
-    this.rate=null;
+    this.rate = null;
     this.productDetails = {
       sellingRate: null,
       flatRate: null,
@@ -647,30 +647,34 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
     if (this.categoryId == 2) {
       this.rate = ((this.productDetails.sellingRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width;
-      this.rate=parseFloat(this.rate).toFixed(2);
+      this.rate = parseFloat(this.rate).toFixed(2);
       this.discountOnRate = this.productDetails.maxDiscount;
       this.calculateAmount();
     }
     else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
-      this.rate =parseFloat(this.productDetails.flatRate ? this.productDetails.flatRate : this.productDetails.rrp).toFixed(2);
+      this.rate = parseFloat(this.productDetails.flatRate ? this.productDetails.flatRate : this.productDetails.rrp).toFixed(2);
       this.discountOnRate = this.productDetails.flatRate ? this.productDetails.maxFlatRateDisc : this.orderQuantity >= 50 ? this.productDetails.maxRoleRateDisc : this.productDetails.maxCutRateDisc;
       this.calculateAmount();
     }
     else if (this.categoryId == 4) {
       if (this.matSizeId != -1) {
-        this.rate =this.productDetails.sellingRate;
+        this.rate = this.productDetails.sellingRate;
         this.discountOnRate = this.productDetails.maxDiscount;
         this.calculateAmount();
       }
       else {
         this.rate = (((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet);
-        this.rate=parseFloat(this.rate).toFixed(2);
-       // this.rate = this.rate - Math.round((this.rate * 10) / 100);
+        this.rate = parseFloat(this.rate).toFixed(2);
+        // this.rate = this.rate - Math.round((this.rate * 10) / 100);
         this.calculateAmount();
       }
     }
     else if (this.categoryId == 7) {
+<<<<<<< HEAD
+      this.rate = this.productDetails.purchaseRate;
+=======
       this.rate =this.productDetails.sellingRate;
+>>>>>>> f2c7cba3baea7b887b91eb47133004b988e2f062
       this.discountOnRate = null;
       this.calculateAmount();
     }
@@ -859,9 +863,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.isFormSubmitted = true;
     this.trnSalesOrderObj.TrnSaleOrderItems = this.trnSaleOrderItems;
     let custObj = _.find(this.customerList, ['value', this.trnSalesOrderObj.customerId]);
-    this.trnSalesOrderObj.customerName=custObj?custObj.label: '';
-    if(this.trnSaleOrderItems.length==0)
-    {
+    this.trnSalesOrderObj.customerName = custObj ? custObj.label : '';
+    if (this.trnSaleOrderItems.length == 0) {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
       return false;
     }

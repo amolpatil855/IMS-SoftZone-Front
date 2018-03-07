@@ -1,4 +1,3 @@
-
 <div class="m-subheader">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
@@ -22,7 +21,7 @@
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
 			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="companyForm" title="{{(companyFormVal && companyFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-			 [isAuthorize]="['companyinfo']" tabindex="6">
+			 [isAuthorize]="['companyinfo']" tabindex="11">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
 			<!-- <button class="btn btn-secondary" [isAuthorize]="['shade']" (click)="onCancel()">
@@ -40,9 +39,9 @@
 
 				<div class="row">
 
-					<div class="col-md-12" >
+					<div class="col-md-12">
 						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(companyForm)"
-						 #companyFormVal="ngForm" id="companyForm"  [formGroup]="companyForm">
+						 #companyFormVal="ngForm" id="companyForm" [formGroup]="companyForm">
 							<div class="formContainerSamePage">
 
 								<div class="row">
@@ -53,48 +52,101 @@
 												<div class="form-group">
 
 													<div class="col-md-5 formContentbox">
-														<label class="fieldLabel col-sm-5">Company Name
-															<span class="requiredField">*</span>
+														<label class="fieldLabel col-sm-5">Company Name<span class="requiredField">*</span>
 														</label>
 														<div class="col-sm-7">
-															<input class="form-control m-input" type="text" value="" formControlName="companyName" required  [ngClass]="{'red-border-class': companyForm.get('companyName').hasError('required') && isFormSubmitted}"   name="companyName" id="companyName" placeholder="Company Name" tabindex="1">
-														</div>
-													</div>
-													</div>
-													<div class="form-group">
-													<div class="col-md-5 formContentbox">
-														<label class="fieldLabel col-sm-5">Company Email
-															<span class="requiredField">*</span>
-														</label>
-														<div class="col-sm-7">
-															<input class="form-control m-input" type="text" value="" formControlName="email"  required  [ngClass]="{'red-border-class': companyForm.get('email').hasError('required') && isFormSubmitted}"  name="email" placeholder="Email" maxlength="254" tabindex="2">
+															<input class="form-control m-input" type="text" value="" formControlName="companyName" required [ngClass]="{'red-border-class': companyForm.get('companyName').hasError('required') && isFormSubmitted}"
+															 name="companyName" id="companyName" placeholder="Company Name" autofocus tabindex="1">
 														</div>
 													</div>
 												</div>
 												<div class="form-group">
 													<div class="col-md-5 formContentbox">
-														<label class="fieldLabel col-sm-5">Contact
-															<span class="requiredField">*</span>
+														<label class="fieldLabel col-sm-5">Company Email<span class="requiredField">*</span>
 														</label>
 														<div class="col-sm-7">
-															<input class="form-control m-input" type="text" formControlName="phone"  required  [ngClass]="{'red-border-class': companyForm.get('phone').hasError('required') && isFormSubmitted}"  name="contact" placeholder="Contact" maxlength="15" tabindex="3">
+															<input class="form-control m-input" type="text" value="" formControlName="email" required [ngClass]="{'red-border-class': companyForm.get('email').hasError('required') && isFormSubmitted}"
+															 name="email" placeholder="Email" maxlength="254" tabindex="2">
 														</div>
-														<div class="alertMsg" *ngIf="!companyForm.get('phone').hasError('required') && companyForm.get('phone').hasError('pattern') && companyForm.get('phone').touched">
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">Phone<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="phone" pattern="^[0-9]+" formControlName="phone" required [ngClass]="{'red-border-class': (companyForm.get('phone').hasError('required') || companyForm.get('phone').errors?.minlength || companyForm.get('phone').errors?.maxlength || companyForm.get('phone').errors?.pattern) && isFormSubmitted}"
+															 name="phone" placeholder="Phone" minlength="10" maxlength="12" tabindex="3">
+														</div>
+														<!-- <div class="alertMsg" *ngIf="!companyForm.get('phone').hasError('required') && companyForm.get('phone').hasError('pattern') && companyForm.get('phone').touched">
 															Please enter valid phone number
+														</div> -->
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">Mobile<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="phone" pattern="^[0-9]+" formControlName="mobile" required [ngClass]="{'red-border-class': (companyForm.get('mobile').hasError('required') || companyForm.get('mobile').errors?.minlength || companyForm.get('mobile').errors?.maxlength || companyForm.get('mobile').errors?.pattern) && isFormSubmitted}"
+															 name="mobile" placeholder="Mobile" minlength="10" maxlength="10" tabindex="4">
+														</div>
+														<!-- <div class="alertMsg" *ngIf="!companyForm.get('mobile').hasError('required') && companyForm.get('mobile').hasError('pattern') && companyForm.get('mobile').touched">
+															Invalid Mobile number
+														</div> -->
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">Fax<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="number" formControlName="fax" required [ngClass]="{'red-border-class': companyForm.get('fax').hasError('required') && isFormSubmitted}"
+															 name="fax" id="fax" placeholder="Fax" tabindex="5">
 														</div>
 													</div>
 												</div>
 												<div class="form-group">
 													<div class="col-md-5 formContentbox">
-														<label class="fieldLabel col-sm-5">GSTIN
-															<span class="requiredField">*</span>
+														<label class="fieldLabel col-sm-5">Website<span class="requiredField">*</span>
 														</label>
 														<div class="col-sm-7">
-															<input class="form-control m-input" type="text" formControlName="gstin"  required  [ngClass]="{'red-border-class': companyForm.get('gstin').hasError('required') && isFormSubmitted}"  name="gstin" placeholder="GSTIN" maxlength="15" tabindex="4">
+															<input class="form-control m-input" type="text" formControlName="webSite" required [ngClass]="{'red-border-class': companyForm.get('webSite').hasError('required') && isFormSubmitted}"
+															 name="webSite" id="webSite" placeholder="Website" tabindex="6">
 														</div>
-														<div class="alertMsg" *ngIf="!companyForm.get('gstin').hasError('required') && companyForm.get('gstin').hasError('pattern') && companyForm.get('gstin').touched">
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">Address 1<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="text" formControlName="address1" required [ngClass]="{'red-border-class': companyForm.get('address1').hasError('required') && isFormSubmitted}"
+															 name="address1" id="address1" placeholder="Address 1" tabindex="7">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">Address 2<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="text" formControlName="address2" required [ngClass]="{'red-border-class': companyForm.get('address2').hasError('required') && isFormSubmitted}"
+															 name="address2" id="address2" placeholder="Address 2" tabindex="8">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">GSTIN<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="text" formControlName="gstin" required [ngClass]="{'red-border-class': companyForm.get('gstin').hasError('required') && isFormSubmitted}"
+															 name="gstin" placeholder="GSTIN" maxlength="15" tabindex="9">
+														</div>
+														<!-- <div class="alertMsg" *ngIf="!companyForm.get('gstin').hasError('required') && companyForm.get('gstin').hasError('pattern') && companyForm.get('gstin').touched">
 															Please enter valid GSTIN
-														</div>
+														</div> -->
 													</div>
 												</div>
 												<div class="form-group">
@@ -104,8 +156,9 @@
 																<span class="requiredField">*</span>
 															</label>
 															<div class="col-sm-7">
-															<input class="form-control m-input" type="file"  #fileupload  value="" name="companyLogo" id="companyLogo"  (change)="onUploadLogo(fileupload.files, $event)" tabindex="5">
-														</div>
+																<input class="form-control m-input" type="file" #fileupload value="" name="companyLogo" id="companyLogo" (change)="onUploadLogo(fileupload.files, $event)"
+																 tabindex="10">
+															</div>
 														</div>
 													</div>
 												</div>
@@ -116,11 +169,11 @@
 														</div>
 													</div>
 												</div>
-												</div>
 											</div>
 										</div>
 									</div>
 								</div>
+							</div>
 						</form>
 					</div>
 				</div>
