@@ -397,7 +397,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     };
     this.amount = null,
       this.orderType = '';
-    this.amountWithGST = '';
+    this.amountWithGST = null;
   }
 
   enableEdit(row) {
