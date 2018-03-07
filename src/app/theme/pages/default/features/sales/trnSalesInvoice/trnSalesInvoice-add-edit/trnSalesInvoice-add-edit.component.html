@@ -1,15 +1,17 @@
-<div class="invoiceMainBox">
+<div class="m-form__actions m-form__actions--solid formTopActionBtnBox" style="float:right">
+	<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesInvoice"
+		title="{{(trnSalesInvoice && trnSalesInvoice.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+		[isAuthorize]="['invoice']" tabindex="8">
+		{{ params ? 'Update' : 'Save' }}
+	</button>
+	<button class="btn btn-secondary" [isAuthorize]="['invoice']" (click)="onCancel()" tabindex="9">
+		Cancel
+	</button>
+	<button (click)="print()">print</button>
+</div>
+<div class="invoiceMainBox" id="invoiceMainBox">
 							<h3 class="invoiceMainHeading">Tax Invoice</h3>
-							<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-								<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesInvoice"
-									title="{{(trnSalesInvoice && trnSalesInvoice.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-									[isAuthorize]="['invoice']" tabindex="8">
-									{{ params ? 'Update' : 'Save' }}
-								</button>
-								<button class="btn btn-secondary" [isAuthorize]="['invoice']" (click)="onCancel()" tabindex="9">
-									Cancel
-								</button>
-							</div>
+
 						<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
                                 (ngSubmit)="onSubmit(trnSalesInvoice)" #trnSalesInvoice="ngForm" id="trnSalesInvoice">
 							<div class="row">
@@ -38,7 +40,7 @@
 									
 									<div class="invoiceAddressBox">
 										<h5>Buyer</h5>
-										<h4>HARI OM FURNITURE-(SINGHGAD RD)</h4>
+										<h4>{{trnSalesInvoiceObj["trnGoodIssueNote"] ? trnSalesInvoiceObj["trnGoodIssueNote"]["mstCustomer"]?trnSalesInvoiceObj["trnGoodIssueNote"]["mstCustomer"]["name"]:"": ""}}</h4>
 										<p>
 											{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["shippingAddress"] : ""}}
 										</p>
@@ -160,16 +162,11 @@
 							<!-- Table -->
 							<div class="row">
 								<div class="col-md-12">
-										<p-dataTable  [value]="trnSalesInvoiceObj.trnSalesInvoiceItems" [editable]="true" [emptyMessage]="tableEmptyMesssage" class="table listingTable">
+										<p-dataTable  [value]="trnSalesInvoiceObj.trnSalesInvoiceItems" [emptyMessage]="tableEmptyMesssage" class="table listingTable">
                                             <p-column field="categoryName" header="Description of Goods" [editable]="false"></p-column>
-                                            <p-column field="hsnCode" header="HSN/SAC" [editable]="false"></p-column>
-                                            <p-column field="gst" header="GST Rate" [editable]="false"></p-column>
-                                            <p-column field="quantity" header="Quantity" [editable]="true">
-                                                    <ng-template let-col let-row="rowData" pTemplate="editor">
-                                                            <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{row.orderQuantity}}" 
-                                                            [(ngModel)]="row[col.field]" name="quantity">
-                                                        </ng-template>
-                                            </p-column>
+                                            <p-column field="hsnCode" header="HSN/SAC" ></p-column>
+                                            <p-column field="gst" header="GST Rate"></p-column>
+                                            <p-column field="quantity" header="Quantity" ></p-column>
                                             <p-column field="rate" header="Rate" [editable]="false"></p-column>
                                             <p-column field="uom" header="per" [editable]="false"></p-column>
                                             <p-column field="discountPercentage" header="Dis.%" [editable]="false"></p-column>
@@ -188,36 +185,9 @@
 							<div class="table-responsive">
 								
 								<table class="table invoiceItemTable table-bordered">
-									<!-- <thead>
-									  <tr>
-										<th>Sr.No.</th>
-										<th>Description of Goods</th>
-										<th>HSN/SAC</th>
-										<th>GST Rate</th>
-										<th>Quantity</th>
-										<th>Rate</th>
-										<th>per</th>
-										<th>Dis.%</th>
-										<th>Amount</th>
-									  </tr>
-                                    </thead> -->
                                     
-									<tbody>
-									  <!-- <tr>
-										<td>1</td>
-										<td>
-											<b>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["trnSalesInvoiceItems"]["categoryName"] : ""}}</b>
-										</td>
-										<td>5506</td>
-										<td>18%</td>
-										<td><b>50.00 KG</b></td>
-										<td>140.00</td>
-										<td>KG</td>
-										<td>12</td>
-										<td><b>7,000.00</b></td>
-                                      </tr> -->
-                                      
-									   <tr class="gstRow">
+									<tbody>                                      
+									   <tr class="gstRow" *ngIf="gstAll>0">
 										<td></td>
 										<td class="gstCell">CGST-ALL</td>
 										<td></td>
@@ -228,7 +198,7 @@
 										<td></td>
 										<td><b>{{gstAll}}</b></td>
 									  </tr>
-									  <tr class="gstRow">
+									  <tr class="gstRow"  *ngIf="gstAll>0">
 										<td></td>
 										<td class="gstCell">SGST-ALL</td>
 										<td></td>
@@ -239,7 +209,7 @@
 										<td></td>
 										<td><b>{{gstAll}}</b></td>
                                       </tr>
-                                      <tr class="gstRow">
+                                      <tr class="gstRow"  *ngIf="iGstAll>0">
 										<td></td>
 										<td class="gstCell">IGST-ALL</td>
 										<td></td>
@@ -279,42 +249,42 @@
 									<thead>
 									  <tr>
 										<th class="alignRight">Taxable Value</th>
-										<th colspan="2" class="alignCenter">Central Tax</th>										
-										<th colspan="2" class="alignCenter">State Tax</th>
-										<th colspan="2" class="alignCenter">Integral Tax</th>
+										<th colspan="2" class="alignCenter"  *ngIf="gstAll>0">Central Tax</th>										
+										<th colspan="2" class="alignCenter"  *ngIf="gstAll>0">State Tax</th>
+										<th colspan="2" class="alignCenter"  *ngIf="iGstAll>0">Integral Tax</th>
 										<th>Total Tax Amount</th>
 									  </tr>
 									</thead>
 									<tbody>
 									  <tr>
 										<td></td>
-										<td class="boldTD alignCenter">Rate</td>
-										<td class="boldTD alignCenter">Amount</td>
-										<td class="boldTD alignCenter">Rate</td>
-										<td class="boldTD alignCenter">Amount</td>
-										<td class="boldTD alignCenter">Rate</td>
-										<td class="boldTD alignCenter">Amount</td>
-										<td></td>
+										<td class="boldTD alignCenter"  *ngIf="gstAll>0" >Rate</td>
+										<td class="boldTD alignCenter"  *ngIf="gstAll>0">Amount</td>
+										<td class="boldTD alignCenter"  *ngIf="gstAll>0">Rate</td>
+										<td class="boldTD alignCenter"  *ngIf="gstAll>0">Amount</td>
+										<td class="boldTD alignCenter" *ngIf="iGstAll>0">Rate</td>
+										<td class="boldTD alignCenter" *ngIf="iGstAll>0">Amount</td>
+										<td *ngIf="iGstAll>0"></td>
 									  </tr>
-									  <tr class="">
-										<td class="alignRight">7,000.00</td>
-										<td class="alignRight">9%</td>
-										<td class="alignRight">{{gstAll}}</td>
-										<td class="alignRight">9%</td>
-										<td class="alignRight">{{gstAll}}</td>
-										<td class="alignRight"></td>
-										<td class="alignRight">{{iGstAll}}</td>
-										<td class="alignRight">1,260.00</td>
+									  <tr class="" *ngFor="let row of invoiceGSTValues;let rowNum=index;let lastRowNum=last;">
+										<td class="alignRight" >{{row.taxValue}}</td>
+										<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
+										<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
+										<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
+										<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
+										<td class="alignRight" *ngIf="iGstAll>0">{{row.gst}}%</td>
+										<td class="alignRight" *ngIf="iGstAll>0">{{row.amount}}</td>
+										<td class="alignRight" >{{row.amount}}</td>
 									  </tr>
 									  <tr class="totalRow">
-										<td class="alignRight">Total : {{trnSalesInvoiceObj.totalAmount}}</td>
-										<td class="alignRight"></td>
-										<td class="alignRight">{{gstAll}}</td>
-										<td class="alignRight"></td>
-										<td class="alignRight">{{gstAll}}</td>
-										<td class="alignRight"></td>
-										<td class="alignRight">{{iGstAll}}</td>
-										<td class="alignRight">1,260.00</td>
+										<td class="alignRight">Total : {{trnSalesInvoiceObj.totalAmount -totalTaxAmount}}</td>
+										<td class="alignRight" *ngIf="gstAll>0"></td>
+										<td class="alignRight"  *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
+										<td class="alignRight"  *ngIf="gstAll>0"></td>
+										<td class="alignRight"  *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
+										<td class="alignRight" *ngIf="iGstAll>0"></td>
+										<td class="alignRight" *ngIf="iGstAll>0">{{iGstAll}}</td>
+										<td class="alignRight" >{{ totalTaxAmount}}</td>
 									  </tr>
 									 
 									</tbody>

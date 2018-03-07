@@ -690,7 +690,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.amount =parseFloat(this.amount).toFixed(2);
     this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
     this.amount = Math.round(this.amount - ((this.amount * givenDicount) / 100));
-    this.amountWithGST =parseFloat(this.amountWithGST).toFixed(2);
+    this.rateWithGST =parseFloat(this.rateWithGST).toFixed(2);
   }
 
   onChangeDiscountAmount() {
