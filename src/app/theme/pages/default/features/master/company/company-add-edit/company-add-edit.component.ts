@@ -41,6 +41,11 @@ export class CompanyAddEditComponent implements OnInit {
       companyName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
+      mobile: ['', [Validators.pattern('^[0-9]{10,15}$$')]],
+      fax: ['', [Validators.required]],
+      webSite: ['', [Validators.required]],
+      address1: ['', [Validators.required]],
+      address2: ['', [Validators.required]],
       gstin: ['', [Validators.required]],
       companyLogo: [''],
     });
@@ -58,6 +63,11 @@ export class CompanyAddEditComponent implements OnInit {
             companyName: results.companyName,
             email: results.email,
             phone: results.phone,
+            mobile: results.mobile,
+            fax: results.fax,
+            webSite: results.webSite,
+            address1: results.address1,
+            address2: results.address2,
             gstin: results.gstin,
             companyLogo: results.companyLogo,
           });

@@ -551,38 +551,37 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   }
 
   onChangeCategory() {
-    if (this.categoryId && this.categoryId != 7) {
+    if (this.categoryId) {
       this.categoryIdError = false;
+      this.purchaseOrderIdIdError = false;
+      this.orderQuantityError = false;
       this.matSizeIdError = false;
       this.fomSizeIdError = false;
       this.shadeIdError = false;
       this.accessoryIdError = false;
       this.collectionIdError = false;
-      this.purchaseOrderIdIdError = false;
-      this.orderQuantityError = false;
-      this.accessoryCodeList = [];
-      this.accessoryId = null;
-      this.getCollectionList();
-    }
-    else if (this.categoryId && this.categoryId == 7) {
-      this.categoryIdError = false;
-      this.collectionList = [];
-      this.collectionId = null;
-      this.getAccessoryLookup();
+      if (this.categoryId == 7) {
+        if (this.trnGoodReceiveNoteObj.supplierId != null) {
+          this.getAccessoryLookUpBySupplierId(this.trnGoodReceiveNoteObj.supplierId);
+        }
+      } else {
+        this.getCollectionList();
+      }
     }
     else {
       this.collectionList = [];
-      //this.collectionList.unshift({ label: '--Select--', value: null });
+      this.collectionList.unshift({ label: '--Select--', value: null });
       this.shadeIdList = [];
-      //this.shadeIdList.unshift({ label: '--Select--', value: null });
+      this.shadeIdList.unshift({ label: '--Select--', value: null });
       this.matSizeList = [];
-      //this.matSizeList.unshift({ label: '--Select--', value: null });
+      this.matSizeList.unshift({ label: '--Select--', value: null });
       this.fomSizeList = [];
-      //this.fomSizeList.unshift({ label: '--Select--', value: null });
+      this.fomSizeList.unshift({ label: '--Select--', value: null });
       this.accessoryCodeList = [];
-      //this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+      this.accessoryCodeList.unshift({ label: '--Select--', value: null });
       this.categoryIdError = true;
       this.orderQuantityError = false;
+      this.purchaseOrderIdIdError = false;
       this.matSizeIdError = false;
       this.fomSizeIdError = false;
       this.shadeIdError = false;
@@ -595,6 +594,26 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.matSizeId = null;
       this.onCancelItemDetails();
     }
+  }
+
+  onChangeSupplier() {
+    this.onCancelItemDetails();
+    if (this.trnGoodReceiveNoteObj.supplierId != null) {
+      this.onChangeCategory();
+    }
+  }
+ 
+  getAccessoryLookUpBySupplierId(supplierId) {
+    this.commonService.getAccessoryLookUpBySupplierId(supplierId).subscribe(
+      results => {
+        this.accessoryCodeList = results;
+        this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
   onChangeCollection() {

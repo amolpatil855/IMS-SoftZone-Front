@@ -33,6 +33,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
   trnSalesInvoiceObj=new TrnSalesInvoice();
   gstAll = null;
   iGstAll = null;
+  orderNumber = null;
   numberToWordConversion = '';
   amountWithGST = null;
   rateWithGST = null;
@@ -95,6 +96,9 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
       results => {
         this.trnSalesInvoiceObj = results;
         this.customerAddresses = results.trnSaleOrder.mstCustomer.mstCustomerAddresses;
+        if(results.trnSaleOrder != null){
+          this.orderNumber = results.trnSaleOrder.orderNumber;
+        }
         this.trnSalesInvoiceObj.trnSalesInvoiceItems.forEach(item =>{
           console.log('item', item);
           if (this.trnSalesInvoiceObj.totalAmount == null) {
@@ -198,7 +202,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
 
             /* Add hundreds word if array item exists */
             if ((word = units[ints[2]])) {
-                words.push(word + ' hundred');
+                words.push(word + ' Hundred');
             }
 
         }
@@ -219,13 +223,15 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
   onCancel() {
     this.router.navigate(['/features/sales/trnSalesInvoice/list']);
     this.disabled = false;
+    this.orderNumber = null;
     this.showUpdateBtn = true;
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
+    console.log('value',value);
     if (valid) {
-        this.saveTrnSalesInvoice(this.trnSalesInvoiceObj);
+       // this.saveTrnSalesInvoice(this.trnSalesInvoiceObj);
     }
   }
 
