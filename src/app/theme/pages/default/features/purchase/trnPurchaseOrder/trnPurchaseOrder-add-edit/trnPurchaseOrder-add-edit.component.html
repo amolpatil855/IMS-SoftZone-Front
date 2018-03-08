@@ -91,7 +91,7 @@
 																	<div class="col-md-6">
 																		<label class="col-md-4 col-sm-4 fieldLabel">Date</label>
 																		<div class="col-md-8 col-sm-8">
-																			<p-calendar class="purchaseOrderDate"  [disabled]="!status" #orderDateVal="ngModel" [(ngModel)]="trnPurchaseOrderObj.orderDate" name="orderDate"
+																			<p-calendar class="purchaseOrderDate"  [disabled]="disabled" #orderDateVal="ngModel" [(ngModel)]="trnPurchaseOrderObj.orderDate" name="orderDate"
 																			 [monthNavigator]="true" [yearNavigator]="true" tabindex="1" yearRange="2015:2030" dateFormat="dd/mm/yy"
 																			 styleClass="{{ orderDateVal.errors && isFormSubmitted?'red-border-class':''}}" autofocus required></p-calendar>
 																		</div>
@@ -110,7 +110,7 @@
 																</label>
 																<div class="col-md-10 col-sm-10 customerNameBox">
 
-																	<p-dropdown class="feePlanBox" [options]="supplierCodeList"  [disabled]="!status" required [(ngModel)]="trnPurchaseOrderObj.supplierId" #supplierCodeVal="ngModel"
+																	<p-dropdown class="feePlanBox" [options]="supplierCodeList"  [disabled]="disabled" required [(ngModel)]="trnPurchaseOrderObj.supplierId" #supplierCodeVal="ngModel"
 																	 required styleClass="{{ supplierCodeVal.errors && isFormSubmitted?'red-border-class':''}}" [style]="{'width':'100%'}" [disabled]="disabled"
 																	 name="supplierCodeDDl" filter="true" tabindex="3"  (ngModelChange)="onChangeSupplier()"></p-dropdown>
 																</div>
