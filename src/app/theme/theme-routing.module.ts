@@ -116,6 +116,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/sales\/trnSalesInvoice\/trnSalesInvoice.module#TrnSalesInvoiceModule"
       },
       {
+        "path": "features\/sales\/trnGINForItemsWithStockAvailable",
+        "loadChildren": ".\/pages\/default\/features\/sales\/trnGINForItemsWithStockAvailable\/trnGINForItemsWithStockAvailable.module#TrnGINForItemsWithStockAvailableModule"
+      },
+      {
         "path": "header/changePassword",
         "loadChildren": ".\/pages\/default\/features\/changePassword\/changePassword.module#ChangePasswordModule"
       },

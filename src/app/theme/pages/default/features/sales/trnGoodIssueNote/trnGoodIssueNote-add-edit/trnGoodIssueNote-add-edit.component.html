@@ -87,7 +87,7 @@
                                                                         <label class="col-md-4 col-sm-4 fieldLabel">Date</label>
                                                                         <div class="col-md-8 col-sm-8">
                                                                             <p-calendar class="purchaseOrderDate" #grnDateVal="ngModel" [(ngModel)]="trnGoodIssueNoteObj.ginDate" name="grnDate" [monthNavigator]="true"
-                                                                                [yearNavigator]="true" tabindex="1" yearRange="2015:2030"
+                                                                                [yearNavigator]="true" tabindex="1" yearRange="2015:2030" [disabled]="disabled"
                                                                                 dateFormat="dd/mm/yy" styleClass="{{ grnDateVal.errors && isFormSubmitted?'red-border-class':''}}"
                                                                                 autofocus required></p-calendar>
                                                                         </div>
