@@ -81,9 +81,9 @@
 
                                                         <div class="row form-group">
 
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-12">
                                                                 <div class="row">
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-3">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel">Date</label>
                                                                         <div class="col-md-8 col-sm-8">
                                                                             <p-calendar class="purchaseOrderDate" #grnDateVal="ngModel" [(ngModel)]="trnGoodIssueNoteObj.ginDate" name="grnDate" [monthNavigator]="true"
@@ -92,22 +92,30 @@
                                                                                 autofocus required></p-calendar>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-3">
                                                                         <label class="col-md-5 col-sm-5 fieldLabel noPadding">GIN No.</label>
                                                                         <div class="col-md-7 col-sm-7">
                                                                             <input type="text" [(ngModel)]="trnGoodIssueNoteObj.ginNumber" name="ginNumber" class="form-control" #ginNumberVal="ngModel"
                                                                                 readonly tabindex="2" placeholder="">
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label class="col-md-2 col-sm-2 fieldLabel">Customer</label>
-                                                                <div class="col-md-10 col-sm-10 customerNameBox">
+                                                                    <div class="col-md-3">
+                                                                        <label class="col-md-5 col-sm-5 fieldLabel noPadding">Sales Order No.</label>
+                                                                        <div class="col-md-7 col-sm-7">
+                                                                            <input type="text" [(ngModel)]="trnGoodIssueNoteObj.salesOrderNumber" name="salesOrderNumber" class="form-control" #salesOrderNumberVal="ngModel"
+                                                                                readonly tabindex="3" placeholder="">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <label class="col-md-5 col-sm-5 fieldLabel">Customer</label>
+                                                                        <div class="col-md-7 col-sm-7 customerNameBox">
 
-                                                                    <label>{{ trnGoodIssueNoteObj.mstCustomer?trnGoodIssueNoteObj.mstCustomer.name:''}}</label>
+                                                                            <label>{{ trnGoodIssueNoteObj.mstCustomer?trnGoodIssueNoteObj.mstCustomer.name:''}}</label>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -120,6 +128,8 @@
                             </form>
                             <div class="row">
                                 <div class="col-md-12">
+                                    <div class="panel panel-default">
+                                    <div class="panel-heading">Item Details</div>
                                     <!-- <table class="staticTable merchantTable" id="">
                                         <thead>
                                             <tr>
@@ -175,7 +185,7 @@
                                                         </ng-template>
                                             </p-column>
                                    </p-dataTable>
-
+                                    </div>
                                 </div>
                             </div>
                         </div>

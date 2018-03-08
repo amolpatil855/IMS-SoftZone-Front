@@ -279,9 +279,8 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    console.log('value', value);
     if (valid) {
-      // this.saveTrnSalesInvoice(this.trnSalesInvoiceObj);
+      this.saveTrnSalesInvoice(this.trnSalesInvoiceObj);
     }
   }
 
