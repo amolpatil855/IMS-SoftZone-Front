@@ -25,7 +25,7 @@ import { TrnGoodIssueNoteListComponent } from "./trnGoodIssueNote-list/trnGoodIs
 import { TrnGoodIssueNoteAddEditComponent } from "./trnGoodIssueNote-add-edit/trnGoodIssueNote-add-edit.component";
 import {TrnProductStockService} from "../../../_services/trnProductStock.service";
 import {MatSizeService} from "../../../_services/matSize.service";
-
+import { TrnGINForItemsWithStockAvailableService } from '../../../_services/trnGINForItemsWithStockAvailable.service';
 const routes: Routes = [
   {
     path: "",
@@ -93,7 +93,8 @@ const routes: Routes = [
     SupplierService,
     CommonService,
     CollectionService,
-    MatSizeService
+    MatSizeService,
+    TrnGINForItemsWithStockAvailableService
   ],
 })
 export class TrnGoodIssueNoteModule {
