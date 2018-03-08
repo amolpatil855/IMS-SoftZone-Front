@@ -2271,3 +2271,22 @@ select option {
         width: 1.2em!important;
     }
 }
+
+
+/******* D. 8 March 2018 *********/
+.printtable tr td{
+	font-family: Roboto;
+    color: #000;
+}
+.printtable tr td h5{
+	margin-top:0;
+	font-size: 12px;
+}
+.printtable tr td h4{
+	margin-top:0;
+	margin-bottom:0;
+	font-size: 16px;
+}
+.printtable tr td p {
+    margin: 0 0 5px;
+}
