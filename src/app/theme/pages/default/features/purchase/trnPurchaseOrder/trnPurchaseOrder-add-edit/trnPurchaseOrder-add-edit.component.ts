@@ -285,7 +285,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     else
       this.orderQuantityError = false;
 
-    if (this.orderQuantityError || this.widthError || this.fomSizeIdError || this.matSizeIdError || this.qualityIdError || this.accessoryIdError
+    if (this.orderQuantityError || this.widthError || this.matThicknessIdError || this.fomSizeIdError || this.matSizeIdError || this.qualityIdError || this.accessoryIdError
       || this.lengthError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
       return false;
     }
@@ -506,30 +506,32 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.thicknessList.unshift({ label: '--Select--', value: null });
     this.matThicknessId = null;
     //this.calculateProductStockDetails();
-    if (this.qualityId) {
-      this.qualityIdError = false;
-      if (this.collectionId) {
-        this.matSizeIdError = false;
-        this.orderQuantityError = false;
-
+    this.qualityIdError = false;
+    this.matSizeIdError = false;
+    this.orderQuantityError = false;
+    this.orderQuantity = null;
+    this.matThicknessIdError = false;
+    this.productDetails.stock = null;
+    this.length = null;
+    this.lengthError = false;
+    this.width = null;
+    this.widthError = false;
+    this.rateWithGST = null;
+    this.orderQuantity = null;
+    this.amount = null,
+    this.orderType = '';
+    this.amountWithGST = null;
+    if (this.qualityId != null) {
+      if (this.collectionId != null) {
         this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, null, this.qualityId).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
             this.globalErrorHandler.handleError(error);
           });
-      } else {
-        this.matSizeIdError = true;
-        this.orderQuantityError = false;
-        this.productDetails.stock = null;
       }
-    } else {
-      this.qualityIdError = true;
     }
-    this.lengthError = false;
-    this.widthError = false;
-    this.matThicknessIdError = false;
-    this.orderQuantityError = false;
+
     if (this.qualityId != null) {
       Helpers.setLoading(true);
       this.matSizeService.getMatThicknessLookUp().subscribe(
@@ -543,6 +545,13 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
           Helpers.setLoading(false);
         });
     }
+  }
+
+  onThicknessChange(){
+    this.matThicknessIdError = false;
+    this.lengthError = false;
+    this.widthError = false;
+    this.orderQuantityError = false;
   }
 
   onSaveItemDetails(row) {

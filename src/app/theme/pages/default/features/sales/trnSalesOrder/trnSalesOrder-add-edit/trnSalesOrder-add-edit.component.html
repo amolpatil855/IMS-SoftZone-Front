@@ -414,6 +414,9 @@
 												<th title="">
 													Serial No/Size
 												</th>
+												<th>
+													Available Stock
+												</th>
 												<th title="">
 													Quantity
 												</th>
@@ -442,7 +445,8 @@
 												<td>{{row.collectionId ? row.collectionName:''}}</td>
 												<td>{{row.accessoryId ? row.accessoryName : ''}}</td>
 												<td>{{row.serialno}} {{row.size}} {{row.matSizeCode}}</td>
-												<td> {{row.orderQuantity}}</td>
+												<td>{{row.availableStock}}</td>
+												<td>{{row.orderQuantity}}</td>
 												<td>{{row.orderType}}</td>
 												<td>{{row.rateWithGST}}</td>
 												<td>{{row.amountWithGST}}</td>
