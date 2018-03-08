@@ -694,6 +694,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
 
   onChangeSupplier() {
+    this.categoryId = null;
+    this.categoryIdError = false;
     this.onCancelItemDetails();
     if (this.trnPurchaseOrderObj.supplierId != null) {
       this.onChangeCategory();
@@ -714,24 +716,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
 
   onChangeCategory() {
-    if (this.categoryId) {
-      this.categoryIdError = false;
-      this.orderQuantityError = false;
-      this.matSizeIdError = false;
-      this.fomSizeIdError = false;
-      this.shadeIdError = false;
-      this.accessoryIdError = false;
-      this.collectionIdError = false;
-      if (this.categoryId == 7) {
-        if (this.trnPurchaseOrderObj.supplierId != null) {
-          this.getAccessoryLookUpBySupplierId(this.trnPurchaseOrderObj.supplierId);
-        }
-      } else {
-        this.getCollectionList();
-      }
-    }
-    else {
-      this.collectionList = [];
+    this.collectionList = [];
       this.collectionList.unshift({ label: '--Select--', value: null });
       this.shadeIdList = [];
       this.shadeIdList.unshift({ label: '--Select--', value: null });
@@ -741,7 +726,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.fomSizeList.unshift({ label: '--Select--', value: null });
       this.accessoryCodeList = [];
       this.accessoryCodeList.unshift({ label: '--Select--', value: null });
-      this.categoryIdError = true;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
       this.orderQuantityError = false;
       this.matSizeIdError = false;
       this.fomSizeIdError = false;
@@ -754,7 +740,19 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.fomSizeId = null;
       this.matSizeId = null;
       this.productDetails.stock = null;
-      this.onCancelItemDetails();
+      this.length = null;
+      this.lengthError = false;
+      this.width = null;
+      this.widthError = false;
+      this.rateWithGST = null;
+    if (this.categoryId != null) {
+      if (this.categoryId == 7) {
+        if (this.trnPurchaseOrderObj.supplierId != null) {
+          this.getAccessoryLookUpBySupplierId(this.trnPurchaseOrderObj.supplierId);
+        }
+      } else {
+        this.getCollectionList();
+      }
     }
   }
 
@@ -960,7 +958,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         .subscribe(
         results => {
           this.params = null;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
           this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
         },
@@ -973,7 +971,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         .subscribe(
         results => {
           this.params = null;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
           this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
         },
