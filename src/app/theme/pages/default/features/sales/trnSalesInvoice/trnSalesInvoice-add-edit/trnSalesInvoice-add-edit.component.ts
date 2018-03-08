@@ -127,16 +127,16 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
           }
           this.customerAddresses.forEach(o => {
             if (o.state == "Maharashtra") {
-              this.gstAll = Math.round(((item.amount * (item.gst)) / 100) / 2);
-              this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + (this.gstAll * 2) + item.amount;
+              this.gstAll =   this.gstAll +Math.round(((item.amount * (item.gst)) / 100) / 2);
+             // this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + (this.gstAll * 2) + item.amount;
             } else {
-              this.iGstAll = Math.round((item.amount * (item.gst)) / 100);
-              this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + this.iGstAll + item.amount;
+              this.iGstAll = this.iGstAll+ Math.round((item.amount * (item.gst)) / 100);
+             // this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + this.iGstAll + item.amount;
             }
           })
 
           this.numberToWordConversion = this.numberToWords(this.trnSalesInvoiceObj.totalAmount, ",");
-        });
+       });
         this.calculateGSTWiseAmount();
         Helpers.setLoading(false);
       },
