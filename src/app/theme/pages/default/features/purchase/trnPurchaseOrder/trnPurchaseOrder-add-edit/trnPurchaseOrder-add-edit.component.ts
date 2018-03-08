@@ -87,7 +87,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     stock: null,
     purchaseRate: null,
     custRatePerSqFeet: null,
-    purchaseDiscount:null
+    purchaseDiscount: null
   };
   accessoryId = null;
   accessoryCodeList = [];
@@ -361,7 +361,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       stock: null,
       purchaseRate: null,
       custRatePerSqFeet: null,
-      purchaseDiscount:null
+      purchaseDiscount: null
     };
     this.amount = null,
       this.orderType = '';
@@ -645,53 +645,56 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
     if (this.categoryId == 2) {
       this.rate = ((this.productDetails.purchaseRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width;
-      
+
       this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
       //this.amountWithGST = this.rate * this.orderQuantity;
-      this.amount =this.rate * this.orderQuantity;
-      this.rate=parseFloat(this.rate).toFixed(2);
-      this.amount=Math.round(this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
-     // this.amountWithGST= this.amountWithGST -  ((this.amountWithGST * this.productDetails.purchaseDiscount)/100);
-      this.amountWithGST =Math.round(this.amount + (this.amount * this.productDetails.gst) / 100);
+      this.amount = this.rate * this.orderQuantity;
+      this.rate = parseFloat(this.rate).toFixed(2);
+      this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
+      // this.amountWithGST= this.amountWithGST -  ((this.amountWithGST * this.productDetails.purchaseDiscount)/100);
+      this.amountWithGST = Math.round(this.amount + (this.amount * this.productDetails.gst) / 100);
     }
     else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
+      let applyDiscount = false;
       this.rate = (this.productDetails.purchaseFlatRate ? this.productDetails.purchaseFlatRate : this.orderQuantity > 50 ? this.productDetails.roleRate : this.productDetails.cutRate);
+      applyDiscount = (this.productDetails.purchaseFlatRate ? true : this.orderQuantity >= 50 ? true : false);
       this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
-     // this.amountWithGST = this.rateWithGST * this.orderQuantity;
+      // this.amountWithGST = this.rateWithGST * this.orderQuantity;
       this.amount = this.rate * this.orderQuantity;
-      this.rate=parseFloat( this.rate).toFixed(2);
-      this.amount=Math.round( this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
-      this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
-     
+      this.rate = parseFloat(this.rate).toFixed(2);
+      if (applyDiscount)
+        this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
+      this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
+
     }
     else if (this.categoryId == 4) {
       if (this.matSizeId != -1) {
         this.rate = this.productDetails.purchaseRate;
         this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
         this.amount = Math.round(this.rate * this.orderQuantity);
-        this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
+        this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
       }
       else {
         this.rate = ((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet;
 
         // this.rate = this.rate - Math.round((this.rate) / 100);
         this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
-       // this.amountWithGST = this.rateWithGST * this.orderQuantity;
+        // this.amountWithGST = this.rateWithGST * this.orderQuantity;
         this.amount = this.rate * this.orderQuantity;
-        this.rate=parseFloat( this.rate).toFixed(2);
+        this.rate = parseFloat(this.rate).toFixed(2);
         //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
-        this.amount=Math.round( this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
-        this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
+        this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
+        this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
       }
     }
     else if (this.categoryId == 7) {
       this.rate = this.productDetails.purchaseRate;
-      this.rateWithGST =parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
-     // this.amountWithGST =this.rateWithGST * this.orderQuantity;
+      this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
+      // this.amountWithGST =this.rateWithGST * this.orderQuantity;
       this.amount = this.rate * this.orderQuantity;
       //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
-      this.amount=Math.round( this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
-      this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
+      this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
+      this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
     }
   }
 
@@ -720,34 +723,34 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   onChangeCategory() {
     this.collectionList = [];
-      this.collectionList.unshift({ label: '--Select--', value: null });
-      this.shadeIdList = [];
-      this.shadeIdList.unshift({ label: '--Select--', value: null });
-      this.matSizeList = [];
-      this.matSizeList.unshift({ label: '--Select--', value: null });
-      this.fomSizeList = [];
-      this.fomSizeList.unshift({ label: '--Select--', value: null });
-      this.accessoryCodeList = [];
-      this.accessoryCodeList.unshift({ label: '--Select--', value: null });
-      this.matThicknessId = null;
-      this.matThicknessIdError = false;
-      this.orderQuantityError = false;
-      this.matSizeIdError = false;
-      this.fomSizeIdError = false;
-      this.shadeIdError = false;
-      this.accessoryIdError = false;
-      this.collectionIdError = false;
-      this.collectionId = null;
-      this.accessoryId = null;
-      this.shadeId = null;
-      this.fomSizeId = null;
-      this.matSizeId = null;
-      this.productDetails.stock = null;
-      this.length = null;
-      this.lengthError = false;
-      this.width = null;
-      this.widthError = false;
-      this.rateWithGST = null;
+    this.collectionList.unshift({ label: '--Select--', value: null });
+    this.shadeIdList = [];
+    this.shadeIdList.unshift({ label: '--Select--', value: null });
+    this.matSizeList = [];
+    this.matSizeList.unshift({ label: '--Select--', value: null });
+    this.fomSizeList = [];
+    this.fomSizeList.unshift({ label: '--Select--', value: null });
+    this.accessoryCodeList = [];
+    this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+    this.matThicknessId = null;
+    this.matThicknessIdError = false;
+    this.orderQuantityError = false;
+    this.matSizeIdError = false;
+    this.fomSizeIdError = false;
+    this.shadeIdError = false;
+    this.accessoryIdError = false;
+    this.collectionIdError = false;
+    this.collectionId = null;
+    this.accessoryId = null;
+    this.shadeId = null;
+    this.fomSizeId = null;
+    this.matSizeId = null;
+    this.productDetails.stock = null;
+    this.length = null;
+    this.lengthError = false;
+    this.width = null;
+    this.widthError = false;
+    this.rateWithGST = null;
     if (this.categoryId != null) {
       if (this.categoryId == 7) {
         if (this.trnPurchaseOrderObj.supplierId != null) {
