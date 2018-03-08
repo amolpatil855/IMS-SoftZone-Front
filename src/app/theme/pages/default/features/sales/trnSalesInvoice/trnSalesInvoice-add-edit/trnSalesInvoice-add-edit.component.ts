@@ -40,6 +40,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
   amountWithGST = null;
   rateWithGST = null;
   qualityList = [];
+  invoiceItemQuantityTotal = 0;
   isFormSubmitted: boolean;
   trnSalesInvoiceItems = [];
   customerAddresses = [];
@@ -121,22 +122,21 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
           this.orderNumber = results.trnSaleOrder.orderNumber;
         }
         this.trnSalesInvoiceObj.trnSalesInvoiceItems.forEach(item => {
-          console.log('item', item);
           if (this.trnSalesInvoiceObj.totalAmount == null) {
             this.trnSalesInvoiceObj.totalAmount = 0;
           }
           this.customerAddresses.forEach(o => {
             if (o.state == "Maharashtra") {
-              this.gstAll = Math.round(((item.amount * (item.gst)) / 100) / 2);
-              this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + (this.gstAll * 2) + item.amount;
+              this.gstAll =   this.gstAll +Math.round(((item.amount * (item.gst)) / 100) / 2);
+             // this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + (this.gstAll * 2) + item.amount;
             } else {
-              this.iGstAll = Math.round((item.amount * (item.gst)) / 100);
-              this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + this.iGstAll + item.amount;
+              this.iGstAll = this.iGstAll+ Math.round((item.amount * (item.gst)) / 100);
+             // this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + this.iGstAll + item.amount;
             }
           })
 
           this.numberToWordConversion = this.numberToWords(this.trnSalesInvoiceObj.totalAmount, ",");
-        });
+       });
         this.calculateGSTWiseAmount();
         Helpers.setLoading(false);
       },
@@ -152,11 +152,15 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
     //trnSalesInvoiceItems
     let lstGSTValue = [];
     let totalTax=0;
+    let vm = this;
     _.forEach(lstGST, function (gstVal) {
       //console.log(value);
       let gstTotal = 0;
       let taxsableValue = 0;
       _.forEach(invoiceItems, function (item) {
+       
+          vm.invoiceItemQuantityTotal = vm.invoiceItemQuantityTotal + item.quantity;
+ 
         if (item.gst == gstVal) {
           gstTotal =Math.round( gstTotal + (item.amount * item.gst / 100));
           taxsableValue =taxsableValue +item.amount;
@@ -179,7 +183,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
 
     /* Is number zero? */
     if (parseInt(string) === 0) {
-      return 'zero';
+      return 'Zero';
     }
 
     /* Array of units as words */

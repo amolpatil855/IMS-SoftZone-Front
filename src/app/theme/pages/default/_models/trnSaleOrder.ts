@@ -13,6 +13,11 @@ export class TrnSaleOrder {
     orderDate: Date;
     expectedDeliveryDate: Date;
     totalAmount: number;
+    paymentMode: string;
+    chequeNumber: string;
+    chequeDate: Date;
+    bankName: string;
+    bankBranch: string;
     remark: string;
     status: string;
     financialYear: string;

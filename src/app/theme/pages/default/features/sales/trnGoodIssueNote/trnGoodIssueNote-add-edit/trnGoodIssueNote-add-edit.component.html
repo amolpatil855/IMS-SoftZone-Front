@@ -167,9 +167,10 @@
                                                     </ng-template>
                                                 </p-column>
                                             <p-column field="orderQuantity" header="Order Quantity" [editable]="false"></p-column>
+                                            <p-column field="availableStock" header="Available Stock" [editable]="false"></p-column>
                                             <p-column field="issuedQuantity" header="Issue Quantity" [editable]="true">
                                                     <ng-template let-col let-row="rowData" pTemplate="editor">
-                                                            <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{row.orderQuantity}}" 
+                                                            <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{row.orderQuantity > row.availableStock ? row.availableStock : row.orderQuantity }}" 
                                                             [(ngModel)]="row[col.field]" name="issuedQuantity">
                                                         </ng-template>
                                             </p-column>

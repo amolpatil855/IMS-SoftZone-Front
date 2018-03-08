@@ -645,50 +645,53 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
     if (this.categoryId == 2) {
       this.rate = ((this.productDetails.purchaseRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width;
-  
+      
       this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
-      this.amountWithGST = this.rateWithGST * this.orderQuantity;
+      //this.amountWithGST = this.rate * this.orderQuantity;
       this.amount =this.rate * this.orderQuantity;
       this.rate=parseFloat(this.rate).toFixed(2);
-      this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
-      this.amount=Math.round( this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
+      this.amount=Math.round(this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
+     // this.amountWithGST= this.amountWithGST -  ((this.amountWithGST * this.productDetails.purchaseDiscount)/100);
+      this.amountWithGST =Math.round(this.amount + (this.amount * this.productDetails.gst) / 100);
     }
     else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
       this.rate = (this.productDetails.purchaseFlatRate ? this.productDetails.purchaseFlatRate : this.orderQuantity > 50 ? this.productDetails.roleRate : this.productDetails.cutRate);
       this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
-      this.amountWithGST = this.rateWithGST * this.orderQuantity;
+     // this.amountWithGST = this.rateWithGST * this.orderQuantity;
       this.amount = this.rate * this.orderQuantity;
       this.rate=parseFloat( this.rate).toFixed(2);
-      this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
       this.amount=Math.round( this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
+      this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
+     
     }
     else if (this.categoryId == 4) {
       if (this.matSizeId != -1) {
         this.rate = this.productDetails.purchaseRate;
         this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
-        this.amountWithGST = Math.round(this.rateWithGST * this.orderQuantity);
         this.amount = Math.round(this.rate * this.orderQuantity);
+        this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
       }
       else {
         this.rate = ((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet;
 
         // this.rate = this.rate - Math.round((this.rate) / 100);
         this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
-        this.amountWithGST = this.rateWithGST * this.orderQuantity;
+       // this.amountWithGST = this.rateWithGST * this.orderQuantity;
         this.amount = this.rate * this.orderQuantity;
         this.rate=parseFloat( this.rate).toFixed(2);
-        this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
+        //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
         this.amount=Math.round( this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
-        
+        this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
       }
     }
     else if (this.categoryId == 7) {
       this.rate = this.productDetails.purchaseRate;
       this.rateWithGST =parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
-      this.amountWithGST =this.rateWithGST * this.orderQuantity;
+     // this.amountWithGST =this.rateWithGST * this.orderQuantity;
       this.amount = this.rate * this.orderQuantity;
-      this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
+      //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
       this.amount=Math.round( this.amount -  ( (this.amount * this.productDetails.purchaseDiscount)/100)); 
+      this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
     }
   }
 
