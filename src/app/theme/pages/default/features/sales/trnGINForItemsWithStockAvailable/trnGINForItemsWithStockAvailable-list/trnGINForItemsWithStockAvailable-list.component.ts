@@ -51,6 +51,10 @@ export class TrnGINForItemsWithStockAvailableListComponent implements OnInit {
       });
   }
 
+  onEditClick(trnGoodIssueNote) {
+    this.router.navigate(['/features/sales/trnGoodIssueNote/edit', trnGoodIssueNote.id],{ queryParams: { parent: 'lstStock' } });
+  }
+
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
     this.page = event.first/event.rows;
