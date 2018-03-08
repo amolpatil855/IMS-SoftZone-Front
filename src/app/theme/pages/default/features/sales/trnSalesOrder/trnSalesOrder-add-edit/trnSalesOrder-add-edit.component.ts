@@ -106,6 +106,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   amount = null;
   disabled: boolean = false;
   shippingAddressObj = null;
+  shippingAddress = '';
   selectedRadio: boolean;
   display: boolean = false;
   shadeEnable: boolean = false;
@@ -142,6 +143,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.trnSalesOrderObj.orderDate = today;
     this.trnSalesOrderObj.chequeDate = today;
     // this.newItem();
+    this.shippingAddress = '';
     this.courierModeList.push({ label: '--Select--', value: null });
     this.courierModeList.push({ label: 'Surface', value: 'Surface' });
     this.courierModeList.push({ label: 'Air', value: 'Air' });
@@ -221,6 +223,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         this.trnSalesOrderObj.chequeDate = new Date(this.trnSalesOrderObj.chequeDate);
         this.trnSaleOrderItems = results.trnSaleOrderItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
+        this.shippingAddress = this.trnSalesOrderObj.shippingAddress;
         _.forEach(this.trnSaleOrderItems, function (value) {
           if (value.mstCategory != null)
             value.categoryName = value.mstCategory.code;
@@ -966,17 +969,21 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     if (valid) {
       // let supplierObj = _.find(this.supplierCodeList, ['value', this.trnSalesOrderObj.supplierId]);
       let couierObj = _.find(this.courierList, ['value', this.trnSalesOrderObj.courierId]);
-      let shippingAddress = "";
+     // let shippingAddress = "";
       this.trnSalesOrderObj.courierName = couierObj.label;
       // this.trnSalesOrderObj.supplierName = supplierObj.label,
-      if (this.shippingAddressObj) {
+      if (this.shippingAddressObj != null) {
         if (this.shippingAddressObj.addressLine1 != null) {
           this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
         } else {
-          this.trnSalesOrderObj.shippingAddress = "";
+          this.shippingAddressObj.addressLine1 = "";
+          this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
         }
       } else {
         this.trnSalesOrderObj.shippingAddress = "";
+      }
+      if(this.params){
+        this.trnSalesOrderObj.shippingAddress = this.shippingAddress;
       }
       this.saveTrnSalesOrder(this.trnSalesOrderObj);
     }
