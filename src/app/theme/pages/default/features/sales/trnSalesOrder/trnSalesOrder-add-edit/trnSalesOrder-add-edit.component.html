@@ -205,7 +205,7 @@
 																	<div class="col-md-6">
 																		<label class="col-md-4 col-sm-4 fieldLabel">Payment Mode<span class="requiredField">*</span></label>
 																		<div class="col-md-8 col-sm-8">
-																			<p-dropdown class="feePlanBox" [options]="paymentModeList"  required [(ngModel)]="trnSalesOrderObj.paymentMode" #paymentModeVal="ngModel"
+																			<p-dropdown class="feePlanBox" [options]="paymentModeList" [disabled]="!status"  required [(ngModel)]="trnSalesOrderObj.paymentMode" #paymentModeVal="ngModel"
 																			required [style]="{'width':'100%'}" styleClass="{{ paymentModeVal.errors && isFormSubmitted?'red-border-class':''}}"
 																			name="paymentMode" filter="true" tabindex="9"></p-dropdown>
 																		</div>
@@ -213,13 +213,13 @@
 																	<div class="col-md-6" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
 																			<label class="col-md-4 col-sm-4 fieldLabel">Cheque Number<span class="requiredField">*</span></label>
 																			<div class="col-md-7 col-sm-7">
-																				<input class="form-control m-input" type="text"   [ngClass]="{'red-border-class': chequeNumberVal.errors && isFormSubmitted}"  #chequeNumberVal="ngModel" required [(ngModel)]="trnSalesOrderObj.chequeNumber" name="chequeNumber" id="chequeNumber" placeholder="" tabindex="10">
+																				<input class="form-control m-input" type="text" [disabled]="!status"  [ngClass]="{'red-border-class': chequeNumberVal.errors && isFormSubmitted}"  #chequeNumberVal="ngModel" required [(ngModel)]="trnSalesOrderObj.chequeNumber" name="chequeNumber" id="chequeNumber" placeholder="" tabindex="10">
 																			</div>
 																	</div>
 																	<div class="col-md-6" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
 																		<label class="col-md-4 col-sm-4 fieldLabel">Cheque Date<span class="requiredField">*</span></label>
 																		<div class="col-md-8 col-sm-8">
-																			<p-calendar class="purchaseOrderDate" #chequeDateVal="ngModel" [(ngModel)]="trnSalesOrderObj.chequeDate" name="chequeDate" [monthNavigator]="true"
+																			<p-calendar class="purchaseOrderDate" #chequeDateVal="ngModel" [disabled]="!status" [(ngModel)]="trnSalesOrderObj.chequeDate" name="chequeDate" [monthNavigator]="true"
 																			 [yearNavigator]="true" tabindex="11"  yearRange="2015:2030" dateFormat="dd/mm/yy" styleClass="{{ chequeDateVal.errors && isFormSubmitted?'red-border-class':''}}"
 																			 required></p-calendar>
 																		</div>
@@ -233,13 +233,13 @@
 																	<div class="col-md-6" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
 																			<label class="col-md-4 col-sm-4 fieldLabel">Bank Name<span class="requiredField">*</span></label>
 																			<div class="col-md-7 col-sm-7">
-																				<input class="form-control m-input" type="text"   [ngClass]="{'red-border-class': bankNameVal.errors && isFormSubmitted}"  #bankNameVal="ngModel" required [(ngModel)]="trnSalesOrderObj.bankName" name="bankName" id="bankName" placeholder="" tabindex="12">
+																				<input class="form-control m-input" type="text"  [disabled]="!status" [ngClass]="{'red-border-class': bankNameVal.errors && isFormSubmitted}"  #bankNameVal="ngModel" required [(ngModel)]="trnSalesOrderObj.bankName" name="bankName" id="bankName" placeholder="" tabindex="12">
 																			</div>
 																	</div>
 																	<div class="col-md-6" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
 																		<label class="col-md-4 col-sm-4 fieldLabel">Bank Branch<span class="requiredField">*</span></label>
 																		<div class="col-md-7 col-sm-7">
-																			<input class="form-control m-input" type="text"   [ngClass]="{'red-border-class': bankBranchVal.errors && isFormSubmitted}"  #bankBranchVal="ngModel" required [(ngModel)]="trnSalesOrderObj.bankBranch" name="bankBranch" id="bankBranch" placeholder="" tabindex="5">
+																			<input class="form-control m-input" type="text"  [disabled]="!status" [ngClass]="{'red-border-class': bankBranchVal.errors && isFormSubmitted}"  #bankBranchVal="ngModel" required [(ngModel)]="trnSalesOrderObj.bankBranch" name="bankBranch" id="bankBranch" placeholder="" tabindex="5">
 																		</div>
 																	</div>
 															</div>
