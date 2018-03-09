@@ -433,6 +433,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -459,6 +460,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -485,6 +487,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -514,6 +517,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -699,8 +703,12 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     if (this.orderQuantity > 50) {
       this.orderType = 'RL';
     }
-    else
-      this.orderType = 'CL';
+    else {
+      if (!this.orderQuantity)
+        this.orderType = '';
+      else
+        this.orderType = 'CL';
+    }
 
     if (this.categoryId == 2) {
       this.rate = ((this.productDetails.sellingRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width;
@@ -777,6 +785,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.productDetails.stock = null;
     this.orderQuantity = null;
     this.rateWithGST = null;
+    this.rate = null;
     this.length = null;
     this.lengthError = false;
     this.width = null;
@@ -809,6 +818,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -834,6 +844,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -863,6 +874,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -899,6 +911,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;

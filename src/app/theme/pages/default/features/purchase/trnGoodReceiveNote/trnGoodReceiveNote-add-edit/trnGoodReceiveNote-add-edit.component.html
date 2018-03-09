@@ -227,14 +227,30 @@
 														</div>
 													</div>
 													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Order Quantity</label>
-														<div class="col-md-8 col-sm-8">
+														<label class="col-md-4 col-sm-4 fieldLabel">Or. Quantity</label>
+														<div class="col-md-6 col-sm-6">
 															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="99999"
 															 [(ngModel)]="orderQuantity" name="orderQuantity" disabled placeholder="">
 														</div>
+														<label class="orderTypeLabel">{{orderType}}</label>
 													</div>
 													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Received Quantity<span class="requiredField">*</span></label>
+														<label class="col-md-4 col-sm-4 fieldLabel">Rate</label>
+														<div class="col-md-6 col-sm-6">
+															<label class="orderTypeLabel">{{rate}}</label>
+														</div>
+													</div>
+												</div>
+
+												<div class="row form-group">
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Purchase Discount %</label>
+														<div class="col-md-8 col-sm-8">
+															<label class="orderTypeLabel">{{purchaseDiscount}}</label>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Rec. Quantity<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
 															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': orderQuantityError}"
 															 [(ngModel)]="receivedQuantity" name="receivedQuantity" tabindex="9" placeholder="" (blur)="changeRecivedQuantity()">
@@ -248,17 +264,24 @@
 														</div>
 													</div>
 												</div>
+
 												<div class="row form-group">
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Rate(GST) </label>
+													<!-- <div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">Rate</label>
 														<div class="col-md-8 col-sm-8">
 															<input class="form-control" [(ngModel)]="rateWithGST" disabled name="rateWithGST">
 														</div>
-													</div>
-													<div class="col-md-4">
+													</div> -->
+													<!-- <div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Order Type</label>
 														<div class="col-md-8 col-sm-8">
 															<label class="orderTypeLabel">{{orderType}}</label>
+														</div>
+													</div> -->
+													<div class="col-md-4">
+														<label class="col-md-4 col-sm-4 fieldLabel">GST %</label>
+														<div class="col-md-8 col-sm-8">
+															<input class="form-control" [(ngModel)]="productDetails.gst" disabled name="purchaseDiscount">
 														</div>
 													</div>
 													<div class="col-md-4">
@@ -291,6 +314,9 @@
 													Collection
 												</th>
 												<th title="">
+													Accessory
+												</th>
+												<th title="">
 													Serial No/Size
 												</th>
 												<th title="">
@@ -302,9 +328,6 @@
 												<!-- <th title="">
 													Order Type
 												</th> -->
-												<th title="">
-													Rate(GST)
-												</th>
 												<th title="">
 													Amount(GST)
 												</th>
@@ -321,12 +344,12 @@
 											</tr>
 											<tr *ngFor="let row of trnGoodReceiveNoteItems;let rowNum=index;let lastRowNum=last;">
 												<td>{{row.categoryName}}</td>
-												<td>{{row.collectionName|| row.accessoryName}}</td>
+												<td>{{row.collectionId ? row.collectionName:''}}</td>
+												<td>{{row.accessoryId ? row.accessoryName : ''}}</td>
 												<td>{{row.serialno}} {{row.size}} {{row.matSizeCode}}</td>
 												<td> {{row.orderQuantity}}</td>
 												<td>{{row.receivedQuantity}}</td>
 												<!-- <td>{{row.orderType}}</td> -->
-												<td>{{row.rateWithGST}}</td>
 												<td>{{row.amountWithGST}}</td>
 												<td>
 													<div class="">
