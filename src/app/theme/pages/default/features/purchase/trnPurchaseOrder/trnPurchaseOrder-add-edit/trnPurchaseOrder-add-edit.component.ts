@@ -670,7 +670,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     }
     else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
       let applyDiscount = false;
-      this.rate = (this.productDetails.purchaseFlatRate ? this.productDetails.purchaseFlatRate : this.orderQuantity > 50 ? this.productDetails.roleRate : this.productDetails.cutRate);
+      this.rate = (this.productDetails.purchaseFlatRate ? this.productDetails.purchaseFlatRate : this.orderQuantity >= 50 ? this.productDetails.roleRate : this.productDetails.cutRate);
       applyDiscount = (this.productDetails.purchaseFlatRate ? true : this.orderQuantity >= 50 ? true : false);
       this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
       // this.amountWithGST = this.rateWithGST * this.orderQuantity;
