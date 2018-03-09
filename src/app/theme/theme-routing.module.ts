@@ -104,6 +104,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/purchase\/trnGoodReceiveNote\/trnGoodReceiveNote.module#TrnGoodReceiveNoteModule"
       },
       {
+        "path": "features\/purchase\/trnPOItemsWithInsufficientStock",
+        "loadChildren": ".\/pages\/default\/features\/purchase\/trnPOItemsWithInsufficientStock\/trnPOItemsWithInsufficientStock.module#TrnPOItemsWithInsufficientStockModule"
+      },
+      {
         "path": "features\/sales\/trnSalesOrder",
         "loadChildren": ".\/pages\/default\/features\/sales\/trnSalesOrder\/trnSalesOrder.module#TrnSalesOrderModule"
       },
