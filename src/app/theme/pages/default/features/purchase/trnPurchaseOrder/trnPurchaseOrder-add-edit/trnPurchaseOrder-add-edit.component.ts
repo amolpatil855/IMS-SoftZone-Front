@@ -285,7 +285,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     else
       this.orderQuantityError = false;
 
-    if (this.orderQuantityError || this.widthError || this.fomSizeIdError || this.matSizeIdError || this.qualityIdError || this.accessoryIdError
+    if (this.orderQuantityError || this.widthError || this.matThicknessIdError || this.fomSizeIdError || this.matSizeIdError || this.qualityIdError || this.accessoryIdError
       || this.lengthError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
       return false;
     }
@@ -379,50 +379,62 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
     let parameterId = null;
     if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
-      if (this.shadeId) {
         this.shadeIdError = false;
         this.orderQuantityError = false;
-        parameterId = this.shadeId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
-          data => {
-            this.productDetails = data;
-          }, error => {
-            this.globalErrorHandler.handleError(error);
-          });
-      } else {
-        this.shadeIdError = true;
-        this.orderQuantityError = false;
         this.productDetails.stock = null;
-      }
+        this.rateWithGST = null;
+        this.orderQuantity = null;
+        this.amount = null,
+        this.orderType = '';
+        this.amountWithGST = null;
+        if (this.shadeId != null) {
+          parameterId = this.shadeId;
+          this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+            data => {
+              this.productDetails = data;
+            }, error => {
+              this.globalErrorHandler.handleError(error);
+            });
+        }
     }
     else if (this.categoryId == 2) {
-      if (this.fomSizeId) {
         this.fomSizeIdError = false;
         this.orderQuantityError = false;
-        parameterId = this.fomSizeId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
-          data => {
-            this.productDetails = data;
-          }, error => {
-            this.globalErrorHandler.handleError(error);
-          });
-      } else {
-        this.fomSizeIdError = true;
-        this.orderQuantityError = false;
         this.productDetails.stock = null;
-      }
+        this.rateWithGST = null;
+        this.orderQuantity = null;
+        this.amount = null,
+        this.orderType = '';
+        this.amountWithGST = null;
+        if (this.fomSizeId != null) {
+          parameterId = this.fomSizeId;
+          this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+            data => {
+              this.productDetails = data;
+            }, error => {
+              this.globalErrorHandler.handleError(error);
+            });
+        }
     }
     else if (this.categoryId == 4 && this.matSizeId != -1) {
-      this.lengthError = false;
-      this.widthError = false;
       this.matThicknessIdError = false;
       this.qualityId = null;
       this.thicknessList = [];
       this.thicknessList.unshift({ label: '--Select--', value: null });
       this.matThicknessId = null;
-      if (this.matSizeId) {
-        this.matSizeIdError = false;
-        this.orderQuantityError = false;
+      this.matSizeIdError = false;
+      this.orderQuantityError = false;
+      this.productDetails.stock = null;
+      this.length = null;
+      this.lengthError = false;
+      this.width = null;
+      this.widthError = false;
+      this.rateWithGST = null;
+      this.orderQuantity = null;
+      this.amount = null,
+      this.orderType = '';
+      this.amountWithGST = null;
+      if (this.matSizeId != null) {
         parameterId = this.matSizeId;
         this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
           data => {
@@ -430,37 +442,29 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
           }, error => {
             this.globalErrorHandler.handleError(error);
           });
-      } else {
-        this.matSizeIdError = true;
-        this.orderQuantityError = false;
-        this.productDetails.stock = null;
       }
     }
     else if (this.categoryId == 4 && this.matSizeId != -1 && !this.qualityId) {
       return;
     }
-    else if (this.categoryId == 4 && this.matSizeId == -1) {
-      this.matSizeIdError = false;
-      this.orderQuantityError = false;
-      this.getMatQualityList();
-    }
-
     else if (this.categoryId == 7) {
-      if (this.accessoryId) {
         this.accessoryIdError = false;
         this.orderQuantityError = false;
-        parameterId = this.accessoryId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
-          data => {
-            this.productDetails = data;
-          }, error => {
-            this.globalErrorHandler.handleError(error);
-          });
-      } else {
-        this.accessoryIdError = true;
-        this.orderQuantityError = false;
         this.productDetails.stock = null;
-      }
+        this.rateWithGST = null;
+        this.orderQuantity = null;
+        this.amount = null,
+        this.orderType = '';
+        this.amountWithGST = null;
+        if (this.accessoryId != null) {
+          parameterId = this.accessoryId;
+          this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+            data => {
+              this.productDetails = data;
+            }, error => {
+              this.globalErrorHandler.handleError(error);
+            });
+        }
     }
     else {
       parameterId = null;
@@ -502,30 +506,32 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.thicknessList.unshift({ label: '--Select--', value: null });
     this.matThicknessId = null;
     //this.calculateProductStockDetails();
-    if (this.qualityId) {
-      this.qualityIdError = false;
-      if (this.collectionId) {
-        this.matSizeIdError = false;
-        this.orderQuantityError = false;
-
+    this.qualityIdError = false;
+    this.matSizeIdError = false;
+    this.orderQuantityError = false;
+    this.orderQuantity = null;
+    this.matThicknessIdError = false;
+    this.productDetails.stock = null;
+    this.length = null;
+    this.lengthError = false;
+    this.width = null;
+    this.widthError = false;
+    this.rateWithGST = null;
+    this.orderQuantity = null;
+    this.amount = null,
+    this.orderType = '';
+    this.amountWithGST = null;
+    if (this.qualityId != null) {
+      if (this.collectionId != null) {
         this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, null, this.qualityId).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
             this.globalErrorHandler.handleError(error);
           });
-      } else {
-        this.matSizeIdError = true;
-        this.orderQuantityError = false;
-        this.productDetails.stock = null;
       }
-    } else {
-      this.qualityIdError = true;
     }
-    this.lengthError = false;
-    this.widthError = false;
-    this.matThicknessIdError = false;
-    this.orderQuantityError = false;
+
     if (this.qualityId != null) {
       Helpers.setLoading(true);
       this.matSizeService.getMatThicknessLookUp().subscribe(
@@ -539,6 +545,13 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
           Helpers.setLoading(false);
         });
     }
+  }
+
+  onThicknessChange(){
+    this.matThicknessIdError = false;
+    this.lengthError = false;
+    this.widthError = false;
+    this.orderQuantityError = false;
   }
 
   onSaveItemDetails(row) {
@@ -723,34 +736,38 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   onChangeCategory() {
     this.collectionList = [];
-    this.collectionList.unshift({ label: '--Select--', value: null });
-    this.shadeIdList = [];
-    this.shadeIdList.unshift({ label: '--Select--', value: null });
-    this.matSizeList = [];
-    this.matSizeList.unshift({ label: '--Select--', value: null });
-    this.fomSizeList = [];
-    this.fomSizeList.unshift({ label: '--Select--', value: null });
-    this.accessoryCodeList = [];
-    this.accessoryCodeList.unshift({ label: '--Select--', value: null });
-    this.matThicknessId = null;
-    this.matThicknessIdError = false;
-    this.orderQuantityError = false;
-    this.matSizeIdError = false;
-    this.fomSizeIdError = false;
-    this.shadeIdError = false;
-    this.accessoryIdError = false;
-    this.collectionIdError = false;
-    this.collectionId = null;
-    this.accessoryId = null;
-    this.shadeId = null;
-    this.fomSizeId = null;
-    this.matSizeId = null;
-    this.productDetails.stock = null;
-    this.length = null;
-    this.lengthError = false;
-    this.width = null;
-    this.widthError = false;
-    this.rateWithGST = null;
+      this.collectionList.unshift({ label: '--Select--', value: null });
+      this.shadeIdList = [];
+      this.shadeIdList.unshift({ label: '--Select--', value: null });
+      this.matSizeList = [];
+      this.matSizeList.unshift({ label: '--Select--', value: null });
+      this.fomSizeList = [];
+      this.fomSizeList.unshift({ label: '--Select--', value: null });
+      this.accessoryCodeList = [];
+      this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
+      this.orderQuantityError = false;
+      this.matSizeIdError = false;
+      this.fomSizeIdError = false;
+      this.shadeIdError = false;
+      this.accessoryIdError = false;
+      this.collectionIdError = false;
+      this.collectionId = null;
+      this.accessoryId = null;
+      this.shadeId = null;
+      this.fomSizeId = null;
+      this.matSizeId = null;
+      this.productDetails.stock = null;
+      this.length = null;
+      this.lengthError = false;
+      this.width = null;
+      this.widthError = false;
+      this.rateWithGST = null;
+      this.orderQuantity = null;
+      this.amount = null,
+      this.orderType = '';
+      this.amountWithGST = null;
     if (this.categoryId != null) {
       if (this.categoryId == 7) {
         if (this.trnPurchaseOrderObj.supplierId != null) {
@@ -763,52 +780,50 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
 
   onChangeCollection() {
-    // if (this.collectionId) {
-    //   this.getshadeIdList(this.collectionId);
-    // }
-    if (this.collectionId === null) {
-      this.productDetails.stock = null;
-    }
-
     if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
-      if (this.collectionId) {
         this.collectionIdError = false;
-        this.shadeIdError = false;
-        this.orderQuantityError = false;
-        this.getshadeIdList();
-      } else {
-        this.collectionIdError = true;
         this.shadeIdList = [];
         this.shadeIdList.unshift({ label: '--Select--', value: null });
         this.shadeIdError = false;
-        this.orderQuantityError = false;
         this.shadeId = null;
-      }
+        this.productDetails.stock = null;
+        this.length = null;
+        this.lengthError = false;
+        this.width = null;
+        this.widthError = false;
+        this.rateWithGST = null;
+        this.orderQuantity = null;
+        this.amount = null,
+        this.orderType = '';
+        this.amountWithGST = null;
+        this.orderQuantityError = false;
+        if (this.collectionId != null) {
+          this.getshadeIdList();
+        }
     }
     else if (this.categoryId == 2) {
-      if (this.collectionId) {
         this.collectionIdError = false;
-        this.fomSizeIdError = false;
-        this.orderQuantityError = false;
-        this.getFoamSizeList();
-      } else {
-        this.collectionIdError = true;
         this.fomSizeList = [];
         this.fomSizeList.unshift({ label: '--Select--', value: null });
         this.fomSizeIdError = false;
         this.orderQuantityError = false;
         this.fomSizeId = null;
-      }
+        this.productDetails.stock = null;
+        this.length = null;
+        this.lengthError = false;
+        this.width = null;
+        this.widthError = false;
+        this.rateWithGST = null;
+        this.orderQuantity = null;
+        this.amount = null,
+        this.orderType = '';
+        this.amountWithGST = null;
+        if (this.collectionId != null) {
+          this.getFoamSizeList();
+        }
     }
     else if (this.categoryId == 4) {
-      if (this.collectionId) {
         this.collectionIdError = false;
-        this.matSizeIdError = false;
-        this.qualityIdError = false;
-        this.orderQuantityError = false;
-        this.getMatSizeList();
-      } else {
-        this.collectionIdError = true;
         this.matSizeList = [];
         this.matSizeList.unshift({ label: '--Select--', value: null });
         this.matSizeIdError = false;
@@ -821,7 +836,20 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         this.thicknessList.unshift({ label: '--Select--', value: null });
         this.matThicknessId = null;
         this.orderQuantityError = false;
-      }
+        this.productDetails.stock = null;
+        this.length = null;
+        this.lengthError = false;
+        this.width = null;
+        this.widthError = false;
+        this.rateWithGST = null;
+        this.orderQuantity = null;
+        this.amount = null,
+        this.orderType = '';
+        this.amountWithGST = null;
+        if (this.collectionId != null) {
+          this.getMatSizeList();
+          this.getMatQualityList();
+        }
     } else {
       this.categoryIdError = true;
       this.collectionIdError = true;
@@ -839,6 +867,16 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.shadeId = null;
       this.matSizeId = null;
       this.fomSizeId = null;
+      this.productDetails.stock = null;
+      this.length = null;
+      this.lengthError = false;
+      this.width = null;
+      this.widthError = false;
+      this.rateWithGST = null;
+      this.orderQuantity = null;
+      this.amount = null,
+      this.orderType = '';
+      this.amountWithGST = null;
     }
   }
 

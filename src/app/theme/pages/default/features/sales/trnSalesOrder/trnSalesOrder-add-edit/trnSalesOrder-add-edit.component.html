@@ -153,13 +153,17 @@
 																	 (onSelect)="onDateSelect()"></p-calendar>
 																</div>
 															</div>
+														 </div>	
+														 
+														 <div class="row form-group">
 															<div class="col-md-3">
-																		<label class="col-md-5 col-sm-5 fieldLabel noPadding">Total Amount</label>
-																		<div class="col-md-7 col-sm-7">
+																		<label class="col-md-6 col-sm-6 fieldLabel ">Total Amount</label>
+																		<div class="col-md-6 col-sm-6">
 																			<input type="number" [(ngModel)]="trnSalesOrderObj.totalAmount" name="totalAmount" class="form-control"
 																			 disabled placeholder="">
 																		</div>
 															</div>	
+														  </div>	
 															<div class="row form-group">
 																
 																	<div class="col-md-12">
@@ -185,7 +189,7 @@
 															</div>
 														</div>
 													</div>
-												</div>
+												
 
 											</div>
 								
@@ -200,24 +204,24 @@
 
 														<div class="row form-group">
 
-															<div class="col-md-6">
+															<div class="col-md-12">
 																<div class="row">
-																	<div class="col-md-6">
-																		<label class="col-md-4 col-sm-4 fieldLabel">Payment Mode<span class="requiredField">*</span></label>
+																	<div class="col-md-4">
+																		<label class="col-md-4 col-sm-4 fieldLabel ">Payment Mode<span class="requiredField">*</span></label>
 																		<div class="col-md-8 col-sm-8">
 																			<p-dropdown class="feePlanBox" [options]="paymentModeList" [disabled]="!status"  required [(ngModel)]="trnSalesOrderObj.paymentMode" #paymentModeVal="ngModel"
 																			required [style]="{'width':'100%'}" styleClass="{{ paymentModeVal.errors && isFormSubmitted?'red-border-class':''}}"
 																			name="paymentMode" filter="true" tabindex="9"></p-dropdown>
 																		</div>
 																	</div>
-																	<div class="col-md-6" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
-																			<label class="col-md-4 col-sm-4 fieldLabel">Cheque Number<span class="requiredField">*</span></label>
+																	<div class="col-md-4" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
+																			<label class="col-md-4 col-sm-4 fieldLabel noPadding">Cheque Number<span class="requiredField">*</span></label>
 																			<div class="col-md-7 col-sm-7">
 																				<input class="form-control m-input" type="text" [disabled]="!status"  [ngClass]="{'red-border-class': chequeNumberVal.errors && isFormSubmitted}"  #chequeNumberVal="ngModel" required [(ngModel)]="trnSalesOrderObj.chequeNumber" name="chequeNumber" id="chequeNumber" placeholder="" tabindex="10">
 																			</div>
 																	</div>
-																	<div class="col-md-6" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
-																		<label class="col-md-4 col-sm-4 fieldLabel">Cheque Date<span class="requiredField">*</span></label>
+																	<div class="col-md-4" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
+																		<label class="col-md-4 col-sm-4 fieldLabel noPadding">Cheque Date<span class="requiredField">*</span></label>
 																		<div class="col-md-8 col-sm-8">
 																			<p-calendar class="purchaseOrderDate" #chequeDateVal="ngModel" [disabled]="!status" [(ngModel)]="trnSalesOrderObj.chequeDate" name="chequeDate" [monthNavigator]="true"
 																			 [yearNavigator]="true" tabindex="11"  yearRange="2015:2030" dateFormat="dd/mm/yy" styleClass="{{ chequeDateVal.errors && isFormSubmitted?'red-border-class':''}}"
@@ -225,24 +229,26 @@
 																		</div>
 																	</div>
 																</div>
-															</div>
-															
-
-														</div>
-														<div class="row form-group">
-																	<div class="col-md-6" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
-																			<label class="col-md-4 col-sm-4 fieldLabel">Bank Name<span class="requiredField">*</span></label>
+																
+																<div class="row form-group">
+																	<div class="col-md-4" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
+																			<label class="col-md-4 col-sm-4 fieldLabel ">Bank Name<span class="requiredField">*</span></label>
 																			<div class="col-md-7 col-sm-7">
 																				<input class="form-control m-input" type="text"  [disabled]="!status" [ngClass]="{'red-border-class': bankNameVal.errors && isFormSubmitted}"  #bankNameVal="ngModel" required [(ngModel)]="trnSalesOrderObj.bankName" name="bankName" id="bankName" placeholder="" tabindex="12">
 																			</div>
 																	</div>
-																	<div class="col-md-6" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
-																		<label class="col-md-4 col-sm-4 fieldLabel">Bank Branch<span class="requiredField">*</span></label>
+																	<div class="col-md-4" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
+																		<label class="col-md-4 col-sm-4 fieldLabel noPadding">Bank Branch<span class="requiredField">*</span></label>
 																		<div class="col-md-7 col-sm-7">
 																			<input class="form-control m-input" type="text"  [disabled]="!status" [ngClass]="{'red-border-class': bankBranchVal.errors && isFormSubmitted}"  #bankBranchVal="ngModel" required [(ngModel)]="trnSalesOrderObj.bankBranch" name="bankBranch" id="bankBranch" placeholder="" tabindex="5">
 																		</div>
 																	</div>
+																</div>
 															</div>
+															
+
+														</div>
+														
 														</div>
 													</div>
 												
@@ -252,10 +258,10 @@
 										</div>
 							
 										<div class="row">
-										<div class="col-md-12" *ngIf="viewItem">
+										<div class="col-md-12">
 											<div class="panel panel-default">
 												<div class="panel-heading">Item Details</div>
-												<div class="panel-body">
+												<div class="panel-body" *ngIf="viewItem">
 													<div class="row form-group">
 														<div class="col-md-4">
 															<label class="col-md-4 col-sm-4 fieldLabel">Category<span class="requiredField">*</span></label>
@@ -408,6 +414,9 @@
 												<th title="">
 													Serial No/Size
 												</th>
+												<th>
+													Available Stock
+												</th>
 												<th title="">
 													Quantity
 												</th>
@@ -436,7 +445,8 @@
 												<td>{{row.collectionId ? row.collectionName:''}}</td>
 												<td>{{row.accessoryId ? row.accessoryName : ''}}</td>
 												<td>{{row.serialno}} {{row.size}} {{row.matSizeCode}}</td>
-												<td> {{row.orderQuantity}}</td>
+												<td>{{row.availableStock}}</td>
+												<td>{{row.orderQuantity}}</td>
 												<td>{{row.orderType}}</td>
 												<td>{{row.rateWithGST}}</td>
 												<td>{{row.amountWithGST}}</td>

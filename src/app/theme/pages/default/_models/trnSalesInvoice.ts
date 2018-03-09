@@ -10,6 +10,7 @@ export class TrnSalesInvoice {
     totalAmount: number;
     amountPaid: number;
     status: string;
+    buyersOrderNumber: string;
     courierDockYardNumber: string;
     TrnGoodIssueNote: TrnGoodIssueNote;
     TrnSaleOrder: TrnSaleOrder;
