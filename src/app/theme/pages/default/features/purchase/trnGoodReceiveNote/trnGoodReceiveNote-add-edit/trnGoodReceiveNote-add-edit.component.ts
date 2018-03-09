@@ -209,13 +209,13 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     else
       this.qualityIdError = false;
 
-    if (!this.orderQuantity)
+    if (!this.orderQuantity || !this.receivedQuantity)
       this.orderQuantityError = true;
     else
       this.orderQuantityError = false;
 
     if (this.orderQuantityError || this.widthError || this.matThicknessIdError || this.qualityIdError || this.fomSizeIdError || this.matSizeIdError || this.matSizeIdError || this.accessoryIdError
-      || this.lengthError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
+     || !this.receivedQuantity || this.lengthError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
       return false;
     }
 
@@ -466,15 +466,6 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   }
 
   onPuchaseOrderChange() {
-      this.purchaseOrderIdIdError = false;
-      this.purchaseOrderId = null;
-      this.orderQuantityError = false;
-      this.qualityIdError = false;
-      this.lengthError = false;
-      this.widthError = false;
-      this.purchaseOrderIdIdError = false;
-      this.orderQuantityError = false;
-      this.matThicknessIdError = false;
       
     if(this.purchaseOrderId != null) {
       let poObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
@@ -482,11 +473,22 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.rateWithGST = poObj.rateWithGST;
       this.orderType = poObj.orderType;
       this.rate = poObj.rate;
-    } else {
-      this.orderQuantity = '';
-      this.rateWithGST = '';
+    }else{
+      this.purchaseOrderIdIdError = false;
+      this.purchaseOrderId = null;
+      this.orderQuantityError = false;
+      this.qualityIdError = false;
+      this.lengthError = false;
+      this.widthError = false;
+      this.orderQuantityError = false;
+      this.matThicknessIdError = false;
+      this.orderQuantity = null;
+      this.rateWithGST = null;
+      this.amountWithGST = null;
+      this.amount = null;
+      this.receivedQuantity = null;
       this.orderType = '';
-      this.rate = '';
+      this.rate = null;
     }
   }
 
