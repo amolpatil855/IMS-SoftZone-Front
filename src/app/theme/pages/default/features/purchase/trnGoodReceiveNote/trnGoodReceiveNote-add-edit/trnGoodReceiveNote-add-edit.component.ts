@@ -215,7 +215,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.orderQuantityError = false;
 
     if (this.orderQuantityError || this.widthError || this.matThicknessIdError || this.qualityIdError || this.fomSizeIdError || this.matSizeIdError || this.matSizeIdError || this.accessoryIdError
-     || !this.receivedQuantity || this.lengthError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
+     || !this.receivedQuantity || this.lengthError || this.purchaseOrderIdIdError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
       return false;
     }
 
