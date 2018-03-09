@@ -350,6 +350,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       shadeId: this.shadeId,
       fomSizeId: this.fomSizeId,
       matSizeId: this.matSizeId,
+      availableStock: this.productDetails.stock,
       orderQuantity: this.orderQuantity,
       rateWithGST: this.rateWithGST,
       rate: this.rate,
@@ -413,7 +414,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       maxDiscount: null
     };
     this.amount = null,
-      this.orderType = '';
+    this.orderType = '';
     this.amountWithGST = null;
   }
 

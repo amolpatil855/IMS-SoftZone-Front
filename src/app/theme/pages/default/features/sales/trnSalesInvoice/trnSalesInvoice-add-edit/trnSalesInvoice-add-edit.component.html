@@ -21,14 +21,14 @@
 		</div>
 
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox" style="float:right">
+			<button class="topBtn btn-info" (click)="print()" tabindex="5">print</button>
 			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesInvoice" title="{{(trnSalesInvoice && trnSalesInvoice.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-			 [isAuthorize]="['invoice']" tabindex="8">
+			 [isAuthorize]="['invoice']" tabindex="3">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
-			<button class="btn btn-secondary" [isAuthorize]="['invoice']" (click)="onCancel()" tabindex="9">
+			<button class="btn btn-secondary" [isAuthorize]="['invoice']" (click)="onCancel()" tabindex="4">
 				Cancel
 			</button>
-			<button (click)="print()">print</button>
 		</div>
 	</div>
 </div>
@@ -135,9 +135,8 @@
 												<div class="col-md-6">
 													<div class="invoiceStatContainer">
 														<h5>Buyer's Order No.</h5>
-														<input class="form-control m-input" type="text" value="" [(ngModel)]="orderNumber" name="orderNumber" id="orderNumber" placeholder=""
+														<input class="form-control m-input" type="text" value="" [(ngModel)]="trnSalesInvoiceObj.buyersOrderNumber" name="buyersOrderNumber" id="buyersOrderNumber" placeholder=""
 														 maxlength="50" autofocus tabindex="1">
-														<!-- <h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["orderNumber"] : ""}}</h4> -->
 													</div>
 												</div>
 
@@ -154,7 +153,6 @@
 														<h5>Dispatch Document No.</h5>
 														<input class="form-control m-input" type="text" value="" [(ngModel)]="trnSalesInvoiceObj.courierDockYardNumber" name="courierDockYardNumber"
 														 id="courierDockYardNumber" placeholder="" maxlength="20" tabindex="2">
-														<!-- <h4>{{trnSalesInvoiceObj.courierDockYardNumber}}</h4> -->
 													</div>
 												</div>
 

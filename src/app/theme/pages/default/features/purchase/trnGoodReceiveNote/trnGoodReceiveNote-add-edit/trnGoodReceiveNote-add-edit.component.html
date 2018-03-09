@@ -138,10 +138,10 @@
 
 									</div>
 
-									 <div class="col-md-12"  *ngIf="showUpdateBtn">
+									 <div class="col-md-12">
 										<div class="panel panel-default">
 											<div class="panel-heading">Item Details</div>
-											<div class="panel-body">
+											<div class="panel-body" *ngIf="showUpdateBtn">
 												<div class="row form-group">
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Category<span class="requiredField">*</span></label>
@@ -211,7 +211,7 @@
 													<div class="col-md-4">
 														<label class="fieldLabel col-md-4 col-sm-4">Thickness<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
-															 <p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="matThicknessId"
+															 <p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="matThicknessId" (ngModelChange)="onThicknessChange()"
 															 styleClass="{{matThicknessIdError?'red-border-class':'' }}" name="matSizeIdval"  filter="true" tabindex="8" ></p-dropdown>
 														</div>
 													</div>
