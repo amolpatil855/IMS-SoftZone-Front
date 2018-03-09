@@ -707,7 +707,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       // this.amountWithGST =this.rateWithGST * this.orderQuantity;
       this.amount = this.rate * this.orderQuantity;
       //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
-      this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
+      //this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
       this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
     }
   }
