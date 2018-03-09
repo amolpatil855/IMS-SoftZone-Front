@@ -220,6 +220,11 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       return false;
     }
 
+    if(this.receivedQuantity > this.orderQuantity){
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Recieved quantity should be less than ordered quantity." });
+      return false;
+    }
+
     let catObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
     let collObj = _.find(this.collectionList, ['value', this.collectionId]);
     let shadeObj = _.find(this.shadeIdList, ['value', this.shadeId]);
@@ -517,6 +522,11 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   }
 
   changeRecivedQuantity() {
+    if(this.receivedQuantity > this.orderQuantity){
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Recieved quantity should be less than ordered quantity." });
+      return false;
+    }
+
     let poObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
 
     if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
