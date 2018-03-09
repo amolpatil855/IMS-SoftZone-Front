@@ -9,4 +9,5 @@ export class TrnGoodIssueNote{
     status:string;
     trnGoodIssueNoteItems=[];
     mstCustomer:Customer;
+    salesOrderNumber:string;
 }
