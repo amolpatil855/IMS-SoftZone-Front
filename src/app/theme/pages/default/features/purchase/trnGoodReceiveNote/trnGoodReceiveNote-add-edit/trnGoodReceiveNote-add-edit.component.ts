@@ -594,12 +594,12 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.rate = parseFloat(this.rate).toFixed(2);
       if (applyDiscount)
         this.amount = Math.round(this.amount - ((this.amount * poObj.purchaseDiscount) / 100));
-      this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
+      this.amountWithGST = Math.round(this.amount + ((this.amount * poObj.gst) / 100));
     }
     else {
       this.amountWithGST = poObj.rate * this.receivedQuantity;
       this.amount = Math.round(this.amount - ((this.amount * poObj.purchaseDiscount) / 100));
-      this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
+      this.amountWithGST = Math.round(this.amount + ((this.amount * poObj.gst) / 100));
     }
   }
 
