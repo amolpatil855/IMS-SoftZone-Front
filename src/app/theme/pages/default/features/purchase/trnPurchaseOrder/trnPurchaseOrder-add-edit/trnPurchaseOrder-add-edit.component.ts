@@ -290,6 +290,18 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       return false;
     }
 
+      
+      if(this.trnPurchaseOrderItems.length>0){
+        
+        let poObj = _.find(this.trnPurchaseOrderItems, ['categoryId', this.categoryId]);
+        if(poObj != null){
+          if(this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId){
+            this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
+            return false;
+          }
+        }  
+      }
+
     let catObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
     let collObj = _.find(this.collectionList, ['value', this.collectionId]);
     let accessoryObj = _.find(this.accessoryCodeList, ['value', this.accessoryId]);
@@ -744,6 +756,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.categoryId = null;
     this.categoryIdError = false;
     this.onCancelItemDetails();
+    this.trnPurchaseOrderItems = [];
     if (this.trnPurchaseOrderObj.supplierId != null) {
       this.onChangeCategory();
     }

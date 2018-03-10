@@ -57,6 +57,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   lengthError = false;
   widthError = false;
   orderQuantityError = false;
+  fomQuantityInKGError = false;
   matThicknessIdError = false;
   accessoryIdError = false;
   fomSizeIdError = false;
@@ -72,6 +73,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   fomSizeId = null;
   qualityId = null;
   rate = null;
+  fomQuantityInKG = null;
   amountWithGST = null;
   rateWithGST = null;
   purchaseDiscount = null;
@@ -225,6 +227,19 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       return false;
     }
 
+    
+      if(this.trnGoodReceiveNoteItems.length>0){
+        
+        let poObj = _.find(this.trnGoodReceiveNoteItems, ['categoryId', this.categoryId]);
+        if(poObj != null){
+          if(this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId && this.purchaseOrderId == poObj.purchaseOrderId){
+            this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
+            return false;
+          }
+        }
+      
+    } 
+
     let catObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
     let collObj = _.find(this.collectionList, ['value', this.collectionId]);
     let shadeObj = _.find(this.shadeIdList, ['value', this.shadeId]);
@@ -255,6 +270,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       matThicknessId: this.matThicknessId,
       orderQuantity: this.orderQuantity,
       receivedQuantity: this.receivedQuantity,
+      fomQuantityInKG: this.fomQuantityInKG,
       rateWithGST: this.rateWithGST,
       rate: this.rate,
       amountWithGST: this.amountWithGST,
@@ -296,6 +312,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.rateWithGST = null;
     this.purchaseDiscount = null;
     this.receivedQuantity = null;
+    this.fomQuantityInKG = null;
     this.productDetails = {
       purchaseRatePerMM: null,
       suggestedMM: null,
@@ -338,6 +355,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseDiscount = null;
       this.orderQuantity = null;
       this.orderQuantityError = false;
+      this.fomQuantityInKGError = false;
       this.receivedQuantity = null;
       this.orderType = null;
       this.amountWithGST = null;
@@ -377,6 +395,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseDiscount = null;
       this.orderQuantity = null;
       this.orderQuantityError = false;
+      this.fomQuantityInKGError = false;
       this.receivedQuantity = null;
       this.orderType = null;
       this.amountWithGST = null;
@@ -416,7 +435,9 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseDiscount = null;
       this.orderQuantity = null;
       this.orderQuantityError = false;
+      this.fomQuantityInKGError = false;
       this.receivedQuantity = null;
+      this.fomQuantityInKG = null;
       this.orderType = null;
       this.amountWithGST = null;
       this.matThicknessId = null;
@@ -456,7 +477,9 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseDiscount = null;
       this.orderQuantity = null;
       this.orderQuantityError = false;
+      this.fomQuantityInKGError = false;
       this.receivedQuantity = null;
+      this.fomQuantityInKG = null;
       this.orderType = null;
       this.amountWithGST = null;
       if (this.accessoryId != null) {
@@ -494,6 +517,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   onPuchaseOrderChange() {
     this.purchaseOrderIdIdError = false;
     this.orderQuantityError = false;
+    this.fomQuantityInKGError = false;
     if (this.purchaseOrderId != null) {
       let poObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
       this.purchaseDiscount = poObj.purchaseDiscount;
@@ -505,6 +529,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseOrderIdIdError = false;
       this.purchaseOrderId = null;
       this.orderQuantityError = false;
+      this.fomQuantityInKGError = false;
       this.qualityIdError = false;
       this.lengthError = false;
       this.widthError = false;
@@ -515,6 +540,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.amountWithGST = null;
       this.amount = null;
       this.receivedQuantity = null;
+      this.fomQuantityInKG = null;
       this.orderType = '';
       this.rate = null;
       this.purchaseDiscount = null;
@@ -583,6 +609,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.purchaseOrderId = null;
     this.purchaseOrderIdIdError = false;
     this.orderQuantityError = false;
+    this.fomQuantityInKGError = false;
     this.orderQuantity = null;
     this.matThicknessIdError = false;
     this.productDetails.stock = null;
@@ -594,6 +621,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.purchaseDiscount = null;
     this.orderQuantity = null;
     this.receivedQuantity = null;
+    this.fomQuantityInKG = null;
     this.amount = null,
       this.orderType = '';
     this.amountWithGST = null;
@@ -619,6 +647,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.widthError = false;
     this.purchaseOrderIdIdError = false;
     this.orderQuantityError = false;
+    this.fomQuantityInKGError = false;
   }
 
   onSaveItemDetails(row) {
@@ -715,6 +744,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.accessoryCodeList.unshift({ label: '--Select--', value: null });
     this.categoryIdError = false;
     this.orderQuantityError = false;
+    this.fomQuantityInKGError = false;
     this.matSizeIdError = false;
     this.fomSizeIdError = false;
     this.shadeIdError = false;
@@ -738,6 +768,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.purchaseDiscount = null;
     this.orderQuantity = null;
     this.receivedQuantity = null;
+    this.fomQuantityInKG = null;
     this.orderType = null;
     this.amountWithGST = null;
     this.matThicknessId = null;
@@ -757,6 +788,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.categoryId = null;
     this.categoryIdError = false;
     this.onCancelItemDetails();
+    this.trnGoodReceiveNoteItems = [];
     if (this.trnGoodReceiveNoteObj.supplierId != null) {
       this.onChangeCategory();
     }
@@ -783,6 +815,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.shadeIdError = false;
       this.accessoryIdError = false;
       this.orderQuantityError = false;
+      this.fomQuantityInKGError = false;
       this.shadeIdList = [];
       this.shadeIdList.unshift({ label: '--Select--', value: null });
       this.shadeId = null;
@@ -801,6 +834,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseDiscount = null;
       this.orderQuantity = null;
       this.receivedQuantity = null;
+      this.fomQuantityInKG = null;
       this.orderType = null;
       this.amountWithGST = null;
       this.matThicknessId = null;
@@ -816,6 +850,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.shadeIdError = false;
       this.accessoryIdError = false;
       this.orderQuantityError = false;
+      this.fomQuantityInKGError = false;
       this.fomSizeList = [];
       this.fomSizeList.unshift({ label: '--Select--', value: null });
       this.fomSizeId = null;
@@ -834,6 +869,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseDiscount = null;
       this.orderQuantity = null;
       this.receivedQuantity = null;
+      this.fomQuantityInKG = null;
       this.orderType = null;
       this.amountWithGST = null;
       this.matThicknessId = null;
@@ -849,6 +885,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.shadeIdError = false;
       this.accessoryIdError = false;
       this.orderQuantityError = false;
+      this.fomQuantityInKGError = false;
       this.matSizeList = [];
       this.matSizeList.unshift({ label: '--Select--', value: null });
       this.matSizeId = null;
@@ -869,6 +906,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseDiscount = null;
       this.orderQuantity = null;
       this.receivedQuantity = null;
+      this.fomQuantityInKG = null;
       this.orderType = null;
       this.amountWithGST = null;
       this.matThicknessId = null;
@@ -883,6 +921,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.shadeIdError = false;
       this.accessoryIdError = false;
       this.orderQuantityError = false;
+      this.fomQuantityInKGError = false;
       this.shadeIdList = [];
       this.shadeIdList.unshift({ label: '--Select--', value: null });
       this.matSizeList = [];
@@ -905,6 +944,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseDiscount = null;
       this.orderQuantity = null;
       this.receivedQuantity = null;
+      this.fomQuantityInKG = null;
       this.orderType = null;
       this.amountWithGST = null;
       this.matThicknessId = null;

@@ -322,6 +322,17 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       return false;
     }
 
+    if(this.trnSaleOrderItems.length>0){
+        
+        let soObj = _.find(this.trnSaleOrderItems, ['categoryId', this.categoryId]);
+        if(soObj != null){
+          if(this.accessoryId == soObj.accessoryId && this.shadeId == soObj.shadeId && this.fomSizeId == soObj.fomSizeId && this.matSizeId == soObj.matSizeId){
+            this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
+            return false;
+          }
+        }  
+      }
+
     let catObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
     let collObj = _.find(this.collectionList, ['value', this.collectionId]);
     let accessoryObj = _.find(this.accessoryCodeList, ['value', this.accessoryId]);
