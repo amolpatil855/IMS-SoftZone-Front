@@ -88,13 +88,13 @@
                                 <p-column field="salesOrderNumber" header="SO No." [style]="{'text-align':'left'}"></p-column>
 								<p-column field="mstCustomer.name" header="Customer" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="status" header="Status" [style]="{'text-align':'left'}"></p-column>
-								<p-column styleClass="col-button" [style]="{'text-align':'left'}">
+								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action
 									</ng-template>
                                     <ng-template let-row="rowData" pTemplate="body">
-                                            <button type="button" pButton  *ngIf="row.status == 'Completed'" (click)="onEditClick(row)" icon="fa fa-info-circle" class="editBtn" title="View GIN"></button>
-                                            <button type="button"  *ngIf="row.status != 'Completed'" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit GIN"></button> 
+                                            <button type="button" pButton  *ngIf="row.status != 'Created'" (click)="onEditClick(row)" icon="fa fa-info-circle" class="editBtn" title="View GIN"></button>
+                                            <button type="button"  *ngIf="row.status == 'Created'" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit GIN"></button> 
                                     </ng-template>
 								</p-column>
 							</p-dataTable>

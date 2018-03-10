@@ -322,6 +322,17 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       return false;
     }
 
+    if(this.trnSaleOrderItems.length>0){
+        
+        let soObj = _.find(this.trnSaleOrderItems, ['categoryId', this.categoryId]);
+        if(soObj != null){
+          if(this.accessoryId == soObj.accessoryId && this.shadeId == soObj.shadeId && this.fomSizeId == soObj.fomSizeId && this.matSizeId == soObj.matSizeId){
+            this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
+            return false;
+          }
+        }  
+      }
+
     let catObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
     let collObj = _.find(this.collectionList, ['value', this.collectionId]);
     let accessoryObj = _.find(this.accessoryCodeList, ['value', this.accessoryId]);
@@ -433,6 +444,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -459,6 +471,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -485,6 +498,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -514,6 +528,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -699,8 +714,12 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     if (this.orderQuantity > 50) {
       this.orderType = 'RL';
     }
-    else
-      this.orderType = 'CL';
+    else {
+      if (!this.orderQuantity)
+        this.orderType = '';
+      else
+        this.orderType = 'CL';
+    }
 
     if (this.categoryId == 2) {
       this.rate = ((this.productDetails.sellingRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width;
@@ -777,6 +796,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.productDetails.stock = null;
     this.orderQuantity = null;
     this.rateWithGST = null;
+    this.rate = null;
     this.length = null;
     this.lengthError = false;
     this.width = null;
@@ -809,6 +829,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -834,6 +855,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -863,6 +885,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
@@ -899,6 +922,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.rate = null;
       this.length = null;
       this.lengthError = false;
       this.width = null;
