@@ -67,6 +67,9 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
     this.getCourierList();
     this.getLoggedInUserDetail();
     this.newPO();
+    this.courierModeList.push({ label: '--Select--', value: null });
+    this.courierModeList.push({ label: 'Surface', value: 'Surface' });
+    this.courierModeList.push({ label: 'Air', value: 'Air' });
   }
 
   newPO() {
@@ -78,13 +81,6 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
     this.locationObj = {};
     this.disabled = false;
     this.trnPurchaseOrderObj.orderDate = today;
-    // this.newItem();
-    this.courierModeList.push({ label: '--Select--', value: null });
-    this.courierModeList.push({ label: 'Surface', value: 'Surface' });
-    this.courierModeList.push({ label: 'Air', value: 'Air' });
-    this.route.params.forEach((params: Params) => {
-      this.params = params['id'];
-    });
     this.getTrnPurchaseOrderById();
   }
 
