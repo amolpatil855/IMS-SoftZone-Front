@@ -659,7 +659,6 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     if (this.categoryId == 2) {
       
       this.rate = ((this.productDetails.purchaseRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.length * this.productDetails.width;
-
       this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
       //this.amountWithGST = this.rate * this.orderQuantity;
       this.amount = this.rate * this.orderQuantity;
