@@ -199,13 +199,13 @@
 														<label class="col-md-4 col-sm-4 fieldLabel">Length x Width<span class="requiredField">*</span></label>
 														<div class="col-md-3 col-sm-3">
 															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': lengthError}"
-															 [(ngModel)]="length" name="length" placeholder="" autocomplete="off" tabindex="8">
+															 [(ngModel)]="length" name="length" placeholder="" (blur)="onMatSizeCodeChange()" autocomplete="off" tabindex="8">
 														</div>
 
 														<label class="col-md-2 col-sm-2 fieldLabel">x</label> 
 														<div class="col-md-3 col-sm-3">
 															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': widthError}"
-															 (blur)="calculateSizeCode();" [(ngModel)]="width" name="width" placeholder="" autocomplete="off" tabindex="8">
+															 (blur)="calculateSizeCode();" [(ngModel)]="width" name="width" placeholder="" (blur)="onMatSizeCodeChange()" autocomplete="off" tabindex="8">
 														</div>
 													</div>
 													<div class="col-md-4">
