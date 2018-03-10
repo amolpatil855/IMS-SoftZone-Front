@@ -303,7 +303,7 @@ export class CustomerListComponent implements OnInit {
           this.getCustomersList();
           this.toggleDiv = false;
           this.params = null;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
         },
         error => {
@@ -317,7 +317,7 @@ export class CustomerListComponent implements OnInit {
           this.getCustomersList();
           this.toggleDiv = false;
           this.params = null;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
         },
         error => {
@@ -380,7 +380,7 @@ export class CustomerListComponent implements OnInit {
       accept: () => {
         this.customerService.deleteCustomer(customer.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+            this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
             this.getCustomersList();
           },
           error => {

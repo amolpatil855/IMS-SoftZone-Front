@@ -41,7 +41,7 @@
             </ul>
         </div>
         <div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-            <button type="submit" *ngIf="trnGoodIssueNoteObj.status!='Completed'" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnGoodIssueNote"
+            <button type="submit" *ngIf="trnGoodIssueNoteObj.status=='Created'" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnGoodIssueNote"
                 title="{{(trnGoodIssueNote && trnGoodIssueNote.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
                 [isAuthorize]="['gin']" tabindex="8">
                 {{ params ? 'Update' : 'Save' }}
@@ -178,7 +178,7 @@
                                                 </p-column>
                                             <p-column field="orderQuantity" header="Order Quantity" [editable]="false"></p-column>
                                             <p-column field="availableStock" header="Available Stock" [editable]="false"></p-column>
-                                            <p-column field="issuedQuantity" header="Issue Quantity" [editable]="true">
+                                            <p-column field="issuedQuantity" header="Issue Quantity" [editable]="trnGoodIssueNoteObj.status=='Created'">
                                                     <ng-template let-col let-row="rowData" pTemplate="editor">
                                                             <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{row.orderQuantity > row.availableStock ? row.availableStock : row.orderQuantity }}" 
                                                             [(ngModel)]="row[col.field]" name="issuedQuantity">
