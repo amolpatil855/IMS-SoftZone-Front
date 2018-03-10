@@ -135,8 +135,8 @@
 												<div class="col-md-6">
 													<div class="invoiceStatContainer">
 														<h5>Buyer's Order No.</h5>
-														<input class="form-control m-input" type="text" value="" [(ngModel)]="trnSalesInvoiceObj.buyersOrderNumber" name="buyersOrderNumber" id="buyersOrderNumber" placeholder=""
-														 maxlength="50" autofocus tabindex="1">
+														<input class="form-control m-input" type="text" value="" [(ngModel)]="trnSalesInvoiceObj.buyersOrderNumber" name="buyersOrderNumber"
+														 id="buyersOrderNumber" placeholder="" maxlength="50" autofocus tabindex="1">
 													</div>
 												</div>
 
@@ -433,3 +433,370 @@
 	</div>
 </div>
 <!--*************************  Main Page content Ends *******************************************--->
+
+
+
+
+
+
+
+<!-- For Pring Screen -->
+<div class="invoiceMainBox" id="printInvoice" style="display:none;">
+	<h3 class="invoiceMainHeading">Tax Invoice</h3>
+
+	<div class="row" style="padding-left: 15px;padding-right: 15px;">
+		<div class="" style="width:50%;float:left;">
+			<table class="table printtable">
+				<tr>
+					<td style="padding-left:0;">
+						<h4 style="margin-bottom:5px;">{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["companyName"] : ""}}</h4>
+						<p>
+							{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["address1"] : ""}}, Code : {{trnSalesInvoiceObj["mstCompanyInfo"]
+							? trnSalesInvoiceObj["mstCompanyInfo"]["locationCode"] : ""}}
+						</p>
+						<p>
+							{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["address2"] : ""}},{{trnSalesInvoiceObj["mstCompanyInfo"]
+							? trnSalesInvoiceObj["mstCompanyInfo"]["city"] : ""}}
+						</p>
+						<p>
+							PH. {{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["phone"] : ""}}
+						</p>
+						<p>
+							GSTIN/UIN: {{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["gstin"] : ""}}
+						</p>
+						<p>
+							State Name : {{"Maharashtra"}}, Code : {{"27"}}
+						</p>
+						<p>
+							E-Mail : {{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["email"] : ""}}
+						</p>
+					</td>
+				</tr>
+			</table>
+
+			<table class="table printtable">
+				<tr>
+					<td style="padding-left:0;">
+						<h5>Buyer</h5>
+						<h4>{{trnSalesInvoiceObj["trnGoodIssueNote"] ? trnSalesInvoiceObj["trnGoodIssueNote"]["mstCustomer"]?trnSalesInvoiceObj["trnGoodIssueNote"]["mstCustomer"]["name"]:"":
+							""}}
+						</h4>
+						<p>
+							{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["shippingAddress"] : ""}}
+						</p>
+						<p>
+							MOB-{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["phone"] : ""}}
+						</p>
+						<p>
+							GSTIN/UIN : {{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["mstCustomerAddresses"][0]["gstin"]
+							: ""}}
+						</p>
+						<p>
+							State Name : {{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["mstCustomerAddresses"][0]["state"]
+							: ""}}
+						</p>
+						<p>
+							E-Mail : {{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["email"] : ""}}
+						</p>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+		<div class="" style="width:50%;float:left;">
+			<table class="table table-bordered printtable">
+				<tr>
+					<td>
+						<div class="">
+							<h5>Invoice No.</h5>
+							<h4>{{trnSalesInvoiceObj.invoiceNumber}}</h4>
+						</div>
+					</td>
+					<td>
+						<div class="">
+							<h5>Dated</h5>
+							<h4>{{trnSalesInvoiceObj.invoiceDate | date: 'dd/MM/yyyy'}}</h4>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="">
+							<h5>Delivery Note</h5>
+							<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["orderNumber"] : ""}}/{{trnSalesInvoiceObj["trnGoodIssueNote"]
+								? trnSalesInvoiceObj["trnGoodIssueNote"]["ginNumber"] : ""}}</h4>
+						</div>
+					</td>
+					<td>
+						<div class="">
+							<h5>Mode/Terms of Payment</h5>
+							<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["paymentMode"] : ""}}</h4>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="">
+							<h5>Buyer's Order No.</h5>
+							<h4>{{trnSalesInvoiceObj.buyersOrderNumber}}</h4>
+						</div>
+					</td>
+					<td>
+						<div class="">
+							<h5>Dated</h5>
+							<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? (trnSalesInvoiceObj["trnSaleOrder"]["orderDate"] | date: 'dd/MM/yyyy') : ""}}</h4>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="">
+							<h5>Dispatch Document No.</h5>
+							<h4>{{trnSalesInvoiceObj.courierDockYardNumber}}</h4>
+						</div>
+					</td>
+					<td>
+						<div class="">
+							<h5>Delivery Note Date</h5>
+							<h4>{{trnSalesInvoiceObj.invoiceDate | date: 'dd/MM/yyyy'}}</h4>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="">
+							<h5>Dispatched through</h5>
+							<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCourier"]["name"] : ""}}</h4>
+						</div>
+					</td>
+					<td>
+						<div class="">
+							<h5>Courier Mode</h5>
+							<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["courierMode"] : ""}}</h4>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="">
+							<h5>Terms of Delivery</h5>
+						</div>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+
+
+	</div>
+
+	<!-- Table -->
+	<div class="table-responsive" style="margin-top:20px;">
+		<table class="table invoiceItemTable table-bordered">
+			<thead>
+				<tr>
+					<th>Sr.No.</th>
+					<th>Description of Goods</th>
+					<th>HSN/SAC</th>
+					<th>GST Rate</th>
+					<th>Quantity</th>
+					<th>Rate</th>
+					<th>per</th>
+					<th>Dis.%</th>
+					<th>Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let trnSalesInvoiceItem of trnSalesInvoiceObj.trnSalesInvoiceItems; let i=index;">
+					<td>{{i+1}}</td>
+					<td>
+						<b>{{trnSalesInvoiceItem.categoryName}}</b>
+					</td>
+					<td class="alignCenter">{{trnSalesInvoiceItem.hsnCode}}</td>
+					<td class="alignRight">{{trnSalesInvoiceItem.gst}}%</td>
+					<td class="alignRight">
+						<b>{{trnSalesInvoiceItem.quantity}}</b>
+					</td>
+					<td class="alignRight">{{trnSalesInvoiceItem.rate}}</td>
+					<td>{{trnSalesInvoiceItem.uom}}</td>
+					<td class="alignRight">{{trnSalesInvoiceItem.discountPercentage}}</td>
+					<td class="alignRight">
+						<b>{{trnSalesInvoiceItem.amount}}</b>
+					</td>
+				</tr>
+				<tr class="gstRow" *ngIf="gstAll>0">
+					<td></td>
+					<td class="gstCell">CGST-ALL</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="alignRight">
+						<b>{{gstAll}}</b>
+					</td>
+				</tr>
+				<tr class="gstRow" *ngIf="gstAll>0">
+					<td></td>
+					<td class="gstCell">SGST-ALL</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="alignRight">
+						<b>{{gstAll}}</b>
+					</td>
+				</tr>
+				<tr class="gstRow" *ngIf="iGstAll>0">
+					<td></td>
+					<td class="gstCell">IGST-ALL</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="alignRight">
+						<b>{{iGstAll}}</b>
+					</td>
+				</tr>
+				<tr class="totalRow">
+					<td></td>
+					<td class="alignRight">Total</td>
+					<td></td>
+					<td></td>
+					<td class="alignRight">
+						<b>{{invoiceItemQuantityTotal}}</b>
+					</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="alignRight">
+						<b>INR {{trnSalesInvoiceObj.totalAmount}}</b>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Amount in words -->
+	<div class="amountWordsBox">
+		<h5>Amount Chargeable (in words)
+			<span>E. & O.E</span>
+		</h5>
+		<h4>INR {{numberToWordConversion}}</h4>
+	</div>
+
+	<!-- Tax Table -->
+	<div class="table-responsive">
+
+		<table class="table table-bordered invoiceItemTable invoiceTaxTable">
+			<thead>
+				<tr>
+					<th class="alignRight">Taxable Value</th>
+					<th colspan="2" class="alignCenter">Central Tax</th>
+					<th colspan="2" class="alignCenter">State Tax
+					</th>
+					<th>Total Tax Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td></td>
+					<td class="boldTD alignCenter">Rate</td>
+					<td class="boldTD alignCenter">Amount</td>
+					<td class="boldTD alignCenter">Rate</td>
+					<td class="boldTD alignCenter">Amount</td>
+					<td></td>
+				</tr>
+				<tr class="" *ngFor="let row of invoiceGSTValues;let rowNum=index;let lastRowNum=last;">
+					<td class="alignRight">{{row.taxValue}}</td>
+					<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
+					<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
+					<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
+					<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
+					<td class="alignRight" *ngIf="iGstAll>0">{{row.gst}}%</td>
+					<td class="alignRight" *ngIf="iGstAll>0">{{row.amount}}</td>
+					<td class="alignRight">{{row.amount}}</td>
+				</tr>
+				<tr class="totalRow">
+					<td class="alignRight">Total : {{trnSalesInvoiceObj.totalAmount -totalTaxAmount}}</td>
+					<td class="alignRight" *ngIf="gstAll>0"></td>
+					<td class="alignRight" *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
+					<td class="alignRight" *ngIf="gstAll>0"></td>
+					<td class="alignRight" *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
+					<td class="alignRight" *ngIf="iGstAll>0"></td>
+					<td class="alignRight" *ngIf="iGstAll>0">{{iGstAll}}</td>
+					<td class="alignRight">{{ totalTaxAmount}}</td>
+				</tr>
+
+			</tbody>
+		</table>
+
+	</div>
+
+	<!-- Tax Amount in words -->
+	<div class="amountWordsBox">
+		<h4>
+			<span class="taxAmtSpan">Tax Amount in words : </span>INR {{numberToWordConversion}} Only</h4>
+	</div>
+
+	<!-- Declaration -->
+	<div class="row">
+
+		<table>
+			<tr>
+				<td style="width:50%;">
+					<div class="DeclarationBox" style="margin-left: 15px;padding-right: 15px;">
+						<h5>Declaration</h5>
+						<p>
+							We declare that this invoice shows the actual price of the goods described and that all particulars are true and correct.
+						</p>
+					</div>
+				</td>
+				<td style="width:50%;">
+					<div class="bankDetailsBox">
+						<h5>Company's Bank Details</h5>
+						<table class="table bankDetailTable">
+							<tr>
+								<td>
+									Bank Name
+								</td>
+								<td>
+									{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["bankName"] : ""}}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									A/c No.
+								</td>
+								<td>
+									{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["accountNumber"] : ""}}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Branch & IFS Code
+								</td>
+								<td>
+									{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["branch"] : ""}} & {{trnSalesInvoiceObj["mstCompanyInfo"]
+									? trnSalesInvoiceObj["mstCompanyInfo"]["ifscCode"] : ""}}
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+</div>
