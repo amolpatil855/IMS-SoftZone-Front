@@ -7,6 +7,7 @@ import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
 import { CollectionService } from '../../../_services/collection.service';
 // import { RoleService, PermissionService } from '../../_services/index';
+import { TrnPurchaseOrderService } from '../../../_services/trnPurchaseOrder.service';
 import { CommonService } from '../../../_services/common.service';
 import {
   DataTableModule,
@@ -19,7 +20,7 @@ import {
   CalendarModule
 } from 'primeng/primeng';
 import { SupplierService } from "../../../_services/supplier.service";
-import { TrnPOItemsWithInsufficientStockService } from "../../../_services/trnPOItemsWithInsufficientStock.service";
+import { TrnPOItemsWithInsufficientStockService } from "../../../_services/TrnPOItemsWithInsufficientStock.service";
 import { TrnPOItemsWithInsufficientStockComponent } from "./trnPOItemsWithInsufficientStock.component";
 import { TrnPOItemsWithInsufficientStockListComponent } from "./trnPOItemsWithInsufficientStock-list/trnPOItemsWithInsufficientStock-list.component";
 import { TrnPOItemsWithInsufficientStockAddEditComponent } from "./trnPOItemsWithInsufficientStock-add-edit/trnPOItemsWithInsufficientStock-add-edit.component";
@@ -92,6 +93,7 @@ const routes: Routes = [
     ConfirmationService,
     SupplierService,
     CommonService,
+    TrnPurchaseOrderService,
     CollectionService,
     MatSizeService
   ],
