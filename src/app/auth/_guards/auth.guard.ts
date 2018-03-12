@@ -4,6 +4,7 @@ import { UserService } from "../_services/user.service";
 import { Observable } from "rxjs/Rx";
 import { StoreService } from "../../_services/store.service";
 import * as _ from 'lodash/index';
+import { Helpers } from "../../helpers";
 @Injectable()
 export class AuthGuard implements CanActivate {
 
@@ -13,6 +14,8 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!this._userService.verify()) {
+      debugger;
+      Helpers.setLoading(false);
       this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
       return false;
     }
