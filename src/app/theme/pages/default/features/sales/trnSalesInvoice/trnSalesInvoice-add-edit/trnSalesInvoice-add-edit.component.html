@@ -346,30 +346,30 @@
 										<tr class="" *ngFor="let row of invoiceGSTValues;let rowNum=index;let lastRowNum=last;">
 											<td class="alignRight">{{row.taxValue}}</td>
 											<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
-											<td class="alignRight" *ngIf="!gstAll>0">0%</td>
+											<td class="alignRight" *ngIf="gstAll<=0">0%</td>
 											<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
-											<td class="alignRight" *ngIf="!gstAll>0">0</td>
+											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
-											<td class="alignRight" *ngIf="!gstAll>0">0%</td>
+											<td class="alignRight" *ngIf="gstAll<=0">0%</td>
 											<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
-											<td class="alignRight" *ngIf="!gstAll>0">0</td>
+											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight" *ngIf="iGstAll>0">{{row.gst}}%</td>
-											<td class="alignRight" *ngIf="!iGstAll>0">0%</td>
+											<td class="alignRight" *ngIf="iGstAll<=0">0%</td>
 											<td class="alignRight" *ngIf="iGstAll>0">{{row.amount}}</td>
-											<td class="alignRight" *ngIf="!iGstAll>0">0</td>
+											<td class="alignRight" *ngIf="iGstAll<=0">0</td>
 											<td class="alignRight">{{row.amount}}</td>
 										</tr>
 										<tr class="totalRow">
 											<td class="alignRight">Total : {{trnSalesInvoiceObj.totalAmount -totalTaxAmount}}</td>
 											<td class="alignRight" ></td>
 											<td class="alignRight" *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
-											<td class="alignRight" *ngIf="!gstAll>0">0</td>
+											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight" ></td>
 											<td class="alignRight" *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
-											<td class="alignRight" *ngIf="!gstAll>0">0</td>
+											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight" ></td>
 											<td class="alignRight" *ngIf="iGstAll>0">{{iGstAll}}</td>
-											<td class="alignRight" *ngIf="!iGstAll>0">0</td>
+											<td class="alignRight" *ngIf="iGstAll<=0">0</td>
 											<td class="alignRight">{{ totalTaxAmount}}</td>
 										</tr>
 
@@ -732,30 +732,30 @@
 				<tr class="" *ngFor="let row of invoiceGSTValues;let rowNum=index;let lastRowNum=last;">
 					<td class="alignRight">{{row.taxValue}}</td>
 					<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
-					<td class="alignRight" *ngIf="!gstAll>0">0%</td>
+					<td class="alignRight" *ngIf="gstAll<=0">0%</td>
 					<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
-					<td class="alignRight" *ngIf="!gstAll>0">0</td>
+					<td class="alignRight" *ngIf="gstAll<=0">0</td>
 					<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
-					<td class="alignRight" *ngIf="!gstAll>0">0%</td>
+					<td class="alignRight" *ngIf="gstAll<=0">0%</td>
 					<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
-					<td class="alignRight" *ngIf="!gstAll>0">0</td>
+					<td class="alignRight" *ngIf="gstAll<=0">0</td>
 					<td class="alignRight" *ngIf="iGstAll>0">{{row.gst}}%</td>
-					<td class="alignRight" *ngIf="!iGstAll>0">0%</td>
+					<td class="alignRight" *ngIf="iGstAll<=0">0%</td>
 					<td class="alignRight" *ngIf="iGstAll>0">{{row.amount}}</td>
-					<td class="alignRight" *ngIf="!iGstAll>0">0</td>
+					<td class="alignRight" *ngIf="iGstAll<=0">0</td>
 					<td class="alignRight">{{row.amount}}</td>
 				</tr>
 				<tr class="totalRow">
 					<td class="alignRight">Total : {{trnSalesInvoiceObj.totalAmount -totalTaxAmount}}</td>
 					<td class="alignRight" ></td>
 					<td class="alignRight" *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
-					<td class="alignRight" *ngIf="!gstAll>0">0</td>
+					<td class="alignRight" *ngIf="gstAll<=0">0</td>
 					<td class="alignRight" ></td>
 					<td class="alignRight" *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
-					<td class="alignRight" *ngIf="!gstAll>0">0</td>
+					<td class="alignRight" *ngIf="gstAll<=0">0</td>
 					<td class="alignRight" ></td>
 					<td class="alignRight" *ngIf="iGstAll>0">{{iGstAll}}</td>
-					<td class="alignRight" *ngIf="!iGstAll>0">0</td>
+					<td class="alignRight" *ngIf="iGstAll<=0">0</td>
 					<td class="alignRight">{{ totalTaxAmount}}</td>
 				</tr>
 
