@@ -149,12 +149,15 @@
                                        </div> 
                                  </div>
                                     <div class="form-group">
-                                    <label class="col-md-2 col-sm-2 fieldLabel"  *ngIf="!isHide">
+                                    <label class="col-md-2 col-sm-2 fieldLabel"  >
                                           Wholesale Customer?                                          
                                     </label>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" *ngIf="!isHide">
                                           <input type="checkbox" name="isWholesaleCustomer"[(ngModel)]="customerObj.isWholesaleCustomer" value="1" class="formCheckBox" style="float: none;margin-left:0!important;" tabindex="11"> 
-                                    </div>      
+                                    </div>  
+                                    <div class="col-md-3" *ngIf="isHide">
+                                         <label class="col-md-2 col-sm-2 fieldLabel">Yes</label>
+                                    </div> 
                                     <div  class="col-md-3 col-sm-3" *ngIf="customerObj.isWholesaleCustomer && !isHide">
                                           <input type="text" class="form-control" placeholder="Username" required [ngClass]="{'red-border-class': codeVal.errors }" #codeVal="ngModel" [required]="customerObj.isWholesaleCustomer" [(ngModel)]="customerObj.username" name="username" id="username" tabindex="12">
                                     </div>
