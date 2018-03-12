@@ -145,7 +145,7 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
         .subscribe(
         results => {
           this.params = null;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
           this.router.navigate(['/features/sales/trnGoodIssueNote/list']);
         },
@@ -158,7 +158,7 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
         .subscribe(
         results => {
           this.params = null;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
           this.router.navigate(['/features/sales/trnGoodIssueNote/list']);
         },

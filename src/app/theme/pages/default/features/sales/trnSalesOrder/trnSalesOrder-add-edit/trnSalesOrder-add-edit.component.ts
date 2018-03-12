@@ -755,13 +755,15 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
   calculateAmount(givenDicount = 0) {
     let rate=parseFloat(this.rate);
-    this.rateWithGST =rate + (rate * this.productDetails.gst) / 100;
-    //this.amountWithGST =this.rateWithGST * this.orderQuantity;
-    this.amount = rate * this.orderQuantity;
-    this.amount =parseFloat(this.amount).toFixed(2);
-    //this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
-    this.amount = Math.round(this.amount - ((this.amount * givenDicount) / 100));
-    this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
+    if(rate){
+      this.rateWithGST =rate + (rate * this.productDetails.gst) / 100;
+      //this.amountWithGST =this.rateWithGST * this.orderQuantity;
+      this.amount = rate * this.orderQuantity;
+      this.amount =parseFloat(this.amount).toFixed(2);
+      //this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
+      this.amount = Math.round(this.amount - ((this.amount * givenDicount) / 100));
+      this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
+    }
     this.rateWithGST =parseFloat(this.rateWithGST).toFixed(2);
   }
 
