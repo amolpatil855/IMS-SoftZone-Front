@@ -125,11 +125,23 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
+    let orderQuantityFlag = true;
     //this.trnGoodIssueNoteObj.TrnGoodIssueNoteItems = this.trnGoodIssueNoteItems;
     if (this.trnGoodIssueNoteObj.trnGoodIssueNoteItems.length == 0) {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
       return false;
     }
+
+    // _.forEach(this.trnGoodIssueNoteObj.trnGoodIssueNoteItems, function (item) {
+    //   if (!item.issuedQuantity || item.issuedQuantity == 0)
+    //     orderQuantityFlag = false;
+    // });
+
+    // if (!orderQuantityFlag) {
+    //   this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
+    //   return false;
+    // }
+
     if (valid) {
       // let supplierObj = _.find(this.supplierCodeList, ['value', this.trnGoodIssueNoteObj.supplierId]);
       // this.trnGoodIssueNoteObj.supplierName = supplierObj.label,

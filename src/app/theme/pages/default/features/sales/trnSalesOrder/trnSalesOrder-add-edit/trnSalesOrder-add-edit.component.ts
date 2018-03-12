@@ -754,6 +754,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
 
   calculateAmount(givenDicount = 0) {
+    if(!this.rate)
+    return;
     let rate=parseFloat(this.rate);
     if(rate){
       this.rateWithGST =rate + (rate * this.productDetails.gst) / 100;
@@ -768,6 +770,9 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
 
   onChangeDiscountAmount() {
+    if(!this.givenDiscount){
+      this.givenDiscount=0;
+    }
     this.givenDiscountError = false;
     this.calculateAmount(this.givenDiscount);
   }
