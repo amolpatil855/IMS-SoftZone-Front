@@ -73,6 +73,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   fomSizeId = null;
   qualityId = null;
   rate = null;
+  gst = null;
   fomQuantityInKG = null;
   amountWithGST = null;
   rateWithGST = null;
@@ -222,23 +223,23 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       return false;
     }
 
-    if(this.receivedQuantity > this.orderQuantity){
+    if (this.receivedQuantity > this.orderQuantity) {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Recieved quantity should be less than ordered quantity." });
       return false;
     }
 
-    
-      if(this.trnGoodReceiveNoteItems.length>0){
-        
-        let poObj = _.find(this.trnGoodReceiveNoteItems, ['categoryId', this.categoryId]);
-        if(poObj != null){
-          if(this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId && this.purchaseOrderId == poObj.purchaseOrderId){
-            this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
-            return false;
-          }
+
+    if (this.trnGoodReceiveNoteItems.length > 0) {
+
+      let poObj = _.find(this.trnGoodReceiveNoteItems, ['categoryId', this.categoryId]);
+      if (poObj != null) {
+        if (this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId && this.purchaseOrderId == poObj.purchaseOrderId) {
+          this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
+          return false;
         }
-      
-    } 
+      }
+
+    }
 
     let catObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
     let collObj = _.find(this.collectionList, ['value', this.collectionId]);
@@ -272,7 +273,9 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       receivedQuantity: this.receivedQuantity,
       fomQuantityInKG: this.fomQuantityInKG,
       rateWithGST: this.rateWithGST,
+      gst: this.gst,
       rate: this.rate,
+      amount: this.amount,
       amountWithGST: this.amountWithGST,
       orderType: this.orderType,
       length: this.length,
@@ -310,6 +313,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.widthError = null;
     this.orderQuantity = null;
     this.rateWithGST = null;
+    this.gst = null;
     this.rate = null;
     this.purchaseDiscount = null;
     this.receivedQuantity = null;
@@ -338,7 +342,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     row.enable = false;
   }
 
-  onMatSizeCodeChange(){
+  onMatSizeCodeChange() {
     let parameterId = null;
     if (this.categoryId == 4 && this.matSizeId == -1) {
       this.matSizeIdError = false;
@@ -347,25 +351,25 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseOrderIdIdError = false;
       if (this.matSizeId != null) {
         parameterId = this.matSizeId;
-        if(this.length && this.width){
+        if (this.length && this.width) {
           this.matSizeCode = this.length + 'x' + this.width;
           this.trnGoodReceiveNoteService.getPOListForSelectedItem(this.categoryId, this.collectionId, parameterId, this.matSizeCode).subscribe(
-          data => {
-            this.purchaseItemList = data;
-            this.purchaseOrderList = [];
-            let vm = this;
-            console.log('this.purchaseItemList', this.purchaseItemList);
-            _.forEach(this.purchaseItemList, function (value) {
-              vm.purchaseOrderList.push({ label: value.purchaseOrderNumber, value: value.purchaseOrderId });
+            data => {
+              this.purchaseItemList = data;
+              this.purchaseOrderList = [];
+              let vm = this;
+              console.log('this.purchaseItemList', this.purchaseItemList);
+              _.forEach(this.purchaseItemList, function (value) {
+                vm.purchaseOrderList.push({ label: value.purchaseOrderNumber, value: value.purchaseOrderId });
+              });
+              this.purchaseOrderList.unshift({ label: '--Select--', value: null });
+              console.log('this.purchaseOrderList', this.purchaseOrderList);
+            }, error => {
+              this.globalErrorHandler.handleError(error);
             });
-            this.purchaseOrderList.unshift({ label: '--Select--', value: null });
-            console.log('this.purchaseOrderList', this.purchaseOrderList);
-          }, error => {
-            this.globalErrorHandler.handleError(error);
-          });
         }
       }
-      
+
     }
   }
 
@@ -384,6 +388,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseOrderList.unshift({ label: '--Select--', value: null });
       this.purchaseOrderIdIdError = false;
       this.rateWithGST = null;
+      this.gst = null;
       this.rate = null;
       this.purchaseDiscount = null;
       this.orderQuantity = null;
@@ -425,6 +430,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseOrderList.unshift({ label: '--Select--', value: null });
       this.purchaseOrderIdIdError = false;
       this.rateWithGST = null;
+      this.gst = null;
       this.rate = null;
       this.purchaseDiscount = null;
       this.orderQuantity = null;
@@ -466,6 +472,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseOrderList.unshift({ label: '--Select--', value: null });
       this.purchaseOrderIdIdError = false;
       this.rateWithGST = null;
+      this.gst = null;
       this.rate = null;
       this.purchaseDiscount = null;
       this.orderQuantity = null;
@@ -509,6 +516,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseOrderList.unshift({ label: '--Select--', value: null });
       this.purchaseOrderIdIdError = false;
       this.rateWithGST = null;
+      this.gst = null;
       this.rate = null;
       this.purchaseDiscount = null;
       this.orderQuantity = null;
@@ -560,6 +568,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.matThicknessIdError = false;
     this.orderQuantity = null;
     this.rateWithGST = null;
+    this.gst = null;
     this.purchaseDiscount = null;
     this.amountWithGST = null;
     this.amount = null;
@@ -567,10 +576,10 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.fomQuantityInKG = null;
     this.orderType = '';
     this.rate = null;
-    this.purchaseDiscount = null;
     if (this.purchaseOrderId != null) {
       let poObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
       this.purchaseDiscount = poObj.purchaseDiscount;
+      this.gst = poObj.gst;
       this.orderQuantity = poObj.orderQuantity;
       this.rateWithGST = poObj.rateWithGST;
       this.orderType = poObj.orderType;
@@ -579,7 +588,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   }
 
   changeRecivedQuantity() {
-    if(this.receivedQuantity > this.orderQuantity){
+    if (this.receivedQuantity > this.orderQuantity) {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Recieved quantity should be less than ordered quantity." });
       return false;
     }
@@ -649,13 +658,14 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.width = null;
     this.widthError = false;
     this.rateWithGST = null;
+    this.gst = null;
     this.rate = null;
     this.purchaseDiscount = null;
     this.orderQuantity = null;
     this.receivedQuantity = null;
     this.fomQuantityInKG = null;
     this.amount = null,
-    this.orderType = '';
+      this.orderType = '';
     this.amountWithGST = null;
     this.calculateProductStockDetails();
     if (this.qualityId != null) {
@@ -797,6 +807,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.purchaseOrderList = [];
     this.purchaseOrderIdIdError = false;
     this.rateWithGST = null;
+    this.gst = null;
     this.rate = null;
     this.purchaseDiscount = null;
     this.orderQuantity = null;
@@ -864,6 +875,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseOrderList = [];
       this.purchaseOrderIdIdError = false;
       this.rateWithGST = null;
+      this.gst = null;
       this.rate = null;
       this.purchaseDiscount = null;
       this.orderQuantity = null;
@@ -900,6 +912,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseOrderList = [];
       this.purchaseOrderIdIdError = false;
       this.rateWithGST = null;
+      this.gst = null;
       this.rate = null;
       this.purchaseDiscount = null;
       this.orderQuantity = null;
@@ -938,6 +951,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseOrderList = [];
       this.purchaseOrderIdIdError = false;
       this.rateWithGST = null;
+      this.gst = null;
       this.rate = null;
       this.purchaseDiscount = null;
       this.orderQuantity = null;
@@ -978,6 +992,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseOrderList = [];
       this.purchaseOrderIdIdError = false;
       this.rateWithGST = null;
+      this.gst = null;
       this.purchaseDiscount = null;
       this.orderQuantity = null;
       this.receivedQuantity = null;
