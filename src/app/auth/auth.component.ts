@@ -69,6 +69,7 @@ export class AuthComponent implements OnInit {
       (results: any) => {
         if (results !== null) {
           this.logoUrl = AppSettings.IMAGE_API_ENDPOINT + results;
+          Helpers.setLoading(false);
         }
       });
   }
