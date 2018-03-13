@@ -731,20 +731,20 @@
 					<td style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;"></td>
 				</tr>
 				<tr class="" *ngFor="let row of invoiceGSTValues;let rowNum=index;let lastRowNum=last;">
-					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;">{{row.taxValue}}</td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;">{{row.gst/2}}%</td>
-					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;">0%</td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;">{{row.amount/2}}</td>
-					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;">0</td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;">{{row.gst/2}}%</td>
-					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;">0%</td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;">{{row.amount/2}}</td>
-					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;">0</td>
-					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #ddd;font-family:Roboto;">{{row.gst}}%</td>
-					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;">0%</td>
-					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #ddd;font-family:Roboto;">{{row.amount}}</td>
-					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;">0</td>
-					<td class="alignRight">{{row.amount}}</td>
+					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.taxValue}}</td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.gst/2}}%</td>
+					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0%</td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.amount/2}}</td>
+					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0</td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.gst/2}}%</td>
+					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0%</td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.amount/2}}</td>
+					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0</td>
+					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.gst}}%</td>
+					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0%</td>
+					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.amount}}</td>
+					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0</td>
+					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.amount}}</td>
 				</tr>
 				<tr class="totalRow">
 					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">Total : {{trnSalesInvoiceObj.totalAmount -totalTaxAmount}}</td>
