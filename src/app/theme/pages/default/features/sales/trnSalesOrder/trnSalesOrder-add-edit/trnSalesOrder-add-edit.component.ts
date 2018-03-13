@@ -224,13 +224,13 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         this.trnSaleOrderItems = results.trnSaleOrderItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
         this.shippingAddress = this.trnSalesOrderObj.shippingAddress;
-        _.forEach(this.trnSaleOrderItems, function (value) {
-          if (value.mstCategory != null)
-            value.categoryName = value.mstCategory.code;
-          if (value.mstCollection != null)
-            value.collectionName = value.mstCollection.collectionCode;
+        // _.forEach(this.trnSaleOrderItems, function (value) {
+        //   if (value.mstCategory != null)
+        //     value.categoryName = value.mstCategory.code;
+        //   if (value.mstCollection != null)
+        //     value.collectionName = value.mstCollection.collectionCode;
 
-        });
+        // });
         delete this.trnSalesOrderObj['trnSaleOrderItems'];
         //this.shippingAddressObj = results.MstCustomer;
         Helpers.setLoading(false);
