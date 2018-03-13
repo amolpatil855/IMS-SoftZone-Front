@@ -15,6 +15,7 @@ import { CommonService } from '../../../../_services/common.service';
 import { CollectionService } from '../../../../_services/collection.service';
 import { TrnProductStockService } from '../../../../_services/trnProductStock.service';
 import { MatSizeService } from '../../../../_services/matSize.service';
+import { CustomerAddress } from '../../../../_models/customerAddress';
 @Component({
   selector: "app-trnSalesInvoice-add-edit",
   templateUrl: "./trnSalesInvoice-add-edit.component.html",
@@ -45,6 +46,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
   isFormSubmitted: boolean;
   trnSalesInvoiceItems = [];
   customerAddresses = [];
+  customerShippingAddress=new CustomerAddress();
   productDetails = {
     purchaseRatePerMM: null,
     suggestedMM: null,
@@ -122,8 +124,8 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
         if (results.trnSaleOrder != null) {
           this.orderNumber = results.trnSaleOrder.orderNumber;
         }
-        let customerInMH =_.find( this.customerAddresses, function(o) { return o.state  == "Maharashtra"; });
-
+        let customerInMH =_.find( this.customerAddresses, function(o) { return o.state  == "Maharashtra" && o.id == results.trnSaleOrder.shippingAddressId ; });
+        this.customerShippingAddress=_.find( this.customerAddresses, function(o) { return  o.id == results.trnSaleOrder.shippingAddressId ; });
         this.trnSalesInvoiceObj.trnSalesInvoiceItems.forEach(item => {
           if (this.trnSalesInvoiceObj.totalAmount == null) {
             this.trnSalesInvoiceObj.totalAmount = 0;
