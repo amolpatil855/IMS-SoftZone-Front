@@ -253,7 +253,7 @@
 													<b>{{trnSalesInvoiceItem.amount}}</b>
 												</td>
 											</tr>
-											<tr class="gstRow" *ngIf="gstAll>0">
+											<tr class="gstRow" >
 												<td></td>
 												<td class="gstCell">CGST-ALL</td>
 												<td></td>
@@ -263,10 +263,10 @@
 												<td></td>
 												<td></td>
 												<td class="alignRight">
-													<b>{{gstAll}}</b>
+													<b >{{gstAll>0 ?gstAll:0}}</b>
 												</td>
 											</tr>
-											<tr class="gstRow" *ngIf="gstAll>0">
+											<tr class="gstRow">
 												<td></td>
 												<td class="gstCell">SGST-ALL</td>
 												<td></td>
@@ -276,10 +276,10 @@
 												<td></td>
 												<td></td>
 												<td class="alignRight">
-													<b>{{gstAll}}</b>
+													<b >{{gstAll>0 ?gstAll:0}}</b>
 												</td>
 											</tr>
-											<tr class="gstRow" *ngIf="iGstAll>0">
+											<tr class="gstRow">
 												<td></td>
 												<td class="gstCell">IGST-ALL</td>
 												<td></td>
@@ -289,7 +289,7 @@
 												<td></td>
 												<td></td>
 												<td class="alignRight">
-													<b>{{iGstAll}}</b>
+													<b >{{iGstAll>0 ?iGstAll:0}}</b>
 												</td>
 											</tr>
 											<tr class="totalRow">
@@ -326,41 +326,50 @@
 									<thead>
 										<tr>
 											<th class="alignRight">Taxable Value</th>
-											<th colspan="2" class="alignCenter" *ngIf="gstAll>0">Central Tax</th>
-											<th colspan="2" class="alignCenter" *ngIf="gstAll>0">State Tax</th>
-											<th colspan="2" class="alignCenter" *ngIf="iGstAll>0">Integral Tax</th>
+											<th colspan="2" class="alignCenter">Central Tax</th>
+											<th colspan="2" class="alignCenter">State Tax</th>
+											<th colspan="2" class="alignCenter">Integral Tax</th>
 											<th>Total Tax Amount</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td></td>
-											<td class="boldTD alignCenter" *ngIf="gstAll>0">Rate</td>
-											<td class="boldTD alignCenter" *ngIf="gstAll>0">Amount</td>
-											<td class="boldTD alignCenter" *ngIf="gstAll>0">Rate</td>
-											<td class="boldTD alignCenter" *ngIf="gstAll>0">Amount</td>
-											<td class="boldTD alignCenter" *ngIf="iGstAll>0">Rate</td>
-											<td class="boldTD alignCenter" *ngIf="iGstAll>0">Amount</td>
-											<td *ngIf="iGstAll>0"></td>
+											<td class="boldTD alignCenter" >Rate</td>
+											<td class="boldTD alignCenter" >Amount</td>
+											<td class="boldTD alignCenter" >Rate</td>
+											<td class="boldTD alignCenter" >Amount</td>
+											<td class="boldTD alignCenter" >Rate</td>
+											<td class="boldTD alignCenter" >Amount</td>
+											<td ></td>
 										</tr>
 										<tr class="" *ngFor="let row of invoiceGSTValues;let rowNum=index;let lastRowNum=last;">
 											<td class="alignRight">{{row.taxValue}}</td>
 											<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
+											<td class="alignRight" *ngIf="gstAll<=0">0%</td>
 											<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
+											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
+											<td class="alignRight" *ngIf="gstAll<=0">0%</td>
 											<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
+											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight" *ngIf="iGstAll>0">{{row.gst}}%</td>
+											<td class="alignRight" *ngIf="iGstAll<=0">0%</td>
 											<td class="alignRight" *ngIf="iGstAll>0">{{row.amount}}</td>
+											<td class="alignRight" *ngIf="iGstAll<=0">0</td>
 											<td class="alignRight">{{row.amount}}</td>
 										</tr>
 										<tr class="totalRow">
 											<td class="alignRight">Total : {{trnSalesInvoiceObj.totalAmount -totalTaxAmount}}</td>
-											<td class="alignRight" *ngIf="gstAll>0"></td>
+											<td class="alignRight" ></td>
 											<td class="alignRight" *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
-											<td class="alignRight" *ngIf="gstAll>0"></td>
+											<td class="alignRight" *ngIf="gstAll<=0">0</td>
+											<td class="alignRight" ></td>
 											<td class="alignRight" *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
-											<td class="alignRight" *ngIf="iGstAll>0"></td>
+											<td class="alignRight" *ngIf="gstAll<=0">0</td>
+											<td class="alignRight" ></td>
 											<td class="alignRight" *ngIf="iGstAll>0">{{iGstAll}}</td>
+											<td class="alignRight" *ngIf="iGstAll<=0">0</td>
 											<td class="alignRight">{{ totalTaxAmount}}</td>
 										</tr>
 
@@ -630,7 +639,7 @@
 						<b>{{trnSalesInvoiceItem.amount}}</b>
 					</td>
 				</tr>
-				<tr class="gstRow" *ngIf="gstAll>0">
+				<tr class="gstRow" >
 					<td></td>
 					<td class="gstCell">CGST-ALL</td>
 					<td></td>
@@ -640,10 +649,10 @@
 					<td></td>
 					<td></td>
 					<td class="alignRight">
-						<b>{{gstAll}}</b>
+						<b >{{gstAll>0 ?gstAll:0}}</b>
 					</td>
 				</tr>
-				<tr class="gstRow" *ngIf="gstAll>0">
+				<tr class="gstRow">
 					<td></td>
 					<td class="gstCell">SGST-ALL</td>
 					<td></td>
@@ -653,10 +662,10 @@
 					<td></td>
 					<td></td>
 					<td class="alignRight">
-						<b>{{gstAll}}</b>
+						<b >{{gstAll>0 ?gstAll:0}}</b>
 					</td>
 				</tr>
-				<tr class="gstRow" *ngIf="iGstAll>0">
+				<tr class="gstRow">
 					<td></td>
 					<td class="gstCell">IGST-ALL</td>
 					<td></td>
@@ -666,7 +675,7 @@
 					<td></td>
 					<td></td>
 					<td class="alignRight">
-						<b>{{iGstAll}}</b>
+						<b >{{iGstAll>0 ?iGstAll:0}}</b>
 					</td>
 				</tr>
 				<tr class="totalRow">
@@ -704,44 +713,54 @@
 				<tr>
 					<th class="alignRight">Taxable Value</th>
 					<th colspan="2" class="alignCenter">Central Tax</th>
-					<th colspan="2" class="alignCenter">State Tax
-					</th>
+					<th colspan="2" class="alignCenter">State Tax</th>
+					<th colspan="2" class="alignCenter">Integral Tax</th>
 					<th>Total Tax Amount</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td></td>
-					<td class="boldTD alignCenter">Rate</td>
-					<td class="boldTD alignCenter">Amount</td>
-					<td class="boldTD alignCenter">Rate</td>
-					<td class="boldTD alignCenter">Amount</td>
-					<td></td>
+					<td class="boldTD alignCenter" >Rate</td>
+					<td class="boldTD alignCenter" >Amount</td>
+					<td class="boldTD alignCenter" >Rate</td>
+					<td class="boldTD alignCenter" >Amount</td>
+					<td class="boldTD alignCenter" >Rate</td>
+					<td class="boldTD alignCenter" >Amount</td>
+					<td ></td>
 				</tr>
 				<tr class="" *ngFor="let row of invoiceGSTValues;let rowNum=index;let lastRowNum=last;">
 					<td class="alignRight">{{row.taxValue}}</td>
 					<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
+					<td class="alignRight" *ngIf="gstAll<=0">0%</td>
 					<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
+					<td class="alignRight" *ngIf="gstAll<=0">0</td>
 					<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
+					<td class="alignRight" *ngIf="gstAll<=0">0%</td>
 					<td class="alignRight" *ngIf="gstAll>0">{{row.amount/2}}</td>
+					<td class="alignRight" *ngIf="gstAll<=0">0</td>
 					<td class="alignRight" *ngIf="iGstAll>0">{{row.gst}}%</td>
+					<td class="alignRight" *ngIf="iGstAll<=0">0%</td>
 					<td class="alignRight" *ngIf="iGstAll>0">{{row.amount}}</td>
+					<td class="alignRight" *ngIf="iGstAll<=0">0</td>
 					<td class="alignRight">{{row.amount}}</td>
 				</tr>
 				<tr class="totalRow">
 					<td class="alignRight">Total : {{trnSalesInvoiceObj.totalAmount -totalTaxAmount}}</td>
-					<td class="alignRight" *ngIf="gstAll>0"></td>
+					<td class="alignRight" ></td>
 					<td class="alignRight" *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
-					<td class="alignRight" *ngIf="gstAll>0"></td>
+					<td class="alignRight" *ngIf="gstAll<=0">0</td>
+					<td class="alignRight" ></td>
 					<td class="alignRight" *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
-					<td class="alignRight" *ngIf="iGstAll>0"></td>
+					<td class="alignRight" *ngIf="gstAll<=0">0</td>
+					<td class="alignRight" ></td>
 					<td class="alignRight" *ngIf="iGstAll>0">{{iGstAll}}</td>
+					<td class="alignRight" *ngIf="iGstAll<=0">0</td>
 					<td class="alignRight">{{ totalTaxAmount}}</td>
 				</tr>
 
 			</tbody>
 		</table>
-
 	</div>
 
 	<!-- Tax Amount in words -->
