@@ -1018,7 +1018,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         this.trnSalesOrderObj.shippingAddressId =null;
       }
       // if(this.params){
-         this.trnSalesOrderObj.shippingAddress = " Pune";
+         this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj;
       
       // }
       this.saveTrnSalesOrder(this.trnSalesOrderObj);
