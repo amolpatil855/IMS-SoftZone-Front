@@ -37,7 +37,7 @@ const routes: Routes = [
             component: TrnGINForItemsWithStockAvailableListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['gin']
+              permissions: ['ginforavailablestock']
             }
           }
         ]

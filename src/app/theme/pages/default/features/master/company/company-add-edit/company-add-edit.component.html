@@ -21,7 +21,7 @@
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
 			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" form="companyForm" title="{{(companyFormVal && companyFormVal.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-			 [isAuthorize]="['companyinfo']" tabindex="11">
+			 [isAuthorize]="['companyinfo']" tabindex="14">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
 			<!-- <button class="btn btn-secondary" [isAuthorize]="['shade']" (click)="onCancel()">
@@ -162,6 +162,53 @@
 														</div>
 													</div>
 												</div>
+												<div class="form-group">
+
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">Bank Name<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="text" value="" formControlName="bankName" required [ngClass]="{'red-border-class': companyForm.get('bankName').hasError('required') && isFormSubmitted}"
+															 name="bankName" id="bankName" placeholder="Bank Name" tabindex="11">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">Branch<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="text" value="" formControlName="branch" required [ngClass]="{'red-border-class': companyForm.get('branch').hasError('required') && isFormSubmitted}"
+															 name="branch" id="branch" placeholder="Bank Name" tabindex="12">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">Account Number<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<div class="col-sm-7">
+															<input class="form-control m-input" type="text" pattern="^[0-9]+" formControlName="accountNumber" required [ngClass]="{'red-border-class': (companyForm.get('accountNumber').hasError('required')  || companyForm.get('accountNumber').errors?.minlength || companyForm.get('accountNumber').errors?.maxlength || companyForm.get('accountNumber').errors?.pattern) && isFormSubmitted}"
+															 name="accountNumber" placeholder="Account Number" minlength="11" maxlength="16" tabindex="13">
+														</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+
+													<div class="col-md-5 formContentbox">
+														<label class="fieldLabel col-sm-5">IFSC Code<span class="requiredField">*</span>
+														</label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" type="text" value="" formControlName="ifscCode" required [ngClass]="{'red-border-class': (companyForm.get('ifscCode').hasError('required')   || companyForm.get('ifscCode').errors?.minlength || companyForm.get('ifscCode').errors?.maxlength) && isFormSubmitted}"
+															 name="ifscCode" id="ifscCode" placeholder="IFSC Code" minlength="11" maxlength="11" tabindex="14">
+														</div>
+													</div>
+												</div>
+												
 												<div class="form-group">
 													<div class="col-md-5 formContentbox">
 														<div class="form-group">

@@ -10,4 +10,9 @@ export class Company {
   address2: string;
   gstin: string;
   companyLogo: string;
+  bankName: string;
+  accountNumber: string;
+  branch: string;
+  ifscCode: string;
+
 }
