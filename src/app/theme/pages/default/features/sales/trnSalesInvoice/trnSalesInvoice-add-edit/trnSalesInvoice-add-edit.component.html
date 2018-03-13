@@ -158,8 +158,8 @@
 
 												<div class="col-md-6">
 													<div class="invoiceStatContainer">
-														<h5>Delivery Note Date</h5>
-														<h4>{{trnSalesInvoiceObj.invoiceDate | date: 'dd/MM/yyyy'}}</h4>
+														<h5>Payment Due Date</h5>
+														<h4>{{trnSalesInvoiceObj.expectedDeliveryDate | date: 'dd/MM/yyyy'}}</h4>
 													</div>
 												</div>
 
@@ -381,7 +381,7 @@
 							<!-- Tax Amount in words -->
 							<div class="amountWordsBox">
 								<h4>
-									<span class="taxAmtSpan">Tax Amount in words : </span>INR {{numberToWordConversion}} Only</h4>
+									<span class="taxAmtSpan">Tax Amount in words : </span>INR {{numberToWordConversionForTax}} Only</h4>
 							</div>
 
 							<!-- Declaration -->
@@ -702,7 +702,7 @@
 		<h5>Amount Chargeable (in words)
 			<span>E. & O.E</span>
 		</h5>
-		<h4>INR {{numberToWordConversion}}</h4>
+		<h4>INR {{numberToWordConversion}} Only</h4>
 	</div>
 
 	<!-- Tax Table -->
@@ -766,7 +766,7 @@
 	<!-- Tax Amount in words -->
 	<div class="amountWordsBox">
 		<h4>
-			<span class="taxAmtSpan">Tax Amount in words : </span>INR {{numberToWordConversion}} Only</h4>
+			<span class="taxAmtSpan">Tax Amount in words : </span>INR {{numberToWordConversionForTax}} Only</h4>
 	</div>
 
 	<!-- Declaration -->

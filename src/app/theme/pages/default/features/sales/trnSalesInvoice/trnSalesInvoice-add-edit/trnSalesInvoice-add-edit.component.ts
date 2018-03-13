@@ -37,6 +37,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
   iGstAll = null;
   orderNumber = null;
   numberToWordConversion = '';
+  numberToWordConversionForTax = '';
   amountWithGST = null;
   rateWithGST = null;
   qualityList = [];
@@ -136,6 +137,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
           })
 
           this.numberToWordConversion = this.numberToWords(this.trnSalesInvoiceObj.totalAmount, ",");
+          this.numberToWordConversionForTax= this.numberToWords(this.gstAll>0?this.gstAll: this.iGstAll, ",");
        });
         this.calculateGSTWiseAmount();
         Helpers.setLoading(false);
@@ -153,6 +155,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
     let lstGSTValue = [];
     let totalTax=0;
     let vm = this;
+    vm.invoiceItemQuantityTotal=0;
     _.forEach(lstGST, function (gstVal) {
       //console.log(value);
       let gstTotal = 0;
