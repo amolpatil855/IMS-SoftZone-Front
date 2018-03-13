@@ -1,127 +1,162 @@
 <p-confirmDialog #cd>
-   <p-footer>
-      <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
-      <span>
-      <i class="la la-check"></i>
-      <span>
-      Yes
-      </span>
-      </span>
-      </button>
-      <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
-      <span>
-      <i class="la la-close"></i>
-      <span>
-      No
-      </span>
-      </span>
-      </button>
-   </p-footer>
+      <p-footer>
+            <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+                  <span>
+                        <i class="la la-check"></i>
+                        <span>
+                              Yes
+                        </span>
+                  </span>
+            </button>
+            <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+                  <span>
+                        <i class="la la-close"></i>
+                        <span>
+                              No
+                        </span>
+                  </span>
+            </button>
+      </p-footer>
 </p-confirmDialog>
 <div class="m-subheader">
-   <div class="d-flex align-items-center">
-      <div class="mr-auto">
-         <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-            <li class="m-nav__item m-nav__item--home">
-               <a href="#" class="m-nav__link m-nav__link--icon">
-               <i class="m-nav__link-icon la la-home"></i>
-               </a>
-            </li>
-            <li class="m-nav__separator">
-               -
-            </li>
-            <li class="m-nav__item">
-               <a class="m-nav__link">
-               <span class="m-nav__link-text">
-               Customer
-               </span>
-               </a>
-            </li>
-            <li class="m-nav__separator">
-               -
-            </li>
-            <li class="m-nav__item">
-               <a class="m-nav__link">
-               <span class="m-nav__link-text">
-               Master
-               </span>
-               </a>
-            </li>
-         </ul>
+      <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                  <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                        <li class="m-nav__item m-nav__item--home">
+                              <a href="#" class="m-nav__link m-nav__link--icon">
+                                    <i class="m-nav__link-icon la la-home"></i>
+                              </a>
+                        </li>
+                        <li class="m-nav__separator">
+                              -
+                        </li>
+                        <li class="m-nav__item">
+                              <a class="m-nav__link">
+                                    <span class="m-nav__link-text">
+                                          Customer
+                                    </span>
+                              </a>
+                        </li>
+                        <li class="m-nav__separator">
+                              -
+                        </li>
+                        <li class="m-nav__item">
+                              <a class="m-nav__link">
+                                    <span class="m-nav__link-text">
+                                          Master
+                                    </span>
+                              </a>
+                        </li>
+                  </ul>
+            </div>
+            <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+                  <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="customerForm" [ngClass]="(customerForm && !customerForm.form.valid) ?'cursorNotAllowed':'cursorPointer'"
+                        title="{{(customerForm && !customerForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+                        [disabled]="customerForm && !customerForm.form.valid" [isAuthorize]="['customer']" tabindex="25">
+                        {{ params ? 'Update' : 'Save' }}
+                  </button>
+                  <button class="btn btn-secondary" [isAuthorize]="['customer']" (click)="onCancel()" tabindex="26">
+                        Cancel
+                  </button>
+            </div>
       </div>
-      <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-         <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="customerForm" [ngClass]="(customerForm && !customerForm.form.valid) ?'cursorNotAllowed':'cursorPointer'" title="{{(customerForm && !customerForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}" [disabled]="customerForm && !customerForm.form.valid" [isAuthorize]="['customer']" tabindex="25">
-         {{ params ? 'Update' : 'Save' }}
-         </button>
-         <button class="btn btn-secondary" [isAuthorize]="['customer']" (click)="onCancel()" tabindex="26">
-         Cancel
-         </button>
-      </div>
-   </div>
 </div>
 <!-- END: Subheader -->
 <div class="m-content">
-   <div class="row">
-      <div class="col-lg-12">
-         <div class="m-portlet">
-            <div class="row">
-               <div class="col-md-12" *ngIf="toggleDiv">
-                  <div class="formContainerSamePage">
-                     <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(customerForm)" #customerForm="ngForm"  id="customerForm">
-                     <div class="row">
-                        <div class="col-md-8">
-                           <!-- Basic Information -->
-                           <div class="panel panel-default">
-                              <div class="panel-heading">Customer Basic Information</div>
-                              <div class="panel-body">
-                                 <div class="form-group">
-                                    <label class="col-md-2 col-sm-2 fieldLabel">Name/Code<span class="requiredField">*</span></label>
-                                    <div class="col-md-3 col-sm-4">
-                                       <input class="form-control" type="text" [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"  #nameVal="ngModel"  [(ngModel)]="customerObj.name" name="name" id="name" required placeholder="Name" maxlength="100" autofocus tabindex="1">
-                                    </div>
-                                    <div class="col-md-3 col-sm-2">
-                                       <input class="form-control" type="text" [ngClass]="{'red-border-class': nickNameVal.errors && isFormSubmitted}"  #nickNameVal="ngModel" [(ngModel)]="customerObj.nickName" name="nickName" id="nickName" placeholder="Nick Name" maxlength="100" tabindex="2">
-                                    </div>
-                                    <div class="col-md-3 col-sm-2">
-                                       <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': codeVal.errors && isFormSubmitted}" #codeVal="ngModel" required [(ngModel)]="customerObj.code" name="code" id="code" placeholder="Code" maxlength="50" tabindex="3">
-                                    </div>
-                                 </div>
-                                 <div class="form-group">
-                                    <label class="col-md-2 col-sm-2 fieldLabel">Email<span class="requiredField">*</span></label>
-                                    <div class="col-md-3 col-sm-3">
-                                       <input class="form-control" type="email" email [ngClass]="{'red-border-class': emailVal.errors && isFormSubmitted}" #emailVal="ngModel" required [(ngModel)]="customerObj.email" name="email" placeholder="Email" maxlength="254" tabindex="4">
-                                        <div class="alertMsg" *ngIf="emailVal.errors && !emailVal.errors.required && emailVal.errors.email && emailVal.touched">
-                                          Please enter valid Email
-                                          </div> 
-                                    </div>
-                                    <div class="col-md-3 col-sm-3">
-                                       <input class="form-control" type="email" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" [ngClass]="{'red-border-class': alternateEmail1Val.errors && isFormSubmitted}"  #alternateEmail1Val="ngModel" [(ngModel)]="customerObj.alternateEmail1" name="alternateEmail1" placeholder="Alternate Email 1" maxlength="254" tabindex="5">
-                                          <div *ngIf="alternateEmail1Val.errors && (alternateEmail1Val.dirty || alternateEmail1Val.touched)" class="alertMsg">
-                                                <div *ngIf="alternateEmail1Val.errors.pattern">
-                                                Please enter valid email. 
-                                                </div>
-                                          </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3">
-                                       <input class="form-control m-input" type="email"  pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" #alternateEmail2Val="ngModel" [ngClass]="{'red-border-class': alternateEmail2Val.errors && isFormSubmitted}" [(ngModel)]="customerObj.alternateEmail2" name="alternateEmail2" placeholder="Alternate Email 2" maxlength="254" tabindex="6">
-                                          <div *ngIf="alternateEmail2Val.errors && (alternateEmail2Val.dirty || alternateEmail2Val.touched)" class="alertMsg">
-                                                <div *ngIf="alternateEmail2Val.errors.pattern">
-                                                Please enter valid email. 
-                                                </div>
-                                          </div>
-                                    </div>
-                                 </div>
-                                 <div class="form-group">
-                                    <label class="col-md-2 col-sm-2 fieldLabel">Phone<span class="requiredField">*</span></label>
-                                    <div class="col-md-3 col-sm-3">
-                                       <input class="form-control m-input" type="phone" pattern="^[0-9]+"  [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.phone" name="phone" required #phoneVal="ngModel" placeholder="Contact" minlength="10" maxlength="10" tabindex="7">
-                                        <!-- <div class="alertMsg" *ngIf="phoneVal.errors && !phoneVal.errors.required  && phoneVal.errors.pattern && phoneVal.touched">
+      <div class="row">
+            <div class="col-lg-12">
+                  <div class="m-portlet">
+                        <div class="row">
+                              <div class="col-md-12" *ngIf="toggleDiv">
+                                    <div class="formContainerSamePage">
+                                          <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(customerForm)"
+                                                #customerForm="ngForm" id="customerForm">
+                                                <div class="row">
+                                                      <div class="col-md-8">
+                                                            <!-- Basic Information -->
+                                                            <div class="panel panel-default">
+                                                                  <div class="panel-heading">Customer Basic Information</div>
+                                                                  <div class="panel-body">
+                                                                        <div class="form-group">
+                                                                              <label class="col-md-2 col-sm-2 fieldLabel">Name/Code
+                                                                                    <span class="requiredField">*</span>
+                                                                              </label>
+                                                                              <div class="col-md-3 col-sm-4">
+                                                                                    <input class="form-control" type="text" [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}" #nameVal="ngModel"
+                                                                                          [(ngModel)]="customerObj.name" name="name"
+                                                                                          id="name" required placeholder="Name"
+                                                                                          maxlength="100" autofocus tabindex="1">
+                                                                              </div>
+                                                                              <div class="col-md-3 col-sm-2">
+                                                                                    <input class="form-control" type="text" [ngClass]="{'red-border-class': nickNameVal.errors && isFormSubmitted}" #nickNameVal="ngModel"
+                                                                                          [(ngModel)]="customerObj.nickName" name="nickName"
+                                                                                          id="nickName" placeholder="Nick Name"
+                                                                                          maxlength="100" tabindex="2">
+                                                                              </div>
+                                                                              <div class="col-md-3 col-sm-2">
+                                                                                    <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': codeVal.errors && isFormSubmitted}" #codeVal="ngModel"
+                                                                                          required [(ngModel)]="customerObj.code"
+                                                                                          name="code" id="code" placeholder="Code"
+                                                                                          maxlength="50" tabindex="3">
+                                                                              </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                              <label class="col-md-2 col-sm-2 fieldLabel">Email
+                                                                                    <span class="requiredField">*</span>
+                                                                              </label>
+                                                                              <div class="col-md-3 col-sm-3">
+                                                                                    <input class="form-control" type="email" email [ngClass]="{'red-border-class': emailVal.errors && isFormSubmitted}" #emailVal="ngModel"
+                                                                                          required [(ngModel)]="customerObj.email"
+                                                                                          name="email" placeholder="Email" maxlength="254"
+                                                                                          tabindex="4">
+                                                                                    <div class="alertMsg" *ngIf="emailVal.errors && !emailVal.errors.required && emailVal.errors.email && emailVal.touched">
+                                                                                          Please enter valid Email
+                                                                                    </div>
+                                                                              </div>
+                                                                              <div class="col-md-3 col-sm-3">
+                                                                                    <input class="form-control" type="email" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" [ngClass]="{'red-border-class': alternateEmail1Val.errors && isFormSubmitted}"
+                                                                                          #alternateEmail1Val="ngModel" [(ngModel)]="customerObj.alternateEmail1"
+                                                                                          name="alternateEmail1" placeholder="Alternate Email 1"
+                                                                                          maxlength="254" tabindex="5">
+                                                                                    <div *ngIf="alternateEmail1Val.errors && (alternateEmail1Val.dirty || alternateEmail1Val.touched)" class="alertMsg">
+                                                                                          <div *ngIf="alternateEmail1Val.errors.pattern">
+                                                                                                Please enter valid email.
+                                                                                          </div>
+                                                                                    </div>
+                                                                              </div>
+                                                                              <div class="col-md-3 col-sm-3">
+                                                                                    <input class="form-control m-input" type="email" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"
+                                                                                          #alternateEmail2Val="ngModel" [ngClass]="{'red-border-class': alternateEmail2Val.errors && isFormSubmitted}"
+                                                                                          [(ngModel)]="customerObj.alternateEmail2"
+                                                                                          name="alternateEmail2" placeholder="Alternate Email 2"
+                                                                                          maxlength="254" tabindex="6">
+                                                                                    <div *ngIf="alternateEmail2Val.errors && (alternateEmail2Val.dirty || alternateEmail2Val.touched)" class="alertMsg">
+                                                                                          <div *ngIf="alternateEmail2Val.errors.pattern">
+                                                                                                Please enter valid email.
+                                                                                          </div>
+                                                                                    </div>
+                                                                              </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                              <label class="col-md-2 col-sm-2 fieldLabel">Phone
+                                                                                    <span class="requiredField">*</span>
+                                                                              </label>
+                                                                              <div class="col-md-3 col-sm-3">
+                                                                                    <input class="form-control m-input" type="phone" pattern="^[0-9]+" [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}"
+                                                                                          [(ngModel)]="customerObj.phone" name="phone"
+                                                                                          required #phoneVal="ngModel" placeholder="Contact"
+                                                                                          minlength="10" maxlength="10" tabindex="7">
+                                                                                    <!-- <div class="alertMsg" *ngIf="phoneVal.errors && !phoneVal.errors.required  && phoneVal.errors.pattern && phoneVal.touched">
                                        	Please enter valid phone number
                                        </div>  -->
-                                       </div>
-                                    <div class="col-md-3 col-sm-3">
-                                       <input class="form-control m-input" type="phone" pattern="^[0-9]+" [ngClass]="{'red-border-class': alternatePhone1Val.errors && isFormSubmitted}"   [(ngModel)]="customerObj.alternatePhone1" name="alternatePhone1" #alternatePhone1Val="ngModel"  placeholder="Alternate Phone1" minlength="10" maxlength="10" tabindex="8">
-                                    <!-- <div *ngIf="alternatePhone1Val.errors && (alternatePhone1Val.dirty || alternatePhone1Val.touched)" class="alertMsg">
+                                                                              </div>
+                                                                              <div class="col-md-3 col-sm-3">
+                                                                                    <input class="form-control m-input" type="phone" pattern="^[0-9]+" [ngClass]="{'red-border-class': alternatePhone1Val.errors && isFormSubmitted}"
+                                                                                          [(ngModel)]="customerObj.alternatePhone1"
+                                                                                          name="alternatePhone1" #alternatePhone1Val="ngModel"
+                                                                                          placeholder="Alternate Phone1" minlength="10"
+                                                                                          maxlength="10" tabindex="8">
+                                                                                    <!-- <div *ngIf="alternatePhone1Val.errors && (alternatePhone1Val.dirty || alternatePhone1Val.touched)" class="alertMsg">
                                                 <div *ngIf="alternatePhone1Val.errors.minlength && !alternatePhone1Val.errors.pattern">
                                                       Mobile number should be 10 digit.
                                                 </div>
@@ -129,10 +164,14 @@
                                                 Mobile number must be a number.
                                                 </div>
                                           </div>-->
-                                    </div> 
-                                    <div class="col-md-3 col-sm-3">
-                                       <input class="form-control m-input" type="phone" pattern="^[0-9]+" [ngClass]="{'red-border-class': alternatePhone2Val.errors && isFormSubmitted}"   [(ngModel)]="customerObj.alternatePhone2" name="alternatePhone2" #alternatePhone2Val="ngModel"  placeholder="Alternate Phone2" minlength="10" maxlength="10" tabindex="9">
-                                          <!-- <div *ngIf="alternatePhone2Val.errors && (alternatePhone2Val.dirty || alternatePhone2Val.touched)" class="alertMsg">
+                                                                              </div>
+                                                                              <div class="col-md-3 col-sm-3">
+                                                                                    <input class="form-control m-input" type="phone" pattern="^[0-9]+" [ngClass]="{'red-border-class': alternatePhone2Val.errors && isFormSubmitted}"
+                                                                                          [(ngModel)]="customerObj.alternatePhone2"
+                                                                                          name="alternatePhone2" #alternatePhone2Val="ngModel"
+                                                                                          placeholder="Alternate Phone2" minlength="10"
+                                                                                          maxlength="10" tabindex="9">
+                                                                                    <!-- <div *ngIf="alternatePhone2Val.errors && (alternatePhone2Val.dirty || alternatePhone2Val.touched)" class="alertMsg">
                                                 <div *ngIf="alternatePhone2Val.errors.minlength && !alternatePhone2Val.errors.pattern">
                                                       Mobile number should be 10 digit.
                                                 </div>
@@ -140,61 +179,101 @@
                                                 Mobile number must be a number.
                                                 </div>
                                           </div> -->
-                                    </div>
-                                 </div>
-                                 <div class="form-group">
-                                       <label class="col-md-2 col-sm-2 fieldLabel">PAN</label>
-                                       <div class="col-md-3 col-sm-3">
-                                       <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': PANVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.pan" name="PAN"   #PANVal="ngModel" placeholder="PAN" maxlength="10" tabindex="10">
-                                       </div> 
-                                 </div>
-                                    <div class="form-group">
-                                    <label class="col-md-2 col-sm-2 fieldLabel"  >
-                                          Wholesale Customer?                                          
-                                    </label>
-                                    <div class="col-md-3" *ngIf="!isHide">
-                                          <input type="checkbox" name="isWholesaleCustomer"[(ngModel)]="customerObj.isWholesaleCustomer" value="1" class="formCheckBox" style="float: none;margin-left:0!important;" tabindex="11"> 
-                                    </div>  
-                                    <div class="col-md-3" *ngIf="isHide">
-                                         <label class="col-md-2 col-sm-2 fieldLabel">Yes</label>
-                                    </div> 
-                                    <div  class="col-md-3 col-sm-3" *ngIf="customerObj.isWholesaleCustomer && !isHide">
-                                          <input type="text" class="form-control" placeholder="Username" required [ngClass]="{'red-border-class': codeVal.errors }" #codeVal="ngModel" [required]="customerObj.isWholesaleCustomer" [(ngModel)]="customerObj.username" name="username" id="username" tabindex="12">
-                                    </div>
-                                    <div  class="col-md-3 col-sm-3" *ngIf="customerObj.isWholesaleCustomer && !isHide">
-                                          <input class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [(ngModel)]="customerObj.creditPeriodDays" name="creditPeriodDays" placeholder="Credit Period Days" autocomplete="off" tabindex="12">
-                                    </div>
-                                    </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-4">
-                           <!-- Account Information -->
-                           <div class="panel panel-default">
-                              <div class="panel-heading">Customer Account Person Information</div>
-                              <div class="panel-body">
-                                 <div class="form-group">
-                                    <label class="col-md-2 col-sm-2 fieldLabel">Name</label>
-                                    <div class="col-md-10 col-sm-10">
-                                       <input class="form-control m-input" type="text"  [ngClass]="{'red-border-class': accountPersonNameVal.errors && isFormSubmitted}"   [(ngModel)]="customerObj.accountPersonName" #accountPersonNameVal="ngModel"  name="accountPersonName" id="accountPersonName" placeholder="Account Person Name" tabindex="13">
-                                    </div>                       
-                                 </div>
-                                 <div class="form-group">
-									<label class="col-md-2 col-sm-2 fieldLabel">Email</label>
-                                    <div class="col-md-10 col-sm-10">
-                                       <input class="form-control m-input" type="email" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" [ngClass]="{'red-border-class': accountPersonEmailVal.errors && isFormSubmitted}" [(ngModel)]="customerObj.accountPersonEmail" name="accountPersonEmail"  #accountPersonEmailVal="ngModel"  placeholder="Account Person Email" maxlength="254" tabindex="14">
-                                          <div *ngIf="accountPersonEmailVal.errors && (accountPersonEmailVal.dirty || accountPersonEmailVal.touched)" class="alertMsg">
-                                                <div *ngIf="accountPersonEmailVal.errors.pattern">
-                                                Please enter valid email. 
-                                                </div>
-                                          </div>
-                                    </div>
-                                     </div>
-                                 <div class="form-group">
-                                    <label class="col-md-2 col-sm-2 fieldLabel">Phone</label>	
-                                    <div class="col-md-10 col-sm-10">
-                                       <input class="form-control m-input" type="phone" pattern="^[0-9]+" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"  [(ngModel)]="customerObj.accountPersonPhone" name="accountPersonPhone"  #accountPersonPhoneVal="ngModel" placeholder="Account Person Phone" minlength="10" maxlength="10" tabindex="15">
-                                          <!-- <div *ngIf="accountPersonPhoneVal.errors && (accountPersonPhoneVal.dirty || accountPersonPhoneVal.touched)" class="alertMsg">
+                                                                              </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                              <label class="col-md-2 col-sm-2 fieldLabel">PAN</label>
+                                                                              <div class="col-md-3 col-sm-3">
+                                                                                    <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': PANVal.errors && isFormSubmitted}" [(ngModel)]="customerObj.pan"
+                                                                                          name="PAN" #PANVal="ngModel" placeholder="PAN"
+                                                                                          maxlength="10" tabindex="10">
+                                                                              </div>
+
+                                                                              <div class="col-md-3 col-sm-3">
+                                                                                    <select class="form-control" [(ngModel)]="customerObj.type" name="customerType" #customerTypeVal="ngModel" required
+                                                                                          [ngClass]="{'red-border-class': customerTypeVal.errors && isFormSubmitted}"
+                                                                                          tabindex="4">
+
+                                                                                          <option *ngFor="let type of customerTypeList" [value]="type">{{type}}</option>
+                                                                                    </select>
+                                                                                    <!-- <p-dropdown class="feePlanBox" [options]="userTypeList" [style]="{'width':'100%'}" formControlName="userType"    required styleClass="{{ userForm.get('userType').hasError('required') && isFormSubmitted ?'red-border-class':''}}"  name="userType"></p-dropdown> -->
+                                                                              </div>
+
+                                                                              <div class="col-md-3 col-sm-3" *ngIf="customerObj.type=='Miscellaneous'"  >
+                                                                                          <input class="form-control m-input" type="text" [ngClass]="{'red-border-class':misValVal.errors && isFormSubmitted}" [(ngModel)]="misVal"
+                                                                                          name="misval" #misValVal="ngModel" required placeholder=""
+                                                                                          maxlength="20" tabindex="10">
+                                                                              </div>
+
+
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                              <label class="col-md-2 col-sm-2 fieldLabel">
+                                                                                    Wholesale Customer?
+                                                                              </label>
+                                                                              <div class="col-md-3" *ngIf="!isHide">
+                                                                                    <input type="checkbox" name="isWholesaleCustomer" [(ngModel)]="customerObj.isWholesaleCustomer" value="1" class="formCheckBox"
+                                                                                          style="float: none;margin-left:0!important;"
+                                                                                          tabindex="11">
+                                                                              </div>
+                                                                              <div class="col-md-3" *ngIf="isHide">
+                                                                                    <label class="col-md-2 col-sm-2 fieldLabel">Yes</label>
+                                                                              </div>
+                                                                              <div class="col-md-3 col-sm-3" *ngIf="customerObj.isWholesaleCustomer && !isHide">
+                                                                                    <input type="text" class="form-control" placeholder="Username" required [ngClass]="{'red-border-class': codeVal.errors }"
+                                                                                          #codeVal="ngModel" [required]="customerObj.isWholesaleCustomer"
+                                                                                          [(ngModel)]="customerObj.username" name="username"
+                                                                                          id="username" tabindex="12">
+                                                                              </div>
+                                                                              <div class="col-md-3 col-sm-3" *ngIf="customerObj.isWholesaleCustomer && !isHide">
+                                                                                    <input class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [(ngModel)]="customerObj.creditPeriodDays"
+                                                                                          name="creditPeriodDays" placeholder="Credit Period Days"
+                                                                                          autocomplete="off" tabindex="12">
+                                                                              </div>
+                                                                        </div>
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+                                                      <div class="col-md-4">
+                                                            <!-- Account Information -->
+                                                            <div class="panel panel-default">
+                                                                  <div class="panel-heading">Customer Account Person Information</div>
+                                                                  <div class="panel-body">
+                                                                        <div class="form-group">
+                                                                              <label class="col-md-2 col-sm-2 fieldLabel">Name</label>
+                                                                              <div class="col-md-10 col-sm-10">
+                                                                                    <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': accountPersonNameVal.errors && isFormSubmitted}"
+                                                                                          [(ngModel)]="customerObj.accountPersonName"
+                                                                                          #accountPersonNameVal="ngModel" name="accountPersonName"
+                                                                                          id="accountPersonName" placeholder="Account Person Name"
+                                                                                          tabindex="13">
+                                                                              </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                              <label class="col-md-2 col-sm-2 fieldLabel">Email</label>
+                                                                              <div class="col-md-10 col-sm-10">
+                                                                                    <input class="form-control m-input" type="email" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"
+                                                                                          [ngClass]="{'red-border-class': accountPersonEmailVal.errors && isFormSubmitted}"
+                                                                                          [(ngModel)]="customerObj.accountPersonEmail"
+                                                                                          name="accountPersonEmail" #accountPersonEmailVal="ngModel"
+                                                                                          placeholder="Account Person Email" maxlength="254"
+                                                                                          tabindex="14">
+                                                                                    <div *ngIf="accountPersonEmailVal.errors && (accountPersonEmailVal.dirty || accountPersonEmailVal.touched)" class="alertMsg">
+                                                                                          <div *ngIf="accountPersonEmailVal.errors.pattern">
+                                                                                                Please enter valid email.
+                                                                                          </div>
+                                                                                    </div>
+                                                                              </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                              <label class="col-md-2 col-sm-2 fieldLabel">Phone</label>
+                                                                              <div class="col-md-10 col-sm-10">
+                                                                                    <input class="form-control m-input" type="phone" pattern="^[0-9]+" [ngClass]="{'red-border-class': accountPersonPhoneVal.errors && isFormSubmitted}"
+                                                                                          [(ngModel)]="customerObj.accountPersonPhone"
+                                                                                          name="accountPersonPhone" #accountPersonPhoneVal="ngModel"
+                                                                                          placeholder="Account Person Phone" minlength="10"
+                                                                                          maxlength="10" tabindex="15">
+                                                                                    <!-- <div *ngIf="accountPersonPhoneVal.errors && (accountPersonPhoneVal.dirty || accountPersonPhoneVal.touched)" class="alertMsg">
                                                 <div *ngIf="accountPersonPhoneVal.errors.minlength && !accountPersonPhoneVal.errors.pattern">
                                                       Mobile number should be 10 digit.
                                                 </div>
@@ -202,128 +281,163 @@
                                                 Mobile number must be a number.
                                                 </div>
                                           </div> -->
-                                    </div>
-                                    
-                                                                 
-                                 </div>
-                                 
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-12">
-                           <div class="panel panel-default">
-                              <div class="panel-heading">Customer Address Details</div>
-                              <div class="panel-body">
-                                 <div class="table-responsive">
-                                    <table class="table formAddressTable">
-                                       <thead>
-                                          <tr>
-                                             <th>Address Line 1<span class="requiredField">*</span></th>
-                                             <th>Address Line 2</th>
-                                             <th>GST</th>
-                                             <th>PIN<span class="requiredField">*</span></th>
-                                             <th>State<span class="requiredField">*</span></th>
-                                             <th>City<span class="requiredField">*</span></th>
-                                             <th>Primary Address</th>
-                                             <th></th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr  *ngFor="let supAdd of customerObj.MstCustomerAddresses;let rowNum=index;let lastRowNum=last">
-                                             <td>
-                                                <input type="text" class="form-control" (blur)="validateAddress1(supAdd)"  [(ngModel)]="supAdd.addressLine1" [ngClass]="{'red-border-class': supAdd.invalidAddressLine1}" name="{{'addressLine1'+supAdd.contRoleId}}" placeholder="Address Line 1" maxlength="500" tabindex="16"/>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control"  [(ngModel)]="supAdd.addressLine2" name="{{'addressLine2'+supAdd.contRoleId}}" placeholder="Address Line 2" maxlength="500" tabindex="17"/>
-                                             </td>
-                                             <td>
-                                                <input class="form-control" type="text" #gstinVal="ngModel" [(ngModel)]="supAdd.gstin" [ngClass]="{'red-border-class': gstinVal.errors && isFormSubmitted}" placeholder="GST" name="{{'gstin'+supAdd.contRoleId}}" minlength="15" maxlength="15" tabindex="18">
-                                                <!-- <div *ngIf="gstinVal.errors && (gstinVal.dirty || gstinVal.touched)" class="alertMsg">
+                                                                              </div>
+
+
+                                                                        </div>
+
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+                                                </div>
+                                                <div class="row">
+                                                      <div class="col-md-12">
+                                                            <div class="panel panel-default">
+                                                                  <div class="panel-heading">Customer Address Details</div>
+                                                                  <div class="panel-body">
+                                                                        <div class="table-responsive">
+                                                                              <table class="table formAddressTable">
+                                                                                    <thead>
+                                                                                          <tr>
+                                                                                                <th>Address Line 1
+                                                                                                      <span class="requiredField">*</span>
+                                                                                                </th>
+                                                                                                <th>Address Line 2</th>
+                                                                                                <th>GST</th>
+                                                                                                <th>PIN
+                                                                                                      <span class="requiredField">*</span>
+                                                                                                </th>
+                                                                                                <th>State
+                                                                                                      <span class="requiredField">*</span>
+                                                                                                </th>
+                                                                                                <th>City
+                                                                                                      <span class="requiredField">*</span>
+                                                                                                </th>
+                                                                                                <th>Primary Address</th>
+                                                                                                <th></th>
+                                                                                          </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                          <tr *ngFor="let supAdd of customerObj.MstCustomerAddresses;let rowNum=index;let lastRowNum=last">
+                                                                                                <td>
+                                                                                                      <input type="text" class="form-control" (blur)="validateAddress1(supAdd)" [(ngModel)]="supAdd.addressLine1" [ngClass]="{'red-border-class': supAdd.invalidAddressLine1}"
+                                                                                                            name="{{'addressLine1'+supAdd.contRoleId}}"
+                                                                                                            placeholder="Address Line 1"
+                                                                                                            maxlength="500" tabindex="16"
+                                                                                                      />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                      <input type="text" class="form-control" [(ngModel)]="supAdd.addressLine2" name="{{'addressLine2'+supAdd.contRoleId}}" placeholder="Address Line 2"
+                                                                                                            maxlength="500" tabindex="17"
+                                                                                                      />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                      <input class="form-control" type="text" #gstinVal="ngModel" [(ngModel)]="supAdd.gstin" [ngClass]="{'red-border-class': gstinVal.errors && isFormSubmitted}"
+                                                                                                            placeholder="GST" name="{{'gstin'+supAdd.contRoleId}}"
+                                                                                                            minlength="15" maxlength="15"
+                                                                                                            tabindex="18">
+                                                                                                      <!-- <div *ngIf="gstinVal.errors && (gstinVal.dirty || gstinVal.touched)" class="alertMsg">
                                                       <div *ngIf="gstinVal.errors.minlength">
                                                            Invalid GST.
                                                       </div>
                                                 </div> -->
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control" pattern="^[0-9]+" (blur)="validatePin(supAdd)" #pinVal="ngModel" [ngClass]="{'red-border-class': pinVal.errors && isFormSubmitted}" name="{{'pin'+supAdd.contRoleId}}"  [(ngModel)]="supAdd.pin" placeholder="PIN" minlength="6" maxlength="6" tabindex="19"/>
-                                             </td>
-                                             <td>
-                                                <p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" (onChange)="validateState(supAdd)" [(ngModel)]="supAdd.state" styleClass="{{ supAdd.invalidState?'red-border-class':''}}" name="{{'stateDDL'+supAdd.contRoleId}}" tabindex="20"></p-dropdown>
-                                             </td>
-                                             <td>
-                                                <input type="text" class="form-control"  name="{{'city'+supAdd.contRoleId}}" (blur)="validateCity(supAdd)" [(ngModel)]="supAdd.city" [ngClass]="{'red-border-class': supAdd.invalidCity}" placeholder="City" maxlength="50" tabindex="21"/>
-                                             </td>
-                                             <td>
-                                          	<input type="radio" class="formCheckbox"  [(ngModel)]="supAdd.isPrimary"  [value]="true" name="{{'chkbox'+supAdd.contRoleId}}" [checked]="supAdd.isPrimary == true" (click)="onClickPrimary(supAdd)" tabindex="22"/>   
-                                          </td>
-                                             <td>
-                                                <i class="fa fa-plus addBtnIcon"  aria-hidden="true"   *ngIf="lastRowNum" (click)="addNewAddress(supAdd)" tabindex="23" ></i>
-                                                <i class="fa fa-trash removeBtnIcon"  aria-hidden="true"  *ngIf="!lastRowNum||rowNum>0" (click)="clearAddress(rowNum)" tabindex="24"></i>
-                                             </td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                 </div>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                      <input type="text" class="form-control" pattern="^[0-9]+" (blur)="validatePin(supAdd)" #pinVal="ngModel" [ngClass]="{'red-border-class': pinVal.errors && isFormSubmitted}"
+                                                                                                            name="{{'pin'+supAdd.contRoleId}}"
+                                                                                                            [(ngModel)]="supAdd.pin"
+                                                                                                            placeholder="PIN" minlength="6"
+                                                                                                            maxlength="6" tabindex="19"
+                                                                                                      />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                      <p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" (onChange)="validateState(supAdd)" [(ngModel)]="supAdd.state"
+                                                                                                            styleClass="{{ supAdd.invalidState?'red-border-class':''}}"
+                                                                                                            name="{{'stateDDL'+supAdd.contRoleId}}"
+                                                                                                            tabindex="20"></p-dropdown>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                      <input type="text" class="form-control" name="{{'city'+supAdd.contRoleId}}" (blur)="validateCity(supAdd)" [(ngModel)]="supAdd.city"
+                                                                                                            [ngClass]="{'red-border-class': supAdd.invalidCity}"
+                                                                                                            placeholder="City"
+                                                                                                            maxlength="50" tabindex="21"
+                                                                                                      />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                      <input type="radio" class="formCheckbox" [(ngModel)]="supAdd.isPrimary" [value]="true" name="{{'chkbox'+supAdd.contRoleId}}"
+                                                                                                            [checked]="supAdd.isPrimary == true"
+                                                                                                            (click)="onClickPrimary(supAdd)"
+                                                                                                            tabindex="22" />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                      <i class="fa fa-plus addBtnIcon" aria-hidden="true" *ngIf="lastRowNum" (click)="addNewAddress(supAdd)" tabindex="23"></i>
+                                                                                                      <i class="fa fa-trash removeBtnIcon" aria-hidden="true" *ngIf="!lastRowNum||rowNum>0" (click)="clearAddress(rowNum)" tabindex="24"></i>
+                                                                                                </td>
+                                                                                          </tr>
+                                                                                    </tbody>
+                                                                              </table>
+                                                                        </div>
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+                                                </div>
+                                          </form>
+                                    </div>
                               </div>
-                           </div>
                         </div>
-                     </div>
-                     </form>
                   </div>
-               </div>
-            </div>
-         </div>
-         <div class="m-portlet__body">
-            <!--begin::Section-->
-            <div class="m-section">
-               <div class="m-section__content">
-                  <div class="ui-widget-header" style="border-bottom: 0 none">
-                     <i class="fa fa-search searchIcon"></i>
-                     <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
-                     <!-- Add Button -->
-                     <button *ngIf="!toggleDiv" routerLink="/features/master/customer/list" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm"  (click)="toggleButton()"
-                     [isAuthorize]="['customer']">
-                     <span>
-                     <i class="flaticon-add"></i>
-                     <span>
-                     Add Customer
-                     </span>
-                     </span>
-                     </button>	
+                  <div class="m-portlet__body">
+                        <!--begin::Section-->
+                        <div class="m-section">
+                              <div class="m-section__content">
+                                    <div class="ui-widget-header" style="border-bottom: 0 none">
+                                          <i class="fa fa-search searchIcon"></i>
+                                          <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+                                          <!-- Add Button -->
+                                          <button *ngIf="!toggleDiv" routerLink="/features/master/customer/list" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm"
+                                                (click)="toggleButton()" [isAuthorize]="['customer']">
+                                                <span>
+                                                      <i class="flaticon-add"></i>
+                                                      <span>
+                                                            Add Customer
+                                                      </span>
+                                                </span>
+                                          </button>
+                                    </div>
+                                    <p-dataTable [value]="customerList" [emptyMessage]="tableEmptyMesssage" class="table listingTable halfWidthTable" [rows]="pageSize"
+                                          [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
+                                          [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+                                          <p-column field="name" header="Name" [style]="{'text-align':'left'}"></p-column>
+                                          <p-column field="email" header="Email" [style]="{'text-align':'left'}"></p-column>
+                                          <p-column field="phone" header="Phone" [style]="{'text-align':'center'}"></p-column>
+                                          <p-column field="nickName" header="Nick Name" [style]="{'text-align':'left'}"></p-column>
+                                          <p-column field="code" header="Code" [style]="{'text-align':'left'}"></p-column>
+                                          <p-column field="mstCustomerAddresses" header="GST" [style]="{'text-align':'center'}">
+                                                <ng-template let-data="rowData" pTemplate="body">
+                                                      <span *ngFor="let item of data.mstCustomerAddresses">{{ item.gstin }}
+                                                            <br/>
+                                                      </span>
+                                                </ng-template>
+                                          </p-column>
+                                          <p-column field="isWholesaleCustomer" header="Wholesale Customer" [style]="{'text-align':'center'}">
+                                                <ng-template let-wholesale="rowData" pTemplate type="body">
+                                                      {{wholesale.isWholesaleCustomer ? "Yes" : "No"}}
+                                                </ng-template>
+                                          </p-column>
+                                          <p-column styleClass="col-button" [style]="{'text-align':'center'}">
+                                                <ng-template pTemplate="header">
+                                                      Action
+                                                </ng-template>
+                                                <ng-template let-row="rowData" pTemplate="body">
+                                                      <button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+                                                      <button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Edit"></button>
+                                                </ng-template>
+                                          </p-column>
+                                    </p-dataTable>
+                              </div>
+                        </div>
+                        <!--end::Section-->
                   </div>
-                  <p-dataTable [value]="customerList" [emptyMessage]="tableEmptyMesssage" class="table listingTable halfWidthTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
-                  [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                  <p-column field="name" header="Name" [style]="{'text-align':'left'}"></p-column>
-                  <p-column field="email" header="Email" [style]="{'text-align':'left'}"></p-column>
-                  <p-column field="phone" header="Phone" [style]="{'text-align':'center'}"></p-column>
-                  <p-column field="nickName" header="Nick Name" [style]="{'text-align':'left'}"></p-column>
-                  <p-column field="code" header="Code" [style]="{'text-align':'left'}"></p-column>
-                  <p-column field="mstCustomerAddresses" header="GST" [style]="{'text-align':'center'}">
-                        <ng-template let-data="rowData"  pTemplate="body">
-                              <span *ngFor="let item of data.mstCustomerAddresses">{{ item.gstin }} <br/></span>
-                        </ng-template>
-                  </p-column>
-                  <p-column field="isWholesaleCustomer" header="Wholesale Customer" [style]="{'text-align':'center'}">
-                     <ng-template let-wholesale="rowData" pTemplate type="body">
-                        {{wholesale.isWholesaleCustomer ? "Yes" : "No"}}
-                     </ng-template>
-                  </p-column>
-                  <p-column styleClass="col-button" [style]="{'text-align':'center'}">
-                     <ng-template pTemplate="header">
-                        Action
-                     </ng-template>
-                     <ng-template let-row="rowData" pTemplate="body" >
-                        <button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
-                        <button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Edit"></button>
-                     </ng-template>
-                  </p-column>
-                  </p-dataTable>
-               </div>
             </div>
-            <!--end::Section-->
-         </div>
       </div>
-   </div>
 </div>
