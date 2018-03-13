@@ -45,7 +45,7 @@ const routes: Routes = [
             component: TrnMaterialSelectionListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['salesorder']
+              permissions: ['materialselection']
             }
           },
           {
@@ -53,7 +53,7 @@ const routes: Routes = [
             component: TrnMaterialSelectionAddEditComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['salesorder']
+              permissions: ['materialselection']
             }
           },
           {
@@ -61,7 +61,7 @@ const routes: Routes = [
             component: TrnMaterialSelectionAddEditComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['salesorder']
+              permissions: ['materialselection']
             }
           },
         ]
