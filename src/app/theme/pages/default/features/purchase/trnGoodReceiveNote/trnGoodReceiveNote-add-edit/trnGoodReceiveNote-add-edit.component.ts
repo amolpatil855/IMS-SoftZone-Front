@@ -578,7 +578,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.rate = null;
     if (this.purchaseOrderId != null) {
       let poObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
-      this.purchaseDiscount = poObj.purchaseDiscount;
+      this.purchaseDiscount = poObj.purchaseDiscount||0;
       this.gst = poObj.gst;
       this.orderQuantity = poObj.orderQuantity;
       this.rateWithGST = poObj.rateWithGST;
@@ -606,7 +606,8 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.amountWithGST = Math.round(this.amount + ((this.amount * poObj.gst) / 100));
     }
     else {
-      this.amountWithGST = poObj.rate * this.receivedQuantity;
+     // this.amountWithGST = poObj.rate * this.receivedQuantity;
+      this.amount = this.rate * this.receivedQuantity;
       this.amount = Math.round(this.amount - ((this.amount * poObj.purchaseDiscount) / 100));
       this.amountWithGST = Math.round(this.amount + ((this.amount * poObj.gst) / 100));
     }
