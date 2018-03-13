@@ -21,7 +21,7 @@ export class CustomerService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Customer/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  createCustomer(customer: Customer) {
+  createCustomer(customer: any) {
     return this.http.post(AppSettings.API_ENDPOINT + 'Customer', customer, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 

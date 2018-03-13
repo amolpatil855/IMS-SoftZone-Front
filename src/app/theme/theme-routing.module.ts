@@ -124,6 +124,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/sales\/trnGINForItemsWithStockAvailable\/trnGINForItemsWithStockAvailable.module#TrnGINForItemsWithStockAvailableModule"
       },
       {
+        "path": "features\/sales\/trnMaterialSelection",
+        "loadChildren": ".\/pages\/default\/features\/sales\/trnMaterialSelection\/trnMaterialSelection.module#TrnMaterialSelectionModule"
+      },
+      {
         "path": "header/changePassword",
         "loadChildren": ".\/pages\/default\/features\/changePassword\/changePassword.module#ChangePasswordModule"
       },
