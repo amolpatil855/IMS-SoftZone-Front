@@ -48,6 +48,10 @@ export class CompanyAddEditComponent implements OnInit {
       address2: ['', [Validators.required]],
       gstin: ['', [Validators.required]],
       companyLogo: [''],
+      bankName: ['', [Validators.required]],
+      accountNumber: ['', [Validators.required, Validators.pattern('^[0-9]+')]],
+      branch: ['', [Validators.required]],
+      ifscCode: ['', [Validators.required]],
     });
 
     this.getCompanyInfo();
@@ -70,6 +74,10 @@ export class CompanyAddEditComponent implements OnInit {
             address2: results.address2,
             gstin: results.gstin,
             companyLogo: results.companyLogo,
+            bankName: results.bankName,
+            accountNumber: results.accountNumber,
+            branch: results.branch,
+            ifscCode: results.ifscCode,
           });
           this.logoURLtoshow = AppSettings.IMAGE_API_ENDPOINT + results.companyLogo;
         }

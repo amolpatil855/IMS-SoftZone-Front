@@ -159,7 +159,10 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
           this.params = null;
           this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
-          this.router.navigate(['/features/sales/trnGoodIssueNote/list']);
+           if (this.redirectToGinStockAavailableList == "lstStock")
+            this.router.navigate(['/features/sales/trnGINForItemsWithStockAvailable/list']);
+          else
+            this.router.navigate(['/features/sales/trnGoodIssueNote/list']);
         },
         error => {
           this.globalErrorHandler.handleError(error);
