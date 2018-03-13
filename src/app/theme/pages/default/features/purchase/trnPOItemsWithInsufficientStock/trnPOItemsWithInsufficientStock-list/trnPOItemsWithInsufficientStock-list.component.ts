@@ -198,6 +198,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
 
 
   getTrnPurchaseOrderById() {
+    this.isFormSubmitted=false;
     Helpers.setLoading(true);
     this.trnPOItemsWithInsufficientStockService.getPOItemsWithStockInsufficient().subscribe(
       results => {
