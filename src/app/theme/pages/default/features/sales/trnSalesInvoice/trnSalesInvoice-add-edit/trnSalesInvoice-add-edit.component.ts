@@ -29,7 +29,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
   pageSize = 50;
   page = 1;
   totalCount = 0;
-  totalTaxAmount=0;
+  totalTaxAmount = 0;
   search = '';
   tableEmptyMesssage = 'Loading...';
   trnSalesInvoiceObj = new TrnSalesInvoice();
@@ -111,7 +111,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
       </html>`
     );
     popupWin.document.close();
-}
+  }
 
   getTrnSalesInvoiceById(id) {
     Helpers.setLoading(true);
@@ -122,23 +122,44 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
         if (results.trnSaleOrder != null) {
           this.orderNumber = results.trnSaleOrder.orderNumber;
         }
+        let customerInMH =_.find( this.customerAddresses, function(o) { return o.state  == "Maharashtra"; });
+
         this.trnSalesInvoiceObj.trnSalesInvoiceItems.forEach(item => {
           if (this.trnSalesInvoiceObj.totalAmount == null) {
             this.trnSalesInvoiceObj.totalAmount = 0;
           }
-          this.customerAddresses.forEach(o => {
-            if (o.state == "Maharashtra") {
-              this.gstAll =   this.gstAll +Math.round(((item.amount * (item.gst)) / 100) / 2);
-             // this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + (this.gstAll * 2) + item.amount;
-            } else {
-              this.iGstAll = this.iGstAll+ Math.round((item.amount * (item.gst)) / 100);
-             // this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + this.iGstAll + item.amount;
-            }
-          })
 
-          this.numberToWordConversion = this.numberToWords(this.trnSalesInvoiceObj.totalAmount, ",");
-          this.numberToWordConversionForTax= this.numberToWords(this.gstAll>0?this.gstAll: this.iGstAll, ",");
-       });
+          if(customerInMH)
+          {
+            this.gstAll = this.gstAll + Math.round(((item.amount * (item.gst)) / 100));
+           
+          }
+          else
+          {
+            this.iGstAll = this.iGstAll + Math.round((item.amount * (item.gst)) / 100);
+          }
+         // this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + item.amount;
+          // this.customerAddresses.forEach(o => {
+          //   if (o.state == "Maharashtra") {
+          //     this.gstAll = this.gstAll + Math.round(((item.amount * (item.gst)) / 100) / 2);
+          //     // this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + (this.gstAll * 2) + item.amount;
+          //   } else {
+          //     this.iGstAll = this.iGstAll + Math.round((item.amount * (item.gst)) / 100);
+          //     // this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + this.iGstAll + item.amount;
+          //   }
+          // })
+
+        
+        });
+        // if(customerInMH)
+        // {
+        // this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + this.gstAll;
+        // }
+        // else{
+        //   this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + this.iGstAll;
+        // }
+        this.numberToWordConversion = this.numberToWords(this.trnSalesInvoiceObj.totalAmount, ",");
+        this.numberToWordConversionForTax = this.numberToWords(this.gstAll > 0 ? this.gstAll : this.iGstAll, ",");
         this.calculateGSTWiseAmount();
         Helpers.setLoading(false);
       },
@@ -153,26 +174,26 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
     let lstGST = _.uniq(_.map(this.trnSalesInvoiceObj.trnSalesInvoiceItems, 'gst'))
     //trnSalesInvoiceItems
     let lstGSTValue = [];
-    let totalTax=0;
+    let totalTax = 0;
     let vm = this;
-    vm.invoiceItemQuantityTotal=0;
+    vm.invoiceItemQuantityTotal = 0;
     _.forEach(lstGST, function (gstVal) {
       //console.log(value);
       let gstTotal = 0;
       let taxsableValue = 0;
       _.forEach(invoiceItems, function (item) {
-       
-          vm.invoiceItemQuantityTotal = vm.invoiceItemQuantityTotal + item.quantity;
- 
+
+        vm.invoiceItemQuantityTotal = vm.invoiceItemQuantityTotal + item.quantity;
+
         if (item.gst == gstVal) {
-          gstTotal =Math.round( gstTotal + (item.amount * item.gst / 100));
-          taxsableValue =taxsableValue +item.amount;
-          totalTax=totalTax+gstTotal;
+          gstTotal = Math.round(gstTotal + (item.amount * item.gst / 100));
+          taxsableValue = taxsableValue + item.amount;
+          totalTax = totalTax + gstTotal;
         }
       });
-      lstGSTValue.push({ taxValue:taxsableValue, gst: gstVal, amount: gstTotal,totalTax:totalTax });
+      lstGSTValue.push({ taxValue: taxsableValue, gst: gstVal, amount: gstTotal, totalTax: totalTax });
     });
-    this.totalTaxAmount=totalTax;
+    this.totalTaxAmount = totalTax;
     this.invoiceGSTValues = lstGSTValue;
   }
 
