@@ -885,6 +885,8 @@ body .ui-dialog .ui-dialog-titlebar {
         color:#fff;
         margin-bottom:0;
         font-size: 22px;
+        text-align: center;
+        margin-top: -10px;
     }
     .invoiceLabelBox h6{
         color: #f7f7f7;
@@ -2055,15 +2057,16 @@ select option {
 	font-family:Roboto;
 	color:#000;
 	margin-top:0;
-	font-size: 22px;
+    font-size: 22px;
+    margin-top: -10px;
 }
 .invoiceAddressBox{
 	border:1px solid #f1f1f1;
 	background:#fff;
 	/*-webkit-box-shadow: 1px 9px 30px -8px rgb(199, 199, 199);
 	box-shadow: 1px 9px 30px -8px rgb(199, 199, 199);*/
-	padding:15px;
-	margin-bottom:12px;
+	padding:5px;
+	margin-bottom:5px;
 	border-radius:4px;
 }
 .invoiceAddressBox h4{
@@ -2072,13 +2075,15 @@ select option {
     margin-top: 0;
     font-size: 16px;
     font-weight: 600;
+    margin-bottom: 0;
 }
 .invoiceAddressBox p{
 	font-family:Roboto;
 	color:#000;
 	margin-top:0;
-	font-size: 13px;
-	margin-bottom:0px;
+	font-size: 12px;
+    margin-bottom:0px;
+    font-weight: 300;
 }
 .invoiceAddressBox h5{
 	font-family:Roboto;
@@ -2087,7 +2092,8 @@ select option {
 	font-size: 14px;
 	font-weight:600;
 	text-transform:uppercase;
-	letter-spacing:2px;
+    letter-spacing:2px;
+    margin-bottom: 5px;
 }
 .invoiceStatContainer h5{
 	font-family: Poppins;
@@ -2110,12 +2116,12 @@ select option {
 	font-family: Poppins;
     color: #2298F1;
     margin-top: 0;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
 	margin-bottom: 0;
 }
 .invoiceStatContainer{
-	padding: 10px 15px;
+	padding: 5px 5px;
 	margin-bottom:5px;
 	background:#fbfbfb;
 	border-radius:4px;
@@ -2147,7 +2153,7 @@ select option {
 	text-align:right;
 	font-weight:600!important;
 	color:#000;
-	font-size: 13px!important;
+	font-size: 12px!important;
 	font-style:italic;
 }
 .totalRow td{
@@ -2170,12 +2176,12 @@ select option {
 	font-family: Roboto;
     color: #000;
     margin-top: 0;
-    font-size: 17px;
+    font-size: 15px;
 	font-weight:600!important;
 	margin-bottom: 0;
 }
 .amountWordsBox {
-    padding: 10px 15px;
+    padding: 5px 15px;
     margin-bottom: 10px;
     background: #f2f2f2;
     border-radius: 4px;
@@ -2209,7 +2215,7 @@ select option {
 	font-family: Roboto;
     color: #545454;
     margin-top: 0;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400!important;
     margin-bottom: 0;
 }
@@ -2289,4 +2295,17 @@ select option {
 }
 .printtable tr td p {
     margin: 0 0 5px;
+}
+
+/********* D. 13 March 2018 **********/
+.invoiceItemTable tr th{
+    font-size: 12px;
+    font-weight: 500;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.invoiceItemTable tr td{   
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: 12px;
 }
