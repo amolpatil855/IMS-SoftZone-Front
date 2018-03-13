@@ -55,21 +55,11 @@ export class TrnMaterialSelectionListComponent implements OnInit {
     });
   }
 
-  onApprove(saleOrderObj){
-    Helpers.setLoading(true);
-    if (saleOrderObj.id) {
-      this.trnMaterialSelectionService.approveSalesOrder(saleOrderObj)
-        .subscribe(
-        results => {
-          this.getTrnMaterialSelectionsList();
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
-    }
+  onApprove(materialSelectionObj){
+    if (materialSelectionObj.isQuotationCreated) 
+      this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
+    else
+      this.router.navigate(['/features/sales/trnMaterialQuotation/add']);
   }
 
   getTrnMaterialSelectionsList() {

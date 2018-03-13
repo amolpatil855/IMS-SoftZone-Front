@@ -97,9 +97,11 @@
 									</ng-template>
 									<ng-template let-row="rowData" pTemplate="body">
 										<button type="button" pButton (click)="onEditClick(row)" icon="{{row.isQuotationCreated == false ? 'fa fa-pencil' : 'fa fa-info-circle'}}"
-										 class="editBtn" title="{{row.isQuotationCreated == false ? 'Edit' : 'View Quotation'}}"></button>
-										<button type="button" pButton *ngIf="adminFlag && row.isQuotationCreated == true" (click)="onApprove(row)" icon="fa fa-check"
-										 class="editBtn" title="Approve"></button>
+										 class="editBtn" title="{{row.isQuotationCreated == false ? 'Edit Selection' : 'View Selection'}}"></button>
+										<button type="button" pButton (click)="onApprove(row)" icon="{{row.isQuotationCreated == false ? 'fa fa-check' : 'fa fa-info-circle'}}"
+										 class="editBtn" title="{{row.isQuotationCreated == false ? 'Create Quotation' : 'View Quotation'}}"></button>
+										<!-- <button type="button" pButton *ngIf="adminFlag && row.isQuotationCreated == true" (click)="onApprove(row)" icon="fa fa-check"
+										 class="editBtn" title="Approve"></button> -->
 									</ng-template>
 								</p-column>
 							</p-dataTable>
