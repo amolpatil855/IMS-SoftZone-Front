@@ -158,8 +158,8 @@
 
 												<div class="col-md-6">
 													<div class="invoiceStatContainer">
-														<h5>Delivery Note Date</h5>
-														<h4>{{trnSalesInvoiceObj.invoiceDate | date: 'dd/MM/yyyy'}}</h4>
+														<h5>Payment Due Date</h5>
+														<h4>{{trnSalesInvoiceObj.expectedDeliveryDate | date: 'dd/MM/yyyy'}}</h4>
 													</div>
 												</div>
 
@@ -381,7 +381,7 @@
 							<!-- Tax Amount in words -->
 							<div class="amountWordsBox">
 								<h4>
-									<span class="taxAmtSpan">Tax Amount in words : </span>INR {{numberToWordConversion}} Only</h4>
+									<span class="taxAmtSpan">Tax Amount in words : </span>INR {{numberToWordConversionForTax}} Only</h4>
 							</div>
 
 							<!-- Declaration -->
@@ -767,7 +767,7 @@
 	<!-- Tax Amount in words -->
 	<div class="amountWordsBox" style="padding: 5px 15px;margin-bottom: 10px;background: #f2f2f2;border-radius: 4px;margin-top: 10px;">
 		<h4 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 15px;margin-bottom:0;font-weight: 600 !important;margin-bottom: 0;">
-			<span class="taxAmtSpan"><span style="font-family: Roboto;color: #2f2f2f;margin-top: 0;margin-bottom:0;font-size: 14px;font-weight: 400 !important;">Tax Amount in words : </span></span>INR {{numberToWordConversion}} Only</h4>
+			<span class="taxAmtSpan"><span style="font-family: Roboto;color: #2f2f2f;margin-top: 0;margin-bottom:0;font-size: 14px;font-weight: 400 !important;">Tax Amount in words : </span></span>INR {{numberToWordConversionForTax}} Only</h4>
 	</div>
 
 	<!-- Declaration -->
