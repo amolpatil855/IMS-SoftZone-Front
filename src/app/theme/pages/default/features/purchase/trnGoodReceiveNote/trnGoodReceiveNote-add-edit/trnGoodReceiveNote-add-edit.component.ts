@@ -247,6 +247,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     let fomSizeObj = _.find(this.fomSizeList, ['value', this.fomSizeId]);
     let matSizeObj = _.find(this.matSizeList, ['value', this.matSizeId]);
     let accessoryObj = _.find(this.accessoryCodeList, ['value', this.accessoryId]);
+    let poItemObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
     if (matSizeObj && matSizeObj.value == -1) {
       matSizeObj.label = this.matSizeCode;
     }
@@ -282,7 +283,8 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       width: this.width,
       matSizeCode: this.matSizeCode,
       accessoryId: this.accessoryId,
-      purchaseOrderId: this.purchaseOrderId
+      purchaseOrderId: this.purchaseOrderId,
+      purchaseOrderNumber:poItemObj.purchaseOrderNumber
     };
     this.trnGoodReceiveNoteItems.push(itemObj);
     this.onCancelItemDetails();
