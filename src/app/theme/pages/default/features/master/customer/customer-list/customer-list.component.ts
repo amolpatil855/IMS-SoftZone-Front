@@ -383,7 +383,7 @@ export class CustomerListComponent implements OnInit {
         let index=  _.findIndex(this.customerTypeList, function(o) { return o == custType; });
         if(index ==-1){
           this.misVal=this.customerObj.type;
-          this.customerObj.type="Miscellaneous";
+          this.customerObj.type= custType? "Miscellaneous":null;
         }
         delete this.customerObj['mstCustomerAddresses'];
         _.forEach(this.customerObj.MstCustomerAddresses, function (value) {
