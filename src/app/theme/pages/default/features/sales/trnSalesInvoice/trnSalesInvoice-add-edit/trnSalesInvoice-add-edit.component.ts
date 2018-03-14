@@ -188,11 +188,13 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
         vm.invoiceItemQuantityTotal = vm.invoiceItemQuantityTotal + item.quantity;
 
         if (item.gst == gstVal) {
-          gstTotal = Math.round(gstTotal + (item.amount * item.gst / 100));
+          gstTotal = gstTotal + (item.amount * item.gst / 100);
           taxsableValue = taxsableValue + item.amount;
           totalTax = totalTax + gstTotal;
         }
       });
+      gstTotal =Math.round(gstTotal);
+      totalTax =Math.round(totalTax);
       lstGSTValue.push({ taxValue: taxsableValue, gst: gstVal, amount: gstTotal, totalTax: totalTax });
     });
     this.totalTaxAmount = totalTax;
