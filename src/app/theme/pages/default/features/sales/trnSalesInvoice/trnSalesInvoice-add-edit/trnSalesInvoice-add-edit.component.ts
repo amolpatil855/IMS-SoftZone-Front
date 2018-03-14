@@ -101,10 +101,10 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
     printContents = document.getElementById('printInvoice').innerHTML;
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
     popupWin.document.open();
+    popupWin.document.title = "Special File Name.pdf";
     popupWin.document.write(`
       <html>
         <head>
-          <title>Print tab</title>
           <style>
           //........Customized style.......
           </style>

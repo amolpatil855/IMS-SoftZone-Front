@@ -99,6 +99,7 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
     this.TrnGoodIssueNoteService.getTrnGoodIssueNoteById(id).subscribe(
       results => {
         this.trnGoodIssueNoteObj = results;
+        this.trnGoodIssueNoteObj.ginDate=new Date(this.trnGoodIssueNoteObj.ginDate);
         Helpers.setLoading(false);
       },
       error => {

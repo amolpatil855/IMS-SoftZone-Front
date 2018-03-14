@@ -141,6 +141,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.trnGoodReceiveNoteService.getTrnGoodReceiveNoteById(id).subscribe(
       results => {
         this.trnGoodReceiveNoteObj = results;
+        this.trnGoodReceiveNoteObj.grnDate=new Date(this.trnGoodReceiveNoteObj.grnDate);
         this.trnGoodReceiveNoteItems = results.trnGoodReceiveNoteItems;
         // _.forEach(this.trnGoodReceiveNoteItems, function (value) {
         //   value.categoryName = value.mstCategory.code;
@@ -833,6 +834,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
   onChangeSupplier() {
     this.categoryId = null;
+    this.trnGoodReceiveNoteObj.totalAmount=0;
     this.categoryIdError = false;
     this.onCancelItemDetails();
     this.trnGoodReceiveNoteItems = [];
