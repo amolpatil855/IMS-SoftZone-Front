@@ -634,12 +634,12 @@
 				<tr>
 					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:5%;border-collapse: collapse;">Sr.No.</th>
 					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:40%;border-collapse: collapse;">Description of Goods</th>
-					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:8%;border-collapse: collapse;">HSN/SAC</th>
-					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:10%;border-collapse: collapse;">GST Rate</th>
-					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:3%;border-collapse: collapse;">Quantity</th>
-					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:10%;border-collapse: collapse;">Rate</th>
-					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;border-collapse: collapse;">per</th>
-					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:5%;border-collapse: collapse;">Dis.%</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:8%;border-collapse: collapse;text-align:center;">HSN/SAC</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:10%;border-collapse: collapse;text-align:center;">GST Rate</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:3%;border-collapse: collapse;text-align:center;">Quantity</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:10%;border-collapse: collapse;text-align:center;">Rate</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;border-collapse: collapse;text-align:center;">per</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:5%;border-collapse: collapse;text-align:center;">Dis.%</th>
 					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;width:10%;border-collapse: collapse;">Amount</th>
 				</tr>
 			</thead>
@@ -649,14 +649,14 @@
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
 						<b style="font-family:Roboto;">{{trnSalesInvoiceItem.categoryName}}</b>
 					</td>
-					<td class="alignCenter" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">{{trnSalesInvoiceItem.hsnCode}}</td>
-					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">{{trnSalesInvoiceItem.gst}}%</td>
-					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
+					<td class="alignCenter" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.hsnCode}}</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.gst}}%</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">
 						<b>{{trnSalesInvoiceItem.quantity}}</b>
 					</td>
-					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">{{trnSalesInvoiceItem.rate}}</td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">{{trnSalesInvoiceItem.uom}}</td>
-					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">{{trnSalesInvoiceItem.discountPercentage}}</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.rate}}</td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.uom}}</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.discountPercentage}}</td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
 						<b>{{trnSalesInvoiceItem.amount}}</b>
 					</td>
@@ -664,12 +664,12 @@
 				<tr class="gstRow" >
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
 					<td class="gstCell" style="border: 1px solid #000;font-family:Roboto;text-align:right;font-size:10px;border-collapse: collapse;">CGST-ALL</td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
 						<b >{{gstAll>0 ?gstAll:0}}</b>
 					</td>
@@ -677,12 +677,12 @@
 				<tr class="gstRow">
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
 					<td class="gstCell" style="border: 1px solid #000;font-family:Roboto;text-align:right;font-size:12px;border-collapse: collapse;font-size: 10px;">SGST-ALL</td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
 						<b >{{gstAll>0 ?gstAll:0}}</b>
 					</td>
@@ -690,12 +690,12 @@
 				<tr class="gstRow">
 					<td style="border: 1px solid #000;font-family:Roboto;font-family:Roboto;border-collapse: collapse;"></td>
 					<td class="gstCell" style="border: 1px solid #000;font-family:Roboto;text-align:right;font-size:12px;border-collapse: collapse;font-size: 10px;">IGST-ALL</td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
 						<b >{{iGstAll>0 ?iGstAll:0}}</b>
 					</td>
@@ -703,14 +703,14 @@
 				<tr class="totalRow">
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">Total</td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td class="alignRight" style="text-align:center;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
 						<b>{{invoiceItemQuantityTotal}}</b>
 					</td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
 						<b>INR {{trnSalesInvoiceObj.totalAmount}}</b>
 					</td>
