@@ -201,7 +201,8 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
 
 
   numberToWords(n, custom_join_character) {
-
+    if(!n)
+    n=0;
     var string = n.toString(),
       units, tens, scales, start, end, chunks, chunksLen, chunk, ints, i, word, words;
 
@@ -271,6 +272,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
 
           /* Chunk has a hundreds integer or chunk is the first of multiple chunks */
           if (ints[2] || !i && chunksLen) {
+            if(n>100)
             words.push(and);
           }
 
