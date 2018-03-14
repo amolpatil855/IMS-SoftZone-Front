@@ -9,6 +9,7 @@ export class TrnMaterialQuotation {
     customerId: number;
     referById: number;
     status: string;
+    totalAmount: number;
     MstAgent: Agent;
     TrnMaterialSelection: TrnMaterialSelection;
     TrnMaterialQuotationItems = [];

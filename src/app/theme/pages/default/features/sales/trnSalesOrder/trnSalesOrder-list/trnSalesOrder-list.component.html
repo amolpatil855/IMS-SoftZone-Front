@@ -76,11 +76,11 @@
 									</div>
 							<p-dataTable [value]="trnSalesOrderList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
                             [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                            <p-column field="orderNumber" header="Order Number" [style]="{'text-align':'left'}"></p-column>
+                            <p-column field="orderNumber" header="Order No." [style]="{'text-align':'center'}"></p-column>
                                 <p-column field="mstCustomer.name" header="Customer Name" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="mstCourier.name" header="Courier Name" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="mstAgent.name" header="Refer By" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="orderDate" header="Order Date" [style]="{'text-align':'left'}">
+                                <p-column field="orderDate" header="Order Date" [style]="{'text-align':'center'}">
 									<ng-template let-col let-data="rowData" pTemplate="body">
 										{{data[col.field]|date: 'dd/MM/yyyy' }}
 									</ng-template>

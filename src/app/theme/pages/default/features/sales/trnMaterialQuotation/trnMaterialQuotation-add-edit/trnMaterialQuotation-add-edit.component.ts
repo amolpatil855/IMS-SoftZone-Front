@@ -1,16 +1,1082 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
+import * as _ from 'lodash/index';
+import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { ConfirmationService, DataTableModule, LazyLoadEvent, SelectItem } from 'primeng/primeng';
+import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
+import { MessageService } from '../../../../../../../_services/message.service';
+import { UserService } from "../../../../_services/user.service";
+import { TrnMaterialQuotationService } from '../../../../_services/trnMaterialQuotation.service';
+import { TrnMaterialSelectionService } from '../../../../_services/trnMaterialSelection.service';
+import { ShadeService } from '../../../../_services/shade.service';
+import { FomSizeService } from '../../../../_services/fomSize.service';
+import { MatSizeService } from '../../../../_services/matSize.service';
+import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
+import { CommonService } from '../../../../_services/common.service';
+import { Helpers } from "../../../../../../../helpers";
+import { TrnMaterialQuotation } from "../../../../_models/trnMaterialQuotation";
+import { TrnProductStockService } from '../../../../_services/trnProductStock.service';
+import { CollectionService } from '../../../../_services/collection.service';
+import { CustomerService } from "../../../../_services/customer.service";
 @Component({
   selector: "app-trnMaterialQuotation-add-edit",
   templateUrl: "./trnMaterialQuotation-add-edit.component.html",
   encapsulation: ViewEncapsulation.None,
 })
 export class TrnMaterialQuotationAddEditComponent implements OnInit {
-
-  constructor() {
+  materialSelectionId: number;
+  trnMaterialQuotationForm: any;
+  trnMaterialQuotationObj: any;
+  userRole: string;
+  params: number;
+  adminFlag: boolean = false;
+  status: boolean = true;
+  viewItem: boolean = true;
+  trnMaterialQuotationList = [];
+  categoryList: SelectItem[];
+  discountOnRate = null;
+  givenDiscount = null;
+  selectedCourierMode = null;
+  selectedAgent = null;
+  agentList = [];
+  collectionList = [];
+  addressList = [];
+  categoriesCodeList = [];
+  shadeIdList = [];
+  categoryId = null;
+  matThicknessId = null;
+  collectionId = null;
+  trnMaterialQuotationItems = [];
+  shadeId = null;
+  orderQuantity = null;
+  orderType = null;
+  locationObj = null;
+  matHeight = null;
+  matWidth = null;
+  selectedAddress: any;
+  matSizeCode = null;
+  selectionType = null;
+  area = null;
+  isFormSubmitted = false;
+  selectionTypeError = false;
+  areaError = false;
+  categoryIdError = false;
+  collectionIdError = false;
+  shadeIdError = false;
+  matHeightError = false;
+  matWidthError = false;
+  orderQuantityError = false;
+  matThicknessIdError = false;
+  accessoryIdError = false;
+  fomSizeIdError = false;
+  matSizeIdError = false;
+  qualityIdError = false;
+  givenDiscountError = false;
+  selectionTypeList = [];
+  matSizeList = [];
+  fomSizeList = [];
+  matSizeId = null;
+  fomSizeId = null;
+  qualityId = null;
+  rate = null;
+  amountWithGST = null;
+  rateWithGST = null;
+  qualityList = [];
+  thicknessList = [];
+  productDetails = {
+    sellingRate: null,
+    flatRate: null,
+    sellingRatePerMM: null,
+    purchaseRatePerMM: null,
+    suggestedMM: null,
+    matHeight: null,
+    matWidth: null,
+    gst: null,
+    roleRate: null,
+    cutRate: null,
+    purchaseFlatRate: null,
+    stock: null,
+    purchaseRate: null,
+    custRatePerSqFeet: null,
+    rrp: null,
+    maxFlatRateDisc: null,
+    maxRoleRateDisc: null,
+    maxCutRateDisc: null,
+    maxDiscount: null
+  };
+  accessoryId = null;
+  accessoryCodeList = [];
+  amount = null;
+  disabled: boolean = false;
+  selectedRadio: boolean;
+  display: boolean = false;
+  shadeEnable: boolean = false;
+  matEnable: boolean = false;
+  fomEnable: boolean = false;
+  customerList = [];
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService,
+    private trnMaterialQuotationService: TrnMaterialQuotationService,
+    private trnMaterialSelectionService: TrnMaterialSelectionService,
+    private shadeService: ShadeService,
+    private fomSizeService: FomSizeService,
+    private collectionService: CollectionService,
+    private customerService: CustomerService,
+    private matSizeService: MatSizeService,
+    private globalErrorHandler: GlobalErrorHandler,
+    private confirmationService: ConfirmationService,
+    private commonService: CommonService,
+    private trnProductStockService: TrnProductStockService,
+    private messageService: MessageService) {
   }
 
   ngOnInit() {
+    this.route.queryParams
+      .subscribe(params => {
+        this.materialSelectionId = params.materialSelectionId;
+        console.log(this.materialSelectionId);
+        this.trnMaterialSelectionService.getMaterialQuotationBySelectionId(this.materialSelectionId).subscribe(
+        results => {
+          this.trnMaterialQuotationObj = results;
+          this.trnMaterialQuotationItems = this.trnMaterialQuotationObj.trnMaterialQuotationItems;
+          console.log('this.trnMaterialQuotationObj', this.trnMaterialQuotationObj);
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+        });
+
+    this.trnMaterialQuotationObj = new TrnMaterialQuotation();
+    this.getLoggedInUserDetail();
+    this.getCategoryCodeList();
+    this.getAgentLookUp();
+    this.getCustomerLookUpWithoutWholesaleCustomer();
+    let today = new Date();
+    this.locationObj = {};
+    this.disabled = false;
+    this.trnMaterialQuotationObj.materialQuotationDate = today;
+     this.selectionTypeList.push({ label: '--Select--', value: null });
+    this.selectionTypeList.push({ label: 'Sofa', value: 'Sofa' });
+    this.selectionTypeList.push({ label: 'Bedback', value: 'Bedback' });
+    this.selectionTypeList.push({ label: 'Mattress', value: 'Mattress' });
+    this.selectionTypeList.push({ label: 'Wallpaper', value: 'Wallpaper' });
+    this.selectionTypeList.push({ label: 'Rug', value: 'Rug' });
+    this.route.params.forEach((params: Params) => {
+      this.params = params['id'];
+    });
+    if (this.params) {
+      this.disabled = true;
+      this.getTrnMaterialQuotationById(this.params);
+    }
   }
 
+  getLoggedInUserDetail() {
+    this.userService.getLoggedInUserDetail().subscribe(res => {
+      this.userRole = res.mstRole.roleName;
+      if (this.userRole == "Administrator") {
+        this.adminFlag = true;
+      } else {
+        this.adminFlag = false;
+      }
+    });
+  }
+
+  onApprove() {
+    
+  }
+
+  getCustomerLookUpWithoutWholesaleCustomer() {
+    Helpers.setLoading(true);
+    this.trnMaterialQuotationService.getCustomerLookUpWithoutWholesaleCustomer().subscribe(
+      results => {
+        this.customerList = results;
+        this.customerList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+  onChangeSelectionType() {
+    this.collectionList = [];
+    this.collectionList.unshift({ label: '--Select--', value: null });
+    this.shadeIdList = [];
+    this.shadeIdList.unshift({ label: '--Select--', value: null });
+    this.matSizeList = [];
+    this.matSizeList.unshift({ label: '--Select--', value: null });
+    this.fomSizeList = [];
+    this.fomSizeList.unshift({ label: '--Select--', value: null });
+    this.accessoryCodeList = [];
+    this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+    this.selectionTypeError = false;
+    this.areaError = false;
+    this.area = null;
+    this.categoryIdError = false;
+    this.orderQuantityError = false;
+    this.matSizeIdError = false;
+    this.fomSizeIdError = false;
+    this.shadeIdError = false;
+    this.accessoryIdError = false;
+    this.collectionIdError = false;
+    this.collectionId = null;
+    this.accessoryId = null;
+    this.shadeId = null;
+    this.fomSizeId = null;
+    this.matSizeId = null;
+    this.productDetails.stock = null;
+    this.orderQuantity = null;
+    this.rateWithGST = null;
+    this.rate = null;
+    this.matHeight = null;
+    this.matHeightError = false;
+    this.matWidth = null;
+    this.matWidthError = false;
+    this.matThicknessId = null;
+    this.matThicknessIdError = false;
+    this.givenDiscount = null;
+    this.givenDiscountError = false;
+    this.amount = null,
+    this.orderType = '';
+    this.amountWithGST = null;
+
+    if (this.selectionType != null) {
+      Helpers.setLoading(true);
+      this.trnMaterialQuotationService.getCategoryLookupBySelectionType(this.selectionType).subscribe(
+        results => {
+          this.categoriesCodeList = results;
+          this.categoriesCodeList.unshift({ label: '--Select--', value: null });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
+  getTrnMaterialQuotationById(id) {
+    Helpers.setLoading(true);
+    this.trnMaterialQuotationService.getTrnMaterialQuotationById(id).subscribe(
+      results => {
+        this.trnMaterialQuotationObj = results;
+        if (this.trnMaterialQuotationObj.status == "Created") {
+          this.status = true;
+          this.viewItem = true;
+        } else {
+          this.status = false;
+          this.viewItem = false;
+        }
+        this.trnMaterialQuotationObj.materialQuotationDate = new Date(this.trnMaterialQuotationObj.materialQuotationDate);
+        this.trnMaterialQuotationItems = results.trnMaterialQuotationItems;
+        this.addressList = results.mstCustomer.mstCustomerAddresses;
+        delete this.trnMaterialQuotationObj['trnMaterialQuotationItems'];
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+  showDialog() {
+    this.display = true;
+  }
+
+  addItemToList() {
+    if (!this.selectionType)
+      this.selectionTypeError = true;
+    else
+      this.selectionTypeError = false;
+
+    if (!this.area)
+      this.areaError = true;
+    else
+      this.areaError = false;
+
+    if (!this.categoryId)
+      this.categoryIdError = true;
+    else
+      this.categoryIdError = false;
+
+
+    if (!this.givenDiscount && this.categoryId != 7)
+      this.givenDiscountError = true;
+    else
+      this.givenDiscountError = false;
+
+    if (!this.collectionId && this.categoryId != 7)
+      this.collectionIdError = true;
+    else
+      this.collectionIdError = false;
+
+    if (!this.accessoryId && this.categoryId == 7)
+      this.accessoryIdError = true;
+    else
+      this.accessoryIdError = false;
+
+    if (!this.shadeId && (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6))
+      this.shadeIdError = true;
+    else
+      this.shadeIdError = false;
+
+    if (!this.matSizeId && this.categoryId == 4)
+      this.matSizeIdError = true;
+    else
+      this.matSizeIdError = false;
+
+    if (!this.fomSizeId && this.categoryId == 2)
+      this.fomSizeIdError = true;
+    else
+      this.fomSizeIdError = false;
+
+    if (this.categoryId == 4 && this.matSizeId == -1 && !this.matHeight)
+      this.matHeightError = true;
+    else
+      this.matHeightError = false;
+
+    if (this.categoryId == 4 && this.matSizeId == -1 && !this.matWidth)
+      this.matWidthError = true;
+    else
+      this.matWidthError = false;
+
+    if (this.categoryId == 4 && this.matSizeId == -1 && !this.matThicknessId)
+      this.matThicknessIdError = true;
+    else
+      this.matThicknessIdError = false;
+
+    if (this.categoryId == 4 && this.matSizeId == -1 && !this.qualityId)
+      this.qualityIdError = true;
+    else
+      this.qualityIdError = false;
+
+    if (!this.orderQuantity)
+      this.orderQuantityError = true;
+    else
+      this.orderQuantityError = false;
+    if (this.orderQuantityError || this.matWidthError || this.fomSizeIdError || this.matSizeIdError || this.qualityIdError || this.accessoryIdError
+      || this.matHeightError || this.shadeIdError || this.collectionIdError || this.categoryIdError || this.selectionTypeError || this.areaError || this.givenDiscountError) {
+      return false;
+    }
+
+    if(this.trnMaterialQuotationItems.length>0){
+        
+        let soObj = _.find(this.trnMaterialQuotationItems, ['categoryId', this.categoryId]);
+        if(soObj != null){
+          if(this.accessoryId == soObj.accessoryId && this.shadeId == soObj.shadeId && this.fomSizeId == soObj.fomSizeId && this.matSizeId == soObj.matSizeId){
+            this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
+            return false;
+          }
+        }  
+      }
+
+    let catObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+    let collObj = _.find(this.collectionList, ['value', this.collectionId]);
+    let accessoryObj = _.find(this.accessoryCodeList, ['value', this.accessoryId]);
+    let shadeObj = _.find(this.shadeIdList, ['value', this.shadeId]);
+    let fomSizeObj = _.find(this.fomSizeList, ['value', this.fomSizeId]);
+    let matSizeObj = _.find(this.matSizeList, ['value', this.matSizeId]);
+
+    if (matSizeObj && matSizeObj.value == -1) {
+      matSizeObj.label = this.matSizeCode;
+    }
+
+    if (this.trnMaterialQuotationObj.totalAmount == null) {
+      this.trnMaterialQuotationObj.totalAmount = 0;
+    }
+    this.trnMaterialQuotationObj.totalAmount = Math.round(parseFloat(this.trnMaterialQuotationObj.totalAmount) + parseFloat(this.amountWithGST));
+
+    let itemObj = {
+      selectionType: this.selectionType,
+      area: this.area,
+      categoryId: this.categoryId,
+      categoryName: catObj ? catObj.label != "--Select--" ? catObj.label : '' : '',
+      collectionName: collObj ? collObj.label != "--Select--" ? collObj.label : '' : '',
+      collectionId: this.collectionId,
+      serialno: this.shadeId ? shadeObj.label != "--Select--" ? shadeObj.label : '' : '',
+      size: this.fomSizeId ? fomSizeObj.label : this.matSizeId ? matSizeObj.label != "--Select--" ? matSizeObj.label : '' : '',
+      accessoryName: accessoryObj ? accessoryObj.label != "--Select--" ? accessoryObj.label : '' : '',
+      accessoryId: this.accessoryId,
+      shadeId: this.shadeId,
+      fomSizeId: this.fomSizeId,
+      matSizeId: this.matSizeId,
+      availableStock: this.productDetails.stock,
+      orderQuantity: this.orderQuantity,
+      rateWithGST: this.rateWithGST,
+      rate: this.rate,
+      gst: this.productDetails.gst,
+      discountPercentage: this.givenDiscount,
+      amount: this.amount,
+      amountWithGST: this.amountWithGST,
+      orderType: this.orderType,
+      matHeight: this.matHeight,
+      matWidth: this.matWidth,
+    };
+
+    this.trnMaterialQuotationItems.push(itemObj);
+    this.onCancelItemDetails();
+  }
+
+  onCancelItemDetails() {
+    this.selectionTypeError = false;
+    this.areaError = false;
+    this.categoryIdError = false;
+    this.collectionIdError = false;
+    this.accessoryIdError = false;
+    this.shadeIdError = false;
+    this.matHeightError = false;
+    this.matWidthError = false;
+    this.orderQuantityError = false;
+    this.givenDiscountError = false;
+    this.selectionType = null;
+    this.area = null;
+    this.categoryId = null;
+    this.collectionId = null;
+    this.accessoryId = null;
+    this.shadeId = null;
+    this.fomSizeId = null;
+    this.matSizeId = null;
+    this.matHeightError = null;
+    this.matWidthError = null;
+    this.orderQuantity = null;
+    this.orderType = null;
+    this.amountWithGST = null;
+    this.discountOnRate = null;
+    this.givenDiscount = null;
+    this.rateWithGST = null;
+    this.rate = null;
+    this.productDetails = {
+      sellingRate: null,
+      flatRate: null,
+      sellingRatePerMM: null,
+      purchaseRatePerMM: null,
+      suggestedMM: null,
+      matHeight: null,
+      matWidth: null,
+      gst: null,
+      roleRate: null,
+      cutRate: null,
+      purchaseFlatRate: null,
+      stock: null,
+      purchaseRate: null,
+      custRatePerSqFeet: null,
+      rrp: null,
+      maxFlatRateDisc: null,
+      maxRoleRateDisc: null,
+      maxCutRateDisc: null,
+      maxDiscount: null
+    };
+    this.amount = null,
+    this.orderType = '';
+    this.amountWithGST = null;
+  }
+
+  enableEdit(row) {
+    row.enable = true;
+  }
+  cancelEdit(row) {
+    row.enable = false;
+  }
+
+  calculateProductStockDetails() {
+    let parameterId = null;
+    if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
+      this.shadeIdError = false;
+      this.productDetails.stock = null;
+      this.orderQuantity = null;
+      this.orderQuantityError = false;
+      this.rateWithGST = null;
+      this.rate = null;
+      this.matHeight = null;
+      this.matHeightError = false;
+      this.matWidth = null;
+      this.matWidthError = false;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
+      this.givenDiscount = null;
+      this.givenDiscountError = false;
+      this.orderType = '';
+      this.amountWithGST = null;
+      if (this.shadeId != null) {
+        parameterId = this.shadeId;
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+          data => {
+            this.productDetails = data;
+          }, error => {
+            this.globalErrorHandler.handleError(error);
+          });
+      }
+    }
+    else if (this.categoryId == 2) {
+      this.fomSizeIdError = false;
+      this.productDetails.stock = null;
+      this.orderQuantity = null;
+      this.orderQuantityError = false;
+      this.rateWithGST = null;
+      this.rate = null;
+      this.matHeight = null;
+      this.matHeightError = false;
+      this.matWidth = null;
+      this.matWidthError = false;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
+      this.givenDiscount = null;
+      this.givenDiscountError = false;
+      this.orderType = '';
+      this.amountWithGST = null;
+      if (this.fomSizeId != null) {
+        parameterId = this.fomSizeId;
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+          data => {
+            this.productDetails = data;
+          }, error => {
+            this.globalErrorHandler.handleError(error);
+          });
+      }
+    }
+    else if (this.categoryId == 4 && this.matSizeId != -1) {
+      this.matSizeIdError = false;
+      this.productDetails.stock = null;
+      this.orderQuantity = null;
+      this.orderQuantityError = false;
+      this.rateWithGST = null;
+      this.rate = null;
+      this.matHeight = null;
+      this.matHeightError = false;
+      this.matWidth = null;
+      this.matWidthError = false;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
+      this.givenDiscount = null;
+      this.givenDiscountError = false;
+      this.orderType = '';
+      this.amountWithGST = null;
+      if (this.matSizeId != null) {
+        parameterId = this.matSizeId;
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+          data => {
+            this.productDetails = data;
+          }, error => {
+            this.globalErrorHandler.handleError(error);
+          });
+      }
+    }
+    else if (this.categoryId == 4 && this.matSizeId != -1 && !this.qualityId) {
+      return;
+    }
+    else if (this.categoryId == 7) {
+      this.accessoryIdError = false;
+      this.productDetails.stock = null;
+      this.orderQuantity = null;
+      this.orderQuantityError = false;
+      this.rateWithGST = null;
+      this.rate = null;
+      this.matHeight = null;
+      this.matHeightError = false;
+      this.matWidth = null;
+      this.matWidthError = false;
+      this.givenDiscount = null;
+      this.givenDiscountError = false;
+      this.orderType = '';
+      this.amountWithGST = null;
+      if (this.accessoryId != null) {
+        parameterId = this.accessoryId;
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+          data => {
+            this.productDetails = data;
+          }, error => {
+            this.globalErrorHandler.handleError(error);
+          });
+      }
+    }
+    else {
+      parameterId = null;
+    }
+    //this.shadeId ? this.shadeId : this.fomSizeId ? this.fomSizeId : this.matSizeId != -1 ? this.matSizeId : null;
+  }
+
+  onCustomerChange() {
+    
+    if (this.trnMaterialQuotationObj.customerId != null) {
+      Helpers.setLoading(true);
+      this.trnMaterialQuotationService.getCustomerAddressByCustomerId(this.trnMaterialQuotationObj.customerId).subscribe(
+        results => {
+          this.addressList = results;
+          this.selectedAddress = this.trnMaterialQuotationObj.customerId;
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+    this.trnMaterialQuotationObj.shippingAddress = '';
+  }
+
+  getMatQualityList() {
+    this.matSizeService.getQualityLookUpByCollection(this.collectionId).subscribe(
+      results => {
+        this.qualityList = results;
+        this.qualityList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+  getAccessoryLookup() {
+    this.commonService.getAccessoryLookUp().subscribe(
+      results => {
+        this.accessoryCodeList = results;
+        this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+
+  onQualityClick() {
+    this.thicknessList = [];
+    this.thicknessList.unshift({ label: '--Select--', value: null });
+    this.matThicknessId = null;
+    this.calculateProductStockDetails();
+    if (this.qualityId != null) {
+      Helpers.setLoading(true);
+      this.matSizeService.getMatThicknessLookUp().subscribe(
+        results => {
+          this.thicknessList = results;
+          this.thicknessList.unshift({ label: '--Select--', value: null });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
+
+  onDeleteItemDetails(id, index) {
+    if (id) {
+      this.confirmationService.confirm({
+        message: 'Do you want to delete this record?',
+        header: 'Delete Confirmation',
+        icon: 'fa fa-trash',
+        accept: () => {
+          if (this.trnMaterialQuotationObj.totalAmount >= 0) {
+            if (this.trnMaterialQuotationItems.length > 0) {
+              this.trnMaterialQuotationObj.totalAmount = this.trnMaterialQuotationObj.totalAmount - this.trnMaterialQuotationItems[index].amountWithGST;
+            } else {
+              this.trnMaterialQuotationObj.totalAmount = 0;
+            }
+          }
+          this.trnMaterialQuotationItems.splice(index, 1);
+          // this.trnMaterialQuotationService.deleteItem(id).subscribe(
+          //     data => {
+          //         this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Deleted Successfully' });
+          //        // this.getAllMerchants();
+          //     }, error => {
+          //         this.globalErrorHandler.handleError(error);
+          //     });
+        },
+        reject: () => {
+        }
+      });
+    }
+    else {
+      if (this.trnMaterialQuotationObj.totalAmount >= 0) {
+        if (this.trnMaterialQuotationItems.length > 0) {
+          this.trnMaterialQuotationObj.totalAmount = this.trnMaterialQuotationObj.totalAmount - this.trnMaterialQuotationItems[index].amountWithGST;
+        } else {
+          this.trnMaterialQuotationObj.totalAmount = 0;
+        }
+      }
+      this.trnMaterialQuotationItems.splice(index, 1);
+    }
+  }
+
+  getCategoryCodeList() {
+    this.commonService.getCategoryCodesForSO().subscribe(
+      results => {
+        this.categoriesCodeList = results;
+        this.categoriesCodeList.unshift({ label: '--Select--', value: null });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  calculateSizeCode() {
+    if (this.matWidth && this.matHeight) {
+      this.matSizeCode = this.matHeight + 'x' + this.matWidth;
+    }
+    else
+      this.matSizeCode = '';
+  }
+
+  getAgentLookUp() {
+    Helpers.setLoading(true);
+    this.trnMaterialQuotationService.getAgentLookUp().subscribe(
+      results => {
+        this.agentList = results;
+        this.agentList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+  changeOrderType() {
+    this.orderQuantityError = false;
+    if (this.orderQuantity > 50) {
+      this.orderType = 'RL';
+    }
+    else {
+      if (!this.orderQuantity)
+        this.orderType = '';
+      else
+        this.orderType = 'CL';
+    }
+
+    if (this.categoryId == 2) {
+      this.rate = ((this.productDetails.sellingRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.matHeight * this.productDetails.matWidth;
+      this.rate = parseFloat(this.rate).toFixed(2);
+      this.discountOnRate = this.productDetails.maxDiscount;
+      this.calculateAmount();
+    }
+    else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
+      this.rate = parseFloat(this.productDetails.flatRate ? this.productDetails.flatRate : this.productDetails.rrp).toFixed(2);
+      this.discountOnRate = this.productDetails.flatRate ? this.productDetails.maxFlatRateDisc : this.orderQuantity >= 50 ? this.productDetails.maxRoleRateDisc : this.productDetails.maxCutRateDisc;
+      this.calculateAmount();
+    }
+    else if (this.categoryId == 4) {
+      if (this.matSizeId != -1) {
+        this.rate = this.productDetails.sellingRate;
+        this.discountOnRate = this.productDetails.maxDiscount;
+        this.calculateAmount();
+      }
+      else {
+        this.rate = (((this.matHeight * this.matWidth) / 1550.5) * this.productDetails.custRatePerSqFeet);
+        this.rate = parseFloat(this.rate).toFixed(2);
+        // this.rate = this.rate - Math.round((this.rate * 10) / 100);
+        this.calculateAmount();
+      }
+    }
+    else if (this.categoryId == 7) {
+      this.rate = this.productDetails.sellingRate;
+      this.discountOnRate = null;
+      this.calculateAmount();
+    }
+  }
+
+
+  calculateAmount(givenDicount = 0) {
+    if(!this.rate)
+    return;
+    let rate=parseFloat(this.rate);
+    if(rate){
+      this.rateWithGST =rate + (rate * this.productDetails.gst) / 100;
+      //this.amountWithGST =this.rateWithGST * this.orderQuantity;
+      this.amount = rate * this.orderQuantity;
+      this.amount =parseFloat(this.amount).toFixed(2);
+      //this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
+      this.amount = Math.round(this.amount - ((this.amount * givenDicount) / 100));
+      this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
+    }
+    this.rateWithGST =parseFloat(this.rateWithGST).toFixed(2);
+  }
+
+  onChangeDiscountAmount() {
+    if(!this.givenDiscount){
+      this.givenDiscount=0;
+    }
+    this.givenDiscountError = false;
+    this.calculateAmount(this.givenDiscount);
+  }
+
+  onChangeCategory() {
+    this.collectionList = [];
+    this.collectionList.unshift({ label: '--Select--', value: null });
+    this.shadeIdList = [];
+    this.shadeIdList.unshift({ label: '--Select--', value: null });
+    this.matSizeList = [];
+    this.matSizeList.unshift({ label: '--Select--', value: null });
+    this.fomSizeList = [];
+    this.fomSizeList.unshift({ label: '--Select--', value: null });
+    this.accessoryCodeList = [];
+    this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+    this.areaError = false;
+    this.categoryIdError = false;
+    this.orderQuantityError = false;
+    this.matSizeIdError = false;
+    this.fomSizeIdError = false;
+    this.shadeIdError = false;
+    this.accessoryIdError = false;
+    this.collectionIdError = false;
+    this.collectionId = null;
+    this.accessoryId = null;
+    this.shadeId = null;
+    this.fomSizeId = null;
+    this.matSizeId = null;
+    this.productDetails.stock = null;
+    this.orderQuantity = null;
+    this.rateWithGST = null;
+    this.rate = null;
+    this.matHeight = null;
+    this.matHeightError = false;
+    this.matWidth = null;
+    this.matWidthError = false;
+    this.matThicknessId = null;
+    this.matThicknessIdError = false;
+    this.givenDiscount = null;
+    this.givenDiscountError = false;
+    this.amount = null,
+      this.orderType = '';
+    this.amountWithGST = null;
+    if (this.categoryId != null) {
+      if (this.categoryId == 7) {
+        this.getAccessoryLookup();
+      } else {
+        this.getCollectionList();
+      }
+    }
+  }
+
+  onChangeCollection() {
+
+    if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
+      this.collectionIdError = false;
+      this.shadeIdList = [];
+      this.shadeIdList.unshift({ label: '--Select--', value: null });
+      this.shadeIdError = false;
+      this.shadeId = null;
+      this.productDetails.stock = null;
+      this.orderQuantity = null;
+      this.orderQuantityError = false;
+      this.rateWithGST = null;
+      this.rate = null;
+      this.matHeight = null;
+      this.matHeightError = false;
+      this.matWidth = null;
+      this.matWidthError = false;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
+      this.givenDiscount = null;
+      this.givenDiscountError = false;
+      this.amount = null,
+        this.orderType = '';
+      this.amountWithGST = null;
+      if (this.collectionId != null) {
+        this.getshadeIdList();
+      }
+    }
+    else if (this.categoryId == 2) {
+      this.collectionIdError = false;
+      this.fomSizeList = [];
+      this.fomSizeList.unshift({ label: '--Select--', value: null });
+      this.fomSizeIdError = false;
+      this.fomSizeId = null;
+      this.productDetails.stock = null;
+      this.orderQuantity = null;
+      this.orderQuantityError = false;
+      this.rateWithGST = null;
+      this.rate = null;
+      this.matHeight = null;
+      this.matHeightError = false;
+      this.matWidth = null;
+      this.matWidthError = false;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
+      this.givenDiscount = null;
+      this.givenDiscountError = false;
+      this.amount = null,
+        this.orderType = '';
+      this.amountWithGST = null;
+      if (this.collectionId != null) {
+        this.getFoamSizeList();
+      }
+    }
+    else if (this.categoryId == 4) {
+      this.collectionIdError = false;
+      this.matSizeList = [];
+      this.matSizeList.unshift({ label: '--Select--', value: null });
+      this.areaError = false;
+      this.matSizeIdError = false;
+      this.matSizeId = null;
+      this.qualityList = [];
+      this.qualityList.unshift({ label: '--Select--', value: null });
+      this.qualityIdError = false;
+      this.qualityId = null;
+      this.productDetails.stock = null;
+      this.orderQuantity = null;
+      this.orderQuantityError = false;
+      this.rateWithGST = null;
+      this.rate = null;
+      this.matHeight = null;
+      this.matHeightError = false;
+      this.matWidth = null;
+      this.matWidthError = false;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
+      this.givenDiscount = null;
+      this.givenDiscountError = false;
+      this.amount = null,
+        this.orderType = '';
+      this.amountWithGST = null;
+      if (this.collectionId != null) {
+        this.getMatSizeList();
+        this.getMatQualityList();
+      }
+    }
+    else {
+      this.shadeIdList = [];
+      this.shadeIdList.unshift({ label: '--Select--', value: null });
+      this.matSizeList = [];
+      this.matSizeList.unshift({ label: '--Select--', value: null });
+      this.fomSizeList = [];
+      this.fomSizeList.unshift({ label: '--Select--', value: null });
+      this.categoryIdError = true;
+      this.areaError = false;
+      this.collectionIdError = false;
+      this.shadeIdError = false;
+      this.matSizeIdError = false;
+      this.fomSizeIdError = false;
+      this.shadeId = null;
+      this.matSizeId = null;
+      this.givenDiscountError = false;
+      this.fomSizeId = null;
+      this.productDetails.stock = null;
+      this.orderQuantity = null;
+      this.orderQuantityError = false;
+      this.rateWithGST = null;
+      this.rate = null;
+      this.matHeight = null;
+      this.matHeightError = false;
+      this.matWidth = null;
+      this.matWidthError = false;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
+      this.givenDiscount = null;
+      this.amount = null,
+        this.orderType = '';
+      this.amountWithGST = null;
+    }
+  }
+
+  getMatSizeList() {
+    this.trnMaterialQuotationService.getMatSizeLookUpByCollection(this.collectionId).subscribe(
+      results => {
+        this.matSizeList = results;
+        this.matSizeList.unshift({ label: '--Select--', value: null });
+        if (this.categoryId == 4)
+          this.matSizeList.push({ label: 'Custom', value: -1 });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  getFoamSizeList() {
+    this.trnMaterialQuotationService.getFomSizeLookUpByCollection(this.collectionId).subscribe(
+      results => {
+        this.fomSizeList = results;
+        this.fomSizeList.unshift({ label: '--Select--', value: null });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+
+  getshadeIdList() {
+    this.trnMaterialQuotationService.getSerialNumberLookUpByCollection(this.collectionId).subscribe(
+      results => {
+        this.shadeIdList = results;
+        this.shadeIdList.unshift({ label: '--Select--', value: null });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  getCollectionList() {
+    this.collectionService.getCollectionLookUpForSo(this.categoryId).subscribe(
+      results => {
+        this.collectionList = results;
+        this.collectionList.unshift({ label: '--Select--', value: null });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  onSubmit({ value, valid }: { value: any, valid: boolean }) {
+    this.isFormSubmitted = true;
+    this.trnMaterialQuotationObj.TrnMaterialQuotationItems = this.trnMaterialQuotationItems;
+    let custObj = _.find(this.customerList, ['value', this.trnMaterialQuotationObj.customerId]);
+    let agentObj = _.find(this.agentList, ['value', this.trnMaterialQuotationObj.referById]);
+    this.trnMaterialQuotationObj.customerName = custObj ? custObj.label : '';
+    this.trnMaterialQuotationObj.agentName = agentObj ? agentObj.label : '';
+    if (this.trnMaterialQuotationItems.length == 0) {
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
+      return false;
+    }
+    if (valid) {
+      console.log(this.trnMaterialQuotationObj);
+      //this.saveTrnMaterialQuotation(this.trnMaterialQuotationObj);
+    }
+  }
+
+
+  saveTrnMaterialQuotation(value) {
+    Helpers.setLoading(true);
+    if (this.params) {
+      this.trnMaterialQuotationService.updateTrnMaterialQuotation(value)
+        .subscribe(
+        results => {
+          this.params = null;
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          Helpers.setLoading(false);
+          this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    } else {
+      this.trnMaterialQuotationService.createTrnMaterialQuotation(value)
+        .subscribe(
+        results => {
+          this.params = null;
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          Helpers.setLoading(false);
+          this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
+
+  onCancel() {
+    this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
+    this.disabled = false;
+    this.viewItem = true;
+  }
 }

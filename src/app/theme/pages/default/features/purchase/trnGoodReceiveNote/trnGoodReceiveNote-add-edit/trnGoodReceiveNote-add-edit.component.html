@@ -172,7 +172,7 @@
 														</div>
 													</div>
 													<div class="col-md-4" *ngIf="categoryId==2">
-														<label class="col-md-4 col-sm-4 fieldLabel">Foam size<span class="requiredField">*</span></label>
+														<label class="col-md-4 col-sm-4 fieldLabel">Foam Item<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="fomSizeList" [(ngModel)]="fomSizeId" [style]="{'width':'100%'}" styleClass="{{fomSizeIdError?'red-border-class':'' }}"
 															 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
@@ -219,7 +219,7 @@
 
 												<div class="row form-group">
 													<div class="col-md-4">
-														<label class="fieldLabel col-md-4 col-sm-4">Purchase Order No<span class="requiredField">*</span></label>
+														<label class="fieldLabel col-md-4 col-sm-4">Purchase Order No.<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
 															 <p-dropdown class="feePlanBox" [options]="purchaseOrderList" [style]="{'width':'100%'}" [(ngModel)]="purchaseOrderId"
 															 styleClass="{{purchaseOrderIdIdError?'red-border-class':'' }}" name="purchaseOrderIdval"  filter="true"
@@ -244,7 +244,7 @@
 
 												<div class="row form-group">
 													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Purchase Discount %</label>
+														<label class="col-md-4 col-sm-4 fieldLabel">Disc. %</label>
 														<div class="col-md-8 col-sm-8">
 															<label class="orderTypeLabel">{{purchaseDiscount}}</label>
 														</div>
@@ -304,34 +304,34 @@
 							</form>
 							<div class="row">
 								<div class="col-md-12">
-									<table class="staticTable merchantTable" id="">
+									<table class="staticTable" id="">
 										<thead>
 											<tr>
-												<th title="">
+												<th title="" class="alignleft">
 													Category
 												</th>
-												<th title="">
+												<th title="" class="alignleft">
 													Collection
 												</th>
-												<th title="">
+												<th title="" class="alignleft">
 													Accessory
 												</th>
-												<th title="">
+												<th title="" class="alignleft">
 													Serial No/Size
 												</th>
-												<th title="">
+												<th title="" class="aligncenter">
 													Ordered Qty
 												</th>
-												<th>
+												<th title="" class="aligncenter">
 													Received Qty
 												</th>
 												<!-- <th title="">
 													Order Type
 												</th> -->
-												<th title="">
+												<th title="" class="alignright">
 													Amount(GST)
 												</th>
-												<th title="">
+												<th title="" class="aligncenter">
 													Action
 												</th>
 											</tr>
@@ -343,14 +343,14 @@
 												</td>
 											</tr>
 											<tr *ngFor="let row of trnGoodReceiveNoteItems;let rowNum=index;let lastRowNum=last;">
-												<td>{{row.categoryName}}</td>
-												<td>{{row.collectionId ? row.collectionName:''}}</td>
-												<td>{{row.accessoryId ? row.accessoryName : ''}}</td>
-												<td>{{row.serialno}} {{row.size}} {{row.matSizeCode}}</td>
-												<td> {{row.orderQuantity}}</td>
-												<td>{{row.receivedQuantity}}</td>
+												<td class="alignleft">{{row.categoryName}}</td>
+												<td class="alignleft">{{row.collectionId ? row.collectionName:''}}</td>
+												<td class="alignleft">{{row.accessoryId ? row.accessoryName : ''}}</td>
+												<td class="alignleft">{{row.serialno}} {{row.size}} {{row.matSizeCode}}</td>
+												<td class="aligncenter"> {{row.orderQuantity}}</td>
+												<td class="aligncenter">{{row.receivedQuantity}}</td>
 												<!-- <td>{{row.orderType}}</td> -->
-												<td>{{row.amountWithGST}}</td>
+												<td class="alignright">{{row.amountWithGST}}</td>
 												<td>
 													<div class="">
 														<!-- <button title="Edit" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"

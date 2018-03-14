@@ -155,15 +155,15 @@
 															<div class="col-md-4">
 																<label class="col-md-4 col-sm-4 fieldLabel ">Selection Type<span class="requiredField">*</span></label>
 																<div class="col-md-8 col-sm-8">
-																	<p-dropdown class="feePlanBox" [options]="selectionTypeList" required [(ngModel)]="trnMaterialSelectionObj.selectionType"
-																	 #selectionTypeVal="ngModel" required [style]="{'width':'100%'}" styleClass="{{ selectionTypeError ?'red-border-class':''}}"
-																	 (ngModelChange)="onChangeSelectionType()" name="selectionType" filter="true" tabindex="5"></p-dropdown>
+																	<p-dropdown class="feePlanBox" [options]="selectionTypeList" [(ngModel)]="trnMaterialSelectionObj.selectionType" [style]="{'width':'100%'}"
+																	 styleClass="{{ selectionTypeError ?'red-border-class':''}}" (ngModelChange)="onChangeSelectionType()" name="selectionType"
+																	 filter="true" tabindex="5"></p-dropdown>
 																</div>
 															</div>
 															<div class="col-md-4">
 																<label class="col-md-4 col-sm-4 fieldLabel ">Area<span class="requiredField">*</span></label>
 																<div class="col-md-8 col-sm-8">
-																	<input class="form-control m-input" type="text" [ngClass]="{'red-border-class': areaError}" #areaVal="ngModel" required [(ngModel)]="trnMaterialSelectionObj.area"
+																	<input class="form-control m-input" type="text" [ngClass]="{'red-border-class': areaError}" [(ngModel)]="trnMaterialSelectionObj.area"
 																	 name="area" id="area" placeholder="" tabindex="6">
 																</div>
 															</div>
@@ -262,26 +262,26 @@
 							</form>
 							<div class="row">
 								<div class="col-md-12">
-									<table class="staticTable merchantTable" id="">
+									<table class="staticTable" id="">
 										<thead>
 											<tr>
-												<th title="">
+												<th title="" class="alignleft">
 													Selection Type
 												</th>
-												<th title="">
+												<th title="" class="alignleft">
 													Area
 												</th>
-												<th title="">
+												<th title="" class="alignleft">
 													Category
 												</th>
-												<th title="">
+												<th title="" class="alignleft">
 													Collection
 												</th>
-												<th title="">
+												<th title="" class="alignleft">
 													Accessory
 												</th>
-												<th title="">
-													Serial No/Size
+												<th title="" class="alignleft">
+													Serial No./Size
 												</th>
 												<th title="" *ngIf="viewItem">
 													Action
@@ -295,12 +295,12 @@
 												</td>
 											</tr>
 											<tr *ngFor="let row of trnMaterialSelectionItems;let rowNum=index;let lastRowNum=last;">
-												<td>{{row.selectionType}}</td>
-												<td>{{row.area}}</td>
-												<td>{{row.categoryName}}</td>
-												<td>{{row.collectionId ? row.collectionName:''}}</td>
-												<td>{{row.accessoryId ? row.accessoryName : ''}}</td>
-												<td>{{row.serialno}} {{row.matSizeCode}}</td>
+												<td class="alignleft">{{row.selectionType}}</td>
+												<td class="alignleft">{{row.area}}</td>
+												<td class="alignleft">{{row.categoryName}}</td>
+												<td class="alignleft">{{row.collectionId ? row.collectionName:''}}</td>
+												<td class="alignleft">{{row.accessoryId ? row.accessoryName : ''}}</td>
+												<td class="alignleft">{{row.serialno}} {{row.matSizeCode}}</td>
 												<td>
 													<div class="">
 														<!-- <button title="Edit" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
@@ -339,20 +339,7 @@
 		</div>
 	</div>
 </div>
-<p-dialog header="Customer Address Details" [(visible)]="display" modal="modal" [responsive]="true">
-	<!-- <p-dataTable [value]="addressList" class="table listingTable">
-		<p-column field="addressLine1" header="AddressLine1"></p-column>
-		<p-column field="addressLine2" header="AddressLine2"></p-column>
-		<p-column field="city" header="City"></p-column>
-		<p-column field="gstin" header="Gstin"></p-column>
-		<p-column field="pin" header="pin"></p-column>
-		<p-column field="state" header="state"></p-column>
-		<p-column field="isPrimary" header="IsPrimary">
-			<ng-template let-data="rowData" pTemplate="body">
-				<p-radioButton name="groupname" [value]="true" [(ngModel)]="data.isPrimary" (onClick)="onRadioBtnClick(data)"></p-radioButton>
-			</ng-template>
-		</p-column>
-    </p-dataTable> -->
+<p-dialog header="Customer Details" [(visible)]="display" modal="modal" [responsive]="true">
 	<div class="row">
 		<div class="col-md-12">
 			<!-- Basic Information -->
@@ -365,9 +352,6 @@
 							<input class="form-control" type="text" [ngClass]="{'red-border-class': nameVal.errors && nameError}" #nameVal="ngModel"
 							 [(ngModel)]="name" name="name" id="name" required placeholder="Name" maxlength="100" autofocus tabindex="1">
 						</div>
-
-					</div>
-					<div class="form-group">
 						<label class="col-md-2 col-sm-2 fieldLabel">Code<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-2">
 							<input class="form-control m-input" type="text" [ngClass]="{'red-border-class': codeVal.errors && codeError}" #codeVal="ngModel"
@@ -379,12 +363,10 @@
 						<div class="col-md-3 col-sm-3">
 							<input class="form-control" type="email" email [ngClass]="{'red-border-class': emailVal.errors && emailError}" #emailVal="ngModel"
 							 required [(ngModel)]="email" name="email" placeholder="Email" maxlength="254" tabindex="3">
-							<div class="alertMsg" *ngIf="emailVal.errors && !emailVal.errors.required && emailVal.errors.email && emailVal.touched">
+							<!-- <div class="alertMsg" *ngIf="emailVal.errors && !emailVal.errors.required && emailVal.errors.email && emailVal.touched">
 								Please enter valid Email
-							</div>
+							</div> -->
 						</div>
-					</div>
-					<div class="form-group">
 						<label class="col-md-2 col-sm-2 fieldLabel">Phone<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
 							<input class="form-control m-input" type="phone" pattern="^[0-9]+" [ngClass]="{'red-border-class': phoneVal.errors && phoneError}"
@@ -393,46 +375,32 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="fieldLabel col-sm-5">Address 1
-                                        <span class="requiredField">*</span>
-                                    </label>
-						<div class="col-sm-7">
+						<label class="col-md-2 col-sm-2 fieldLabel">Address 1<span class="requiredField">*</span></label>
+						<div class="col-md-3 col-sm-3">
 							<input type="text" class="form-control" [ngClass]="{'red-border-class': address1Val.errors && address1Error}" #address1Val="ngModel"
 							 required [(ngModel)]="address1" name="address1" placeholder="Address 1" id="address1" tabindex="5">
 						</div>
-					</div>
-					<div class="form-group">
-						<div class="form-group">
-							<label class="fieldLabel col-sm-5">Address 2</label>
-							<div class="col-sm-7">
-								<input type="text" class="form-control" #address2Val="ngModel" [(ngModel)]="address2" name="address2" placeholder="Address 2"
-								 id="address2" tabindex="6">
-							</div>
+						<label class="col-md-2 col-sm-2 fieldLabel">Address 2</label>
+						<div class="col-md-3 col-sm-3">
+							<input type="text" class="form-control" #address2Val="ngModel" [(ngModel)]="address2" name="address2" placeholder="Address 2"
+							 id="address2" tabindex="6">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="fieldLabel col-sm-5">City
-                                        <span class="requiredField">*</span>
-                                    </label>
-						<div class="col-sm-7">
+						<label class="col-md-2 col-sm-2 fieldLabel">City<span class="requiredField">*</span></label>
+						<div class="col-md-3 col-sm-3">
 							<input type="text" class="form-control" [ngClass]="{'red-border-class': cityVal.errors && cityError}" #cityVal="ngModel"
 							 required [(ngModel)]="city" name="city" placeholder="City" id="city" tabindex="7">
 						</div>
-					</div>
-					<div class="form-group">
-						<label class="fieldLabel col-sm-5">Pin
-                                        <span class="requiredField">*</span>
-                                    </label>
-						<div class="col-sm-7">
+						<label class="col-md-2 col-sm-2 fieldLabel">Pin<span class="requiredField">*</span></label>
+						<div class="col-md-3 col-sm-3">
 							<input type="text" class="form-control" pattern="^[0-9]+" [ngClass]="{'red-border-class': pinVal.errors && pinError}" #pinVal="ngModel"
 							 required [(ngModel)]="pin" name="pin" placeholder="PIN" id="pin" minlength="6" maxlength="6" tabindex="8">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="fieldLabel col-sm-5">State
-                                        <span class="requiredField">*</span>
-                                    </label>
-						<div class="col-sm-7">
+						<label class="col-md-2 col-sm-2 fieldLabel">State<span class="requiredField">*</span></label>
+						<div class="col-md-3 col-sm-3">
 							<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" required #statesVal="ngModel" styleClass="{{ statesVal.errors && stateError?'red-border-class':''}}"
 							 [(ngModel)]="state" name="state" filter="true" tabindex="9"></p-dropdown>
 						</div>
@@ -444,7 +412,7 @@
 
 
 	<p-footer>
-		<button type="button" pButton icon="fa-check" (click)="addCustomer()" label="Save" tabindex="10"></button>
-		<button type="button" pButton icon="fa-close" (click)="Cancel()" label="Cancel" tabindex="11"></button>
+		<button type="button"  class="btn btn-accent m-btn m-btn--air m-btn--custom" (click)="addCustomer()" tabindex="10">Save</button>
+		<button type="button"  class="btn btn-secondary" (click)="Cancel()" tabindex="11">Cancel</button>
 	</p-footer>
 </p-dialog>
