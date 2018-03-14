@@ -34,7 +34,7 @@
                     <li class="m-nav__item">
                         <a class="m-nav__link">
                             <span class="m-nav__link-text">
-                                Purchase Order
+                                Purchase Order Against Sales Order
                             </span>
                         </a>
                     </li>
@@ -97,7 +97,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-6">
-                                                                            <label class="col-md-5 col-sm-5 fieldLabel noPadding">Purchase Ord No.</label>
+                                                                            <label class="col-md-5 col-sm-5 fieldLabel noPadding">Purchase Order No.</label>
                                                                             <div class="col-md-7 col-sm-7">
                                                                                 <input type="text" [(ngModel)]="trnPurchaseOrderObj.orderNumber" name="PurchaseOrderNo" class="form-control" #orderNoVal="ngModel"
                                                                                  disabled tabindex="2" placeholder="">
@@ -202,24 +202,24 @@
     
                                             <p-dataTable  [value]="filteredItems" [editable]="true" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [(selection)]="selectedItemsList"  [emptyMessage]="tableEmptyMesssage"  [paginator]="true" [rows]="100" [headerCheckboxToggleAllPages]="true" class="table listingTable">
                                                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                                                    <p-column field="categoryName" header="Catagory" [editable]="false"></p-column>
-                                                    <p-column field="collectionName" header="Collection" [editable]="false"></p-column>
-                                                    <p-column  header="Serial No/Size/Accessory">
+                                                    <p-column field="categoryName" header="Catagory" [editable]="false" [style]="{'text-align':'left'}"></p-column>
+                                                    <p-column field="collectionName" header="Collection" [editable]="false" [style]="{'text-align':'left'}"></p-column>
+                                                    <p-column  header="Sr. No. / Size / Accessory" [editable]="false" [style]="{'text-align':'left'}">
                                                             <ng-template let-row="rowData" pTemplate="body">
                                                                 <span > {{row.serialno}} {{row.sizeForListing}} {{row.accessoryName}}</span>
                                                             </ng-template>
                                                         </p-column>
-                                                    <p-column field="requiredQuantity" header="Req Quantity" [editable]="false"></p-column>
-                                                    <p-column field="orderQuantity" header="Order Quantity" [editable]="true">
+                                                    <p-column field="requiredQuantity" header="Req. Quantity" [editable]="false" [style]="{'text-align':'center'}"></p-column>
+                                                    <p-column field="orderQuantity" header="Or. Quantity" [editable]="true" [style]="{'text-align':'center'}">
                                                             <ng-template let-col let-row="rowData" pTemplate="editor">
                                                                     <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="999" 
                                                                     [(ngModel)]="row[col.field]" name="orderQuantity" (blur)="changeOrderType(row)" >
                                                                 </ng-template>
                                                     </p-column>
-                                                    <p-column field="orderType" header="Order Type" [editable]="false"></p-column>
+                                                    <p-column field="orderType" header="Or. Type" [editable]="false" [style]="{'text-align':'center'}"></p-column>
                                                     <p-column field="rate" header="rate" [editable]="false"></p-column>
-                                                    <p-column field="gst" header="gst %" [editable]="false"></p-column>
-                                                    <p-column field="amountWithGST" header="amountWithGST" [editable]="false"></p-column>
+                                                    <p-column field="gst" header="gst %" [editable]="false" [style]="{'text-align':'center'}"></p-column>
+                                                    <p-column field="amountWithGST" header="amount(GST)" [editable]="false" [style]="{'text-align':'right'}"></p-column>
                                            </p-dataTable>
                                     </div>
                                 </div>

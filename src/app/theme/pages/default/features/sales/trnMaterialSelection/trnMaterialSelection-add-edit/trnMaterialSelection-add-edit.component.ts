@@ -194,7 +194,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     if(this.trnMaterialSelectionObj.isQuotationCreated)
       this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
     else
-      this.router.navigate(['/features/sales/trnMaterialQuotation/add']);
+      this.router.navigate(['/features/sales/trnMaterialQuotation/add'],{ queryParams: {materialSelectionId : this.trnMaterialSelectionObj.id} });
   }
 
   getCustomerLookUpWithoutWholesaleCustomer() {
@@ -559,7 +559,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       maxDiscount: null
     };
     this.amount = null,
-      this.orderType = '';
+    this.orderType = '';
     this.amountWithGST = null;
   }
 

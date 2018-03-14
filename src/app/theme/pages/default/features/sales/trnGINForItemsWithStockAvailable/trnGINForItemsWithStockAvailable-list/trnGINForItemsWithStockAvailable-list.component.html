@@ -38,9 +38,13 @@
                       </div>
                       <p-dataTable [value]="trnGINForItemsWithStockAvailableList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true"  [rowsPerPageOptions]="[20,50,100,200,500]"
                       [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
-                      <p-column field="salesOrderNumber" header="Sales Order Number" [style]="{'text-align':'left'}"></p-column>
-                      <p-column field="ginNumber" header="GIN Number" [style]="{'text-align':'left'}"></p-column>
-                      <p-column field="ginDate" header="GIN Date" [style]="{'text-align':'left'}"></p-column>
+                      <p-column field="salesOrderNumber" header="Sales Order No." [style]="{'text-align':'center'}"></p-column>
+                      <p-column field="ginNumber" header="GIN No." [style]="{'text-align':'center'}"></p-column>
+                      <p-column field="ginDate" header="GIN Date" [style]="{'text-align':'center'}">
+                          <ng-template let-col let-data="rowData" pTemplate="body">
+                                {{data[col.field]|date: 'dd/MM/yyyy' }}
+                            </ng-template>
+                      </p-column>
                       <p-column field="mstCustomer.name" header="Customer Name" [style]="{'text-align':'left'}"></p-column>
                       <p-column styleClass="col-button" [style]="{'text-align':'center'}">
                          <ng-template pTemplate="header">

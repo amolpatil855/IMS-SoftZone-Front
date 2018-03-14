@@ -44,22 +44,22 @@ export class TrnMaterialSelectionListComponent implements OnInit {
     this.getLoggedInUserDetail();
   }
 
-  getLoggedInUserDetail(){
+  getLoggedInUserDetail() {
     this.userService.getLoggedInUserDetail().subscribe(res => {
       this.userRole = res.mstRole.roleName;
       if (this.userRole == "Administrator") {
         this.adminFlag = true;
-      }else{
+      } else {
         this.adminFlag = false;
       }
     });
   }
 
-  onApprove(materialSelectionObj){
-    if (materialSelectionObj.isQuotationCreated) 
+  onApprove(materialSelectionObj) {
+    if (materialSelectionObj.isQuotationCreated)
       this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
     else
-      this.router.navigate(['/features/sales/trnMaterialQuotation/add']);
+      this.router.navigate(['/features/sales/trnMaterialQuotation/add'], { queryParams: { materialSelectionId: materialSelectionObj.id } });
   }
 
   getTrnMaterialSelectionsList() {
@@ -79,7 +79,7 @@ export class TrnMaterialSelectionListComponent implements OnInit {
 
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getTrnMaterialSelectionsList();
   }
