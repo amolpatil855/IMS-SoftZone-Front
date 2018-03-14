@@ -54,8 +54,7 @@
 										<div class="invoiceAddressBox">
 											<h4>{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["companyName"] : ""}}</h4>
 											<p>
-												{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["address1"] : ""}}, Code : {{trnSalesInvoiceObj["mstCompanyInfo"]
-												? trnSalesInvoiceObj["mstCompanyInfo"]["locationCode"] : ""}}
+												{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["address1"] : ""}}
 											</p>
 											<p>
 												{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["address2"] : ""}},{{trnSalesInvoiceObj["mstCompanyInfo"]
@@ -223,13 +222,13 @@
 									<table class="table invoiceItemTable table-bordered">
 										<thead>
 											<tr>
-												<th>Sr.No.</th>
-												<th>Description of Goods</th>
-												<th>HSN/SAC</th>
-												<th>GST Rate</th>
-												<th>Quantity</th>
-												<th>Rate</th>
-												<th>Per</th>
+												<th style="width:4%;">Sr.No.</th>
+												<th style="width:50%;text-align:center;">Description of Goods</th>
+												<th style="width:8%;">HSN/SAC</th>
+												<th style="width:8%;text-align:center;" >GST Rate</th>
+												<th style="text-align:center;width:5%;">Quantity</th>
+												<th style="text-align:center;">Rate</th>
+												<th style="text-align:center;">Per</th>
 												<th>Disc.%</th>
 												<th>Amount</th>
 											</tr>
@@ -240,14 +239,14 @@
 												<td>
 													<b>{{trnSalesInvoiceItem.categoryName}} {{trnSalesInvoiceItem.serialno}} {{trnSalesInvoiceItem.size}} {{trnSalesInvoiceItem.matSizeCode}} {{trnSalesInvoiceItem.accessoryName}}</b>
 												</td>
-												<td class="alignCenter">{{trnSalesInvoiceItem.hsnCode}}</td>
-												<td class="alignRight">{{trnSalesInvoiceItem.gst}}%</td>
-												<td class="alignRight">
+												<td class="alignCenter" style="text-align:left;">{{trnSalesInvoiceItem.hsnCode}}</td>
+												<td class="alignRight" style="text-align:center;">{{trnSalesInvoiceItem.gst}}%</td>
+												<td class="alignRight" style="text-align:center;">
 													<b>{{trnSalesInvoiceItem.quantity}}</b>
 												</td>
-												<td class="alignRight">{{trnSalesInvoiceItem.rate}}</td>
-												<td>{{trnSalesInvoiceItem.uom}}</td>
-												<td class="alignRight">{{trnSalesInvoiceItem.discountPercentage}}</td>
+												<td class="alignRight" style="text-align:center;">{{trnSalesInvoiceItem.rate}}</td>
+												<td style="text-align:center;">{{trnSalesInvoiceItem.uom}}</td>
+												<td class="alignRight" style="text-align:left;">{{trnSalesInvoiceItem.discountPercentage}}</td>
 												<td class="alignRight">
 													<b>{{trnSalesInvoiceItem.amount}}</b>
 												</td>
@@ -262,7 +261,7 @@
 												<td></td>
 												<td></td>
 												<td class="alignRight">
-													<b >{{gstAll>0 ?gstAll:0}}</b>
+													<b >{{gstAll>0 ?gstAll/2:0}}</b>
 												</td>
 											</tr>
 											<tr class="gstRow">
@@ -275,7 +274,7 @@
 												<td></td>
 												<td></td>
 												<td class="alignRight">
-													<b >{{gstAll>0 ?gstAll:0}}</b>
+													<b >{{gstAll>0 ?gstAll/2:0}}</b>
 												</td>
 											</tr>
 											<tr class="gstRow">
@@ -324,11 +323,11 @@
 								<table class="table table-bordered invoiceItemTable invoiceTaxTable">
 									<thead>
 										<tr>
-											<th class="alignRight">Taxable Value</th>
+											<th class="alignRight" rowspan="2" style="width:55%;">Taxable Value</th>
 											<th colspan="2" class="alignCenter">Central Tax</th>
 											<th colspan="2" class="alignCenter">State Tax</th>
 											<th colspan="2" class="alignCenter">Integral Tax</th>
-											<th>Total Tax Amount</th>
+											<th rowspan="2">Total Tax Amount</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -378,7 +377,7 @@
 							</div>
 
 							<!-- Tax Amount in words -->
-							<div class="amountWordsBox">
+							<div class="amountWordsBox" style="margin-bottom: 0;">
 								<h4>
 									<span class="taxAmtSpan">Tax Amount in words : </span>INR {{numberToWordConversionForTax}} Only</h4>
 							</div>
@@ -428,6 +427,28 @@
 								</div>
 							</div>
 
+							<div class="row" style="padding-right:15px;padding-left:15px;">
+								<table style="width:100%;">
+									<tr>
+										<td style="width:50%;font-family:Roboto;border:1px solid #ddd;border-top:1px solid #ddd;font-size:13px;vertical-align:top;font-weight:400;padding:5px;">
+											Customer Seal &amp; Signature
+										</td>
+										<td style="padding:5px;width:50%;text-align:right;font-family:Roboto;border:1px solid #ddd;font-size:13px;border-left:none;font-weight:400;">
+											<h5 style="margin-top:0px;margin-bottom:0;font-size:14px;font-family:Roboto;font-weight:500;">For SOFTZONE</h5>	
+											<br/>
+											Authorised Signatory
+										</td>	
+									</tr>	
+								</table>	
+							</div>	
+
+							<div class="row" style="text-align:center;width: 100%;">
+								<div style="text-align:center;width: 100%;">
+									<label style="font-family:Roboto;font-size:13px;font-weight:500;margin-top:5px;">SUBJECT TO PUNE JURISDICTION</label>
+									<br/>
+									<label style="font-family:Roboto;font-size:13px;font-weight:500;">This is a Computer Generated Invoice</label>
+								</div>	
+							</div>	
 
 						</div>
 					</div>
@@ -453,29 +474,28 @@
 	<h3 class="invoiceMainHeading" style="font-family:Roboto;text-align:center;">Tax Invoice</h3>
 
 	<div class="row" style="padding-left: 15px;padding-right: 15px;margin-bottom:20px;">
-		<div class="" style="width:50%;float:left;margin-bottom:10px;">
-			<table class="table printtable" style="width: 100%;" cellspacing="0">
+		<div class="" style="width:50%;float:left;margin-bottom:10px;margin-right:-1px;height:200px;">
+			<table class="table printtable" style="width: 100%;border-collapse: collapse;" cellspacing="0">
 				<tr>
-					<td style="padding-left:5px;font-family:Roboto;border: 1px solid #ddd;">
+					<td style="padding-left:5px;font-family:Roboto;border: 1px solid #000;border-collapse: collapse;">
 						<h4 style="margin-bottom:5px;">{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["companyName"] : ""}}</h4>
 						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
-							{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["address1"] : ""}}, Code : {{trnSalesInvoiceObj["mstCompanyInfo"]
-							? trnSalesInvoiceObj["mstCompanyInfo"]["locationCode"] : ""}}
+							{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["address1"] : ""}}
 						</p>
-						<p style="font-family:Roboto;font-size:12px;margin-top:0;margin-bottom:0;">
+						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 							{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["address2"] : ""}},{{trnSalesInvoiceObj["mstCompanyInfo"]
 							? trnSalesInvoiceObj["mstCompanyInfo"]["city"] : ""}}
 						</p>
-						<p style="font-family:Roboto;font-size:12px;margin-top:0;margin-bottom:0;">
+						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 							PH. {{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["phone"] : ""}}
 						</p>
-						<p style="font-family:Roboto;font-size:12px;margin-top:0;margin-bottom:0;">
+						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 							GSTIN/UIN: {{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["gstin"] : ""}}
 						</p>
-						<p style="font-family:Roboto;font-size:12px;margin-top:0;margin-bottom:0;">
+						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 							State Name : {{"Maharashtra"}}, Code : {{"27"}}
 						</p>
-						<p style="font-family:Roboto;font-size:12px;margin-top:0;margin-bottom:0;">
+						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 							E-Mail : {{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["email"] : ""}}
 						</p>
 					</td>
@@ -484,26 +504,26 @@
 
 			<table class="table printtable" style="width: 100%;" cellspacing="0">
 				<tr>
-					<td style="padding-left:5px;font-family:Roboto;border: 1px solid #ddd;">
+					<td style="padding-left:5px;font-family:Roboto;border: 1px solid #000;border-collapse: collapse;border-top:0;">
 						<h5 style="font-family:Poppins;margin-top:0;margin-bottom:0;">Buyer</h5>
 						<h4 style="font-family:Roboto;margin-top:0;margin-bottom:0;">
 								{{customerShippingAddress["name"]}}
 						</h4>
-						<p style="font-family:Roboto;font-size:12px;margin-top:0;margin-bottom:0;">
+						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 								{{customerShippingAddress["addressLine1"]}} {{ customerShippingAddress["addressLine2"]}}, {{customerShippingAddress["state"]}}, 
 								{{customerShippingAddress["city"]}}, PINCODE - {{customerShippingAddress["pin"]  }}
 						</p>
-						<p style="font-family:Roboto;font-size:12px;margin-top:0;margin-bottom:0;">
+						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 							MOB-{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["phone"] : ""}}
 						</p>
-						<p style="font-family:Roboto;font-size:12px;margin-top:0;margin-bottom:0;">
+						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 							GSTIN/UIN : {{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["mstCustomerAddresses"][0]["gstin"]
 							: ""}}
 						</p>
-						<p style="font-family:Roboto;font-size:12px;margin-top:0;margin-bottom:0;">
+						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 							State Name : {{customerShippingAddress["state"]}}
 						</p>
-						<p style="font-family:Roboto;font-size:12px;margin-top:0;margin-bottom:0;">
+						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 							E-Mail : {{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["email"] : ""}}
 						</p>
 					</td>
@@ -512,88 +532,88 @@
 
 		</div>
 		
-		<div class="" style="width:50%;float:left;">
+		<div class="" style="width:50%;float:left;height:195px;border-bottom:1px solid #000;border-right:1px solid #000;">
 			<table class="table table-bordered printtable" style="width: 100%;" cellspacing="0">
 				<tr>
-					<td style="border: 1px solid #ddd;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-left:0;padding-left:2px;">
 						<div class="">
-							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:12px;">Invoice No.</h5>
-							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:14px;">{{trnSalesInvoiceObj.invoiceNumber}}</h4>
+							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Invoice No.</h5>
+							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.invoiceNumber}}</h4>
 						</div>
 					</td>
-					<td style="border: 1px solid #ddd;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-left:0;padding-left:2px;border-right:none;">
 						<div class="">
-							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:12px;">Dated</h5>
-							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:14px;">{{trnSalesInvoiceObj.invoiceDate | date: 'dd/MM/yyyy'}}</h4>
+							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dated</h5>
+							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.invoiceDate | date: 'dd/MM/yyyy'}}</h4>
 						</div>
 					</td>
 				</tr>
 
 				<tr>
-					<td style="border: 1px solid #ddd;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;">
 						<div class="">
-							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:12px;">Delivery Note</h5>
-							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:14px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["orderNumber"] : ""}}/{{trnSalesInvoiceObj["trnGoodIssueNote"]
+							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Delivery Note</h5>
+							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["orderNumber"] : ""}}/{{trnSalesInvoiceObj["trnGoodIssueNote"]
 								? trnSalesInvoiceObj["trnGoodIssueNote"]["ginNumber"] : ""}}</h4>
 						</div>
 					</td>
-					<td style="border: 1px solid #ddd;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;border-right:none;">
 						<div class="">
-							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:12px;">Mode/Terms of Payment</h5>
-							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:14px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["paymentMode"] : ""}}</h4>
+							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Mode/Terms of Payment</h5>
+							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["paymentMode"] : ""}}</h4>
 						</div>
 					</td>
 				</tr>
 
 				<tr>
-					<td style="border: 1px solid #ddd;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;">
 						<div class="">
-							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:12px;">Buyer's Order No.</h5>
-							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:14px;">{{trnSalesInvoiceObj.buyersOrderNumber}}</h4>
+							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Buyer's Order No.</h5>
+							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.buyersOrderNumber}}</h4>
 						</div>
 					</td>
-					<td style="border: 1px solid #ddd;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;border-right:none;">
 						<div class="">
-							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:12px;">Dated</h5>
-							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:14px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? (trnSalesInvoiceObj["trnSaleOrder"]["orderDate"] | date: 'dd/MM/yyyy') : ""}}</h4>
-						</div>
-					</td>
-				</tr>
-
-				<tr>
-					<td style="border: 1px solid #ddd;">
-						<div class="">
-							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:12px;">Dispatch Document No.</h5>
-							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:14px;">{{trnSalesInvoiceObj.courierDockYardNumber}}</h4>
-						</div>
-					</td>
-					<td style="border: 1px solid #ddd;">
-						<div class="">
-							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:12px;">Delivery Note Date</h5>
-							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:14px;">{{trnSalesInvoiceObj.invoiceDate | date: 'dd/MM/yyyy'}}</h4>
+							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dated</h5>
+							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? (trnSalesInvoiceObj["trnSaleOrder"]["orderDate"] | date: 'dd/MM/yyyy') : ""}}</h4>
 						</div>
 					</td>
 				</tr>
 
 				<tr>
-					<td style="border: 1px solid #ddd;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;">
 						<div class="">
-							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:12px;">Dispatched through</h5>
-							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:14px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCourier"]["name"] : ""}}</h4>
+							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dispatch Document No.</h5>
+							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.courierDockYardNumber}}</h4>
 						</div>
 					</td>
-					<td style="border: 1px solid #ddd;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;border-right:none;">
 						<div class="">
-							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;">Courier Mode</h5>
-							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:14px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["courierMode"] : ""}}</h4>
+							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Delivery Note Date</h5>
+							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.invoiceDate | date: 'dd/MM/yyyy'}}</h4>
 						</div>
 					</td>
 				</tr>
 
 				<tr>
-					<td style="border: 1px solid #ddd;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;">
 						<div class="">
-							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:12px;">Terms of Delivery</h5>
+							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dispatched through</h5>
+							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCourier"]["name"] : ""}}</h4>
+						</div>
+					</td>
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;border-right:none;">
+						<div class="">
+							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px">Courier Mode</h5>
+							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["courierMode"] : ""}}</h4>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;border-bottom:none;border-right:none;" colspan="2">
+						<div class="">
+							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Terms of Delivery</h5>
 						</div>
 					</td>
 				</tr>
@@ -607,90 +627,90 @@
 	<br/>	
 	<!-- Table -->
 	<div class="table-responsive" style="margin-top:20px;clear:both;display:block;padding-left:15px;padding-right:15px;">
-		<table class="table invoiceItemTable table-bordered" cellspacing="0" style="width:100%;max-width: 100%;">
+		<table class="table invoiceItemTable table-bordered" cellspacing="0" style="width:100%;max-width: 100%;border-collapse: collapse;">
 			<thead>
 				<tr>
-					<th style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;">Sr.No.</th>
-					<th style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;">Description of Goods</th>
-					<th style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;">HSN/SAC</th>
-					<th style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;">GST Rate</th>
-					<th style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;">Quantity</th>
-					<th style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;">Rate</th>
-					<th style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;">per</th>
-					<th style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;">Dis.%</th>
-					<th style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;text-align:right;">Amount</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:5%;border-collapse: collapse;">Sr.No.</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:40%;border-collapse: collapse;">Description of Goods</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:8%;border-collapse: collapse;text-align:center;">HSN/SAC</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:10%;border-collapse: collapse;text-align:center;">GST Rate</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:3%;border-collapse: collapse;text-align:center;">Quantity</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:10%;border-collapse: collapse;text-align:center;">Rate</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;border-collapse: collapse;text-align:center;">per</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:5%;border-collapse: collapse;text-align:center;">Dis.%</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;width:10%;border-collapse: collapse;">Amount</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr *ngFor="let trnSalesInvoiceItem of trnSalesInvoiceObj.trnSalesInvoiceItems; let i=index;">
-					<td style="border: 1px solid #ddd;font-family:Roboto;">{{i+1}}</td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;">
-						<b style="font-family:Roboto;">{{trnSalesInvoiceItem.categoryName}}</b>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">{{i+1}}</td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
+						<b style="font-family:Roboto;font-weight:900;">{{trnSalesInvoiceItem.categoryName}}</b>
 					</td>
-					<td class="alignCenter" style="border: 1px solid #ddd;font-family:Roboto;">{{trnSalesInvoiceItem.hsnCode}}</td>
-					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;">{{trnSalesInvoiceItem.gst}}%</td>
-					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;">
+					<td class="alignCenter" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.hsnCode}}</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.gst}}%</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">
 						<b>{{trnSalesInvoiceItem.quantity}}</b>
 					</td>
-					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;">{{trnSalesInvoiceItem.rate}}</td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;">{{trnSalesInvoiceItem.uom}}</td>
-					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;">{{trnSalesInvoiceItem.discountPercentage}}</td>
-					<td class="alignRight" style="text-align:right;border: 1px solid #ddd;font-family:Roboto;">
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.rate}}</td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.uom}}</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.discountPercentage}}</td>
+					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
 						<b>{{trnSalesInvoiceItem.amount}}</b>
 					</td>
 				</tr>
 				<tr class="gstRow" >
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td class="gstCell" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;font-size:12px;">CGST-ALL</td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td class="alignRight" style="text-align:right;border: 1px solid #ddd;font-family:Roboto;">
-						<b >{{gstAll>0 ?gstAll:0}}</b>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
+					<td class="gstCell" style="border: 1px solid #000;font-family:Roboto;text-align:right;font-size:10px;border-collapse: collapse;">CGST-ALL</td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
+						<b >{{gstAll>0 ?gstAll/2:0}}</b>
 					</td>
 				</tr>
 				<tr class="gstRow">
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td class="gstCell" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;font-size:12px;">SGST-ALL</td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td class="alignRight" style="text-align:right;border: 1px solid #ddd;font-family:Roboto;">
-						<b >{{gstAll>0 ?gstAll:0}}</b>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
+					<td class="gstCell" style="border: 1px solid #000;font-family:Roboto;text-align:right;font-size:12px;border-collapse: collapse;font-size: 10px;">SGST-ALL</td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
+						<b >{{gstAll>0 ?gstAll/2:0}}</b>
 					</td>
 				</tr>
 				<tr class="gstRow">
-					<td style="border: 1px solid #ddd;font-family:Roboto;font-family:Roboto;"></td>
-					<td class="gstCell" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;font-size:12px;">IGST-ALL</td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td class="alignRight" style="text-align:right;border: 1px solid #ddd;font-family:Roboto;">
+					<td style="border: 1px solid #000;font-family:Roboto;font-family:Roboto;border-collapse: collapse;"></td>
+					<td class="gstCell" style="border: 1px solid #000;font-family:Roboto;text-align:right;font-size:12px;border-collapse: collapse;font-size: 10px;">IGST-ALL</td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
 						<b >{{iGstAll>0 ?iGstAll:0}}</b>
 					</td>
 				</tr>
 				<tr class="totalRow">
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td class="alignRight" style="text-align:right;border: 1px solid #ddd;font-family:Roboto;">Total</td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td class="alignRight" style="text-align:right;border: 1px solid #ddd;font-family:Roboto;">
-						<b>{{invoiceItemQuantityTotal}}</b>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
+					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">Total</b></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td class="alignRight" style="text-align:center;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
+						<b style="font-weight:900;">{{invoiceItemQuantityTotal}}</b>
 					</td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td style="border: 1px solid #ddd;font-family:Roboto;"></td>
-					<td class="alignRight" style="text-align:right;border: 1px solid #ddd;font-family:Roboto;">
-						<b>INR {{trnSalesInvoiceObj.totalAmount}}</b>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
+					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
+						<b style="font-weight:900;">INR {{trnSalesInvoiceObj.totalAmount}}</b>
 					</td>
 				</tr>
 			</tbody>
@@ -699,64 +719,64 @@
 
 	<!-- Amount in words -->
 	<div class="amountWordsBox" style="padding: 5px 15px;margin-bottom: 10px;background: #f2f2f2;border-radius: 4px;margin-top: 10px;">
-		<h5 style="font-family: Roboto;color: #2f2f2f;margin-top: 0;margin-bottom:0;font-size: 14px;font-weight: 400 !important;">Amount Chargeable (in words)
+		<h5 style="font-family: Roboto;color: #2f2f2f;margin-top: 0;margin-bottom:0;font-size: 12px;font-weight: 400 !important;">Amount Chargeable (in words)
 			<span>E. & O.E</span>
 		</h5>
-		<h4 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 15px;margin-bottom:0;font-weight: 600 !important;margin-bottom: 0;">INR {{numberToWordConversion}}</h4>
+		<h4 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 12px;margin-bottom:0;font-weight: 600 !important;margin-bottom: 0;">INR {{numberToWordConversion}}</h4>
 	</div>
 
 	<!-- Tax Table -->
 	<div class="table-responsive" style="clear:both;display:block;padding-left:15px;padding-right:15px;">
 
-		<table class="table table-bordered invoiceItemTable invoiceTaxTable" cellspacing="0" style="width:100%;max-width: 100%;">
+		<table class="table table-bordered invoiceItemTable invoiceTaxTable" cellspacing="0" style="width:100%;max-width: 100%;border-collapse: collapse;">
 			<thead>
 				<tr>
-					<th class="alignRight" style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;">Taxable Value</th>
-					<th colspan="2" class="alignCenter" style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;">Central Tax</th>
-					<th colspan="2" class="alignCenter" style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;">State Tax</th>
-					<th colspan="2" class="alignCenter" style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;">Integral Tax</th>
-					<th style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;text-align:right;">Total Tax Amount</th>
+					<th rowspan="2" class="alignRight" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:45%;text-align:right;border-collapse: collapse;">Taxable Value</th>
+					<th colspan="2" class="alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;border-collapse: collapse;">Central Tax</th>
+					<th colspan="2" class="alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;border-collapse: collapse;">State Tax</th>
+					<th colspan="2" class="alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;border-collapse: collapse;">Integral Tax</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;width:10%;border-collapse: collapse;">Total Tax Amount</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;"></td>
-					<td class="boldTD alignCenter" style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;text-align:right;" >Rate</td>
-					<td class="boldTD alignCenter" style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;text-align:right;">Amount</td>
-					<td class="boldTD alignCenter" style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;text-align:right;">Rate</td>
-					<td class="boldTD alignCenter" style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;text-align:right;">Amount</td>
-					<td class="boldTD alignCenter" style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;text-align:right;">Rate</td>
-					<td class="boldTD alignCenter" style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;text-align:right;">Amount</td>
-					<td style="border: 1px solid #ddd;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 12px;font-weight: 500;"></td>
+					<td style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;border-collapse: collapse;"></td>
+					<td class="boldTD alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;border-collapse: collapse;" >Rate</td>
+					<td class="boldTD alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;border-collapse: collapse;">Amount</td>
+					<td class="boldTD alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;border-collapse: collapse;">Rate</td>
+					<td class="boldTD alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;border-collapse: collapse;">Amount</td>
+					<td class="boldTD alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;border-collapse: collapse;">Rate</td>
+					<td class="boldTD alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;border-collapse: collapse;">Amount</td>
+					<td style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;"></td>
 				</tr>
 				<tr class="" *ngFor="let row of invoiceGSTValues;let rowNum=index;let lastRowNum=last;">
-					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.taxValue}}</td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.gst/2}}%</td>
-					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0%</td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.amount/2}}</td>
-					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0</td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.gst/2}}%</td>
-					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0%</td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.amount/2}}</td>
-					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0</td>
-					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.gst}}%</td>
-					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0%</td>
-					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.amount}}</td>
-					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0</td>
-					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{row.amount}}</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.taxValue}}</td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.gst/2}}%</td>
+					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0%</td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.amount/2}}</td>
+					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.gst/2}}%</td>
+					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0%</td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.amount/2}}</td>
+					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
+					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.gst}}%</td>
+					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0%</td>
+					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.amount}}</td>
+					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.amount}}</td>
 				</tr>
 				<tr class="totalRow">
-					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">Total : {{trnSalesInvoiceObj.totalAmount -totalTaxAmount}}</td>
-					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;"></td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{ totalTaxAmount/2}}</td>
-					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0</td>
-					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;"></td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{ totalTaxAmount/2}}</td>
-					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0</td>
-					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;"></td>
-					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{iGstAll}}</td>
-					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">0</td>
-					<td class="alignRight" style="border: 1px solid #ddd;font-family:Roboto;text-align:right;">{{ totalTaxAmount}}</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">Total : {{trnSalesInvoiceObj.totalAmount -totalTaxAmount}}</b></td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"></td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ totalTaxAmount/2}}</b></td>
+					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"></td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ totalTaxAmount/2}}</b></td>
+					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"></td>
+					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{iGstAll}}</b></td>
+					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ totalTaxAmount}}</b></td>
 				</tr>
 
 			</tbody>
@@ -765,8 +785,8 @@
 
 	<!-- Tax Amount in words -->
 	<div class="amountWordsBox" style="padding: 5px 15px;margin-bottom: 10px;background: #f2f2f2;border-radius: 4px;margin-top: 10px;">
-		<h4 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 15px;margin-bottom:0;font-weight: 600 !important;margin-bottom: 0;">
-			<span class="taxAmtSpan"><span style="font-family: Roboto;color: #2f2f2f;margin-top: 0;margin-bottom:0;font-size: 14px;font-weight: 400 !important;">Tax Amount in words : </span></span>INR {{numberToWordConversionForTax}} Only</h4>
+		<h4 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 12px;margin-bottom:0;font-weight: 600 !important;margin-bottom: 0;">
+			<span class="taxAmtSpan"><span style="font-family: Roboto;color: #2f2f2f;margin-top: 0;margin-bottom:0;font-size: 12px;font-weight: 400 !important;">Tax Amount in words : </span></span>INR {{numberToWordConversionForTax}} Only</h4>
 	</div>
 
 	<!-- Declaration -->
@@ -776,37 +796,37 @@
 			<tr>
 				<td style="width:50%;vertical-align:top;">
 					<div class="DeclarationBox" style="margin-left: 15px;padding-right: 15px;">
-						<h5 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 14px;font-weight: 500!important;text-decoration: underline;margin-bottom:0;">Declaration</h5>
-						<p style="font-family: Roboto;color: #545454;margin-top: 0;font-size: 13px;font-weight: 400!important;margin-bottom: 0;">
+						<h5 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 12px;font-weight: 500!important;text-decoration: underline;margin-bottom:0;">Declaration</h5>
+						<p style="font-family: Roboto;color: #545454;margin-top: 5px;font-size: 10px;font-weight: 400!important;margin-bottom: 0;">
 							We declare that this invoice shows the actual price of the goods described and that all particulars are true and correct.
 						</p>
 					</div>
 				</td>
 				<td style="width:50%;vertical-align:top;">
 					<div class="bankDetailsBox">
-						<h5 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 14px;font-weight: 500 !important;margin-bottom:0;">Company's Bank Details</h5>
+						<h5 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 10px;font-weight: 500 !important;margin-bottom:0;">Company's Bank Details</h5>
 						<table class="table bankDetailTable">
 							<tr>
-								<td style="font-family: Roboto;color: #000;margin-top: 0;font-size: 13px;font-weight: 400!important;border: none!important;padding: 1px!important;">
+								<td style="font-family: Roboto;color: #000;margin-top: 0;font-size: 10px;font-weight: 400!important;border: none!important;padding: 1px!important;">
 									Bank Name
 								</td>
-								<td style="font-family: Roboto;color: #000;margin-top: 0;font-size: 13px;font-weight: 500!important;border: none!important;padding: 1px!important;">
+								<td style="font-family: Roboto;color: #000;margin-top: 0;font-size: 10px;font-weight: 500!important;border: none!important;padding: 1px!important;">
 									{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["bankName"] : ""}}
 								</td>
 							</tr>
 							<tr>
-								<td style="font-family: Roboto;color: #000;margin-top: 0;font-size: 13px;font-weight: 400!important;border: none!important;padding: 1px!important;">
+								<td style="font-family: Roboto;color: #000;margin-top: 0;font-size: 10px;font-weight: 400!important;border: none!important;padding: 1px!important;">
 									A/c No.
 								</td>
-								<td style="font-family: Roboto;color: #000;margin-top: 0;font-size: 13px;font-weight: 500!important;border: none!important;padding: 1px!important;">
+								<td style="font-family: Roboto;color: #000;margin-top: 0;font-size: 10px;font-weight: 500!important;border: none!important;padding: 1px!important;">
 									{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["accountNumber"] : ""}}
 								</td>
 							</tr>
 							<tr>
-								<td style="font-family: Roboto;color: #000;margin-top: 0;font-size: 13px;font-weight: 400!important;border: none!important;padding: 1px!important;">
+								<td style="font-family: Roboto;color: #000;margin-top: 0;font-size: 10px;font-weight: 400!important;border: none!important;padding: 1px!important;">
 									Branch & IFS Code
 								</td>
-								<td style="font-family: Roboto;color: #000;margin-top: 0;font-size: 13px;font-weight: 500!important;border: none!important;padding: 1px!important;">
+								<td style="font-family: Roboto;color: #000;margin-top: 0;font-size: 10px;font-weight: 500!important;border: none!important;padding: 1px!important;">
 									{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["branch"] : ""}} & {{trnSalesInvoiceObj["mstCompanyInfo"]
 									? trnSalesInvoiceObj["mstCompanyInfo"]["ifscCode"] : ""}}
 								</td>
@@ -818,4 +838,27 @@
 		</table>
 
 	</div>
+
+	<div class="row" style="padding-right:15px;padding-left:15px;">
+		<table style="width:100%;" cellspacing="0">
+			<tr>
+				<td style="width:50%;font-family:Roboto;border:1px solid #000;border-top:1px solid #000;font-size:10px;vertical-align:top;border-collapse:collapse;">
+					Customer Seal &amp; Signature
+				</td>
+				<td style="width:50%;text-align:right;font-family:Roboto;border:1px solid #000;font-size:10px;border-collapse:collapse;border-left:0;">
+					<h5 style="margin-top:0px;margin-bottom:0;font-weight:700;font-family:Roboto;">For SOFTZONE</h5>	
+					<br/><br/><br/>
+					Authorised Signatory
+				</td>	
+			</tr>	
+		</table>	
+	</div>	
+
+	<div class="row">
+		<div style="text-align:center;">
+			<label style="font-family:Roboto;font-size:10px;">SUBJECT TO PUNE JURISDICTION</label>
+			<br/><br/>
+			<label style="font-family:Roboto;font-size:10px;">This is a Computer Generated Invoice</label>
+		</div>	
+	</div>	
 </div>

@@ -99,6 +99,7 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
     this.TrnGoodIssueNoteService.getTrnGoodIssueNoteById(id).subscribe(
       results => {
         this.trnGoodIssueNoteObj = results;
+        this.trnGoodIssueNoteObj.ginDate=new Date(this.trnGoodIssueNoteObj.ginDate);
         Helpers.setLoading(false);
       },
       error => {
@@ -125,22 +126,22 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    let orderQuantityFlag = true;
+    let orderQuantityFlag = false;
     //this.trnGoodIssueNoteObj.TrnGoodIssueNoteItems = this.trnGoodIssueNoteItems;
     if (this.trnGoodIssueNoteObj.trnGoodIssueNoteItems.length == 0) {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
       return false;
     }
 
-    // _.forEach(this.trnGoodIssueNoteObj.trnGoodIssueNoteItems, function (item) {
-    //   if (!item.issuedQuantity || item.issuedQuantity == 0)
-    //     orderQuantityFlag = false;
-    // });
+    _.forEach(this.trnGoodIssueNoteObj.trnGoodIssueNoteItems, function (item) {
+      if (item.issuedQuantity || item.issuedQuantity > 0)
+        orderQuantityFlag = true;
+    });
 
-    // if (!orderQuantityFlag) {
-    //   this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
-    //   return false;
-    // }
+    if (!orderQuantityFlag) {
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please enter issue quantity for at least one item" });
+      return false;
+    }
 
     if (valid) {
       // let supplierObj = _.find(this.supplierCodeList, ['value', this.trnGoodIssueNoteObj.supplierId]);
@@ -159,7 +160,7 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
           this.params = null;
           this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
-           if (this.redirectToGinStockAavailableList == "lstStock")
+          if (this.redirectToGinStockAavailableList == "lstStock")
             this.router.navigate(['/features/sales/trnGINForItemsWithStockAvailable/list']);
           else
             this.router.navigate(['/features/sales/trnGoodIssueNote/list']);

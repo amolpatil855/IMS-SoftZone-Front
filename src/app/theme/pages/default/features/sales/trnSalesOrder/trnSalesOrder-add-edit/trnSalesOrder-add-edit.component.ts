@@ -106,7 +106,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   amount = null;
   disabled: boolean = false;
   shippingAddressObj = null;
-  shippingAddress = '';
+  shippingAddress = null;
   selectedRadio: boolean;
   display: boolean = false;
   shadeEnable: boolean = false;
@@ -143,7 +143,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.trnSalesOrderObj.orderDate = today;
     this.trnSalesOrderObj.chequeDate = today;
     // this.newItem();
-    this.shippingAddress = '';
+    this.shippingAddress  = null;
     this.courierModeList.push({ label: '--Select--', value: null });
     this.courierModeList.push({ label: 'Surface', value: 'Surface' });
     this.courierModeList.push({ label: 'Air', value: 'Air' });
@@ -224,7 +224,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         this.trnSaleOrderItems = results.trnSaleOrderItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
         let shippingAddressId=this.trnSalesOrderObj.shippingAddressId;
-        this.shippingAddress =  _.find( this.addressList, function(o) { return o.id == shippingAddressId ; } );
+        this.shippingAddressObj =  _.find( this.addressList, function(o) { return o.id == shippingAddressId ; } );
         // _.forEach(this.trnSaleOrderItems, function (value) {
         //   if (value.mstCategory != null)
         //     value.categoryName = value.mstCategory.code;
@@ -576,7 +576,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
           Helpers.setLoading(false);
         });
     }
-    this.trnSalesOrderObj.shippingAddress = '';
+    else
+    this.trnSalesOrderObj.shippingAddress = null;
   }
 
   getMatQualityList() {

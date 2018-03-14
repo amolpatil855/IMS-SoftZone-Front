@@ -73,9 +73,12 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
   }
 
   newPO() {
-    this.isFormSubmitted=false;
+    this.isFormSubmitted = false;
     this.trnPurchaseOrderObj = new TrnPurchaseOrder();
     this.getSupplierCodeList();
+    this.selectedItemsList = [];
+    this.trnPurchaseOrderItems = [];
+    this.filteredItems = [];
     //this.getAccessoryLookup();
     let today = new Date();
     this.locationObj = {};
@@ -198,7 +201,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
 
 
   getTrnPurchaseOrderById() {
-    this.isFormSubmitted=false;
+    this.isFormSubmitted = false;
     Helpers.setLoading(true);
     this.trnPOItemsWithInsufficientStockService.getPOItemsWithStockInsufficient().subscribe(
       results => {

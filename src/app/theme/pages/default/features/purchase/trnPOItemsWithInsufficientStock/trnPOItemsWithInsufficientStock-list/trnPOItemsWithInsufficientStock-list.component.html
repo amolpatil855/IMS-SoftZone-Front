@@ -206,7 +206,7 @@
                                                     <p-column field="collectionName" header="Collection" [editable]="false" [style]="{'text-align':'left'}"></p-column>
                                                     <p-column  header="Sr. No. / Size / Accessory" [editable]="false" [style]="{'text-align':'left'}">
                                                             <ng-template let-row="rowData" pTemplate="body">
-                                                                <span > {{row.serialno}} {{row.size}} {{row.accessoryName}}</span>
+                                                                <span > {{row.serialno}} {{row.sizeForListing}} {{row.accessoryName}}</span>
                                                             </ng-template>
                                                         </p-column>
                                                     <p-column field="requiredQuantity" header="Req. Quantity" [editable]="false" [style]="{'text-align':'center'}"></p-column>

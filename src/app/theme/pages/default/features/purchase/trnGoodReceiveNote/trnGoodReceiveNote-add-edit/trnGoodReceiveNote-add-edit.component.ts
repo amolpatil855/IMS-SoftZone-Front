@@ -141,6 +141,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.trnGoodReceiveNoteService.getTrnGoodReceiveNoteById(id).subscribe(
       results => {
         this.trnGoodReceiveNoteObj = results;
+        this.trnGoodReceiveNoteObj.grnDate=new Date(this.trnGoodReceiveNoteObj.grnDate);
         this.trnGoodReceiveNoteItems = results.trnGoodReceiveNoteItems;
         // _.forEach(this.trnGoodReceiveNoteItems, function (value) {
         //   value.categoryName = value.mstCategory.code;
@@ -247,6 +248,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     let fomSizeObj = _.find(this.fomSizeList, ['value', this.fomSizeId]);
     let matSizeObj = _.find(this.matSizeList, ['value', this.matSizeId]);
     let accessoryObj = _.find(this.accessoryCodeList, ['value', this.accessoryId]);
+    let poItemObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
     if (matSizeObj && matSizeObj.value == -1) {
       matSizeObj.label = this.matSizeCode;
     }
@@ -282,7 +284,8 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       width: this.width,
       matSizeCode: this.matSizeCode,
       accessoryId: this.accessoryId,
-      purchaseOrderId: this.purchaseOrderId
+      purchaseOrderId: this.purchaseOrderId,
+      purchaseOrderNumber:poItemObj.purchaseOrderNumber
     };
     this.trnGoodReceiveNoteItems.push(itemObj);
     this.onCancelItemDetails();
@@ -831,6 +834,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
   onChangeSupplier() {
     this.categoryId = null;
+    this.trnGoodReceiveNoteObj.totalAmount=0;
     this.categoryIdError = false;
     this.onCancelItemDetails();
     this.trnGoodReceiveNoteItems = [];
