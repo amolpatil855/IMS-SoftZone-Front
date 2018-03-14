@@ -237,7 +237,9 @@
 											<tr *ngFor="let trnSalesInvoiceItem of trnSalesInvoiceObj.trnSalesInvoiceItems; let i=index;">
 												<td>{{i+1}}</td>
 												<td>
-													<b>{{trnSalesInvoiceItem.categoryName}} {{trnSalesInvoiceItem.serialno}} {{trnSalesInvoiceItem.size}} {{trnSalesInvoiceItem.matSizeCode}} {{trnSalesInvoiceItem.accessoryName}}</b>
+													<b>{{trnSalesInvoiceItem.categoryName}} {{trnSalesInvoiceItem.serialno}} {{trnSalesInvoiceItem.size}} {{trnSalesInvoiceItem.matSizeCode}} {{trnSalesInvoiceItem.accessoryName}} 
+															
+													</b>
 												</td>
 												<td class="alignCenter" style="text-align:left;">{{trnSalesInvoiceItem.hsnCode}}</td>
 												<td class="alignRight" style="text-align:center;">{{trnSalesInvoiceItem.gst}}%</td>
@@ -245,7 +247,11 @@
 													<b>{{trnSalesInvoiceItem.quantity}}</b>
 												</td>
 												<td class="alignRight" style="text-align:center;">{{trnSalesInvoiceItem.rate}}</td>
-												<td style="text-align:center;">{{trnSalesInvoiceItem.uom}}</td>
+												<td style="text-align:center;">{{trnSalesInvoiceItem.uom}}
+														{{trnSalesInvoiceItem.mstAccessory?
+															trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure?
+															trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure.uomCode:'':''}}
+												</td>
 												<td class="alignRight" style="text-align:left;">{{trnSalesInvoiceItem.discountPercentage}}</td>
 												<td class="alignRight">
 													<b>{{trnSalesInvoiceItem.amount}}</b>
@@ -358,17 +364,17 @@
 											<td class="alignRight">{{row.amount}}</td>
 										</tr>
 										<tr class="totalRow">
-											<td class="alignRight">Total : {{trnSalesInvoiceObj.totalAmount -totalTaxAmount}}</td>
+											<td class="alignRight">Total : {{trnSalesInvoiceObj.totalAmount - (gstAll || iGstAll)}}</td>
 											<td class="alignRight" ></td>
-											<td class="alignRight" *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
+											<td class="alignRight" *ngIf="gstAll>0">{{ gstAll/2}}</td>
 											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight" ></td>
-											<td class="alignRight" *ngIf="gstAll>0">{{ totalTaxAmount/2}}</td>
+											<td class="alignRight" *ngIf="gstAll>0">{{ gstAll/2}}</td>
 											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight" ></td>
 											<td class="alignRight" *ngIf="iGstAll>0">{{iGstAll}}</td>
 											<td class="alignRight" *ngIf="iGstAll<=0">0</td>
-											<td class="alignRight">{{ totalTaxAmount}}</td>
+											<td class="alignRight">{{ gstAll || iGstAll }}</td>
 										</tr>
 
 									</tbody>
@@ -653,7 +659,11 @@
 						<b>{{trnSalesInvoiceItem.quantity}}</b>
 					</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.rate}}</td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.uom}}</td>
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.uom}}
+							{{trnSalesInvoiceItem.mstAccessory?
+								trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure?
+								trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure.uomCode:'':''}}
+					</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.discountPercentage}}</td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
 						<b>{{trnSalesInvoiceItem.amount}}</b>
@@ -766,17 +776,17 @@
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.amount}}</td>
 				</tr>
 				<tr class="totalRow">
-					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">Total : {{trnSalesInvoiceObj.totalAmount -totalTaxAmount}}</b></td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">Total : {{trnSalesInvoiceObj.totalAmount -(gstAll || iGstAll)}}</b></td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"></td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ totalTaxAmount/2}}</b></td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ gstAll/2}}</b></td>
 					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"></td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ totalTaxAmount/2}}</b></td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ gstAll/2}}</b></td>
 					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"></td>
 					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{iGstAll}}</b></td>
 					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
-					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ totalTaxAmount}}</b></td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ gstAll || iGstAll }}</b></td>
 				</tr>
 
 			</tbody>
