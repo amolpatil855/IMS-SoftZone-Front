@@ -2078,12 +2078,12 @@ select option {
     margin-bottom: 0;
 }
 .invoiceAddressBox p{
-	font-family:Roboto;
-	color:#000;
-	margin-top:0;
-	font-size: 12px;
-    margin-bottom:0px;
-    font-weight: 300;
+    font-family: Roboto;
+    color: #424242;
+    margin-top: 0;
+    font-size: 12px;
+    margin-bottom: 0px;
+    font-weight: 500;
 }
 .invoiceAddressBox h5{
 	font-family:Roboto;
@@ -2308,4 +2308,18 @@ select option {
     padding-top: 0px;
     padding-bottom: 0px;
     font-size: 12px;
+}
+
+/******** D. 14 March 2018 ********/
+.invoiceItemTable tr th, .invoiceItemTable tr td, {
+    border-color:#f1f1f1!important;
+}
+@media (max-width:767px){
+    .invoiceMainBox .inputForm {
+        padding: 0px;
+    }
+    .invoiceMainBox {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 }
