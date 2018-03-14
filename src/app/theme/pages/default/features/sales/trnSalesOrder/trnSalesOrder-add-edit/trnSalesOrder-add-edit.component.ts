@@ -223,7 +223,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         this.trnSalesOrderObj.chequeDate = new Date(this.trnSalesOrderObj.chequeDate);
         this.trnSaleOrderItems = results.trnSaleOrderItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
-        this.shippingAddress = this.trnSalesOrderObj.shippingAddress;
+        let shippingAddressId=this.trnSalesOrderObj.shippingAddressId;
+        this.shippingAddress =  _.find( this.addressList, function(o) { return o.id == shippingAddressId ; } );
         // _.forEach(this.trnSaleOrderItems, function (value) {
         //   if (value.mstCategory != null)
         //     value.categoryName = value.mstCategory.code;
@@ -242,7 +243,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
   onRadioBtnClick(data) {
     this.shippingAddressObj = data;
-    this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
+    this.trnSalesOrderObj.shippingAddressId = this.shippingAddressObj.id;// + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
     this.display = false;
   }
 
@@ -565,8 +566,8 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
           if (this.shippingAddressObj.addressLine2 == null) {
             this.shippingAddressObj.addressLine2 = '';
           }
-          this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
-
+          //this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
+          this.trnSalesOrderObj.shippingAddressId=this.shippingAddressObj.id;
           this.selectedAddress = this.trnSalesOrderObj.customerId;
           Helpers.setLoading(false);
         },
@@ -1006,18 +1007,20 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.trnSalesOrderObj.courierName = couierObj.label;
       // this.trnSalesOrderObj.supplierName = supplierObj.label,
       if (this.shippingAddressObj != null) {
-        if (this.shippingAddressObj.addressLine1 != null) {
-          this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
-        } else {
-          this.shippingAddressObj.addressLine1 = "";
-          this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
-        }
+        // if (this.shippingAddressObj.addressLine1 != null) {
+        //   this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
+        // } else {
+        //   this.shippingAddressObj.addressLine1 = "";
+        //   this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
+        // }
+        this.trnSalesOrderObj.shippingAddressId=this.shippingAddressObj.id;
       } else {
-        this.trnSalesOrderObj.shippingAddress = "";
+        this.trnSalesOrderObj.shippingAddressId =null;
       }
-      if(this.params){
-        this.trnSalesOrderObj.shippingAddress = this.shippingAddress;
-      }
+      // if(this.params){
+         this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj;
+      
+      // }
       this.saveTrnSalesOrder(this.trnSalesOrderObj);
     }
   }

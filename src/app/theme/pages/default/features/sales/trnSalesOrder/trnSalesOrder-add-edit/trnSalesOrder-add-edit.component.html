@@ -170,10 +170,11 @@
 																		<div class="shippingAddressBox">													
 																			
 																			<a href="#" (click)="showDialog()" tabindex="7"><b class="shippingAddressLabel">Shipping Address<span class="requiredField">*</span></b></a> 
-																					<p *ngIf="!trnSalesOrderObj.shippingAddress">
+																					<p *ngIf="!trnSalesOrderObj.shippingAddressId">
 																						Please select shipping address by clicking on the link.
 																					</p>
-																					<p *ngIf="trnSalesOrderObj.shippingAddress">-	{{trnSalesOrderObj.shippingAddress}}
+																					<p *ngIf="trnSalesOrderObj.shippingAddressId">-	
+																							{{shippingAddressObj.addressLine1}}  {{shippingAddressObj.addressLine2}}  ,  {{shippingAddressObj.state}},{{shippingAddressObj.city}}, PINCODE - {{shippingAddressObj.pin}}
 																					</p>
 																		</div>
 																	</div>			
