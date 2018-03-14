@@ -41,8 +41,8 @@
             </ul>
         </div>
         <div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-            <button type="submit" *ngIf="trnGoodIssueNoteObj.status=='Created'" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnGoodIssueNote"
-                title="{{(trnGoodIssueNote && trnGoodIssueNote.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+            <button type="submit" *ngIf="trnGoodIssueNoteObj.status=='Created'" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"
+                form="trnGoodIssueNote" title="{{(trnGoodIssueNote && trnGoodIssueNote.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
                 [isAuthorize]="['gin']" tabindex="8">
                 {{ params ? 'Update' : 'Save' }}
             </button>
@@ -87,8 +87,8 @@
                                                                         <label class="col-md-4 col-sm-4 fieldLabel">Date</label>
                                                                         <div class="col-md-8 col-sm-8">
                                                                             <p-calendar class="purchaseOrderDate" #grnDateVal="ngModel" [(ngModel)]="trnGoodIssueNoteObj.ginDate" name="grnDate" [monthNavigator]="true"
-                                                                                [yearNavigator]="true" tabindex="1" yearRange="2015:2030" [disabled]="disabled"
-                                                                                dateFormat="dd/mm/yy" styleClass="{{ grnDateVal.errors && isFormSubmitted?'red-border-class':''}}"
+                                                                                [yearNavigator]="true" tabindex="1" yearRange="2015:2030"
+                                                                                [disabled]="disabled" dateFormat="dd/mm/yy" styleClass="{{ grnDateVal.errors && isFormSubmitted?'red-border-class':''}}"
                                                                                 autofocus required></p-calendar>
                                                                         </div>
                                                                     </div>
@@ -115,7 +115,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -129,8 +129,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="panel panel-default">
-                                    <div class="panel-heading">Item Details</div>
-                                    <!-- <table class="staticTable merchantTable" id="">
+                                        <div class="panel-heading">Item Details</div>
+                                        <!-- <table class="staticTable merchantTable" id="">
                                         <thead>
                                             <tr>
                                                 <th title="">
@@ -168,8 +168,8 @@
                                         </tbody>
                                     </table> -->
 
-                                    <p-dataTable  [value]="trnGoodIssueNoteObj.trnGoodIssueNoteItems" [editable]="true" [emptyMessage]="tableEmptyMesssage" class="table listingTable">
-                                            <p-column field="categoryName" header="Catagory" [editable]="false" [style]="{'text-align':'left'}"></p-column>
+                                        <p-dataTable [value]="trnGoodIssueNoteObj.trnGoodIssueNoteItems" [editable]="true" [emptyMessage]="tableEmptyMesssage" class="table listingTable">
+                                            <p-column field="categoryName" header="Category" [editable]="false" [style]="{'text-align':'left'}"></p-column>
                                             <p-column field="collectionName" header="Collection" [editable]="false" [style]="{'text-align':'left'}"></p-column>
                                             <p-column  header="Sr. No. / Size / Accessory" [style]="{'text-align':'left'}">
                                                     <ng-template let-row="rowData" pTemplate="body">
@@ -179,12 +179,12 @@
                                             <p-column field="orderQuantity" header="Or. Quantity" [editable]="false" [style]="{'text-align':'center'}"></p-column>
                                             <p-column field="availableStock" header="Available Stock" [editable]="false" [style]="{'text-align':'center'}"></p-column>
                                             <p-column field="issuedQuantity" header="Issue Quantity" [editable]="trnGoodIssueNoteObj.status=='Created'" [style]="{'text-align':'center'}">
-                                                    <ng-template let-col let-row="rowData" pTemplate="editor">
-                                                            <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{row.orderQuantity > row.availableStock ? row.availableStock : row.orderQuantity }}" 
-                                                            [(ngModel)]="row[col.field]" name="issuedQuantity">
-                                                        </ng-template>
+                                                <ng-template let-col let-row="rowData" pTemplate="editor">
+                                                    <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{row.orderQuantity > row.availableStock ? row.availableStock : row.orderQuantity }}"
+                                                        [(ngModel)]="row[col.field]" name="issuedQuantity">
+                                                </ng-template>
                                             </p-column>
-                                   </p-dataTable>
+                                        </p-dataTable>
                                     </div>
                                 </div>
                             </div>
