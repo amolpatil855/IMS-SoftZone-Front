@@ -184,10 +184,8 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
       let gstTotal = 0;
       let taxsableValue = 0;
       _.forEach(invoiceItems, function (item) {
-
-        vm.invoiceItemQuantityTotal = vm.invoiceItemQuantityTotal + item.quantity;
-
         if (item.gst == gstVal) {
+          vm.invoiceItemQuantityTotal = vm.invoiceItemQuantityTotal + item.quantity;
           gstTotal = gstTotal + (item.amount * item.gst / 100);
           taxsableValue = taxsableValue + item.amount;
           totalTax = totalTax + gstTotal;
