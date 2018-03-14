@@ -30,6 +30,7 @@ import { ShadeService } from "../../../_services/shade.service";
 import { FomSizeService } from "../../../_services/fomSize.service";
 import { MatSizeService } from "../../../_services/matSize.service";
 import { CustomerService } from "../../../_services/customer.service";
+import { TrnMaterialSelectionService } from "../../../_services/trnMaterialSelection.service";
 
 const routes: Routes = [
   {
@@ -96,6 +97,7 @@ const routes: Routes = [
   providers: [
     CommonService,
     TrnMaterialQuotationService,
+    TrnMaterialSelectionService,
     CustomerService,
     ShadeService,
     FomSizeService,
