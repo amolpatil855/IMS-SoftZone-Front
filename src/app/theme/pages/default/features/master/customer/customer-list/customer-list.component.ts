@@ -72,7 +72,7 @@ export class CustomerListComponent implements OnInit {
       accountPersonPhone: '',
       accountPersonEmail: '',
       creditPeriodDays: null,
-      username: '',
+      userName: '',
       type:'',
       MstCustomerAddresses: [],
     };
@@ -123,8 +123,25 @@ export class CustomerListComponent implements OnInit {
 
   clearAddress(supAddIndex) {
     if (this.customerObj.MstCustomerAddresses[supAddIndex].isPrimary) {
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Primary address can not be deleted." });
     } else {
-      this.customerObj.MstCustomerAddresses.splice(supAddIndex, 1);
+      Helpers.setLoading(true);
+      let id=this.customerObj.MstCustomerAddresses[supAddIndex].id;
+      this.customerService.canDeleteAddress(id).subscribe(
+        results => {
+          if(results)
+          this.customerObj.MstCustomerAddresses.splice(supAddIndex, 1);
+          else
+          {
+            this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Not able to delete the address due to reference exist with another record." });
+            Helpers.setLoading(false);
+          }
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        });
+      
+     
     }
   }
 
@@ -341,6 +358,10 @@ export class CustomerListComponent implements OnInit {
         this.customerObj = results;
         if (this.customerObj.isWholesaleCustomer) {
           this.isHide = true;
+        }
+        else
+        {
+          this.isHide = false;
         }
         this.customerObj.MstCustomerAddresses = results.mstCustomerAddresses;
         if (this.customerObj.MstCustomerAddresses.length == 0) {
