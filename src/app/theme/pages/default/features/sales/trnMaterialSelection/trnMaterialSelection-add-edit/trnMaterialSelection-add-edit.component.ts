@@ -191,22 +191,10 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   }
 
   onApprove() {
-    Helpers.setLoading(true);
-    if (this.params) {
-      this.trnMaterialSelectionService.approveSalesOrder(this.trnMaterialSelectionObj)
-        .subscribe(
-        results => {
-          this.params = null;
-          this.status = false;
-          this.viewItem = false;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
-    }
+    if(this.trnMaterialSelectionObj.isQuotationCreated)
+      this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
+    else
+      this.router.navigate(['/features/sales/trnMaterialQuotation/add']);
   }
 
   getCustomerLookUpWithoutWholesaleCustomer() {
@@ -364,6 +352,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
         city: this.city,
         pin: this.pin,
         state: this.state,
+        isPrimary: true,
       }],
     };
 

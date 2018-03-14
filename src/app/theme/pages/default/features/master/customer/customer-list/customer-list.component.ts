@@ -31,6 +31,8 @@ export class CustomerListComponent implements OnInit {
   isHide = false;
   isFormSubmitted: boolean = false;
   tableEmptyMesssage = 'Loading...';
+  customerTypeList = ["Furniture Showroom", "Workshop Big", "Workshop Small", "Karagir", "Designer", "Miscellaneous"];
+  misVal='';
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -52,6 +54,7 @@ export class CustomerListComponent implements OnInit {
   newRecord() {
     this.params = null;
     this.isHide = false;
+    this.misVal="";
     this.customerObj = {
       id: 0,
       code: '',
@@ -70,6 +73,7 @@ export class CustomerListComponent implements OnInit {
       accountPersonEmail: '',
       creditPeriodDays: null,
       username: '',
+      type:'',
       MstCustomerAddresses: [],
     };
 
@@ -111,7 +115,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   onClickPrimary(row) {
-    this.customerObj.MstCustomerAddresses.forEach(function(value) {
+    this.customerObj.MstCustomerAddresses.forEach(function (value) {
       value.isPrimary = false;
     })
     row.isPrimary = true;
@@ -159,7 +163,7 @@ export class CustomerListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getCustomersList();
   }
@@ -219,7 +223,7 @@ export class CustomerListComponent implements OnInit {
   validateAddress() {
     let regex = new RegExp("^[A-Z0-9]{15}$");
     let isvalidAddress = true;
-    _.forEach(this.customerObj.MstCustomerAddresses, function(addressObj) {
+    _.forEach(this.customerObj.MstCustomerAddresses, function (addressObj) {
       if (!addressObj.addressLine1) {
         addressObj.invalidAddressLine1 = true;
         isvalidAddress = false;
@@ -260,7 +264,7 @@ export class CustomerListComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    _.forEach(this.customerObj.MstCustomerAddresses, function(addressObj) {
+    _.forEach(this.customerObj.MstCustomerAddresses, function (addressObj) {
       if (!addressObj.addressLine1) {
         addressObj.invalidAddressLine1 = true;
         valid = false;
@@ -295,6 +299,10 @@ export class CustomerListComponent implements OnInit {
   }
 
   saveCustomer(value) {
+    if(value.type == 'Miscellaneous')
+    {
+      value.type=this.misVal;
+    }
     Helpers.setLoading(true);
     if (this.params) {
       this.customerService.updateCustomer(value)
@@ -350,8 +358,14 @@ export class CustomerListComponent implements OnInit {
             contRoleId: Math.floor(Math.random() * 2000),
           });
         }
+        let custType=this.customerObj.type;
+        let index=  _.findIndex(this.customerTypeList, function(o) { return o == custType; });
+        if(index ==-1){
+          this.misVal=this.customerObj.type;
+          this.customerObj.type="Miscellaneous";
+        }
         delete this.customerObj['mstCustomerAddresses'];
-        _.forEach(this.customerObj.MstCustomerAddresses, function(value) {
+        _.forEach(this.customerObj.MstCustomerAddresses, function (value) {
           value.contRoleId = Math.floor(Math.random() * 2000);
         });
         Helpers.setLoading(false);

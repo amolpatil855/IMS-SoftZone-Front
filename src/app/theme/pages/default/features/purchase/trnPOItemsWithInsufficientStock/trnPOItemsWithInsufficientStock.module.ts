@@ -23,7 +23,6 @@ import { SupplierService } from "../../../_services/supplier.service";
 import { TrnPOItemsWithInsufficientStockService } from "../../../_services/TrnPOItemsWithInsufficientStock.service";
 import { TrnPOItemsWithInsufficientStockComponent } from "./trnPOItemsWithInsufficientStock.component";
 import { TrnPOItemsWithInsufficientStockListComponent } from "./trnPOItemsWithInsufficientStock-list/trnPOItemsWithInsufficientStock-list.component";
-import { TrnPOItemsWithInsufficientStockAddEditComponent } from "./trnPOItemsWithInsufficientStock-add-edit/trnPOItemsWithInsufficientStock-add-edit.component";
 import {TrnProductStockService} from "../../../_services/trnProductStock.service";
 import {MatSizeService} from "../../../_services/matSize.service";
 
@@ -39,22 +38,6 @@ const routes: Routes = [
           {
             path: 'list',
             component: TrnPOItemsWithInsufficientStockListComponent,
-            canActivate: [AuthGuard],
-            data: {
-              permissions: ['purchaseorder']
-            }
-          },
-          {
-            path: 'add',
-            component: TrnPOItemsWithInsufficientStockAddEditComponent,
-            canActivate: [AuthGuard],
-            data: {
-              permissions: ['purchaseorder']
-            }
-          },
-          {
-            path: 'edit/:id',
-            component: TrnPOItemsWithInsufficientStockAddEditComponent,
             canActivate: [AuthGuard],
             data: {
               permissions: ['purchaseorder']
@@ -84,7 +67,6 @@ const routes: Routes = [
   declarations: [
     TrnPOItemsWithInsufficientStockComponent,
     TrnPOItemsWithInsufficientStockListComponent,
-    TrnPOItemsWithInsufficientStockAddEditComponent
   ],
   providers: [
     // RoleService,
