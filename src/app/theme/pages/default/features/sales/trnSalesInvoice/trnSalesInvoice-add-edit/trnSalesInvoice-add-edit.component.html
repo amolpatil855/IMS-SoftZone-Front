@@ -475,10 +475,10 @@
 	<h3 class="invoiceMainHeading" style="font-family:Roboto;text-align:center;">Tax Invoice</h3>
 
 	<div class="row" style="padding-left: 15px;padding-right: 15px;margin-bottom:20px;">
-		<div class="" style="width:50%;float:left;margin-bottom:10px;margin-right:-1px;height:200px;">
-			<table class="table printtable" style="width: 100%;border-collapse: collapse;" cellspacing="0">
+		<div class="" style="width:49.5%;float:left;margin-bottom:5px;height:200px;border-bottom:1px solid #000;border-left:1px solid #000;">
+			<table class="table printtable" style="width: 100%;border-collapse: collapse;margin-bottom:0;" cellspacing="0">
 				<tr>
-					<td style="padding-left:5px;font-family:Roboto;border: 1px solid #000;border-collapse: collapse;border-right:none;">
+					<td style="padding-left:5px;font-family:Roboto;border: 1px solid #000;border-collapse: collapse;border-right:1px solid #000;border-left:0;">
 						<h4 style="margin-bottom:5px;">{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["companyName"] : ""}}</h4>
 						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 							{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["address1"] : ""}}, Code : {{trnSalesInvoiceObj["mstCompanyInfo"]
@@ -504,9 +504,9 @@
 				</tr>
 			</table>
 
-			<table class="table printtable" style="width: 100%;" cellspacing="0">
+			<table class="table printtable" style="width: 100%;margin-bottom:-5px" cellspacing="0">
 				<tr>
-					<td style="padding-left:5px;font-family:Roboto;border: 1px solid #000;border-collapse: collapse;border-top:0;border-right:none;">
+					<td style="padding-left:5px;font-family:Roboto;border: 1px solid #000;margin-bottom:-5px;border-collapse: collapse;border-top:0;border-right:1px solid #000;border-bottom:0;border-left:0;">
 						<h5 style="font-family:Poppins;margin-top:0;margin-bottom:0;">Buyer</h5>
 						<h4 style="font-family:Roboto;margin-top:0;margin-bottom:0;">
 								{{customerShippingAddress["name"]}}
@@ -534,10 +534,10 @@
 
 		</div>
 		
-		<div class="" style="width:50%;float:left;height:180px;border-bottom:1px solid #000;border-right:1px solid #000;">
+		<div class="" style="width:50%;float:left;height:200px;border-bottom:1px solid #000;border-right:1px solid #000;border-bottom:1px solid #000;">
 			<table class="table table-bordered printtable" style="width: 100%;" cellspacing="0">
 				<tr>
-					<td style="border: 1px solid #000;border-collapse: collapse;border-left:1px solid #000;padding-left:2px;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-left:0;padding-left:2px;">
 						<div class="">
 							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Invoice No.</h5>
 							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.invoiceNumber}}</h4>
@@ -552,7 +552,7 @@
 				</tr>
 
 				<tr>
-					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:1px solid #000;padding-left:2px;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;">
 						<div class="">
 							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Delivery Note</h5>
 							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["orderNumber"] : ""}}/{{trnSalesInvoiceObj["trnGoodIssueNote"]
@@ -568,7 +568,7 @@
 				</tr>
 
 				<tr>
-					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:1px solid #000;padding-left:2px;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;">
 						<div class="">
 							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Buyer's Order No.</h5>
 							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.buyersOrderNumber}}</h4>
@@ -583,7 +583,7 @@
 				</tr>
 
 				<tr>
-					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:1px solid #000;padding-left:2px;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;">
 						<div class="">
 							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dispatch Document No.</h5>
 							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.courierDockYardNumber}}</h4>
@@ -598,7 +598,7 @@
 				</tr>
 
 				<tr>
-					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:1px solid #000;padding-left:2px;">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;">
 						<div class="">
 							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dispatched through</h5>
 							<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCourier"]["name"] : ""}}</h4>
@@ -613,9 +613,9 @@
 				</tr>
 
 				<tr>
-					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:1px solid #000;padding-left:2px;border-bottom:none;border-right:none;" colspan="2">
+					<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;padding-left:2px;border-bottom:none;border-right:none;" colspan="2">
 						<div class="">
-							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Terms of Delivery</h5><br/><br/>
+							<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Terms of Delivery</h5><br/><br/><br/>
 						</div>
 					</td>
 				</tr>
@@ -626,7 +626,7 @@
 
 	</div>
 
-	<br/>	
+	<br/>	<br/><br/><br/>
 	<!-- Table -->
 	<div class="table-responsive" style="margin-top:20px;clear:both;display:block;padding-left:15px;padding-right:15px;">
 		<table class="table invoiceItemTable table-bordered" cellspacing="0" style="width:100%;max-width: 100%;border-collapse: collapse;">
