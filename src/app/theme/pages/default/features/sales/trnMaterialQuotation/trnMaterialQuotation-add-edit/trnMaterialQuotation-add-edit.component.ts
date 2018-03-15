@@ -740,73 +740,100 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
       });
   }
 
-  changeOrderType() {
-    this.orderQuantityError = false;
-    if (this.orderQuantity > 50) {
-      this.orderType = 'RL';
-    }
-    else {
-      if (!this.orderQuantity)
-        this.orderType = '';
-      else
-        this.orderType = 'CL';
-    }
+    changeOrderType(row) {
 
-    if (this.categoryId == 2) {
-      this.rate = ((this.productDetails.sellingRatePerMM * this.productDetails.suggestedMM) / 2592) * this.productDetails.matHeight * this.productDetails.matWidth;
-      this.rate = parseFloat(this.rate).toFixed(2);
-      this.discountOnRate = this.productDetails.maxDiscount;
-      this.calculateAmount();
+    if (row.orderQuantity > 50) {
+      row.orderType = 'RL';
     }
-    else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
-      this.rate = parseFloat(this.productDetails.flatRate ? this.productDetails.flatRate : this.productDetails.rrp).toFixed(2);
-      this.discountOnRate = this.productDetails.flatRate ? this.productDetails.maxFlatRateDisc : this.orderQuantity >= 50 ? this.productDetails.maxRoleRateDisc : this.productDetails.maxCutRateDisc;
-      this.calculateAmount();
+    else
+      row.orderType = 'CL';
+
+    if (row.categoryId == 2) {
+
+      row.rate = ((row.purchaseRatePerMM * row.suggestedMM) / 2592) * row.matLength * row.matWidth;
+      row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
+      //this.amountWithGST = this.rate * this.orderQuantity;
+      row.amount = row.rate * row.orderQuantity;
+      row.rate = parseFloat(row.rate).toFixed(2);
+      row.amount = Math.round(row.amount - ((row.amount * row.purchaseDiscount) / 100));
+      // this.amountWithGST= this.amountWithGST -  ((this.amountWithGST * row.purchaseDiscount)/100);
+      row.amountWithGST = Math.round(row.amount + (row.amount * row.gst) / 100);
     }
-    else if (this.categoryId == 4) {
-      if (this.matSizeId != -1) {
-        this.rate = this.productDetails.sellingRate;
-        this.discountOnRate = this.productDetails.maxDiscount;
-        this.calculateAmount();
+    else if (row.categoryId == 1 || row.categoryId == 5 || row.categoryId == 6) {
+      let applyDiscount = false;
+      row.rate = (row.purchaseFlatRate ? row.purchaseFlatRate : row.orderQuantity >= 50 ? row.roleRate : row.cutRate);
+      applyDiscount = (row.purchaseFlatRate ? true : row.orderQuantity >= 50 ? true : false);
+      row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
+      // this.amountWithGST = this.rateWithGST * this.orderQuantity;
+      row.amount = row.rate * row.orderQuantity;
+      row.rate = parseFloat(row.rate).toFixed(2);
+      if (applyDiscount)
+        row.amount = Math.round(row.amount - ((row.amount * row.purchaseDiscount) / 100));
+      row.amountWithGST = Math.round(row.amount + ((row.amount * row.gst) / 100));
+
+    }
+    else if (row.categoryId == 4) {
+      if (row.matSizeId != -1) {
+        row.rate = row.purchaseRate;
+        row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
+        row.amount = Math.round(row.rate * row.orderQuantity);
+        row.amountWithGST = Math.round(row.amount + ((row.amount * row.gst) / 100));
       }
       else {
-        this.rate = (((this.matHeight * this.matWidth) / 1550.5) * this.productDetails.custRatePerSqFeet);
-        this.rate = parseFloat(this.rate).toFixed(2);
-        // this.rate = this.rate - Math.round((this.rate * 10) / 100);
-        this.calculateAmount();
+        row.rate = ((row.matLength * row.matWidth) / 1550.5) * row.custRatePerSqFeet;
+
+        // this.rate = this.rate - Math.round((this.rate) / 100);
+        row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
+        // this.amountWithGST = this.rateWithGST * this.orderQuantity;
+        row.amount = row.rate * row.orderQuantity;
+        row.rate = parseFloat(row.rate).toFixed(2);
+        //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * row.purchaseDiscount)/100));
+        row.amount = Math.round(row.amount - ((row.amount * row.purchaseDiscount) / 100));
+        row.amountWithGST = Math.round(row.amount + ((row.amount * row.gst) / 100));
       }
     }
-    else if (this.categoryId == 7) {
-      this.rate = this.productDetails.sellingRate;
-      this.discountOnRate = null;
-      this.calculateAmount();
+    else if (row.categoryId == 7) {
+      row.rate = row.purchaseRate;
+      row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
+      // this.amountWithGST =this.rateWithGST * this.orderQuantity;
+      row.amount = row.rate * row.orderQuantity;
+      //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * row.purchaseDiscount)/100));
+      //this.amount = Math.round(this.amount - ((this.amount * row.purchaseDiscount) / 100));
+      row.amountWithGST = Math.round(row.amount + ((row.amount * row.gst) / 100));
     }
+
+    let sum = 0;
+    _.forEach(this.trnMaterialQuotationItems, function (selectedItem) {
+      sum = sum + selectedItem.amountWithGST;
+    });
+
+    this.trnMaterialQuotationObj.totalAmount = sum;
   }
 
 
-  calculateAmount(givenDicount = 0) {
-    if(!this.rate)
-    return;
-    let rate=parseFloat(this.rate);
-    if(rate){
-      this.rateWithGST =rate + (rate * this.productDetails.gst) / 100;
-      //this.amountWithGST =this.rateWithGST * this.orderQuantity;
-      this.amount = rate * this.orderQuantity;
-      this.amount =parseFloat(this.amount).toFixed(2);
-      //this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
-      this.amount = Math.round(this.amount - ((this.amount * givenDicount) / 100));
-      this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
-    }
-    this.rateWithGST =parseFloat(this.rateWithGST).toFixed(2);
-  }
+  // calculateAmount(givenDicount = 0) {
+  //   if(!this.rate)
+  //   return;
+  //   let rate=parseFloat(this.rate);
+  //   if(rate){
+  //     this.rateWithGST =rate + (rate * this.productDetails.gst) / 100;
+  //     //this.amountWithGST =this.rateWithGST * this.orderQuantity;
+  //     this.amount = rate * this.orderQuantity;
+  //     this.amount =parseFloat(this.amount).toFixed(2);
+  //     //this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
+  //     this.amount = Math.round(this.amount - ((this.amount * givenDicount) / 100));
+  //     this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
+  //   }
+  //   this.rateWithGST =parseFloat(this.rateWithGST).toFixed(2);
+  // }
 
-  onChangeDiscountAmount() {
-    if(!this.givenDiscount){
-      this.givenDiscount=0;
-    }
-    this.givenDiscountError = false;
-    this.calculateAmount(this.givenDiscount);
-  }
+  // onChangeDiscountAmount() {
+  //   if(!this.givenDiscount){
+  //     this.givenDiscount=0;
+  //   }
+  //   this.givenDiscountError = false;
+  //   this.calculateAmount(this.givenDiscount);
+  // }
 
   onChangeCategory() {
     this.collectionList = [];
@@ -1075,7 +1102,10 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
 
 
   onCancel() {
-    this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
+    if(this.materialSelectionId)
+      this.router.navigate(['/features/sales/trnMaterialSelection/list']);
+    else
+      this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
     this.disabled = false;
     this.viewItem = true;
   }

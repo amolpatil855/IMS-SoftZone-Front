@@ -1053,6 +1053,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
 
   saveTrnPurchaseOrder(value) {
+    let tempOrderDate = new Date(value.orderDate);
+    value.orderDate = new Date(tempOrderDate.setHours(23));
     Helpers.setLoading(true);
     if (this.params) {
       this.trnPurchaseOrderService.updateTrnPurchaseOrder(value)
