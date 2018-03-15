@@ -310,6 +310,8 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
 
 
   saveTrnPurchaseOrder(value) {
+    let tempOrderDate = new Date(value.orderDate);
+    value.orderDate = new Date(tempOrderDate.setHours(23));
     Helpers.setLoading(true);
     this.trnPurchaseOrderService.createTrnPurchaseOrder(value)
       .subscribe(

@@ -294,7 +294,9 @@
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Disc. %</label>
 														<div class="col-md-8 col-sm-8">
-															<input class="form-control" [(ngModel)]="productDetails.purchaseDiscount" disabled name="purchaseDiscount">
+																<input class="form-control" *ngIf="categoryId!=1 && categoryId!=5 && categoryId!=6" [(ngModel)]="productDetails.purchaseDiscount" disabled name="purchaseDiscount">
+															<input class="form-control" *ngIf="(categoryId==1 || categoryId==5 || categoryId==6) && (productDetails.purchaseFlatRate || orderQuantity>=50)" [(ngModel)]="productDetails.purchaseDiscount" disabled name="purchaseDiscount">
+															<input class="form-control" *ngIf=" (categoryId==1 || categoryId==5 || categoryId==6) && !productDetails.purchaseFlatRate && orderQuantity<50" value="0" disabled >
 														</div>
 													</div>
 													<div class="col-md-4">
@@ -371,7 +373,7 @@
 												<td class="alignleft">{{row.categoryName}}</td>
 												<td class="alignleft">{{row.collectionId ? row.collectionName:''}}</td>
 												<td class="alignleft">{{row.accessoryId ? row.accessoryName : ''}}</td>
-												<td class="alignleft">{{row.serialno}} {{row.size}} {{row.matSizeCode}}</td>
+												<td class="alignleft">{{row.serialno}} {{row.size || row.matSizeCode}}</td>
 												<td class="aligncenter"> {{row.orderQuantity}}</td>
 												<td class="aligncenter">{{row.orderType}}</td>
 												<!-- <td>{{row.rateWithGST}}</td> -->

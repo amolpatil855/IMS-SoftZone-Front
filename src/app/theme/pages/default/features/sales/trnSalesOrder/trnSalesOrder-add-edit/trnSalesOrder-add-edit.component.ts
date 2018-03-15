@@ -1028,6 +1028,12 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
 
   saveTrnSalesOrder(value) {
+    let tempOrderDate = new Date(value.orderDate);
+    let tempExpectedDeliveryDate = new Date(value.expectedDeliveryDate);
+    let tempChequeDate = new Date(value.chequeDate);
+    value.orderDate = new Date(tempOrderDate.setHours(23));
+    value.expectedDeliveryDate = new Date(tempExpectedDeliveryDate.setHours(23));
+    value.chequeDate = new Date(tempChequeDate.setHours(23));
     Helpers.setLoading(true);
     if (this.params) {
       this.trnSalesOrderService.updateTrnSaleOrder(value)

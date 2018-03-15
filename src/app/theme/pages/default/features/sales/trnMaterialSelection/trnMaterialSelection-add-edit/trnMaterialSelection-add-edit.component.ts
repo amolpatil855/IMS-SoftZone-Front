@@ -975,6 +975,8 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
 
 
   saveTrnMaterialSelection(value) {
+    let tempMaterialSelectionDate = new Date(value.materialSelectionDate);
+    value.materialSelectionDate = new Date(tempMaterialSelectionDate.setHours(23));
     Helpers.setLoading(true);
     if (this.params) {
       this.trnMaterialSelectionService.updateTrnMaterialSelection(value)
