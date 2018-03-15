@@ -44,7 +44,8 @@
 			<!-- <button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnMaterialQuotationObj.status == 'Created'" [isAuthorize]="['materialquotation']" title="Approve" (click)="onApprove()" tabindex="9">
 				Approve
 			</button> -->
-			<button type="submit"  *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnMaterialQuotationForm" title="{{(trnMaterialQuotationForm && trnMaterialQuotationForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			<button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnMaterialQuotationForm"
+			 title="{{(trnMaterialQuotationForm && trnMaterialQuotationForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['materialquotation']" tabindex="8">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
@@ -88,16 +89,17 @@
 																	<div class="col-md-6">
 																		<label class="col-md-4 col-sm-4 fieldLabel">Date</label>
 																		<div class="col-md-8 col-sm-8">
-																			<p-calendar class="purchaseOrderDate" #materialQuotationDateVal="ngModel" [(ngModel)]="trnMaterialQuotationObj.materialQuotationDate" name="materialQuotationDate" [monthNavigator]="true"
-																			 [yearNavigator]="true" tabindex="1" [disabled]="disabled" yearRange="2015:2030" dateFormat="dd/mm/yy" styleClass="{{ materialQuotationDateVal.errors && isFormSubmitted?'red-border-class':''}}"
+																			<p-calendar class="purchaseOrderDate" #materialQuotationDateVal="ngModel" [(ngModel)]="trnMaterialQuotationObj.materialQuotationDate"
+																			 name="materialQuotationDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="1" [disabled]="disabled"
+																			 yearRange="2015:2030" dateFormat="dd/mm/yy" styleClass="{{ materialQuotationDateVal.errors && isFormSubmitted?'red-border-class':''}}"
 																			 autofocus required></p-calendar>
 																		</div>
 																	</div>
 																	<div class="col-md-6">
 																		<label class="col-md-5 col-sm-5 fieldLabel noPadding">Material Quotation No.</label>
 																		<div class="col-md-7 col-sm-7">
-																			<input type="text" [(ngModel)]="trnMaterialQuotationObj.materialQuotationNumber" name="materialQuotationNumber" class="form-control" #orderNoVal="ngModel"
-																			 disabled tabindex="2" placeholder="">
+																			<input type="text" [(ngModel)]="trnMaterialQuotationObj.materialQuotationNumber" name="materialQuotationNumber" class="form-control"
+																			 #orderNoVal="ngModel" disabled tabindex="2" placeholder="">
 																		</div>
 																	</div>
 																</div>
@@ -107,8 +109,8 @@
 																</label>
 																<div class="col-md-10 col-sm-10 customerNameBox">
 																	<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="trnMaterialQuotationObj.customerId"
-																	 required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer" [disabled]="disabled"
-																	 (ngModelChange)="onCustomerChange()" filter="true" tabindex="2"></p-dropdown>
+																	 required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer"
+																	 [disabled]="disabled" (ngModelChange)="onCustomerChange()" filter="true" tabindex="2"></p-dropdown>
 																</div>
 															</div>
 
@@ -118,61 +120,67 @@
 																<label class="col-md-4 col-sm-4 fieldLabel">Referred By
 																</label>
 																<div class="col-md-8 col-sm-8">
-																	<p-dropdown class="feePlanBox" [options]="agentList"  [disabled]="!status"  [style]="{'width':'100%'}" [(ngModel)]="trnMaterialQuotationObj.referById"
+																	<p-dropdown class="feePlanBox" [options]="agentList" [disabled]="!status" [style]="{'width':'100%'}" [(ngModel)]="trnMaterialQuotationObj.referById"
 																	 name="agent" filter="true" tabindex="5"></p-dropdown>
 																</div>
-                                                            </div>
-                                                            <div class="col-md-3">
-																		<label class="col-md-4 col-sm-4 fieldLabel ">Total Amount</label>
-																		<div class="col-md-8 col-sm-8">
-																			<input type="number" [(ngModel)]="trnMaterialQuotationObj.totalAmount" name="totalAmount" class="form-control"
-																			 disabled placeholder="">
-																		</div>
 															</div>
-														 </div>
+															<div class="col-md-3">
+																<label class="col-md-4 col-sm-4 fieldLabel ">Total Amount</label>
+																<div class="col-md-8 col-sm-8">
+																	<input type="number" [(ngModel)]="trnMaterialQuotationObj.totalAmount" name="totalAmount" class="form-control" disabled placeholder="">
+																</div>
+															</div>
 														</div>
 													</div>
-												
+												</div>
+
 
 											</div>
-								
+
 										</div>
-										
-							
+
+
 										<div class="row">
-										<div class="col-md-12">
-											<div class="panel panel-default">
-												<div class="panel-heading">Item Details</div>
+											<div class="col-md-12">
+												<div class="panel panel-default">
+													<div class="panel-heading">Item Details</div>
+												</div>
 											</div>
-										</div>
 										</div>
 									</div>
 								</div>
 							</form>
 							<div class="row">
-								<!-- <div class="col-md-12">
-									<p-dataTable  [value]="trnMaterialQuotationItems" [editable]="true" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [(selection)]="selectedItemsList"  [emptyMessage]="tableEmptyMesssage"  [paginator]="true" [rows]="100" [headerCheckboxToggleAllPages]="true" class="table listingTable">
-													<p-column field="selectionType" header="Selection Type" [editable]="false" [style]="{'text-align':'left'}"></p-column>
-                                                    <p-column field="area" header="Area" [editable]="false" [style]="{'text-align':'left'}"></p-column>
-													<p-column field="categoryName" header="Category" [editable]="false" [style]="{'text-align':'left'}"></p-column>
-                                                    <p-column field="collectionName" header="Collection" [editable]="false" [style]="{'text-align':'left'}"></p-column>
-                                                    <p-column  header="Sr. No. / Size / Accessory" [editable]="false" [style]="{'text-align':'left'}">
-                                                            <ng-template let-row="rowData" pTemplate="body">
-                                                                <span > {{row.serialno}} {{row.sizeForListing}} {{row.accessoryName}}</span>
-                                                            </ng-template>
-                                                        </p-column>
-                                                    <p-column field="orderQuantity" header="Or. Quantity" [editable]="true" [style]="{'text-align':'center'}">
-                                                            <ng-template let-col let-row="rowData" pTemplate="editor">
-                                                                    <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="999" 
-                                                                    [(ngModel)]="row[col.field]" name="orderQuantity" (blur)="changeOrderType(row)" >
-                                                                </ng-template>
-                                                    </p-column>
-                                                    <p-column field="orderType" header="Or. Type" [editable]="false" [style]="{'text-align':'center'}"></p-column>
-                                                    <p-column field="rate" header="rate" [editable]="false"></p-column>
-                                                    <p-column field="gst" header="gst %" [editable]="false" [style]="{'text-align':'center'}"></p-column>
-                                                    <p-column field="amountWithGST" header="amount(GST)" [editable]="false" [style]="{'text-align':'right'}"></p-column>
-                                           </p-dataTable>
-								</div> -->
+								<div class="col-md-12">
+									<p-dataTable [value]="trnMaterialQuotationItems" [editable]="true" [emptyMessage]="tableEmptyMesssage" [paginator]="true"
+									 [rows]="100" [headerCheckboxToggleAllPages]="true" class="table listingTable">
+										<p-column field="selectionType" header="Selection Type" [editable]="false" [style]="{'text-align':'left'}"></p-column>
+										<p-column field="area" header="Area" [editable]="false" [style]="{'text-align':'left'}"></p-column>
+										<p-column field="categoryName" header="Category" [editable]="false" [style]="{'text-align':'left'}"></p-column>
+										<p-column field="collectionName" header="Collection" [editable]="false" [style]="{'text-align':'left'}"></p-column>
+										<p-column header="Sr. No. / Size / Accessory" [editable]="false" [style]="{'text-align':'left'}">
+											<ng-template let-row="rowData" pTemplate="body">
+												<span> {{row.serialno}} {{row.sizeForListing}} {{row.accessoryName}}</span>
+											</ng-template>
+										</p-column>
+										<p-column field="orderQuantity" header="Or. Quantity" [editable]="true" [style]="{'text-align':'center'}">
+											<ng-template let-col let-row="rowData" pTemplate="editor">
+												<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="999" [(ngModel)]="row[col.field]"
+												 name="orderQuantity" (blur)="changeOrderType(row)">
+											</ng-template>
+										</p-column>
+										<p-column field="discountPercentage" header="Disc. %" [editable]="true" [style]="{'text-align':'center'}">
+											<ng-template let-col let-row="rowData" pTemplate="editor">
+												<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="999" [(ngModel)]="row[col.field]"
+												 name="discountPercentage" (blur)="changeOrderType(row)">
+											</ng-template>
+										</p-column>
+										<p-column field="orderType" header="Or. Type" [editable]="false" [style]="{'text-align':'center'}"></p-column>
+										<p-column field="rate" header="rate" [editable]="false"></p-column>
+										<p-column field="gst" header="gst %" [editable]="false" [style]="{'text-align':'center'}"></p-column>
+										<p-column field="amountWithGST" header="amount(GST)" [editable]="false" [style]="{'text-align':'right'}"></p-column>
+									</p-dataTable>
+								</div>
 							</div>
 						</div>
 
