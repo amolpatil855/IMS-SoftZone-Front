@@ -329,7 +329,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       shadeId: this.shadeId,
       fomSizeId: this.fomSizeId,
       matSizeId: this.matSizeId,
-      qualityId: this.qualityId,
+      matQualityId: this.qualityId,
       matThicknessId: this.matThicknessId,
       orderQuantity: this.orderQuantity,
       rateWithGST: this.rateWithGST,
@@ -369,6 +369,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.orderQuantity = null;
     this.rateWithGST = null;
     this.rate = null;
+    this.matSizeCode = null;
     this.productDetails = {
       purchaseRatePerMM: null,
       suggestedMM: null,
@@ -408,7 +409,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.rate = null;
       this.orderQuantity = null;
       this.amount = null,
-        this.orderType = '';
+      this.matSizeCode = null;
+      this.orderType = '';
       this.amountWithGST = null;
       if (this.shadeId != null) {
         parameterId = this.shadeId;
@@ -428,6 +430,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
+      this.matSizeCode = null;
       this.orderQuantity = null;
       this.amount = null,
         this.orderType = '';
@@ -485,6 +488,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.rateWithGST = null;
       this.rate = null;
       this.orderQuantity = null;
+      this.matSizeCode = null;
       this.amount = null,
         this.orderType = '';
       this.amountWithGST = null;
@@ -755,6 +759,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   onChangeSupplier() {
     this.categoryId = null;
     this.categoryIdError = false;
+    this.trnPurchaseOrderObj.totalAmount = 0;
     this.onCancelItemDetails();
     this.trnPurchaseOrderItems = [];
     if (this.trnPurchaseOrderObj.supplierId != null) {
@@ -799,6 +804,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.shadeId = null;
     this.fomSizeId = null;
     this.matSizeId = null;
+    this.matSizeCode = null;
     this.productDetails.stock = null;
     this.productDetails.purchaseDiscount = null;
     this.productDetails.gst = null;
@@ -830,6 +836,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.shadeIdList.unshift({ label: '--Select--', value: null });
       this.shadeIdError = false;
       this.shadeId = null;
+      this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
       this.productDetails.gst = null;
@@ -855,6 +862,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.fomSizeIdError = false;
       this.orderQuantityError = false;
       this.fomSizeId = null;
+      this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
       this.productDetails.gst = null;
@@ -918,10 +926,13 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.shadeIdError = false;
       this.matSizeIdError = false;
       this.fomSizeIdError = false;
+      this.qualityIdError = false;
       this.orderQuantityError = false;
       this.shadeId = null;
       this.matSizeId = null;
       this.fomSizeId = null;
+      this.qualityId = null;
+      this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
       this.productDetails.gst = null;
