@@ -141,7 +141,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.trnGoodReceiveNoteService.getTrnGoodReceiveNoteById(id).subscribe(
       results => {
         this.trnGoodReceiveNoteObj = results;
-        this.trnGoodReceiveNoteObj.grnDate=new Date(this.trnGoodReceiveNoteObj.grnDate);
+        this.trnGoodReceiveNoteObj.grnDate = new Date(this.trnGoodReceiveNoteObj.grnDate);
         this.trnGoodReceiveNoteItems = results.trnGoodReceiveNoteItems;
         // _.forEach(this.trnGoodReceiveNoteItems, function (value) {
         //   value.categoryName = value.mstCategory.code;
@@ -285,7 +285,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       matSizeCode: this.matSizeCode,
       accessoryId: this.accessoryId,
       purchaseOrderId: this.purchaseOrderId,
-      purchaseOrderNumber:poItemObj.purchaseOrderNumber
+      purchaseOrderNumber: poItemObj.purchaseOrderNumber
     };
     this.trnGoodReceiveNoteItems.push(itemObj);
     this.onCancelItemDetails();
@@ -581,7 +581,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.rate = null;
     if (this.purchaseOrderId != null) {
       let poObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
-      this.purchaseDiscount = poObj.purchaseDiscount||0;
+      this.purchaseDiscount = poObj.purchaseDiscount || 0;
       this.gst = poObj.gst;
       this.orderQuantity = poObj.orderQuantity;
       this.rateWithGST = poObj.rateWithGST;
@@ -609,9 +609,12 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.amountWithGST = Math.round(this.amount + ((this.amount * poObj.gst) / 100));
     }
     else {
-     // this.amountWithGST = poObj.rate * this.receivedQuantity;
+      // this.amountWithGST = poObj.rate * this.receivedQuantity;
       this.amount = this.rate * this.receivedQuantity;
-      this.amount = Math.round(this.amount - ((this.amount * poObj.purchaseDiscount) / 100));
+      if (this.matSizeId != -1 && this.categoryId == 4)
+        this.amount = Math.round(this.amount);
+      else
+        this.amount = Math.round(this.amount - ((this.amount * poObj.purchaseDiscount) / 100));
       this.amountWithGST = Math.round(this.amount + ((this.amount * poObj.gst) / 100));
     }
   }
@@ -834,7 +837,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
   onChangeSupplier() {
     this.categoryId = null;
-    this.trnGoodReceiveNoteObj.totalAmount=0;
+    this.trnGoodReceiveNoteObj.totalAmount = 0;
     this.categoryIdError = false;
     this.onCancelItemDetails();
     this.trnGoodReceiveNoteItems = [];
