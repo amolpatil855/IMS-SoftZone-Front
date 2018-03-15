@@ -685,7 +685,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   changeOrderType() {
     this.orderQuantityError = false;
-    if (this.orderQuantity > 50) {
+    if (this.orderQuantity >= 50) {
       this.orderType = 'RL';
     }
     else {
