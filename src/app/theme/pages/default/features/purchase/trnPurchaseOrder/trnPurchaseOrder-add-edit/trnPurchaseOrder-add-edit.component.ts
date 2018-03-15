@@ -212,7 +212,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         } else {
           this.viewItem = true;
         }
-         this.trnPurchaseOrderItems = results.trnPurchaseOrderItems;
+        this.trnPurchaseOrderItems = results.trnPurchaseOrderItems;
         // _.forEach(this.trnPurchaseOrderItems, function (value) {
         //   if (value.mstCategory != null)
         //     value.categoryName = value.mstCategory.code;
@@ -723,9 +723,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.rate = parseFloat(this.rate).toFixed(2);
       if (applyDiscount) {
         this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
+        this.tempPurchaseDiscount = this.productDetails.purchaseDiscount;
       }
       else
-        this.tempPurchaseDiscount = this.productDetails.purchaseDiscount;
+        this.tempPurchaseDiscount = 0;
 
       this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
 
