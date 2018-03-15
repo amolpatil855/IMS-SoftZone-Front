@@ -75,6 +75,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   rateWithGST = null;
   qualityList = [];
   thicknessList = [];
+  tempPurchaseDiscount = 0;
   productDetails = {
     purchaseRatePerMM: null,
     suggestedMM: null,
@@ -200,7 +201,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.trnPurchaseOrderService.getTrnPurchaseOrderById(id).subscribe(
       results => {
         this.trnPurchaseOrderObj = results;
-        this.trnPurchaseOrderObj.orderDate =new Date(this.trnPurchaseOrderObj.orderDate);
+        this.trnPurchaseOrderObj.orderDate = new Date(this.trnPurchaseOrderObj.orderDate);
         if (this.trnPurchaseOrderObj.status == "Created") {
           this.status = true;
         } else {
@@ -212,14 +213,14 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
           this.viewItem = true;
         }
         this.trnPurchaseOrderItems = results.trnPurchaseOrderItems;
-        _.forEach(this.trnPurchaseOrderItems, function (value) {
-          if (value.mstCategory != null)
-            value.categoryName = value.mstCategory.code;
+        // _.forEach(this.trnPurchaseOrderItems, function (value) {
+        //   if (value.mstCategory != null)
+        //     value.categoryName = value.mstCategory.code;
 
-          if (value.mstCollection != null)
-            value.collectionName = value.mstCollection.collectionCode;
+        //   if (value.mstCollection != null)
+        //     value.collectionName = value.mstCollection.collectionCode;
 
-        });
+        // });
         delete this.trnPurchaseOrderObj['trnPurchaseOrderItems'];
         this.locationObj = results.mstCompanyLocation;
         Helpers.setLoading(false);
@@ -291,17 +292,17 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       return false;
     }
 
-      
-      if(this.trnPurchaseOrderItems.length>0){
-        
-        let poObj = _.find(this.trnPurchaseOrderItems, ['categoryId', this.categoryId]);
-        if(poObj != null){
-          if(this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId){
-            this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
-            return false;
-          }
-        }  
+
+    if (this.trnPurchaseOrderItems.length > 0) {
+
+      let poObj = _.find(this.trnPurchaseOrderItems, ['categoryId', this.categoryId]);
+      if (poObj != null) {
+        if (this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId) {
+          this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
+          return false;
+        }
       }
+    }
 
     let catObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
     let collObj = _.find(this.collectionList, ['value', this.collectionId]);
@@ -385,6 +386,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       purchaseDiscount: null
     };
     this.amount = null,
+    this.tempPurchaseDiscount=0;
       this.orderType = '';
     this.amountWithGST = '';
   }
@@ -404,12 +406,13 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
       this.orderQuantity = null;
       this.amount = null,
-      this.matSizeCode = null;
+        this.matSizeCode = null;
       this.orderType = '';
       this.amountWithGST = null;
       if (this.shadeId != null) {
@@ -427,6 +430,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
@@ -455,6 +459,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -484,6 +489,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
@@ -549,6 +555,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.matThicknessIdError = false;
     this.productDetails.stock = null;
     this.productDetails.purchaseDiscount = null;
+    this.tempPurchaseDiscount=0;
     this.productDetails.gst = null;
     this.length = null;
     this.lengthError = false;
@@ -689,7 +696,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   changeOrderType() {
     this.orderQuantityError = false;
-    if (this.orderQuantity > 50) {
+    if (this.orderQuantity >= 50) {
       this.orderType = 'RL';
     }
     else {
@@ -710,6 +717,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
       // this.amountWithGST= this.amountWithGST -  ((this.amountWithGST * this.productDetails.purchaseDiscount)/100);
       this.amountWithGST = Math.round(this.amount + (this.amount * this.productDetails.gst) / 100);
+      this.tempPurchaseDiscount = this.productDetails.purchaseDiscount;
     }
     else if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
       let applyDiscount = false;
@@ -719,8 +727,13 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       // this.amountWithGST = this.rateWithGST * this.orderQuantity;
       this.amount = this.rate * this.orderQuantity;
       this.rate = parseFloat(this.rate).toFixed(2);
-      if (applyDiscount)
+      if (applyDiscount) {
         this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
+        this.tempPurchaseDiscount = this.productDetails.purchaseDiscount;
+      }
+      else
+        this.tempPurchaseDiscount = 0;
+
       this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
 
     }
@@ -730,6 +743,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
         this.amount = Math.round(this.rate * this.orderQuantity);
         this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
+        this.tempPurchaseDiscount =0;        
       }
       else {
         this.rate = ((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet;
@@ -742,6 +756,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
         this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
         this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
+        this.tempPurchaseDiscount = this.productDetails.purchaseDiscount;        
       }
     }
     else if (this.categoryId == 7) {
@@ -752,6 +767,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
       //this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
       this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
+      this.tempPurchaseDiscount = 0;
+      
     }
   }
 
@@ -839,6 +856,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -865,6 +883,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -896,6 +915,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -916,6 +936,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.collectionIdError = true;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.shadeIdList = [];
       this.shadeIdList.unshift({ label: '--Select--', value: null });
@@ -935,6 +956,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
