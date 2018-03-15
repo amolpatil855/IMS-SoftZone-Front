@@ -200,6 +200,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.trnPurchaseOrderService.getTrnPurchaseOrderById(id).subscribe(
       results => {
         this.trnPurchaseOrderObj = results;
+        this.trnPurchaseOrderObj.orderDate =new Date(this.trnPurchaseOrderObj.orderDate);
         if (this.trnPurchaseOrderObj.status == "Created") {
           this.status = true;
         } else {
