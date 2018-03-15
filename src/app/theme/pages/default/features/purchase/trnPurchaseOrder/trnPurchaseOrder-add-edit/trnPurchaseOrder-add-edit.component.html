@@ -371,7 +371,7 @@
 												<td class="alignleft">{{row.categoryName}}</td>
 												<td class="alignleft">{{row.collectionId ? row.collectionName:''}}</td>
 												<td class="alignleft">{{row.accessoryId ? row.accessoryName : ''}}</td>
-												<td class="alignleft">{{row.serialno}} {{row.size}} {{row.matSizeCode}}</td>
+												<td class="alignleft">{{row.serialno}} {{row.size || row.matSizeCode}}</td>
 												<td class="aligncenter"> {{row.orderQuantity}}</td>
 												<td class="aligncenter">{{row.orderType}}</td>
 												<!-- <td>{{row.rateWithGST}}</td> -->
