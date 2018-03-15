@@ -29,6 +29,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   trnMaterialQuotationForm: any;
   trnMaterialQuotationObj: any;
   userRole: string;
+  tableEmptyMesssage = 'Loading...';
   params: number;
   adminFlag: boolean = false;
   status: boolean = true;
@@ -138,30 +139,32 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
     this.route.queryParams
       .subscribe(params => {
         this.materialSelectionId = params.materialSelectionId;
-        console.log(this.materialSelectionId);
         this.trnMaterialSelectionService.getMaterialQuotationBySelectionId(this.materialSelectionId).subscribe(
-        results => {
-          this.trnMaterialQuotationObj = results;
-          this.trnMaterialQuotationItems = this.trnMaterialQuotationObj.trnMaterialQuotationItems;
-          console.log('this.trnMaterialQuotationObj', this.trnMaterialQuotationObj);
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
-        });
+          results => {
+            this.trnMaterialQuotationObj = results;
+            this.trnMaterialQuotationObj.materialQuotationDate = new Date();
+            this.trnMaterialQuotationItems = this.trnMaterialQuotationObj.trnMaterialQuotationItems;
+            if (this.trnMaterialQuotationItems.length == 0)
+              this.tableEmptyMesssage = "Records Not Available";
+            Helpers.setLoading(false);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
+      });
 
     this.trnMaterialQuotationObj = new TrnMaterialQuotation();
     this.getLoggedInUserDetail();
     this.getCategoryCodeList();
     this.getAgentLookUp();
     this.getCustomerLookUpWithoutWholesaleCustomer();
-    let today = new Date();
+    //let today = new Date();
     this.locationObj = {};
     this.disabled = false;
-    this.trnMaterialQuotationObj.materialQuotationDate = today;
-     this.selectionTypeList.push({ label: '--Select--', value: null });
+    //this.trnMaterialQuotationObj.materialQuotationDate = today;
+
+    this.selectionTypeList.push({ label: '--Select--', value: null });
     this.selectionTypeList.push({ label: 'Sofa', value: 'Sofa' });
     this.selectionTypeList.push({ label: 'Bedback', value: 'Bedback' });
     this.selectionTypeList.push({ label: 'Mattress', value: 'Mattress' });
@@ -188,7 +191,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   }
 
   onApprove() {
-    
+
   }
 
   getCustomerLookUpWithoutWholesaleCustomer() {
@@ -244,7 +247,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
     this.givenDiscount = null;
     this.givenDiscountError = false;
     this.amount = null,
-    this.orderType = '';
+      this.orderType = '';
     this.amountWithGST = null;
 
     if (this.selectionType != null) {
@@ -366,16 +369,16 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
       return false;
     }
 
-    if(this.trnMaterialQuotationItems.length>0){
-        
-        let soObj = _.find(this.trnMaterialQuotationItems, ['categoryId', this.categoryId]);
-        if(soObj != null){
-          if(this.accessoryId == soObj.accessoryId && this.shadeId == soObj.shadeId && this.fomSizeId == soObj.fomSizeId && this.matSizeId == soObj.matSizeId){
-            this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
-            return false;
-          }
-        }  
+    if (this.trnMaterialQuotationItems.length > 0) {
+
+      let soObj = _.find(this.trnMaterialQuotationItems, ['categoryId', this.categoryId]);
+      if (soObj != null) {
+        if (this.accessoryId == soObj.accessoryId && this.shadeId == soObj.shadeId && this.fomSizeId == soObj.fomSizeId && this.matSizeId == soObj.matSizeId) {
+          this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
+          return false;
+        }
       }
+    }
 
     let catObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
     let collObj = _.find(this.collectionList, ['value', this.collectionId]);
@@ -474,7 +477,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
       maxDiscount: null
     };
     this.amount = null,
-    this.orderType = '';
+      this.orderType = '';
     this.amountWithGST = null;
   }
 
@@ -603,7 +606,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   }
 
   onCustomerChange() {
-    
+
     if (this.trnMaterialQuotationObj.customerId != null) {
       Helpers.setLoading(true);
       this.trnMaterialQuotationService.getCustomerAddressByCustomerId(this.trnMaterialQuotationObj.customerId).subscribe(
@@ -740,67 +743,32 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
       });
   }
 
-    changeOrderType(row) {
+  changeOrderType(row) {
+    if (!row.rate)
+      return;
+
+    row.orderQuantity = parseFloat(row.orderQuantity);
+    row.discountPercentage = parseFloat(row.discountPercentage);
 
     if (row.orderQuantity > 50) {
       row.orderType = 'RL';
     }
-    else
-      row.orderType = 'CL';
-
-    if (row.categoryId == 2) {
-
-      row.rate = ((row.purchaseRatePerMM * row.suggestedMM) / 2592) * row.matLength * row.matWidth;
-      row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
-      //this.amountWithGST = this.rate * this.orderQuantity;
-      row.amount = row.rate * row.orderQuantity;
-      row.rate = parseFloat(row.rate).toFixed(2);
-      row.amount = Math.round(row.amount - ((row.amount * row.purchaseDiscount) / 100));
-      // this.amountWithGST= this.amountWithGST -  ((this.amountWithGST * row.purchaseDiscount)/100);
-      row.amountWithGST = Math.round(row.amount + (row.amount * row.gst) / 100);
+    else {
+      if (!row.orderQuantity)
+        row.orderType = '';
+      else
+        row.orderType = 'CL';
     }
-    else if (row.categoryId == 1 || row.categoryId == 5 || row.categoryId == 6) {
-      let applyDiscount = false;
-      row.rate = (row.purchaseFlatRate ? row.purchaseFlatRate : row.orderQuantity >= 50 ? row.roleRate : row.cutRate);
-      applyDiscount = (row.purchaseFlatRate ? true : row.orderQuantity >= 50 ? true : false);
-      row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
-      // this.amountWithGST = this.rateWithGST * this.orderQuantity;
-      row.amount = row.rate * row.orderQuantity;
-      row.rate = parseFloat(row.rate).toFixed(2);
-      if (applyDiscount)
-        row.amount = Math.round(row.amount - ((row.amount * row.purchaseDiscount) / 100));
-      row.amountWithGST = Math.round(row.amount + ((row.amount * row.gst) / 100));
 
-    }
-    else if (row.categoryId == 4) {
-      if (row.matSizeId != -1) {
-        row.rate = row.purchaseRate;
-        row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
-        row.amount = Math.round(row.rate * row.orderQuantity);
-        row.amountWithGST = Math.round(row.amount + ((row.amount * row.gst) / 100));
-      }
-      else {
-        row.rate = ((row.matLength * row.matWidth) / 1550.5) * row.custRatePerSqFeet;
-
-        // this.rate = this.rate - Math.round((this.rate) / 100);
-        row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
-        // this.amountWithGST = this.rateWithGST * this.orderQuantity;
-        row.amount = row.rate * row.orderQuantity;
-        row.rate = parseFloat(row.rate).toFixed(2);
-        //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * row.purchaseDiscount)/100));
-        row.amount = Math.round(row.amount - ((row.amount * row.purchaseDiscount) / 100));
-        row.amountWithGST = Math.round(row.amount + ((row.amount * row.gst) / 100));
-      }
-    }
-    else if (row.categoryId == 7) {
-      row.rate = row.purchaseRate;
-      row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
-      // this.amountWithGST =this.rateWithGST * this.orderQuantity;
-      row.amount = row.rate * row.orderQuantity;
-      //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * row.purchaseDiscount)/100));
-      //this.amount = Math.round(this.amount - ((this.amount * row.purchaseDiscount) / 100));
-      row.amountWithGST = Math.round(row.amount + ((row.amount * row.gst) / 100));
-    }
+    let rate = parseFloat(row.rate);
+    row.rateWithGST = rate + (rate * row.gst) / 100;
+    row.amount = rate * row.orderQuantity;
+    row.amount = parseFloat(row.amount).toFixed(2);
+    if (row.discountPercentage >= 0)
+      row.amount = Math.round(row.amount - ((row.amount * row.discountPercentage) / 100));
+    row.amountWithGST = Math.round(row.amount + ((row.amount * row.gst) / 100));
+    row.rateWithGST = parseFloat(row.rateWithGST).toFixed(2);
+    row.rateWithGST = parseFloat(row.rateWithGST);
 
     let sum = 0;
     _.forEach(this.trnMaterialQuotationItems, function (selectedItem) {
@@ -809,31 +777,6 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
 
     this.trnMaterialQuotationObj.totalAmount = sum;
   }
-
-
-  // calculateAmount(givenDicount = 0) {
-  //   if(!this.rate)
-  //   return;
-  //   let rate=parseFloat(this.rate);
-  //   if(rate){
-  //     this.rateWithGST =rate + (rate * this.productDetails.gst) / 100;
-  //     //this.amountWithGST =this.rateWithGST * this.orderQuantity;
-  //     this.amount = rate * this.orderQuantity;
-  //     this.amount =parseFloat(this.amount).toFixed(2);
-  //     //this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
-  //     this.amount = Math.round(this.amount - ((this.amount * givenDicount) / 100));
-  //     this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
-  //   }
-  //   this.rateWithGST =parseFloat(this.rateWithGST).toFixed(2);
-  // }
-
-  // onChangeDiscountAmount() {
-  //   if(!this.givenDiscount){
-  //     this.givenDiscount=0;
-  //   }
-  //   this.givenDiscountError = false;
-  //   this.calculateAmount(this.givenDiscount);
-  // }
 
   onChangeCategory() {
     this.collectionList = [];
@@ -1053,7 +996,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    this.trnMaterialQuotationObj.TrnMaterialQuotationItems = this.trnMaterialQuotationItems;
+    //this.trnMaterialQuotationObj.TrnMaterialQuotationItems = this.trnMaterialQuotationItems;
     let custObj = _.find(this.customerList, ['value', this.trnMaterialQuotationObj.customerId]);
     let agentObj = _.find(this.agentList, ['value', this.trnMaterialQuotationObj.referById]);
     this.trnMaterialQuotationObj.customerName = custObj ? custObj.label : '';
@@ -1063,13 +1006,14 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
       return false;
     }
     if (valid) {
-      console.log(this.trnMaterialQuotationObj);
-      //this.saveTrnMaterialQuotation(this.trnMaterialQuotationObj);
+      this.saveTrnMaterialQuotation(this.trnMaterialQuotationObj);
     }
   }
 
 
   saveTrnMaterialQuotation(value) {
+    let tempMaterialQuotationDate = new Date(value.materialQuotationDate);
+    value.materialQuotationDate = new Date(tempMaterialQuotationDate.setHours(23));
     Helpers.setLoading(true);
     if (this.params) {
       this.trnMaterialQuotationService.updateTrnMaterialQuotation(value)
@@ -1102,7 +1046,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
 
 
   onCancel() {
-    if(this.materialSelectionId)
+    if (this.materialSelectionId)
       this.router.navigate(['/features/sales/trnMaterialSelection/list']);
     else
       this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
