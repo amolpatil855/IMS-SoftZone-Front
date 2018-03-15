@@ -150,8 +150,9 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
     }
   }
 
-
   saveTrnGoodIssueNote(value) {
+    let tempGinDate = new Date(value.ginDate);
+    value.ginDate = new Date(tempGinDate.setHours(23));
     Helpers.setLoading(true);
     if (this.params) {
       this.TrnGoodIssueNoteService.updateTrnGoodIssueNote(value)

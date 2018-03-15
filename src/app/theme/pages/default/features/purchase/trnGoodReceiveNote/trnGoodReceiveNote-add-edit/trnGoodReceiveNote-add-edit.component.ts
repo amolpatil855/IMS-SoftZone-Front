@@ -1117,6 +1117,8 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
 
   saveTrnGoodReceiveNote(value) {
+    let tempGrnDate = new Date(value.grnDate);
+    value.grnDate = new Date(tempGrnDate.setHours(23));
     Helpers.setLoading(true);
     if (this.params) {
       this.trnGoodReceiveNoteService.updateTrnGoodReceiveNote(value)

@@ -90,7 +90,9 @@
 																		<div class="col-md-8 col-sm-8">
 																			<p-calendar class="purchaseOrderDate" #orderDateVal="ngModel" [(ngModel)]="trnSalesOrderObj.orderDate" name="orderDate" [monthNavigator]="true"
 																			 [yearNavigator]="true" tabindex="1" [disabled]="disabled" yearRange="2015:2030" dateFormat="dd/mm/yy" styleClass="{{ orderDateVal.errors && isFormSubmitted?'red-border-class':''}}"
-																			 autofocus required></p-calendar>
+																			 autofocus required>
+																			
+																			</p-calendar>
 																		</div>
 																	</div>
 																	<div class="col-md-6">
@@ -218,7 +220,7 @@
 																	<div class="col-md-4" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
 																			<label class="col-md-4 col-sm-4 fieldLabel noPadding">Cheque Number<span class="requiredField">*</span></label>
 																			<div class="col-md-7 col-sm-7">
-																				<input class="form-control m-input" type="text" [disabled]="!status"  [ngClass]="{'red-border-class': chequeNumberVal.errors && isFormSubmitted}"  #chequeNumberVal="ngModel" required [(ngModel)]="trnSalesOrderObj.chequeNumber" name="chequeNumber" id="chequeNumber" placeholder="" tabindex="10">
+																				<input class="form-control m-input" type="text" [disabled]="!status"  [ngClass]="{'red-border-class': chequeNumberVal.errors && isFormSubmitted}"  #chequeNumberVal="ngModel" required [(ngModel)]="trnSalesOrderObj.chequeNumber" name="chequeNumber" id="chequeNumber" placeholder="" maxlength="20" tabindex="10">
 																			</div>
 																	</div>
 																	<div class="col-md-4" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
@@ -235,13 +237,13 @@
 																	<div class="col-md-4" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
 																			<label class="col-md-4 col-sm-4 fieldLabel ">Bank Name<span class="requiredField">*</span></label>
 																			<div class="col-md-7 col-sm-7">
-																				<input class="form-control m-input" type="text"  [disabled]="!status" [ngClass]="{'red-border-class': bankNameVal.errors && isFormSubmitted}"  #bankNameVal="ngModel" required [(ngModel)]="trnSalesOrderObj.bankName" name="bankName" id="bankName" placeholder="" tabindex="12">
+																				<input class="form-control m-input" type="text"  [disabled]="!status" [ngClass]="{'red-border-class': bankNameVal.errors && isFormSubmitted}"  #bankNameVal="ngModel" required [(ngModel)]="trnSalesOrderObj.bankName" name="bankName" id="bankName" placeholder="" maxlength="50" tabindex="12">
 																			</div>
 																	</div>
 																	<div class="col-md-4" *ngIf="trnSalesOrderObj.paymentMode == 'Cheque'">
 																		<label class="col-md-4 col-sm-4 fieldLabel noPadding">Bank Branch<span class="requiredField">*</span></label>
 																		<div class="col-md-7 col-sm-7">
-																			<input class="form-control m-input" type="text"  [disabled]="!status" [ngClass]="{'red-border-class': bankBranchVal.errors && isFormSubmitted}"  #bankBranchVal="ngModel" required [(ngModel)]="trnSalesOrderObj.bankBranch" name="bankBranch" id="bankBranch" placeholder="" tabindex="5">
+																			<input class="form-control m-input" type="text"  [disabled]="!status" [ngClass]="{'red-border-class': bankBranchVal.errors && isFormSubmitted}"  #bankBranchVal="ngModel" required [(ngModel)]="trnSalesOrderObj.bankBranch" name="bankBranch" id="bankBranch" placeholder="" maxlength="20" tabindex="13">
 																		</div>
 																	</div>
 																</div>
@@ -366,16 +368,16 @@
 														</div>
 													</div>
 													<div class="row form-group">
-														<div class="col-md-4">
-															<label class="col-md-4 col-sm-4 fieldLabel">Amount(GST)</label>
-															<div class="col-md-8 col-sm-8">
-																<label class="orderTypeLabel">{{amountWithGST}}</label>
-															</div>
-														</div>
 														<div class="col-md-4"  *ngIf="categoryId!=7">
 															<label class="col-md-4 col-sm-4 fieldLabel">Disc. %<span class="requiredField">*</span></label>
 															<div class="col-md-8 col-sm-8">
 																<input class="form-control" (blur)="onChangeDiscountAmount()" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="{{discountOnRate}}" [(ngModel)]="givenDiscount"  [ngClass]="{'red-border-class': givenDiscountError}" name="discountOnRate" autocomplete="off" tabindex="12">
+															</div>
+														</div>
+														<div class="col-md-4">
+															<label class="col-md-4 col-sm-4 fieldLabel">Amount(GST)</label>
+															<div class="col-md-8 col-sm-8">
+																<label class="orderTypeLabel">{{amountWithGST}}</label>
 															</div>
 														</div>
 													</div>
