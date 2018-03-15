@@ -212,7 +212,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         } else {
           this.viewItem = true;
         }
-        // this.trnPurchaseOrderItems = results.trnPurchaseOrderItems;
+        this.trnPurchaseOrderItems = results.trnPurchaseOrderItems;
         // _.forEach(this.trnPurchaseOrderItems, function (value) {
         //   if (value.mstCategory != null)
         //     value.categoryName = value.mstCategory.code;
