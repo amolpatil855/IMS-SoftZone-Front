@@ -386,6 +386,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       purchaseDiscount: null
     };
     this.amount = null,
+    this.tempPurchaseDiscount=0;
       this.orderType = '';
     this.amountWithGST = '';
   }
@@ -405,6 +406,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
@@ -428,6 +430,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
@@ -456,6 +459,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -485,6 +489,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
@@ -550,6 +555,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.matThicknessIdError = false;
     this.productDetails.stock = null;
     this.productDetails.purchaseDiscount = null;
+    this.tempPurchaseDiscount=0;
     this.productDetails.gst = null;
     this.length = null;
     this.lengthError = false;
@@ -850,6 +856,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -876,6 +883,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -907,6 +915,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -927,6 +936,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.collectionIdError = true;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.shadeIdList = [];
       this.shadeIdList.unshift({ label: '--Select--', value: null });
@@ -946,6 +956,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount=0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
