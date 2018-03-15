@@ -759,6 +759,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   onChangeSupplier() {
     this.categoryId = null;
     this.categoryIdError = false;
+    this.trnPurchaseOrderObj.totalAmount = 0;
     this.onCancelItemDetails();
     this.trnPurchaseOrderItems = [];
     if (this.trnPurchaseOrderObj.supplierId != null) {
