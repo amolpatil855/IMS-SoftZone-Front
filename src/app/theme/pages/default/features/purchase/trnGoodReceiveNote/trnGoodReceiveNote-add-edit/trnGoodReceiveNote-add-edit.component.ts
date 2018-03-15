@@ -312,6 +312,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.purchaseOrderId = null;
     this.purchaseOrderList = [];
     this.purchaseOrderIdIdError = false;
+    this.matSizeCode = null;
     this.lengthError = null;
     this.widthError = null;
     this.orderQuantity = null;
@@ -391,6 +392,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.purchaseOrderList.unshift({ label: '--Select--', value: null });
       this.purchaseOrderIdIdError = false;
       this.rateWithGST = null;
+      this.matSizeCode = null;
       this.gst = null;
       this.rate = null;
       this.purchaseDiscount = null;
@@ -435,6 +437,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.rateWithGST = null;
       this.gst = null;
       this.rate = null;
+      this.matSizeCode = null;
       this.purchaseDiscount = null;
       this.orderQuantity = null;
       this.orderQuantityError = false;
@@ -521,6 +524,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.rateWithGST = null;
       this.gst = null;
       this.rate = null;
+      this.matSizeCode = null;
       this.purchaseDiscount = null;
       this.orderQuantity = null;
       this.orderQuantityError = false;
@@ -824,6 +828,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.rateWithGST = null;
     this.gst = null;
     this.rate = null;
+    this.matSizeCode = null;
     this.purchaseDiscount = null;
     this.orderQuantity = null;
     this.receivedQuantity = null;
@@ -893,6 +898,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.rateWithGST = null;
       this.gst = null;
       this.rate = null;
+      this.matSizeCode = null;
       this.purchaseDiscount = null;
       this.orderQuantity = null;
       this.receivedQuantity = null;

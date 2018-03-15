@@ -88,13 +88,12 @@
 
                                                     <div class="col-lg-3 col-md-6 formContentbox">
                                                         <div class="form-group">
-                                                            <label class="fieldLabel col-sm-5">Phone
-                                                                <span class="requiredField">*</span>
+                                                            <label class="fieldLabel col-sm-5">Mobile<span class="requiredField">*</span>
                                                             </label>
                                                             <div class="col-sm-7">
                                                                 <input type="phone" class="form-control" pattern="^[0-9]+" [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}"
                                                                     [(ngModel)]="agentObj.phone" name="phone" required #phoneVal="ngModel"
-                                                                    placeholder="Phone" minlength="10" maxlength="10" tabindex="2">
+                                                                    placeholder="Mobile" minlength="10" maxlength="10" tabindex="2">
 
                                                                 <!-- <div *ngIf="phoneVal.errors && (phoneVal.dirty || phoneVal.touched)" class="alertMsg">
                                                                     <div *ngIf="phoneVal.errors.minlength && !phoneVal.errors.pattern">
@@ -121,11 +120,11 @@
                                                                 <!-- <div class="alertMsg" *ngIf="emailVal.errors && emailVal.errors.required && (emailVal.dirty || emailVal.touched)">
                                                                             Please enter Email
                                                                         </div> -->
-                                                                <div *ngIf="emailVal.errors && (emailVal.dirty || emailVal.touched)" class="alertMsg">
+                                                                <!-- <div *ngIf="emailVal.errors && (emailVal.dirty || emailVal.touched)" class="alertMsg">
                                                                     <div *ngIf="emailVal.errors.pattern">
                                                                         Please enter valid email.
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -191,14 +190,14 @@
                                                                 <input type="text" class="form-control" pattern="^[0-9]+" onKeyPress="if(this.value.length==6) return false;" [ngClass]="{'red-border-class': pinVal.errors && isFormSubmitted}"
                                                                     #pinVal="ngModel" required [(ngModel)]="agentObj.pin" name="pin"
                                                                     placeholder="PIN" id="pin" minlength="6" maxlength="6" tabindex="8">
-                                                                <div *ngIf="pinVal.errors && (pinVal.dirty || pinVal.touched)" class="alertMsg">
+                                                                <!-- <div *ngIf="pinVal.errors && (pinVal.dirty || pinVal.touched)" class="alertMsg">
                                                                     <div *ngIf="pinVal.errors.minlength && !pinVal.errors.pattern">
                                                                         Pin number should be 6 digit.
                                                                     </div>
                                                                     <div *ngIf="pinVal.errors.pattern">
                                                                         Pin number must be a number.
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -255,7 +254,7 @@
                                 [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
                                 [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
                                 <p-column field="name" header="Name" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="phone" header="phone" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="phone" header="Mobile" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="email" header="Email" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="commision" header="Commision %" [style]="{'text-align':'left'}"></p-column>
                                 <p-column styleClass="col-button" [style]="{'text-align':'center'}">
