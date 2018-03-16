@@ -211,6 +211,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
           this.params = null;
           this.status = false;
           this.viewItem = false;
+          this.trnMaterialQuotationObj.status = 'Approved';
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
         },
