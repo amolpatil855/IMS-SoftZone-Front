@@ -62,7 +62,7 @@ export class TrnMaterialQuotationListComponent implements OnInit {
         .subscribe(
         results => {
           this.getTrnMaterialQuotationsList();
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
         },
         error => {
