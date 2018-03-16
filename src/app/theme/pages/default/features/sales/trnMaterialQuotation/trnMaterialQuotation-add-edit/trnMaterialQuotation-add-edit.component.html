@@ -41,15 +41,15 @@
 			</ul>
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<!-- <button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnMaterialQuotationObj.status == 'Created'" [isAuthorize]="['materialquotation']" title="Approve" (click)="onApprove()" tabindex="9">
+			<button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnMaterialQuotationObj.status == 'Created'" [isAuthorize]="['materialquotation']" title="Approve" (click)="onApprove()" tabindex="7">
 				Approve
-			</button> -->
+			</button>
 			<button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnMaterialQuotationForm"
 			 title="{{(trnMaterialQuotationForm && trnMaterialQuotationForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-			 [isAuthorize]="['materialquotation']" tabindex="8">
+			 [isAuthorize]="['materialquotation']" tabindex="6">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
-			<button class="btn btn-secondary" [isAuthorize]="['materialquotation']" (click)="onCancel()" tabindex="9">
+			<button class="btn btn-secondary" [isAuthorize]="['materialquotation']" (click)="onCancel()" tabindex="5">
 				Cancel
 			</button>
 		</div>
@@ -90,7 +90,7 @@
 																		<label class="col-md-4 col-sm-4 fieldLabel">Date</label>
 																		<div class="col-md-8 col-sm-8">
 																			<p-calendar class="purchaseOrderDate" #materialQuotationDateVal="ngModel" [(ngModel)]="trnMaterialQuotationObj.materialQuotationDate"
-																			 name="materialQuotationDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="1" [disabled]="disabled"
+																			 name="materialQuotationDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="1" [disabled]="!viewItem"
 																			 yearRange="2015:2030" dateFormat="dd/mm/yy" styleClass="{{ materialQuotationDateVal.errors && isFormSubmitted?'red-border-class':''}}"
 																			 autofocus required></p-calendar>
 																		</div>
@@ -110,7 +110,7 @@
 																<div class="col-md-10 col-sm-10 customerNameBox">
 																	<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="trnMaterialQuotationObj.customerId"
 																	 required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer"
-																	 [disabled]="disabled" (ngModelChange)="onCustomerChange()" filter="true" tabindex="2"></p-dropdown>
+																	 [disabled]="disabled" (ngModelChange)="onCustomerChange()" filter="true" tabindex="3"></p-dropdown>
 																</div>
 															</div>
 
@@ -121,7 +121,7 @@
 																</label>
 																<div class="col-md-8 col-sm-8">
 																	<p-dropdown class="feePlanBox" [options]="agentList" [disabled]="!status" [style]="{'width':'100%'}" [(ngModel)]="trnMaterialQuotationObj.referById"
-																	 name="agent" filter="true" tabindex="5"></p-dropdown>
+																	 name="agent" filter="true" tabindex="4"></p-dropdown>
 																</div>
 															</div>
 															<div class="col-md-3">

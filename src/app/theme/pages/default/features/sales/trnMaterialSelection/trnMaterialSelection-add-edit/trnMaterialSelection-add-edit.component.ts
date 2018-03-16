@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import * as _ from 'lodash/index';
@@ -136,6 +136,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   customerList = [];
   states = [];
   constructor(
+    private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -179,6 +180,10 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    this.cdr.detectChanges();
+  }
+
   getLoggedInUserDetail() {
     this.userService.getLoggedInUserDetail().subscribe(res => {
       this.userRole = res.mstRole.roleName;
@@ -212,16 +217,12 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   }
 
   onChangeSelectionType() {
+    this.categoriesCodeList = [];
     this.collectionList = [];
-    this.collectionList.unshift({ label: '--Select--', value: null });
     this.shadeIdList = [];
-    this.shadeIdList.unshift({ label: '--Select--', value: null });
     this.matSizeList = [];
-    this.matSizeList.unshift({ label: '--Select--', value: null });
     this.fomSizeList = [];
-    this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.accessoryCodeList = [];
-    this.accessoryCodeList.unshift({ label: '--Select--', value: null });
     this.selectionTypeError = false;
     this.areaError = false;
     this.trnMaterialSelectionObj.area = null;
@@ -237,6 +238,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.shadeId = null;
     this.fomSizeId = null;
     this.matSizeId = null;
+    this.matSizeCode = null;
     this.matHeight = null;
     this.matHeightError = false;
     this.matWidth = null;
@@ -348,7 +350,6 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       phone: this.phone,
       MstCustomerAddresses: [{
         addressLine1: this.address1,
-        addressLine2: this.address2,
         city: this.city,
         pin: this.pin,
         state: this.state,
@@ -391,9 +392,6 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.city = null;
     this.pin = null;
     this.state = null;
-
-
-    //this.MstCustomerAddresses = null;
     this.display = false;
   }
 
@@ -522,14 +520,17 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.matWidthError = false;
     this.orderQuantityError = false;
     this.givenDiscountError = false;
+    this.trnMaterialSelectionObj.selectionType = null;
+    this.trnMaterialSelectionObj.area = null;
     this.categoryId = null;
     this.collectionId = null;
     this.accessoryId = null;
     this.shadeId = null;
     this.fomSizeId = null;
     this.matSizeId = null;
-    this.matHeightError = null;
-    this.matWidthError = null;
+    this.matSizeCode = null;
+    this.matHeight = null;
+    this.matWidth = null;
     this.orderQuantity = null;
     this.orderType = null;
     this.amountWithGST = null;
@@ -812,6 +813,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.shadeId = null;
     this.fomSizeId = null;
     this.matSizeId = null;
+    this.matSizeCode = null;
     this.matHeight = null;
     this.matHeightError = false;
     this.matWidth = null;
@@ -836,6 +838,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       this.shadeIdError = false;
       this.shadeId = null;
       this.areaError = false;
+      this.matSizeCode = null;
       this.matHeight = null;
       this.matHeightError = false;
       this.matWidth = null;
@@ -855,6 +858,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       this.fomSizeIdError = false;
       this.fomSizeId = null;
       this.areaError = false;
+      this.matSizeCode = null;
       this.matHeight = null;
       this.matHeightError = false;
       this.matWidth = null;
@@ -903,6 +907,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       this.shadeId = null;
       this.matSizeId = null;
       this.fomSizeId = null;
+      this.matSizeCode = null;
       this.matHeight = null;
       this.matHeightError = false;
       this.matWidth = null;
