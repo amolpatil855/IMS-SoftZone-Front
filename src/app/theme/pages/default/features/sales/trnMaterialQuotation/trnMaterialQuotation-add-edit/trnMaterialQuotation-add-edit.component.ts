@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import * as _ from 'lodash/index';
@@ -117,6 +117,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   fomEnable: boolean = false;
   customerList = [];
   constructor(
+    private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -139,19 +140,21 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
     this.route.queryParams
       .subscribe(params => {
         this.materialSelectionId = params.materialSelectionId;
-        this.trnMaterialSelectionService.getMaterialQuotationBySelectionId(this.materialSelectionId).subscribe(
-          results => {
-            this.trnMaterialQuotationObj = results;
-            this.trnMaterialQuotationObj.materialQuotationDate = new Date();
-            this.trnMaterialQuotationItems = this.trnMaterialQuotationObj.trnMaterialQuotationItems;
-            if (this.trnMaterialQuotationItems.length == 0)
-              this.tableEmptyMesssage = "Records Not Available";
-            Helpers.setLoading(false);
-          },
-          error => {
-            this.globalErrorHandler.handleError(error);
-            Helpers.setLoading(false);
-          });
+        if (this.materialSelectionId) {
+          this.trnMaterialSelectionService.getMaterialQuotationBySelectionId(this.materialSelectionId).subscribe(
+            results => {
+              this.trnMaterialQuotationObj = results;
+              this.trnMaterialQuotationObj.materialQuotationDate = new Date();
+              this.trnMaterialQuotationItems = this.trnMaterialQuotationObj.trnMaterialQuotationItems;
+              if (this.trnMaterialQuotationItems.length == 0)
+                this.tableEmptyMesssage = "Records Not Available";
+              Helpers.setLoading(false);
+            },
+            error => {
+              this.globalErrorHandler.handleError(error);
+              Helpers.setLoading(false);
+            });
+        }
       });
 
     this.trnMaterialQuotationObj = new TrnMaterialQuotation();
@@ -179,6 +182,10 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    this.cdr.detectChanges();
+  }
+
   getLoggedInUserDetail() {
     this.userService.getLoggedInUserDetail().subscribe(res => {
       this.userRole = res.mstRole.roleName;
@@ -191,7 +198,22 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   }
 
   onApprove() {
-
+    Helpers.setLoading(true);
+    if (this.params) {
+      this.trnMaterialQuotationService.approveMaterialQuotation(this.trnMaterialQuotationObj)
+        .subscribe(
+        results => {
+          this.params = null;
+          this.status = false;
+          this.viewItem = false;
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
   }
 
   getCustomerLookUpWithoutWholesaleCustomer() {
@@ -280,7 +302,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
         this.trnMaterialQuotationObj.materialQuotationDate = new Date(this.trnMaterialQuotationObj.materialQuotationDate);
         this.trnMaterialQuotationItems = results.trnMaterialQuotationItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
-        delete this.trnMaterialQuotationObj['trnMaterialQuotationItems'];
+        //delete this.trnMaterialQuotationObj['trnMaterialQuotationItems'];
         Helpers.setLoading(false);
       },
       error => {

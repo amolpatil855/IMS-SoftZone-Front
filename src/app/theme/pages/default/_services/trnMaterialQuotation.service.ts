@@ -20,6 +20,10 @@ export class TrnMaterialQuotationService {
   getTrnMaterialQuotationById(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnMaterialQuotation/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
+
+  approveMaterialQuotation(trnMaterialQuotation: TrnMaterialQuotation) {
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnMaterialQuotation/ApproveMaterialQuotation/' + trnMaterialQuotation.id, trnMaterialQuotation, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
   
   getCompanyLocationLookUp() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
