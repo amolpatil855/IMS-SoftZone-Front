@@ -163,13 +163,13 @@
 												<span> {{row.serialno}} {{row.sizeForListing}} {{row.accessoryName}}</span>
 											</ng-template>
 										</p-column>
-										<p-column field="orderQuantity" header="Or. Quantity" [editable]="true" [style]="{'text-align':'center'}">
+										<p-column field="orderQuantity" header="Or. Quantity" [editable]="isMatSelectionId || trnMaterialQuotationObj.status == 'Created'" [style]="{'text-align':'center'}">
 											<ng-template let-col let-row="rowData" pTemplate="editor">
 												<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="999" [(ngModel)]="row[col.field]"
 												 name="orderQuantity" (blur)="changeOrderType(row)">
 											</ng-template>
 										</p-column>
-										<p-column field="discountPercentage" header="Disc. %" [editable]="true" [style]="{'text-align':'center'}">
+										<p-column field="discountPercentage" header="Disc. %" [editable]="isMatSelectionId || trnMaterialQuotationObj.status == 'Created'" [style]="{'text-align':'center'}">
 											<ng-template let-col let-row="rowData" pTemplate="editor">
 												<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="999" [(ngModel)]="row[col.field]"
 												 name="discountPercentage" (blur)="changeOrderType(row)">
