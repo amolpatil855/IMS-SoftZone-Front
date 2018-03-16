@@ -72,8 +72,8 @@
     
                             <div class="formContainerSamePage">
                                 <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
-                                 (ngSubmit)="onSubmit(trnProductStockForm)" *ngIf="showForm" #trnProductStockForm="ngForm" id="trnProductStockForm">
-                                    <div class="row">
+                                 (ngSubmit)="onSubmit(trnProductStockForm)" #trnProductStockForm="ngForm" id="trnProductStockForm">
+                                    <div class="row"  *ngIf="showForm">
     
                                         <div class="col-md-12">
     
