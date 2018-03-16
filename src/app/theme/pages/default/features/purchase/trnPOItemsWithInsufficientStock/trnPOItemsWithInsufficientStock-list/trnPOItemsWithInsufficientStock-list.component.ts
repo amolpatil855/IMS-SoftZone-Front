@@ -45,6 +45,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
   disabled: boolean = false;
   locationObj = null;
   courierList = [];
+  showForm:boolean;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -63,6 +64,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showForm=true;
     this.getLocationList();
     this.getCourierList();
     this.getLoggedInUserDetail();
@@ -201,6 +203,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
 
 
   getTrnPurchaseOrderById() {
+    this.showForm=true;
     this.isFormSubmitted = false;
     Helpers.setLoading(true);
     this.trnPOItemsWithInsufficientStockService.getPOItemsWithStockInsufficient().subscribe(
@@ -313,6 +316,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
     let tempOrderDate = new Date(value.orderDate);
     value.orderDate = new Date(tempOrderDate.setHours(23));
     Helpers.setLoading(true);
+    this.showForm=false;
     this.trnPurchaseOrderService.createTrnPurchaseOrder(value)
       .subscribe(
       results => {
@@ -320,6 +324,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
         this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
         Helpers.setLoading(false);
         this.newPO();
+       // value.resetForm();
       },
       error => {
         this.globalErrorHandler.handleError(error);
