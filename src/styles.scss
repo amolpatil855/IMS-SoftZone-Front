@@ -2335,3 +2335,23 @@ select option {
 .staticTable{
     width:100%!important;
 }
+
+/******** D. 16 March 2018 *******/
+@media (max-width:767px){
+    .halfWidthTable tr td {
+        width: auto !important;
+        max-width: 100%!important;
+    }
+    .ui-datatable table {
+        width: 100%!important;
+    }
+    .ui-datatable-reflow .ui-datatable-data > tr > td {       
+        text-align: left!important;
+    }
+    .ui-datatable-reflow .ui-datatable-data td .ui-column-title {
+        width:40%!important;
+    }
+    .ui-datatable-reflow .ui-datatable-data td .ui-cell-data {
+        width:60%!important;
+    }
+}
