@@ -33,6 +33,7 @@ export class CustomerListComponent implements OnInit {
   tableEmptyMesssage = 'Loading...';
   customerTypeList = ["Furniture Showroom", "Workshop Big", "Workshop Small", "Karagir", "Designer", "Miscellaneous"];
   misVal='';
+  isResponsive:boolean;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -49,6 +50,9 @@ export class CustomerListComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       this.params = params['customerId'];
     });
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      this.isResponsive=true;
+      }
     this.newRecord();
   }
   newRecord() {
