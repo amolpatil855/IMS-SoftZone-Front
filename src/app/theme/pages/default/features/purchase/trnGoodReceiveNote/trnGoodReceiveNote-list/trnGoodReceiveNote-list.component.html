@@ -87,11 +87,11 @@
 								</p-column>
 								<p-column field="trnGoodReceiveNoteItems" header="Purchase Order No." [style]="{'text-align':'center'}">
 										<ng-template let-data="rowData"  pTemplate="body">
-											<span *ngFor="let item of data.trnGoodReceiveNoteItems">{{ item.trnPurchaseOrder.orderNumber }} <br/></span>
+											<span *ngFor="let item of data.purchaseOrderNumbers">{{ item }} <br/></span>
 										</ng-template>
 								</p-column>
-								<p-column field="mstSupplier.code" header="Supplier" [style]="{'text-align':'left'}"></p-column>
-								<p-column field="mstCompanyLocation.locationCode" header="Location" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="supplierName" header="Supplier" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="locationCode" header="Location" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="totalAmount" header="Total" [style]="{'text-align':'right'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
