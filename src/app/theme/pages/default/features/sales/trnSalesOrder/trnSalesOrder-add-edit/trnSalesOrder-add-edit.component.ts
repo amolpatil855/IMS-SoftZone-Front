@@ -220,6 +220,9 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         }
         this.trnSalesOrderObj.orderDate = new Date(this.trnSalesOrderObj.orderDate);
         this.trnSalesOrderObj.expectedDeliveryDate = new Date(this.trnSalesOrderObj.expectedDeliveryDate);
+        if(this.trnSalesOrderObj.expectedDeliveryDate.getFullYear()<2017){
+          this.trnSalesOrderObj.expectedDeliveryDate =null;
+        }
         this.trnSalesOrderObj.chequeDate = new Date(this.trnSalesOrderObj.chequeDate);
         this.trnSaleOrderItems = results.trnSaleOrderItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;

@@ -324,7 +324,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
         this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
         Helpers.setLoading(false);
         this.newPO();
-        value.resetForm();
+       // value.resetForm();
       },
       error => {
         this.globalErrorHandler.handleError(error);
