@@ -110,7 +110,7 @@
 																<div class="col-md-10 col-sm-10 customerNameBox">
 																	<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="trnMaterialQuotationObj.customerId"
 																	 required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer"
-																	 [disabled]="disabled" (ngModelChange)="onCustomerChange()" filter="true" tabindex="3"></p-dropdown>
+																	 [disabled]="isMatSelectionId || disabled" (ngModelChange)="onCustomerChange()" filter="true" tabindex="3"></p-dropdown>
 																</div>
 															</div>
 

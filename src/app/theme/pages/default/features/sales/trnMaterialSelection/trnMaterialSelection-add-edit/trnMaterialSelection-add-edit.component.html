@@ -41,7 +41,7 @@
 			</ul>
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="topBtn btn btn-success" [isAuthorize]="['materialselection']" title="{{ (params && (trnMaterialSelectionObj.isQuotationCreated == false)) ? 'Create Quotation' : 'View Quotation' }}"
+			<button type="submit" *ngIf="params" class="topBtn btn btn-success" [isAuthorize]="['materialselection']" title="{{ (params && (trnMaterialSelectionObj.isQuotationCreated == false)) ? 'Create Quotation' : 'View Quotation' }}"
 			 (click)="onApprove()" tabindex="9">
 				{{ (params && (trnMaterialSelectionObj.isQuotationCreated == false)) ? 'Create Quotation' : 'View Quotation' }}
 			</button>
