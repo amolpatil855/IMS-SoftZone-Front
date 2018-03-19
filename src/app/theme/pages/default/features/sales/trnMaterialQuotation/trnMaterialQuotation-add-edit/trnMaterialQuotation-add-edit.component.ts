@@ -212,8 +212,30 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
           this.status = false;
           this.viewItem = false;
           this.trnMaterialQuotationObj.status = 'Approved';
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
+  onCancelMQ() {
+    Helpers.setLoading(true);
+    if (this.params) {
+      this.trnMaterialQuotationService.cancelMaterialQuotation(this.trnMaterialQuotationObj)
+        .subscribe(
+        results => {
+          this.params = null;
+          this.status = false;
+          this.viewItem = false;
+          Helpers.setLoading(false);
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
+          this.disabled = false;
+          this.viewItem = true;
         },
         error => {
           this.globalErrorHandler.handleError(error);
