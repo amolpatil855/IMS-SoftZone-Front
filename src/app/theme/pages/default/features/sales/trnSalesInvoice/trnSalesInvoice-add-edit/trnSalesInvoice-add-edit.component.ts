@@ -46,7 +46,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
   isFormSubmitted: boolean;
   trnSalesInvoiceItems = [];
   customerAddresses = [];
-  customerShippingAddress=new CustomerAddress();
+  customerShippingAddress = new CustomerAddress();
   productDetails = {
     purchaseRatePerMM: null,
     suggestedMM: null,
@@ -120,27 +120,32 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
     this.TrnSalesInvoiceService.getTrnSalesInvoiceById(id).subscribe(
       results => {
         this.trnSalesInvoiceObj = results;
-        this.customerAddresses = results.trnSaleOrder.mstCustomer.mstCustomerAddresses;
+        let customerInMH;
         if (results.trnSaleOrder != null) {
           this.orderNumber = results.trnSaleOrder.orderNumber;
+          this.customerAddresses = results.trnSaleOrder.mstCustomer.mstCustomerAddresses;
+          customerInMH = _.find(this.customerAddresses, function (o) { return o.state == "Maharashtra" && o.id == results.trnSaleOrder.shippingAddressId; });
+          this.customerShippingAddress = _.find(this.customerAddresses, function (o) { return o.id == results.trnSaleOrder.shippingAddressId; });
+        } else {
+          this.orderNumber = results.trnMaterialQuotation.materialQuotationNumber;
+          this.customerAddresses = results.trnMaterialQuotation.mstCustomer.mstCustomerAddresses;
+          customerInMH = _.find(this.customerAddresses, function (o) { return o.state == "Maharashtra" && o.isPrimary == true; });
+          this.customerShippingAddress = _.find(this.customerAddresses, function (o) { return o.isPrimary == true; });
         }
-        let customerInMH =_.find( this.customerAddresses, function(o) { return o.state  == "Maharashtra" && o.id == results.trnSaleOrder.shippingAddressId ; });
-        this.customerShippingAddress=_.find( this.customerAddresses, function(o) { return  o.id == results.trnSaleOrder.shippingAddressId ; });
+
         this.trnSalesInvoiceObj.trnSalesInvoiceItems.forEach(item => {
           if (this.trnSalesInvoiceObj.totalAmount == null) {
             this.trnSalesInvoiceObj.totalAmount = 0;
           }
 
-          if(customerInMH)
-          {
+          if (customerInMH) {
             this.gstAll = this.gstAll + Math.round(((item.amount * (item.gst)) / 100));
-           
+
           }
-          else
-          {
+          else {
             this.iGstAll = this.iGstAll + Math.round((item.amount * (item.gst)) / 100);
           }
-         // this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + item.amount;
+          // this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + item.amount;
           // this.customerAddresses.forEach(o => {
           //   if (o.state == "Maharashtra") {
           //     this.gstAll = this.gstAll + Math.round(((item.amount * (item.gst)) / 100) / 2);
@@ -151,7 +156,7 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
           //   }
           // })
 
-        
+
         });
         // if(customerInMH)
         // {
@@ -191,8 +196,8 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
           totalTax = totalTax + gstTotal;
         }
       });
-      gstTotal =Math.round(gstTotal);
-      totalTax =Math.round(totalTax);
+      gstTotal = Math.round(gstTotal);
+      totalTax = Math.round(totalTax);
       lstGSTValue.push({ taxValue: taxsableValue, gst: gstVal, amount: gstTotal, totalTax: totalTax });
     });
     this.totalTaxAmount = totalTax;
@@ -201,8 +206,8 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
 
 
   numberToWords(n, custom_join_character) {
-    if(!n)
-    n=0;
+    if (!n)
+      n = 0;
     var string = n.toString(),
       units, tens, scales, start, end, chunks, chunksLen, chunk, ints, i, word, words;
 
@@ -272,8 +277,8 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
 
           /* Chunk has a hundreds integer or chunk is the first of multiple chunks */
           if (ints[2] || !i && chunksLen) {
-            if(n>100)
-            words.push(and);
+            if (n > 100)
+              words.push(and);
           }
 
         }

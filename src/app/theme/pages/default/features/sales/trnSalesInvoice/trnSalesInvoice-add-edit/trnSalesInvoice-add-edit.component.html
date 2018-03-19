@@ -76,24 +76,26 @@
 
 										<div class="invoiceAddressBox">
 											<h5>Buyer</h5>
-											<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["name"] : ""}}
+											<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["name"] : trnSalesInvoiceObj["trnMaterialQuotation"]
+												? trnSalesInvoiceObj["trnMaterialQuotation"]["mstCustomer"]["name"] : ""}}
 											</h4>
 											<p>
-												{{customerShippingAddress["addressLine1"]}} {{ customerShippingAddress["addressLine2"]}}, {{customerShippingAddress["state"]}}, 
-												  {{customerShippingAddress["city"]}}, PINCODE - {{customerShippingAddress["pin"]  }}
+												{{customerShippingAddress["addressLine1"]}} {{ customerShippingAddress["addressLine2"]}}, {{customerShippingAddress["state"]}},
+												{{customerShippingAddress["city"]}}, PINCODE - {{customerShippingAddress["pin"] }}
 											</p>
 											<p>
-												MOB-{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["phone"] : ""}}
+												MOB-{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["phone"] : trnSalesInvoiceObj["trnMaterialQuotation"]
+												? trnSalesInvoiceObj["trnMaterialQuotation"]["mstCustomer"]["phone"] : ""}}
 											</p>
 											<p>
-												GSTIN/UIN : {{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["mstCustomerAddresses"][0]["gstin"]
-												: ""}}
+												GSTIN/UIN : {{customerShippingAddress["gstin"]}}
 											</p>
 											<p>
 												State Name : {{customerShippingAddress["state"]}}
 											</p>
 											<p>
-												E-Mail : {{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["email"] : ""}}
+												E-Mail : {{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["email"] : trnSalesInvoiceObj["trnMaterialQuotation"]
+												? trnSalesInvoiceObj["trnMaterialQuotation"]["mstCustomer"]["email"] : ""}}
 											</p>
 										</div>
 
@@ -118,7 +120,8 @@
 												<div class="col-md-6">
 													<div class="invoiceStatContainer">
 														<h5>Delivery Note</h5>
-														<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["orderNumber"] : ""}}/{{trnSalesInvoiceObj["trnGoodIssueNote"]
+														<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["orderNumber"] : trnSalesInvoiceObj["trnMaterialQuotation"]
+															? trnSalesInvoiceObj["trnMaterialQuotation"]["materialQuotationNumber"] : ""}}/{{trnSalesInvoiceObj["trnGoodIssueNote"]
 															? trnSalesInvoiceObj["trnGoodIssueNote"]["ginNumber"] : ""}}</h4>
 													</div>
 												</div>
@@ -142,7 +145,8 @@
 													<div class="invoiceStatContainer">
 														<h5>Dated</h5>
 														<h4>{{trnSalesInvoiceObj["trnSaleOrder"] ? (trnSalesInvoiceObj["trnSaleOrder"]["orderDate"] | date: 'dd/MM/yyyy')
-															: ""}}</h4>
+															: trnSalesInvoiceObj["trnMaterialQuotation"] ? (trnSalesInvoiceObj["trnMaterialQuotation"]["materialQuotationDate"]
+															| date: 'dd/MM/yyyy') : ""}}</h4>
 													</div>
 												</div>
 
@@ -225,7 +229,7 @@
 												<th style="width:4%;">Sr.No.</th>
 												<th style="width:50%;text-align:center;">Description of Goods</th>
 												<th style="width:8%;">HSN/SAC</th>
-												<th style="width:8%;text-align:center;" >GST Rate</th>
+												<th style="width:8%;text-align:center;">GST Rate</th>
 												<th style="text-align:center;width:5%;">Quantity</th>
 												<th style="text-align:center;">Rate</th>
 												<th style="text-align:center;">Per</th>
@@ -247,17 +251,15 @@
 													<b>{{trnSalesInvoiceItem.quantity}}</b>
 												</td>
 												<td class="alignRight" style="text-align:center;">{{trnSalesInvoiceItem.rate}}</td>
-												<td style="text-align:center;">{{trnSalesInvoiceItem.uom}}
-														{{trnSalesInvoiceItem.mstAccessory?
-															trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure?
-															trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure.uomCode:'':''}}
+												<td style="text-align:center;">{{trnSalesInvoiceItem.uom}} {{trnSalesInvoiceItem.mstAccessory? trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure?
+													trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure.uomCode:'':''}}
 												</td>
 												<td class="alignRight" style="text-align:left;">{{trnSalesInvoiceItem.discountPercentage || 0}}</td>
 												<td class="alignRight">
 													<b>{{trnSalesInvoiceItem.amount}}</b>
 												</td>
 											</tr>
-											<tr class="gstRow" >
+											<tr class="gstRow">
 												<td></td>
 												<td class="gstCell">CGST-ALL</td>
 												<td></td>
@@ -267,7 +269,7 @@
 												<td></td>
 												<td></td>
 												<td class="alignRight">
-													<b >{{gstAll>0 ?gstAll/2:0}}</b>
+													<b>{{gstAll>0 ?gstAll/2:0}}</b>
 												</td>
 											</tr>
 											<tr class="gstRow">
@@ -280,7 +282,7 @@
 												<td></td>
 												<td></td>
 												<td class="alignRight">
-													<b >{{gstAll>0 ?gstAll/2:0}}</b>
+													<b>{{gstAll>0 ?gstAll/2:0}}</b>
 												</td>
 											</tr>
 											<tr class="gstRow">
@@ -293,7 +295,7 @@
 												<td></td>
 												<td></td>
 												<td class="alignRight">
-													<b >{{iGstAll>0 ?iGstAll:0}}</b>
+													<b>{{iGstAll>0 ?iGstAll:0}}</b>
 												</td>
 											</tr>
 											<tr class="totalRow">
@@ -339,13 +341,13 @@
 									<tbody>
 										<tr>
 											<td></td>
-											<td class="boldTD alignCenter" >Rate</td>
-											<td class="boldTD alignCenter" >Amount</td>
-											<td class="boldTD alignCenter" >Rate</td>
-											<td class="boldTD alignCenter" >Amount</td>
-											<td class="boldTD alignCenter" >Rate</td>
-											<td class="boldTD alignCenter" >Amount</td>
-											<td ></td>
+											<td class="boldTD alignCenter">Rate</td>
+											<td class="boldTD alignCenter">Amount</td>
+											<td class="boldTD alignCenter">Rate</td>
+											<td class="boldTD alignCenter">Amount</td>
+											<td class="boldTD alignCenter">Rate</td>
+											<td class="boldTD alignCenter">Amount</td>
+											<td></td>
 										</tr>
 										<tr class="" *ngFor="let row of invoiceGSTValues;let rowNum=index;let lastRowNum=last;">
 											<td class="alignRight">{{row.taxValue}}</td>
@@ -365,13 +367,13 @@
 										</tr>
 										<tr class="totalRow">
 											<td class="alignRight">Total : {{trnSalesInvoiceObj.totalAmount - (gstAll || iGstAll)}}</td>
-											<td class="alignRight" ></td>
+											<td class="alignRight"></td>
 											<td class="alignRight" *ngIf="gstAll>0">{{ gstAll/2}}</td>
 											<td class="alignRight" *ngIf="gstAll<=0">0</td>
-											<td class="alignRight" ></td>
+											<td class="alignRight"></td>
 											<td class="alignRight" *ngIf="gstAll>0">{{ gstAll/2}}</td>
 											<td class="alignRight" *ngIf="gstAll<=0">0</td>
-											<td class="alignRight" ></td>
+											<td class="alignRight"></td>
 											<td class="alignRight" *ngIf="iGstAll>0">{{iGstAll}}</td>
 											<td class="alignRight" *ngIf="iGstAll<=0">0</td>
 											<td class="alignRight">{{ gstAll || iGstAll }}</td>
@@ -440,21 +442,20 @@
 											Customer Seal &amp; Signature
 										</td>
 										<td style="padding:5px;width:50%;text-align:right;font-family:Roboto;border:1px solid #ddd;font-size:13px;border-left:none;font-weight:400;">
-											<h5 style="margin-top:0px;margin-bottom:0;font-size:14px;font-family:Roboto;font-weight:500;">For SOFTZONE</h5>	
-											<br/>
-											Authorised Signatory
-										</td>	
-									</tr>	
-								</table>	
-							</div>	
+											<h5 style="margin-top:0px;margin-bottom:0;font-size:14px;font-family:Roboto;font-weight:500;">For SOFTZONE</h5>
+											<br/> Authorised Signatory
+										</td>
+									</tr>
+								</table>
+							</div>
 
 							<div class="row" style="text-align:center;width: 100%;">
 								<div style="text-align:center;width: 100%;">
 									<label style="font-family:Roboto;font-size:13px;font-weight:500;margin-top:5px;">SUBJECT TO PUNE JURISDICTION</label>
 									<br/>
 									<label style="font-family:Roboto;font-size:13px;font-weight:500;">This is a Computer Generated Invoice</label>
-								</div>	
-							</div>	
+								</div>
+							</div>
 
 						</div>
 					</div>
@@ -480,12 +481,12 @@
 	<h3 class="invoiceMainHeading" style="font-family:Roboto;text-align:center;">Tax Invoice</h3>
 	<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 	<div style="padding-left:15px;padding-right:15px;">
-	<table style="width: 100%;border-collapse: collapse;margin-bottom:0;" cellspacing="0">
-		<tr>
+		<table style="width: 100%;border-collapse: collapse;margin-bottom:0;" cellspacing="0">
+			<tr>
 
-			<td style="width:50%;border-collapse: collapse;border: 1px solid #000;vertical-align:top;">
-				<div style="padding-left:5px;font-family:Roboto;border-collapse: collapse;border-bottom:1px solid #000;border-left:0;">
-					<h4 style="margin-bottom:5px;">{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["companyName"] : ""}}</h4>
+				<td style="width:50%;border-collapse: collapse;border: 1px solid #000;vertical-align:top;">
+					<div style="padding-left:5px;font-family:Roboto;border-collapse: collapse;border-bottom:1px solid #000;border-left:0;">
+						<h4 style="margin-bottom:5px;">{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["companyName"] : ""}}</h4>
 						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 							{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["address1"] : ""}}
 						</p>
@@ -506,133 +507,139 @@
 							E-Mail : {{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["email"] : ""}}
 						</p>
 
-				</div>	
+					</div>
 
-				<div style="padding-left:5px;font-family:Roboto;margin-bottom:-5px;border-collapse: collapse;border-top:0;border-bottom:0;border-left:0;">
-					<h5 style="font-family:Poppins;margin-top:0;margin-bottom:0;">Buyer</h5>
+					<div style="padding-left:5px;font-family:Roboto;margin-bottom:-5px;border-collapse: collapse;border-top:0;border-bottom:0;border-left:0;">
+						<h5 style="font-family:Poppins;margin-top:0;margin-bottom:0;">Buyer</h5>
 						<h4 style="font-family:Roboto;margin-top:0;margin-bottom:0;">
-							{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["name"] : ""}}
+							{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["name"] : trnSalesInvoiceObj["trnMaterialQuotation"]
+							? trnSalesInvoiceObj["trnMaterialQuotation"]["mstCustomer"]["name"] : ""}}
 						</h4>
 						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
-								{{customerShippingAddress["addressLine1"]}} {{ customerShippingAddress["addressLine2"]}}, {{customerShippingAddress["state"]}}, 
-								{{customerShippingAddress["city"]}}, PINCODE - {{customerShippingAddress["pin"]  }}
+							{{customerShippingAddress["addressLine1"]}} {{ customerShippingAddress["addressLine2"]}}, {{customerShippingAddress["state"]}},
+							{{customerShippingAddress["city"]}}, PINCODE - {{customerShippingAddress["pin"] }}
 						</p>
 						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
-							MOB-{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["phone"] : ""}}
+							MOB-{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["phone"] : trnSalesInvoiceObj["trnMaterialQuotation"]
+							? trnSalesInvoiceObj["trnMaterialQuotation"]["mstCustomer"]["phone"] : ""}}
 						</p>
 						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
-							GSTIN/UIN : {{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["mstCustomerAddresses"][0]["gstin"]
-							: ""}}
+							GSTIN/UIN : {{customerShippingAddress["gstin"]}}
 						</p>
 						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
 							State Name : {{customerShippingAddress["state"]}}
 						</p>
 						<p style="font-family:Roboto;font-size:10px;margin-top:0;margin-bottom:0;">
-							E-Mail : {{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["email"] : ""}}
+							E-Mail : {{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCustomer"]["email"] : trnSalesInvoiceObj["trnMaterialQuotation"]
+							? trnSalesInvoiceObj["trnMaterialQuotation"]["mstCustomer"]["email"] : ""}}
 						</p>
 						<p style="margin-bottom:2px;">
-							
+
 						</p>
-						
-				</div>	
-			</td>
 
-			<td style="width:50%;border-collapse: collapse;border: 1px solid #000;vertical-align:top;">
-				<table class="table table-bordered printtable" style="width: 100%;" cellspacing="0">
-					<tr>
-						<td style="border: 1px solid #000;border-collapse: collapse;border-left:0;border-top:none;">
-							<div class="">
-								<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Invoice No.</h5>
-								<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.invoiceNumber}}</h4>
-							</div>
-						</td>
-						<td style="border: 1px solid #000;border-collapse: collapse;border-left:0;border-right:none;border-top:none;">
-							<div class="">
-								<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dated</h5>
-								<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.invoiceDate | date: 'dd/MM/yyyy'}}</h4>
-							</div>
-						</td>
-					</tr>
+					</div>
+				</td>
 
-					<tr>
-						<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;">
-							<div class="">
-								<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Delivery Note</h5>
-								<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["orderNumber"] : ""}}/{{trnSalesInvoiceObj["trnGoodIssueNote"]
-									? trnSalesInvoiceObj["trnGoodIssueNote"]["ginNumber"] : ""}}</h4>
-							</div>
-						</td>
-						<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;border-right:none;">
-							<div class="">
-								<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Mode/Terms of Payment</h5>
-								<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["paymentMode"] : ""}}</h4>
-							</div>
-						</td>
-					</tr>
+				<td style="width:50%;border-collapse: collapse;border: 1px solid #000;vertical-align:top;">
+					<table class="table table-bordered printtable" style="width: 100%;" cellspacing="0">
+						<tr>
+							<td style="border: 1px solid #000;border-collapse: collapse;border-left:0;border-top:none;">
+								<div class="">
+									<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Invoice No.</h5>
+									<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.invoiceNumber}}</h4>
+								</div>
+							</td>
+							<td style="border: 1px solid #000;border-collapse: collapse;border-left:0;border-right:none;border-top:none;">
+								<div class="">
+									<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dated</h5>
+									<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.invoiceDate | date: 'dd/MM/yyyy'}}</h4>
+								</div>
+							</td>
+						</tr>
 
-					<tr>
-						<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;">
-							<div class="">
-								<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Buyer's Order No.</h5>
-								<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.buyersOrderNumber}}</h4>
-							</div>
-						</td>
-						<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;border-right:none;">
-							<div class="">
-								<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dated</h5>
-								<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? (trnSalesInvoiceObj["trnSaleOrder"]["orderDate"] | date: 'dd/MM/yyyy') : ""}}</h4>
-							</div>
-						</td>
-					</tr>
+						<tr>
+							<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;">
+								<div class="">
+									<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Delivery Note</h5>
+									<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["orderNumber"] : trnSalesInvoiceObj["trnMaterialQuotation"]
+										? trnSalesInvoiceObj["trnMaterialQuotation"]["materialQuotationNumber"] : "" }}/{{trnSalesInvoiceObj["trnGoodIssueNote"]
+										? trnSalesInvoiceObj["trnGoodIssueNote"]["ginNumber"] : ""}}</h4>
+								</div>
+							</td>
+							<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;border-right:none;">
+								<div class="">
+									<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Mode/Terms of Payment</h5>
+									<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["paymentMode"] : ""}}</h4>
+								</div>
+							</td>
+						</tr>
 
-					<tr>
-						<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;">
-							<div class="">
-								<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dispatch Document No.</h5>
-								<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.courierDockYardNumber}}</h4>
-							</div>
-						</td>
-						<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;border-right:none;">
-							<div class="">
-								<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">PAYMENT DUE DATE</h5>
-								<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.expectedDeliveryDate | date: 'dd/MM/yyyy'}}</h4>
-							</div>
-						</td>
-					</tr>
+						<tr>
+							<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;">
+								<div class="">
+									<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Buyer's Order No.</h5>
+									<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.buyersOrderNumber}}</h4>
+								</div>
+							</td>
+							<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;border-right:none;">
+								<div class="">
+									<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dated</h5>
+									<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? (trnSalesInvoiceObj["trnSaleOrder"]["orderDate"] | date: 'dd/MM/yyyy') :
+										trnSalesInvoiceObj["trnMaterialQuotation"] ? (trnSalesInvoiceObj["trnMaterialQuotation"]["materialQuotationDate"]
+										| date: 'dd/MM/yyyy') : ""}}</h4>
+								</div>
+							</td>
+						</tr>
 
-					<tr>
-						<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;">
-							<div class="">
-								<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dispatched through</h5>
-								<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCourier"]["name"] : ""}}</h4>
-							</div>
-						</td>
-						<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;border-right:none;">
-							<div class="">
-								<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px">Courier Mode</h5>
-								<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["courierMode"] : ""}}</h4>
-							</div>
-						</td>
-					</tr>
+						<tr>
+							<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;">
+								<div class="">
+									<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dispatch Document No.</h5>
+									<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.courierDockYardNumber}}</h4>
+								</div>
+							</td>
+							<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;border-right:none;">
+								<div class="">
+									<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">PAYMENT DUE DATE</h5>
+									<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj.expectedDeliveryDate | date: 'dd/MM/yyyy'}}</h4>
+								</div>
+							</td>
+						</tr>
 
-					<tr>
-						<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;border-bottom:none;border-right:none;" colspan="2">
-							<div class="">
-								<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Terms of Delivery</h5><br/><br/><br/>
-							</div>
-						</td>
-					</tr>
-					
-					
-				</table>
-			</td>	
+						<tr>
+							<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;">
+								<div class="">
+									<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Dispatched through</h5>
+									<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["mstCourier"]["name"] : ""}}</h4>
+								</div>
+							</td>
+							<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;border-right:none;">
+								<div class="">
+									<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px">Courier Mode</h5>
+									<h4 style="font-family:Roboto;margin-bottom:0;margin-top:0;font-size:10px;">{{trnSalesInvoiceObj["trnSaleOrder"] ? trnSalesInvoiceObj["trnSaleOrder"]["courierMode"] : ""}}</h4>
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td style="border: 1px solid #000;border-collapse: collapse;border-top:0;border-left:0;border-bottom:none;border-right:none;"
+							 colspan="2">
+								<div class="">
+									<h5 style="font-family:Roboto;margin-bottom:0;font-weight:300;font-size:10px;">Terms of Delivery</h5><br/><br/><br/>
+								</div>
+							</td>
+						</tr>
 
 
-		</tr>	
-	</table>	
-	<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->	
+					</table>
+				</td>
+
+
+			</tr>
+		</table>
+		<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 	</div>
-	
+
 	<!-- Table -->
 	<div class="table-responsive" style="margin-top:10px;clear:both;display:block;padding-left:15px;padding-right:15px;">
 		<table class="table invoiceItemTable table-bordered" cellspacing="0" style="width:100%;max-width: 100%;border-collapse: collapse;">
@@ -653,7 +660,7 @@
 				<tr *ngFor="let trnSalesInvoiceItem of trnSalesInvoiceObj.trnSalesInvoiceItems; let i=index;">
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">{{i+1}}</td>
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
-						<b style="font-family:Roboto;font-weight:900;">{{trnSalesInvoiceItem.categoryName}}</b>
+						<b style="font-family:Roboto;font-weight:900;">{{trnSalesInvoiceItem.categoryName}} {{trnSalesInvoiceItem.serialno}} {{trnSalesInvoiceItem.size}} {{trnSalesInvoiceItem.matSizeCode}} {{trnSalesInvoiceItem.accessoryName}}</b>
 					</td>
 					<td class="alignCenter" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.hsnCode}}</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.gst}}%</td>
@@ -661,17 +668,14 @@
 						<b>{{trnSalesInvoiceItem.quantity}}</b>
 					</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.rate}}</td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.uom}}
-							{{trnSalesInvoiceItem.mstAccessory?
-								trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure?
-								trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure.uomCode:'':''}}
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.uom}} {{trnSalesInvoiceItem.mstAccessory? trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure? trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure.uomCode:'':''}}
 					</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.discountPercentage || 0}}</td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
 						<b>{{trnSalesInvoiceItem.amount}}</b>
 					</td>
 				</tr>
-				<tr class="gstRow" >
+				<tr class="gstRow">
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;"></td>
 					<td class="gstCell" style="border: 1px solid #000;font-family:Roboto;text-align:right;font-size:10px;border-collapse: collapse;">CGST-ALL</td>
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
@@ -681,7 +685,7 @@
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
-						<b >{{gstAll>0 ?gstAll/2:0}}</b>
+						<b>{{gstAll>0 ?gstAll/2:0}}</b>
 					</td>
 				</tr>
 				<tr class="gstRow">
@@ -694,7 +698,7 @@
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
-						<b >{{gstAll>0 ?gstAll/2:0}}</b>
+						<b>{{gstAll>0 ?gstAll/2:0}}</b>
 					</td>
 				</tr>
 				<tr class="gstRow">
@@ -707,7 +711,7 @@
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
-						<b >{{iGstAll>0 ?iGstAll:0}}</b>
+						<b>{{iGstAll>0 ?iGstAll:0}}</b>
 					</td>
 				</tr>
 				<tr class="totalRow">
@@ -753,7 +757,7 @@
 			<tbody>
 				<tr>
 					<td style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;border-collapse: collapse;"></td>
-					<td class="boldTD alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;border-collapse: collapse;" >Rate</td>
+					<td class="boldTD alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;border-collapse: collapse;">Rate</td>
 					<td class="boldTD alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;border-collapse: collapse;">Amount</td>
 					<td class="boldTD alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;border-collapse: collapse;">Rate</td>
 					<td class="boldTD alignCenter" style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;text-align:right;border-collapse: collapse;">Amount</td>
@@ -798,7 +802,8 @@
 	<!-- Tax Amount in words -->
 	<div class="amountWordsBox" style="padding: 5px 15px;margin-bottom: 10px;background: #f2f2f2;border-radius: 4px;margin-top: 10px;">
 		<h4 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 12px;margin-bottom:0;font-weight: 600 !important;margin-bottom: 0;">
-			<span class="taxAmtSpan"><span style="font-family: Roboto;color: #2f2f2f;margin-top: 0;margin-bottom:0;font-size: 12px;font-weight: 400 !important;">Tax Amount in words : </span></span>INR {{numberToWordConversionForTax}} Only</h4>
+			<span class="taxAmtSpan"><span style="font-family: Roboto;color: #2f2f2f;margin-top: 0;margin-bottom:0;font-size: 12px;font-weight: 400 !important;">Tax Amount in words : </span></span>INR
+			{{numberToWordConversionForTax}} Only</h4>
 	</div>
 
 	<!-- Declaration -->
@@ -858,19 +863,18 @@
 					Customer Seal &amp; Signature
 				</td>
 				<td style="width:50%;text-align:right;font-family:Roboto;border:1px solid #000;font-size:10px;border-collapse:collapse;border-left:0;">
-					<h5 style="margin-top:0px;margin-bottom:0;font-weight:700;font-family:Roboto;">For SOFTZONE</h5>	
-					<br/><br/><br/>
-					Authorised Signatory
-				</td>	
-			</tr>	
-		</table>	
-	</div>	
+					<h5 style="margin-top:0px;margin-bottom:0;font-weight:700;font-family:Roboto;">For SOFTZONE</h5>
+					<br/><br/><br/> Authorised Signatory
+				</td>
+			</tr>
+		</table>
+	</div>
 
 	<div class="row">
 		<div style="text-align:center;">
 			<label style="font-family:Roboto;font-size:10px;">SUBJECT TO PUNE JURISDICTION</label>
 			<br/><br/>
 			<label style="font-family:Roboto;font-size:10px;">This is a Computer Generated Invoice</label>
-		</div>	
-	</div>	
+		</div>
+	</div>
 </div>
