@@ -115,6 +115,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   shadeEnable: boolean = false;
   matEnable: boolean = false;
   fomEnable: boolean = false;
+  isMatSelectionId: boolean = false;
   customerList = [];
   constructor(
     private cdr: ChangeDetectorRef,
@@ -141,6 +142,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
       .subscribe(params => {
         this.materialSelectionId = params.materialSelectionId;
         if (this.materialSelectionId) {
+          this.isMatSelectionId = true;
           this.trnMaterialSelectionService.getMaterialQuotationBySelectionId(this.materialSelectionId).subscribe(
             results => {
               this.trnMaterialQuotationObj = results;
@@ -154,6 +156,9 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
               this.globalErrorHandler.handleError(error);
               Helpers.setLoading(false);
             });
+        } else {
+          this.isMatSelectionId = false;
+          this.materialSelectionId = null;
         }
       });
 
@@ -206,6 +211,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
           this.params = null;
           this.status = false;
           this.viewItem = false;
+          this.trnMaterialQuotationObj.status = 'Approved';
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
         },
