@@ -161,28 +161,28 @@
 														<label class="col-md-4 col-sm-4 fieldLabel">Serial No.<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="shadeIdList" [(ngModel)]="shadeId" [style]="{'width':'100%'}" styleClass="{{shadeIdError?'red-border-class':'' }}"
-															 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+															 name="shadeId" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4" *ngIf="categoryId==4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Mat size<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="matSizeList" [(ngModel)]="matSizeId" [style]="{'width':'100%'}" styleClass="{{matSizeIdError?'red-border-class':'' }}"
-															 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+															 name="matSizeId" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4" *ngIf="categoryId==2">
 														<label class="col-md-4 col-sm-4 fieldLabel">Foam Item<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="fomSizeList" [(ngModel)]="fomSizeId" [style]="{'width':'100%'}" styleClass="{{fomSizeIdError?'red-border-class':'' }}"
-															 name="shadeIdDDl" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+															 name="fomSizeId" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4" *ngIf="categoryId==7">
 														<label class="col-md-4 col-sm-4 fieldLabel">Accessory Code<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="accessoryCodeList" [(ngModel)]="accessoryId" [style]="{'width':'100%'}" styleClass="{{accessoryIdError?'red-border-class':'' }}"
-															 name="accessoryIdDDl" filter="true" tabindex="6" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
+															 name="accessoryId" filter="true" tabindex="6" (ngModelChange)="calculateProductStockDetails()"></p-dropdown>
 														</div>
 													</div>
 												</div>
@@ -192,11 +192,16 @@
 														<div class="col-md-8 col-sm-8">
 															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="qualityId"
 															 styleClass="{{qualityIdError?'red-border-class':'' }}"  (ngModelChange)="onQualityClick()"
-															 name="quality"  filter="true" tabindex="8"></p-dropdown>
+															 name="qualityId"  filter="true" tabindex="8"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Length x Width<span class="requiredField">*</span></label>
+														<label class="fieldLabel col-md-4 col-sm-4">Thickness<span class="requiredField">*</span></label>
+														<div class="col-md-8 col-sm-8">
+															 <p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="matThicknessId" (ngModelChange)="onThicknessChange()"
+															 styleClass="{{matThicknessIdError?'red-border-class':'' }}" name="matThicknessId"  filter="true" tabindex="8" ></p-dropdown>
+														</div>
+														<!-- <label class="col-md-4 col-sm-4 fieldLabel">Length x Width<span class="requiredField">*</span></label>
 														<div class="col-md-3 col-sm-3">
 															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': lengthError}"
 															 [(ngModel)]="length" name="length" placeholder="" (blur)="onMatSizeCodeChange()" autocomplete="off" tabindex="8">
@@ -206,13 +211,18 @@
 														<div class="col-md-3 col-sm-3">
 															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': widthError}"
 															 (blur)="calculateSizeCode();" [(ngModel)]="width" name="width" placeholder="" (blur)="onMatSizeCodeChange()" autocomplete="off" tabindex="8">
-														</div>
+														</div> -->
 													</div>
 													<div class="col-md-4">
-														<label class="fieldLabel col-md-4 col-sm-4">Thickness<span class="requiredField">*</span></label>
+														<!-- <label class="fieldLabel col-md-4 col-sm-4">Thickness<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
 															 <p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="matThicknessId" (ngModelChange)="onThicknessChange()"
 															 styleClass="{{matThicknessIdError?'red-border-class':'' }}" name="matSizeIdval"  filter="true" tabindex="8" ></p-dropdown>
+														</div> -->
+														<label class="fieldLabel col-md-4 col-sm-4">MatSizeCode<span class="requiredField">*</span></label>
+														<div class="col-md-8 col-sm-8">
+															 <p-dropdown class="feePlanBox" [options]="matSizeCodeList" [style]="{'width':'100%'}" [(ngModel)]="matSizeCode"
+															 styleClass="{{matSizeCodeError?'red-border-class':'' }}" name="matSizeCode"  (ngModelChange)="onMatSizeCodeChange()" filter="true" tabindex="8" ></p-dropdown>
 														</div>
 													</div>
 												</div>

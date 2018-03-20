@@ -386,8 +386,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       purchaseDiscount: null
     };
     this.amount = null,
-    this.tempPurchaseDiscount=0;
-      this.orderType = '';
+      this.tempPurchaseDiscount = 0;
+    this.orderType = '';
     this.amountWithGST = '';
   }
 
@@ -406,7 +406,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
@@ -430,7 +430,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
@@ -459,7 +459,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -489,7 +489,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
@@ -555,7 +555,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.matThicknessIdError = false;
     this.productDetails.stock = null;
     this.productDetails.purchaseDiscount = null;
-    this.tempPurchaseDiscount=0;
+    this.tempPurchaseDiscount = 0;
     this.productDetails.gst = null;
     this.length = null;
     this.lengthError = false;
@@ -688,6 +688,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   calculateSizeCode() {
     if (this.width && this.length) {
+      this.width = parseFloat(this.width).toFixed(2);
+      this.length = parseFloat(this.length).toFixed(2);
       this.matSizeCode = this.length + 'x' + this.width;
     }
     else
@@ -743,7 +745,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
         this.amount = Math.round(this.rate * this.orderQuantity);
         this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
-        this.tempPurchaseDiscount =0;        
+        this.tempPurchaseDiscount = 0;
       }
       else {
         this.rate = ((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet;
@@ -756,7 +758,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
         this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
         this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
-        this.tempPurchaseDiscount = this.productDetails.purchaseDiscount;        
+        this.tempPurchaseDiscount = this.productDetails.purchaseDiscount;
       }
     }
     else if (this.categoryId == 7) {
@@ -768,7 +770,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       //this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
       this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
       this.tempPurchaseDiscount = 0;
-      
+
     }
   }
 
@@ -856,7 +858,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -883,7 +885,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -915,7 +917,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -936,7 +938,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.collectionIdError = true;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.shadeIdList = [];
       this.shadeIdList.unshift({ label: '--Select--', value: null });
@@ -956,7 +958,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
