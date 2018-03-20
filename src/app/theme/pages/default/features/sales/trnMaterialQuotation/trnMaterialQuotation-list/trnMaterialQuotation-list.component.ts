@@ -58,7 +58,7 @@ export class TrnMaterialQuotationListComponent implements OnInit {
   onApprove(trnMaterialQuotationObj){
     Helpers.setLoading(true);
     if (trnMaterialQuotationObj.id) {
-      this.trnMaterialQuotationService.approveSalesOrder(trnMaterialQuotationObj)
+      this.trnMaterialQuotationService.approveMaterialQuotation(trnMaterialQuotationObj)
         .subscribe(
         results => {
           this.getTrnMaterialQuotationsList();

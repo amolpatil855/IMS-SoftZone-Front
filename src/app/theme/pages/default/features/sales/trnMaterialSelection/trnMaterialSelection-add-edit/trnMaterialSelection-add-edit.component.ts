@@ -830,7 +830,6 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   }
 
   onChangeCollection() {
-
     if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
       this.collectionIdError = false;
       this.shadeIdList = [];
