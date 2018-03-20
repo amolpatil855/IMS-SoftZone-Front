@@ -17,8 +17,8 @@ export class TrnProductStockService {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStockDetail?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
   
-  getAllTrnProductStocks(categoryId, collectionId, parameterId, qualityId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStock/GetProductDetails?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId+ '&qualityId=' + qualityId, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllTrnProductStocks(categoryId, collectionId, parameterId, qualityId, matThicknessId, matSizeCode) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStock/GetProductDetails?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId + '&qualityId=' + qualityId + '&matThicknessId=' + matThicknessId + '&matSizeCode=' + matSizeCode, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getTrnProductStockById(id: number) {
