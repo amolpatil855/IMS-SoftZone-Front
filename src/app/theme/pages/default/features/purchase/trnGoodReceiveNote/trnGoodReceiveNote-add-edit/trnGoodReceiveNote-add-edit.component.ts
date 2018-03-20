@@ -196,15 +196,10 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     else
       this.purchaseOrderIdIdError = false;
 
-    if (this.categoryId == 4 && this.matSizeId == -1 && !this.length)
-      this.lengthError = true;
+    if (this.categoryId == 4 && this.matSizeId == -1 && !this.matSizeCode)
+      this.matSizeCodeError = true;
     else
-      this.lengthError = false;
-
-    if (this.categoryId == 4 && this.matSizeId == -1 && !this.width)
-      this.widthError = true;
-    else
-      this.widthError = false;
+      this.matSizeCodeError = false;
 
     if (this.categoryId == 4 && this.matSizeId == -1 && !this.matThicknessId)
       this.matThicknessIdError = true;
@@ -221,11 +216,6 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     else
       this.orderQuantityError = false;
 
-    if (!this.matSizeCode)
-      this.matSizeCodeError = true;
-    else
-      this.matSizeCodeError = false;
-
     if (this.orderQuantityError || this.widthError || this.matThicknessIdError || this.qualityIdError || this.fomSizeIdError || this.matSizeIdError || this.matSizeIdError || this.accessoryIdError
       || !this.receivedQuantity || this.lengthError || this.matSizeCodeError || this.purchaseOrderIdIdError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
       return false;
@@ -241,7 +231,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
       let poObj = _.find(this.trnGoodReceiveNoteItems, ['categoryId', this.categoryId]);
       if (poObj != null) {
-        if (this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId && this.purchaseOrderId == poObj.purchaseOrderId) {
+        if (this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId && this.purchaseOrderId == poObj.purchaseOrderId  && this.matSizeCode == poObj.matSizeCode) {
           this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
           return false;
         }
@@ -278,7 +268,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       shadeId: this.shadeId,
       fomSizeId: this.fomSizeId,
       matSizeId: this.matSizeId,
-      qualityId: this.qualityId,
+      matQualityId: this.qualityId,
       matThicknessId: this.matThicknessId,
       orderQuantity: this.orderQuantity,
       receivedQuantity: this.receivedQuantity,
@@ -376,7 +366,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.amountWithGST = null;
       let matSizeCodeObj = _.find(this.matSizeCodeList, ['value', this.matSizeCode]);
       this.matSizeCode = matSizeCodeObj.label;
-      if (this.matSizeCode) {
+      if (this.matSizeCode != '--Select--' && this.matSizeCode != null) {
         parameterId = this.matSizeId;
         this.trnGoodReceiveNoteService.getPOListForSelectedItem(this.categoryId, this.collectionId, parameterId, this.matSizeCode, this.qualityId, this.matThicknessId).subscribe(
           data => {
