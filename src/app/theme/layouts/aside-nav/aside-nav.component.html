@@ -243,7 +243,7 @@
             </li>
 
             <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['purchase','purchaseorder']">
+                data-menu-submenu-toggle="hover" [isAuthorize]="['customerLogin']">
                 <a href="#" class="m-menu__link m-menu__toggle">
                     <i class="m-menu__link-icon flaticon-cart"></i>
                     <span class="m-menu__link-text">
@@ -259,7 +259,7 @@
                                 <span class="m-menu__link-text">Order Management</span>
                             </a>
                         </li>
-                        <li [isAuthorize]="['purchaseorder']" class="m-menu__item " aria-haspopup="true">
+                        <li [isAuthorize]="['customerLogin']" class="m-menu__item " aria-haspopup="true">
                             <a routerLink="/features/orderManagement/trnCustomerOrder/list" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                     <span></span>

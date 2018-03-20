@@ -8,15 +8,21 @@ import { LayoutModule } from "../../../../../layouts/layout.module";
 import { CollectionService } from '../../../_services/collection.service';
 // import { RoleService, PermissionService } from '../../_services/index';
 import { CommonService } from '../../../_services/common.service';
+import { ShadeService } from "../../../_services/shade.service";
+import { FomSizeService } from "../../../_services/fomSize.service";
+import { CustomerService } from "../../../_services/customer.service";
 import {
   DataTableModule,
   SharedModule,
   ButtonModule,
   AutoCompleteModule,
   DropdownModule,
+  OverlayPanelModule,
+  DialogModule,
+  CalendarModule,
+  RadioButtonModule,
   ConfirmDialogModule,
   ConfirmationService,
-  CalendarModule
 } from 'primeng/primeng';
 import { SupplierService } from "../../../_services/supplier.service";
 import { TrnCustomerOrderService } from "../../../_services/trnCustomerOrder.service";
@@ -25,7 +31,7 @@ import { TrnCustomerOrderAddEditComponent } from "./trnCustomerOrder-add-edit/tr
 import {TrnProductStockService} from "../../../_services/trnProductStock.service";
 import {MatSizeService} from "../../../_services/matSize.service";
 import { TrnCustomerOrderComponent } from "./trnCustomerOrder.component";
-
+import { TrnSalesOrderService } from '../../../_services/trnSalesOrder.service';
 const routes: Routes = [
   {
     path: "",
@@ -40,7 +46,7 @@ const routes: Routes = [
             component: TrnCustomerOrderListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['purchaseorder']
+              permissions: ['customerLogin']
             }
           },
           {
@@ -48,7 +54,7 @@ const routes: Routes = [
             component: TrnCustomerOrderAddEditComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['purchaseorder']
+              permissions: ['customerLogin']
             }
           },
           {
@@ -56,7 +62,7 @@ const routes: Routes = [
             component: TrnCustomerOrderAddEditComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['purchaseorder']
+              permissions: ['customerLogin']
             }
           },
         ]
@@ -77,8 +83,11 @@ const routes: Routes = [
     ButtonModule,
     AutoCompleteModule,
     DropdownModule,
-    ConfirmDialogModule,
-    CalendarModule
+    CalendarModule,
+    OverlayPanelModule,
+    DialogModule,
+    RadioButtonModule,
+    ConfirmDialogModule
   ],
   declarations: [
     TrnCustomerOrderComponent,
@@ -93,7 +102,11 @@ const routes: Routes = [
     SupplierService,
     CommonService,
     CollectionService,
-    MatSizeService
+    MatSizeService,
+    TrnSalesOrderService,
+    ShadeService,
+    FomSizeService,
+    CustomerService
   ],
 })
 export class TrnCustomerOrderModule {
