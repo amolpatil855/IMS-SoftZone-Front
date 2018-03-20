@@ -103,6 +103,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
       this.trnAdvancePaymentService.getCustomerLookupByMaterialQuotationId(this.trnAdvancePaymentObj.materialQuotationId).subscribe(
         results => {
           this.customerList = results;
+          this.customerList.unshift({ label: '--Select--', value: null });
           Helpers.setLoading(false);
         },
         error => {

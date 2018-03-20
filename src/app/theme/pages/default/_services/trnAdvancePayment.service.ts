@@ -26,7 +26,7 @@ export class TrnAdvancePaymentService {
   }
 
   getCustomerLookupByMaterialQuotationId(materialQuotationId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Customer/GetCustomerLookupByMaterialQuotationId?materialQuotationId=' + materialQuotationId, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCustomerLookupByMaterialQuotationId?materialQuotationId=' + materialQuotationId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createTrnAdvancePayment(trnAdvancePayment: TrnAdvancePayment) {
