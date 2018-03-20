@@ -2355,3 +2355,19 @@ select option {
         width:60%!important;
     }
 }
+
+/******** D. 19 March 2018 *******/
+.ui-dialog-content{
+	overflow-x:hidden!important;
+}
+.poTable .ui-editable-column .ui-cell-data{
+	padding: 2px 2px 1px 49px!important;
+    border: 1px solid #ddd!important;
+    text-align: right!important;
+}
+.poTable tr td.ui-editable-column input {
+    width: 60px!important;
+    margin: 0 auto!important;
+    text-align: right!important;
+    border: 1px solid #ddd!important;	
+}

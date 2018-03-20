@@ -243,7 +243,7 @@
 															</label>
 																<div class="col-md-8 col-sm-8">
 																	<p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="matThicknessId" styleClass="{{matThicknessIdError?'red-border-class':'' }}"
-																	 name="matSizeId" filter="true" tabindex="13"></p-dropdown>
+																	 name="matThicknessId" filter="true" tabindex="13"></p-dropdown>
 																</div>
 															</div>
 														</div>
@@ -326,7 +326,7 @@
 		</div>
 	</div>
 </div>
-<p-dialog header="Customer Details" [(visible)]="display" modal="modal" [responsive]="true">
+<p-dialog header="Customer Details" [(visible)]="display" [closable]="false" modal="modal" [responsive]="true">
 	<div class="row">
 		<div class="col-md-12">
 			<!-- Basic Information -->
@@ -364,20 +364,18 @@
 							<input type="text" class="form-control" [ngClass]="{'red-border-class': address1Val.errors && address1Error}" #address1Val="ngModel"
 							 required [(ngModel)]="address1" name="address1" placeholder="Address 1" id="address1" tabindex="5">
 						</div>
-					</div>
-					<div class="form-group">
 						<label class="col-md-2 col-sm-2 fieldLabel">City<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
 							<input type="text" class="form-control" [ngClass]="{'red-border-class': cityVal.errors && cityError}" #cityVal="ngModel"
 							 required [(ngModel)]="city" name="city" placeholder="City" id="city" tabindex="7">
 						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-md-2 col-sm-2 fieldLabel">Pin<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
 							<input type="text" class="form-control" pattern="^[0-9]+" [ngClass]="{'red-border-class': pinVal.errors && pinError}" #pinVal="ngModel"
 							 required [(ngModel)]="pin" name="pin" placeholder="PIN" id="pin" minlength="6" maxlength="6" tabindex="8">
 						</div>
-					</div>
-					<div class="form-group">
 						<label class="col-md-2 col-sm-2 fieldLabel">State<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
 							<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" required #statesVal="ngModel" styleClass="{{ statesVal.errors && stateError?'red-border-class':''}}"
