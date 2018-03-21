@@ -33,8 +33,4 @@ export class TrnAdvancePaymentService {
     return this.http.post(AppSettings.API_ENDPOINT + 'TrnAdvancePayment', trnAdvancePayment, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  updateTrnAdvancePayment(trnAdvancePayment: TrnAdvancePayment) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'TrnAdvancePayment/' + trnAdvancePayment.id, trnAdvancePayment, AppSettings.requestOptions()).map((response: Response) => response.json());
-  }
-
 }

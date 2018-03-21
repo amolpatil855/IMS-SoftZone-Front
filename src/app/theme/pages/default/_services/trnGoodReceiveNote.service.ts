@@ -17,8 +17,12 @@ export class TrnGoodReceiveNoteService {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnGoodReceiveNote?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getPOListForSelectedItem(categoryId, collectionId, parameterId, matSizeCode) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'TrnGoodReceiveNote/GetPOListForSelectedItem?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId + '&matSizeCode=' + matSizeCode, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getPOListForSelectedItem(categoryId, collectionId, parameterId, matSizeCode, matQualityId, matThicknessId) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnGoodReceiveNote/GetPOListForSelectedItem?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId + '&matSizeCode=' + matSizeCode  + '&matQualityId=' + matQualityId + '&matThicknessId=' + matThicknessId, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getCustomMatSizeCodeLookup(categoryId, collectionId, matQualityId, matThicknessId) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnGoodReceiveNote/GetCustomMatSizeCodeLookup?categoryId=' + categoryId + '&collectionId=' + collectionId + '&matQualityId=' + matQualityId + '&matThicknessId=' + matThicknessId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getTrnGoodReceiveNoteById(id: number) {

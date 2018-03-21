@@ -41,13 +41,16 @@
 			</ul>
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnPurchaseOrderObj.status == 'Created'" [isAuthorize]="['purchaseorder']" title="Approve" (click)="onApprove()" tabindex="9">
+			<button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnPurchaseOrderObj.status == 'Created'" [isAuthorize]="['purchaseorder']"
+			 title="Approve" (click)="onApprove()" tabindex="9">
 				Approve
 			</button>
-			<button type="submit" class="topBtn btn btn-error" *ngIf="adminFlag && trnPurchaseOrderObj.status == 'Created'" [isAuthorize]="['purchaseorder']" title="Cancel PO" (click)="onCancelPO()" tabindex="9">
+			<button type="submit" class="topBtn btn btn-error" *ngIf="adminFlag && trnPurchaseOrderObj.status == 'Created'" [isAuthorize]="['purchaseorder']"
+			 title="Cancel PO" (click)="onCancelPO()" tabindex="9">
 				Cancel PO
 			</button>
-			<button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm" title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			<button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnProductStockForm"
+			 title="{{(trnProductStockForm && trnProductStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['purchaseorder']" tabindex="8">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
@@ -91,8 +94,8 @@
 																	<div class="col-md-6">
 																		<label class="col-md-4 col-sm-4 fieldLabel">Date</label>
 																		<div class="col-md-8 col-sm-8">
-																			<p-calendar class="purchaseOrderDate"  [disabled]="disabled" #orderDateVal="ngModel" [(ngModel)]="trnPurchaseOrderObj.orderDate" name="orderDate"
-																			 [monthNavigator]="true" [yearNavigator]="true" tabindex="1" yearRange="2015:2030" dateFormat="dd/mm/yy"
+																			<p-calendar class="purchaseOrderDate" [disabled]="disabled" #orderDateVal="ngModel" [(ngModel)]="trnPurchaseOrderObj.orderDate"
+																			 name="orderDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="1" yearRange="2015:2030" dateFormat="dd/mm/yy"
 																			 styleClass="{{ orderDateVal.errors && isFormSubmitted?'red-border-class':''}}" autofocus required></p-calendar>
 																		</div>
 																	</div>
@@ -110,9 +113,9 @@
 																</label>
 																<div class="col-md-10 col-sm-10 customerNameBox">
 
-																	<p-dropdown class="feePlanBox" [options]="supplierCodeList"  [disabled]="disabled" required [(ngModel)]="trnPurchaseOrderObj.supplierId" #supplierCodeVal="ngModel"
-																	 required styleClass="{{ supplierCodeVal.errors && isFormSubmitted?'red-border-class':''}}" [style]="{'width':'100%'}" [disabled]="disabled"
-																	 name="supplierCodeDDl" filter="true" tabindex="3"  (ngModelChange)="onChangeSupplier()"></p-dropdown>
+																	<p-dropdown class="feePlanBox" [options]="supplierCodeList" [disabled]="disabled" required [(ngModel)]="trnPurchaseOrderObj.supplierId"
+																	 #supplierCodeVal="ngModel" required styleClass="{{ supplierCodeVal.errors && isFormSubmitted?'red-border-class':''}}"
+																	 [style]="{'width':'100%'}" [disabled]="disabled" name="supplierCodeDDl" filter="true" tabindex="3" (ngModelChange)="onChangeSupplier()"></p-dropdown>
 																</div>
 															</div>
 
@@ -123,8 +126,8 @@
 																<label class="col-md-4 col-sm-4 fieldLabel">Courier<span class="requiredField">*</span>
 																</label>
 																<div class="col-md-8 col-sm-8">
-																	<p-dropdown class="feePlanBox" [options]="courierList"  [disabled]="!status"  required [(ngModel)]="trnPurchaseOrderObj.courierId" #courierVal="ngModel"
-																	 required [style]="{'width':'100%'}" styleClass="{{ courierVal.errors && isFormSubmitted?'red-border-class':''}}"
+																	<p-dropdown class="feePlanBox" [options]="courierList" [disabled]="!status" required [(ngModel)]="trnPurchaseOrderObj.courierId"
+																	 #courierVal="ngModel" required [style]="{'width':'100%'}" styleClass="{{ courierVal.errors && isFormSubmitted?'red-border-class':''}}"
 																	 name="courierDDl" filter="true" tabindex="4"></p-dropdown>
 																</div>
 															</div>
@@ -138,8 +141,8 @@
 																		<option value="Surface">Surface</option>
 																	</select> -->
 																	<p-dropdown class="feePlanBox" [options]="courierModeList" required [(ngModel)]="trnPurchaseOrderObj.courierMode" #courierModeVal="ngModel"
-																	 required [style]="{'width':'100%'}" styleClass="{{ courierModeVal.errors && isFormSubmitted?'red-border-class':''}}"  [disabled]="!status" 
-																	 name="courierModeDDl" filter="true" tabindex="5"></p-dropdown>
+																	 required [style]="{'width':'100%'}" styleClass="{{ courierModeVal.errors && isFormSubmitted?'red-border-class':''}}"
+																	 [disabled]="!status" name="courierModeDDl" filter="true" tabindex="5"></p-dropdown>
 																</div>
 															</div>
 															<div class="col-md-3">
@@ -148,15 +151,14 @@
 																<div class="col-md-8 col-sm-8">
 																	<p-dropdown class="feePlanBox" [options]="locationList" required [(ngModel)]="trnPurchaseOrderObj.locationId" #locationVal="ngModel"
 																	 required [style]="{'width':'100%'}" styleClass="{{ locationVal.errors && isFormSubmitted?'red-border-class':''}}"
-																	 name="LocationDDl" filter="true" tabindex="6" (ngModelChange)="onChangeLocation()"  [disabled]="!status" ></p-dropdown>
+																	 name="LocationDDl" filter="true" tabindex="6" (ngModelChange)="onChangeLocation()" [disabled]="!status"></p-dropdown>
 																</div>
 															</div>
 															<div class="col-md-3">
-																		<label class="col-md-5 col-sm-5 fieldLabel noPadding">Total Amount</label>
-																		<div class="col-md-7 col-sm-7">
-																			<input type="number" [(ngModel)]="trnPurchaseOrderObj.totalAmount" name="totalAmount" class="form-control"
-																			disabled placeholder="">
-																		</div>
+																<label class="col-md-5 col-sm-5 fieldLabel noPadding">Total Amount</label>
+																<div class="col-md-7 col-sm-7">
+																	<input type="number" [(ngModel)]="trnPurchaseOrderObj.totalAmount" name="totalAmount" class="form-control" disabled placeholder="">
+																</div>
 															</div>
 														</div>
 														<!--Shipping Address-->
@@ -174,8 +176,8 @@
 															<div class="col-md-6">
 																<label class="col-md-2 col-sm-2 fieldLabel">Remark</label>
 																<div class="col-md-10 col-sm-10 purchaseRemarkBox">
-																	<input type="text" [(ngModel)]="trnPurchaseOrderObj.remark" name="remark" class="form-control" #remarkVal="ngModel"  [disabled]="!status" tabindex="7"
-																	 placeholder="">
+																	<input type="text" [(ngModel)]="trnPurchaseOrderObj.remark" name="remark" class="form-control" #remarkVal="ngModel" [disabled]="!status"
+																	 tabindex="7" placeholder="">
 																</div>
 															</div>
 
@@ -188,7 +190,7 @@
 
 									</div>
 
-									<div class="col-md-12" >
+									<div class="col-md-12">
 										<div class="panel panel-default">
 											<div class="panel-heading">Item Details</div>
 											<div class="panel-body" *ngIf="status">
@@ -240,29 +242,28 @@
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Quality<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
-															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="qualityId"
-															 styleClass="{{qualityIdError?'red-border-class':'' }}"  (ngModelChange)="onQualityClick()"
-															 name="quality"  filter="true" tabindex="11"></p-dropdown>
+															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="qualityId" styleClass="{{qualityIdError?'red-border-class':'' }}"
+															 (ngModelChange)="onQualityClick()" name="quality" filter="true" tabindex="11"></p-dropdown>
 														</div>
 													</div>
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Length x Width<span class="requiredField">*</span></label>
 														<div class="col-md-3 col-sm-3">
-															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': lengthError}"
-															 [(ngModel)]="length" name="length" placeholder="" autocomplete="off" tabindex="12">
+															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="999.99" [ngClass]="{'red-border-class': lengthError}"
+															 [(ngModel)]="length" name="length" (blur)="calculateSizeCode();" placeholder="" autocomplete="off" tabindex="12">
 														</div>
 
-														<label class="col-md-2 col-sm-2 fieldLabel">x</label> 
+														<label class="col-md-2 col-sm-2 fieldLabel">x</label>
 														<div class="col-md-3 col-sm-3">
-															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': widthError}"
-															 (blur)="calculateSizeCode();" [(ngModel)]="width" name="width" placeholder="" autocomplete="off" tabindex="13">
+															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="999.99" [ngClass]="{'red-border-class': widthError}"
+															 (blur)="calculateSizeCode()" [(ngModel)]="width" name="width" placeholder="" autocomplete="off" tabindex="13">
 														</div>
 													</div>
 													<div class="col-md-4">
 														<label class="fieldLabel col-md-4 col-sm-4">Thickness<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
-															 <p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="matThicknessId" (ngModelChange)="onThicknessChange()"
-															 styleClass="{{matThicknessIdError?'red-border-class':'' }}" name="matSizeIdval"  filter="true" tabindex="14" ></p-dropdown>
+															<p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="matThicknessId" styleClass="{{matThicknessIdError?'red-border-class':'' }}"
+															 name="matThicknessId" (ngModelChange)="onThicknessChange()" filter="true" tabindex="14"></p-dropdown>
 														</div>
 													</div>
 												</div>
@@ -288,13 +289,13 @@
 															<label class="orderTypeLabel">{{rate}}</label>
 														</div>
 													</div>
-					
+
 												</div>
 												<div class="row form-group">
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Disc. %</label>
 														<div class="col-md-8 col-sm-8">
-															<input class="form-control"  [(ngModel)]="tempPurchaseDiscount" disabled name="purchaseDiscount">
+															<input class="form-control" [(ngModel)]="tempPurchaseDiscount" disabled name="purchaseDiscount">
 															<!-- <input class="form-control" *ngIf="(categoryId==1 || categoryId==5 || categoryId==6) && (productDetails.purchaseFlatRate || orderQuantity>=50)" [(ngModel)]="productDetails.purchaseDiscount" disabled name="purchaseDiscount">
 															<input class="form-control" *ngIf=" (categoryId==1 || categoryId==5 || categoryId==6 || matSizeId !=-1) && !productDetails.purchaseFlatRate && orderQuantity<50" value="0" disabled > -->
 														</div>

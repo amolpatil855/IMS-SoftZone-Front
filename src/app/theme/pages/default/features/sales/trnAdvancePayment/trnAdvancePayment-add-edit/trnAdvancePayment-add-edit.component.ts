@@ -32,6 +32,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
   trnAdvancePaymentList = [];
   isFormSubmitted = false;
   disabled: boolean = false;
+  confirmAmount: number;
   paymentModeList = [];
   customerList = [];
   materialQuotationNumberList = [];
@@ -98,12 +99,13 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
   }
 
   onMaterialQuotationNoChange() {
+    this.customerList = [];
     if (this.trnAdvancePaymentObj.materialQuotationId != null) {
       Helpers.setLoading(true);
       this.trnAdvancePaymentService.getCustomerLookupByMaterialQuotationId(this.trnAdvancePaymentObj.materialQuotationId).subscribe(
         results => {
-          this.customerList = results;
-          this.customerList.unshift({ label: '--Select--', value: null });
+          this.trnAdvancePaymentObj.customerName = results.label;
+          this.trnAdvancePaymentObj.customerId = results.value;
           Helpers.setLoading(false);
         },
         error => {
@@ -119,7 +121,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
       results => {
         this.trnAdvancePaymentObj = results;
         this.status = true;
-        this.viewItem = true;
+        this.viewItem = false;
         this.trnAdvancePaymentObj.advancePaymentDate = new Date(this.trnAdvancePaymentObj.advancePaymentDate);
         this.trnAdvancePaymentObj.chequeDate = new Date(this.trnAdvancePaymentObj.chequeDate);
         Helpers.setLoading(false);
@@ -132,10 +134,13 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    let custObj = _.find(this.customerList, ['value', this.trnAdvancePaymentObj.customerId]);
-    this.trnAdvancePaymentObj.customerName = custObj ? custObj.label : '';
-
     if (valid) {
+      this.trnAdvancePaymentObj.amount = parseInt(this.trnAdvancePaymentObj.amount);
+      value.confirmAmount = parseInt(value.confirmAmount);
+      if (this.trnAdvancePaymentObj.amount != value.confirmAmount) {
+        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount doesn't match." });
+        return false;
+      }
       this.saveTrnAdvancePayment(this.trnAdvancePaymentObj);
     }
   }
@@ -143,37 +148,26 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
 
   saveTrnAdvancePayment(value) {
     let tempAdvancePaymentDate = new Date(value.advancePaymentDate);
-    let tempChequeDate = new Date(value.chequeDate);
     value.advancePaymentDate = new Date(tempAdvancePaymentDate.setHours(23));
-    value.chequeDate = new Date(tempChequeDate.setHours(23));
-    Helpers.setLoading(true);
-    if (this.params) {
-      this.trnAdvancePaymentService.updateTrnAdvancePayment(value)
-        .subscribe(
-        results => {
-          this.params = null;
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-          Helpers.setLoading(false);
-          this.router.navigate(['/features/sales/trnAdvancePayment/list']);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+    if (this.trnAdvancePaymentObj.paymentMode == "Cheque") {
+      let tempChequeDate = new Date(value.chequeDate);
+      value.chequeDate = new Date(tempChequeDate.setHours(23));
     } else {
-      this.trnAdvancePaymentService.createTrnAdvancePayment(value)
-        .subscribe(
-        results => {
-          this.params = null;
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-          Helpers.setLoading(false);
-          this.router.navigate(['/features/sales/trnAdvancePayment/list']);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+      value.chequeDate = null;
     }
+    Helpers.setLoading(true);
+    this.trnAdvancePaymentService.createTrnAdvancePayment(value)
+      .subscribe(
+      results => {
+        this.params = null;
+        this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+        Helpers.setLoading(false);
+        this.router.navigate(['/features/sales/trnAdvancePayment/list']);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
 

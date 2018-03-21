@@ -164,7 +164,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
 
     }
     else if (row.categoryId == 4) {
-      if (row.matSizeId != -1) {
+      if (row.matSizeId != -1 && row.matSizeId != null) {
         row.rate = row.purchaseRate;
         row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
         row.amount = Math.round(row.rate * row.orderQuantity);
