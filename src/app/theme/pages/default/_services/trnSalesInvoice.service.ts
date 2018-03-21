@@ -17,12 +17,20 @@ export class TrnSalesInvoiceService {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnSalesInvoice?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getSalesInvoicesForLoggedInUser(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'GetSalesInvoicesForLoggedInUser?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   getPOListForSelectedItem(categoryId, collectionId, parameterId, matSizeCode) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnSalesInvoice/GetPOListForSelectedItem?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId + '&matSizeCode=' + matSizeCode, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getTrnSalesInvoiceById(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnSalesInvoice/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getSalesInvoiceByIdForCustomerUser(id: number) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnSalesInvoice/GetSalesInvoiceByIdForCustomerUser/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
   
   getshadeIdTrnSalesInvoices(id) {
