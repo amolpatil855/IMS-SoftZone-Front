@@ -196,10 +196,23 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   }
 
   onApprove() {
-    if(this.trnMaterialSelectionObj.isQuotationCreated)
-      this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
-    else
-      this.router.navigate(['/features/sales/trnMaterialQuotation/add'],{ queryParams: {materialSelectionId : this.trnMaterialSelectionObj.id} });
+    if (this.trnMaterialSelectionObj.isQuotationCreated) {
+      if (this.trnMaterialSelectionObj.id != null) {
+        Helpers.setLoading(true);
+        this.trnMaterialSelectionService.viewMaterialQuotationById(this.trnMaterialSelectionObj.id).subscribe(
+          result => {
+            this.router.navigate(['/features/sales/trnMaterialQuotation/edit', result], { queryParams: { materialQuotationId: result } });
+            Helpers.setLoading(false);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
+      }
+    }
+    else {
+      this.router.navigate(['/features/sales/trnMaterialQuotation/add'], { queryParams: { materialSelectionId: this.trnMaterialSelectionObj.id } });
+    }
   }
 
   getCustomerLookUpWithoutWholesaleCustomer() {
@@ -395,7 +408,69 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.display = false;
   }
 
+  onBlurArea(){
+    this.areaError = false;
+  }
 
+  calculateProductStockDetails() {
+    if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
+      this.shadeIdError = false;
+      this.productDetails.stock = null;
+      this.orderQuantity = null;
+      this.orderQuantityError = false;
+      this.rateWithGST = null;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
+      this.givenDiscount = null;
+      this.givenDiscountError = false;
+      this.orderType = '';
+      this.amountWithGST = null;
+    }
+    else if (this.categoryId == 2) {
+      this.fomSizeIdError = false;
+      this.productDetails.stock = null;
+      this.orderQuantity = null;
+      this.orderQuantityError = false;
+      this.rateWithGST = null;
+      this.rate = null;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
+      this.givenDiscount = null;
+      this.givenDiscountError = false;
+      this.orderType = '';
+      this.amountWithGST = null;
+    }
+    else if (this.categoryId == 4 && this.matSizeId != null) {
+      this.matSizeIdError = false;
+      this.productDetails.stock = null;
+      this.orderQuantity = null;
+      this.orderQuantityError = false;
+      this.rateWithGST = null;
+      this.rate = null;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
+      this.givenDiscount = null;
+      this.givenDiscountError = false;
+      this.orderType = '';
+      this.amountWithGST = null;
+    }
+    else if (this.categoryId == 4 && this.matSizeId != -1 && !this.qualityId) {
+      return;
+    }
+    else if (this.categoryId == 7) {
+      this.accessoryIdError = false;
+      this.productDetails.stock = null;
+      this.orderQuantity = null;
+      this.orderQuantityError = false;
+      this.rateWithGST = null;
+      this.rate = null;
+      this.givenDiscount = null;
+      this.givenDiscountError = false;
+      this.orderType = '';
+      this.amountWithGST = null;
+    }
+    //this.shadeId ? this.shadeId : this.fomSizeId ? this.fomSizeId : this.matSizeId != -1 ? this.matSizeId : null;
+  }
 
   showDialog() {
     this.isFormSubmitted = false;
@@ -463,7 +538,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     else
       this.qualityIdError = false;
 
-    if (this.matWidthError || this.fomSizeIdError || this.matSizeIdError || this.qualityIdError || this.accessoryIdError
+    if (this.matWidthError || this.fomSizeIdError || this.matSizeIdError || this.qualityIdError || this.accessoryIdError || this.matThicknessIdError
       || this.matHeightError || this.shadeIdError || this.collectionIdError || this.categoryIdError || this.selectionTypeError || this.areaError) {
       return false;
     }
@@ -494,7 +569,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       collectionName: collObj ? collObj.label != "--Select--" ? collObj.label : '' : '',
       collectionId: this.collectionId,
       serialno: this.shadeId ? shadeObj.label != "--Select--" ? shadeObj.label : '' : '',
-      accessoryName: accessoryObj ? accessoryObj.label != "--Select--" ? accessoryObj.label : '' : '',
+      size : this.matSizeId != -1 ? matSizeObj.label != "--Select--" ? matSizeObj.label : '' : (this.matHeight + 'x' + this.matWidth),
       accessoryId: this.accessoryId,
       shadeId: this.shadeId,
       fomSizeId: this.fomSizeId,
@@ -560,7 +635,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       maxDiscount: null
     };
     this.amount = null,
-    this.orderType = '';
+      this.orderType = '';
     this.amountWithGST = null;
   }
 
@@ -625,6 +700,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
 
 
   onQualityClick() {
+    this.qualityIdError = false;
     this.thicknessList = [];
     this.thicknessList.unshift({ label: '--Select--', value: null });
     this.areaError = false;
@@ -701,11 +777,20 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   }
 
   calculateSizeCode() {
+    
     if (this.matWidth && this.matHeight) {
+      this.matHeightError = false;
+      this.matWidthError = false;
+      this.matWidth = parseFloat(this.matWidth).toFixed(2);
+      this.matHeight = parseFloat(this.matHeight).toFixed(2);
       this.matSizeCode = this.matHeight + 'x' + this.matWidth;
     }
     else
       this.matSizeCode = '';
+  }
+
+  onThicknessChange(){
+    this.matThicknessIdError = false;
   }
 
   getAgentLookUp() {

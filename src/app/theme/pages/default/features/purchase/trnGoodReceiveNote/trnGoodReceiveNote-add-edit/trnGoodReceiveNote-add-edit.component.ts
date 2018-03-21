@@ -216,8 +216,8 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     else
       this.orderQuantityError = false;
 
-    if (this.orderQuantityError || this.widthError || this.matThicknessIdError || this.qualityIdError || this.fomSizeIdError || this.matSizeIdError || this.matSizeIdError || this.accessoryIdError
-      || !this.receivedQuantity || this.lengthError || this.matSizeCodeError || this.purchaseOrderIdIdError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
+    if (this.orderQuantityError || this.matThicknessIdError || this.qualityIdError || this.fomSizeIdError || this.matSizeIdError || this.accessoryIdError
+      || this.matSizeCodeError || this.purchaseOrderIdIdError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
       return false;
     }
 
@@ -231,7 +231,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
       let poObj = _.find(this.trnGoodReceiveNoteItems, ['categoryId', this.categoryId]);
       if (poObj != null) {
-        if (this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId && this.purchaseOrderId == poObj.purchaseOrderId  && this.matSizeCode == poObj.matSizeCode) {
+        if (this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId && this.purchaseOrderId == poObj.purchaseOrderId && this.matSizeCode == poObj.matSizeCode) {
           this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
           return false;
         }
@@ -246,8 +246,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     let matSizeObj = _.find(this.matSizeList, ['value', this.matSizeId]);
     let accessoryObj = _.find(this.accessoryCodeList, ['value', this.accessoryId]);
     let poItemObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
-    let matSizeCodeObj = _.find(this.matSizeCodeList, ['value', this.matSizeCode]);
-    this.matSizeCode = matSizeCodeObj.label;
+
     if (matSizeObj && matSizeObj.value == -1) {
       matSizeObj.label = this.matSizeCode;
     }
