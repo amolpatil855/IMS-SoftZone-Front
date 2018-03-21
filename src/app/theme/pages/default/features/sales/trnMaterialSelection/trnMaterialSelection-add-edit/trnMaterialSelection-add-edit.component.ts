@@ -395,7 +395,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.display = false;
   }
 
-
+  
 
   showDialog() {
     this.isFormSubmitted = false;
@@ -494,7 +494,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       collectionName: collObj ? collObj.label != "--Select--" ? collObj.label : '' : '',
       collectionId: this.collectionId,
       serialno: this.shadeId ? shadeObj.label != "--Select--" ? shadeObj.label : '' : '',
-      accessoryName: accessoryObj ? accessoryObj.label != "--Select--" ? accessoryObj.label : '' : '',
+      size : this.matSizeId != -1 ? matSizeObj.label != "--Select--" ? matSizeObj.label : '' : (this.matHeight + 'x' + this.matWidth),
       accessoryId: this.accessoryId,
       shadeId: this.shadeId,
       fomSizeId: this.fomSizeId,
@@ -701,7 +701,10 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   }
 
   calculateSizeCode() {
+    
     if (this.matWidth && this.matHeight) {
+      this.matWidth = parseFloat(this.matWidth).toFixed(2);
+      this.matHeight = parseFloat(this.matHeight).toFixed(2);
       this.matSizeCode = this.matHeight + 'x' + this.matWidth;
     }
     else
