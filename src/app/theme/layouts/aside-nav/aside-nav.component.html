@@ -162,7 +162,7 @@
             </li>
 
             <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['sales','salesorder','customerLogin']">
+                data-menu-submenu-toggle="hover" [isAuthorize]="['sales','salesorder']">
                 <a href="#" class="m-menu__link m-menu__toggle">
                     <i class="m-menu__link-icon flaticon-diagram"></i>
                     <span class="m-menu__link-text">
@@ -248,16 +248,6 @@
                                 </span>
                             </a>
                         </li>
-                        <li [isAuthorize]="['customerLogin']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/sales/invoice/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Invoice
-                                </span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </li>
@@ -286,6 +276,16 @@
                                 </i>
                                 <span class="m-menu__link-text">
                                     Customer Order
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['customerLogin']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/orderManagement/invoice/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Invoice
                                 </span>
                             </a>
                         </li>

@@ -60,10 +60,10 @@ export class InvoiceListComponent implements OnInit {
   }
 
   onEditClick(invoice: TrnSalesInvoice) {
-    this.router.navigate(['/features/sales/invoice/edit', invoice.id]);
+    this.router.navigate(['/features/orderManagement/invoice/edit', invoice.id]);
   }
 
   onAddClick() {
-    this.router.navigate(['/features/sales/invoice/add']);
+    this.router.navigate(['/features/orderManagement/invoice/add']);
   }
 }
