@@ -40,13 +40,19 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
     this.userService.getLoggedInUserDetail().subscribe(res => {
       this.userName = res.userName;
       this.userRole = res.mstRole.roleName;
-      if (this.userRole != "Administrator") {
+      if (this.userRole != "Administrator" && this.userRole != "Customer") {
         this.show = true;
         if (res.mstCompanyLocation != null) {
           this.location = res.mstCompanyLocation.locationCode;
           localStorage.setItem('location', JSON.stringify(this.location));
         }
       }
+      else if (this.userRole == "Customer") {
+        this.show = false;
+        localStorage.setItem('customerId', res.id);
+
+      }
+
       if (this.userName !== undefined && this.userRole !== undefined) {
         this.loggedInUser = { user: { username: this.userName, role: this.userRole } };
       }
