@@ -11,6 +11,8 @@ export class TrnSalesInvoice {
     totalAmount: number;
     amountPaid: number;
     status: string;
+    isApproved: boolean;
+    isPaid: boolean;
     buyersOrderNumber: string;
     courierDockYardNumber: string;
     TrnGoodIssueNote: TrnGoodIssueNote;
