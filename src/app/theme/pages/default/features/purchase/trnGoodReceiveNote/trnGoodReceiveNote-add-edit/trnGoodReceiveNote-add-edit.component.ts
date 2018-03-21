@@ -211,13 +211,18 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     else
       this.qualityIdError = false;
 
+    if (this.categoryId == 2 && !this.fomQuantityInKG)
+      this.fomQuantityInKGError = true;
+    else
+      this.fomQuantityInKGError = false;
+
     if (!this.orderQuantity || !this.receivedQuantity)
       this.orderQuantityError = true;
     else
       this.orderQuantityError = false;
 
     if (this.orderQuantityError || this.matThicknessIdError || this.qualityIdError || this.fomSizeIdError || this.matSizeIdError || this.accessoryIdError
-      || this.matSizeCodeError || this.purchaseOrderIdIdError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
+      || this.matSizeCodeError || this.fomQuantityInKGError || this.purchaseOrderIdIdError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
       return false;
     }
 
@@ -288,13 +293,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   }
 
   onCancelItemDetails() {
-    this.categoryIdError = false;
-    this.collectionIdError = false;
-    this.shadeIdError = false;
-    this.lengthError = false;
-    this.widthError = false;
-    this.orderQuantityError = false;
-    this.accessoryIdError = false;
+    this.resetErrors();
     this.categoryId = null;
     this.collectionId = null;
     this.accessoryId = null;
@@ -303,13 +302,9 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.matSizeId = null;
     this.qualityId = null;
     this.matThicknessId = null;
-    this.qualityIdError = false;
-    this.matThicknessIdError = false;
     this.matSizeCodeList = [];
-    this.matSizeCodeError = false;
     this.purchaseOrderId = null;
     this.purchaseOrderList = [];
-    this.purchaseOrderIdIdError = false;
     this.matSizeCode = null;
     this.lengthError = null;
     this.widthError = null;
@@ -337,6 +332,23 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.amountWithGST = '';
   }
 
+  resetErrors() {
+    this.orderQuantityError = false;
+    this.purchaseOrderIdIdError = false;
+    this.fomQuantityInKGError = false;
+    this.qualityIdError = false;
+    this.lengthError = false;
+    this.widthError = false;
+    this.matThicknessIdError = false;
+    this.matSizeCodeError = false;
+    this.matSizeIdError = false;
+    this.categoryIdError = false;
+    this.accessoryIdError = false;
+    this.collectionIdError = false;
+    this.fomSizeIdError = false;
+    this.shadeIdError = false;
+  }
+
   enableEdit(row) {
     row.enable = true;
   }
@@ -346,19 +358,19 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
   onMatSizeCodeChange() {
     let parameterId = null;
+    this.matSizeIdError = false;
     if (this.categoryId == 4 && this.matSizeId == -1) {
-      this.matSizeIdError = false;
       this.lengthError = false;
       this.widthError = false;
       this.purchaseOrderIdIdError = false;
+      this.orderQuantityError = false;
+      this.fomQuantityInKGError = false;
       this.purchaseOrderList = [];
       this.purchaseOrderId = null;
       this.gst = null;
       this.rate = null;
       this.purchaseDiscount = null;
       this.orderQuantity = null;
-      this.orderQuantityError = false;
-      this.fomQuantityInKGError = false;
       this.receivedQuantity = null;
       this.orderType = null;
       this.rateWithGST = null;
@@ -438,7 +450,6 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.qualityId = null;
       this.qualityIdError = false;
       this.length = null;
-      this.lengthError = false;
       this.width = null;
       this.widthError = false;
       this.matSizeCodeList = [];
@@ -572,25 +583,10 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     else {
       parameterId = null;
     }
-    //this.shadeId ? this.shadeId : this.fomSizeId ? this.fomSizeId : this.matSizeId != -1 ? this.matSizeId : null;
-
-    // this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
-    //   data => {
-    //     this.productDetails = data;
-    //   }, error => {
-    //     this.globalErrorHandler.handleError(error);
-    //   });
-
   }
 
   onPuchaseOrderChange() {
-    this.purchaseOrderIdIdError = false;
-    this.orderQuantityError = false;
-    this.fomQuantityInKGError = false;
-    this.qualityIdError = false;
-    this.lengthError = false;
-    this.widthError = false;
-    this.matThicknessIdError = false;
+    this.resetErrors();
     this.orderQuantity = null;
     this.rateWithGST = null;
     this.gst = null;
@@ -612,7 +608,12 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     }
   }
 
+  onFomQuantityInKGChange() {
+    this.resetErrors();
+  }
+
   changeRecivedQuantity() {
+    this.resetErrors();
     if (this.receivedQuantity > this.orderQuantity) {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Recieved quantity should be less than ordered quantity." });
       return false;
@@ -676,26 +677,17 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
 
   onQualityClick() {
-
+    this.resetErrors();
     this.thicknessList = [];
     this.thicknessList.unshift({ label: '--Select--', value: null });
     this.matThicknessId = null;
-    this.qualityIdError = false;
-    this.matSizeIdError = false;
     this.purchaseOrderId = null;
-    this.purchaseOrderIdIdError = false;
-    this.orderQuantityError = false;
-    this.fomQuantityInKGError = false;
     this.matSizeCodeList = [];
-    this.matSizeCodeError = false;
     this.matSizeCode = null;
     this.orderQuantity = null;
-    this.matThicknessIdError = false;
     this.productDetails.stock = null;
     this.length = null;
-    this.lengthError = false;
     this.width = null;
-    this.widthError = false;
     this.rateWithGST = null;
     this.gst = null;
     this.rate = null;
@@ -723,16 +715,10 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   }
 
   onThicknessChange() {
-    this.matThicknessIdError = false;
+    this.resetErrors();
     this.matSizeCodeList = [];
-    this.matSizeCodeError = false;
     this.matSizeCode = null;
-    this.lengthError = false;
-    this.widthError = false;
     this.purchaseOrderId = null;
-    this.purchaseOrderIdIdError = false;
-    this.orderQuantityError = false;
-    this.fomQuantityInKGError = false;
     this.orderQuantity = null;
     this.productDetails.stock = null;
     this.gst = null;
@@ -848,29 +834,17 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.accessoryCodeList = [];
     this.accessoryCodeList.unshift({ label: '--Select--', value: null });
     this.matSizeCodeList = [];
-    this.matSizeCodeError = false;
-    this.categoryIdError = false;
-    this.orderQuantityError = false;
-    this.fomQuantityInKGError = false;
-    this.matSizeIdError = false;
-    this.fomSizeIdError = false;
-    this.shadeIdError = false;
-    this.accessoryIdError = false;
-    this.collectionIdError = false;
+    this.resetErrors();
     this.collectionId = null;
     this.accessoryId = null;
     this.shadeId = null;
     this.fomSizeId = null;
     this.matSizeId = null;
     this.qualityId = null;
-    this.qualityIdError = false;
     this.length = null;
-    this.lengthError = false;
     this.width = null;
-    this.widthError = false;
     this.purchaseOrderId = null;
     this.purchaseOrderList = [];
-    this.purchaseOrderIdIdError = false;
     this.rateWithGST = null;
     this.gst = null;
     this.rate = null;
@@ -1042,12 +1016,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
         this.getMatQualityList();
       }
     } else {
-      this.matSizeIdError = false;
-      this.fomSizeIdError = false;
-      this.shadeIdError = false;
-      this.accessoryIdError = false;
-      this.orderQuantityError = false;
-      this.fomQuantityInKGError = false;
+      this.resetErrors();
       this.shadeIdList = [];
       this.shadeIdList.unshift({ label: '--Select--', value: null });
       this.matSizeList = [];
@@ -1058,17 +1027,12 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.matSizeId = null;
       this.fomSizeId = null;
       this.qualityId = null;
-      this.qualityIdError = false;
       this.rate = null;
       this.length = null;
-      this.lengthError = false;
       this.width = null;
-      this.widthError = false;
       this.purchaseOrderId = null;
       this.purchaseOrderList = [];
-      this.purchaseOrderIdIdError = false;
       this.matSizeCodeList = [];
-      this.matSizeCodeError = false;
       this.matSizeCode = null;
       this.rateWithGST = null;
       this.gst = null;
@@ -1079,7 +1043,6 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.orderType = null;
       this.amountWithGST = null;
       this.matThicknessId = null;
-      this.matThicknessIdError = false;
     }
   }
 

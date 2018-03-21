@@ -74,18 +74,18 @@
 									<ng-template let-col let-data="rowData" pTemplate="body">
 										{{data[col.field]|date: 'dd/MM/yyyy' }}
 									</ng-template>
-                                </p-column>
-                                <p-column field="courierDockYardNumber" header="Dock Yard No." [style]="{'text-align':'center'}"></p-column>
+								</p-column>
+								<p-column field="courierDockYardNumber" header="Dock Yard No." [style]="{'text-align':'center'}"></p-column>
 								<!-- <p-column field="mstCustomer.name" header="Customer" [style]="{'text-align':'left'}"></p-column> -->
 								<p-column field="status" header="Status" [style]="{'text-align':'left'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action
 									</ng-template>
-                                    <ng-template let-row="rowData" pTemplate="body">
-                                            <button type="button" pButton  *ngIf="row.status == 'Completed'" (click)="onEditClick(row)" icon="fa fa-info-circle" class="editBtn" title="View GIN"></button>
-                                            <button type="button"  *ngIf="row.status != 'Completed'" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit GIN"></button> 
-                                    </ng-template>
+									<ng-template let-row="rowData" pTemplate="body">
+										<button type="button" pButton (click)="onEditClick(row)" icon="{{row.status != 'Created' && row.isPaid? 'fa fa-info-circle' : 'fa fa-pencil'}}"
+										 class="editBtn" title="{{row.status != 'Created' && row.isPaid ? 'View' : 'Edit' }}"></button>
+									</ng-template>
 								</p-column>
 							</p-dataTable>
 						</div>
