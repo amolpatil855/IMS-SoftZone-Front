@@ -777,6 +777,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   }
 
   calculateSizeCode() {
+    
     if (this.matWidth && this.matHeight) {
       this.matHeightError = false;
       this.matWidthError = false;
