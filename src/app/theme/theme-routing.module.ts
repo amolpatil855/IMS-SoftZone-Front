@@ -140,6 +140,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/orderManagement\/trnCustomerOrder\/trnCustomerOrder.module#TrnCustomerOrderModule"
       },
       {
+        "path": "features\/sales\/invoice",
+        "loadChildren": ".\/pages\/default\/features\/sales\/invoice\/invoice.module#InvoiceModule"
+      },
+      {
         "path": "header/changePassword",
         "loadChildren": ".\/pages\/default\/features\/changePassword\/changePassword.module#ChangePasswordModule"
       },
