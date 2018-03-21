@@ -24,6 +24,10 @@ export class TrnMaterialSelectionService {
   getMaterialQuotationBySelectionId(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnMaterialSelection/CreateMaterialQuotation/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
+
+  viewMaterialQuotationById(id: number) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnMaterialSelection/ViewMaterialQuotation/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
   
   getCompanyLocationLookUp() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
