@@ -21,6 +21,10 @@ export class CustomerService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Customer/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getloggedInCustomerById(id: number) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Customer/GetLoggedInCustomerDetails', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   canDeleteAddress(id){
     return this.http.get(AppSettings.API_ENDPOINT + 'Customer/CanCustomerAddressBeDeleted/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
