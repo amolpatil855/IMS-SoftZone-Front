@@ -26,6 +26,7 @@ import { CustomerService } from "../../../../_services/customer.service";
 })
 export class TrnMaterialQuotationAddEditComponent implements OnInit {
   materialSelectionId: number;
+  materialQuotationId: number;
   trnMaterialQuotationForm: any;
   trnMaterialQuotationObj: any;
   userRole: string;
@@ -141,6 +142,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
     this.route.queryParams
       .subscribe(params => {
         this.materialSelectionId = params.materialSelectionId;
+        this.materialQuotationId = params.materialQuotationId;
         if (this.materialSelectionId) {
           this.isMatSelectionId = true;
           this.trnMaterialSelectionService.getMaterialQuotationBySelectionId(this.materialSelectionId).subscribe(
@@ -1096,10 +1098,11 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
 
 
   onCancel() {
-    if (this.materialSelectionId)
+    if (this.materialSelectionId || this.materialQuotationId)
       this.router.navigate(['/features/sales/trnMaterialSelection/list']);
     else
       this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
+
     this.disabled = false;
     this.viewItem = true;
   }

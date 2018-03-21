@@ -217,7 +217,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.orderQuantityError = false;
 
     if (this.orderQuantityError || this.matThicknessIdError || this.qualityIdError || this.fomSizeIdError || this.matSizeIdError || this.accessoryIdError
-       || this.matSizeCodeError || this.purchaseOrderIdIdError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
+      || this.matSizeCodeError || this.purchaseOrderIdIdError || this.shadeIdError || this.collectionIdError || this.categoryIdError) {
       return false;
     }
 
@@ -231,7 +231,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
       let poObj = _.find(this.trnGoodReceiveNoteItems, ['categoryId', this.categoryId]);
       if (poObj != null) {
-        if (this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId && this.purchaseOrderId == poObj.purchaseOrderId  && this.matSizeCode == poObj.matSizeCode) {
+        if (this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId && this.purchaseOrderId == poObj.purchaseOrderId && this.matSizeCode == poObj.matSizeCode) {
           this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
           return false;
         }
