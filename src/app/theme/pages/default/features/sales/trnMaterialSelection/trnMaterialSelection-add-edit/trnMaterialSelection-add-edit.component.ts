@@ -32,6 +32,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   adminFlag: boolean = false;
   status: boolean = true;
   viewItem: boolean = true;
+  isCustomerSubmitted: boolean = false;
   trnMaterialSelectionList = [];
   MstCustomerAddresses = [];
   categoryList: SelectItem[];
@@ -48,6 +49,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   matThicknessId = null;
   collectionId = null;
   trnMaterialSelectionItems = [];
+  customerTypeList = [];
   shadeId = null;
   orderQuantity = null;
   orderType = null;
@@ -123,6 +125,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   address1Error: boolean = false;
   cityError: boolean = false;
   pinError: boolean = false;
+  typeError: boolean = false;
   stateError: boolean = false;
   name: string = null;
   code: string = null;
@@ -131,6 +134,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   address1: string = null;
   address2: string = null;
   pin: string = null;
+  type: string = null;
   city: string = null;
   state: string = null;
   customerList = [];
@@ -157,6 +161,13 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   ngOnInit() {
     this.trnMaterialSelectionObj = new TrnMaterialSelection();
     this.states = this.commonService.states;
+    this.customerTypeList.push({ label: '--Select--', value: null });
+    this.customerTypeList.push({ label: 'Furniture Showroom', value: 'Furniture Showroom' });
+    this.customerTypeList.push({ label: 'Workshop Big', value: 'Workshop Big' });
+    this.customerTypeList.push({ label: 'Workshop Small', value: 'Workshop Small' });
+    this.customerTypeList.push({ label: 'Karagir', value: 'Karagir' });
+    this.customerTypeList.push({ label: 'Designer', value: 'Designer' });
+    this.customerTypeList.push({ label: 'Miscellaneous', value: 'Miscellaneous' });
     this.getLoggedInUserDetail();
     this.getCourierList();
     this.getAgentLookUp();
@@ -313,6 +324,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   }
 
   addCustomer() {
+    this.isCustomerSubmitted = true;
     if (!this.name)
       this.nameError = true;
     else
@@ -341,7 +353,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     if (!this.city)
       this.cityError = true;
     else
-      this.cityError == false;
+      this.cityError = false;
 
     if (!this.pin)
       this.pinError = true;
@@ -353,7 +365,12 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     else
       this.stateError = false;
 
-    if (this.nameError || this.codeError || this.emailError || this.phoneError || this.address1Error || this.cityError || this.pinError || this.stateError)
+    if (!this.type)
+      this.typeError = true;
+    else
+      this.typeError = false;
+
+    if (this.nameError || this.codeError || this.emailError || this.phoneError || this.address1Error || this.cityError || this.pinError || this.stateError || this.typeError)
       return false;
 
     let customerObj = {
@@ -361,6 +378,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       code: this.code,
       email: this.email,
       phone: this.phone,
+      type: this.type,
       MstCustomerAddresses: [{
         addressLine1: this.address1,
         city: this.city,
@@ -374,7 +392,12 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       .subscribe(
       results => {
         this.params = null;
+        if (results != null)
+          this.trnMaterialSelectionObj.customerId = results.id;
         this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+        this.Cancel();
+        this.customerList = [];
+        this.getCustomerLookUpWithoutWholesaleCustomer();
         Helpers.setLoading(false);
       },
       error => {
@@ -382,12 +405,10 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
         Helpers.setLoading(false);
       });
 
-    this.Cancel();
-    this.customerList = [];
-    this.getCustomerLookUpWithoutWholesaleCustomer();
   }
 
   Cancel() {
+    this.isCustomerSubmitted = false;
     this.nameError = false;
     this.codeError = false;
     this.emailError = false;
@@ -396,10 +417,12 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.cityError = false;
     this.pinError = false;
     this.stateError = false;
+    this.typeError = false;
     this.name = null;
     this.code = null;
     this.email = null;
     this.phone = null;
+    this.type = null;
     this.address1 = null;
     this.address2 = null;
     this.city = null;
@@ -408,7 +431,15 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.display = false;
   }
 
-  onBlurArea(){
+  onStateChange() {
+    this.stateError = false;
+  }
+
+  onTypeChange() {
+    this.typeError = false;
+  }
+
+  onBlurArea() {
     this.areaError = false;
   }
 
@@ -545,9 +576,9 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
 
     if (this.trnMaterialSelectionItems.length > 0) {
 
-      let soObj = _.find(this.trnMaterialSelectionItems, ['categoryId', this.categoryId]);
+      let soObj = _.find(this.trnMaterialSelectionItems, ['area', this.trnMaterialSelectionObj.area]);
       if (soObj != null) {
-        if (this.accessoryId == soObj.accessoryId && this.shadeId == soObj.shadeId && this.fomSizeId == soObj.fomSizeId && this.matSizeId == soObj.matSizeId) {
+        if (this.trnMaterialSelectionObj.selectionType == soObj.selectionType && this.accessoryId == soObj.accessoryId && this.categoryId == soObj.categoryId && this.collectionId == soObj.collectionId && this.trnMaterialSelectionObj.area == soObj.area && this.shadeId == soObj.shadeId && this.fomSizeId == soObj.fomSizeId && this.matSizeId == soObj.matSizeId) {
           this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
           return false;
         }
@@ -569,7 +600,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       collectionName: collObj ? collObj.label != "--Select--" ? collObj.label : '' : '',
       collectionId: this.collectionId,
       serialno: this.shadeId ? shadeObj.label != "--Select--" ? shadeObj.label : '' : '',
-      size : this.matSizeId != -1 ? matSizeObj.label != "--Select--" ? matSizeObj.label : '' : (this.matHeight + 'x' + this.matWidth),
+      size: this.matSizeId != -1 ? matSizeObj.label != "--Select--" ? matSizeObj.label : '' : (this.matHeight + 'x' + this.matWidth),
       accessoryId: this.accessoryId,
       shadeId: this.shadeId,
       fomSizeId: this.fomSizeId,
@@ -777,7 +808,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   }
 
   calculateSizeCode() {
-    
+
     if (this.matWidth && this.matHeight) {
       this.matHeightError = false;
       this.matWidthError = false;
@@ -789,7 +820,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       this.matSizeCode = '';
   }
 
-  onThicknessChange(){
+  onThicknessChange() {
     this.matThicknessIdError = false;
   }
 
