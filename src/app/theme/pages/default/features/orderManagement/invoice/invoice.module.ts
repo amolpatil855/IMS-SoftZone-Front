@@ -8,30 +8,24 @@ import { LayoutModule } from "../../../../../layouts/layout.module";
 import { CollectionService } from '../../../_services/collection.service';
 // import { RoleService, PermissionService } from '../../_services/index';
 import { CommonService } from '../../../_services/common.service';
-import { ShadeService } from "../../../_services/shade.service";
-import { FomSizeService } from "../../../_services/fomSize.service";
-import { CustomerService } from "../../../_services/customer.service";
 import {
   DataTableModule,
   SharedModule,
   ButtonModule,
   AutoCompleteModule,
   DropdownModule,
-  OverlayPanelModule,
-  DialogModule,
-  CalendarModule,
-  RadioButtonModule,
   ConfirmDialogModule,
   ConfirmationService,
+  CalendarModule
 } from 'primeng/primeng';
 import { SupplierService } from "../../../_services/supplier.service";
-import { TrnCustomerOrderService } from "../../../_services/trnCustomerOrder.service";
-import { TrnCustomerOrderListComponent } from "./trnCustomerOrder-list/trnCustomerOrder-list.component";
-import { TrnCustomerOrderAddEditComponent } from "./trnCustomerOrder-add-edit/trnCustomerOrder-add-edit.component";
+import { TrnSalesInvoiceService } from "../../../_services/trnSalesInvoice.service";
+import { InvoiceComponent } from "./invoice.component";
+import { InvoiceListComponent } from "./invoice-list/invoice-list.component";
+import { InvoiceAddEditComponent } from "./invoice-add-edit/invoice-add-edit.component";
 import {TrnProductStockService} from "../../../_services/trnProductStock.service";
 import {MatSizeService} from "../../../_services/matSize.service";
-import { TrnCustomerOrderComponent } from "./trnCustomerOrder.component";
-import { TrnSalesOrderService } from '../../../_services/trnSalesOrder.service';
+
 const routes: Routes = [
   {
     path: "",
@@ -39,11 +33,11 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: TrnCustomerOrderComponent,
+        component: InvoiceComponent,
         children: [
           {
             path: 'list',
-            component: TrnCustomerOrderListComponent,
+            component: InvoiceListComponent,
             canActivate: [AuthGuard],
             data: {
               permissions: ['customerLogin']
@@ -51,7 +45,7 @@ const routes: Routes = [
           },
           {
             path: 'add',
-            component: TrnCustomerOrderAddEditComponent,
+            component: InvoiceAddEditComponent,
             canActivate: [AuthGuard],
             data: {
               permissions: ['customerLogin']
@@ -59,7 +53,7 @@ const routes: Routes = [
           },
           {
             path: 'edit/:id',
-            component: TrnCustomerOrderAddEditComponent,
+            component: InvoiceAddEditComponent,
             canActivate: [AuthGuard],
             data: {
               permissions: ['customerLogin']
@@ -83,31 +77,24 @@ const routes: Routes = [
     ButtonModule,
     AutoCompleteModule,
     DropdownModule,
-    CalendarModule,
-    OverlayPanelModule,
-    DialogModule,
-    RadioButtonModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CalendarModule
   ],
   declarations: [
-    TrnCustomerOrderComponent,
-    TrnCustomerOrderListComponent,
-    TrnCustomerOrderAddEditComponent
+    InvoiceComponent,
+    InvoiceListComponent,
+    InvoiceAddEditComponent
   ],
   providers: [
     // RoleService,
     TrnProductStockService,
-    TrnCustomerOrderService,
+    TrnSalesInvoiceService,
     ConfirmationService,
     SupplierService,
     CommonService,
     CollectionService,
-    MatSizeService,
-    TrnSalesOrderService,
-    ShadeService,
-    FomSizeService,
-    CustomerService
+    MatSizeService
   ],
 })
-export class TrnCustomerOrderModule {
+export class InvoiceModule {
 }

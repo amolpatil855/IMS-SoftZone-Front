@@ -132,8 +132,16 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/sales\/trnMaterialQuotation\/trnMaterialQuotation.module#TrnMaterialQuotationModule"
       },
       {
+        "path": "features\/sales\/trnAdvancePayment",
+        "loadChildren": ".\/pages\/default\/features\/sales\/trnAdvancePayment\/trnAdvancePayment.module#TrnAdvancePaymentModule"
+      },
+      {
         "path": "features\/orderManagement\/trnCustomerOrder",
         "loadChildren": ".\/pages\/default\/features\/orderManagement\/trnCustomerOrder\/trnCustomerOrder.module#TrnCustomerOrderModule"
+      },
+      {
+        "path": "features\/orderManagement\/invoice",
+        "loadChildren": ".\/pages\/default\/features\/orderManagement\/invoice\/invoice.module#InvoiceModule"
       },
       {
         "path": "header/changePassword",

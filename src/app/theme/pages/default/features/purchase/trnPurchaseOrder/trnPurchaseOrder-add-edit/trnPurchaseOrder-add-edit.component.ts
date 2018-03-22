@@ -297,7 +297,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
       let poObj = _.find(this.trnPurchaseOrderItems, ['categoryId', this.categoryId]);
       if (poObj != null) {
-        if (this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId) {
+        if (this.accessoryId == poObj.accessoryId && this.shadeId == poObj.shadeId && this.fomSizeId == poObj.fomSizeId && this.matSizeId == poObj.matSizeId && this.matSizeCode == poObj.matSizeCode) {
           this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
           return false;
         }
@@ -386,8 +386,8 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       purchaseDiscount: null
     };
     this.amount = null,
-    this.tempPurchaseDiscount=0;
-      this.orderType = '';
+      this.tempPurchaseDiscount = 0;
+    this.orderType = '';
     this.amountWithGST = '';
   }
 
@@ -406,7 +406,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
@@ -417,7 +417,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.shadeId != null) {
         parameterId = this.shadeId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId, null, null).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
@@ -430,7 +430,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
@@ -441,7 +441,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.fomSizeId != null) {
         parameterId = this.fomSizeId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId, null, null).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
@@ -459,7 +459,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -473,7 +473,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.matSizeId != null) {
         parameterId = this.matSizeId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId, null, null).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
@@ -489,7 +489,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.rateWithGST = null;
       this.rate = null;
@@ -500,7 +500,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.accessoryId != null) {
         parameterId = this.accessoryId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId, null, null).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
@@ -543,7 +543,6 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
 
   onQualityClick() {
-
     this.thicknessList = [];
     this.thicknessList.unshift({ label: '--Select--', value: null });
     this.matThicknessId = null;
@@ -555,10 +554,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.matThicknessIdError = false;
     this.productDetails.stock = null;
     this.productDetails.purchaseDiscount = null;
-    this.tempPurchaseDiscount=0;
+    this.tempPurchaseDiscount = 0;
     this.productDetails.gst = null;
-    this.length = null;
     this.lengthError = false;
+    this.length = null;
     this.width = null;
     this.widthError = false;
     this.rateWithGST = null;
@@ -567,16 +566,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.amount = null,
       this.orderType = '';
     this.amountWithGST = null;
-    if (this.qualityId != null) {
-      if (this.collectionId != null) {
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, null, this.qualityId).subscribe(
-          data => {
-            this.productDetails = data;
-          }, error => {
-            this.globalErrorHandler.handleError(error);
-          });
-      }
-    }
+
 
     if (this.qualityId != null) {
       Helpers.setLoading(true);
@@ -594,10 +584,28 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
 
   onThicknessChange() {
+    this.orderQuantityError = false;
+    this.orderQuantity = null;
     this.matThicknessIdError = false;
+    this.productDetails.stock = null;
+    this.productDetails.purchaseDiscount = null;
+    this.tempPurchaseDiscount = 0;
+    this.productDetails.gst = null;
     this.lengthError = false;
     this.widthError = false;
-    this.orderQuantityError = false;
+    this.rateWithGST = null;
+    this.rate = null;
+    this.amount = null,
+      this.orderType = '';
+    this.amountWithGST = null;
+    if (this.qualityId != null && this.matSizeCode && this.matThicknessId != null) {
+      this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, null, this.qualityId, this.matThicknessId, this.matSizeCode).subscribe(
+        data => {
+          this.productDetails = data;
+        }, error => {
+          this.globalErrorHandler.handleError(error);
+        });
+    }
   }
 
   onSaveItemDetails(row) {
@@ -688,10 +696,31 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   calculateSizeCode() {
     if (this.width && this.length) {
+      this.width = parseFloat(this.width).toFixed(2);
+      this.length = parseFloat(this.length).toFixed(2);
       this.matSizeCode = this.length + 'x' + this.width;
+      this.onThicknessChange();
     }
-    else
+    else {
       this.matSizeCode = '';
+      this.matSizeIdError = false;
+      this.orderQuantityError = false;
+      this.orderQuantity = null;
+      this.matThicknessIdError = false;
+      this.productDetails.stock = null;
+      this.productDetails.purchaseDiscount = null;
+      this.tempPurchaseDiscount = 0;
+      this.productDetails.gst = null;
+      this.lengthError = false;
+      this.widthError = false;
+      this.rateWithGST = null;
+      this.rate = null;
+      this.orderQuantity = null;
+      this.amount = null,
+        this.orderType = '';
+      this.amountWithGST = null;
+    }
+
   }
 
   changeOrderType() {
@@ -743,7 +772,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
         this.amount = Math.round(this.rate * this.orderQuantity);
         this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
-        this.tempPurchaseDiscount =0;        
+        this.tempPurchaseDiscount = 0;
       }
       else {
         this.rate = ((this.length * this.width) / 1550.5) * this.productDetails.custRatePerSqFeet;
@@ -756,7 +785,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
         //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * this.productDetails.purchaseDiscount)/100));
         this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
         this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
-        this.tempPurchaseDiscount = this.productDetails.purchaseDiscount;        
+        this.tempPurchaseDiscount = this.productDetails.purchaseDiscount;
       }
     }
     else if (this.categoryId == 7) {
@@ -768,7 +797,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       //this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
       this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
       this.tempPurchaseDiscount = 0;
-      
+
     }
   }
 
@@ -856,7 +885,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -883,7 +912,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -915,7 +944,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;
@@ -936,7 +965,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.collectionIdError = true;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.shadeIdList = [];
       this.shadeIdList.unshift({ label: '--Select--', value: null });
@@ -956,7 +985,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       this.matSizeCode = null;
       this.productDetails.stock = null;
       this.productDetails.purchaseDiscount = null;
-      this.tempPurchaseDiscount=0;
+      this.tempPurchaseDiscount = 0;
       this.productDetails.gst = null;
       this.length = null;
       this.lengthError = false;

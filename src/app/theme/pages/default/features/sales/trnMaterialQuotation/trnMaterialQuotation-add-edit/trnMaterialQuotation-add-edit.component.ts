@@ -26,6 +26,7 @@ import { CustomerService } from "../../../../_services/customer.service";
 })
 export class TrnMaterialQuotationAddEditComponent implements OnInit {
   materialSelectionId: number;
+  materialQuotationId: number;
   trnMaterialQuotationForm: any;
   trnMaterialQuotationObj: any;
   userRole: string;
@@ -115,6 +116,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   shadeEnable: boolean = false;
   matEnable: boolean = false;
   fomEnable: boolean = false;
+  isMatSelectionId: boolean = false;
   customerList = [];
   constructor(
     private cdr: ChangeDetectorRef,
@@ -140,7 +142,9 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
     this.route.queryParams
       .subscribe(params => {
         this.materialSelectionId = params.materialSelectionId;
+        this.materialQuotationId = params.materialQuotationId;
         if (this.materialSelectionId) {
+          this.isMatSelectionId = true;
           this.trnMaterialSelectionService.getMaterialQuotationBySelectionId(this.materialSelectionId).subscribe(
             results => {
               this.trnMaterialQuotationObj = results;
@@ -154,6 +158,9 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
               this.globalErrorHandler.handleError(error);
               Helpers.setLoading(false);
             });
+        } else {
+          this.isMatSelectionId = false;
+          this.materialSelectionId = null;
         }
       });
 
@@ -206,8 +213,31 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
           this.params = null;
           this.status = false;
           this.viewItem = false;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.trnMaterialQuotationObj.status = 'Approved';
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
+  onCancelMQ() {
+    Helpers.setLoading(true);
+    if (this.params) {
+      this.trnMaterialQuotationService.cancelMaterialQuotation(this.trnMaterialQuotationObj)
+        .subscribe(
+        results => {
+          this.params = null;
+          this.status = false;
+          this.viewItem = false;
+          Helpers.setLoading(false);
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
+          this.disabled = false;
+          this.viewItem = true;
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -531,7 +561,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.shadeId != null) {
         parameterId = this.shadeId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId, null, null).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
@@ -558,7 +588,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.fomSizeId != null) {
         parameterId = this.fomSizeId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId, null, null).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
@@ -585,7 +615,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.matSizeId != null) {
         parameterId = this.matSizeId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId, null, null).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
@@ -613,7 +643,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.accessoryId != null) {
         parameterId = this.accessoryId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId, null, null).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
@@ -1068,10 +1098,11 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
 
 
   onCancel() {
-    if (this.materialSelectionId)
+    if (this.materialSelectionId || this.materialQuotationId)
       this.router.navigate(['/features/sales/trnMaterialSelection/list']);
     else
       this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
+
     this.disabled = false;
     this.viewItem = true;
   }

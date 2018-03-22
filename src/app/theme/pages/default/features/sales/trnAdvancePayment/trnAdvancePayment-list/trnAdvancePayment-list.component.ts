@@ -6,19 +6,19 @@ import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@ang
 import { ConfirmationService, DataTableModule, LazyLoadEvent, SelectItem } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
-import { TrnSalesInvoiceService } from '../../../../_services/trnSalesInvoice.service';
+import { TrnAdvancePaymentService } from '../../../../_services/trnAdvancePayment.service';
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { Helpers } from "../../../../../../../helpers";
-import { TrnSalesInvoice } from "../../../../_models/trnSalesInvoice";
+import { TrnAdvancePayment } from "../../../../_models/trnAdvancePayment";
 
 @Component({
-  selector: "app-trnSalesInvoice-list",
-  templateUrl: "./trnSalesInvoice-list.component.html",
+  selector: "app-trnAdvancePayment-list",
+  templateUrl: "./trnAdvancePayment-list.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class TrnSalesInvoiceListComponent implements OnInit {
-  params: number;
-  trnSalesInvoiceList = [];
+export class TrnAdvancePaymentListComponent implements OnInit {
+params: number;
+  trnAdvancePaymentList = [];
   pageSize = 50;
   page = 1;
   totalCount = 0;
@@ -28,7 +28,7 @@ export class TrnSalesInvoiceListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private trnSalesInvoiceService: TrnSalesInvoiceService,
+    private trnAdvancePaymentService: TrnAdvancePaymentService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) {
@@ -37,10 +37,10 @@ export class TrnSalesInvoiceListComponent implements OnInit {
   ngOnInit() {
   }
 
-  getTrnSalesInvoiceList() {
-    this.trnSalesInvoiceService.getAllTrnSalesInvoices(this.pageSize, this.page, this.search).subscribe(
+  getTrnAdvancePaymentsList() {
+    this.trnAdvancePaymentService.getAllTrnAdvancePayments(this.pageSize, this.page, this.search).subscribe(
       results => {
-        this.trnSalesInvoiceList = results.data;
+        this.trnAdvancePaymentList = results.data;
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
@@ -56,14 +56,14 @@ export class TrnSalesInvoiceListComponent implements OnInit {
     this.pageSize = event.rows;
     this.page = event.first/event.rows;
     this.search = event.globalFilter;
-    this.getTrnSalesInvoiceList();
+    this.getTrnAdvancePaymentsList();
   }
 
-  onEditClick(trnSalesInvoice: TrnSalesInvoice) {
-    this.router.navigate(['/features/sales/trnSalesInvoice/edit', trnSalesInvoice.id]);
+  onEditClick(trnAdvancePayment: TrnAdvancePayment) {
+    this.router.navigate(['/features/sales/trnAdvancePayment/edit', trnAdvancePayment.id]);
   }
 
   onAddClick() {
-    this.router.navigate(['/features/sales/trnSalesInvoice/add']);
+    this.router.navigate(['/features/sales/trnAdvancePayment/add']);
   }
 }

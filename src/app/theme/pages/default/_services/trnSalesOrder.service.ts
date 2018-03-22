@@ -17,6 +17,20 @@ export class TrnSalesOrderService {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnSaleOrder?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getAllTrnSaleOrdersForCustomer(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnSaleOrder/GetSalesOrdersForLoggedInUser?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+
+  getTrnSaleOrderByIdForCustomer(id: number) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnSaleOrder/GetSalesOrderByIdForCustomerUser/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+  
+  cancelSOForCustomerUser(trnSaleOrder: TrnSaleOrder){
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnSaleOrder/CancelSOForCustomerUser/' + trnSaleOrder.id,trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+
   getTrnSaleOrderById(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnSaleOrder/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
@@ -81,8 +95,17 @@ export class TrnSalesOrderService {
     return this.http.post(AppSettings.API_ENDPOINT + 'TrnSaleOrder', trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  createTrnSaleOrderByCustomer(trnSaleOrder: TrnSaleOrder) {
+    return this.http.post(AppSettings.API_ENDPOINT + 'TrnSaleOrder/PostTrnSaleOrderForCustomerUser', trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+
   updateTrnSaleOrder(trnSaleOrder: TrnSaleOrder) {
     return this.http.put(AppSettings.API_ENDPOINT + 'TrnSaleOrder/' + trnSaleOrder.id, trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  updateTrnSaleOrderForCustomer(trnSaleOrder: TrnSaleOrder) {
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnSaleOrder/PutTrnSaleOrderForCustomerUser/' + trnSaleOrder.id, trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   deleteTrnSaleOrder(id: number) {

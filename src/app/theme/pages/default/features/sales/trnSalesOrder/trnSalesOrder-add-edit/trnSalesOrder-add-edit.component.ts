@@ -461,7 +461,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.shadeId != null) {
         parameterId = this.shadeId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId, null, null).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
@@ -488,7 +488,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.fomSizeId != null) {
         parameterId = this.fomSizeId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId, null, null).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
@@ -515,7 +515,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.matSizeId != null) {
         parameterId = this.matSizeId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId, null, null).subscribe(
           data => {
             this.productDetails = data;
           }, error => {
@@ -543,7 +543,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.accessoryId != null) {
         parameterId = this.accessoryId;
-        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId).subscribe(
+        this.trnProductStockService.getAllTrnProductStocks(this.categoryId, this.collectionId, parameterId, this.qualityId, null, null).subscribe(
           data => {
             this.productDetails = data;
           }, error => {

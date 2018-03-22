@@ -56,10 +56,23 @@ export class TrnMaterialSelectionListComponent implements OnInit {
   }
 
   onApprove(materialSelectionObj) {
-    if (materialSelectionObj.isQuotationCreated)
-      this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
-    else
+    if (materialSelectionObj.isQuotationCreated) {
+      if (materialSelectionObj.id != null) {
+        Helpers.setLoading(true);
+        this.trnMaterialSelectionService.viewMaterialQuotationById(materialSelectionObj.id).subscribe(
+          result => {
+            this.router.navigate(['/features/sales/trnMaterialQuotation/edit', result], { queryParams: { materialQuotationId: result } });
+            Helpers.setLoading(false);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
+      }
+    }
+    else {
       this.router.navigate(['/features/sales/trnMaterialQuotation/add'], { queryParams: { materialSelectionId: materialSelectionObj.id } });
+    }
   }
 
   getTrnMaterialSelectionsList() {

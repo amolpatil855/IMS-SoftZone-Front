@@ -12,13 +12,13 @@ import { Helpers } from "../../../../../../../helpers";
 import { TrnSalesInvoice } from "../../../../_models/trnSalesInvoice";
 
 @Component({
-  selector: "app-trnSalesInvoice-list",
-  templateUrl: "./trnSalesInvoice-list.component.html",
+  selector: "app-invoice-list",
+  templateUrl: "./invoice-list.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class TrnSalesInvoiceListComponent implements OnInit {
+export class InvoiceListComponent implements OnInit {
   params: number;
-  trnSalesInvoiceList = [];
+  invoiceList = [];
   pageSize = 50;
   page = 1;
   totalCount = 0;
@@ -37,10 +37,10 @@ export class TrnSalesInvoiceListComponent implements OnInit {
   ngOnInit() {
   }
 
-  getTrnSalesInvoiceList() {
-    this.trnSalesInvoiceService.getAllTrnSalesInvoices(this.pageSize, this.page, this.search).subscribe(
+  getSalesInvoicesForLoggedInUser() {
+    this.trnSalesInvoiceService.getSalesInvoicesForLoggedInUser(this.pageSize, this.page, this.search).subscribe(
       results => {
-        this.trnSalesInvoiceList = results.data;
+        this.invoiceList = results.data;
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
@@ -56,14 +56,14 @@ export class TrnSalesInvoiceListComponent implements OnInit {
     this.pageSize = event.rows;
     this.page = event.first/event.rows;
     this.search = event.globalFilter;
-    this.getTrnSalesInvoiceList();
+    this.getSalesInvoicesForLoggedInUser();
   }
 
-  onEditClick(trnSalesInvoice: TrnSalesInvoice) {
-    this.router.navigate(['/features/sales/trnSalesInvoice/edit', trnSalesInvoice.id]);
+  onEditClick(invoice: TrnSalesInvoice) {
+    this.router.navigate(['/features/orderManagement/invoice/edit', invoice.id]);
   }
 
   onAddClick() {
-    this.router.navigate(['/features/sales/trnSalesInvoice/add']);
+    this.router.navigate(['/features/orderManagement/invoice/add']);
   }
 }

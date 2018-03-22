@@ -8,30 +8,24 @@ import { LayoutModule } from "../../../../../layouts/layout.module";
 import { CollectionService } from '../../../_services/collection.service';
 // import { RoleService, PermissionService } from '../../_services/index';
 import { CommonService } from '../../../_services/common.service';
-import { ShadeService } from "../../../_services/shade.service";
-import { FomSizeService } from "../../../_services/fomSize.service";
-import { CustomerService } from "../../../_services/customer.service";
 import {
   DataTableModule,
   SharedModule,
   ButtonModule,
   AutoCompleteModule,
   DropdownModule,
-  OverlayPanelModule,
-  DialogModule,
-  CalendarModule,
-  RadioButtonModule,
   ConfirmDialogModule,
   ConfirmationService,
+  CalendarModule
 } from 'primeng/primeng';
 import { SupplierService } from "../../../_services/supplier.service";
-import { TrnCustomerOrderService } from "../../../_services/trnCustomerOrder.service";
-import { TrnCustomerOrderListComponent } from "./trnCustomerOrder-list/trnCustomerOrder-list.component";
-import { TrnCustomerOrderAddEditComponent } from "./trnCustomerOrder-add-edit/trnCustomerOrder-add-edit.component";
+import { TrnAdvancePaymentService } from "../../../_services/trnAdvancePayment.service";
+import { TrnAdvancePaymentComponent } from "./trnAdvancePayment.component";
+import { TrnAdvancePaymentListComponent } from "./trnAdvancePayment-list/trnAdvancePayment-list.component";
+import { TrnAdvancePaymentAddEditComponent } from "./trnAdvancePayment-add-edit/trnAdvancePayment-add-edit.component";
 import {TrnProductStockService} from "../../../_services/trnProductStock.service";
 import {MatSizeService} from "../../../_services/matSize.service";
-import { TrnCustomerOrderComponent } from "./trnCustomerOrder.component";
-import { TrnSalesOrderService } from '../../../_services/trnSalesOrder.service';
+import { TrnGINForItemsWithStockAvailableService } from '../../../_services/trnGINForItemsWithStockAvailable.service';
 const routes: Routes = [
   {
     path: "",
@@ -39,30 +33,30 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: TrnCustomerOrderComponent,
+        component: TrnAdvancePaymentComponent,
         children: [
           {
             path: 'list',
-            component: TrnCustomerOrderListComponent,
+            component: TrnAdvancePaymentListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['customerLogin']
+              permissions: ['advancepayment']
             }
           },
           {
             path: 'add',
-            component: TrnCustomerOrderAddEditComponent,
+            component: TrnAdvancePaymentAddEditComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['customerLogin']
+              permissions: ['advancepayment']
             }
           },
           {
             path: 'edit/:id',
-            component: TrnCustomerOrderAddEditComponent,
+            component: TrnAdvancePaymentAddEditComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['customerLogin']
+              permissions: ['advancepayment']
             }
           },
         ]
@@ -83,31 +77,25 @@ const routes: Routes = [
     ButtonModule,
     AutoCompleteModule,
     DropdownModule,
-    CalendarModule,
-    OverlayPanelModule,
-    DialogModule,
-    RadioButtonModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CalendarModule
   ],
   declarations: [
-    TrnCustomerOrderComponent,
-    TrnCustomerOrderListComponent,
-    TrnCustomerOrderAddEditComponent
+    TrnAdvancePaymentComponent,
+    TrnAdvancePaymentListComponent,
+    TrnAdvancePaymentAddEditComponent
   ],
   providers: [
     // RoleService,
     TrnProductStockService,
-    TrnCustomerOrderService,
+    TrnAdvancePaymentService,
     ConfirmationService,
     SupplierService,
     CommonService,
     CollectionService,
     MatSizeService,
-    TrnSalesOrderService,
-    ShadeService,
-    FomSizeService,
-    CustomerService
+    TrnGINForItemsWithStockAvailableService
   ],
 })
-export class TrnCustomerOrderModule {
+export class TrnAdvancePaymentModule {
 }

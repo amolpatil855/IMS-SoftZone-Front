@@ -17,11 +17,11 @@ import { TrnProductStockService } from '../../../../_services/trnProductStock.se
 import { MatSizeService } from '../../../../_services/matSize.service';
 import { CustomerAddress } from '../../../../_models/customerAddress';
 @Component({
-  selector: "app-trnSalesInvoice-add-edit",
-  templateUrl: "./trnSalesInvoice-add-edit.component.html",
+  selector: "app-invoice-add-edit",
+  templateUrl: "./invoice-add-edit.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class TrnSalesInvoiceAddEditComponent implements OnInit {
+export class InvoiceAddEditComponent implements OnInit {
   TrnSalesInvoiceForm: any;
   params: number;
   TrnSalesInvoiceList = [];
@@ -64,7 +64,6 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
   accessoryCodeList = [];
   amount = null;
   disabled: boolean = false;
-  viewItem: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -85,13 +84,13 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
     this.trnSalesInvoiceObj = new TrnSalesInvoice();
     let today = new Date();
     this.disabled = false;
-    this.viewItem = false;
     this.showUpdateBtn = true;
     this.trnSalesInvoiceObj.invoiceDate = today;
     this.route.params.forEach((params: Params) => {
       this.params = params['id'];
     });
     if (this.params) {
+      this.disabled = true;
       // this.showUpdateBtn = false;
       this.getTrnSalesInvoiceById(this.params);
     }
@@ -118,17 +117,9 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
 
   getTrnSalesInvoiceById(id) {
     Helpers.setLoading(true);
-    this.TrnSalesInvoiceService.getTrnSalesInvoiceById(id).subscribe(
+    this.TrnSalesInvoiceService.getSalesInvoiceByIdForCustomerUser(id).subscribe(
       results => {
         this.trnSalesInvoiceObj = results;
-        if(this.params && this.trnSalesInvoiceObj.isApproved)
-          this.disabled = true;
-
-        if(this.trnSalesInvoiceObj.isApproved && this.trnSalesInvoiceObj.isPaid)
-          this.viewItem = true;
-        else
-          this.viewItem = false;
-        
         let customerInMH;
         if (results.trnSaleOrder != null) {
           this.orderNumber = results.trnSaleOrder.orderNumber;
@@ -313,21 +304,15 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['/features/sales/trnSalesInvoice/list']);
+    this.router.navigate(['/features/orderManagement/invoice/list']);
     this.disabled = false;
-    this.viewItem = false;
     this.orderNumber = null;
     this.showUpdateBtn = true;
   }
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    
     if (valid) {
-      if (!this.trnSalesInvoiceObj.courierDockYardNumber) {
-          this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please enter Dispatch Document No." });
-          return false;
-      }
       this.saveTrnSalesInvoice(this.trnSalesInvoiceObj);
     }
   }

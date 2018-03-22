@@ -24,7 +24,11 @@ export class TrnMaterialQuotationService {
   approveMaterialQuotation(trnMaterialQuotation: TrnMaterialQuotation) {
     return this.http.put(AppSettings.API_ENDPOINT + 'TrnMaterialQuotation/ApproveMaterialQuotation/' + trnMaterialQuotation.id, trnMaterialQuotation, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
+  cancelMaterialQuotation(trnMaterialQuotation: TrnMaterialQuotation) {
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnMaterialQuotation/CancelMaterialQuotation/' + trnMaterialQuotation.id, trnMaterialQuotation, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   getCompanyLocationLookUp() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
@@ -52,7 +56,7 @@ export class TrnMaterialQuotationService {
   getCustomerAddressByCustomerId(customerId) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Customer/GetCustomerAddressByCustomerId?customerId=' + customerId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   getCollectionLookUpByCategory(categoryId) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
@@ -63,10 +67,6 @@ export class TrnMaterialQuotationService {
 
   getProductStockAvailabilty(categoryId, collectionId, parameterId, qualityId) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnProductStock/GetProductDetails?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId + '&qualityId=' + qualityId, AppSettings.requestOptions()).map((response: Response) => response.json());
-  }
-
-  approveSalesOrder(trnMaterialQuotation: TrnMaterialQuotation) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'TrnMaterialQuotation/ApproveSO/' + trnMaterialQuotation.id, trnMaterialQuotation, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getSerialNumberLookUpByCollection(collectionId) {

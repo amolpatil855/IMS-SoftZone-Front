@@ -44,12 +44,15 @@
 			<button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnMaterialQuotationObj.status == 'Created'" [isAuthorize]="['materialquotation']" title="Approve" (click)="onApprove()" tabindex="7">
 				Approve
 			</button>
+			<button type="submit" class="topBtn btn btn-error" *ngIf="adminFlag && trnMaterialQuotationObj.status == 'Created'" [isAuthorize]="['materialquotation']" title="Cancel MQ" (click)="onCancelMQ()" tabindex="8">
+				Cancel MQ
+			</button>
 			<button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnMaterialQuotationForm"
 			 title="{{(trnMaterialQuotationForm && trnMaterialQuotationForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-			 [isAuthorize]="['materialquotation']" tabindex="6">
+			 [isAuthorize]="['materialquotation']" tabindex="5">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
-			<button class="btn btn-secondary" [isAuthorize]="['materialquotation']" (click)="onCancel()" tabindex="5">
+			<button class="btn btn-secondary" [isAuthorize]="['materialquotation']" (click)="onCancel()" tabindex="6">
 				Cancel
 			</button>
 		</div>
@@ -110,7 +113,7 @@
 																<div class="col-md-10 col-sm-10 customerNameBox">
 																	<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="trnMaterialQuotationObj.customerId"
 																	 required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer"
-																	 [disabled]="disabled" (ngModelChange)="onCustomerChange()" filter="true" tabindex="3"></p-dropdown>
+																	 [disabled]="isMatSelectionId || disabled" (ngModelChange)="onCustomerChange()" filter="true" tabindex="3"></p-dropdown>
 																</div>
 															</div>
 
@@ -158,18 +161,18 @@
 										<p-column field="area" header="Area" [editable]="false" [style]="{'text-align':'left'}"></p-column>
 										<p-column field="categoryName" header="Category" [editable]="false" [style]="{'text-align':'left'}"></p-column>
 										<p-column field="collectionName" header="Collection" [editable]="false" [style]="{'text-align':'left'}"></p-column>
-										<p-column header="Sr. No. / Size / Accessory" [editable]="false" [style]="{'text-align':'left'}">
+										<p-column header="Sr. No. / Size" [editable]="false" [style]="{'text-align':'left'}">
 											<ng-template let-row="rowData" pTemplate="body">
-												<span> {{row.serialno}} {{row.sizeForListing}} {{row.accessoryName}}</span>
+												<span> {{row.serialno}} {{row.size}}</span>
 											</ng-template>
 										</p-column>
-										<p-column field="orderQuantity" header="Or. Quantity" [editable]="true" [style]="{'text-align':'center'}">
+										<p-column field="orderQuantity" header="Or. Quantity" [editable]="isMatSelectionId || trnMaterialQuotationObj.status == 'Created'" [style]="{'text-align':'center'}">
 											<ng-template let-col let-row="rowData" pTemplate="editor">
 												<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="999" [(ngModel)]="row[col.field]"
 												 name="orderQuantity" (blur)="changeOrderType(row)">
 											</ng-template>
 										</p-column>
-										<p-column field="discountPercentage" header="Disc. %" [editable]="true" [style]="{'text-align':'center'}">
+										<p-column field="discountPercentage" header="Disc. %" [editable]="isMatSelectionId || trnMaterialQuotationObj.status == 'Created'" [style]="{'text-align':'center'}">
 											<ng-template let-col let-row="rowData" pTemplate="editor">
 												<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="999" [(ngModel)]="row[col.field]"
 												 name="discountPercentage" (blur)="changeOrderType(row)">
