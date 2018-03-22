@@ -18,7 +18,7 @@ export class TrnSalesInvoiceService {
   }
 
   getSalesInvoicesForLoggedInUser(pageSize = 0, page = 0, search = '') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'GetSalesInvoicesForLoggedInUser?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnSalesInvoice/GetSalesInvoicesForLoggedInUser?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getPOListForSelectedItem(categoryId, collectionId, parameterId, matSizeCode) {
