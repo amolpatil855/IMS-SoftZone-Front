@@ -206,7 +206,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     });
   }
 
-  onApprove() {
+  onUpdateAndCreateQuotation() {
     if (this.trnMaterialSelectionObj.isQuotationCreated) {
       if (this.trnMaterialSelectionObj.id != null) {
         Helpers.setLoading(true);
@@ -222,7 +222,23 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       }
     }
     else {
-      this.router.navigate(['/features/sales/trnMaterialQuotation/add'], { queryParams: { materialSelectionId: this.trnMaterialSelectionObj.id } });
+      if (this.params) {
+      Helpers.setLoading(true);
+      this.trnMaterialSelectionObj.TrnMaterialSelectionItems = this.trnMaterialSelectionItems;
+      this.trnMaterialSelectionService.updateTrnMaterialSelection(this.trnMaterialSelectionObj)
+        .subscribe(
+        results => {
+          this.params = null;
+          this.trnMaterialSelectionObj = results;
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          Helpers.setLoading(false);
+          this.router.navigate(['/features/sales/trnMaterialQuotation/add'], { queryParams: { materialSelectionId: this.trnMaterialSelectionObj.id } });
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+      }
     }
   }
 

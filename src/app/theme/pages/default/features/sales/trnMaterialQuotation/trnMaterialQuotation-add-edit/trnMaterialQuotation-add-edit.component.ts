@@ -205,8 +205,15 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   }
 
   onApprove() {
-    Helpers.setLoading(true);
+    
     if (this.params) {
+      let qoObj = _.find(this.trnMaterialQuotationItems, ['orderQuantity', 0]);
+      if(qoObj)
+      {
+        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Order quantity must be greater than zero." });
+        return false;
+      }
+      Helpers.setLoading(true);
       this.trnMaterialQuotationService.approveMaterialQuotation(this.trnMaterialQuotationObj)
         .subscribe(
         results => {
