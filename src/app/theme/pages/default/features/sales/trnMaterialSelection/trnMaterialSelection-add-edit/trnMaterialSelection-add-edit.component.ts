@@ -1038,7 +1038,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   }
 
   getCollectionList() {
-    this.collectionService.getCollectionLookUpForSo(this.categoryId).subscribe(
+    this.collectionService.getCollectionLookUp(this.categoryId).subscribe(
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
