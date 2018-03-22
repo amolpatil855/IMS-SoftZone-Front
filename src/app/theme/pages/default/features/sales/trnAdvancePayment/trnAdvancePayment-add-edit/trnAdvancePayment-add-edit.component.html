@@ -126,14 +126,14 @@
 
                                                         </div>
                                                         <div class="row form-group">
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-3">
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Total Amount
 																</label>
                                                                 <div class="col-md-8 col-sm-8 customerNameBox">
                                                                     <label>{{ totalAmount }}</label>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-3">
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Amount<span class="requiredField">*</span></label>
                                                                 <div class="col-md-8 col-sm-8">
                                                                     <input OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="2147483647" #amountVal="ngModel" required [ngClass]="{'red-border-class': amountVal.errors && isFormSubmitted}"
@@ -142,7 +142,7 @@
                                                                         autocomplete="off" tabindex="4">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-3">
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Confirm Amount<span class="requiredField">*</span></label>
                                                                 <div class="col-md-8 col-sm-8">
                                                                     <input OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="2147483647" #confirmAmountVal="ngModel" required [ngClass]="{'red-border-class': confirmAmountVal.errors && isFormSubmitted}"
@@ -171,7 +171,7 @@
 
                                                             <div class="col-md-12">
                                                                 <div class="row">
-                                                                    <div class="col-md-4">
+                                                                    <div class="col-md-3">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel ">Payment Mode<span class="requiredField">*</span></label>
                                                                         <div class="col-md-8 col-sm-8">
                                                                             <p-dropdown class="feePlanBox" [options]="paymentModeList" [disabled]="disabled" required [(ngModel)]="trnAdvancePaymentObj.paymentMode"
@@ -180,16 +180,16 @@
                                                                                 name="paymentMode" filter="true" tabindex="6"></p-dropdown>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-4" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
+                                                                    <div class="col-md-3" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Cheque Number<span class="requiredField">*</span></label>
-                                                                        <div class="col-md-7 col-sm-7">
+                                                                        <div class="col-md-8 col-sm-8">
                                                                             <input class="form-control m-input" type="text" [disabled]="disabled" [ngClass]="{'red-border-class': chequeNumberVal.errors && isFormSubmitted}"
                                                                                 #chequeNumberVal="ngModel" required [(ngModel)]="trnAdvancePaymentObj.chequeNumber"
                                                                                 name="chequeNumber" id="chequeNumber" placeholder=""
                                                                                 maxlength="20" tabindex="7">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-4" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
+                                                                    <div class="col-md-3" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Cheque Date<span class="requiredField">*</span></label>
                                                                         <div class="col-md-8 col-sm-8">
                                                                             <p-calendar class="purchaseOrderDate" #chequeDateVal="ngModel" [disabled]="disabled" [(ngModel)]="trnAdvancePaymentObj.chequeDate"
@@ -199,21 +199,21 @@
                                                                                 required></p-calendar>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-
-                                                                <div class="row form-group">
-                                                                    <div class="col-md-4" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
+                                                                    <div class="col-md-3" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel ">Bank Name<span class="requiredField">*</span></label>
-                                                                        <div class="col-md-7 col-sm-7">
+                                                                        <div class="col-md-8 col-sm-8">
                                                                             <input class="form-control m-input" type="text" [disabled]="disabled" [ngClass]="{'red-border-class': bankNameVal.errors && isFormSubmitted}"
                                                                                 #bankNameVal="ngModel" required [(ngModel)]="trnAdvancePaymentObj.bankName"
                                                                                 name="bankName" id="bankName" placeholder=""
                                                                                 maxlength="50" tabindex="9">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-4" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
+                                                                </div>
+
+                                                                <div class="row form-group">
+                                                                    <div class="col-md-3" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Bank Branch<span class="requiredField">*</span></label>
-                                                                        <div class="col-md-7 col-sm-7">
+                                                                        <div class="col-md-8 col-sm-8">
                                                                             <input class="form-control m-input" type="text" [disabled]="disabled" [ngClass]="{'red-border-class': bankBranchVal.errors && isFormSubmitted}"
                                                                                 #bankBranchVal="ngModel" required [(ngModel)]="trnAdvancePaymentObj.bankBranch"
                                                                                 name="bankBranch" id="bankBranch" placeholder=""
