@@ -3,6 +3,7 @@ import { Helpers } from '../../../../helpers';
 import { ScriptLoaderService } from '../../../../_services/script-loader.service';
 import { GlobalErrorHandler } from '../../../../_services/error-handler.service';
 import { MessageService } from '../../../../_services/message.service';
+import { UserService } from "../../../pages/default/_services/user.service";
 
 import * as _ from 'lodash/index';
 @Component({
@@ -13,23 +14,42 @@ import * as _ from 'lodash/index';
 })
 export class IndexComponent implements OnInit, AfterViewInit {
   selectedSchoolId: number;
+  userRole: string;
   superAdmin: any;
   selectSchool: boolean = true;
+  showDashboardForAdmin: boolean = true;
+  showDashboardForCustomer: boolean = false;
   dashBoardDetails = {
     "dueAmount": 0,
     "paidAmount": 0,
     "toatalStudnetCount": 0
   };
   schoolList = [];
-  constructor(private _script: ScriptLoaderService, private messageService: MessageService, private globalErrorHandler: GlobalErrorHandler) {
+  constructor(private _script: ScriptLoaderService, private messageService: MessageService, private globalErrorHandler: GlobalErrorHandler, private userService: UserService) {
 
   }
   ngOnInit() {
     this.selectedSchoolId = 0;
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.superAdmin = _.find(currentUser.roles, { 'name': 'SuperAdmin' });
-    //Helpers.setLoading(true);
+    this.getLoggedInUserDetail();
   }
+
+  getLoggedInUserDetail(){
+    Helpers.setLoading(true);
+    this.userService.getLoggedInUserDetail().subscribe(res => {
+      this.userRole = res.mstRole.roleName;
+      if(this.userRole == "Customer") {
+        this.showDashboardForAdmin = false;
+        this.showDashboardForCustomer = true;
+      }else{
+        this.showDashboardForAdmin = true;
+        this.showDashboardForCustomer = false;
+      }
+      Helpers.setLoading(false);
+    });
+  }
+
   ngAfterViewInit() {
     this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
       'assets/app/js/dashboard.js');

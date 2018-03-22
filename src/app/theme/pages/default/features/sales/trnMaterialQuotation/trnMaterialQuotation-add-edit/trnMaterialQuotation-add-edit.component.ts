@@ -799,6 +799,12 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
     if (!row.rate)
       return;
 
+    if(!row.orderQuantity)
+      row.orderQuantity = 0;
+
+    if(!row.discountPercentage)
+      row.discountPercentage = 0;
+
     row.orderQuantity = parseFloat(row.orderQuantity);
     row.discountPercentage = parseFloat(row.discountPercentage);
 
