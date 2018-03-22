@@ -229,7 +229,6 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
           .subscribe(
           results => {
             this.params = null;
-            this.trnMaterialSelectionObj = results;
             this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
             Helpers.setLoading(false);
             this.router.navigate(['/features/sales/trnMaterialQuotation/add'], { queryParams: { materialSelectionId: this.trnMaterialSelectionObj.id } });
