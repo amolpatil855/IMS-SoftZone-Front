@@ -24,6 +24,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
 
   trnAdvancePaymentForm: any;
   trnAdvancePaymentObj: any;
+  quotationObjList = [];
   userRole: string;
   params: number;
   adminFlag: boolean = false;
@@ -33,6 +34,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
   isFormSubmitted = false;
   disabled: boolean = false;
   confirmAmount: number;
+  totalAmount: number;
   paymentModeList = [];
   customerList = [];
   materialQuotationNumberList = [];
@@ -88,7 +90,12 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
     Helpers.setLoading(true);
     this.trnAdvancePaymentService.getMaterialQuotationLookup().subscribe(
       results => {
-        this.materialQuotationNumberList = results;
+        this.quotationObjList = results;
+        this.materialQuotationNumberList = [];
+        let vm = this;
+        _.forEach(this.quotationObjList, item => {
+          vm.materialQuotationNumberList.push({ label: item.materialQuotationNumber, value: item.id })
+        })
         this.materialQuotationNumberList.unshift({ label: '--Select--', value: null });
         Helpers.setLoading(false);
       },
@@ -100,19 +107,22 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
 
   onMaterialQuotationNoChange() {
     this.customerList = [];
+    this.trnAdvancePaymentObj.customerName = null;
+    this.totalAmount = null;
     if (this.trnAdvancePaymentObj.materialQuotationId != null) {
-      Helpers.setLoading(true);
-      this.trnAdvancePaymentService.getCustomerLookupByMaterialQuotationId(this.trnAdvancePaymentObj.materialQuotationId).subscribe(
-        results => {
-          this.trnAdvancePaymentObj.customerName = results.label;
-          this.trnAdvancePaymentObj.customerId = results.value;
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+      let qoObj = _.find(this.quotationObjList, ['id', this.trnAdvancePaymentObj.materialQuotationId]);
+      this.trnAdvancePaymentObj.customerName = qoObj.customerName;
+      this.trnAdvancePaymentObj.customerId = qoObj.customerId;
+      this.totalAmount = qoObj.totalAmount;
     }
+  }
+
+  onAmountChange() {
+    if (this.totalAmount < this.trnAdvancePaymentObj.amount) {
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount must be less than or equalto totat amount." });
+      return false;
+    }
+
   }
 
   getTrnAdvancePaymentById(id) {

@@ -42,7 +42,7 @@
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
 			<button type="submit" *ngIf="params" class="topBtn btn btn-success" [isAuthorize]="['materialselection']" title="{{ (params && (trnMaterialSelectionObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}"
-			 (click)="onApprove()" tabindex="9">
+			 (click)="onUpdateAndCreateQuotation()" tabindex="9">
 				{{ (params && (trnMaterialSelectionObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}
 			</button>
 			<button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnMaterialSelectionForm"
@@ -346,12 +346,18 @@
 						<div class="col-md-3 col-sm-3">
 							<input class="form-control" type="email" email [ngClass]="{'red-border-class': emailVal.errors && isCustomerSubmitted}" #emailVal="ngModel"
 							 required [(ngModel)]="email" name="email" placeholder="Email" maxlength="254" tabindex="24">
+							<div class="alertMsg" *ngIf="emailVal.errors && !emailVal.errors.required && emailVal.errors.email && emailVal.touched">
+									Invalid Email.
+							</div>
 						</div>
 						<label class="col-md-2 col-sm-2 fieldLabel">Phone<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
 							<input class="form-control m-input" type="phone" pattern="^[0-9]+" [ngClass]="{'red-border-class': phoneVal.errors && isCustomerSubmitted}"
 							 [(ngModel)]="phone" name="phone" required #phoneVal="ngModel" placeholder="Contact" minlength="10" maxlength="10"
 							 tabindex="25">
+							<div class="alertMsg" *ngIf="phoneVal.errors && !phoneVal.errors.required && phoneVal.touched">
+								Invalid Phone No.
+							</div>
 						</div>
 					</div>
 					<div class="form-group">
@@ -371,6 +377,9 @@
 						<div class="col-md-3 col-sm-3">
 							<input type="text" class="form-control" pattern="^[0-9]+" [ngClass]="{'red-border-class': pinVal.errors && isCustomerSubmitted}" #pinVal="ngModel"
 							 required [(ngModel)]="pin" name="pin" placeholder="PIN" id="pin" minlength="6" maxlength="6" tabindex="28">
+							<div class="alertMsg" *ngIf="pinVal.errors && !pinVal.errors.required && pinVal.touched">
+								Invalid Pin.
+							</div>
 						</div>
 						<label class="col-md-2 col-sm-2 fieldLabel">State<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
