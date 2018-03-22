@@ -74,7 +74,7 @@ export class TrnMaterialSelectionService {
   }
 
   getSerialNumberLookUpByCollection(collectionId) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpForSO?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpByCollection?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getMatSizeLookUpByCollection(collectionId) {

@@ -41,9 +41,9 @@
 			</ul>
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" *ngIf="params" class="topBtn btn btn-success" [isAuthorize]="['materialselection']" title="{{ (params && (trnMaterialSelectionObj.isQuotationCreated == false)) ? 'Create Quotation' : 'View Quotation' }}"
+			<button type="submit" *ngIf="params" class="topBtn btn btn-success" [isAuthorize]="['materialselection']" title="{{ (params && (trnMaterialSelectionObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}"
 			 (click)="onApprove()" tabindex="9">
-				{{ (params && (trnMaterialSelectionObj.isQuotationCreated == false)) ? 'Create Quotation' : 'View Quotation' }}
+				{{ (params && (trnMaterialSelectionObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}
 			</button>
 			<button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnMaterialSelectionForm"
 			 title="{{(trnMaterialSelectionForm && trnMaterialSelectionForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
@@ -114,7 +114,7 @@
 																	 required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer"
 																	 [disabled]="!viewItem" (ngModelChange)="onCustomerChange()" filter="true" tabindex="2" style="float: left;width: 85%;"></p-dropdown>
 
-																	<button type="button" class="btn" (click)="showDialog()" [disabled]="!viewItem" style="padding: 2px 5px!important;margin-left: 7px;" tabindex="3"><i class="fa fa-plus" style="font-size: 13px;vertical-align: middle;"></i></button>
+																	<button type="button" class="btn" (click)="showDialog()" [disabled]="!viewItem" title="Add Customer" style="padding: 2px 5px!important;margin-left: 7px;" tabindex="3"><i class="fa fa-plus" style="font-size: 13px;vertical-align: middle;"></i></button>
 																</div>
 															</div>
 
@@ -332,50 +332,57 @@
 					<div class="form-group">
 						<label class="col-md-2 col-sm-2 fieldLabel">Name<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-4">
-							<input class="form-control" type="text" [ngClass]="{'red-border-class': nameVal.errors && nameError}" #nameVal="ngModel"
-							 [(ngModel)]="name" name="name" id="name" required placeholder="Name" maxlength="100" autofocus tabindex="1">
+							<input class="form-control" type="text" [ngClass]="{'red-border-class': nameVal.errors && isCustomerSubmitted}" #nameVal="ngModel"
+							 [(ngModel)]="name" name="name" id="name" required placeholder="Name" maxlength="100" autofocus tabindex="22">
 						</div>
 						<label class="col-md-2 col-sm-2 fieldLabel">Code<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-2">
-							<input class="form-control m-input" type="text" [ngClass]="{'red-border-class': codeVal.errors && codeError}" #codeVal="ngModel"
-							 required [(ngModel)]="code" name="code" id="code" placeholder="Code" maxlength="50" tabindex="2">
+							<input class="form-control m-input" type="text" [ngClass]="{'red-border-class': codeVal.errors && isCustomerSubmitted}" #codeVal="ngModel"
+							 required [(ngModel)]="code" name="code" id="code" placeholder="Code" maxlength="50" tabindex="23">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-2 col-sm-2 fieldLabel">Email<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
-							<input class="form-control" type="email" email [ngClass]="{'red-border-class': emailVal.errors && emailError}" #emailVal="ngModel"
-							 required [(ngModel)]="email" name="email" placeholder="Email" maxlength="254" tabindex="3">
+							<input class="form-control" type="email" email [ngClass]="{'red-border-class': emailVal.errors && isCustomerSubmitted}" #emailVal="ngModel"
+							 required [(ngModel)]="email" name="email" placeholder="Email" maxlength="254" tabindex="24">
 						</div>
 						<label class="col-md-2 col-sm-2 fieldLabel">Phone<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
-							<input class="form-control m-input" type="phone" pattern="^[0-9]+" [ngClass]="{'red-border-class': phoneVal.errors && phoneError}"
+							<input class="form-control m-input" type="phone" pattern="^[0-9]+" [ngClass]="{'red-border-class': phoneVal.errors && isCustomerSubmitted}"
 							 [(ngModel)]="phone" name="phone" required #phoneVal="ngModel" placeholder="Contact" minlength="10" maxlength="10"
-							 tabindex="4">
+							 tabindex="25">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-2 col-sm-2 fieldLabel">Address 1<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
-							<input type="text" class="form-control" [ngClass]="{'red-border-class': address1Val.errors && address1Error}" #address1Val="ngModel"
-							 required [(ngModel)]="address1" name="address1" placeholder="Address 1" id="address1" tabindex="5">
+							<input type="text" class="form-control" [ngClass]="{'red-border-class': address1Val.errors && isCustomerSubmitted}" #address1Val="ngModel"
+							 required [(ngModel)]="address1" name="address1" placeholder="Address 1" id="address1" tabindex="26">
 						</div>
 						<label class="col-md-2 col-sm-2 fieldLabel">City<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
-							<input type="text" class="form-control" [ngClass]="{'red-border-class': cityVal.errors && cityError}" #cityVal="ngModel"
-							 required [(ngModel)]="city" name="city" placeholder="City" id="city" tabindex="7">
+							<input type="text" class="form-control" [ngClass]="{'red-border-class': cityVal.errors && isCustomerSubmitted}" #cityVal="ngModel"
+							 required [(ngModel)]="city" name="city" placeholder="City" id="city" tabindex="27">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-2 col-sm-2 fieldLabel">Pin<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
-							<input type="text" class="form-control" pattern="^[0-9]+" [ngClass]="{'red-border-class': pinVal.errors && pinError}" #pinVal="ngModel"
-							 required [(ngModel)]="pin" name="pin" placeholder="PIN" id="pin" minlength="6" maxlength="6" tabindex="8">
+							<input type="text" class="form-control" pattern="^[0-9]+" [ngClass]="{'red-border-class': pinVal.errors && isCustomerSubmitted}" #pinVal="ngModel"
+							 required [(ngModel)]="pin" name="pin" placeholder="PIN" id="pin" minlength="6" maxlength="6" tabindex="28">
 						</div>
 						<label class="col-md-2 col-sm-2 fieldLabel">State<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
-							<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" required #statesVal="ngModel" styleClass="{{ statesVal.errors && stateError?'red-border-class':''}}"
-							 [(ngModel)]="state" name="state" filter="true" tabindex="9"></p-dropdown>
+							<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" styleClass="{{ stateError && isCustomerSubmitted?'red-border-class':''}}"
+							 [(ngModel)]="state" (ngModelChange)="onStateChange()" name="state" filter="true" tabindex="29"></p-dropdown>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 col-sm-2 fieldLabel">Type<span class="requiredField">*</span></label>
+						<div class="col-md-3 col-sm-3">
+						 <p-dropdown class="feePlanBox" [options]="customerTypeList" [style]="{'width':'100%'}" styleClass="{{ typeError && isCustomerSubmitted?'red-border-class':''}}"
+							 [(ngModel)]="type" (ngModelChange)="onTypeChange()" name="type" filter="true" tabindex="30"></p-dropdown>
 						</div>
 					</div>
 				</div>
@@ -385,7 +392,7 @@
 
 
 	<p-footer>
-		<button type="button"  class="btn btn-accent m-btn m-btn--air m-btn--custom" (click)="addCustomer()" tabindex="10">Save</button>
-		<button type="button"  class="btn btn-secondary" (click)="Cancel()" tabindex="11">Cancel</button>
+		<button type="button"  class="btn btn-accent m-btn m-btn--air m-btn--custom" (click)="addCustomer()" tabindex="30">Save</button>
+		<button type="button"  class="btn btn-secondary" (click)="Cancel()" tabindex="32">Cancel</button>
 	</p-footer>
 </p-dialog>
