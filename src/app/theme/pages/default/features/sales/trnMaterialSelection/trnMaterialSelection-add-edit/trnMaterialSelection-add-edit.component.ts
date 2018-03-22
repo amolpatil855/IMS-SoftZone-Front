@@ -223,21 +223,21 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     }
     else {
       if (this.params) {
-      Helpers.setLoading(true);
-      this.trnMaterialSelectionObj.TrnMaterialSelectionItems = this.trnMaterialSelectionItems;
-      this.trnMaterialSelectionService.updateTrnMaterialSelection(this.trnMaterialSelectionObj)
-        .subscribe(
-        results => {
-          this.params = null;
-          this.trnMaterialSelectionObj = results;
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-          Helpers.setLoading(false);
-          this.router.navigate(['/features/sales/trnMaterialQuotation/add'], { queryParams: { materialSelectionId: this.trnMaterialSelectionObj.id } });
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+        Helpers.setLoading(true);
+        this.trnMaterialSelectionObj.TrnMaterialSelectionItems = this.trnMaterialSelectionItems;
+        this.trnMaterialSelectionService.updateTrnMaterialSelection(this.trnMaterialSelectionObj)
+          .subscribe(
+          results => {
+            this.params = null;
+            this.trnMaterialSelectionObj = results;
+            this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+            Helpers.setLoading(false);
+            this.router.navigate(['/features/sales/trnMaterialQuotation/add'], { queryParams: { materialSelectionId: this.trnMaterialSelectionObj.id } });
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
       }
     }
   }
@@ -283,6 +283,8 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.matHeightError = false;
     this.matWidth = null;
     this.matWidthError = false;
+    this.qualityId = null;
+    this.qualityIdError = false;
     this.matThicknessId = null;
     this.matThicknessIdError = false;
 
@@ -466,6 +468,8 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       this.orderQuantity = null;
       this.orderQuantityError = false;
       this.rateWithGST = null;
+      this.qualityId = null;
+      this.qualityIdError = false;
       this.matThicknessId = null;
       this.matThicknessIdError = false;
       this.givenDiscount = null;
@@ -480,6 +484,8 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       this.orderQuantityError = false;
       this.rateWithGST = null;
       this.rate = null;
+      this.qualityId = null;
+      this.qualityIdError = false;
       this.matThicknessId = null;
       this.matThicknessIdError = false;
       this.givenDiscount = null;
@@ -509,6 +515,10 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       this.productDetails.stock = null;
       this.orderQuantity = null;
       this.orderQuantityError = false;
+      this.qualityId = null;
+      this.qualityIdError = false;
+      this.matThicknessId = null;
+      this.matThicknessIdError = false;
       this.rateWithGST = null;
       this.rate = null;
       this.givenDiscount = null;
@@ -638,6 +648,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.collectionIdError = false;
     this.accessoryIdError = false;
     this.shadeIdError = false;
+    this.qualityIdError = false;
     this.matHeightError = false;
     this.matWidthError = false;
     this.orderQuantityError = false;
@@ -650,6 +661,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.shadeId = null;
     this.fomSizeId = null;
     this.matSizeId = null;
+    this.qualityId = null;
     this.matSizeCode = null;
     this.matHeight = null;
     this.matWidth = null;
@@ -950,6 +962,8 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.matHeightError = false;
     this.matWidth = null;
     this.matWidthError = false;
+    this.qualityId = null;
+    this.qualityIdError = false;
     this.matThicknessId = null;
     this.matThicknessIdError = false;
     if (this.categoryId != null) {
@@ -974,6 +988,8 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       this.matHeightError = false;
       this.matWidth = null;
       this.matWidthError = false;
+      this.qualityId = null;
+      this.qualityIdError = false;
       this.matThicknessId = null;
       this.matThicknessIdError = false;
       this.orderType = '';
@@ -994,6 +1010,8 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       this.matHeightError = false;
       this.matWidth = null;
       this.matWidthError = false;
+      this.qualityId = null;
+      this.qualityIdError = false;
       this.matThicknessId = null;
       this.matThicknessIdError = false;
       if (this.collectionId != null) {
@@ -1043,6 +1061,8 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       this.matHeightError = false;
       this.matWidth = null;
       this.matWidthError = false;
+      this.qualityId = null;
+      this.qualityIdError = false;
       this.matThicknessId = null;
       this.matThicknessIdError = false;
     }
@@ -1142,7 +1162,6 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
         });
     }
   }
-
 
   onCancel() {
     this.router.navigate(['/features/sales/trnMaterialSelection/list']);
