@@ -37,7 +37,7 @@ export class TrnSalesInvoiceListComponent implements OnInit {
   ngOnInit() {
   }
 
-  getTrnGoodReceiveNotesList() {
+  getTrnSalesInvoiceList() {
     this.trnSalesInvoiceService.getAllTrnSalesInvoices(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.trnSalesInvoiceList = results.data;
@@ -56,7 +56,7 @@ export class TrnSalesInvoiceListComponent implements OnInit {
     this.pageSize = event.rows;
     this.page = event.first/event.rows;
     this.search = event.globalFilter;
-    this.getTrnGoodReceiveNotesList();
+    this.getTrnSalesInvoiceList();
   }
 
   onEditClick(trnSalesInvoice: TrnSalesInvoice) {

@@ -1075,7 +1075,7 @@ cancelSO(){
     value.chequeDate = new Date(tempChequeDate.setHours(23));
     Helpers.setLoading(true);
     if (this.params) {
-      this.trnSalesOrderService.updateTrnSaleOrder(value)
+      this.trnSalesOrderService.updateTrnSaleOrderForCustomer(value)
         .subscribe(
         results => {
           this.params = null;

@@ -104,6 +104,10 @@ export class TrnSalesOrderService {
     return this.http.put(AppSettings.API_ENDPOINT + 'TrnSaleOrder/' + trnSaleOrder.id, trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  updateTrnSaleOrderForCustomer(trnSaleOrder: TrnSaleOrder) {
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnSaleOrder/PutTrnSaleOrderForCustomerUser/' + trnSaleOrder.id, trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   deleteTrnSaleOrder(id: number) {
     return this.http.delete(AppSettings.API_ENDPOINT + 'TrnSaleOrder/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

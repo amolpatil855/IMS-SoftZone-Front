@@ -83,8 +83,7 @@
 										Action
 									</ng-template>
                                     <ng-template let-row="rowData" pTemplate="body">
-                                            <button type="button" pButton  *ngIf="row.status == 'Completed'" (click)="onEditClick(row)" icon="fa fa-info-circle" class="editBtn" title="View GIN"></button>
-                                            <button type="button"  *ngIf="row.status != 'Completed'" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit GIN"></button> 
+                                            <button type="button" pButton  (click)="onEditClick(row)" icon="fa fa-info-circle" class="editBtn" title="View GIN"></button>
                                     </ng-template>
 								</p-column>
 							</p-dataTable>
