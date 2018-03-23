@@ -205,30 +205,48 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   }
 
   onApprove() {
-    
     if (this.params) {
       let qoObj = _.find(this.trnMaterialQuotationItems, ['orderQuantity', 0]);
-      if(qoObj)
-      {
+      if (qoObj) {
         this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Order quantity must be greater than zero." });
         return false;
       }
+
       Helpers.setLoading(true);
-      this.trnMaterialQuotationService.approveMaterialQuotation(this.trnMaterialQuotationObj)
-        .subscribe(
-        results => {
+      if (this.params) {
+        this.trnMaterialQuotationObj.trnMaterialQuotationItems = this.trnMaterialQuotationItems;
+        this.trnMaterialQuotationService.updateTrnMaterialQuotation(this.trnMaterialQuotationObj)
+          .subscribe(
+          results => {
+            this.params = null;
+            this.approveMaterialQuotation();
+            Helpers.setLoading(false);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
+      }
+    }
+  }
+
+  approveMaterialQuotation() {
+    this.trnMaterialQuotationService.approveMaterialQuotation(this.trnMaterialQuotationObj)
+      .subscribe(
+      results => {
+        this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+        if (results.type == 'Success') {
           this.params = null;
           this.status = false;
           this.viewItem = false;
           this.trnMaterialQuotationObj.status = 'Approved';
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
-    }
+        }
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
   onCancelMQ() {
@@ -806,10 +824,10 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
     if (!row.rate)
       return;
 
-    if(!row.orderQuantity)
+    if (!row.orderQuantity)
       row.orderQuantity = 0;
 
-    if(!row.discountPercentage)
+    if (!row.discountPercentage)
       row.discountPercentage = 0;
 
     row.orderQuantity = parseFloat(row.orderQuantity);
