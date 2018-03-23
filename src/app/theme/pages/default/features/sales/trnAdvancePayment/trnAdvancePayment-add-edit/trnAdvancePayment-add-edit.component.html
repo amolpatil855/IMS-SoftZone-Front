@@ -142,7 +142,7 @@
                                                                         autocomplete="off" tabindex="4">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-3" *ngIf="viewItem">
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Confirm Amount<span class="requiredField">*</span></label>
                                                                 <div class="col-md-8 col-sm-8">
                                                                     <input OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="2147483647" #confirmAmountVal="ngModel" required [ngClass]="{'red-border-class': confirmAmountVal.errors && isFormSubmitted}"

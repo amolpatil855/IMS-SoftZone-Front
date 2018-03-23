@@ -119,7 +119,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
 
   onAmountChange() {
     if (this.totalAmount < this.trnAdvancePaymentObj.amount) {
-      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount must be less than or equalto total amount." });
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount must be less than or equal to total amount." });
       return false;
     }
 
@@ -149,7 +149,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
     if (valid) {
       this.trnAdvancePaymentObj.amount = parseInt(this.trnAdvancePaymentObj.amount);
       if (this.totalAmount < this.trnAdvancePaymentObj.amount) {
-        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount must be less than or equalto total amount." });
+        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount must be less than or equal to total amount." });
         return false;
       }
       value.confirmAmount = parseInt(value.confirmAmount);
