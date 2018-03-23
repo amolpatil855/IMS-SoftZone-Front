@@ -87,9 +87,9 @@
 
 														<div class="row form-group">
 
-															<div class="col-md-6">
+															<div class="col-md-12">
 																<div class="row">
-																	<div class="col-md-6">
+																	<div class="col-md-3">
 																		<label class="col-md-4 col-sm-4 fieldLabel">Date</label>
 																		<div class="col-md-8 col-sm-8">
 																			<p-calendar class="purchaseOrderDate" #materialQuotationDateVal="ngModel" [(ngModel)]="trnMaterialQuotationObj.materialQuotationDate"
@@ -98,24 +98,23 @@
 																			 autofocus required></p-calendar>
 																		</div>
 																	</div>
-																	<div class="col-md-6">
-																		<label class="col-md-5 col-sm-5 fieldLabel noPadding">Material Quotation No.</label>
-																		<div class="col-md-7 col-sm-7">
+																	<div class="col-md-3">
+																		<label class="col-md-4 col-sm-4 fieldLabel noPadding">Quotation No.</label>
+																		<div class="col-md-8 col-sm-8">
 																			<input type="text" [(ngModel)]="trnMaterialQuotationObj.materialQuotationNumber" name="materialQuotationNumber" class="form-control"
 																			 #orderNoVal="ngModel" disabled tabindex="2" placeholder="">
 																		</div>
 																	</div>
+																	<div class="col-md-3">
+																		<label class="col-md-4 col-sm-4 fieldLabel noPadding">Selection No.</label>
+																		<div class="col-md-8 col-sm-8">
+																			<input type="text" [(ngModel)]="trnMaterialQuotationObj.materialSelectionNo" name="materialSelectionNo" class="form-control"
+																			  disabled tabindex="2" placeholder="">
+																		</div>
+																	</div>
 																</div>
 															</div>
-															<div class="col-md-6">
-																<label class="col-md-2 col-sm-2 fieldLabel">Customer<span class="requiredField">*</span>
-																</label>
-																<div class="col-md-10 col-sm-10 customerNameBox">
-																	<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="trnMaterialQuotationObj.customerId"
-																	 required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer"
-																	 [disabled]="isMatSelectionId || disabled" (ngModelChange)="onCustomerChange()" filter="true" tabindex="3"></p-dropdown>
-																</div>
-															</div>
+															
 
 														</div>
 														<div class="row form-group">
@@ -131,6 +130,15 @@
 																<label class="col-md-4 col-sm-4 fieldLabel ">Total Amount</label>
 																<div class="col-md-8 col-sm-8">
 																	<input type="number" [(ngModel)]="trnMaterialQuotationObj.totalAmount" name="totalAmount" class="form-control" disabled placeholder="">
+																</div>
+															</div>
+															<div class="col-md-6">
+																<label class="col-md-2 col-sm-2 fieldLabel">Customer<span class="requiredField">*</span>
+																</label>
+																<div class="col-md-10 col-sm-10 customerNameBox">
+																	<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="trnMaterialQuotationObj.customerId"
+																	 required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer"
+																	 [disabled]="isMatSelectionId || disabled" (ngModelChange)="onCustomerChange()" filter="true" tabindex="3"></p-dropdown>
 																</div>
 															</div>
 														</div>
@@ -179,7 +187,7 @@
 											</ng-template>
 										</p-column>
 										<p-column field="orderType" header="Or. Type" [editable]="false" [style]="{'text-align':'center'}"></p-column>
-										<p-column field="rate" header="rate" [editable]="false"></p-column>
+										<p-column field="rate" header="rate" [editable]="false" [style]="{'text-align':'right'}"></p-column>
 										<p-column field="gst" header="gst %" [editable]="false" [style]="{'text-align':'center'}"></p-column>
 										<p-column field="amountWithGST" header="amount(GST)" [editable]="false" [style]="{'text-align':'right'}"></p-column>
 									</p-dataTable>
