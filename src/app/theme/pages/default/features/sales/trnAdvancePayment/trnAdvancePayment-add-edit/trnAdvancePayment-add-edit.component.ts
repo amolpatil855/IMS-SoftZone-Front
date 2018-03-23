@@ -119,7 +119,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
 
   onAmountChange() {
     if (this.totalAmount < this.trnAdvancePaymentObj.amount) {
-      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount must be less than or equalto totat amount." });
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount must be less than or equalto total amount." });
       return false;
     }
 
@@ -134,6 +134,8 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
         this.viewItem = false;
         this.trnAdvancePaymentObj.advancePaymentDate = new Date(this.trnAdvancePaymentObj.advancePaymentDate);
         this.trnAdvancePaymentObj.chequeDate = new Date(this.trnAdvancePaymentObj.chequeDate);
+        if (this.trnAdvancePaymentObj.trnMaterialQuotation)
+          this.totalAmount = this.trnAdvancePaymentObj.trnMaterialQuotation.totalAmount;
         Helpers.setLoading(false);
       },
       error => {
@@ -146,6 +148,10 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
     this.isFormSubmitted = true;
     if (valid) {
       this.trnAdvancePaymentObj.amount = parseInt(this.trnAdvancePaymentObj.amount);
+      if (this.totalAmount < this.trnAdvancePaymentObj.amount) {
+        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount must be less than or equalto total amount." });
+        return false;
+      }
       value.confirmAmount = parseInt(value.confirmAmount);
       if (this.trnAdvancePaymentObj.amount != value.confirmAmount) {
         this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount doesn't match." });

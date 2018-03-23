@@ -144,6 +144,14 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/orderManagement\/invoice\/invoice.module#InvoiceModule"
       },
       {
+        "path": "features\/productListing",
+        "loadChildren": ".\/pages\/default\/features\/productListing\/productListing.module#ProductListingModule"
+      },
+      {
+        "path": "features\/stockEnquiry",
+        "loadChildren": ".\/pages\/default\/features\/stockEnquiry\/stockEnquiry.module#StockEnquiryModule"
+      },
+      {
         "path": "header/changePassword",
         "loadChildren": ".\/pages\/default\/features\/changePassword\/changePassword.module#ChangePasswordModule"
       },
