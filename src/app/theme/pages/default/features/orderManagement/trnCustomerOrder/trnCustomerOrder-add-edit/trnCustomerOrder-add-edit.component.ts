@@ -235,6 +235,10 @@ cancelSO(){
     results => {
       //this.shippingAddressObj = results.MstCustomer;
       Helpers.setLoading(false);
+      this.router.navigate(['/features/orderManagement/trnCustomerOrder/list']);
+      this.disabled = false;
+      this.viewItem = true;
+
     },
     error => {
       this.globalErrorHandler.handleError(error);
@@ -297,16 +301,11 @@ cancelSO(){
   }
 
   addItemToList() {
+    this.givenDiscount=0;
     if (!this.categoryId)
       this.categoryIdError = true;
     else
       this.categoryIdError = false;
-
-
-    if (!this.givenDiscount && this.categoryId != 7)
-      this.givenDiscountError = true;
-    else
-      this.givenDiscountError = false;
 
     if (!this.collectionId && this.categoryId != 7)
       this.collectionIdError = true;
