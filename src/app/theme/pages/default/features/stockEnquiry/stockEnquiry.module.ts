@@ -6,7 +6,6 @@ import { DefaultComponent } from "../../default.component";
 import { AuthGuard } from "../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../layouts/layout.module";
 import { CollectionService } from '../../_services/collection.service';
-// import { RoleService, PermissionService } from '../../_services/index';
 import { CommonService } from '../../_services/common.service';
 import {
   DataTableModule,
@@ -22,8 +21,11 @@ import { SupplierService } from "../../_services/supplier.service";
 import { StockEnquiryService } from "../../_services/stockEnquiry.service";
 import { StockEnquiryComponent } from "./stockEnquiry.component";
 import { StockEnquiryListComponent } from "./stockEnquiry-list/stockEnquiry-list.component";
-import { StockEnquiryAddEditComponent } from "./stockEnquiry-add-edit/stockEnquiry-add-edit.component";
-import {TrnProductStockService} from "../../_services/trnProductStock.service";
+import { TrnProductStockService } from "../../_services/trnProductStock.service";
+import { TrnSalesOrderService } from "../../_services/trnSalesOrder.service";
+import { ShadeService } from "../../_services/shade.service";
+import { FomSizeService } from "../../_services/fomSize.service";
+import { ProductListingService } from "../../_services/productListing.service";
 
 const routes: Routes = [
   {
@@ -37,22 +39,6 @@ const routes: Routes = [
           {
             path: 'list',
             component: StockEnquiryListComponent,
-            canActivate: [AuthGuard],
-            data: {
-              permissions: ['customerLogin']
-            }
-          },
-          {
-            path: 'add',
-            component: StockEnquiryAddEditComponent,
-            canActivate: [AuthGuard],
-            data: {
-              permissions: ['customerLogin']
-            }
-          },
-          {
-            path: 'edit/:id',
-            component: StockEnquiryAddEditComponent,
             canActivate: [AuthGuard],
             data: {
               permissions: ['customerLogin']
@@ -82,12 +68,14 @@ const routes: Routes = [
   declarations: [
     StockEnquiryComponent,
     StockEnquiryListComponent,
-    StockEnquiryAddEditComponent
   ],
   providers: [
-    // RoleService,
+    ProductListingService,
+    TrnSalesOrderService,
     TrnProductStockService,
     StockEnquiryService,
+    ShadeService,
+    FomSizeService,
     ConfirmationService,
     SupplierService,
     CommonService,
