@@ -187,7 +187,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
       row.rate = row.purchaseRate;
       row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
       // this.amountWithGST =this.rateWithGST * this.orderQuantity;
-      row.amount = row.rate * row.orderQuantity;
+      row.amount = Math.round(row.rate * row.orderQuantity);
       //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * row.purchaseDiscount)/100));
       //this.amount = Math.round(this.amount - ((this.amount * row.purchaseDiscount) / 100));
       row.amountWithGST = Math.round(row.amount + ((row.amount * row.gst) / 100));
