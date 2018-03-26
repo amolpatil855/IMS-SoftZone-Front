@@ -64,9 +64,8 @@
 								<i class="fa fa-search searchIcon"></i>
 								<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
 							</div>
-							<p-dataTable [value]="invoiceList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize"
-							 [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount"
-							 (onLazyLoad)="loadLazy($event)">
+							<p-dataTable [value]="invoiceList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb"
+							 #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
 								<p-column field="invoiceNumber" header="Invoice No." [style]="{'text-align':'center'}"></p-column>
 								<p-column field="ginNumber" header="GIN No." [style]="{'text-align':'center'}"></p-column>
 								<!-- <p-column field="orderDate" header="Date" [style]="{'text-align':'center'}"></p-column> -->
@@ -74,17 +73,21 @@
 									<ng-template let-col let-data="rowData" pTemplate="body">
 										{{data[col.field]|date: 'dd/MM/yyyy' }}
 									</ng-template>
-                                </p-column>
-                                <p-column field="courierDockYardNumber" header="Dock Yard No." [style]="{'text-align':'center'}"></p-column>
-								<!-- <p-column field="mstCustomer.name" header="Customer" [style]="{'text-align':'left'}"></p-column> -->
+								</p-column>
+								<p-column field="courierDockYardNumber" header="Dock Yard No." [style]="{'text-align':'center'}"></p-column>
 								<p-column field="status" header="Status" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="isPaid" header="Paid" [style]="{'text-align':'left'}">
+									<ng-template let-col let-data="rowData" pTemplate="body">
+										{{data[col.field] ? 'Yes' : 'No' }}
+									</ng-template>
+								</p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action
 									</ng-template>
-                                    <ng-template let-row="rowData" pTemplate="body">
-                                            <button type="button" pButton  (click)="onEditClick(row)" icon="fa fa-info-circle" class="editBtn" title="View GIN"></button>
-                                    </ng-template>
+									<ng-template let-row="rowData" pTemplate="body">
+										<button type="button" pButton (click)="onEditClick(row)" icon="fa fa-info-circle" class="editBtn" title="View"></button>
+									</ng-template>
 								</p-column>
 							</p-dataTable>
 						</div>
