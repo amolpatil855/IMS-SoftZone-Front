@@ -108,7 +108,7 @@ export class TrnSalesOrderService {
   }
 
   updateTrnSaleOrderForCustomer(trnSaleOrder: TrnSaleOrder) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'TrnSaleOrder/PutTrnSaleOrderForCustomerUser/' + trnSaleOrder.id, trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnSaleOrder/PutTrnSaleOrderForCustomerUser' , trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   deleteTrnSaleOrder(id: number) {
