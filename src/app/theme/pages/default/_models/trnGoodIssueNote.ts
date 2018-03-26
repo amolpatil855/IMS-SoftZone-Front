@@ -10,4 +10,5 @@ export class TrnGoodIssueNote{
     trnGoodIssueNoteItems=[];
     mstCustomer:Customer;
     salesOrderNumber:string;
+    materialQuotationNumber: string;
 }
