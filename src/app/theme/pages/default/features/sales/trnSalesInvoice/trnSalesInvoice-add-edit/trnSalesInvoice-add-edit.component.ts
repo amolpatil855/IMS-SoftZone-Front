@@ -328,6 +328,12 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
           this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please enter Dispatch Document No." });
           return false;
       }
+      if(this.trnSalesInvoiceObj.isPaid) {
+        if(!this.trnSalesInvoiceObj.isApproved){
+          this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please approve the invoice first." });
+          return false;
+        }   
+      }
       this.saveTrnSalesInvoice(this.trnSalesInvoiceObj);
     }
   }
