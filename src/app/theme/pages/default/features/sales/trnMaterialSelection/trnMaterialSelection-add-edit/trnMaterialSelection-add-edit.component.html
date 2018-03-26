@@ -112,7 +112,7 @@
 																<div class="col-md-8 col-sm-8 customerNameBox">
 																	<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="trnMaterialSelectionObj.customerId"
 																	 required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer"
-																	 [disabled]="!viewItem" (ngModelChange)="onCustomerChange()" filter="true" tabindex="2" style="float: left;width: 85%;"></p-dropdown>
+																	 [disabled]="!viewItem" filter="true" tabindex="2" style="float: left;width: 85%;"></p-dropdown>
 
 																	<button type="button" class="btn" (click)="showDialog()" [disabled]="!viewItem" title="Add Customer" style="padding: 2px 5px!important;margin-left: 7px;" tabindex="3"><i class="fa fa-plus" style="font-size: 13px;vertical-align: middle;"></i></button>
 																</div>
@@ -323,6 +323,8 @@
 	</div>
 </div>
 <p-dialog header="Customer Details" [(visible)]="display" [closable]="false" modal="modal" [responsive]="true">
+	<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
+							 (ngSubmit)="addCustomer(customerForm)" #customerForm="ngForm" id="customerForm">
 	<div class="row">
 		<div class="col-md-12">
 			<!-- Basic Information -->
@@ -398,10 +400,10 @@
 			</div>
 		</div>
 	</div>
-
+	</form>
 
 	<p-footer>
-		<button type="button"  class="btn btn-accent m-btn m-btn--air m-btn--custom" (click)="addCustomer()" tabindex="30">Save</button>
+		<button type="submit"  class="btn btn-accent m-btn m-btn--air m-btn--custom" form="customerForm" tabindex="30">Save</button>
 		<button type="button"  class="btn btn-secondary" (click)="Cancel()" tabindex="32">Cancel</button>
 	</p-footer>
 </p-dialog>

@@ -13,7 +13,7 @@
 				<li class="m-nav__item">
 					<a class="m-nav__link">
 						<span class="m-nav__link-text">
-							Invoice
+							Tax Invoice
 						</span>
 					</a>
 				</li>
@@ -41,8 +41,10 @@
 					<div class="col-md-12">
 
 						<div class="invoiceMainBox" id="invoiceMainBox">
-							<h3 class="invoiceMainHeading">Tax Invoice</h3>
-
+							<!-- <h3 class="invoiceMainHeading">Tax Invoice</h3> -->
+							<div class="checkboxContainer">
+								Paid: &nbsp;&nbsp; {{trnSalesInvoiceObj.isPaid ? "Yes" : "No"}}
+							</div>
 							<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
 							 (ngSubmit)="onSubmit(trnSalesInvoice)" #trnSalesInvoice="ngForm" id="trnSalesInvoice">
 								<div class="row">

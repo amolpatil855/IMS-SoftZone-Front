@@ -21,13 +21,13 @@
 		</div>
 
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox" style="float:right">
-			<button class="topBtn btn btn-info" (click)="print()" tabindex="5">print</button>
+			<button class="topBtn btn btn-info" title="Print" (click)="print()" tabindex="5">print</button>
 			<button type="submit" *ngIf="!viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesInvoice"
 			 title="{{(trnSalesInvoice && trnSalesInvoice.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['invoice']" tabindex="3">
 				{{ params ? 'Update' : 'Save' }}
 			</button>
-			<button class="btn btn-secondary" [isAuthorize]="['invoice']" (click)="onCancel()" tabindex="4">
+			<button class="btn btn-secondary" [isAuthorize]="['invoice']" (click)="onCancel()" title="Cancel" tabindex="4">
 				Cancel
 			</button>
 		</div>
