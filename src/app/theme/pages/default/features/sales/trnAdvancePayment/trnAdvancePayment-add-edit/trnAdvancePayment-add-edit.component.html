@@ -134,6 +134,14 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
+                                                                    <label class="col-md-4 col-sm-4 fieldLabel noPadding">Balance Amount
+                                                                    </label>
+                                                                    <div class="col-md-8 col-sm-8 customerNameBox">
+                                                                        <label>{{ balanceAmount }}</label>
+                                                                    </div>
+                                                                </div>
+                                                            
+                                                            <div class="col-md-3">
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Amount<span class="requiredField">*</span></label>
                                                                 <div class="col-md-8 col-sm-8">
                                                                     <input OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="2147483647" #amountVal="ngModel" required [ngClass]="{'red-border-class': amountVal.errors && isFormSubmitted}"
