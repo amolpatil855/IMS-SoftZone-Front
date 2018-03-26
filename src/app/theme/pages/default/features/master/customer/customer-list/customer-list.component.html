@@ -418,13 +418,7 @@
                                           <p-column field="phone" header="Phone" [style]="{'text-align':'center'}"></p-column>
                                           <p-column field="nickName" header="Nick Name" [style]="{'text-align':'left'}"></p-column>
                                           <p-column field="code" header="Code" [style]="{'text-align':'left'}"></p-column>
-                                          <p-column field="mstCustomerAddresses" header="GST" [style]="{'text-align':'center'}">
-                                                <ng-template let-data="rowData" pTemplate="body">
-                                                      <span *ngFor="let item of data.mstCustomerAddresses">{{ item.gstin }}
-                                                            <br/>
-                                                      </span>
-                                                </ng-template>
-                                          </p-column>
+                                          <p-column field="gstin" header="GST" [style]="{'text-align':'center'}"></p-column>
                                           <p-column field="isWholesaleCustomer" header="Wholesale Customer" [style]="{'text-align':'center'}">
                                                 <ng-template let-wholesale="rowData" pTemplate type="body">
                                                       {{wholesale.isWholesaleCustomer ? "Yes" : "No"}}
