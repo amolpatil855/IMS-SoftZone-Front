@@ -26,6 +26,7 @@ import { CustomerService } from "../../../../_services/customer.service";
 })
 export class TrnMaterialSelectionAddEditComponent implements OnInit {
   trnMaterialSelectionForm: any;
+  customerForm: any;
   trnMaterialSelectionObj: any;
   userRole: string;
   params: number;
@@ -118,13 +119,6 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   shadeEnable: boolean = false;
   matEnable: boolean = false;
   fomEnable: boolean = false;
-  nameError: boolean = false;
-  codeError: boolean = false;
-  emailError: boolean = false;
-  phoneError: boolean = false;
-  address1Error: boolean = false;
-  cityError: boolean = false;
-  pinError: boolean = false;
   typeError: boolean = false;
   stateError: boolean = false;
   name: string = null;
@@ -317,7 +311,6 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
         this.trnMaterialSelectionObj.materialSelectionDate = new Date(this.trnMaterialSelectionObj.materialSelectionDate);
         this.trnMaterialSelectionItems = results.trnMaterialSelectionItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
-        this.shippingAddress = this.trnMaterialSelectionObj.shippingAddress;
         _.forEach(this.trnMaterialSelectionItems, function (value) {
           if (value.mstCategory != null)
             value.categoryName = value.mstCategory.code;
@@ -334,48 +327,8 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       });
   }
 
-  onRadioBtnClick(data) {
-    this.shippingAddressObj = data;
-    this.trnMaterialSelectionObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
-    this.display = false;
-  }
-
-  addCustomer() {
+  addCustomer({ value, valid }: { value: any, valid: boolean }) {
     this.isCustomerSubmitted = true;
-    if (!this.name)
-      this.nameError = true;
-    else
-      this.nameError = false;
-
-    if (!this.code)
-      this.codeError = true;
-    else
-      this.codeError = false;
-
-    if (!this.email)
-      this.emailError = true;
-    else
-      this.emailError = false;
-
-    if (!this.phone)
-      this.phoneError = true;
-    else
-      this.phoneError = false;
-
-    if (!this.address1)
-      this.address1Error = true;
-    else
-      this.address1Error = false;
-
-    if (!this.city)
-      this.cityError = true;
-    else
-      this.cityError = false;
-
-    if (!this.pin)
-      this.pinError = true;
-    else
-      this.pinError = false;
 
     if (this.state == null || this.state == "0" || this.state == "")
       this.stateError = true;
@@ -387,7 +340,10 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     else
       this.typeError = false;
 
-    if (this.nameError || this.codeError || this.emailError || this.phoneError || this.address1Error || this.cityError || this.pinError || this.stateError || this.typeError)
+    if (this.stateError || this.typeError)
+      return false;
+
+    if (!valid)
       return false;
 
     let customerObj = {
@@ -426,13 +382,6 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
 
   Cancel() {
     this.isCustomerSubmitted = false;
-    this.nameError = false;
-    this.codeError = false;
-    this.emailError = false;
-    this.phoneError = false;
-    this.address1Error = false;
-    this.cityError = false;
-    this.pinError = false;
     this.stateError = false;
     this.typeError = false;
     this.name = null;
@@ -704,33 +653,8 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     row.enable = false;
   }
 
-
-  onCustomerChange() {
-    this.shippingAddressObj = '';
-    if (this.trnMaterialSelectionObj.customerId != null) {
-      Helpers.setLoading(true);
-      this.trnMaterialSelectionService.getCustomerAddressByCustomerId(this.trnMaterialSelectionObj.customerId).subscribe(
-        results => {
-          this.addressList = results;
-          this.shippingAddressObj = _.find(this.addressList, ['isPrimary', true]);
-
-          if (this.shippingAddressObj.addressLine2 == null) {
-            this.shippingAddressObj.addressLine2 = '';
-          }
-          this.trnMaterialSelectionObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
-
-          this.selectedAddress = this.trnMaterialSelectionObj.customerId;
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
-    }
-    this.trnMaterialSelectionObj.shippingAddress = '';
-  }
-
   getMatQualityList() {
+    Helpers.setLoading(true);
     this.matSizeService.getQualityLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.qualityList = results;
@@ -744,6 +668,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   }
 
   getAccessoryLookup() {
+    Helpers.setLoading(true);
     this.commonService.getAccessoryLookUp().subscribe(
       results => {
         this.accessoryCodeList = results;
@@ -1068,49 +993,61 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
   }
 
   getMatSizeList() {
+    Helpers.setLoading(true);
     this.trnMaterialSelectionService.getMatSizeLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.matSizeList = results;
         this.matSizeList.unshift({ label: '--Select--', value: null });
         if (this.categoryId == 4)
           this.matSizeList.push({ label: 'Custom', value: -1 });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getFoamSizeList() {
+    Helpers.setLoading(true);
     this.trnMaterialSelectionService.getFomSizeLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.fomSizeList = results;
         this.fomSizeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
 
   getshadeIdList() {
+    Helpers.setLoading(true);
     this.trnMaterialSelectionService.getSerialNumberLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.shadeIdList = results;
         this.shadeIdList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getCollectionList() {
+    Helpers.setLoading(true);
     this.collectionService.getCollectionLookUp(this.categoryId).subscribe(
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
