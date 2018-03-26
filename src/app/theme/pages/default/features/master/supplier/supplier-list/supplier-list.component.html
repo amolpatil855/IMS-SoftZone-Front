@@ -382,11 +382,7 @@
                                 <p-column field="email" header="Email" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="phone" header="Phone" [style]="{'text-align':'center'}"></p-column>
                                 <p-column field="firmName" header="Firm Name" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="mstSupplierAddresses" header="GST" [style]="{'text-align':'center'}">
-									<ng-template let-data="rowData"  pTemplate="body">
-										<span *ngFor="let item of data.mstSupplierAddresses">{{ item.gstin }} <br/></span>
-									</ng-template>
-								</p-column>
+                                <p-column field="gstin" header="GST" [style]="{'text-align':'center'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action
