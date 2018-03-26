@@ -229,22 +229,21 @@ export class TrnCustomerOrderAddEditComponent implements OnInit {
       });
   }
 
-cancelSO(){
-  Helpers.setLoading(true);
-  this.trnSalesOrderService.cancelSOForCustomerUser(this.trnSalesOrderObj).subscribe(
-    results => {
-      //this.shippingAddressObj = results.MstCustomer;
-      Helpers.setLoading(false);
-      this.router.navigate(['/features/orderManagement/trnCustomerOrder/list']);
-      this.disabled = false;
-      this.viewItem = true;
-
-    },
-    error => {
-      this.globalErrorHandler.handleError(error);
-      Helpers.setLoading(false);
-    });
-}
+  cancelSO() {
+    Helpers.setLoading(true);
+    this.trnSalesOrderService.cancelSOForCustomerUser(this.trnSalesOrderObj).subscribe(
+      results => {
+        this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+        Helpers.setLoading(false);
+        this.router.navigate(['/features/orderManagement/trnCustomerOrder/list']);
+        this.disabled = false;
+        this.viewItem = true;
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
 
   getTrnSalesOrderById(id) {
     Helpers.setLoading(true);
@@ -301,7 +300,7 @@ cancelSO(){
   }
 
   addItemToList() {
-    this.givenDiscount=0;
+    this.givenDiscount = 0;
     if (!this.categoryId)
       this.categoryIdError = true;
     else
@@ -681,13 +680,6 @@ cancelSO(){
             }
           }
           this.trnSaleOrderItems.splice(index, 1);
-          // this.trnSalesOrderService.deleteItem(id).subscribe(
-          //     data => {
-          //         this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: 'Record Deleted Successfully' });
-          //        // this.getAllMerchants();
-          //     }, error => {
-          //         this.globalErrorHandler.handleError(error);
-          //     });
         },
         reject: () => {
         }
