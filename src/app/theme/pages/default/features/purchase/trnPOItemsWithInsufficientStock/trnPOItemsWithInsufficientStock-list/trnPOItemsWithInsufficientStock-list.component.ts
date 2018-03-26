@@ -210,7 +210,11 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
       results => {
         Helpers.setLoading(false);
         this.trnPurchaseOrderItems = results;
+        let vm=this;
         this.filteredItems = this.trnPurchaseOrderItems;
+        _.forEach(this.filteredItems, function(value) {
+          vm.changeOrderType(value);
+        });
         if (this.filteredItems.length == 0)
           this.tableEmptyMesssage = "Records Not Available";
       },
