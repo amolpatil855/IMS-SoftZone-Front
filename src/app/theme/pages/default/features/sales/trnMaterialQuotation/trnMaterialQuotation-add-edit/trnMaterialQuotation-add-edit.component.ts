@@ -212,13 +212,12 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
         return false;
       }
 
-      Helpers.setLoading(true);
       if (this.params) {
         this.trnMaterialQuotationObj.trnMaterialQuotationItems = this.trnMaterialQuotationItems;
+        Helpers.setLoading(true);
         this.trnMaterialQuotationService.updateTrnMaterialQuotation(this.trnMaterialQuotationObj)
           .subscribe(
           results => {
-            this.params = null;
             this.approveMaterialQuotation();
             Helpers.setLoading(false);
           },
@@ -250,17 +249,17 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   }
 
   onCancelMQ() {
-    Helpers.setLoading(true);
     if (this.params) {
+      Helpers.setLoading(true);
       this.trnMaterialQuotationService.cancelMaterialQuotation(this.trnMaterialQuotationObj)
         .subscribe(
         results => {
           this.params = null;
           this.status = false;
           this.viewItem = false;
-          Helpers.setLoading(false);
           this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           this.router.navigate(['/features/sales/trnMaterialQuotation/list']);
+          Helpers.setLoading(false);
           this.disabled = false;
           this.viewItem = true;
         },

@@ -377,7 +377,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     else
       this.pinError = false;
 
-    if (!this.state)
+    if (this.state == null || this.state == "0" || this.state == "")
       this.stateError = true;
     else
       this.stateError = false;

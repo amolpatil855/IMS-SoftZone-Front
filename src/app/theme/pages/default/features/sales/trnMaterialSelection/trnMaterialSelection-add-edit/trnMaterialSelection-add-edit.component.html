@@ -384,14 +384,14 @@
 						<label class="col-md-2 col-sm-2 fieldLabel">State<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
 							<p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" styleClass="{{ stateError && isCustomerSubmitted?'red-border-class':''}}"
-							 [(ngModel)]="state" (ngModelChange)="onStateChange()" name="state" filter="true" tabindex="29"></p-dropdown>
+							 [(ngModel)]="state" required (ngModelChange)="onStateChange()" name="state" filter="true" tabindex="29"></p-dropdown>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-2 col-sm-2 fieldLabel">Type<span class="requiredField">*</span></label>
 						<div class="col-md-3 col-sm-3">
 						 <p-dropdown class="feePlanBox" [options]="customerTypeList" [style]="{'width':'100%'}" styleClass="{{ typeError && isCustomerSubmitted?'red-border-class':''}}"
-							 [(ngModel)]="type" (ngModelChange)="onTypeChange()" name="type" filter="true" tabindex="30"></p-dropdown>
+							 [(ngModel)]="type" required (ngModelChange)="onTypeChange()" name="type" filter="true" tabindex="30"></p-dropdown>
 						</div>
 					</div>
 				</div>
