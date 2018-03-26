@@ -143,7 +143,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.trnSalesOrderObj.orderDate = today;
     this.trnSalesOrderObj.chequeDate = today;
     // this.newItem();
-    this.shippingAddress  = null;
+    this.shippingAddress = null;
     this.courierModeList.push({ label: '--Select--', value: null });
     this.courierModeList.push({ label: 'Surface', value: 'Surface' });
     this.courierModeList.push({ label: 'Air', value: 'Air' });
@@ -184,12 +184,27 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
           this.viewItem = false;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
+          this.router.navigate(['/features/sales/trnSalesOrder/list']);
         },
         error => {
           this.globalErrorHandler.handleError(error);
           Helpers.setLoading(false);
         });
     }
+  }
+
+  cancelSO() {
+    Helpers.setLoading(true);
+    this.trnSalesOrderService.cancelSO(this.trnSalesOrderObj).subscribe(
+      results => {
+        this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+        Helpers.setLoading(false);
+        this.router.navigate(['/features/sales/trnSalesOrder/list']);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
   getCustomerLookUp() {
@@ -220,14 +235,14 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         }
         this.trnSalesOrderObj.orderDate = new Date(this.trnSalesOrderObj.orderDate);
         this.trnSalesOrderObj.expectedDeliveryDate = new Date(this.trnSalesOrderObj.expectedDeliveryDate);
-        if(this.trnSalesOrderObj.expectedDeliveryDate.getFullYear()<2017){
-          this.trnSalesOrderObj.expectedDeliveryDate =null;
+        if (this.trnSalesOrderObj.expectedDeliveryDate.getFullYear() < 2017) {
+          this.trnSalesOrderObj.expectedDeliveryDate = null;
         }
         this.trnSalesOrderObj.chequeDate = new Date(this.trnSalesOrderObj.chequeDate);
         this.trnSaleOrderItems = results.trnSaleOrderItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
-        let shippingAddressId=this.trnSalesOrderObj.shippingAddressId;
-        this.shippingAddressObj =  _.find( this.addressList, function(o) { return o.id == shippingAddressId ; } );
+        let shippingAddressId = this.trnSalesOrderObj.shippingAddressId;
+        this.shippingAddressObj = _.find(this.addressList, function (o) { return o.id == shippingAddressId; });
         // _.forEach(this.trnSaleOrderItems, function (value) {
         //   if (value.mstCategory != null)
         //     value.categoryName = value.mstCategory.code;
@@ -326,16 +341,16 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       return false;
     }
 
-    if(this.trnSaleOrderItems.length>0){
-        
-        let soObj = _.find(this.trnSaleOrderItems, ['categoryId', this.categoryId]);
-        if(soObj != null){
-          if(this.accessoryId == soObj.accessoryId && this.shadeId == soObj.shadeId && this.fomSizeId == soObj.fomSizeId && this.matSizeId == soObj.matSizeId){
-            this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
-            return false;
-          }
-        }  
+    if (this.trnSaleOrderItems.length > 0) {
+
+      let soObj = _.find(this.trnSaleOrderItems, ['categoryId', this.categoryId]);
+      if (soObj != null) {
+        if (this.accessoryId == soObj.accessoryId && this.shadeId == soObj.shadeId && this.fomSizeId == soObj.fomSizeId && this.matSizeId == soObj.matSizeId) {
+          this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Cannot add duplicate items." });
+          return false;
+        }
       }
+    }
 
     let catObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
     let collObj = _.find(this.collectionList, ['value', this.collectionId]);
@@ -429,7 +444,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       maxDiscount: null
     };
     this.amount = null,
-    this.orderType = '';
+      this.orderType = '';
     this.amountWithGST = null;
   }
 
@@ -570,7 +585,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
             this.shippingAddressObj.addressLine2 = '';
           }
           //this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
-          this.trnSalesOrderObj.shippingAddressId=this.shippingAddressObj.id;
+          this.trnSalesOrderObj.shippingAddressId = this.shippingAddressObj.id;
           this.selectedAddress = this.trnSalesOrderObj.customerId;
           Helpers.setLoading(false);
         },
@@ -580,7 +595,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         });
     }
     else
-    this.trnSalesOrderObj.shippingAddress = null;
+      this.trnSalesOrderObj.shippingAddress = null;
   }
 
   getMatQualityList() {
@@ -759,24 +774,24 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
 
   calculateAmount(givenDicount = 0) {
-    if(!this.rate)
-    return;
-    let rate=parseFloat(this.rate);
-    if(rate){
-      this.rateWithGST =rate + (rate * this.productDetails.gst) / 100;
+    if (!this.rate)
+      return;
+    let rate = parseFloat(this.rate);
+    if (rate) {
+      this.rateWithGST = rate + (rate * this.productDetails.gst) / 100;
       //this.amountWithGST =this.rateWithGST * this.orderQuantity;
       this.amount = rate * this.orderQuantity;
-      this.amount =parseFloat(this.amount).toFixed(2);
+      this.amount = parseFloat(this.amount).toFixed(2);
       //this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
       this.amount = Math.round(this.amount - ((this.amount * givenDicount) / 100));
-      this.amountWithGST= Math.round( this.amount+ ( (this.amount * this.productDetails.gst)/100));
+      this.amountWithGST = Math.round(this.amount + ((this.amount * this.productDetails.gst) / 100));
     }
-    this.rateWithGST =parseFloat(this.rateWithGST).toFixed(2);
+    this.rateWithGST = parseFloat(this.rateWithGST).toFixed(2);
   }
 
   onChangeDiscountAmount() {
-    if(!this.givenDiscount){
-      this.givenDiscount=0;
+    if (!this.givenDiscount) {
+      this.givenDiscount = 0;
     }
     this.givenDiscountError = false;
     this.calculateAmount(this.givenDiscount);
@@ -1007,7 +1022,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     if (valid) {
       // let supplierObj = _.find(this.supplierCodeList, ['value', this.trnSalesOrderObj.supplierId]);
       let couierObj = _.find(this.courierList, ['value', this.trnSalesOrderObj.courierId]);
-     // let shippingAddress = "";
+      // let shippingAddress = "";
       this.trnSalesOrderObj.courierName = couierObj.label;
       // this.trnSalesOrderObj.supplierName = supplierObj.label,
       if (this.shippingAddressObj != null) {
@@ -1017,13 +1032,13 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         //   this.shippingAddressObj.addressLine1 = "";
         //   this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj.addressLine1 + this.shippingAddressObj.addressLine2 + ", " + this.shippingAddressObj.state + ", " + this.shippingAddressObj.city + ", PINCODE -" + this.shippingAddressObj.pin;
         // }
-        this.trnSalesOrderObj.shippingAddressId=this.shippingAddressObj.id;
+        this.trnSalesOrderObj.shippingAddressId = this.shippingAddressObj.id;
       } else {
-        this.trnSalesOrderObj.shippingAddressId =null;
+        this.trnSalesOrderObj.shippingAddressId = null;
       }
       // if(this.params){
-         this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj;
-      
+      this.trnSalesOrderObj.shippingAddress = this.shippingAddressObj;
+
       // }
       this.saveTrnSalesOrder(this.trnSalesOrderObj);
     }

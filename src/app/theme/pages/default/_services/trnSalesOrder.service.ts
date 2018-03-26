@@ -30,6 +30,9 @@ export class TrnSalesOrderService {
     return this.http.put(AppSettings.API_ENDPOINT + 'TrnSaleOrder/CancelSOForCustomerUser/' + trnSaleOrder.id,trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  cancelSO(trnSaleOrder: TrnSaleOrder){
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnSaleOrder/CancelSO/' + trnSaleOrder.id,trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
 
   getTrnSaleOrderById(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnSaleOrder/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
