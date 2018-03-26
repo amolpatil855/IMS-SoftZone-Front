@@ -35,6 +35,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
   disabled: boolean = false;
   confirmAmount: number;
   totalAmount: number;
+  balanceAmount:number;
   paymentModeList = [];
   customerList = [];
   materialQuotationNumberList = [];
@@ -114,12 +115,13 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
       this.trnAdvancePaymentObj.customerName = qoObj.customerName;
       this.trnAdvancePaymentObj.customerId = qoObj.customerId;
       this.totalAmount = qoObj.totalAmount;
+      this.balanceAmount=qoObj.balanceAmount;
     }
   }
 
   onAmountChange() {
-    if (this.totalAmount < this.trnAdvancePaymentObj.amount) {
-      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount must be less than or equal to total amount." });
+    if (this.balanceAmount < this.trnAdvancePaymentObj.amount) {
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount must be less than or equal to balance amount." });
       return false;
     }
 
@@ -148,8 +150,8 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
     this.isFormSubmitted = true;
     if (valid) {
       this.trnAdvancePaymentObj.amount = parseInt(this.trnAdvancePaymentObj.amount);
-      if (this.totalAmount < this.trnAdvancePaymentObj.amount) {
-        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount must be less than or equal to total amount." });
+      if (this.balanceAmount < this.trnAdvancePaymentObj.amount) {
+        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Amount must be less than or equal to balance amount." });
         return false;
       }
       value.confirmAmount = parseInt(value.confirmAmount);
