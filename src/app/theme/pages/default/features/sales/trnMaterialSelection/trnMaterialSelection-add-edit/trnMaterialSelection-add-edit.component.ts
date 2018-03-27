@@ -361,7 +361,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
       }],
     };
 
-    this.customerService.createCustomer(customerObj)
+    this.customerService.createCustomerForAuthorizedUsers(customerObj)
       .subscribe(
       results => {
         this.params = null;
