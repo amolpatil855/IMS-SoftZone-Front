@@ -84,8 +84,9 @@
 									<ng-template let-col let-data="rowData" pTemplate="body">
 										{{data[col.field]|date: 'dd/MM/yyyy' }}
 									</ng-template>
-                                </p-column>
-                                <p-column field="salesOrderNumber" header="Sales Order No." [style]="{'text-align':'center'}"></p-column>
+								</p-column>
+								<p-column field="salesOrderNumber" header="Sales Order No." [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="materialQuotationNumber" header="Mat Quotation No." [style]="{'text-align':'center'}"></p-column>
 								<p-column field="customerName" header="Customer" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="status" header="Status" [style]="{'text-align':'left'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
