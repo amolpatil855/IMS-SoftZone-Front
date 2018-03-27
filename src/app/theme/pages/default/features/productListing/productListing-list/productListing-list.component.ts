@@ -110,9 +110,19 @@ params: number;
       this.tableEmptyMesssage = 'Loading...';
       this.getFabricProducts();
     }
+   else if(this.categoryId == 2){
+      this.tableEmptyMesssage = 'Loading...';
+      this.getFoamProducts();
+    }
+   else if(this.categoryId == 7){
+      this.tableEmptyMesssage = 'Loading...';
+      this.getAccessoryProducts();
+    }
   }
 
   onChangeCategory(){
+    this.page=0;
+    this.search='';
     if(this.categoryId == 1){
       this.tableEmptyMesssage = 'Loading...';
       this.getFabricProducts();
