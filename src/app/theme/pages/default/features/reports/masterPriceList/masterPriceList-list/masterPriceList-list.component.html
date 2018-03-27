@@ -1,0 +1,114 @@
+<p-confirmDialog #cd>
+    <p-footer>
+        <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+			<span>
+				<i class="la la-check"></i>
+				<span>
+					Yes
+				</span>
+			</span>
+		</button>
+        <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+			<span>
+				<i class="la la-close"></i>
+				<span>
+					No
+				</span>
+			</span>
+		</button>
+    </p-footer>
+</p-confirmDialog>
+
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="#" class="m-nav__link m-nav__link--icon">
+						<i class="m-nav__link-icon la la-home"></i>
+					</a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a class="m-nav__link">
+						<span class="m-nav__link-text">
+							Master Price List
+						</span>
+					</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__body">
+                    <!--begin::Section-->
+
+                    <div class="m-section">
+                        <div class="m-section__content">
+                            <div class="ui-widget-header" style="border-bottom: 0 none">
+                                <div class="col-md-4">
+                                    <label class="col-md-4 col-sm-4 fieldLabel">Category<span class="requiredField">*</span></label>
+                                    <div class="col-md-8 col-sm-8">
+                                        <p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="categoryId" [style]="{'width':'100%'}" styleClass="{{categoryIdError?'red-border-class':'' }}"
+                                            (ngModelChange)="onChangeCategory()" name="categoryId" filter="true" tabindex="1"></p-dropdown>
+                                    </div>
+                                </div>
+                                <i class="fa fa-search searchIcon"></i>
+                                <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+                                <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export" (click)="dt.exportCSV()" style="float:right"></button>
+                            </div>
+                            <p-dataTable [value]="masterPriceListList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize"
+                                [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
+                                [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+                                <p-column field="collection" [hidden]="categoryId == 7" header="Collection" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="name" [hidden]="categoryId != 7" header="Name" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="itemCode" [hidden]="categoryId == 1 || categoryId == 4 || categoryId == 5 || categoryId == 6" header="Item Code" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="uom" [hidden]="categoryId != 2" header="UOM" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="purchaseRatePerKG" [hidden]="categoryId != 2" header="Purchase Rate Per KG" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="purchaseRatePerKGWithGst" [hidden]="categoryId != 2" header="Purchase Rate Per KG (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="purchaseRatePerMM" [hidden]="categoryId != 2" header="purchase Rate Per MM" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="purchaseRatePerMMWithGst" [hidden]="categoryId != 2" header="purchase Rate Per MM (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sellingRatePerKG" [hidden]="categoryId != 2" header="selling Rate Per KG" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sellingRatePerKGWithGst" [hidden]="categoryId != 2" header="selling Rate Per KG (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sellingRatePerMM" [hidden]="categoryId != 2" header="selling Rate Per MM" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sellingRatePerMMWithGst" [hidden]="categoryId != 2" header="selling Rate Per MM (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="qualityCode" [hidden]="categoryId != 4" header="Quality Code" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="thicknessCode" [hidden]="categoryId != 4" header="Thickness Code" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sizeCode" [hidden]="categoryId != 4" header="Size Code" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="rate" [hidden]="categoryId != 4" header="Rate" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="rateWithGst" [hidden]="categoryId != 4" header="Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="purchaseRate" [hidden]="categoryId == 1 || categoryId == 2 || categoryId == 5 || categoryId == 6" header="Purchase Rate" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="purchaseRateWithGst" [hidden]="categoryId == 1 || categoryId == 2 || categoryId == 5 || categoryId == 6" header="Purchase Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sellingRate" [hidden]="categoryId != 7" header="Selling Rate" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sellingRateWithGst" [hidden]="categoryId != 7" header="Selling Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="qds" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="QDS" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="serialNumber" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Serial No." [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="cutRate" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Cut Rate" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="cutRateWithGst" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Cut Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="roleRate" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Role Rate" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="rollRateWithGst" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Roll Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="customRatePerSqFeet" [hidden]="categoryId != 4" header="custom Rate Per Sq. Feet" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="hsnWithGST" header="hsn (GST)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="availableStock" header="Available Stock" [style]="{'text-align':'left'}">
+                                    <ng-template let-col let-data="rowData" pTemplate="body">
+                                        {{data[col.field] > 0 ? 'Yes' : 'No' }}
+                                    </ng-template>
+                                </p-column>
+                            </p-dataTable>
+                        </div>
+                    </div>
+                    <!--end::Section-->
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+</div>

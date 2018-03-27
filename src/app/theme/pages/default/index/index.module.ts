@@ -14,6 +14,7 @@ import {
   ConfirmationService,
   CalendarModule
 } from 'primeng/primeng';
+import { DashboardService } from "../_services/dashboard.service";
 const routes: Routes = [
   {
     "path": "",
@@ -33,7 +34,10 @@ const routes: Routes = [
     RouterModule
   ], declarations: [
     IndexComponent
-  ]
+  ],
+  providers:[
+    DashboardService
+  ],
 })
 export class IndexModule {
 

@@ -20,11 +20,11 @@
 						<div class="col-md-6">
 											<div class="dashboardBox">
 												<div class="dashboardStatBox dashboardStatBox1">
-													<h5><i class="fa fa-inr" aria-hidden="true"></i> 20,000</h5>
+													<h5><i class="fa fa-inr" aria-hidden="true"></i> {{ dashboardObj ? dashboardObj.totalOutStandingAmount : ''}}</h5>
 													<h6>Total Outstanding Amount</h6>
 												</div>
 												<div class="dashboardStatBox dashboardStatBox2">
-													<h5>200</h5>
+													<h5>{{dashboardObj ? dashboardObj.totalSalesCount : ''}}</h5>
 													<h6>Sales Order Count</h6>
 												</div>
 											</div>
@@ -34,11 +34,11 @@
 							<div class="col-md-6">
 								<div class="dashboardBox">
 									<div class="dashboardStatBox dashboardStatBox1">
-										<h5><i class="fa fa-inr" aria-hidden="true"></i> 64,000</h5>
+										<h5><i class="fa fa-inr" aria-hidden="true"></i> {{dashboardObj ? dashboardObj.totalPaymentDue : ''}}</h5>
 										<h6>Total Payment Due</h6>
 									</div>
 									<div class="dashboardStatBox dashboardStatBox2">
-										<h5>600</h5>
+										<h5>{{dashboardObj ? dashboardObj.totalPurchaseCount : ''}}</h5>
 										<h6>Purchase Order Count</h6>
 									</div>
 								</div>
@@ -46,21 +46,21 @@
 							
 							<div class="col-md-3 col-sm-3">
 								<div class="dashboardBox">
-									<h4 class="blueHeading"><i class="fa fa-inr" aria-hidden="true"></i> 5,40,000</h4>
+									<h4 class="blueHeading"><i class="fa fa-inr" aria-hidden="true"></i> {{dashboardObj ? dashboardObj.ytdSale : ''}}</h4>
 									<h5>YTD Sale</h5>
 								</div>
 							</div>
 							
 							<div class="col-md-3 col-sm-3">
 								<div class="dashboardBox">
-									<h4 class="greenHeading"><i class="fa fa-inr" aria-hidden="true"></i> 2,60,000</h4>
+									<h4 class="greenHeading"><i class="fa fa-inr" aria-hidden="true"></i> {{dashboardObj ? dashboardObj.currentMonthSale : ''}}</h4>
 									<h5>Current Month Sale</h5>
 								</div>
 							</div>
 							
 							<div class="col-md-3 col-sm-3">
 								<div class="dashboardBox">
-									<h4 class="redHeading">2540</h4>
+									<h4 class="redHeading">{{dashboardObj ? dashboardObj.itemsCountBelowReorderLevel : ''}}</h4>
 									<h5>Items below Re-order Level</h5>
 								</div>
 							</div>
@@ -68,7 +68,7 @@
 							
 							<div class="col-md-3 col-sm-3">
 								<div class="dashboardBox">
-									<h4 class="orangeHeading"><i class="fa fa-inr" aria-hidden="true"></i> 2,00,000</h4>
+									<h4 class="orangeHeading"><i class="fa fa-inr" aria-hidden="true"></i> {{dashboardObj ? dashboardObj.totalStockValue : ''}}</h4>
 									<h5>Total Stock Value</h5>
 								</div>
 							</div>
