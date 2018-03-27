@@ -33,6 +33,10 @@ export class CustomerService {
     return this.http.post(AppSettings.API_ENDPOINT + 'Customer', customer, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  createCustomerForAuthorizedUsers(customer: any) {
+    return this.http.post(AppSettings.API_ENDPOINT + 'Customer/postCustomerFromMS', customer, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   updateCustomer(customer: Customer) {
     return this.http.put(AppSettings.API_ENDPOINT + 'Customer/' + customer.id, customer, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
