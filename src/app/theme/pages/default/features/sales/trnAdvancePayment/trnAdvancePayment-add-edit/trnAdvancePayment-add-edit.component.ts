@@ -14,7 +14,7 @@ import { Helpers } from "../../../../../../../helpers";
 import { TrnAdvancePayment } from "../../../../_models/trnAdvancePayment";
 import { TrnProductStockService } from '../../../../_services/trnProductStock.service';
 import { CollectionService } from '../../../../_services/collection.service';
-
+import { CompanyService } from '../../../../../../pages/default/_services/company.service';
 @Component({
   selector: "app-trnAdvancePayment-add-edit",
   templateUrl: "./trnAdvancePayment-add-edit.component.html",
@@ -35,10 +35,11 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
   disabled: boolean = false;
   confirmAmount: number;
   totalAmount: number;
-  balanceAmount:number;
+  balanceAmount: number;
   paymentModeList = [];
   customerList = [];
   materialQuotationNumberList = [];
+  mstCompanyInfo: any;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -49,6 +50,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private commonService: CommonService,
+    private companyService: CompanyService,
     private trnProductStockService: TrnProductStockService,
     private messageService: MessageService) {
   }
@@ -75,7 +77,34 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
     if (this.params) {
       this.disabled = true;
       this.getTrnAdvancePaymentById(this.params);
+      this.getAllCompanyInfo();
     }
+  }
+
+  getAllCompanyInfo() {
+    this.companyService.getAllCompanyInfo().subscribe(
+      (results: any) => {
+        this.mstCompanyInfo = results;
+      });
+  }
+
+  print(): void {
+    let printContents, popupWin;
+    printContents = document.getElementById('invoiceMainBox').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.title = "Special File Name.pdf";
+    popupWin.document.write(`
+          <html>
+            <head>
+              <style>
+              //........Customized style.......
+              </style>
+            </head>
+        <body onload="window.print();window.close()">${printContents}</body>
+          </html>`
+    );
+    popupWin.document.close();
   }
 
   getLoggedInUserDetail() {
@@ -117,7 +146,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
       this.trnAdvancePaymentObj.customerName = qoObj.customerName;
       this.trnAdvancePaymentObj.customerId = qoObj.customerId;
       this.totalAmount = qoObj.totalAmount;
-      this.balanceAmount=qoObj.balanceAmount;
+      this.balanceAmount = qoObj.balanceAmount;
     }
   }
 
