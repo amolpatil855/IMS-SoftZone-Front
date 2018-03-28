@@ -71,17 +71,17 @@
                                 <p-column field="name" [hidden]="categoryId != 7" header="Name" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="itemCode" [hidden]="categoryId == 1 || categoryId == 4 || categoryId == 5 || categoryId == 6" header="Item Code" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="uom" [hidden]="categoryId != 2" header="UOM" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="purchaseRatePerKG" [hidden]="categoryId != 2" header="Purchase Rate Per KG" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="purchaseRatePerKGWithGst" [hidden]="categoryId != 2" header="Purchase Rate Per KG (Gst)" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="purchaseRatePerMM" [hidden]="categoryId != 2" header="purchase Rate Per MM" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="purchaseRatePerMMWithGst" [hidden]="categoryId != 2" header="purchase Rate Per MM (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sellingRatePerKG" [hidden]="categoryId != 2" header="selling Rate Per KG" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sellingRatePerKGWithGst" [hidden]="categoryId != 2" header="selling Rate Per KG (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sellingRatePerMM" [hidden]="categoryId != 2" header="selling Rate Per MM" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sellingRatePerMMWithGst" [hidden]="categoryId != 2" header="selling Rate Per MM (Gst)" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="qualityCode" [hidden]="categoryId != 4" header="Quality Code" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="thicknessCode" [hidden]="categoryId != 4" header="Thickness Code" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="sizeCode" [hidden]="categoryId != 4" header="Size Code" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="rate" [hidden]="categoryId != 4" header="Rate" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="rateWithGst" [hidden]="categoryId != 4" header="Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="purchaseRate" [hidden]="categoryId == 1 || categoryId == 2 || categoryId == 5 || categoryId == 6" header="Purchase Rate" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="purchaseRateWithGst" [hidden]="categoryId == 1 || categoryId == 2 || categoryId == 5 || categoryId == 6" header="Purchase Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sellingRate" [hidden]="categoryId != 7" header="Selling Rate" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="sellingRateWithGst" [hidden]="categoryId != 7" header="Selling Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="qds" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="QDS" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="serialNumber" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Serial No." [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="cutRate" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Cut Rate" [style]="{'text-align':'left'}"></p-column>
