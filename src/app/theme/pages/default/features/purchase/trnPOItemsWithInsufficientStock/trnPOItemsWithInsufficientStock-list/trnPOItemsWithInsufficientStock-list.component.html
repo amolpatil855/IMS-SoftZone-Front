@@ -200,7 +200,7 @@
     
     
     
-                                            <p-dataTable  [value]="filteredItems" [editable]="true" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [(selection)]="selectedItemsList"  [emptyMessage]="tableEmptyMesssage"  [paginator]="true" [rows]="100" [headerCheckboxToggleAllPages]="true" class="table listingTable poTable">
+                                            <p-dataTable  [value]="filteredItems" [editable]="true" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [(selection)]="selectedItemsList"  [emptyMessage]="tableEmptyMesssage"  [paginator]="true" [rows]="100" [headerCheckboxToggleAllPages]="true" class="table listingTable poTable POSOTable">
                                                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
                                                     <p-column field="categoryName" header="Category" [editable]="false" [style]="{'text-align':'left'}"></p-column>
                                                     <p-column field="collectionName" header="Collection" [editable]="false" [style]="{'text-align':'left'}"></p-column>
