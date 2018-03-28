@@ -154,6 +154,8 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
 
   ngOnInit() {
     this.trnMaterialSelectionObj = new TrnMaterialSelection();
+    this.trnMaterialSelectionObj.customerId = null;
+    this.trnMaterialSelectionObj.referById = null;
     this.states = this.commonService.states;
     this.customerTypeList.push({ label: '--Select--', value: null });
     this.customerTypeList.push({ label: 'Furniture Showroom', value: 'Furniture Showroom' });
@@ -170,6 +172,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
     this.locationObj = {};
     this.disabled = false;
     this.trnMaterialSelectionObj.materialSelectionDate = today;
+    this.trnMaterialSelectionObj.selectionType = null;
     this.selectionTypeList.push({ label: '--Select--', value: null });
     this.selectionTypeList.push({ label: 'Sofa', value: 'Sofa' });
     this.selectionTypeList.push({ label: 'Bedback', value: 'Bedback' });

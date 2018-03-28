@@ -107,11 +107,14 @@
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Quotation No.<span class="requiredField">*</span>
 																        </label>
                                                                         <div class="col-md-8 col-sm-8">
-                                                                            <p-dropdown class="feePlanBox" [options]="materialQuotationNumberList" required [(ngModel)]="trnAdvancePaymentObj.materialQuotationId"
+                                                                            <select class="form-control" name="materialQuotationId" [(ngModel)]="trnAdvancePaymentObj.materialQuotationId" required [disabled]="disabled" #materialQuotationIdVal="ngModel" [ngClass]="{'red-border-class': materialQuotationIdVal.errors && isFormSubmitted}" (ngModelChange)="onMaterialQuotationNoChange()" tabindex="3">
+                                                                                <option *ngFor="let x of materialQuotationNumberList" [ngValue]="x.value" [selected]="trnAdvancePaymentObj.materialQuotationId == x.value">{{x.label}}</option>
+                                                                            </select>
+                                                                            <!-- <p-dropdown class="feePlanBox" [options]="materialQuotationNumberList" required [(ngModel)]="trnAdvancePaymentObj.materialQuotationId"
                                                                                 #materialQuotationIdVal="ngModel" required [style]="{'width':'100%'}"
                                                                                 [disabled]="disabled" styleClass="{{ materialQuotationIdVal.errors && isFormSubmitted?'red-border-class':''}}"
                                                                                 (ngModelChange)="onMaterialQuotationNoChange()"
-                                                                                name="materialQuotationId" filter="true" tabindex="3"></p-dropdown>
+                                                                                name="materialQuotationId" filter="true" tabindex="3"></p-dropdown> -->
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-3">
@@ -182,10 +185,13 @@
                                                                     <div class="col-md-3">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel ">Payment Mode<span class="requiredField">*</span></label>
                                                                         <div class="col-md-8 col-sm-8">
-                                                                            <p-dropdown class="feePlanBox" [options]="paymentModeList" [disabled]="disabled" required [(ngModel)]="trnAdvancePaymentObj.paymentMode"
+                                                                            <select class="form-control" required name="paymentMode" [(ngModel)]="trnAdvancePaymentObj.paymentMode" [disabled]="disabled" #paymentModeVal="ngModel" [ngClass]="{'red-border-class': paymentModeVal.errors && isFormSubmitted}" tabindex="6">
+																				<option *ngFor="let x of paymentModeList" [ngValue]="x.value" [selected]="trnAdvancePaymentObj.paymentMode == x.value">{{x.label}}</option>
+																			</select>
+                                                                            <!-- <p-dropdown class="feePlanBox" [options]="paymentModeList" [disabled]="disabled" required [(ngModel)]="trnAdvancePaymentObj.paymentMode"
                                                                                 #paymentModeVal="ngModel" required [style]="{'width':'100%'}"
                                                                                 styleClass="{{ paymentModeVal.errors && isFormSubmitted?'red-border-class':''}}"
-                                                                                name="paymentMode" filter="true" tabindex="6"></p-dropdown>
+                                                                                name="paymentMode" filter="true" tabindex="6"></p-dropdown> -->
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-3" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">

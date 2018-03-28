@@ -181,6 +181,8 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
     this.getAllCompanyInfo();
     this.locationObj = {};
     this.disabled = false;
+    this.trnMaterialQuotationObj.customerId = null;
+    this.trnMaterialQuotationObj.referById = null;
     //this.trnMaterialQuotationObj.materialQuotationDate = today;
 
     this.selectionTypeList.push({ label: '--Select--', value: null });
