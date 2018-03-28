@@ -324,10 +324,6 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
     this.isFormSubmitted = true;
     
     if (valid) {
-      if (!this.trnSalesInvoiceObj.courierDockYardNumber) {
-          this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please enter Dispatch Document No." });
-          return false;
-      }
       if(this.trnSalesInvoiceObj.isPaid) {
         if(!this.trnSalesInvoiceObj.isApproved){
           this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please approve the invoice first." });
