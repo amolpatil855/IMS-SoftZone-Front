@@ -123,6 +123,10 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.locationObj = {};
     this.disabled = false;
     this.trnPurchaseOrderObj.orderDate = today;
+    this.trnPurchaseOrderObj.supplierId = null;
+    this.trnPurchaseOrderObj.courierId = null;
+    this.trnPurchaseOrderObj.courierMode = null;
+    this.trnPurchaseOrderObj.locationId = null;
     // this.newItem();
     this.courierModeList.push({ label: '--Select--', value: null });
     this.courierModeList.push({ label: 'Surface', value: 'Surface' });
@@ -754,7 +758,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
       applyDiscount = (this.productDetails.purchaseFlatRate ? true : this.orderQuantity >= 50 ? true : false);
       this.rateWithGST = parseFloat(this.rate + (this.rate * this.productDetails.gst) / 100).toFixed(2);
       // this.amountWithGST = this.rateWithGST * this.orderQuantity;
-      this.amount = this.rate * this.orderQuantity;
+      this.amount = Math.round(this.rate * this.orderQuantity);
       this.rate = parseFloat(this.rate).toFixed(2);
       if (applyDiscount) {
         this.amount = Math.round(this.amount - ((this.amount * this.productDetails.purchaseDiscount) / 100));
@@ -844,6 +848,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     this.fomSizeIdError = false;
     this.shadeIdError = false;
     this.accessoryIdError = false;
+    this.categoryIdError = false;
     this.collectionIdError = false;
     this.collectionId = null;
     this.accessoryId = null;
