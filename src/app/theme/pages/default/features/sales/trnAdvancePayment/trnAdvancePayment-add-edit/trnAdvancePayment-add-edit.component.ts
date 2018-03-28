@@ -64,6 +64,8 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
     this.disabled = false;
     this.trnAdvancePaymentObj.advancePaymentDate = today;
     this.trnAdvancePaymentObj.chequeDate = today;
+    this.trnAdvancePaymentObj.materialQuotationId = null;
+    this.trnAdvancePaymentObj.paymentMode = null;
     this.paymentModeList.push({ label: '--Select--', value: null });
     this.paymentModeList.push({ label: 'Cash', value: 'Cash' });
     this.paymentModeList.push({ label: 'Card', value: 'Card' });

@@ -6,6 +6,7 @@ import { MessageService } from '../../../../_services/message.service';
 import { UserService } from "../../../pages/default/_services/user.service";
 
 import * as _ from 'lodash/index';
+import { DashboardService } from "../_services/dashboard.service";
 @Component({
   selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
   templateUrl: "./index.component.html",
@@ -13,6 +14,7 @@ import * as _ from 'lodash/index';
 
 })
 export class IndexComponent implements OnInit, AfterViewInit {
+  dashboardObj: any;
   selectedSchoolId: number;
   userRole: string;
   superAdmin: any;
@@ -25,7 +27,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
     "toatalStudnetCount": 0
   };
   schoolList = [];
-  constructor(private _script: ScriptLoaderService, private messageService: MessageService, private globalErrorHandler: GlobalErrorHandler, private userService: UserService) {
+  constructor(private _script: ScriptLoaderService, private messageService: MessageService, private globalErrorHandler: GlobalErrorHandler, private userService: UserService, private dashboardService: DashboardService) {
 
   }
   ngOnInit() {
@@ -33,6 +35,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.superAdmin = _.find(currentUser.roles, { 'name': 'SuperAdmin' });
     this.getLoggedInUserDetail();
+    this.getDashboard();
   }
 
   getLoggedInUserDetail(){
@@ -47,6 +50,13 @@ export class IndexComponent implements OnInit, AfterViewInit {
         this.showDashboardForCustomer = false;
       }
       Helpers.setLoading(false);
+    });
+  }
+
+
+  getDashboard(){
+    this.dashboardService.getDashboard().subscribe( result =>{
+      this.dashboardObj = result;
     });
   }
 
