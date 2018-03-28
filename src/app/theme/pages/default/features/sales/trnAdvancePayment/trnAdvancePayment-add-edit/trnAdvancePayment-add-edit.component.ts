@@ -15,7 +15,6 @@ import { TrnAdvancePayment } from "../../../../_models/trnAdvancePayment";
 import { TrnProductStockService } from '../../../../_services/trnProductStock.service';
 import { CollectionService } from '../../../../_services/collection.service';
 import { CompanyService } from '../../../../../../pages/default/_services/company.service';
-
 @Component({
   selector: "app-trnAdvancePayment-add-edit",
   templateUrl: "./trnAdvancePayment-add-edit.component.html",
@@ -36,11 +35,11 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
   disabled: boolean = false;
   confirmAmount: number;
   totalAmount: number;
-  balanceAmount:number;
+  balanceAmount: number;
   paymentModeList = [];
   customerList = [];
   materialQuotationNumberList = [];
-  mstCompanyInfo:any;
+  mstCompanyInfo: any;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -78,25 +77,15 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
     if (this.params) {
       this.disabled = true;
       this.getTrnAdvancePaymentById(this.params);
-      this. getAllCompanyInfo();
+      this.getAllCompanyInfo();
     }
   }
 
   getAllCompanyInfo() {
     this.companyService.getAllCompanyInfo().subscribe(
       (results: any) => {
-        this.mstCompanyInfo=results;
+        this.mstCompanyInfo = results;
       });
-  }
-  getLoggedInUserDetail() {
-    this.userService.getLoggedInUserDetail().subscribe(res => {
-      this.userRole = res.mstRole.roleName;
-      if (this.userRole == "Administrator") {
-        this.adminFlag = true;
-      } else {
-        this.adminFlag = false;
-      }
-    });
   }
 
   print(): void {
@@ -106,16 +95,27 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
     popupWin.document.open();
     popupWin.document.title = "Special File Name.pdf";
     popupWin.document.write(`
-      <html>
-        <head>
-          <style>
-          //........Customized style.......
-          </style>
-        </head>
-    <body onload="window.print();window.close()">${printContents}</body>
-      </html>`
+          <html>
+            <head>
+              <style>
+              //........Customized style.......
+              </style>
+            </head>
+        <body onload="window.print();window.close()">${printContents}</body>
+          </html>`
     );
     popupWin.document.close();
+  }
+
+  getLoggedInUserDetail() {
+    this.userService.getLoggedInUserDetail().subscribe(res => {
+      this.userRole = res.mstRole.roleName;
+      if (this.userRole == "Administrator") {
+        this.adminFlag = true;
+      } else {
+        this.adminFlag = false;
+      }
+    });
   }
 
 
@@ -147,7 +147,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
       this.trnAdvancePaymentObj.customerName = qoObj.customerName;
       this.trnAdvancePaymentObj.customerId = qoObj.customerId;
       this.totalAmount = qoObj.totalAmount;
-      this.balanceAmount=qoObj.balanceAmount;
+      this.balanceAmount = qoObj.balanceAmount;
     }
   }
 

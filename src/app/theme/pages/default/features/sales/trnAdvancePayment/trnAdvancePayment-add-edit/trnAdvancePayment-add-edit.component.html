@@ -41,7 +41,7 @@
             </ul>
         </div>
         <div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-            	<button class="topBtn btn btn-info" *ngIf="params" title="Print" (click)="print()" tabindex="5">print</button>
+                <button class="topBtn btn btn-info" *ngIf="params" title="Print" (click)="print()" tabindex="5">print</button>
             <button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnAdvancePaymentForm"
                 title="{{(trnAdvancePaymentForm && trnAdvancePaymentForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
                 [isAuthorize]="['advancepayment']" tabindex="11">
@@ -267,105 +267,104 @@
 
 <!-- Advance Payment Receipt - Print -->
 					
-						<div class="invoiceMainBox" id="invoiceMainBox" style="display:none;" >
-							<h3 style="margin-bottom: 25px;font-family: Roboto;color: #000;margin-top: 0;font-size: 22px;text-align:center;">Advance Payment Receipt</h3>
-							<table style="display: inline;">
-								<tr>
-									<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Payment Date:</td>
-									<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;">{{trnAdvancePaymentObj.advancePaymentDate | date: 'dd/MM/yyyy' }}</td>
-								</tr>
-								<tr>
-									<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Receipt No:</td>
-									<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;">{{trnAdvancePaymentObj.advancePaymentNumber}}</td>
-								</tr>
-							</table>
-							<table style="float:right;">
-								<tr>
-									<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Quotation No:</td>
-									<td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding-right:10px;padding-left:10px;">{{trnAdvancePaymentObj.materialQuotationNumber}}</td>
-								</tr>
-								<tr>									
-									<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Payment Mode:</td>
-									<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;">By {{trnAdvancePaymentObj.paymentMode}}</td>
-								</tr>
-							</table>
-							<!--<hr style="border-top:1px solid #000;"/>-->
-							
-							<table style="margin-top:30px;width: 100%;">
-								<tr>
-									<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;text-align:left;padding-right:10px;padding-left:10px;font-size:13px;width:50%;">
-										From - <br/>
-										<p style="font-weight:400;">
-											<b style="font-weight:600;">{{mstCompanyInfo ? mstCompanyInfo["companyName"] : ""}}</b> <br/>
-                                            {{mstCompanyInfo ? mstCompanyInfo["address1"] : ""}}
-                                            {{mstCompanyInfo ? mstCompanyInfo["address2"] : ""}},
-                                            {{mstCompanyInfo ? mstCompanyInfo["city"] : ""}}
-										</p>
-									</td>
-									<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:left;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;width:50%;">
-										To - <br/>
-										<p style="font-weight:400;">
-											<b style="font-weight:600;">{{trnAdvancePaymentObj.mstCustomer?trnAdvancePaymentObj.mstCustomer.name:""}}</b><br/>
-											{{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
-                                                [0]["addressLine1"]:""}}
-                                                {{ trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
-                                                    [0]["addressLine2"]:""}}, {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
-                                                        [0]["state"]:""}},
-												{{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
-                                                    [0]["city"]:""}}, PINCODE - {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
-                                                        [0]["pin"]:"" }}
+<div class="invoiceMainBox" id="invoiceMainBox" style="display:none;" >
+        <h3 style="margin-bottom: 25px;font-family: Roboto;color: #000;margin-top: 0;font-size: 22px;text-align:center;">Advance Payment Receipt</h3>
+        <table style="display: inline;">
+            <tr>
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Payment Date:</td>
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;">{{trnAdvancePaymentObj.advancePaymentDate | date: 'dd/MM/yyyy' }}</td>
+            </tr>
+            <tr>
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Receipt No:</td>
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;">{{trnAdvancePaymentObj.advancePaymentNumber}}</td>
+            </tr>
+        </table>
+        <table style="float:right;">
+            <tr>
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Quotation No:</td>
+                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding-right:10px;padding-left:10px;">{{trnAdvancePaymentObj.materialQuotationNumber}}</td>
+            </tr>
+            <tr>									
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Payment Mode:</td>
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;">By {{trnAdvancePaymentObj.paymentMode}}</td>
+            </tr>
+        </table>
+        <!--<hr style="border-top:1px solid #000;"/>-->
+        
+        <table style="margin-top:30px;width: 100%;">
+            <tr>
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;text-align:left;padding-right:10px;padding-left:10px;font-size:13px;width:50%;">
+                    From - <br/>
+                    <p style="font-weight:400;">
+                        <b style="font-weight:600;">{{mstCompanyInfo ? mstCompanyInfo["companyName"] : ""}}</b> <br/>
+                        {{mstCompanyInfo ? mstCompanyInfo["address1"] : ""}}
+                        {{mstCompanyInfo ? mstCompanyInfo["address2"] : ""}},
+                        {{mstCompanyInfo ? mstCompanyInfo["city"] : ""}}
+                    </p>
+                </td>
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:left;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;width:50%;">
+                    To - <br/>
+                    <p style="font-weight:400;">
+                        <b style="font-weight:600;">{{trnAdvancePaymentObj.mstCustomer?trnAdvancePaymentObj.mstCustomer.name:""}}</b><br/>
+                        {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
+                            [0]["addressLine1"]:""}}
+                            {{ trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
+                                [0]["addressLine2"]:""}}, {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
+                                    [0]["state"]:""}},
+                            {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
+                                [0]["city"]:""}}, PINCODE - {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
+                                    [0]["pin"]:"" }}
 
-										</p>
-									</td>									
-								</tr>
-							</table>	
-							
-							<div style="width:100%;display:inline;margin-top:35px;">
-								<table style="width: 50%;margin: 0 auto;margin-top: 50px;">
-									<tr>
-										<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Total Amount</td>	
-										<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. {{totalAmount}}</td>
-									</tr>
-									<tr>
-										<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Advance Amount</td>	
-										<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. {{trnAdvancePaymentObj.amount}}</td>
-									</tr>
-									<!-- <tr>
-										<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Total Amount Paid</td>	
-										<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. 1000.00</td>
-									</tr>
-									<tr>
-										<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Balance Amount</td>	
-										<td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. 1000.00</td>
-									</tr> -->
-								</table>
+                    </p>
+                </td>									
+            </tr>
+        </table>	
+        
+        <div style="width:100%;display:inline;margin-top:35px;">
+            <table style="width: 50%;margin: 0 auto;margin-top: 50px;">
+                <tr>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Total Amount</td>	
+                    <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. {{totalAmount}}</td>
+                </tr>
+                <tr>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Advance Amount</td>	
+                    <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. {{trnAdvancePaymentObj.amount}}</td>
+                </tr>
+                <!-- <tr>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Total Amount Paid</td>	
+                    <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. 1000.00</td>
+                </tr>
+                <tr>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Balance Amount</td>	
+                    <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. 1000.00</td>
+                </tr> -->
+            </table>
 
-								
-									
-							</div>
-							
-							<div style="width:100%;margin-top:35px;">
-								<table style="margin-top:35px;width:100%;">
-									<tr>
-										<td style="width:75%;">
-											
-										</td>
-										<td style="text-align:right;font-family: Roboto;width:25%;">
-											<br/><br/>
-											<hr style="border-top:1px solid #000;margin-bottom:2px;"/>
-											Issued By
-											<br/>
-											<label style="font-size:11px;font-style:italic;font-family: Roboto;">(Softzone Fabrics Pvt. Ltd.)</label>
-										</td>
-									</tr>
-								</table>								
-								
-							</div>
-								
-							<div style="text-align:center;width: 100%;margin-top:35px;">							
-								<label style="font-family:Roboto;font-size:13px;font-weight:400;">This is a Computer Generated Receipt</label>
-							</div>	
-							
-							
-						</div>
-					
+            
+                
+        </div>
+        
+        <div style="width:100%;margin-top:35px;">
+            <table style="margin-top:35px;width:100%;">
+                <tr>
+                    <td style="width:75%;">
+                        
+                    </td>
+                    <td style="text-align:right;font-family: Roboto;width:25%;">
+                        <br/><br/>
+                        <hr style="border-top:1px solid #000;margin-bottom:2px;"/>
+                        Issued By
+                        <br/>
+                        <label style="font-size:11px;font-style:italic;font-family: Roboto;">(Softzone Fabrics Pvt. Ltd.)</label>
+                    </td>
+                </tr>
+            </table>								
+            
+        </div>
+            
+        <div style="text-align:center;width: 100%;margin-top:35px;">							
+            <label style="font-family:Roboto;font-size:13px;font-weight:400;">This is a Computer Generated Receipt</label>
+        </div>	
+        
+        
+    </div>
