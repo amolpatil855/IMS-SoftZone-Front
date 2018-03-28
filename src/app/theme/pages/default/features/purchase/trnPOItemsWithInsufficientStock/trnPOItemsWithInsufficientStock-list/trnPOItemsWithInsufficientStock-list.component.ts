@@ -229,6 +229,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
   }
 
   onChangeSupplier() {
+    this.selectedItemsList=[];
     let supplierId = this.trnPurchaseOrderObj.supplierId;
     if (supplierId != null) {
       this.filteredItems = _.filter(this.trnPurchaseOrderItems, function (o) { return o.supplierId == supplierId; });
