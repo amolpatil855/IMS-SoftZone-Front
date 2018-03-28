@@ -109,10 +109,12 @@
                                                                     <label class="col-md-2 col-sm-2 fieldLabel">Supplier<span class="requiredField">*</span>
                                                                     </label>
                                                                     <div class="col-md-10 col-sm-10 customerNameBox">
-    
-                                                                        <p-dropdown class="feePlanBox" [options]="supplierCodeList"  required [(ngModel)]="trnPurchaseOrderObj.supplierId" #supplierCodeVal="ngModel"
+                                                                        <select class="form-control" required name="supplierId" [(ngModel)]="trnPurchaseOrderObj.supplierId" #supplierCodeVal="ngModel" [disabled]="disabled" [ngClass]="{'red-border-class': supplierCodeVal.errors && isFormSubmitted}" (ngModelChange)="onChangeSupplier()" tabindex="3">
+                                                                            <option *ngFor="let x of supplierCodeList" [ngValue]="x.value">{{x.label}}</option>
+                                                                        </select>
+                                                                        <!-- <p-dropdown class="feePlanBox" [options]="supplierCodeList"  required [(ngModel)]="trnPurchaseOrderObj.supplierId" #supplierCodeVal="ngModel"
                                                                          required styleClass="{{ supplierCodeVal.errors && isFormSubmitted?'red-border-class':''}}" [style]="{'width':'100%'}"
-                                                                         name="supplierCodeDDl" filter="true" tabindex="3"  (ngModelChange)="onChangeSupplier()"></p-dropdown>
+                                                                         name="supplierCodeDDl" filter="true" tabindex="3"  (ngModelChange)="onChangeSupplier()"></p-dropdown> -->
                                                                     </div>
                                                                 </div>
     
@@ -123,9 +125,12 @@
                                                                     <label class="col-md-4 col-sm-4 fieldLabel">Courier<span class="requiredField">*</span>
                                                                     </label>
                                                                     <div class="col-md-8 col-sm-8">
-                                                                        <p-dropdown class="feePlanBox" [options]="courierList"  required [(ngModel)]="trnPurchaseOrderObj.courierId" #courierVal="ngModel"
+                                                                        <select class="form-control" name="courier" [(ngModel)]="trnPurchaseOrderObj.courierId" required #courierVal="ngModel" [ngClass]="{'red-border-class': courierVal.errors && isFormSubmitted}" tabindex="4">
+                                                                            <option *ngFor="let x of courierList" [ngValue]="x.value" [selected]="trnPurchaseOrderObj.courierId == x.value">{{x.label}}</option>
+                                                                        </select>
+                                                                        <!-- <p-dropdown class="feePlanBox" [options]="courierList"  required [(ngModel)]="trnPurchaseOrderObj.courierId" #courierVal="ngModel"
                                                                          required [style]="{'width':'100%'}" styleClass="{{ courierVal.errors && isFormSubmitted?'red-border-class':''}}"
-                                                                         name="courierDDl" filter="true" tabindex="4"></p-dropdown>
+                                                                         name="courierDDl" filter="true" tabindex="4"></p-dropdown> -->
                                                                     </div>
                                                                 </div>
     
@@ -133,22 +138,24 @@
                                                                     <label class="col-md-5 col-sm-5 fieldLabel noPadding">Courier Mode<span class="requiredField">*</span>
                                                                     </label>
                                                                     <div class="col-md-7 col-sm-7">
-                                                                        <!-- <select name="CourierMode" class="feePlanBox" [(ngModel)]="trnPurchaseOrderObj.courierMode" required style="width:100%;"  tabindex="5">
-                                                                            <option value="Air">Air</option>
-                                                                            <option value="Surface">Surface</option>
-                                                                        </select> -->
-                                                                        <p-dropdown class="feePlanBox" [options]="courierModeList" required [(ngModel)]="trnPurchaseOrderObj.courierMode" #courierModeVal="ngModel"
+                                                                        <select class="form-control" name="courierMode" [(ngModel)]="trnPurchaseOrderObj.courierMode" required #courierModeVal="ngModel" [ngClass]="{'red-border-class': courierModeVal.errors && isFormSubmitted}" tabindex="5">
+                                                                            <option *ngFor="let x of courierModeList" [ngValue]="x.value" [selected]="trnPurchaseOrderObj.courierMode == x.value">{{x.label}}</option>
+                                                                        </select>
+                                                                        <!-- <p-dropdown class="feePlanBox" [options]="courierModeList" required [(ngModel)]="trnPurchaseOrderObj.courierMode" #courierModeVal="ngModel"
                                                                          required [style]="{'width':'100%'}" styleClass="{{ courierModeVal.errors && isFormSubmitted?'red-border-class':''}}" 
-                                                                         name="courierModeDDl" filter="true" tabindex="5"></p-dropdown>
+                                                                         name="courierModeDDl" filter="true" tabindex="5"></p-dropdown> -->
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <label class="col-md-4 col-sm-4 fieldLabel">Location<span class="requiredField">*</span>
                                                                     </label>
                                                                     <div class="col-md-8 col-sm-8">
-                                                                        <p-dropdown class="feePlanBox" [options]="locationList" required [(ngModel)]="trnPurchaseOrderObj.locationId" #locationVal="ngModel"
+                                                                        <select class="form-control" name="locationId" [(ngModel)]="trnPurchaseOrderObj.locationId" required #locationVal="ngModel" [ngClass]="{'red-border-class': locationVal.errors && isFormSubmitted}" (ngModelChange)="onChangeLocation()"  tabindex="6">
+                                                                            <option *ngFor="let x of locationList" [ngValue]="x.value" [selected]="trnPurchaseOrderObj.locationId == x.value">{{x.label}}</option>
+                                                                        </select>
+                                                                        <!-- <p-dropdown class="feePlanBox" [options]="locationList" required [(ngModel)]="trnPurchaseOrderObj.locationId" #locationVal="ngModel"
                                                                          required [style]="{'width':'100%'}" styleClass="{{ locationVal.errors && isFormSubmitted?'red-border-class':''}}"
-                                                                         name="LocationDDl" filter="true" tabindex="6" (ngModelChange)="onChangeLocation()" ></p-dropdown>
+                                                                         name="LocationDDl" filter="true" tabindex="6" (ngModelChange)="onChangeLocation()" ></p-dropdown> -->
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
@@ -200,7 +207,7 @@
     
     
     
-                                            <p-dataTable  [value]="filteredItems" [editable]="true" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [(selection)]="selectedItemsList"  [emptyMessage]="tableEmptyMesssage"  [paginator]="true" [rows]="100" [headerCheckboxToggleAllPages]="true" class="table listingTable poTable">
+                                            <p-dataTable  [value]="filteredItems" [editable]="true" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [(selection)]="selectedItemsList"  [emptyMessage]="tableEmptyMesssage"  [paginator]="true" [rows]="100" [headerCheckboxToggleAllPages]="true" class="table listingTable poTable POSOTable">
                                                     <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
                                                     <p-column field="categoryName" header="Category" [editable]="false" [style]="{'text-align':'left'}"></p-column>
                                                     <p-column field="collectionName" header="Collection" [editable]="false" [style]="{'text-align':'left'}"></p-column>

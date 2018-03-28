@@ -41,7 +41,7 @@
 			</ul>
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-				<button class="topBtn btn btn-info" title="Print" (click)="print()" tabindex="5">print</button>
+				<button class="topBtn btn btn-info" title="Print" (click)="print()" tabindex="5">Print</button>
 			<button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnMaterialQuotationObj.status == 'Created'" [isAuthorize]="['materialquotation']" title="Approve" (click)="onApprove()" tabindex="7">
 				Approve
 			</button>
@@ -123,8 +123,11 @@
 																<label class="col-md-4 col-sm-4 fieldLabel">Referred By
 																</label>
 																<div class="col-md-8 col-sm-8">
-																	<p-dropdown class="feePlanBox" [options]="agentList" [disabled]="!status" [style]="{'width':'100%'}" [(ngModel)]="trnMaterialQuotationObj.referById"
-																	 name="agent" filter="true" tabindex="4"></p-dropdown>
+																	<select class="form-control" name="agent" [(ngModel)]="trnMaterialQuotationObj.referById" [disabled]="!status" tabindex="3">
+																		<option *ngFor="let x of agentList" [ngValue]="x.value" [selected]="trnMaterialQuotationObj.referById == x.value">{{x.label}}</option>
+																	</select>
+																	<!-- <p-dropdown class="feePlanBox" [options]="agentList" [disabled]="!status" [style]="{'width':'100%'}" [(ngModel)]="trnMaterialQuotationObj.referById"
+																	 name="agent" filter="true" tabindex="4"></p-dropdown> -->
 																</div>
 															</div>
 															<div class="col-md-3">
@@ -137,9 +140,12 @@
 																<label class="col-md-2 col-sm-2 fieldLabel">Customer<span class="requiredField">*</span>
 																</label>
 																<div class="col-md-10 col-sm-10 customerNameBox">
-																	<p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="trnMaterialQuotationObj.customerId"
+																	<select class="form-control" required name="customer" [(ngModel)]="trnMaterialQuotationObj.customerId" #selectedCustomerVal="ngModel" [disabled]="isMatSelectionId || disabled" [ngClass]="{'red-border-class': selectedCustomerVal.errors && isFormSubmitted}" (ngModelChange)="onCustomerChange()" tabindex="4">
+																		<option *ngFor="let x of customerList" [ngValue]="x.value">{{x.label}}</option>
+																	</select>
+																	<!-- <p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="trnMaterialQuotationObj.customerId"
 																	 required styleClass="{{ selectedCustomerVal.errors && isFormSubmitted?'red-border-class':''}}" name="customer"
-																	 [disabled]="isMatSelectionId || disabled" (ngModelChange)="onCustomerChange()" filter="true" tabindex="3"></p-dropdown>
+																	 [disabled]="isMatSelectionId || disabled" (ngModelChange)="onCustomerChange()" filter="true" tabindex="3"></p-dropdown> -->
 																</div>
 															</div>
 														</div>

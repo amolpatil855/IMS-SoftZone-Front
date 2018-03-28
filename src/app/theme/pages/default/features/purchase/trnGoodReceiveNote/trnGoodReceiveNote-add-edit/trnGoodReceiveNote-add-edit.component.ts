@@ -125,6 +125,8 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.disabled = false;
     this.showUpdateBtn = true;
     this.trnGoodReceiveNoteObj.grnDate = today;
+    this.trnGoodReceiveNoteObj.supplierId = null;
+    this.trnGoodReceiveNoteObj.locationId = null;
     this.courierModeList.push({ label: '--Select--', value: null });
     this.courierModeList.push({ label: 'Surface', value: 'Surface' });
     this.courierModeList.push({ label: 'Air', value: 'Air' });
@@ -620,7 +622,9 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     }
 
     let poObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
-
+    if(!poObj)
+      return false;
+    
     if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
       let applyDiscount = false;
       this.rate = (poObj.purchaseFlatRate ? poObj.purchaseFlatRate : poObj.orderQuantity >= 50 ? poObj.roleRate : poObj.cutRate);
@@ -631,7 +635,6 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
         this.amount = Math.round(this.amount - ((this.amount * poObj.purchaseDiscount) / 100));
         this.purchaseDiscount = poObj.purchaseDiscount;
       }
-
       else
         this.purchaseDiscount = 0;
       this.amountWithGST = Math.round(this.amount + ((this.amount * poObj.gst) / 100));

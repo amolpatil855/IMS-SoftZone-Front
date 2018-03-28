@@ -142,6 +142,12 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.disabled = false;
     this.trnSalesOrderObj.orderDate = today;
     this.trnSalesOrderObj.chequeDate = today;
+    this.trnSalesOrderObj.customerId = null;
+    this.trnSalesOrderObj.courierId = null;
+    this.trnSalesOrderObj.courierMode = null;
+    this.trnSalesOrderObj.referById = null;
+    this.trnSalesOrderObj.paymentMode = null;
+    this.categoryId = null;
     // this.newItem();
     this.shippingAddress = null;
     this.courierModeList.push({ label: '--Select--', value: null });
@@ -153,6 +159,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.paymentModeList.push({ label: 'Credit', value: 'Credit' });
     this.paymentModeList.push({ label: 'Bank Transfer', value: 'Bank Transfer' });
     this.paymentModeList.push({ label: 'Cheque', value: 'Cheque' });
+    
     this.route.params.forEach((params: Params) => {
       this.params = params['id'];
     });

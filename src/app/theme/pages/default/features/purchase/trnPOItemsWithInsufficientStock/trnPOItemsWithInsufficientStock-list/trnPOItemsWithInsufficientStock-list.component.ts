@@ -86,6 +86,10 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
     this.locationObj = {};
     this.disabled = false;
     this.trnPurchaseOrderObj.orderDate = today;
+    this.trnPurchaseOrderObj.supplierId = null;
+    this.trnPurchaseOrderObj.courierId = null;
+    this.trnPurchaseOrderObj.courierMode = null;
+    this.trnPurchaseOrderObj.locationId = null;
     this.getTrnPurchaseOrderById();
   }
 
@@ -156,7 +160,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
       applyDiscount = (row.purchaseFlatRate ? true : row.orderQuantity >= 50 ? true : false);
       row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
       // this.amountWithGST = this.rateWithGST * this.orderQuantity;
-      row.amount = row.rate * row.orderQuantity;
+      row.amount = Math.round(row.rate * row.orderQuantity);
       row.rate = parseFloat(row.rate).toFixed(2);
       if (applyDiscount)
         row.amount = Math.round(row.amount - ((row.amount * row.purchaseDiscount) / 100));
@@ -225,6 +229,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
   }
 
   onChangeSupplier() {
+    this.selectedItemsList=[];
     let supplierId = this.trnPurchaseOrderObj.supplierId;
     if (supplierId != null) {
       this.filteredItems = _.filter(this.trnPurchaseOrderItems, function (o) { return o.supplierId == supplierId; });
