@@ -13,8 +13,8 @@ export class TrnSalesInvoice {
     status: string;
     isApproved: boolean;
     isPaid: boolean;
-    buyersOrderNumber: string;
-    courierDockYardNumber: string;
+    buyersOrderNumber: string = null;
+    courierDockYardNumber: string = null;
     TrnGoodIssueNote: TrnGoodIssueNote;
     TrnSaleOrder: TrnSaleOrder;
     trnSalesInvoiceItems = [];
