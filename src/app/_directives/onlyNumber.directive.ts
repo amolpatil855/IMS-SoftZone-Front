@@ -61,7 +61,10 @@ export class OnlyNumber {
       // (isNaN(valInFloat) && e.key === "0") - When user enters value for first time valInFloat will be NaN, e.key condition is 
       // because I didn't want user to enter anything below 1.
       // NOTE: You might want to remove it if you want to accept 0
-      if (valInFloat < parseFloat(this.minValue) && valInFloat != 0) {//|| (isNaN(valInFloat) && e.key === "0")
+      // if (valInFloat < parseFloat(this.minValue) && valInFloat != 0) {//|| (isNaN(valInFloat) && e.key === "0")
+      //   e.preventDefault();
+      // }
+       if (valInFloat < parseFloat(this.minValue)) {//|| (isNaN(valInFloat) && e.key === "0") //Do not allow zero else give error in quality
         e.preventDefault();
       }
     }
