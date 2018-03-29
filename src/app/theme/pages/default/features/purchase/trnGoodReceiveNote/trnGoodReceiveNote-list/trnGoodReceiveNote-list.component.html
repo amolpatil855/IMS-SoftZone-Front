@@ -92,7 +92,11 @@
 								</p-column>
 								<p-column field="supplierName" header="Supplier" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="locationCode" header="Location" [style]="{'text-align':'left'}"></p-column>
-								<p-column field="totalAmount" header="Total" [style]="{'text-align':'right'}"></p-column>
+								<p-column field="totalAmount" header="Total" [style]="{'text-align':'right'}">
+									<ng-template let-col let-data="rowData" pTemplate="body">
+										{{data[col.field] | number:'.0' }}
+									</ng-template>
+								</p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action

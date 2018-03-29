@@ -42,8 +42,8 @@
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
 			<button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnPurchaseOrderObj.status == 'Created'" [isAuthorize]="['purchaseorder']"
-			 title="Approve" (click)="onApprove()" tabindex="9">
-				Approve
+			 title="Update And Approve" (click)="onApprove()" tabindex="9">
+				Update And Approve
 			</button>
 			<button type="submit" class="topBtn btn btn-error" *ngIf="adminFlag && trnPurchaseOrderObj.status == 'Created'" [isAuthorize]="['purchaseorder']"
 			 title="Cancel PO" (click)="onCancelPO()" tabindex="9">
@@ -164,7 +164,7 @@
 															<div class="col-md-3">
 																<label class="col-md-5 col-sm-5 fieldLabel noPadding">Total Amount</label>
 																<div class="col-md-7 col-sm-7">
-																	<input type="number" [(ngModel)]="trnPurchaseOrderObj.totalAmount" name="totalAmount" class="form-control" disabled placeholder="">
+																	<label class="orderTypeLabel">{{trnPurchaseOrderObj ? (trnPurchaseOrderObj.totalAmount | number:'.0') : ''}}</label>
 																</div>
 															</div>
 														</div>
@@ -409,7 +409,7 @@
 												<td class="aligncenter"> {{row.orderQuantity}}</td>
 												<td class="aligncenter">{{row.orderType}}</td>
 												<!-- <td>{{row.rateWithGST}}</td> -->
-												<td class="alignright">{{row.amountWithGST}}</td>
+												<td class="alignright">{{row.amountWithGST | number:'.0'}}</td>
 												<td>
 													<div class="">
 														<!-- <button title="Edit" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
