@@ -334,7 +334,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
     if (this.trnPurchaseOrderObj.totalAmount == null) {
       this.trnPurchaseOrderObj.totalAmount = 0;
     }
-    this.trnPurchaseOrderObj.totalAmount = this.trnPurchaseOrderObj.totalAmount + this.amountWithGST;
+    this.trnPurchaseOrderObj.totalAmount = Math.round(this.trnPurchaseOrderObj.totalAmount + parseInt(this.amountWithGST));
 
     let itemObj = {
       categoryId: this.categoryId,
