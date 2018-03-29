@@ -44,7 +44,7 @@
 			<button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnSalesOrderObj.status == 'Created'" [isAuthorize]="['salesorder']" title="Update And Approve" (click)="onApprove()" tabindex="27">
 				Update And Approve
 			</button>
-			<button type="submit" class="topBtn btn btn-success" *ngIf="trnSalesOrderObj.status == 'Created'" [isAuthorize]="['salesorder']" title="Cancel Order" (click)="cancelSO()" tabindex="28">
+			<button type="submit" class="topBtn btn btn-error" *ngIf="trnSalesOrderObj.status == 'Created'" [isAuthorize]="['salesorder']" title="Cancel Order" (click)="cancelSO()" tabindex="28">
 				Cancel Order
 			</button>
 			<button type="submit"  *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesStockForm" title="{{(trnSalesStockForm && trnSalesStockForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
