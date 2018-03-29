@@ -72,10 +72,13 @@
                                                                                     <div class="">
                                                                                           <label class="col-md-5 col-sm-5 fieldLabel">Category<span class="requiredField">*</span></label>
                                                                                           <div class="col-md-7 col-sm-7">
-                                                                                                <p-dropdown class="feePlanBox" [options]="categoriesCodeList" formControlName="categoryId" required styleClass="{{ collectionForm.get('categoryId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
+                                                                                                <select class="form-control" formControlName="categoryId" [ngClass]="{'red-border-class': collectionForm.get('categoryId').hasError('required') && isFormSubmitted}" required autofocus tabindex="1">
+                                                                                                      <option *ngFor="let x of categoriesCodeList" [ngValue]="x.value" [selected]="categoryId == x.value">{{x.label}}</option>
+                                                                                                </select>
+                                                                                                <!-- <p-dropdown class="feePlanBox" [options]="categoriesCodeList" formControlName="categoryId" required styleClass="{{ collectionForm.get('categoryId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                                                                                       [style]="{'width':'100%'}"
                                                                                                       [disabled]="disabled" name="categoriesDDl" filter="true" autofocus
-                                                                                                      tabindex="1"></p-dropdown>
+                                                                                                      tabindex="1"></p-dropdown> -->
                                                                                                 </div>
                                                                                     </div>
                                                                               </div>
@@ -106,10 +109,13 @@
                                                                                     <div class="">
                                                                                           <label class="fieldLabel col-sm-5">Supplier<span class="requiredField">*</span></label>
                                                                                           <div class="col-sm-7">
-                                                                                                <p-dropdown class="feePlanBox" [options]="supplierCodeList" required styleClass="{{ collectionForm.get('supplierId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
+                                                                                                <select class="form-control" formControlName="supplierId" [ngClass]="{'red-border-class': collectionForm.get('supplierId').hasError('required') && isFormSubmitted}" required tabindex="4">
+                                                                                                      <option *ngFor="let x of supplierCodeList" [ngValue]="x.value" [selected]="supplierId == x.value">{{x.label}}</option>
+                                                                                                </select>
+                                                                                                <!-- <p-dropdown class="feePlanBox" [options]="supplierCodeList" required styleClass="{{ collectionForm.get('supplierId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                                                                                       formControlName="supplierId"
                                                                                                       required [style]="{'width':'100%'}" [disabled]="disabled"
-                                                                                                      name="supplierCodeDDl" filter="true" tabindex="4"></p-dropdown>
+                                                                                                      name="supplierCodeDDl" filter="true" tabindex="4"></p-dropdown> -->
                                                                                           </div>
                                                                                     </div>
                                                                               </div>

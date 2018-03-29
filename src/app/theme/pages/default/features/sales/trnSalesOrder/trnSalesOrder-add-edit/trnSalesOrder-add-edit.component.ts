@@ -159,7 +159,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.paymentModeList.push({ label: 'Credit', value: 'Credit' });
     this.paymentModeList.push({ label: 'Bank Transfer', value: 'Bank Transfer' });
     this.paymentModeList.push({ label: 'Cheque', value: 'Cheque' });
-    
+
     this.route.params.forEach((params: Params) => {
       this.params = params['id'];
     });
@@ -181,23 +181,36 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
 
   onApprove() {
-    Helpers.setLoading(true);
     if (this.params) {
-      this.trnSalesOrderService.approveSalesOrder(this.trnSalesOrderObj)
+      this.trnSalesOrderObj.TrnSaleOrderItems = this.trnSaleOrderItems;
+      Helpers.setLoading(true);
+      this.trnSalesOrderService.updateTrnSaleOrder(this.trnSalesOrderObj)
         .subscribe(
         results => {
-          this.params = null;
-          this.status = false;
-          this.viewItem = false;
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
-          Helpers.setLoading(false);
-          this.router.navigate(['/features/sales/trnSalesOrder/list']);
+          this.onApproveSalesOrder();
         },
         error => {
           this.globalErrorHandler.handleError(error);
           Helpers.setLoading(false);
         });
     }
+  }
+
+  onApproveSalesOrder() {
+    this.trnSalesOrderService.approveSalesOrder(this.trnSalesOrderObj)
+      .subscribe(
+      results => {
+        this.params = null;
+        this.status = false;
+        this.viewItem = false;
+        this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+        Helpers.setLoading(false);
+        this.router.navigate(['/features/sales/trnSalesOrder/list']);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
   cancelSO() {
@@ -606,6 +619,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
 
   getMatQualityList() {
+    Helpers.setLoading(true);
     this.matSizeService.getQualityLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.qualityList = results;
@@ -619,6 +633,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
 
   getAccessoryLookup() {
+    Helpers.setLoading(true);
     this.commonService.getAccessoryLookUp().subscribe(
       results => {
         this.accessoryCodeList = results;
@@ -693,24 +708,30 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
 
   getCategoryCodeList() {
+    Helpers.setLoading(true);
     this.commonService.getCategoryCodesForSO().subscribe(
       results => {
         this.categoriesCodeList = results;
         this.categoriesCodeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getCourierList() {
+    Helpers.setLoading(true);
     this.trnSalesOrderService.getCourierLookup().subscribe(
       results => {
         this.courierList = results;
         this.courierList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
@@ -971,49 +992,61 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   }
 
   getMatSizeList() {
+    Helpers.setLoading(true);
     this.trnSalesOrderService.getMatSizeLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.matSizeList = results;
         this.matSizeList.unshift({ label: '--Select--', value: null });
         if (this.categoryId == 4)
           this.matSizeList.push({ label: 'Custom', value: -1 });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getFoamSizeList() {
+    Helpers.setLoading(true);
     this.trnSalesOrderService.getFomSizeLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.fomSizeList = results;
         this.fomSizeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
 
   getshadeIdList() {
+    Helpers.setLoading(true);
     this.trnSalesOrderService.getSerialNumberLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.shadeIdList = results;
         this.shadeIdList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getCollectionList() {
+    Helpers.setLoading(true);
     this.collectionService.getCollectionLookUpForSo(this.categoryId).subscribe(
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
@@ -1088,7 +1121,6 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
         });
     }
   }
-
 
   onCancel() {
     this.router.navigate(['/features/sales/trnSalesOrder/list']);

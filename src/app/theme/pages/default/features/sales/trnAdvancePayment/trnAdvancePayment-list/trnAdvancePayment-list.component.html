@@ -86,7 +86,11 @@
 								</p-column>
                                 <p-column field="customerName" header="Customer Name" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="materialQuotationNumber" header="M. Quotation No." [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="amount" header="Amount" [style]="{'text-align':'right'}"></p-column>      
+                                <p-column field="amount" header="Amount" [style]="{'text-align':'right'}">
+									<ng-template let-col let-data="rowData" pTemplate="body">
+										{{data[col.field] | number:'.0' }}
+									</ng-template>
+								</p-column>      
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action
