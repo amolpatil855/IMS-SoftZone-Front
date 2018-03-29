@@ -194,9 +194,17 @@
 											</ng-template>
 										</p-column>
 										<p-column field="orderType" header="Or. Type" [editable]="false" [style]="{'text-align':'center'}"></p-column>
-										<p-column field="rate" header="rate" [editable]="false" [style]="{'text-align':'right'}"></p-column>
+										<p-column field="rate" header="rate" [editable]="false" [style]="{'text-align':'right'}">
+											<ng-template let-col let-data="rowData" pTemplate="body">
+												{{data[col.field] | number:'.0' }}
+											</ng-template>
+										</p-column>
 										<p-column field="gst" header="gst %" [editable]="false" [style]="{'text-align':'center'}"></p-column>
-										<p-column field="amountWithGST" header="amount(GST)" [editable]="false" [style]="{'text-align':'right'}"></p-column>
+										<p-column field="amountWithGST" header="amount(GST)" [editable]="false" [style]="{'text-align':'right'}">
+											<ng-template let-col let-data="rowData" pTemplate="body">
+										{{data[col.field] | number:'.0' }}
+									</ng-template>
+										</p-column>
 									</p-dataTable>
 								</div>
 							</div>
