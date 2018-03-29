@@ -58,6 +58,7 @@ params: number;
   }
 
   getAccessoryProducts() {
+    Helpers.setLoading(true);
     this.productListingService.getAccessoryProducts(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.productListingList = results.data;
@@ -65,14 +66,17 @@ params: number;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getFabricProducts() {
+    Helpers.setLoading(true);
     this.productListingService.getFabricProducts(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.productListingList = results.data;
@@ -80,14 +84,17 @@ params: number;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getFoamProducts() {
+    Helpers.setLoading(true);
     this.productListingService.getFoamProducts(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.productListingList = results.data;
@@ -95,10 +102,12 @@ params: number;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
