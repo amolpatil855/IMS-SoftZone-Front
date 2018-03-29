@@ -75,33 +75,45 @@
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxShade">
 														<label class="fieldLabel col-sm-5">Collection<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
-															<p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel" required
+															<select class="form-control" name="selectedCollection" [(ngModel)]="selectedCollection" [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" #selectedCollectionVal="ngModel" (ngModelChange)="onCollectionClick()" [disabled]="disabled" required autofocus tabindex="1">
+																<option *ngFor="let x of collectionList" [ngValue]="x.value" [selected]="selectedCollection == x.value">{{x.label}}</option>
+															</select>
+															<!-- <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel" required
 															 styleClass="{{ selectedCollectionVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedCollection"
-															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" autofocus tabindex="1"></p-dropdown>
+															 [disabled]="disabled" name="collection" (ngModelChange)="onCollectionClick()" filter="true" autofocus tabindex="1"></p-dropdown> -->
 														</div>
 													</div>
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxShade">
 														<label class="fieldLabel col-sm-5">Quality<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
-															<p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel" required
+															<select class="form-control" name="selectedQuality" [(ngModel)]="selectedQuality" [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" #selectedQualityVal="ngModel" (ngModelChange)="onQualityClick()" [disabled]="disabled" required tabindex="2">
+																<option *ngFor="let x of qualityList" [ngValue]="x.value" [selected]="selectedQuality == x.value">{{x.label}}</option>
+															</select>
+															<!-- <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel" required
 															 styleClass="{{ selectedQualityVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedQuality"
-															 [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()" filter="true" tabindex="2"></p-dropdown>
+															 [disabled]="disabled" name="quality" (ngModelChange)="onQualityClick()" filter="true" tabindex="2"></p-dropdown> -->
 														</div>
 													</div>
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxShade">
 														<label class="fieldLabel col-sm-5">Density<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
-															<p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" #selectedDensityVal="ngModel" required
+															<select class="form-control" name="selectedDensity" [(ngModel)]="selectedDensity" [ngClass]="{'red-border-class': selectedDensityVal.errors && isFormSubmitted}" #selectedDensityVal="ngModel" (ngModelChange)="onDensityClick()" [disabled]="disabled" required tabindex="3">
+																<option *ngFor="let x of fomDensityList" [ngValue]="x.value" [selected]="selectedDensity == x.value">{{x.label}}</option>
+															</select>
+															<!-- <p-dropdown class="feePlanBox" [options]="fomDensityList" [style]="{'width':'100%'}" #selectedDensityVal="ngModel" required
 															 styleClass="{{ selectedDensityVal.errors && isFormSubmitted?'red-border-class':''}}" [(ngModel)]="selectedDensity"
-															 [disabled]="disabled" name="density" (ngModelChange)="onDensityClick()" filter="true" tabindex="3"></p-dropdown>
+															 [disabled]="disabled" name="density" (ngModelChange)="onDensityClick()" filter="true" tabindex="3"></p-dropdown> -->
 														</div>
 													</div>
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxShade">
 														<label class="fieldLabel col-sm-5">SuggestedMM<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
-															<p-dropdown class="feePlanBox" [options]="fomSuggestedMMList" [style]="{'width':'100%'}" #selectedSizeVal="ngModel" required
+															<select class="form-control" name="selectedSize" [(ngModel)]="selectedSize" [ngClass]="{'red-border-class': selectedSizeVal.errors && isFormSubmitted}" #selectedSizeVal="ngModel" [disabled]="disabled" required tabindex="4">
+																<option *ngFor="let x of fomSuggestedMMList" [ngValue]="x.value" [selected]="selectedSize == x.value">{{x.label}}</option>
+															</select>
+															<!-- <p-dropdown class="feePlanBox" [options]="fomSuggestedMMList" [style]="{'width':'100%'}" #selectedSizeVal="ngModel" required
 															 styleClass="{{ selectedSizeVal.errors && isFormSubmitted?'red-border-class':''}}" [disabled]="disabled" [(ngModel)]="selectedSize"
-															 name="size" filter="true" tabindex="4"></p-dropdown>
+															 name="size" filter="true" tabindex="4"></p-dropdown> -->
 														</div>
 													</div>
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxShade">

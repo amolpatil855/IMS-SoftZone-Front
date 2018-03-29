@@ -70,10 +70,10 @@ export class QualityListComponent implements OnInit {
       id: 0,
       qualityCode: ['', [Validators.required]],
       qualityName: ['', [Validators.required]],
-      categoryId: ['', [Validators.required]],
-      collectionId: ['', [Validators.required]],
+      categoryId: [null, [Validators.required]],
+      collectionId: [null, [Validators.required]],
       description: [''],
-      hsnId: ['', [Validators.required]],
+      hsnId: [null, [Validators.required]],
       width: ['', [Validators.required]],
       size: ['', [Validators.required]],
       cutRate: [{ value: '', disabled: this.disableRRP }, [Validators.required]],
@@ -87,6 +87,9 @@ export class QualityListComponent implements OnInit {
       custRatePerSqFeet: ['', [Validators.required]],
       maxDiscount: ['', [Validators.required]],
     });
+    this.qualityForm.get('categoryId').enable();
+    this.qualityForm.get('collectionId').enable();
+    this.qualityForm.get('hsnId').enable();
     this.qualityForm.get('cutRate').enable();
     this.qualityForm.get('roleRate').enable();
     this.qualityForm.get('rrp').enable();
@@ -127,7 +130,7 @@ export class QualityListComponent implements OnInit {
   }
 
   onChangeFlatRate(flaterate) {
-    if ( this.qualityForm.get('purchaseFlatRate').value ||  this.qualityForm.get('flatRate').value) {
+    if (this.qualityForm.get('purchaseFlatRate').value || this.qualityForm.get('flatRate').value) {
       this.disableFlatRate = false;
       this.disableRRP = true;
       this.qualityForm.get('cutRate').disable();
@@ -170,6 +173,9 @@ export class QualityListComponent implements OnInit {
     this.toggleDiv = !this.toggleDiv;
     if (this.toggleDiv && !this.params) {
       this.disabled = false;
+      this.qualityForm.get('categoryId').enable();
+      this.qualityForm.get('collectionId').enable();
+      this.qualityForm.get('hsnId').enable();
       this.isFormSubmitted = false;
       this.newRecord();
     }
@@ -279,7 +285,7 @@ export class QualityListComponent implements OnInit {
           this.qualityForm.get('custRatePerSqFeet').disable();
           this.qualityForm.get('maxDiscount').disable();
         }
-        else if(results.categoryId==2) {
+        else if (results.categoryId == 2) {
           this.qualityForm.get('size').setValidators(false);
           this.qualityForm.get('width').setValidators(false);
           this.qualityForm.get('width').disable();
@@ -287,7 +293,7 @@ export class QualityListComponent implements OnInit {
           this.qualityForm.get('custRatePerSqFeet').disable();
           this.qualityForm.get('maxDiscount').enable();
         }
-        else if(results.categoryId==4) {
+        else if (results.categoryId == 4) {
           this.qualityForm.get('size').setValidators(false);
           this.qualityForm.get('width').setValidators(false);
           this.qualityForm.get('width').disable();
@@ -379,7 +385,7 @@ export class QualityListComponent implements OnInit {
       this.qualityForm.get('size').disable();
       this.qualityForm.get('width').enable();
       this.qualityForm.get('maxDiscount').disable();
-      
+
       this.qualityForm.get('cutRate').enable();
       this.qualityForm.get('roleRate').enable();
       this.qualityForm.get('rrp').enable();
@@ -490,6 +496,9 @@ export class QualityListComponent implements OnInit {
   saveQuality(value) {
     Helpers.setLoading(true);
     if (this.params) {
+      value.categoryId = this.qualityForm.get('categoryId').value;
+      value.collectionId = this.qualityForm.get('collectionId').value;
+      value.hsnId = this.qualityForm.get('hsnId').value;
       this.qualityService.updateQuality(value)
         .subscribe(
         results => {
@@ -528,6 +537,9 @@ export class QualityListComponent implements OnInit {
     this.slectedCategory = null;
     this.toggleDiv = true;
     this.disabled = true;
+    this.qualityForm.get('categoryId').disable();
+    this.qualityForm.get('collectionId').disable();
+    this.qualityForm.get('hsnId').disable();
     this.isFormSubmitted = false;
     this.getQualityById(quality.id);
     window.scrollTo(0, 0);

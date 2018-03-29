@@ -653,6 +653,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   }
 
   getMatQualityList() {
+    Helpers.setLoading(true);
     this.matSizeService.getQualityLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.qualityList = results;
@@ -666,6 +667,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   }
 
   getAccessoryLookup() {
+    Helpers.setLoading(true);
     this.commonService.getAccessoryLookUp().subscribe(
       results => {
         this.accessoryCodeList = results;
@@ -807,13 +809,16 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
 
   getCategoryCodeList() {
+    Helpers.setLoading(true);
     this.commonService.getCategoryCodes().subscribe(
       results => {
         this.categoriesCodeList = results;
         this.categoriesCodeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
@@ -883,6 +888,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   }
 
   getAccessoryLookUpBySupplierId(supplierId) {
+    Helpers.setLoading(true);
     this.commonService.getAccessoryLookUpBySupplierId(supplierId).subscribe(
       results => {
         this.accessoryCodeList = results;
@@ -1051,28 +1057,34 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
   getMatSizeList() {
     if (this.collectionId != null) {
+      Helpers.setLoading(true);
       this.trnGoodReceiveNoteService.getMatsizeTrnGoodReceiveNotes(this.collectionId).subscribe(
         results => {
           this.matSizeList = results;
           this.matSizeList.unshift({ label: '--Select--', value: null });
           if (this.categoryId == 4)
             this.matSizeList.push({ label: 'Custom', value: -1 });
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
 
   getFoamSizeList() {
     if (this.collectionId != null) {
+      Helpers.setLoading(true);
       this.trnGoodReceiveNoteService.getFoamSizeTrnGoodReceiveNotes(this.collectionId).subscribe(
         results => {
           this.fomSizeList = results;
           this.fomSizeList.unshift({ label: '--Select--', value: null });
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
@@ -1106,33 +1118,42 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   }
 
   getCollectionList() {
+    Helpers.setLoading(true);
     this.collectionService.getCollectionForGRNByCategorynSupplierId(this.categoryId, this.trnGoodReceiveNoteObj.supplierId).subscribe(
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
   getLocationList() {
+    Helpers.setLoading(true);
     this.commonService.getLocation().subscribe(
       results => {
         this.locationList = results;
         this.locationList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
   getSupplierCodeList() {
+    Helpers.setLoading(true);
     this.supplierService.getSupplierLookupForGRN().subscribe(
       results => {
         this.supplierCodeList = results;
         this.supplierCodeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
   onCancel() {

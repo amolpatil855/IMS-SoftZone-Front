@@ -68,6 +68,8 @@ export class CollectionListComponent implements OnInit {
       description: [''],
     });
     this.collectionObj.id = 0;
+    this.collectionForm.get('categoryId').enable();
+    this.collectionForm.get('supplierId').enable();
     this.getCategoryCodeList();
     this.getSupplierCodeList();
   }
@@ -77,6 +79,8 @@ export class CollectionListComponent implements OnInit {
     this.toggleDiv = !this.toggleDiv;
     if (this.toggleDiv && !this.params) {
       this.disabled = false;
+      this.collectionForm.get('categoryId').enable();
+      this.collectionForm.get('supplierId').enable();
       this.isFormSubmitted = false;
       this.newRecord();
     }
@@ -174,6 +178,8 @@ export class CollectionListComponent implements OnInit {
   saveCollection(value) {
     Helpers.setLoading(true);
     if (this.params) {
+      value.categoryId = this.collectionForm.get('categoryId').value;
+      value.supplierId = this.collectionForm.get('supplierId').value;
       this.collectionService.updateCollection(value)
         .subscribe(
         results => {
@@ -216,6 +222,8 @@ export class CollectionListComponent implements OnInit {
     // this.router.navigate(['/features/master/Collection/edit', Collection.id]);
     this.toggleDiv = true;
     this.disabled = true;
+    this.collectionForm.get('categoryId').disable();
+    this.collectionForm.get('supplierId').disable();
     this.isFormSubmitted = false;
     window.scrollTo(0, 0);
   }

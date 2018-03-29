@@ -181,23 +181,37 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
 
   onApprove() {
-    Helpers.setLoading(true);
     if (this.params) {
-      this.trnPurchaseOrderService.approvePurchaseOrder(this.trnPurchaseOrderObj)
+      this.trnPurchaseOrderObj.TrnPurchaseOrderItems = this.trnPurchaseOrderItems;
+      Helpers.setLoading(true);
+      this.trnPurchaseOrderService.updateTrnPurchaseOrder(this.trnPurchaseOrderObj)
         .subscribe(
         results => {
-          this.params = null;
-          this.status = false;
-          this.viewItem = false;
-          this.trnPurchaseOrderObj.status = 'Approved';
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
-          Helpers.setLoading(false);
+          this.approvePurchaseOrder();
         },
         error => {
           this.globalErrorHandler.handleError(error);
           Helpers.setLoading(false);
         });
+      
     }
+  }
+
+  approvePurchaseOrder(){
+    this.trnPurchaseOrderService.approvePurchaseOrder(this.trnPurchaseOrderObj)
+        .subscribe(
+        results => {
+          this.params = null;
+          this.status = false;
+          this.viewItem = false;
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          Helpers.setLoading(false);
+          this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
   }
 
   getTrnPurchaseOrderById(id) {
@@ -520,6 +534,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
 
   getMatQualityList() {
+    Helpers.setLoading(true);
     this.matSizeService.getQualityLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.qualityList = results;
@@ -675,13 +690,16 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
 
   getCategoryCodeList() {
+    Helpers.setLoading(true);
     this.commonService.getCategoryCodes().subscribe(
       results => {
         this.categoriesCodeList = results;
         this.categoriesCodeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
@@ -818,6 +836,7 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
 
   getAccessoryLookUpBySupplierId(supplierId) {
+    Helpers.setLoading(true);
     this.commonService.getAccessoryLookUpBySupplierId(supplierId).subscribe(
       results => {
         this.accessoryCodeList = results;
@@ -1006,48 +1025,60 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
   }
 
   getMatSizeList() {
+    Helpers.setLoading(true);
     this.trnPurchaseOrderService.getMatsizePurchaseOrders(this.collectionId).subscribe(
       results => {
         this.matSizeList = results;
         this.matSizeList.unshift({ label: '--Select--', value: null });
         if (this.categoryId == 4)
           this.matSizeList.push({ label: 'Custom', value: -1 });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getFoamSizeList() {
+    Helpers.setLoading(true);
     this.trnPurchaseOrderService.getFoamSizePurchaseOrders(this.collectionId).subscribe(
       results => {
         this.fomSizeList = results;
         this.fomSizeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
 
   getshadeIdList() {
+    Helpers.setLoading(true);
     this.trnPurchaseOrderService.getshadeIdPurchaseOrders(this.collectionId).subscribe(
       results => {
         this.shadeIdList = results;
         this.shadeIdList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   onChangeLocation() {
     if (this.trnPurchaseOrderObj.locationId) {
+      Helpers.setLoading(true);
       this.commonService.getLocationById(this.trnPurchaseOrderObj.locationId).subscribe(
         data => {
           this.locationObj = data;
+          Helpers.setLoading(false);
         }, error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
     else {
@@ -1057,13 +1088,16 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
 
   getCollectionList() {
     if ((this.trnPurchaseOrderObj.supplierId != null) && (this.categoryId != null)) {
+      Helpers.setLoading(true);
       this.trnPurchaseOrderService.getCollectionBySuppliernCategoryId(this.trnPurchaseOrderObj.supplierId, this.categoryId).subscribe(
         results => {
           this.collectionList = results;
           this.collectionList.unshift({ label: '--Select--', value: null });
+          Helpers.setLoading(false);
         },
         error => {
           this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
         });
     }
   }
