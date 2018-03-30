@@ -119,10 +119,10 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-3">
-                                                                        <label class="col-md-4 col-sm-4 fieldLabel noPadding">Customer
+                                                                        <label class="col-md-4 col-sm-4 fieldLabel">Customer
                                                                         </label>
                                                                         <div class="col-md-8 col-sm-8 customerNameBox">
-                                                                            <label>{{ trnAdvancePaymentObj.customerName }}</label>
+                                                                            <label class="orderTypeLabel">{{ trnAdvancePaymentObj.customerName }}</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -134,25 +134,28 @@
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Total Amount
 																</label>
                                                                 <div class="col-md-8 col-sm-8 customerNameBox">
-                                                                    <label>{{ totalAmount }}</label>
+                                                                    <label class="orderTypeLabel">{{ totalAmount | number:'.0'}}</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3" *ngIf="!params" >
                                                                     <label class="col-md-4 col-sm-4 fieldLabel noPadding">Balance Amount
                                                                     </label>
                                                                     <div class="col-md-8 col-sm-8 customerNameBox">
-                                                                        <label>{{ balanceAmount }}</label>
+                                                                        <label class="orderTypeLabel">{{ balanceAmount | number:'.0' }}</label>
                                                                     </div>
                                                                 </div>
                                                             
                                                             <div class="col-md-3">
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Amount<span class="requiredField">*</span></label>
-                                                                <div class="col-md-8 col-sm-8">
+                                                                <div class="col-md-8 col-sm-8" *ngIf="!params">
                                                                     <input OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="2147483647" #amountVal="ngModel" required [ngClass]="{'red-border-class': amountVal.errors && isFormSubmitted}"
                                                                         [(ngModel)]="trnAdvancePaymentObj.amount" name="amount"
                                                                         class="form-control" [disabled]="disabled" placeholder="" (blur)="onAmountChange()"
                                                                         autocomplete="off" tabindex="4">
                                                                 </div>
+                                                                <div class="col-md-8 col-sm-8" *ngIf="params">
+                                                                    <label class="orderTypeLabel">{{ trnAdvancePaymentObj ? (trnAdvancePaymentObj.amount | number:'.0') : '' }}</label>
+                                                                </div>   
                                                             </div>
                                                             <div class="col-md-3" *ngIf="viewItem">
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Confirm Amount<span class="requiredField">*</span></label>

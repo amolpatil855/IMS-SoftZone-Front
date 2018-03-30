@@ -85,7 +85,7 @@
                                        <div class="col-lg-4 col-md-6 formContentbox">
                                        <label class="fieldLabel col-sm-5">Unit Of Measure<span class="requiredField">*</span></label>
                                        <div class="col-sm-7">
-                                        <select class="form-control" name="selectedUnitOfMeasure" [(ngModel)]="selectedUnitOfMeasure" [ngClass]="{'red-border-class': selectedUomVal.errors && isFormSubmitted}" #selectedUomVal="ngModel"  required tabindex="3">
+                                        <select class="form-control" name="uomId" [(ngModel)]="selectedUnitOfMeasure" [ngClass]="{'red-border-class': selectedUomVal.errors && isFormSubmitted}" #selectedUomVal="ngModel"  required tabindex="3">
                                             <option *ngFor="let x of unitOfMeasureList" [ngValue]="x.value" [selected]="selectedUnitOfMeasure == x.value">{{x.label}}</option>
                                         </select>
                                           <!-- <p-dropdown class="feePlanBox" [options]="unitOfMeasureList" [style]="{'width':'100%'}"  [(ngModel)]="selectedUnitOfMeasure"  #selectedUomVal="ngModel"  required styleClass="{{ selectedUomVal.errors && isFormSubmitted?'red-border-class':''}}" name="uomId" filter="true" tabindex="3"></p-dropdown> -->
@@ -97,7 +97,7 @@
                                     <div class="col-lg-4 col-md-6 formContentbox">
                                        <label class="fieldLabel col-sm-5">HSN<span class="requiredField">*</span></label>
                                        <div class="col-sm-7">
-                                         <select class="form-control" name="selectedHsn" [(ngModel)]="selectedHsn" [ngClass]="{'red-border-class': selectedHsnVal.errors && isFormSubmitted}" #selectedHsnVal="ngModel"  required tabindex="4">
+                                         <select class="form-control" name="hsnId" [(ngModel)]="selectedHsn" [ngClass]="{'red-border-class': selectedHsnVal.errors && isFormSubmitted}" #selectedHsnVal="ngModel"  required tabindex="4">
                                             <option *ngFor="let x of hsnList" [ngValue]="x.value" [selected]="selectedHsn == x.value">{{x.label}}</option>
                                         </select>
                                           <!-- <p-dropdown class="feePlanBox" [options]="hsnList" [style]="{'width':'100%'}" [(ngModel)]="selectedHsn"   #selectedHsnVal="ngModel"  required styleClass="{{ selectedHsnVal.errors && isFormSubmitted?'red-border-class':''}}" name="hsnId" filter="true" tabindex="4"></p-dropdown> -->

@@ -48,14 +48,15 @@
 						<div class="invoiceMainBox" id="invoiceMainBox">
 							<!--	<h3 class="invoiceMainHeading">Tax Invoice</h3> -->
 
-							<div class="checkboxContainer">
-								<input type="checkbox" name="isApproved" [disabled]="disabled" [(ngModel)]="trnSalesInvoiceObj.isApproved" value="1">								Approve &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input type="checkbox" name="isPaid" [disabled]="viewItem" [(ngModel)]="trnSalesInvoiceObj.isPaid" value="1"> Paid
-							</div>
+							
 
 							<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
 							 (ngSubmit)="onSubmit(trnSalesInvoice)" #trnSalesInvoice="ngForm" id="trnSalesInvoice">
-								<div class="row">
+							<div class="checkboxContainer">
+								<input type="checkbox" name="isApproved" [disabled]="disabled" [(ngModel)]="trnSalesInvoiceObj.isApproved" value="1">								Approve &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="checkbox" name="isPaid" [disabled]="viewItem" [(ngModel)]="trnSalesInvoiceObj.isPaid" value="1"> Paid
+							</div>	
+							 <div class="row">
 									<div class="col-md-6">
 										<div class="invoiceAddressBox">
 											<h4>{{trnSalesInvoiceObj["mstCompanyInfo"] ? trnSalesInvoiceObj["mstCompanyInfo"]["companyName"] : ""}}</h4>
@@ -142,7 +143,7 @@
 												<div class="col-md-6">
 													<div class="invoiceStatContainer">
 														<h5>Buyer's Order No.</h5>
-														<input class="form-control m-input" type="text" value="" [(ngModel)]="trnSalesInvoiceObj.buyersOrderNumber" name="buyersOrderNumber"
+														<input class="form-control m-input" type="text" [(ngModel)]="trnSalesInvoiceObj.buyersOrderNumber" name="buyersOrderNumber"
 														 id="buyersOrderNumber" [disabled]="disabled" placeholder="" maxlength="50" autofocus tabindex="1">
 													</div>
 												</div>
@@ -159,7 +160,7 @@
 												<div class="col-md-6">
 													<div class="invoiceStatContainer">
 														<h5>Dispatch Document No.</h5>
-														<input class="form-control m-input" type="text" value="" [(ngModel)]="trnSalesInvoiceObj.courierDockYardNumber" name="courierDockYardNumber"
+														<input class="form-control m-input" type="text" [(ngModel)]="trnSalesInvoiceObj.courierDockYardNumber" name="courierDockYardNumber"
 														 id="courierDockYardNumber" [disabled]="disabled" placeholder="" maxlength="20" tabindex="2">
 													</div>
 												</div>
