@@ -281,7 +281,7 @@
 													<div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Rate</label>
 														<div class="col-md-6 col-sm-6">
-															<label class="orderTypeLabel">{{rate}}</label>
+															<label class="orderTypeLabel">{{rate ? (rate | number:'.0') : ''}}</label>
 														</div>
 													</div>
 												</div>

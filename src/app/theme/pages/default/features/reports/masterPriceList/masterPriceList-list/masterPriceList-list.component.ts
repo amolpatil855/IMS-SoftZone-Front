@@ -47,16 +47,20 @@ export class MasterPriceListListComponent implements OnInit {
   }
 
   getCategoryLookUp() {
+    Helpers.setLoading(true);
     this.masterPriceListService.getCategoryLookUp().subscribe(
       results => {
         this.categoriesCodeList = results;
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getAccessoryProducts() {
+    Helpers.setLoading(true);
     this.masterPriceListService.getAccessoryProducts(this.pageSize, this.page).subscribe(
       results => {
         this.masterPriceListList = results.data;
@@ -64,14 +68,17 @@ export class MasterPriceListListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getFabricProducts() {
+    Helpers.setLoading(true);
     this.masterPriceListService.getFabricProducts(this.pageSize, this.page).subscribe(
       results => {
         this.masterPriceListList = results.data;
@@ -79,14 +86,17 @@ export class MasterPriceListListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getFoamProducts() {
+    Helpers.setLoading(true);
     this.masterPriceListService.getFoamProducts(this.pageSize, this.page).subscribe(
       results => {
         this.masterPriceListList = results.data;
@@ -94,14 +104,17 @@ export class MasterPriceListListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getMattressProducts() {
+    Helpers.setLoading(true);
     this.masterPriceListService.getMattressProducts(this.pageSize, this.page).subscribe(
       results => {
         this.masterPriceListList = results.data;
@@ -109,14 +122,17 @@ export class MasterPriceListListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getRugProducts() {
+    Helpers.setLoading(true);
     this.masterPriceListService.getRugProducts(this.pageSize, this.page).subscribe(
       results => {
         this.masterPriceListList = results.data;
@@ -124,14 +140,17 @@ export class MasterPriceListListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getWallpaperProducts() {
+    Helpers.setLoading(true);
     this.masterPriceListService.getWallpaperProducts(this.pageSize, this.page).subscribe(
       results => {
         this.masterPriceListList = results.data;
@@ -139,10 +158,12 @@ export class MasterPriceListListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 

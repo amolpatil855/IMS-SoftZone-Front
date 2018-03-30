@@ -18,16 +18,16 @@ export class TrnSalesOrderService {
   }
 
   getAllTrnSaleOrdersForCustomer(pageSize = 0, page = 0, search = '') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'TrnSaleOrder/GetSalesOrdersForLoggedInUser?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetSalesOrdersForLoggedInUser?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
 
   getTrnSaleOrderByIdForCustomer(id: number) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'TrnSaleOrder/GetSalesOrderByIdForCustomerUser/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetSalesOrderByIdForCustomerUser/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
   
   cancelSOForCustomerUser(trnSaleOrder: TrnSaleOrder){
-    return this.http.put(AppSettings.API_ENDPOINT + 'TrnSaleOrder/CancelSOForCustomerUser/' + trnSaleOrder.id,trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.put(AppSettings.API_ENDPOINT + 'CustomerLogin/CancelSOForCustomerUser/' + trnSaleOrder.id,trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   cancelSO(trnSaleOrder: TrnSaleOrder){
@@ -99,7 +99,7 @@ export class TrnSalesOrderService {
   }
 
   createTrnSaleOrderByCustomer(trnSaleOrder: TrnSaleOrder) {
-    return this.http.post(AppSettings.API_ENDPOINT + 'TrnSaleOrder/PostTrnSaleOrderForCustomerUser', trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.post(AppSettings.API_ENDPOINT + 'CustomerLogin/PostTrnSaleOrderForCustomerUser', trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
 
@@ -108,7 +108,7 @@ export class TrnSalesOrderService {
   }
 
   updateTrnSaleOrderForCustomer(trnSaleOrder: TrnSaleOrder) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'TrnSaleOrder/PutTrnSaleOrderForCustomerUser' , trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.put(AppSettings.API_ENDPOINT + 'CustomerLogin/PutTrnSaleOrderForCustomerUser' , trnSaleOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   deleteTrnSaleOrder(id: number) {

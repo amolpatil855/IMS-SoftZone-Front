@@ -54,15 +54,16 @@
                     <div class="m-section">
                         <div class="m-section__content">
                             <div class="ui-widget-header" style="border-bottom: 0 none">
+                            <div class="row">
                                 <div class="col-md-4">
                                     <label class="col-md-4 col-sm-4 fieldLabel">Category<span class="requiredField">*</span></label>
                                     <div class="col-md-8 col-sm-8">
-                                        <p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="categoryId" [style]="{'width':'100%'}" styleClass="{{categoryIdError?'red-border-class':'' }}"
-                                            (ngModelChange)="onChangeCategory()" name="categoryId" filter="true" tabindex="1"></p-dropdown>
+                                        <select class="form-control" name="categoryId" [(ngModel)]="categoryId" (ngModelChange)="onChangeCategory()" autofocus tabindex="1">
+                                            <option *ngFor="let x of categoriesCodeList" [ngValue]="x.value" [selected]="categoryId == x.value">{{x.label}}</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <i class="fa fa-search searchIcon"></i>
-                                 <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+                            </div>
                             </div>
                             <p-dataTable [value]="clientList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize"
                                 [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
@@ -78,16 +79,20 @@
                                 <p-column field="qualityCode" [hidden]="categoryId != 4" header="Quality Code" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="thicknessCode" [hidden]="categoryId != 4" header="Thickness Code" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="sizeCode" [hidden]="categoryId != 4" header="Size Code" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="rate" [hidden]="categoryId != 4" header="Rate" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="rate" [hidden]="categoryId != 4" header="Rate" [style]="{'text-align':'left'}">
+                                    <ng-template let-col let-data="rowData" pTemplate="body">
+										{{data[col.field] | number:'.0' }}
+									</ng-template>
+                                </p-column>
                                 <p-column field="rateWithGst" [hidden]="categoryId != 4" header="Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="sellingRate" [hidden]="categoryId != 7" header="Selling Rate" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="sellingRateWithGst" [hidden]="categoryId != 7" header="Selling Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="qds" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="QDS" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="serialNumber" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Serial No." [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="cutRate" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Cut Rate" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="cutRateWithGst" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Cut Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="roleRate" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Role Rate" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="rollRateWithGst" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Roll Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="rrp" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="RRP" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="rrpWithGst" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="RRP (Gst)" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="flatRate" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="flat Rate" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="flatRateWithGst" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="flat Rate (Gst)" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="customRatePerSqFeet" [hidden]="categoryId != 4" header="custom Rate Per Sq. Feet" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="hsnWithGST" header="hsn (GST)" [style]="{'text-align':'left'}"></p-column>
                                 <p-column field="availableStock" header="Available Stock" [style]="{'text-align':'left'}">
