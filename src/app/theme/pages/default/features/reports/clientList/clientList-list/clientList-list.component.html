@@ -78,22 +78,22 @@
                                     <p-column field="uom" [hidden]="categoryId != 2" header="UOM" [style]="{'text-align':'left'}"></p-column>
                                     <p-column field="sellingRatePerKG" [hidden]="categoryId != 2" header="selling Rate Per KG" [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                            {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="sellingRatePerKGWithGst" [hidden]="categoryId != 2" header="selling Rate Per KG (Gst)" [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                            {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="sellingRatePerMM" [hidden]="categoryId != 2" header="selling Rate Per MM" [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                            {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="sellingRatePerMMWithGst" [hidden]="categoryId != 2" header="selling Rate Per MM (Gst)" [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                            {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="qualityCode" [hidden]="categoryId != 4" header="Quality Code" [style]="{'text-align':'left'}"></p-column>
@@ -101,50 +101,50 @@
                                     <p-column field="sizeCode" [hidden]="categoryId != 4" header="Size Code" [style]="{'text-align':'left'}"></p-column>
                                     <p-column field="rate" [hidden]="categoryId != 4" header="Rate" [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                            {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="rateWithGst" [hidden]="categoryId != 4" header="Rate (Gst)" [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                           {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="sellingRate" [hidden]="categoryId != 7" header="Selling Rate" [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                            {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="sellingRateWithGst" [hidden]="categoryId != 7" header="Selling Rate (Gst)" [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                            {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="qds" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="QDS" [style]="{'text-align':'left'}"></p-column>
                                     <p-column field="serialNumber" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Serial No." [style]="{'text-align':'left'}"></p-column>
                                     <p-column field="rrp" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="RRP" [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                            {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="rrpWithGst" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="RRP (Gst)" [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                            {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="flatRate" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="flat Rate" [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                            {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="flatRateWithGst" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="flat Rate (Gst)"
                                         [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                            {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="customRatePerSqFeet" [hidden]="categoryId != 4" header="custom Rate Per Sq. Feet" [style]="{'text-align':'left'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
-                                            {{data[col.field] | number:'.0' }}
+                                            {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
                                     <p-column field="hsnWithGST" header="hsn (GST)" [style]="{'text-align':'left'}"></p-column>

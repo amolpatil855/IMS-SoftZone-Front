@@ -409,7 +409,7 @@
 												<td class="aligncenter"> {{row.orderQuantity}}</td>
 												<td class="aligncenter">{{row.orderType}}</td>
 												<!-- <td>{{row.rateWithGST}}</td> -->
-												<td class="alignright">{{row.amountWithGST | number:'.0'}}</td>
+												<td class="alignright">{{row ? (row.amountWithGST | number:'.0') : ''}}</td>
 												<td>
 													<div class="">
 														<!-- <button title="Edit" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"

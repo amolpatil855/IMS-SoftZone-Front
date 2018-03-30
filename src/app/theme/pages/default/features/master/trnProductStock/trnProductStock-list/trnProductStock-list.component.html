@@ -215,7 +215,7 @@
 								<p-column field="matSize" header="Mattress Size" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="stock" header="Actual stock quantity" [style]="{'text-align':'right'}">
 									<ng-template let-col let-data="rowData" pTemplate="body">
-										{{data[col.field] | number:'.0' }}
+										{{data[col.field] ? (data[col.field] | number:'.0') : ''}}
 									</ng-template>
 								</p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'left'}">

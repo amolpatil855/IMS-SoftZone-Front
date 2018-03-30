@@ -134,14 +134,14 @@
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Total Amount
 																</label>
                                                                 <div class="col-md-8 col-sm-8 customerNameBox">
-                                                                    <label class="orderTypeLabel">{{ totalAmount | number:'.0'}}</label>
+                                                                    <label class="orderTypeLabel">{{ totalAmount ? (totalAmount | number:'.0') : ''}}</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3" *ngIf="!params" >
                                                                     <label class="col-md-4 col-sm-4 fieldLabel noPadding">Balance Amount
                                                                     </label>
                                                                     <div class="col-md-8 col-sm-8 customerNameBox">
-                                                                        <label class="orderTypeLabel">{{ balanceAmount | number:'.0' }}</label>
+                                                                        <label class="orderTypeLabel">{{ balanceAmount ? (balanceAmount | number:'.0') : '' }}</label>
                                                                     </div>
                                                                 </div>
                                                             
