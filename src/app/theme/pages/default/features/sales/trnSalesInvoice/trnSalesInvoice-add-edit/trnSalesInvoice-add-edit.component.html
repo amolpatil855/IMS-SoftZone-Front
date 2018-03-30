@@ -257,13 +257,13 @@
 												<td class="alignRight" style="text-align:center;">
 													<b>{{trnSalesInvoiceItem.quantity}}</b>
 												</td>
-												<td class="alignRight" style="text-align:center;">{{trnSalesInvoiceItem.rate | number:'.0'}}</td>
+												<td class="alignRight" style="text-align:center;">{{trnSalesInvoiceItem ? (trnSalesInvoiceItem.rate | number:'.0') : ''}}</td>
 												<td style="text-align:center;">{{trnSalesInvoiceItem.uom}} {{trnSalesInvoiceItem.mstAccessory? trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure?
 													trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure.uomCode:'':''}}
 												</td>
 												<td class="alignRight" style="text-align:left;">{{trnSalesInvoiceItem.discountPercentage || 0}}</td>
 												<td class="alignRight">
-													<b>{{trnSalesInvoiceItem.amount | number:'.0'}}</b>
+													<b>{{ trnSalesInvoiceItem ? (trnSalesInvoiceItem.amount | number:'.0') : ''}}</b>
 												</td>
 											</tr>
 											<tr class="gstRow">
@@ -317,7 +317,7 @@
 												<td></td>
 												<td></td>
 												<td class="alignRight">
-													<b>INR {{trnSalesInvoiceObj.totalAmount | number:'.0'}}</b>
+													<b>INR {{trnSalesInvoiceObj ? (trnSalesInvoiceObj.totalAmount | number:'.0') : ''}}</b>
 												</td>
 											</tr>
 										</tbody>
@@ -360,28 +360,28 @@
 											<td class="alignRight">{{row.taxValue | number:'.0'}}</td>
 											<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
 											<td class="alignRight" *ngIf="gstAll<=0">0%</td>
-											<td class="alignRight" *ngIf="gstAll>0">{{(row.amount/2) | number:'.0'}}</td>
+											<td class="alignRight" *ngIf="gstAll>0">{{row ? ((row.amount/2) | number:'.0') : ''}}</td>
 											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight" *ngIf="gstAll>0">{{row.gst/2}}%</td>
 											<td class="alignRight" *ngIf="gstAll<=0">0%</td>
-											<td class="alignRight" *ngIf="gstAll>0">{{(row.amount/2) | number:'.0'}}</td>
+											<td class="alignRight" *ngIf="gstAll>0">{{row ? ((row.amount/2) | number:'.0') : ''}}</td>
 											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight" *ngIf="iGstAll>0">{{row.gst}}%</td>
 											<td class="alignRight" *ngIf="iGstAll<=0">0%</td>
-											<td class="alignRight" *ngIf="iGstAll>0">{{row.amount | number:'.0'}}</td>
+											<td class="alignRight" *ngIf="iGstAll>0">{{row ? (row.amount | number:'.0') : ''}}</td>
 											<td class="alignRight" *ngIf="iGstAll<=0">0</td>
-											<td class="alignRight">{{row.amount | number:'.0'}}</td>
+											<td class="alignRight">{{row ? (row.amount | number:'.0') : ''}}</td>
 										</tr>
 										<tr class="totalRow">
-											<td class="alignRight">Total : {{(trnSalesInvoiceObj.totalAmount - (gstAll || iGstAll)) | number:'.0' }}</td>
+											<td class="alignRight">Total : {{trnSalesInvoiceObj ? ((trnSalesInvoiceObj.totalAmount - (gstAll || iGstAll)) | number:'.0') : '' }}</td>
 											<td class="alignRight"></td>
-											<td class="alignRight" *ngIf="gstAll>0">{{ (gstAll/2) | number:'.0' }}</td>
+											<td class="alignRight" *ngIf="gstAll>0">{{gstAll ? ((gstAll/2) | number:'.0') : '' }}</td>
 											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight"></td>
-											<td class="alignRight" *ngIf="gstAll>0">{{ (gstAll/2) | number:'.0' }}</td>
+											<td class="alignRight" *ngIf="gstAll>0">{{gstAll ? ((gstAll/2) | number:'.0') : ''  }}</td>
 											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight"></td>
-											<td class="alignRight" *ngIf="iGstAll>0">{{iGstAll | number:'.0'}}</td>
+											<td class="alignRight" *ngIf="iGstAll>0">{{iGstAll ? (iGstAll | number:'.0') : ''}}</td>
 											<td class="alignRight" *ngIf="iGstAll<=0">0</td>
 											<td class="alignRight">{{ (gstAll || iGstAll) | number:'.0' }}</td>
 										</tr>
@@ -674,12 +674,12 @@
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">
 						<b>{{trnSalesInvoiceItem.quantity}}</b>
 					</td>
-					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.rate | number:'.0'}}</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem ? (trnSalesInvoiceItem.rate | number:'.0') : ''}}</td>
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.uom}} {{trnSalesInvoiceItem.mstAccessory? trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure? trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure.uomCode:'':''}}
 					</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.discountPercentage || 0}}</td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
-						<b>{{trnSalesInvoiceItem.amount | number:'.0'}}</b>
+						<b>{{trnSalesInvoiceItem ? (trnSalesInvoiceItem.amount | number:'.0') : ''}}</b>
 					</td>
 				</tr>
 				<tr class="gstRow">
@@ -733,7 +733,7 @@
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
 					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;"></td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
-						<b style="font-weight:900;">INR {{trnSalesInvoiceObj.totalAmount | number:'.0'}}</b>
+						<b style="font-weight:900;">INR {{trnSalesInvoiceObj ? (trnSalesInvoiceObj.totalAmount | number:'.0') : ''}}</b>
 					</td>
 				</tr>
 			</tbody>
@@ -776,28 +776,28 @@
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.taxValue | number:'.0'}}</td>
 					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.gst/2}}%</td>
 					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0%</td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{(row.amount/2) | number:'.0'}}</td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row ? ((row.amount/2) | number:'.0') : ''}}</td>
 					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
 					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.gst/2}}%</td>
 					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0%</td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{(row.amount/2) | number:'.0'}}</td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row ? ((row.amount/2) | number:'.0') : ''}}</td>
 					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
 					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.gst}}%</td>
 					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0%</td>
-					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.amount | number:'.0'}}</td>
+					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row ? (row.amount | number:'.0') : ''}}</td>
 					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
-					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row.amount | number:'.0'}}</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row ?  (row.amount | number:'.0') : ''}}</td>
 				</tr>
 				<tr class="totalRow">
-					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">Total : {{(trnSalesInvoiceObj.totalAmount -(gstAll || iGstAll)) | number:'.0'}}</b></td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">Total : {{trnSalesInvoiceObj ? ((trnSalesInvoiceObj.totalAmount -(gstAll || iGstAll)) | number:'.0') : ''}}</b></td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"></td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ (gstAll/2) | number:'.0'}}</b></td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ gstAll ? ((gstAll/2) | number:'.0') : ''}}</b></td>
 					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"></td>
-					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ (gstAll/2) | number:'.0'}}</b></td>
+					<td class="alignRight" *ngIf="gstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ gstAll ? ((gstAll/2) | number:'.0') : ''}}</b></td>
 					<td class="alignRight" *ngIf="gstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"></td>
-					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{iGstAll | number:'.0'}}</b></td>
+					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{iGstAll ? (iGstAll | number:'.0') : ''}}</b></td>
 					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">{{ (gstAll || iGstAll) | number:'.0' }}</b></td>
 				</tr>
