@@ -48,12 +48,15 @@ params: number;
   }
 
   getCategoryCodeList() {
+    Helpers.setLoading(true);
     this.commonService.getCategoryCodesForSO().subscribe(
       results => {
         this.categoriesCodeList = results;
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 

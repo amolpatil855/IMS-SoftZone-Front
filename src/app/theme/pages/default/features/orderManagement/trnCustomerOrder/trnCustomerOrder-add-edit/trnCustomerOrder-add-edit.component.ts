@@ -146,6 +146,11 @@ export class TrnCustomerOrderAddEditComponent implements OnInit {
     this.disabled = false;
     this.trnSalesOrderObj.orderDate = today;
     this.trnSalesOrderObj.chequeDate = today;
+    this.trnSalesOrderObj.customerId = null;
+    this.trnSalesOrderObj.courierId = null;
+    this.trnSalesOrderObj.courierMode = null;
+    this.trnSalesOrderObj.referById = null;
+    this.trnSalesOrderObj.paymentMode = null;
     // this.newItem();
     this.shippingAddress = null;
     this.courierModeList.push({ label: '--Select--', value: null });
@@ -618,6 +623,7 @@ export class TrnCustomerOrderAddEditComponent implements OnInit {
   }
 
   getMatQualityList() {
+    Helpers.setLoading(true);
     this.matSizeService.getQualityLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.qualityList = results;
@@ -631,6 +637,7 @@ export class TrnCustomerOrderAddEditComponent implements OnInit {
   }
 
   getAccessoryLookup() {
+    Helpers.setLoading(true);
     this.commonService.getAccessoryLookUp().subscribe(
       results => {
         this.accessoryCodeList = results;
@@ -698,24 +705,30 @@ export class TrnCustomerOrderAddEditComponent implements OnInit {
   }
 
   getCategoryCodeList() {
+    Helpers.setLoading(true);
     this.commonService.getCategoryCodesForSO().subscribe(
       results => {
         this.categoriesCodeList = results;
         this.categoriesCodeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getCourierList() {
+    Helpers.setLoading(true);
     this.trnSalesOrderService.getCourierLookup().subscribe(
       results => {
         this.courierList = results;
         this.courierList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
@@ -976,49 +989,61 @@ export class TrnCustomerOrderAddEditComponent implements OnInit {
   }
 
   getMatSizeList() {
+    Helpers.setLoading(true);
     this.trnSalesOrderService.getMatSizeLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.matSizeList = results;
         this.matSizeList.unshift({ label: '--Select--', value: null });
         if (this.categoryId == 4)
           this.matSizeList.push({ label: 'Custom', value: -1 });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getFoamSizeList() {
+    Helpers.setLoading(true);
     this.trnSalesOrderService.getFomSizeLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.fomSizeList = results;
         this.fomSizeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
 
   getshadeIdList() {
+    Helpers.setLoading(true);
     this.trnSalesOrderService.getSerialNumberLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.shadeIdList = results;
         this.shadeIdList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getCollectionList() {
+    Helpers.setLoading(true);
     this.collectionService.getCollectionLookUpForSo(this.categoryId).subscribe(
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 

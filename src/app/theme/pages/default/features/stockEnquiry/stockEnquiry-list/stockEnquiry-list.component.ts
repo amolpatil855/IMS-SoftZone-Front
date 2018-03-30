@@ -61,28 +61,35 @@ export class StockEnquiryListComponent implements OnInit {
   }
 
   getCategoryCodeList() {
+    Helpers.setLoading(true);
     this.commonService.getCategoryCodesForSO().subscribe(
       results => {
         this.categoriesCodeList = results;
         this.categoriesCodeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getCollectionList() {
+    Helpers.setLoading(true);
     this.collectionService.getCollectionLookUpForSo(this.categoryId).subscribe(
       results => {
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getAccessoryLookup() {
+    Helpers.setLoading(true);
     this.commonService.getAccessoryLookUp().subscribe(
       results => {
         this.accessoryCodeList = results;
@@ -96,24 +103,30 @@ export class StockEnquiryListComponent implements OnInit {
   }
 
   getshadeIdList() {
+    Helpers.setLoading(true);
     this.trnSalesOrderService.getSerialNumberLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.shadeIdList = results;
         this.shadeIdList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getFoamSizeList() {
+    Helpers.setLoading(true);
     this.trnSalesOrderService.getFomSizeLookUpByCollection(this.collectionId).subscribe(
       results => {
         this.fomSizeList = results;
         this.fomSizeList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
@@ -147,7 +160,6 @@ export class StockEnquiryListComponent implements OnInit {
   }
 
   onChangeCollection() {
-
     if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
       this.collectionIdError = false;
       this.shadeIdList = [];
@@ -193,11 +205,14 @@ export class StockEnquiryListComponent implements OnInit {
       this.stock = null;
       if (this.shadeId != null) {
         parameterId = this.shadeId;
+        Helpers.setLoading(true);
         this.productListingService.getProductStock(this.categoryId, this.collectionId, parameterId).subscribe(
           data => {
             this.stock = data;
+            Helpers.setLoading(false);
           }, error => {
             this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
           });
       }
     }
@@ -206,11 +221,14 @@ export class StockEnquiryListComponent implements OnInit {
       this.stock = null;
       if (this.fomSizeId != null) {
         parameterId = this.fomSizeId;
+        Helpers.setLoading(true);
         this.productListingService.getProductStock(this.categoryId, this.collectionId, parameterId).subscribe(
           data => {
             this.stock = data;
+            Helpers.setLoading(false);
           }, error => {
             this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
           });
       }
     }
@@ -219,11 +237,14 @@ export class StockEnquiryListComponent implements OnInit {
       this.stock = null;
       if (this.accessoryId != null) {
         parameterId = this.accessoryId;
+        Helpers.setLoading(true);
         this.productListingService.getProductStock(this.categoryId, null, parameterId).subscribe(
           data => {
             this.stock = data;
+            Helpers.setLoading(false);
           }, error => {
             this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
           });
       }
     }

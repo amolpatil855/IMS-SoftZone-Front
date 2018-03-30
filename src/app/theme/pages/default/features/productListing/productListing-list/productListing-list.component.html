@@ -57,8 +57,9 @@
                                 <div class="col-md-4">
                                     <label class="col-md-4 col-sm-4 fieldLabel">Category<span class="requiredField">*</span></label>
                                     <div class="col-md-8 col-sm-8">
-                                        <p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="categoryId" [style]="{'width':'100%'}" styleClass="{{categoryIdError?'red-border-class':'' }}"
-                                            (ngModelChange)="onChangeCategory()" name="categoryId" filter="true" tabindex="1"></p-dropdown>
+                                        <select class="form-control" name="categoryId" [(ngModel)]="categoryId" (ngModelChange)="onChangeCategory()" autofocus tabindex="1">
+                                            <option *ngFor="let x of categoriesCodeList" [ngValue]="x.value" [selected]="categoryId == x.value">{{x.label}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <i class="fa fa-search searchIcon"></i>

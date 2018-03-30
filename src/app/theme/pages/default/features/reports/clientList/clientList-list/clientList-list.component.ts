@@ -49,16 +49,20 @@ export class ClientListListComponent implements OnInit {
   }
 
   getCategoryLookUp() {
+    Helpers.setLoading(true);
     this.clientListService.getCategoryLookUp().subscribe(
       results => {
         this.categoriesCodeList = results;
+        Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getAccessoryProducts() {
+    Helpers.setLoading(true);
     this.clientListService.getAccessoryProducts(this.pageSize, this.page).subscribe(
       results => {
         this.clientList = results.data;
@@ -66,29 +70,35 @@ export class ClientListListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getAccessoryProductsExport(columns) {
-    this.clientListService.getAccessoryProducts(this.pageSize, this.page).subscribe(
+    Helpers.setLoading(true);
+    this.clientListService.getAccessoryProductsForExport().subscribe(
       results => {
-        this.totalCount = results.totalCount;
+        this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results.data,columns)
+          this.exporttoCSV(results, columns);
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
 
   getFabricProducts() {
+    Helpers.setLoading(true);
     this.clientListService.getFabricProducts(this.pageSize, this.page).subscribe(
       results => {
         this.clientList = results.data;
@@ -96,28 +106,34 @@ export class ClientListListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getFabricProductsExport(columns) {
-    this.clientListService.getFabricProducts(this.pageSize, this.page).subscribe(
+    Helpers.setLoading(true);
+    this.clientListService.getFabricProductsForExport().subscribe(
       results => {
-        this.totalCount = results.totalCount;
+        this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results.data,columns)
+          this.exporttoCSV(results, columns);
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getFoamProducts() {
+    Helpers.setLoading(true);
     this.clientListService.getFoamProducts(this.pageSize, this.page).subscribe(
       results => {
         this.clientList = results.data;
@@ -125,27 +141,33 @@ export class ClientListListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getFoamProductsExport(columns) {
-    this.clientListService.getFoamProducts(this.pageSize, this.page).subscribe(
+    Helpers.setLoading(true);
+    this.clientListService.getFoamProductsForExport().subscribe(
       results => {
-        this.totalCount = results.totalCount;
+        this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results.data,columns)
+          this.exporttoCSV(results, columns);
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
   getMattressProducts() {
+    Helpers.setLoading(true);
     this.clientListService.getMattressProducts(this.pageSize, this.page).subscribe(
       results => {
         this.clientList = results.data;
@@ -153,27 +175,33 @@ export class ClientListListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
-  getMattressProductsExport(columns){
-    this.clientListService.getMattressProducts(this.pageSize, this.page).subscribe(
+  getMattressProductsExport(columns) {
+    Helpers.setLoading(true);
+    this.clientListService.getMattressProductsForExport().subscribe(
       results => {
-        this.totalCount = results.totalCount;
+        this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results.data,columns)
+          this.exporttoCSV(results, columns);
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
   getRugProducts() {
+    Helpers.setLoading(true);
     this.clientListService.getRugProducts(this.pageSize, this.page).subscribe(
       results => {
         this.clientList = results.data;
@@ -181,28 +209,34 @@ export class ClientListListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getRugProductsExport(columns) {
-    this.clientListService.getRugProducts(this.pageSize, this.page).subscribe(
+    Helpers.setLoading(true);
+    this.clientListService.getRugProductsForExport().subscribe(
       results => {
-        this.totalCount = results.totalCount;
+        this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results.data,columns)
+          this.exporttoCSV(results, columns);
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getWallpaperProducts() {
+    Helpers.setLoading(true);
     this.clientListService.getWallpaperProducts(this.pageSize, this.page).subscribe(
       results => {
         this.clientList = results.data;
@@ -210,24 +244,29 @@ export class ClientListListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
   getWallpaperProductsExport(columns) {
-    this.clientListService.getWallpaperProducts(this.pageSize, this.page).subscribe(
+    Helpers.setLoading(true);
+    this.clientListService.getWallpaperProductsForExport().subscribe(
       results => {
-        this.totalCount = results.totalCount;
+        this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results.data,columns)
+          this.exporttoCSV(results, columns);
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found.";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
   export() {
@@ -556,7 +595,7 @@ export class ClientListListComponent implements OnInit {
   exporttoCSV(data, columns) {
     let exprtcsv: any[] = [];
     let _tempList = data;
-    let exportFileName: string = "StudentCategoryReport_";
+    let exportFileName: string = "Data_";
     (<any[]>JSON.parse(JSON.stringify(_tempList))).forEach(x => {
       var obj = new Object();
       var frmt = new FormatService();

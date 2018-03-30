@@ -38,5 +38,29 @@ export class MasterPriceListService {
   getWallpaperProducts(pageSize = 0, page = 0) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetWallpaperProducts?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
+
+  getAccessoryProductsForExport() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetAccessoryProductsForExport', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getFabricProductsForExport() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetFabricProductsForExport', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getFoamProductsForExport() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetFoamProductsForExport', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getMattressProductsForExport() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetMattressProductsForExport', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getRugProductsForExport() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetRugProductsForExport', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getWallpaperProductsForExport() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetWallpaperProductsForExport', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
   
 }
