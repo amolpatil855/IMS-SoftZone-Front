@@ -10,6 +10,8 @@ import { MasterPriceListService } from '../../../../_services/masterPriceList.se
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { CommonService } from '../../../../_services/common.service';
 import { Helpers } from "../../../../../../../helpers";
+import { FormatService } from "../../../../_services/tableToXls/format.service";
+import { DataGridUtil } from "../../../../_services/tableToXls/datagrid.util";
 @Component({
   selector: "app-masterPriceList-list",
   templateUrl: "./masterPriceList-list.component.html",
@@ -76,6 +78,23 @@ export class MasterPriceListListComponent implements OnInit {
         Helpers.setLoading(false);
       });
   }
+  
+  getAccessoryProductsExport(columns) {
+    Helpers.setLoading(true);
+    this.masterPriceListService.getAccessoryProductsForExport().subscribe(
+      results => {
+        this.totalCount = results.length;
+        if (this.totalCount > 0) {
+          this.exporttoCSV(results,columns)
+        }
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found.";
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
 
   getFabricProducts() {
     Helpers.setLoading(true);
@@ -85,6 +104,23 @@ export class MasterPriceListListComponent implements OnInit {
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
+        }
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found.";
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+  getFabricProductsExport(columns) {
+    Helpers.setLoading(true);
+    this.masterPriceListService.getFabricProductsForExport().subscribe(
+      results => {
+        this.totalCount = results.length;
+        if (this.totalCount > 0) {
+          this.exporttoCSV(results,columns)
         }
         Helpers.setLoading(false);
       },
@@ -113,6 +149,23 @@ export class MasterPriceListListComponent implements OnInit {
       });
   }
 
+  getFoamProductsExport(columns) {
+    Helpers.setLoading(true);
+    this.masterPriceListService.getFoamProductsForExport().subscribe(
+      results => {
+        this.totalCount = results.length;
+        if (this.totalCount > 0) {
+          this.exporttoCSV(results,columns)
+        }
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found.";
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
   getMattressProducts() {
     Helpers.setLoading(true);
     this.masterPriceListService.getMattressProducts(this.pageSize, this.page).subscribe(
@@ -121,6 +174,23 @@ export class MasterPriceListListComponent implements OnInit {
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
+        }
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found.";
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+  getMattressProductsExport(columns){
+    Helpers.setLoading(true);
+    this.masterPriceListService.getMattressProductsForExport().subscribe(
+      results => {
+        this.totalCount = results.length;
+        if (this.totalCount > 0) {
+          this.exporttoCSV(results,columns)
         }
         Helpers.setLoading(false);
       },
@@ -149,6 +219,23 @@ export class MasterPriceListListComponent implements OnInit {
       });
   }
 
+  getRugProductsExport(columns) {
+    Helpers.setLoading(true);
+    this.masterPriceListService.getRugProductsForExport().subscribe(
+      results => {
+        this.totalCount = results.length;
+        if (this.totalCount > 0) {
+          this.exporttoCSV(results,columns)
+        }
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found.";
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
   getWallpaperProducts() {
     Helpers.setLoading(true);
     this.masterPriceListService.getWallpaperProducts(this.pageSize, this.page).subscribe(
@@ -165,6 +252,404 @@ export class MasterPriceListListComponent implements OnInit {
         this.globalErrorHandler.handleError(error);
         Helpers.setLoading(false);
       });
+  }
+
+  getWallpaperProductsExport(columns) {
+    Helpers.setLoading(true);
+    this.masterPriceListService.getWallpaperProductsForExport().subscribe(
+      results => {
+        this.totalCount = results.length;
+        if (this.totalCount > 0) {
+          this.exporttoCSV(results,columns)
+        }
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found.";
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+  export() {
+    let columns: any[];
+
+    if (this.categoryId == 1) {
+      columns = [
+        {
+          display: 'Collection',
+          variable: 'Collection',
+          filter: 'text',
+        },
+        {
+          display: 'QDS',
+          variable: 'qds',
+          filter: 'text'
+        },
+        {
+          display: 'Serial No.',
+          variable: 'serialNumber',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate',
+          variable: 'cutRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate(Gst)',
+          variable: 'cutRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Role Rate',
+          variable: 'roleRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Roll Rate (Gst)',
+          variable: 'rollRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST)',
+          variable: 'hsnWithGST',
+          filter: 'text'
+        },
+        {
+          display: 'Available Stock',
+          variable: 'availableStock',
+          filter: 'text'
+        }
+      ];
+      this.getFabricProductsExport(columns);
+    }
+    else if (this.categoryId == 2) {
+      columns = [
+        {
+          display: 'Collection',
+          variable: 'Collection',
+          filter: 'text',
+        },
+        {
+          display: 'Item Code',
+          variable: 'itemCode',
+          filter: 'text'
+        },
+        {
+          display: 'UOM',
+          variable: 'uom',
+          filter: 'text'
+        },
+        {
+          display: 'Purchase Rate Per KG',
+          variable: 'purchaseRatePerKG',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Purchase Rate Per(Gst)',
+          variable: 'purchaseRatePerKGWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Purchase Rate Per MM',
+          variable: 'purchaseRatePerMM',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Purchase Rate Per MM(Gst)',
+          variable: 'purchaseRatePerMMWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Selling Rate Per KG',
+          variable: 'sellingRatePerKG',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Selling Rate Per(Gst)',
+          variable: 'sellingRatePerKGWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Selling Rate Per MM',
+          variable: 'sellingRatePerMM',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'selling Rate Per MM(Gst)',
+          variable: 'sellingRatePerMMWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST)',
+          variable: 'hsnWithGST',
+          filter: 'text'
+        },
+        {
+          display: 'Available Stock',
+          variable: 'availableStock',
+          filter: 'text'
+        }
+      ];
+      this.getFoamProductsExport(columns);
+    }
+    else if (this.categoryId == 7) {
+      columns = [
+        {
+          display: 'Name',
+          variable: 'name',
+          filter: 'text',
+        },
+        {
+          display: 'Item Code',
+          variable: 'itemCode',
+          filter: 'text'
+        },
+        {
+          display: 'Purchase Rate',
+          variable: 'purchaseRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Purchase Rate(Gst)',
+          variable: 'purchaseRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Selling Rate',
+          variable: 'sellingRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Selling Rate(Gst)',
+          variable: 'sellingRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST)',
+          variable: 'hsnWithGST',
+          filter: 'text'
+        },
+        {
+          display: 'Available Stock',
+          variable: 'availableStock',
+          filter: 'text'
+        }
+      ];
+      this.getAccessoryProductsExport(columns);
+    }
+    else if (this.categoryId == 4) {
+      columns = [
+        {
+          display: 'Collection',
+          variable: 'Collection',
+          filter: 'text',
+        },
+        {
+          display: 'Quality Code',
+          variable: 'qualityCode',
+          filter: 'text'
+        },
+        {
+          display: 'Thickness Code',
+          variable: 'thicknessCode',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Size Code',
+          variable: 'sizeCode',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate(Gst)',
+          variable: 'cutRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Rate',
+          variable: 'rate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Rate (Gst)',
+          variable: 'rateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Custom Rate Per Sq. Feet',
+          variable: 'customRatePerSqFeet',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST)',
+          variable: 'hsnWithGST',
+          filter: 'text'
+        },
+        {
+          display: 'Available Stock',
+          variable: 'availableStock',
+          filter: 'text'
+        }
+      ];
+      this.getMattressProductsExport(columns);
+    }
+    else if (this.categoryId == 5) {
+      columns = [
+        {
+          display: 'Collection',
+          variable: 'Collection',
+          filter: 'text',
+        },
+        {
+          display: 'QDS',
+          variable: 'qds',
+          filter: 'text'
+        },
+        {
+          display: 'Serial No.',
+          variable: 'serialNumber',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate',
+          variable: 'cutRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate(Gst)',
+          variable: 'cutRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Role Rate',
+          variable: 'roleRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Roll Rate (Gst)',
+          variable: 'rollRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST)',
+          variable: 'hsnWithGST',
+          filter: 'text'
+        },
+        {
+          display: 'Available Stock',
+          variable: 'availableStock',
+          filter: 'text'
+        }
+      ];
+      this.getWallpaperProductsExport(columns);
+    }
+    else if (this.categoryId == 6) {
+      columns = [
+        {
+          display: 'Collection',
+          variable: 'Collection',
+          filter: 'text',
+        },
+        {
+          display: 'QDS',
+          variable: 'qds',
+          filter: 'text'
+        },
+        {
+          display: 'Serial No.',
+          variable: 'serialNumber',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate',
+          variable: 'cutRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate(Gst)',
+          variable: 'cutRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Role Rate',
+          variable: 'roleRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Roll Rate (Gst)',
+          variable: 'rollRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST)',
+          variable: 'hsnWithGST',
+          filter: 'text'
+        },
+        {
+          display: 'Available Stock',
+          variable: 'availableStock',
+          filter: 'text'
+        }
+      ];
+      this.getRugProductsExport(columns);
+    }
+  }
+
+  exporttoCSV(data, columns) {
+    let exprtcsv: any[] = [];
+    let _tempList = data;
+    let exportFileName: string = "StudentCategoryReport_";
+    (<any[]>JSON.parse(JSON.stringify(_tempList))).forEach(x => {
+      var obj = new Object();
+      var frmt = new FormatService();
+      for (var i = 0; i < columns.length; i++) {
+        if (columns[i].variable.indexOf(".") > -1) {
+          let transfrmVal = frmt.transform(x[columns[i].variable.split(".")[0]][columns[i].variable.split(".")[1]], columns[i].filter);
+          obj[columns[i].display] = transfrmVal;
+        } else {
+          let transfrmVal = frmt.transform(x[columns[i].variable], columns[i].filter);
+          obj[columns[i].display] = transfrmVal;
+        }
+      }
+      exprtcsv.push(obj);
+    }
+    );
+    DataGridUtil.downloadcsv(exprtcsv, exportFileName);
+
   }
 
   loadLazy(event: LazyLoadEvent) {
