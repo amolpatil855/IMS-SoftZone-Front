@@ -36,7 +36,7 @@ const routes: Routes = [
             component: MasterPriceListListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['customerLogin']
+              permissions: ['reports']
             }
           }
         ]
