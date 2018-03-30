@@ -8,7 +8,9 @@ import { GlobalErrorHandler } from '../../../../../../../_services/error-handler
 import { MessageService } from '../../../../../../../_services/message.service';
 import { ClientListService } from '../../../../_services/clientList.service';
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
+import { FormatService } from '../../../../_services/tableToXls/format.service';
 import { CommonService } from '../../../../_services/common.service';
+import { DataGridUtil } from '../../../../_services/tableToXls/datagrid.util';
 import { Helpers } from "../../../../../../../helpers";
 @Component({
   selector: "app-clientList-list",
@@ -71,6 +73,21 @@ export class ClientListListComponent implements OnInit {
       });
   }
 
+  getAccessoryProductsExport(columns) {
+    this.clientListService.getAccessoryProducts(this.pageSize, this.page).subscribe(
+      results => {
+        this.totalCount = results.totalCount;
+        if (this.totalCount > 0) {
+          this.exporttoCSV(results.data,columns)
+        }
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found.";
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+
   getFabricProducts() {
     this.clientListService.getFabricProducts(this.pageSize, this.page).subscribe(
       results => {
@@ -78,6 +95,20 @@ export class ClientListListComponent implements OnInit {
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
+        }
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found.";
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  getFabricProductsExport(columns) {
+    this.clientListService.getFabricProducts(this.pageSize, this.page).subscribe(
+      results => {
+        this.totalCount = results.totalCount;
+        if (this.totalCount > 0) {
+          this.exporttoCSV(results.data,columns)
         }
       },
       error => {
@@ -101,6 +132,19 @@ export class ClientListListComponent implements OnInit {
       });
   }
 
+  getFoamProductsExport(columns) {
+    this.clientListService.getFoamProducts(this.pageSize, this.page).subscribe(
+      results => {
+        this.totalCount = results.totalCount;
+        if (this.totalCount > 0) {
+          this.exporttoCSV(results.data,columns)
+        }
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found.";
+        this.globalErrorHandler.handleError(error);
+      });
+  }
   getMattressProducts() {
     this.clientListService.getMattressProducts(this.pageSize, this.page).subscribe(
       results => {
@@ -116,6 +160,19 @@ export class ClientListListComponent implements OnInit {
       });
   }
 
+  getMattressProductsExport(columns){
+    this.clientListService.getMattressProducts(this.pageSize, this.page).subscribe(
+      results => {
+        this.totalCount = results.totalCount;
+        if (this.totalCount > 0) {
+          this.exporttoCSV(results.data,columns)
+        }
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found.";
+        this.globalErrorHandler.handleError(error);
+      });
+  }
   getRugProducts() {
     this.clientListService.getRugProducts(this.pageSize, this.page).subscribe(
       results => {
@@ -123,6 +180,20 @@ export class ClientListListComponent implements OnInit {
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
+        }
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found.";
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  getRugProductsExport(columns) {
+    this.clientListService.getRugProducts(this.pageSize, this.page).subscribe(
+      results => {
+        this.totalCount = results.totalCount;
+        if (this.totalCount > 0) {
+          this.exporttoCSV(results.data,columns)
         }
       },
       error => {
@@ -145,6 +216,367 @@ export class ClientListListComponent implements OnInit {
         this.globalErrorHandler.handleError(error);
       });
   }
+
+  getWallpaperProductsExport(columns) {
+    this.clientListService.getWallpaperProducts(this.pageSize, this.page).subscribe(
+      results => {
+        this.totalCount = results.totalCount;
+        if (this.totalCount > 0) {
+          this.exporttoCSV(results.data,columns)
+        }
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found.";
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+  export() {
+    let columns: any[];
+
+    if (this.categoryId == 1) {
+      columns = [
+        {
+          display: 'Collection',
+          variable: 'collection',
+          filter: 'text',
+        },
+        {
+          display: 'QDS',
+          variable: 'qds',
+          filter: 'text'
+        },
+        {
+          display: 'Serial No.',
+          variable: 'serialNumber',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate',
+          variable: 'cutRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate(Gst)',
+          variable: 'cutRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Role Rate',
+          variable: 'roleRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Roll Rate (Gst)',
+          variable: 'rollRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST)',
+          variable: 'hsnWithGST',
+          filter: 'text'
+        },
+        {
+          display: 'Available Stock',
+          variable: 'availableStock',
+          filter: 'text'
+        }
+      ];
+      this.getFabricProductsExport(columns);
+    }
+    else if (this.categoryId == 2) {
+      columns = [
+        {
+          display: 'Collection',
+          variable: 'collection',
+          filter: 'text',
+        },
+        {
+          display: 'Item Code',
+          variable: 'itemCode',
+          filter: 'text'
+        },
+        {
+          display: 'UOM',
+          variable: 'uom',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Selling Rate Per KG',
+          variable: 'sellingRatePerKG',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Selling Rate Per(Gst)',
+          variable: 'sellingRatePerKGWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Selling Rate Per MM',
+          variable: 'sellingRatePerMM',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'selling Rate Per MM(Gst)',
+          variable: 'sellingRatePerMMWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST)',
+          variable: 'hsnWithGST',
+          filter: 'text'
+        },
+        {
+          display: 'Available Stock',
+          variable: 'availableStock',
+          filter: 'text'
+        }
+      ];
+      this.getFoamProductsExport(columns);
+    }
+    else if (this.categoryId == 7) {
+      columns = [
+        {
+          display: 'Name',
+          variable: 'name',
+          filter: 'text',
+        },
+        {
+          display: 'Item Code',
+          variable: 'itemCode',
+          filter: 'text'
+        },
+        {
+          display: 'Selling Rate',
+          variable: 'sellingRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Selling Rate(Gst)',
+          variable: 'sellingRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST)',
+          variable: 'hsnWithGST',
+          filter: 'text'
+        },
+        {
+          display: 'Available Stock',
+          variable: 'availableStock',
+          filter: 'text'
+        }
+      ];
+      this.getAccessoryProductsExport(columns);
+    }
+    else if (this.categoryId == 4) {
+      columns = [
+        {
+          display: 'Collection',
+          variable: 'collection',
+          filter: 'text',
+        },
+        {
+          display: 'Quality Code',
+          variable: 'qualityCode',
+          filter: 'text'
+        },
+        {
+          display: 'Thickness Code',
+          variable: 'thicknessCode',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Size Code',
+          variable: 'sizeCode',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate(Gst)',
+          variable: 'cutRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Rate',
+          variable: 'rate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Rate (Gst)',
+          variable: 'rateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Custom Rate Per Sq. Feet',
+          variable: 'customRatePerSqFeet',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST)',
+          variable: 'hsnWithGST',
+          filter: 'text'
+        },
+        {
+          display: 'Available Stock',
+          variable: 'availableStock',
+          filter: 'text'
+        }
+      ];
+      this.getMattressProductsExport(columns);
+    }
+    else if (this.categoryId == 5) {
+      columns = [
+        {
+          display: 'Collection',
+          variable: 'collection',
+          filter: 'text',
+        },
+        {
+          display: 'QDS',
+          variable: 'qds',
+          filter: 'text'
+        },
+        {
+          display: 'Serial No.',
+          variable: 'serialNumber',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate',
+          variable: 'cutRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate(Gst)',
+          variable: 'cutRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Role Rate',
+          variable: 'roleRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Roll Rate (Gst)',
+          variable: 'rollRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST)',
+          variable: 'hsnWithGST',
+          filter: 'text'
+        },
+        {
+          display: 'Available Stock',
+          variable: 'availableStock',
+          filter: 'text'
+        }
+      ];
+      this.getWallpaperProductsExport(columns);
+    }
+    else if (this.categoryId == 6) {
+      columns = [
+        {
+          display: 'Collection',
+          variable: 'collection',
+          filter: 'text',
+        },
+        {
+          display: 'QDS',
+          variable: 'qds',
+          filter: 'text'
+        },
+        {
+          display: 'Serial No.',
+          variable: 'serialNumber',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate',
+          variable: 'cutRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Cut Rate(Gst)',
+          variable: 'cutRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Role Rate',
+          variable: 'roleRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Roll Rate (Gst)',
+          variable: 'rollRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST)',
+          variable: 'hsnWithGST',
+          filter: 'text'
+        },
+        {
+          display: 'Available Stock',
+          variable: 'availableStock',
+          filter: 'text'
+        }
+      ];
+      this.getRugProductsExport(columns);
+    }
+  }
+
+  exporttoCSV(data, columns) {
+    let exprtcsv: any[] = [];
+    let _tempList = data;
+    let exportFileName: string = "StudentCategoryReport_";
+    (<any[]>JSON.parse(JSON.stringify(_tempList))).forEach(x => {
+      var obj = new Object();
+      var frmt = new FormatService();
+      for (var i = 0; i < columns.length; i++) {
+        if (columns[i].variable.indexOf(".") > -1) {
+          let transfrmVal = frmt.transform(x[columns[i].variable.split(".")[0]][columns[i].variable.split(".")[1]], columns[i].filter);
+          obj[columns[i].display] = transfrmVal;
+        } else {
+          let transfrmVal = frmt.transform(x[columns[i].variable], columns[i].filter);
+          obj[columns[i].display] = transfrmVal;
+        }
+      }
+      exprtcsv.push(obj);
+    }
+    );
+    DataGridUtil.downloadcsv(exprtcsv, exportFileName);
+
+  }
+
+
 
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;

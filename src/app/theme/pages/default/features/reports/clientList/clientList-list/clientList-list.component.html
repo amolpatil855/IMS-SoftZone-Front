@@ -63,6 +63,7 @@
                                 </div>
                                 <i class="fa fa-search searchIcon"></i>
                                  <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+                                 <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export Data" (click)="export()" style="float:right;margin-top: -7px;"></button>
                             </div>
                             <p-dataTable [value]="clientList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize"
                                 [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
