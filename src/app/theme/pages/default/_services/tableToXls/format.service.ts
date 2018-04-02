@@ -16,6 +16,8 @@ export class FormatService {
     switch (pipeArgs[0].toLowerCase()) {
       case 'text':
         return input;
+      case 'bool':
+        return input=="0"?"No":"Yes";
       case 'date':
         return this.getDate(input);
       case 'csv':

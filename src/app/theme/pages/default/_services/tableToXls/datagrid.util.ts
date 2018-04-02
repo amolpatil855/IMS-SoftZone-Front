@@ -52,7 +52,7 @@
     return (exportFileName +
       date.toLocaleDateString() + "_" +
       date.toLocaleTimeString()
-      + '.xls')
+      + '.csv')
   }
 
 }
