@@ -78,14 +78,14 @@ export class MasterPriceListListComponent implements OnInit {
         Helpers.setLoading(false);
       });
   }
-  
+
   getAccessoryProductsExport(columns) {
     Helpers.setLoading(true);
     this.masterPriceListService.getAccessoryProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results,columns)
+          this.exporttoCSV(results, columns)
         }
         Helpers.setLoading(false);
       },
@@ -120,7 +120,7 @@ export class MasterPriceListListComponent implements OnInit {
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results,columns)
+          this.exporttoCSV(results, columns)
         }
         Helpers.setLoading(false);
       },
@@ -155,7 +155,7 @@ export class MasterPriceListListComponent implements OnInit {
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results,columns)
+          this.exporttoCSV(results, columns)
         }
         Helpers.setLoading(false);
       },
@@ -184,13 +184,13 @@ export class MasterPriceListListComponent implements OnInit {
       });
   }
 
-  getMattressProductsExport(columns){
+  getMattressProductsExport(columns) {
     Helpers.setLoading(true);
     this.masterPriceListService.getMattressProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results,columns)
+          this.exporttoCSV(results, columns)
         }
         Helpers.setLoading(false);
       },
@@ -225,7 +225,7 @@ export class MasterPriceListListComponent implements OnInit {
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results,columns)
+          this.exporttoCSV(results, columns)
         }
         Helpers.setLoading(false);
       },
@@ -260,7 +260,7 @@ export class MasterPriceListListComponent implements OnInit {
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results,columns)
+          this.exporttoCSV(results, columns)
         }
         Helpers.setLoading(false);
       },
@@ -278,7 +278,7 @@ export class MasterPriceListListComponent implements OnInit {
       columns = [
         {
           display: 'Collection',
-          variable: 'Collection',
+          variable: 'collection',
           filter: 'text',
         },
         {
@@ -299,7 +299,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Cut Rate(Gst)',
+          display: 'Cut Rate(GST)',
           variable: 'cutRateWithGst',
           filter: 'text'
         }
@@ -311,13 +311,36 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Roll Rate (Gst)',
+          display: 'Roll Rate (GST)',
           variable: 'rollRateWithGst',
+          filter: 'text'
+        },
+        {
+          display: 'Flat Rate',
+          variable: 'flatRate',
           filter: 'text'
         }
         ,
         {
-          display: 'hsn (GST)',
+          display: 'Flat Rate (GST)',
+          variable: 'flatRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Purchase Flat Rate',
+          variable: 'purchaseFlatRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Purchase Flat Rate (GST)',
+          variable: 'purchaseFlatRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -333,7 +356,7 @@ export class MasterPriceListListComponent implements OnInit {
       columns = [
         {
           display: 'Collection',
-          variable: 'Collection',
+          variable: 'collection',
           filter: 'text',
         },
         {
@@ -353,7 +376,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Purchase Rate Per(Gst)',
+          display: 'Purchase Rate Per(GST)',
           variable: 'purchaseRatePerKGWithGst',
           filter: 'text'
         }
@@ -365,7 +388,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Purchase Rate Per MM(Gst)',
+          display: 'Purchase Rate Per MM(GST)',
           variable: 'purchaseRatePerMMWithGst',
           filter: 'text'
         }
@@ -377,7 +400,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Selling Rate Per(Gst)',
+          display: 'Selling Rate Per(GST)',
           variable: 'sellingRatePerKGWithGst',
           filter: 'text'
         }
@@ -389,13 +412,13 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'selling Rate Per MM(Gst)',
+          display: 'selling Rate Per MM(GST)',
           variable: 'sellingRatePerMMWithGst',
           filter: 'text'
         }
         ,
         {
-          display: 'hsn (GST)',
+          display: 'hsn (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -426,7 +449,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Purchase Rate(Gst)',
+          display: 'Purchase Rate(GST)',
           variable: 'purchaseRateWithGst',
           filter: 'text'
         }
@@ -438,13 +461,13 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Selling Rate(Gst)',
+          display: 'Selling Rate(GST)',
           variable: 'sellingRateWithGst',
           filter: 'text'
         }
         ,
         {
-          display: 'hsn (GST)',
+          display: 'hsn (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -460,7 +483,7 @@ export class MasterPriceListListComponent implements OnInit {
       columns = [
         {
           display: 'Collection',
-          variable: 'Collection',
+          variable: 'collection',
           filter: 'text',
         },
         {
@@ -481,20 +504,26 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Cut Rate(Gst)',
-          variable: 'cutRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
           display: 'Rate',
           variable: 'rate',
           filter: 'text'
         }
         ,
         {
-          display: 'Rate (Gst)',
+          display: 'Rate (GST)',
           variable: 'rateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Purchase Rate',
+          variable: 'purchaseRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Purchase Rate(GST)',
+          variable: 'purchaseRateWithGst',
           filter: 'text'
         }
         ,
@@ -505,7 +534,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'hsn (GST)',
+          display: 'hsn (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -521,7 +550,7 @@ export class MasterPriceListListComponent implements OnInit {
       columns = [
         {
           display: 'Collection',
-          variable: 'Collection',
+          variable: 'collection',
           filter: 'text',
         },
         {
@@ -542,7 +571,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Cut Rate(Gst)',
+          display: 'Cut Rate(GST)',
           variable: 'cutRateWithGst',
           filter: 'text'
         }
@@ -554,13 +583,37 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Roll Rate (Gst)',
+          display: 'Roll Rate (GST)',
           variable: 'rollRateWithGst',
+          filter: 'text'
+        },
+        {
+          display: 'Flat Rate',
+          variable: 'flatRate',
           filter: 'text'
         }
         ,
         {
-          display: 'hsn (GST)',
+          display: 'Flat Rate (GST)',
+          variable: 'flatRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Purchase Flat Rate',
+          variable: 'purchaseFlatRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Purchase Flat Rate (GST)',
+          variable: 'purchaseFlatRateWithGst',
+          filter: 'text'
+        }
+        ,
+        ,
+        {
+          display: 'hsn (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -576,7 +629,7 @@ export class MasterPriceListListComponent implements OnInit {
       columns = [
         {
           display: 'Collection',
-          variable: 'Collection',
+          variable: 'collection',
           filter: 'text',
         },
         {
@@ -597,7 +650,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Cut Rate(Gst)',
+          display: 'Cut Rate(GST)',
           variable: 'cutRateWithGst',
           filter: 'text'
         }
@@ -609,13 +662,36 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Roll Rate (Gst)',
+          display: 'Roll Rate (GST)',
           variable: 'rollRateWithGst',
+          filter: 'text'
+        },
+        {
+          display: 'Flat Rate',
+          variable: 'flatRate',
           filter: 'text'
         }
         ,
         {
-          display: 'hsn (GST)',
+          display: 'Flat Rate (GST)',
+          variable: 'flatRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Purchase Flat Rate',
+          variable: 'purchaseFlatRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Purchase Flat Rate (GST)',
+          variable: 'purchaseFlatRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },

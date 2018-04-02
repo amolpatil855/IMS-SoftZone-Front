@@ -297,7 +297,7 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Cut Rate(Gst)',
+          display: 'Cut Rate(GST)',
           variable: 'cutRateWithGst',
           filter: 'text'
         }
@@ -309,13 +309,37 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Roll Rate (Gst)',
+          display: 'Roll Rate (GST)',
           variable: 'rollRateWithGst',
           filter: 'text'
         }
         ,
         {
-          display: 'hsn (GST)',
+          display: 'RRP',
+          variable: 'rrp',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'RRP (GST)',
+          variable: 'rrpWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Flat Rate',
+          variable: 'flatRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Flat Rate (GST)',
+          variable: 'flatRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -352,7 +376,7 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Selling Rate Per(Gst)',
+          display: 'Selling Rate Per (GST)',
           variable: 'sellingRatePerKGWithGst',
           filter: 'text'
         }
@@ -364,13 +388,13 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'selling Rate Per MM(Gst)',
+          display: 'Selling Rate Per MM (GST)',
           variable: 'sellingRatePerMMWithGst',
           filter: 'text'
         }
         ,
         {
-          display: 'hsn (GST)',
+          display: 'hsn (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -401,13 +425,13 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Selling Rate(Gst)',
+          display: 'Selling Rate (GST)',
           variable: 'sellingRateWithGst',
           filter: 'text'
         }
         ,
         {
-          display: 'hsn (GST)',
+          display: 'hsn (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -444,19 +468,13 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Cut Rate(Gst)',
-          variable: 'cutRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
           display: 'Rate',
           variable: 'rate',
           filter: 'text'
         }
         ,
         {
-          display: 'Rate (Gst)',
+          display: 'Rate (GST)',
           variable: 'rateWithGst',
           filter: 'text'
         }
@@ -468,7 +486,7 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'hsn (GST)',
+          display: 'hsn (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -505,7 +523,7 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Cut Rate(Gst)',
+          display: 'Cut Rate(GST)',
           variable: 'cutRateWithGst',
           filter: 'text'
         }
@@ -517,13 +535,37 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Roll Rate (Gst)',
+          display: 'Roll Rate (GST)',
           variable: 'rollRateWithGst',
           filter: 'text'
         }
         ,
         {
-          display: 'hsn (GST)',
+          display: 'RRP',
+          variable: 'rrp',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'RRP (GST)',
+          variable: 'rrpWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Flat Rate',
+          variable: 'flatRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Flat Rate (GST)',
+          variable: 'flatRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -560,7 +602,7 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Cut Rate(Gst)',
+          display: 'Cut Rate(GST)',
           variable: 'cutRateWithGst',
           filter: 'text'
         }
@@ -572,13 +614,37 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Roll Rate (Gst)',
+          display: 'Roll Rate (GST)',
           variable: 'rollRateWithGst',
           filter: 'text'
         }
         ,
         {
-          display: 'hsn (GST)',
+          display: 'RRP',
+          variable: 'rrp',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'RRP (GST)',
+          variable: 'rrpWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Flat Rate',
+          variable: 'flatRate',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'Flat Rate (GST)',
+          variable: 'flatRateWithGst',
+          filter: 'text'
+        }
+        ,
+        {
+          display: 'hsn (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
