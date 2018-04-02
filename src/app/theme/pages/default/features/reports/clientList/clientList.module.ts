@@ -38,6 +38,14 @@ const routes: Routes = [
             data: {
               permissions: ['clientpricelist']
             }
+          },
+          {
+            path: 'customerList',
+            component: ClientListListComponent,
+            canActivate: [AuthGuard],
+            data: {
+              permissions: ['customerLogin']
+            }
           }
         ]
       }
