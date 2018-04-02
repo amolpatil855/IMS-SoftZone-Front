@@ -6,20 +6,20 @@ import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@ang
 import { ConfirmationService, DataTableModule, LazyLoadEvent, SelectItem } from 'primeng/primeng';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
 import { MessageService } from '../../../../../../../_services/message.service';
-import { ClientListService } from '../../../../_services/clientList.service';
+import { ClientListForCustomerService } from '../../../../_services/clientListForCustomer.service';
 import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
 import { FormatService } from '../../../../_services/tableToXls/format.service';
 import { CommonService } from '../../../../_services/common.service';
 import { DataGridUtil } from '../../../../_services/tableToXls/datagrid.util';
 import { Helpers } from "../../../../../../../helpers";
 @Component({
-  selector: "app-clientList-list",
-  templateUrl: "./clientList-list.component.html",
+  selector: "app-clientListForCustomer-list",
+  templateUrl: "./clientListForCustomer-list.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class ClientListListComponent implements OnInit {
+export class ClientListForCustomerListComponent implements OnInit {
   params: number;
-  clientList = [];
+  clientListForCustomer = [];
   categoriesCodeList = [];
   categoryId = 1;
   categoryIdError = false;
@@ -33,7 +33,7 @@ export class ClientListListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private clientListService: ClientListService,
+    private clientListForCustomerService: ClientListForCustomerService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private commonService: CommonService,
@@ -41,18 +41,19 @@ export class ClientListListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCategoryLookUp();
+    this.getCategoryCodeList();
   }
 
   ngAfterViewInit() {
     this.cdr.detectChanges();
   }
 
-  getCategoryLookUp() {
+  getCategoryCodeList() {
     Helpers.setLoading(true);
-    this.clientListService.getCategoryLookUp().subscribe(
+    this.commonService.getCategoryCodesForSO().subscribe(
       results => {
         this.categoriesCodeList = results;
+        this.categoriesCodeList.unshift({ label: '--Select--', value: null });
         Helpers.setLoading(false);
       },
       error => {
@@ -63,9 +64,9 @@ export class ClientListListComponent implements OnInit {
 
   getAccessoryProducts() {
     Helpers.setLoading(true);
-    this.clientListService.getAccessoryProducts(this.pageSize, this.page).subscribe(
+    this.clientListForCustomerService.getAccessoryProducts(this.pageSize, this.page).subscribe(
       results => {
-        this.clientList = results.data;
+        this.clientListForCustomer = results.data;
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
@@ -81,7 +82,7 @@ export class ClientListListComponent implements OnInit {
 
   getAccessoryProductsExport(columns) {
     Helpers.setLoading(true);
-    this.clientListService.getAccessoryProductsForExport().subscribe(
+    this.clientListForCustomerService.getAccessoryProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
@@ -99,9 +100,9 @@ export class ClientListListComponent implements OnInit {
 
   getFabricProducts() {
     Helpers.setLoading(true);
-    this.clientListService.getFabricProducts(this.pageSize, this.page).subscribe(
+    this.clientListForCustomerService.getFabricProducts(this.pageSize, this.page).subscribe(
       results => {
-        this.clientList = results.data;
+        this.clientListForCustomer = results.data;
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
@@ -117,7 +118,7 @@ export class ClientListListComponent implements OnInit {
 
   getFabricProductsExport(columns) {
     Helpers.setLoading(true);
-    this.clientListService.getFabricProductsForExport().subscribe(
+    this.clientListForCustomerService.getFabricProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
@@ -134,9 +135,9 @@ export class ClientListListComponent implements OnInit {
 
   getFoamProducts() {
     Helpers.setLoading(true);
-    this.clientListService.getFoamProducts(this.pageSize, this.page).subscribe(
+    this.clientListForCustomerService.getFoamProducts(this.pageSize, this.page).subscribe(
       results => {
-        this.clientList = results.data;
+        this.clientListForCustomer = results.data;
         this.totalCount = results.totalCount;
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found.";
@@ -152,7 +153,7 @@ export class ClientListListComponent implements OnInit {
 
   getFoamProductsExport(columns) {
     Helpers.setLoading(true);
-    this.clientListService.getFoamProductsForExport().subscribe(
+    this.clientListForCustomerService.getFoamProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
@@ -166,109 +167,7 @@ export class ClientListListComponent implements OnInit {
         Helpers.setLoading(false);
       });
   }
-  getMattressProducts() {
-    Helpers.setLoading(true);
-    this.clientListService.getMattressProducts(this.pageSize, this.page).subscribe(
-      results => {
-        this.clientList = results.data;
-        this.totalCount = results.totalCount;
-        if (this.totalCount == 0) {
-          this.tableEmptyMesssage = "No Records Found.";
-        }
-        Helpers.setLoading(false);
-      },
-      error => {
-        this.tableEmptyMesssage = "No Records Found.";
-        this.globalErrorHandler.handleError(error);
-        Helpers.setLoading(false);
-      });
-  }
-
-  getMattressProductsExport(columns) {
-    Helpers.setLoading(true);
-    this.clientListService.getMattressProductsForExport().subscribe(
-      results => {
-        this.totalCount = results.length;
-        if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns);
-        }
-        Helpers.setLoading(false);
-      },
-      error => {
-        this.tableEmptyMesssage = "No Records Found.";
-        this.globalErrorHandler.handleError(error);
-        Helpers.setLoading(false);
-      });
-  }
-  getRugProducts() {
-    Helpers.setLoading(true);
-    this.clientListService.getRugProducts(this.pageSize, this.page).subscribe(
-      results => {
-        this.clientList = results.data;
-        this.totalCount = results.totalCount;
-        if (this.totalCount == 0) {
-          this.tableEmptyMesssage = "No Records Found.";
-        }
-        Helpers.setLoading(false);
-      },
-      error => {
-        this.tableEmptyMesssage = "No Records Found.";
-        this.globalErrorHandler.handleError(error);
-        Helpers.setLoading(false);
-      });
-  }
-
-  getRugProductsExport(columns) {
-    Helpers.setLoading(true);
-    this.clientListService.getRugProductsForExport().subscribe(
-      results => {
-        this.totalCount = results.length;
-        if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns);
-        }
-        Helpers.setLoading(false);
-      },
-      error => {
-        this.tableEmptyMesssage = "No Records Found.";
-        this.globalErrorHandler.handleError(error);
-        Helpers.setLoading(false);
-      });
-  }
-
-  getWallpaperProducts() {
-    Helpers.setLoading(true);
-    this.clientListService.getWallpaperProducts(this.pageSize, this.page).subscribe(
-      results => {
-        this.clientList = results.data;
-        this.totalCount = results.totalCount;
-        if (this.totalCount == 0) {
-          this.tableEmptyMesssage = "No Records Found.";
-        }
-        Helpers.setLoading(false);
-      },
-      error => {
-        this.tableEmptyMesssage = "No Records Found.";
-        this.globalErrorHandler.handleError(error);
-        Helpers.setLoading(false);
-      });
-  }
-
-  getWallpaperProductsExport(columns) {
-    Helpers.setLoading(true);
-    this.clientListService.getWallpaperProductsForExport().subscribe(
-      results => {
-        this.totalCount = results.length;
-        if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns);
-        }
-        Helpers.setLoading(false);
-      },
-      error => {
-        this.tableEmptyMesssage = "No Records Found.";
-        this.globalErrorHandler.handleError(error);
-        Helpers.setLoading(false);
-      });
-  }
+  
   export() {
     let columns: any[];
 
@@ -351,7 +250,7 @@ export class ClientListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'bool'
+          filter: 'text'
         }
       ];
       this.getFabricProductsExport(columns);
@@ -406,7 +305,7 @@ export class ClientListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'bool'
+          filter: 'text'
         }
       ];
       this.getFoamProductsExport(columns);
@@ -448,238 +347,10 @@ export class ClientListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'bool'
+          filter: 'text'
         }
       ];
       this.getAccessoryProductsExport(columns);
-    }
-    else if (this.categoryId == 4) {
-      columns = [
-        {
-          display: 'Collection',
-          variable: 'collection',
-          filter: 'text',
-        },
-        {
-          display: 'UOM',
-          variable: 'uom',
-          filter: 'text'
-        },
-        {
-          display: 'Quality Code',
-          variable: 'qualityCode',
-          filter: 'text'
-        },
-        {
-          display: 'Thickness Code',
-          variable: 'thicknessCode',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Size Code',
-          variable: 'sizeCode',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Rate',
-          variable: 'rate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Rate (GST)',
-          variable: 'rateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Custom Rate Per Sq. Feet',
-          variable: 'customRatePerSqFeet',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'hsn (GST%)',
-          variable: 'hsnWithGST',
-          filter: 'text'
-        },
-        {
-          display: 'Available Stock',
-          variable: 'availableStock',
-          filter: 'bool'
-        }
-      ];
-      this.getMattressProductsExport(columns);
-    }
-    else if (this.categoryId == 5) {
-      columns = [
-        {
-          display: 'Collection',
-          variable: 'collection',
-          filter: 'text',
-        },
-        {
-          display: 'UOM',
-          variable: 'uom',
-          filter: 'text'
-        },
-        {
-          display: 'QDS',
-          variable: 'qds',
-          filter: 'text'
-        },
-        {
-          display: 'Serial No.',
-          variable: 'serialNumber',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Cut Rate',
-          variable: 'cutRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Cut Rate(GST)',
-          variable: 'cutRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Role Rate',
-          variable: 'roleRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Roll Rate (GST)',
-          variable: 'rollRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'RRP',
-          variable: 'rrp',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'RRP (GST)',
-          variable: 'rrpWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Flat Rate',
-          variable: 'flatRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Flat Rate (GST)',
-          variable: 'flatRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'hsn (GST%)',
-          variable: 'hsnWithGST',
-          filter: 'text'
-        },
-        {
-          display: 'Available Stock',
-          variable: 'availableStock',
-          filter: 'bool'
-        }
-      ];
-      this.getWallpaperProductsExport(columns);
-    }
-    else if (this.categoryId == 6) {
-      columns = [
-        {
-          display: 'Collection',
-          variable: 'collection',
-          filter: 'text',
-        },
-        {
-          display: 'UOM',
-          variable: 'uom',
-          filter: 'text'
-        },
-        {
-          display: 'QDS',
-          variable: 'qds',
-          filter: 'text'
-        },
-        {
-          display: 'Serial No.',
-          variable: 'serialNumber',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Cut Rate',
-          variable: 'cutRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Cut Rate(GST)',
-          variable: 'cutRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Role Rate',
-          variable: 'roleRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Roll Rate (GST)',
-          variable: 'rollRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'RRP',
-          variable: 'rrp',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'RRP (GST)',
-          variable: 'rrpWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Flat Rate',
-          variable: 'flatRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Flat Rate (GST)',
-          variable: 'flatRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'hsn (GST%)',
-          variable: 'hsnWithGST',
-          filter: 'text'
-        },
-        {
-          display: 'Available Stock',
-          variable: 'availableStock',
-          filter: 'bool'
-        }
-      ];
-      this.getRugProductsExport(columns);
     }
   }
 
@@ -723,18 +394,6 @@ export class ClientListListComponent implements OnInit {
       this.tableEmptyMesssage = 'Loading...';
       this.getAccessoryProducts();
     }
-    else if (this.categoryId == 4) {
-      this.tableEmptyMesssage = 'Loading...';
-      this.getMattressProducts();
-    }
-    else if (this.categoryId == 5) {
-      this.tableEmptyMesssage = 'Loading...';
-      this.getWallpaperProducts();
-    }
-    else if (this.categoryId == 6) {
-      this.tableEmptyMesssage = 'Loading...';
-      this.getRugProducts();
-    }
   }
 
   onChangeCategory() {
@@ -750,18 +409,6 @@ export class ClientListListComponent implements OnInit {
     else if (this.categoryId == 7) {
       this.tableEmptyMesssage = 'Loading...';
       this.getAccessoryProducts();
-    }
-    else if (this.categoryId == 4) {
-      this.tableEmptyMesssage = 'Loading...';
-      this.getMattressProducts();
-    }
-    else if (this.categoryId == 5) {
-      this.tableEmptyMesssage = 'Loading...';
-      this.getWallpaperProducts();
-    }
-    else if (this.categoryId == 6) {
-      this.tableEmptyMesssage = 'Loading...';
-      this.getRugProducts();
     }
   }
 

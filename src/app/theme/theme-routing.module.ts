@@ -144,6 +144,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/reports\/clientList\/clientList.module#ClientListModule"
       },
       {
+        "path": "features\/reports\/clientListForCustomer",
+        "loadChildren": ".\/pages\/default\/features\/reports\/clientListForCustomer\/clientListForCustomer.module#ClientListForCustomerModule"
+      },
+      {
         "path": "features\/orderManagement\/trnCustomerOrder",
         "loadChildren": ".\/pages\/default\/features\/orderManagement\/trnCustomerOrder\/trnCustomerOrder.module#TrnCustomerOrderModule"
       },
