@@ -196,13 +196,13 @@
 										<p-column field="orderType" header="Or. Type" [editable]="false" [style]="{'text-align':'center'}"></p-column>
 										<p-column field="rate" header="rate" [editable]="false" [style]="{'text-align':'right'}">
 											<ng-template let-col let-data="rowData" pTemplate="body">
-												{{data[col.field] | number:'.0' }}
+												{{data[col.field] ? (data[col.field] | number:'.0') : ''}}
 											</ng-template>
 										</p-column>
 										<p-column field="gst" header="gst %" [editable]="false" [style]="{'text-align':'center'}"></p-column>
 										<p-column field="amountWithGST" header="amount(GST)" [editable]="false" [style]="{'text-align':'right'}">
 											<ng-template let-col let-data="rowData" pTemplate="body">
-										{{data[col.field] | number:'.0' }}
+										{{data[col.field] ? (data[col.field] | number:'.0') : ''}}
 									</ng-template>
 										</p-column>
 									</p-dataTable>
@@ -352,7 +352,7 @@
 					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:5%;border-collapse: collapse;">Selection</th>
 					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:5%;border-collapse: collapse;">Area</th>
 					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:40%;border-collapse: collapse;">Product</th>
-					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:10%;border-collapse: collapse;text-align:center;">GST Rate</th>
+					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:10%;border-collapse: collapse;text-align:center;">GST Rate %</th>
 					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:3%;border-collapse: collapse;text-align:center;">Quantity</th>
 					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;width:10%;border-collapse: collapse;text-align:center;">Rate</th>
 					<th style="border: 1px solid #000;background: #f5f5f5;font-family: Roboto;color: #000;font-size: 10px;font-weight: 500;border-collapse: collapse;text-align:center;">per</th>
