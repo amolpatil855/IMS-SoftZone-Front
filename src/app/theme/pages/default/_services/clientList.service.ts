@@ -16,51 +16,51 @@ export class ClientListService {
   }
 
   getAccessoryProducts(pageSize = 0, page = 0) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetAccessoryProductsForML?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetAccessoryProductsForCL?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getFabricProducts(pageSize = 0, page = 0) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetFabricProductsForML?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetFabricProductsForCL?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getFoamProducts(pageSize = 0, page = 0) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetFoamProductsForML?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetFoamProductsForCL?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getMattressProducts(pageSize = 0, page = 0) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetMattressProductsForML?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetMattressProductsForCL?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getRugProducts(pageSize = 0, page = 0) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetRugProductsForML?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetRugProductsForCL?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getWallpaperProducts(pageSize = 0, page = 0) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetWallpaperProductsForML?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetWallpaperProductsForCL?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getAccessoryProductsForExport() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetAccessoryProductsForMLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetAccessoryProductsForCLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getFabricProductsForExport() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetFabricProductsForMLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetFabricProductsForCLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getFoamProductsForExport() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetFoamProductsForMLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetFoamProductsForCLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getMattressProductsForExport() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetMattressProductsForMLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetMattressProductsForCLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getRugProductsForExport() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetRugProductsForMLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetRugProductsForCLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getWallpaperProductsForExport() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetWallpaperProductsForMLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetWallpaperProductsForCLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
   
 }
