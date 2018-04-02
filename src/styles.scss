@@ -2391,3 +2391,27 @@ select option {
 .POSOTable table thead tr th p-dtcheckbox{
     display: none!important;
 }
+.priceTable .ui-datatable-tablewrapper{
+    width:100%;
+    overflow-x: auto;
+}
+.priceTable .ui-datatable table {   
+    display: block;    
+    white-space: nowrap;
+}
+.listTablePortlet{
+    width: 85%;
+}
+@media (min-width:1201px) and (max-width:1399px){
+    .listTablePortlet{
+        width: 65%;
+    }
+}
+@media (min-width:1400px) and (max-width:1599px){
+    .listTablePortlet{
+        width: 75%;
+    }
+}
+.clientListTable .ui-datatable table thead > tr > th:nth-child(16){    
+    width: 220px!important;
+}
