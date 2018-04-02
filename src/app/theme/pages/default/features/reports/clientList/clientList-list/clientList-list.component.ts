@@ -351,7 +351,7 @@ export class ClientListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
       this.getFabricProductsExport(columns);
@@ -406,7 +406,7 @@ export class ClientListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
       this.getFoamProductsExport(columns);
@@ -448,7 +448,7 @@ export class ClientListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
       this.getAccessoryProductsExport(columns);
@@ -508,7 +508,7 @@ export class ClientListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
       this.getMattressProductsExport(columns);
@@ -592,7 +592,7 @@ export class ClientListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
       this.getWallpaperProductsExport(columns);
@@ -676,7 +676,7 @@ export class ClientListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
       this.getRugProductsExport(columns);

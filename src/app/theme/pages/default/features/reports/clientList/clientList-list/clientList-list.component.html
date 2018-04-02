@@ -68,7 +68,7 @@
                                             class="btn-sm"></button>
                                     </div> 
                                 </div>
-                                <p-dataTable [value]="clientList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" #dt [lazy]="true"
+                                <p-dataTable [value]="clientList" [emptyMessage]="tableEmptyMesssage" class="table listingTable clientListTable" [rows]="pageSize" #dt [lazy]="true"
                                     [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount"
                                     (onLazyLoad)="loadLazy($event)">
                                     <p-column field="collection" [hidden]="categoryId == 7" header="Collection" [style]="{'text-align':'left'}"></p-column>
