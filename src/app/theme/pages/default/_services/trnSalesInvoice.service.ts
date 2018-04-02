@@ -17,6 +17,10 @@ export class TrnSalesInvoiceService {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnSalesInvoice?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getRecordsForTotalOutstandingAmt(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Dashboard/GetRecordsForTotalOutstandingAmt?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   getSalesInvoicesForLoggedInUser(pageSize = 0, page = 0, search = '') {
     return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetSalesInvoicesForLoggedInUser?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

@@ -148,6 +148,22 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/reports\/clientListForCustomer\/clientListForCustomer.module#ClientListForCustomerModule"
       },
       {
+        "path": "features\/reports\/totalOutstandingAmount",
+        "loadChildren": ".\/pages\/default\/features\/reports\/totalOutstandingAmount\/totalOutstandingAmount.module#TotalOutstandingAmountModule"
+      },
+      {
+        "path": "features\/reports\/salesOrderCount",
+        "loadChildren": ".\/pages\/default\/features\/reports\/salesOrderCount\/salesOrderCount.module#SalesOrderCountModule"
+      },
+      {
+        "path": "features\/reports\/purchaseOrderCount",
+        "loadChildren": ".\/pages\/default\/features\/reports\/purchaseOrderCount\/purchaseOrderCount.module#PurchaseOrderCountModule"
+      },
+      {
+        "path": "features\/reports\/itemsBelowReorderLevel",
+        "loadChildren": ".\/pages\/default\/features\/reports\/itemsBelowReorderLevel\/itemsBelowReorderLevel.module#ItemsBelowReorderLevelModule"
+      },
+      {
         "path": "features\/orderManagement\/trnCustomerOrder",
         "loadChildren": ".\/pages\/default\/features\/orderManagement\/trnCustomerOrder\/trnCustomerOrder.module#TrnCustomerOrderModule"
       },

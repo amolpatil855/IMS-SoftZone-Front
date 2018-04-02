@@ -1,0 +1,95 @@
+<p-confirmDialog #cd>
+	<p-footer>
+		<button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+			<span>
+				<i class="la la-check"></i>
+				<span>
+					Yes
+				</span>
+			</span>
+		</button>
+		<button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+			<span>
+				<i class="la la-close"></i>
+				<span>
+					No
+				</span>
+			</span>
+		</button>
+	</p-footer>
+</p-confirmDialog>
+
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+		<div class="mr-auto">
+			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+				<li class="m-nav__item m-nav__item--home">
+					<a href="#" class="m-nav__link m-nav__link--icon">
+						<i class="m-nav__link-icon la la-home"></i>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a class="m-nav__link">
+						<span class="m-nav__link-text">
+							Purchase Order List
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+	<div class="row">
+		<div class="col-lg-12">
+			<!--begin::Portlet-->
+			<div class="m-portlet">
+
+				<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+
+				<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+
+				<div class="m-portlet__body">
+					<!--begin::Section-->
+
+					<div class="m-section">
+						<div class="m-section__content">
+							<div class="ui-widget-header" style="border-bottom: 0 none">
+								<i class="fa fa-search searchIcon"></i>
+								<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+							</div>
+							<p-dataTable [value]="purchaseOrderCountList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize"
+							 [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount"
+							 (onLazyLoad)="loadLazy($event)">
+								<p-column field="orderNumber" header="Order No." [style]="{'text-align':'center'}"></p-column>
+								<!-- <p-column field="orderDate" header="Date" [style]="{'text-align':'center'}"></p-column> -->
+								<p-column field="orderDate" header="Date" [style]="{'text-align':'center'}">
+									<ng-template let-col let-data="rowData" pTemplate="body">
+										{{data[col.field] ? (data[col.field]|date: 'dd/MM/yyyy') : '' }}
+									</ng-template>
+								</p-column>
+								<p-column field="supplierName" header="Supplier" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="courierName" header="Courier" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="courierMode" header="Courier Mode" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="totalAmount" header="Total" [style]="{'text-align':'right'}">
+									<ng-template let-col let-data="rowData" pTemplate="body">
+										{{data[col.field] ? (data[col.field] | number:'.0') : ''}}
+									</ng-template>
+								</p-column>
+								<p-column field="status" header="Status" [style]="{'text-align':'left'}"></p-column>
+							</p-dataTable>
+						</div>
+					</div>
+					<!--end::Section-->
+				</div>
+			</div>
+			<!--end::Portlet-->
+		</div>
+	</div>
+</div>

@@ -20,11 +20,11 @@
 						<div class="col-md-6">
 											<div class="dashboardBox">
 												<div class="dashboardStatBox dashboardStatBox1">
-													<h5><i class="fa fa-inr" aria-hidden="true"></i> {{ dashboardObj ? (dashboardObj.totalOutStandingAmount | number:'.0' ): ''}}</h5>
+													<a routerLink="/features/reports/totalOutstandingAmount/list" ><h5><i class="fa fa-inr" aria-hidden="true"></i> {{ dashboardObj ? (dashboardObj.totalOutStandingAmount | number:'.0' ): ''}}</h5></a>
 													<h6>Total Outstanding Amount</h6>
 												</div>
 												<div class="dashboardStatBox dashboardStatBox2">
-													<h5>{{dashboardObj ? dashboardObj.totalSalesCount : ''}}</h5>
+													<a routerLink="/features/reports/salesOrderCount/list" ><h5>{{dashboardObj ? dashboardObj.totalSalesCount : ''}}</h5></a>
 													<h6>Sales Order Count</h6>
 												</div>
 											</div>
@@ -38,7 +38,7 @@
 										<h6>Total Payment Due</h6>
 									</div>
 									<div class="dashboardStatBox dashboardStatBox2">
-										<h5>{{dashboardObj ? dashboardObj.totalPurchaseCount : ''}}</h5>
+										<a routerLink="/features/reports/purchaseOrderCount/list" ><h5>{{dashboardObj ? dashboardObj.totalPurchaseCount : ''}}</h5></a>
 										<h6>Purchase Order Count</h6>
 									</div>
 								</div>
@@ -60,7 +60,7 @@
 							
 							<div class="col-md-3 col-sm-3">
 								<div class="dashboardBox">
-									<h4 class="redHeading">{{dashboardObj ? dashboardObj.itemsCountBelowReorderLevel : ''}}</h4>
+									<a routerLink="/features/reports/itemsBelowReorderLevel/list" ><h4 class="redHeading">{{dashboardObj ? dashboardObj.itemsCountBelowReorderLevel : ''}}</h4></a>
 									<h5>Items below Re-order Level</h5>
 								</div>
 							</div>

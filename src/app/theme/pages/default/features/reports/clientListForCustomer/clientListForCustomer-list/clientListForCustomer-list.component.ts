@@ -53,7 +53,6 @@ export class ClientListForCustomerListComponent implements OnInit {
     this.commonService.getCategoryCodesForSO().subscribe(
       results => {
         this.categoriesCodeList = results;
-        this.categoriesCodeList.unshift({ label: '--Select--', value: null });
         Helpers.setLoading(false);
       },
       error => {
