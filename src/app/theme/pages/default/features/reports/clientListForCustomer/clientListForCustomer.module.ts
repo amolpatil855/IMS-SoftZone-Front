@@ -18,9 +18,9 @@ import {
   ConfirmationService,
   CalendarModule
 } from 'primeng/primeng';
-import { ClientListComponent } from "./clientList.component";
-import { ClientListListComponent } from "./clientList-list/clientList-list.component";
-import { ClientListService } from "../../../_services/clientList.service";
+import { ClientListForCustomerComponent } from "./clientListForCustomer.component";
+import { ClientListForCustomerListComponent } from "./clientListForCustomer-list/clientListForCustomer-list.component";
+import { ClientListForCustomerService } from "../../../_services/clientListForCustomer.service";
 
 const routes: Routes = [
   {
@@ -29,14 +29,14 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: ClientListListComponent,
+        component: ClientListForCustomerListComponent,
         children: [
           {
             path: 'list',
-            component: ClientListListComponent,
+            component: ClientListForCustomerListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['clientpricelist']
+              permissions: ['customerLogin']
             }
           }
         ]
@@ -61,15 +61,15 @@ const routes: Routes = [
     CalendarModule
   ],
   declarations: [
-    ClientListComponent,
-    ClientListListComponent
+    ClientListForCustomerComponent,
+    ClientListForCustomerListComponent
   ],
   providers: [
-    ClientListService,
+    ClientListForCustomerService,
     ConfirmationService,
     CommonService,
     CollectionService,
   ],
 })
-export class ClientListModule {
+export class ClientListForCustomerModule {
 }

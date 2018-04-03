@@ -280,6 +280,11 @@ export class ClientListListComponent implements OnInit {
           filter: 'text',
         },
         {
+          display: 'UOM',
+          variable: 'uom',
+          filter: 'text'
+        },
+        {
           display: 'QDS',
           variable: 'qds',
           filter: 'text'
@@ -419,6 +424,11 @@ export class ClientListListComponent implements OnInit {
           filter: 'text'
         },
         {
+          display: 'UOM',
+          variable: 'uom',
+          filter: 'text'
+        },
+        {
           display: 'Selling Rate',
           variable: 'sellingRate',
           filter: 'text'
@@ -449,6 +459,11 @@ export class ClientListListComponent implements OnInit {
           display: 'Collection',
           variable: 'collection',
           filter: 'text',
+        },
+        {
+          display: 'UOM',
+          variable: 'uom',
+          filter: 'text'
         },
         {
           display: 'Quality Code',
@@ -504,6 +519,11 @@ export class ClientListListComponent implements OnInit {
           display: 'Collection',
           variable: 'collection',
           filter: 'text',
+        },
+        {
+          display: 'UOM',
+          variable: 'uom',
+          filter: 'text'
         },
         {
           display: 'QDS',
@@ -583,6 +603,11 @@ export class ClientListListComponent implements OnInit {
           display: 'Collection',
           variable: 'collection',
           filter: 'text',
+        },
+        {
+          display: 'UOM',
+          variable: 'uom',
+          filter: 'text'
         },
         {
           display: 'QDS',

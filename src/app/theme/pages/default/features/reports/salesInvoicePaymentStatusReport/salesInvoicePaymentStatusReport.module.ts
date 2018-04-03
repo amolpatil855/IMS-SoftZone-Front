@@ -18,9 +18,11 @@ import {
   ConfirmationService,
   CalendarModule
 } from 'primeng/primeng';
-import { ClientListComponent } from "./clientList.component";
-import { ClientListListComponent } from "./clientList-list/clientList-list.component";
-import { ClientListService } from "../../../_services/clientList.service";
+import { SupplierService } from "../../../_services/supplier.service";
+import { TrnSalesInvoiceService } from "../../../_services/trnSalesInvoice.service";
+import { SalesInvoicePaymentStatusReportComponent } from "./salesInvoicePaymentStatusReport.component";
+import {TrnProductStockService} from "../../../_services/trnProductStock.service";
+import { SalesInvoicePaymentStatusReportListComponent } from "./salesInvoicePaymentStatusReport-list/salesInvoicePaymentStatusReport.component";
 
 const routes: Routes = [
   {
@@ -29,14 +31,14 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: ClientListListComponent,
+        component: SalesInvoicePaymentStatusReportComponent,
         children: [
           {
             path: 'list',
-            component: ClientListListComponent,
+            component: SalesInvoicePaymentStatusReportListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['clientpricelist']
+              permissions: ['reports']
             }
           }
         ]
@@ -61,15 +63,17 @@ const routes: Routes = [
     CalendarModule
   ],
   declarations: [
-    ClientListComponent,
-    ClientListListComponent
+    SalesInvoicePaymentStatusReportComponent,
+    SalesInvoicePaymentStatusReportListComponent
   ],
   providers: [
-    ClientListService,
+    TrnProductStockService,
+    TrnSalesInvoiceService,
     ConfirmationService,
+    SupplierService,
     CommonService,
-    CollectionService,
+    CollectionService
   ],
 })
-export class ClientListModule {
+export class SalesInvoicePaymentStatusReportModule {
 }

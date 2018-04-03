@@ -144,6 +144,38 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/reports\/clientList\/clientList.module#ClientListModule"
       },
       {
+        "path": "features\/reports\/clientListForCustomer",
+        "loadChildren": ".\/pages\/default\/features\/reports\/clientListForCustomer\/clientListForCustomer.module#ClientListForCustomerModule"
+      },
+      {
+        "path": "features\/reports\/totalOutstandingAmount",
+        "loadChildren": ".\/pages\/default\/features\/reports\/totalOutstandingAmount\/totalOutstandingAmount.module#TotalOutstandingAmountModule"
+      },
+      {
+        "path": "features\/reports\/salesOrderCount",
+        "loadChildren": ".\/pages\/default\/features\/reports\/salesOrderCount\/salesOrderCount.module#SalesOrderCountModule"
+      },
+      {
+        "path": "features\/reports\/purchaseOrderCount",
+        "loadChildren": ".\/pages\/default\/features\/reports\/purchaseOrderCount\/purchaseOrderCount.module#PurchaseOrderCountModule"
+      },
+      {
+        "path": "features\/reports\/itemsBelowReorderLevel",
+        "loadChildren": ".\/pages\/default\/features\/reports\/itemsBelowReorderLevel\/itemsBelowReorderLevel.module#ItemsBelowReorderLevelModule"
+      },
+      {
+        "path": "features\/reports\/salesInvoicePaymentStatusReport",
+        "loadChildren": ".\/pages\/default\/features\/reports\/salesInvoicePaymentStatusReport\/salesInvoicePaymentStatusReport.module#SalesInvoicePaymentStatusReportModule"
+      },
+      {
+        "path": "features\/reports\/poOrderStatusReport",
+        "loadChildren": ".\/pages\/default\/features\/reports\/poOrderStatusReport\/poOrderStatusReport.module#PoOrderStatusReportModule"
+      },
+      {
+        "path": "features\/reports\/soOrderStatusReport",
+        "loadChildren": ".\/pages\/default\/features\/reports\/soOrderStatusReport\/soOrderStatusReport.module#SoOrderStatusReportModule"
+      },
+      {
         "path": "features\/orderManagement\/trnCustomerOrder",
         "loadChildren": ".\/pages\/default\/features\/orderManagement\/trnCustomerOrder\/trnCustomerOrder.module#TrnCustomerOrderModule"
       },

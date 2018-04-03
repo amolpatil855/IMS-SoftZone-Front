@@ -18,9 +18,12 @@ import {
   ConfirmationService,
   CalendarModule
 } from 'primeng/primeng';
-import { ClientListComponent } from "./clientList.component";
-import { ClientListListComponent } from "./clientList-list/clientList-list.component";
-import { ClientListService } from "../../../_services/clientList.service";
+import { SupplierService } from "../../../_services/supplier.service";
+import { TrnSalesInvoiceService } from "../../../_services/trnSalesInvoice.service";
+import { TotalOutstandingAmountComponent } from "./totalOutstandingAmount.component";
+import { TotalOutstandingAmountListComponent } from "./totalOutstandingAmount-list/totalOutstandingAmount-list.component";
+import {TrnProductStockService} from "../../../_services/trnProductStock.service";
+import {MatSizeService} from "../../../_services/matSize.service";
 
 const routes: Routes = [
   {
@@ -29,14 +32,14 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: ClientListListComponent,
+        component: TotalOutstandingAmountComponent,
         children: [
           {
             path: 'list',
-            component: ClientListListComponent,
+            component: TotalOutstandingAmountListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['clientpricelist']
+              permissions: ['reports']
             }
           }
         ]
@@ -61,15 +64,18 @@ const routes: Routes = [
     CalendarModule
   ],
   declarations: [
-    ClientListComponent,
-    ClientListListComponent
+    TotalOutstandingAmountComponent,
+    TotalOutstandingAmountListComponent
   ],
   providers: [
-    ClientListService,
+    TrnProductStockService,
+    TrnSalesInvoiceService,
     ConfirmationService,
+    SupplierService,
     CommonService,
     CollectionService,
+    MatSizeService
   ],
 })
-export class ClientListModule {
+export class TotalOutstandingAmountModule {
 }

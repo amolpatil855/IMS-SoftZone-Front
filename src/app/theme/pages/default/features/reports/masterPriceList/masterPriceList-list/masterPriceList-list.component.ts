@@ -282,6 +282,11 @@ export class MasterPriceListListComponent implements OnInit {
           filter: 'text',
         },
         {
+          display: 'UOM',
+          variable: 'uom',
+          filter: 'text'
+        },
+        {
           display: 'QDS',
           variable: 'qds',
           filter: 'text'
@@ -443,6 +448,11 @@ export class MasterPriceListListComponent implements OnInit {
           filter: 'text'
         },
         {
+          display: 'UOM',
+          variable: 'uom',
+          filter: 'text'
+        },
+        {
           display: 'Purchase Rate',
           variable: 'purchaseRate',
           filter: 'text'
@@ -485,6 +495,11 @@ export class MasterPriceListListComponent implements OnInit {
           display: 'Collection',
           variable: 'collection',
           filter: 'text',
+        },
+        {
+          display: 'UOM',
+          variable: 'uom',
+          filter: 'text'
         },
         {
           display: 'Quality Code',
@@ -552,6 +567,11 @@ export class MasterPriceListListComponent implements OnInit {
           display: 'Collection',
           variable: 'collection',
           filter: 'text',
+        },
+        {
+          display: 'UOM',
+          variable: 'uom',
+          filter: 'text'
         },
         {
           display: 'QDS',
@@ -631,6 +651,11 @@ export class MasterPriceListListComponent implements OnInit {
           display: 'Collection',
           variable: 'collection',
           filter: 'text',
+        },
+        {
+          display: 'UOM',
+          variable: 'uom',
+          filter: 'text'
         },
         {
           display: 'QDS',

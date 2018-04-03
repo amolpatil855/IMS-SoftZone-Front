@@ -18,9 +18,9 @@ import {
   ConfirmationService,
   CalendarModule
 } from 'primeng/primeng';
-import { ClientListComponent } from "./clientList.component";
-import { ClientListListComponent } from "./clientList-list/clientList-list.component";
-import { ClientListService } from "../../../_services/clientList.service";
+import { ItemsBelowReorderLevelComponent } from "./itemsBelowReorderLevel.component";
+import { ItemsBelowReorderLevelListComponent } from "./itemsBelowReorderLevel-list/itemsBelowReorderLevel-list.component";
+import { ItemsBelowReorderLevelService } from "../../../_services/itemsBelowReorderLevel.service";
 
 const routes: Routes = [
   {
@@ -29,14 +29,14 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: ClientListListComponent,
+        component: ItemsBelowReorderLevelListComponent,
         children: [
           {
             path: 'list',
-            component: ClientListListComponent,
+            component: ItemsBelowReorderLevelListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['clientpricelist']
+              permissions: ['reports']
             }
           }
         ]
@@ -61,15 +61,15 @@ const routes: Routes = [
     CalendarModule
   ],
   declarations: [
-    ClientListComponent,
-    ClientListListComponent
+    ItemsBelowReorderLevelComponent,
+    ItemsBelowReorderLevelListComponent
   ],
   providers: [
-    ClientListService,
+    ItemsBelowReorderLevelService,
     ConfirmationService,
     CommonService,
     CollectionService,
   ],
 })
-export class ClientListModule {
+export class ItemsBelowReorderLevelModule {
 }
