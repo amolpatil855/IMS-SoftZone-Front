@@ -64,7 +64,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="col-md-4 col-sm-4 fieldLabel">Payment<span class="requiredField">*</span></label>
+                                        <label class="col-md-4 col-sm-4 fieldLabel">Is Paid<span class="requiredField">*</span></label>
                                         <div class="col-md-8 col-sm-8">
                                             <select class="form-control" name="isPaid" [(ngModel)]="isPaid" (ngModelChange)="onChangePaymentStatus()" tabindex="2">
                                             <option *ngFor="let x of paymentList" [ngValue]="x.value" [selected]="isPaid == x.value">{{x.label}}</option>
@@ -93,7 +93,7 @@
 								</p-column>
 								<!-- <p-column field="mstCustomer.name" header="Customer" [style]="{'text-align':'left'}"></p-column> -->
 								<p-column field="status" header="Status" [style]="{'text-align':'left'}"></p-column>
-								<p-column field="isPaid" header="Paid" [style]="{'text-align':'left'}">
+								<p-column field="isPaid" header="Is Paid" [style]="{'text-align':'left'}">
 									<ng-template let-col let-data="rowData" pTemplate="body">
 										{{data[col.field] ? 'Yes' : 'No' }}
 									</ng-template>
