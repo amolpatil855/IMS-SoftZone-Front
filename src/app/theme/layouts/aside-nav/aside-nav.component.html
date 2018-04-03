@@ -111,7 +111,7 @@
             </li>
 
             <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['purchase','purchaseorder']">
+                data-menu-submenu-toggle="hover" [isAuthorize]="['purchase','purchaseorder','grn','poagainstso']">
                 <a href="#" class="m-menu__link m-menu__toggle">
                     <i class="m-menu__link-icon flaticon-cart"></i>
                     <span class="m-menu__link-text">
@@ -162,7 +162,7 @@
             </li>
 
             <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['sales','salesorder']">
+                data-menu-submenu-toggle="hover" [isAuthorize]="['sales','salesorder','gin','invoice','ginforavailablestock','materialselection','materialquotation','advancepayment']">
                 <a href="#" class="m-menu__link m-menu__toggle">
                     <i class="m-menu__link-icon flaticon-diagram"></i>
                     <span class="m-menu__link-text">
@@ -253,7 +253,7 @@
             </li>
 
             <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['reports','customerLogin']">
+                data-menu-submenu-toggle="hover" [isAuthorize]="['reports','customerLogin','masterpricelist','clientpricelist','unpaidinvoicelist','pendingsalesorderlist','pendingpurchaseorderlist','reorderstocklist','purchaseorderstatuslist','salesorderstatuslist','invoicestatuslist']">
                 <a href="#" class="m-menu__link m-menu__toggle">
                     <i class="m-menu__link-icon flaticon-cart"></i>
                     <span class="m-menu__link-text">
@@ -550,11 +550,11 @@
                 </div>
             </li>
             <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['collection','quality','design','shade','mattressthickness','mattresssize','foamdensity','foamsuggestedmm','foamsize']">
+                data-menu-submenu-toggle="hover" [isAuthorize]="['collection','accessories','quality','design','shade','mattressthickness','mattresssize','foamdensity','foamsuggestedmm','foamsize']">
                 <a href="#" class="m-menu__link m-menu__toggle">
                     <i class="m-menu__link-icon flaticon-user-ok"></i>
                     <span class="m-menu__link-text">
-                        Product master
+                        Product Master
                     </span>
                     <i class="m-menu__ver-arrow la la-angle-right"></i>
                 </a>
@@ -563,7 +563,7 @@
                     <ul class="m-menu__subnav">
                         <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
                             <a href="#" class="m-menu__link ">
-                                <span class="m-menu__link-text"> Product master</span>
+                                <span class="m-menu__link-text"> Product Master</span>
                             </a>
                         </li>
                         <li [isAuthorize]="['accessories']" class="m-menu__item" aria-haspopup="true" routerLinkActive="m-menu__item--active">
