@@ -38,7 +38,7 @@ const routes: Routes = [
             component: SalesInvoicePaymentStatusReportListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['reports']
+              permissions: ['invoicestatuslist']
             }
           }
         ]

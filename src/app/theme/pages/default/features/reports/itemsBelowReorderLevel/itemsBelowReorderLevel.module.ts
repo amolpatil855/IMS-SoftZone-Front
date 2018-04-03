@@ -36,7 +36,7 @@ const routes: Routes = [
             component: ItemsBelowReorderLevelListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['reports']
+              permissions: ['reorderstocklist']
             }
           }
         ]
