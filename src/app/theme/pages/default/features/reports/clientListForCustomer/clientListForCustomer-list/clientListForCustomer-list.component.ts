@@ -194,42 +194,6 @@ export class ClientListForCustomerListComponent implements OnInit {
         }
         ,
         {
-          display: 'Cut Rate',
-          variable: 'cutRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Cut Rate(GST)',
-          variable: 'cutRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Role Rate',
-          variable: 'roleRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Roll Rate (GST)',
-          variable: 'rollRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'RRP',
-          variable: 'rrp',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'RRP (GST)',
-          variable: 'rrpWithGst',
-          filter: 'text'
-        }
-        ,
-        {
           display: 'Flat Rate',
           variable: 'flatRate',
           filter: 'text'
@@ -249,7 +213,7 @@ export class ClientListForCustomerListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
       this.getFabricProductsExport(columns);
@@ -304,7 +268,7 @@ export class ClientListForCustomerListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
       this.getFoamProductsExport(columns);
@@ -346,7 +310,7 @@ export class ClientListForCustomerListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
       this.getAccessoryProductsExport(columns);

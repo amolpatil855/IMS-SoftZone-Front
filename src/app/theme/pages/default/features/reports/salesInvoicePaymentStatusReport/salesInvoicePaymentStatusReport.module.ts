@@ -18,9 +18,11 @@ import {
   ConfirmationService,
   CalendarModule
 } from 'primeng/primeng';
-import { ItemsBelowReorderLevelComponent } from "./itemsBelowReorderLevel.component";
-import { ItemsBelowReorderLevelListComponent } from "./itemsBelowReorderLevel-list/itemsBelowReorderLevel-list.component";
-import { ItemsBelowReorderLevelService } from "../../../_services/itemsBelowReorderLevel.service";
+import { SupplierService } from "../../../_services/supplier.service";
+import { TrnSalesInvoiceService } from "../../../_services/trnSalesInvoice.service";
+import { SalesInvoicePaymentStatusReportComponent } from "./salesInvoicePaymentStatusReport.component";
+import {TrnProductStockService} from "../../../_services/trnProductStock.service";
+import { SalesInvoicePaymentStatusReportListComponent } from "./salesInvoicePaymentStatusReport-list/salesInvoicePaymentStatusReport.component";
 
 const routes: Routes = [
   {
@@ -29,11 +31,11 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: ItemsBelowReorderLevelListComponent,
+        component: SalesInvoicePaymentStatusReportComponent,
         children: [
           {
             path: 'list',
-            component: ItemsBelowReorderLevelListComponent,
+            component: SalesInvoicePaymentStatusReportListComponent,
             canActivate: [AuthGuard],
             data: {
               permissions: ['reports']
@@ -61,15 +63,17 @@ const routes: Routes = [
     CalendarModule
   ],
   declarations: [
-    ItemsBelowReorderLevelComponent,
-    ItemsBelowReorderLevelListComponent
+    SalesInvoicePaymentStatusReportComponent,
+    SalesInvoicePaymentStatusReportListComponent
   ],
   providers: [
-    ItemsBelowReorderLevelService,
+    TrnProductStockService,
+    TrnSalesInvoiceService,
     ConfirmationService,
+    SupplierService,
     CommonService,
-    CollectionService,
+    CollectionService
   ],
 })
-export class ItemsBelowReorderLevelModule {
+export class SalesInvoicePaymentStatusReportModule {
 }

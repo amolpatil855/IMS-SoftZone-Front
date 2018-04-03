@@ -5,22 +5,29 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from "../../../default.component";
 import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
-import { CollectionService } from '../../../_services/collection.service';
-// import { RoleService, PermissionService } from '../../_services/index';
 import { CommonService } from '../../../_services/common.service';
+import { CollectionService } from '../../../_services/collection.service';
+import {TrnProductStockService} from "../../../_services/trnProductStock.service";
 import {
   DataTableModule,
   SharedModule,
   ButtonModule,
   AutoCompleteModule,
   DropdownModule,
+  OverlayPanelModule,
+  DialogModule,
+  CalendarModule,
+  RadioButtonModule,
   ConfirmDialogModule,
   ConfirmationService,
-  CalendarModule
 } from 'primeng/primeng';
-import { ItemsBelowReorderLevelComponent } from "./itemsBelowReorderLevel.component";
-import { ItemsBelowReorderLevelListComponent } from "./itemsBelowReorderLevel-list/itemsBelowReorderLevel-list.component";
-import { ItemsBelowReorderLevelService } from "../../../_services/itemsBelowReorderLevel.service";
+
+import { DashboardService } from "../../../_services/dashboard.service";
+import { PoOrderStatusReportComponent } from "./poOrderStatusReport.component";
+import { PoOrderStatusReportListComponent } from "./poOrderStatusReport-list/poOrderStatusReport-list.component";
+import { ShadeService } from "../../../_services/shade.service";
+import { FomSizeService } from "../../../_services/fomSize.service";
+import { MatSizeService } from "../../../_services/matSize.service";
 
 const routes: Routes = [
   {
@@ -29,11 +36,11 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: ItemsBelowReorderLevelListComponent,
+        component: PoOrderStatusReportComponent,
         children: [
           {
             path: 'list',
-            component: ItemsBelowReorderLevelListComponent,
+            component: PoOrderStatusReportListComponent,
             canActivate: [AuthGuard],
             data: {
               permissions: ['reports']
@@ -57,19 +64,26 @@ const routes: Routes = [
     ButtonModule,
     AutoCompleteModule,
     DropdownModule,
-    ConfirmDialogModule,
-    CalendarModule
+    CalendarModule,
+    OverlayPanelModule,
+    DialogModule,
+    RadioButtonModule,
+    ConfirmDialogModule
   ],
   declarations: [
-    ItemsBelowReorderLevelComponent,
-    ItemsBelowReorderLevelListComponent
+    PoOrderStatusReportComponent,
+    PoOrderStatusReportListComponent
   ],
   providers: [
-    ItemsBelowReorderLevelService,
-    ConfirmationService,
     CommonService,
+    DashboardService,
+    ShadeService,
+    FomSizeService,
+    MatSizeService,
+    ConfirmationService,
     CollectionService,
+    TrnProductStockService
   ],
 })
-export class ItemsBelowReorderLevelModule {
+export class PoOrderStatusReportModule {
 }

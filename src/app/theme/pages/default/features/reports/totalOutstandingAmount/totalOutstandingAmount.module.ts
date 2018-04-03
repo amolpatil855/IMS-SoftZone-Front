@@ -39,7 +39,7 @@ const routes: Routes = [
             component: TotalOutstandingAmountListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['invoice']
+              permissions: ['reports']
             }
           }
         ]

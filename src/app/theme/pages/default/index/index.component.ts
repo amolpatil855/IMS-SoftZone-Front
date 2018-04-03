@@ -17,6 +17,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
   dashboardObj: any;
   selectedSchoolId: number;
   userRole: string;
+  userName: string;
   superAdmin: any;
   selectSchool: boolean = true;
   showDashboardForAdmin: boolean = true;
@@ -40,8 +41,11 @@ export class IndexComponent implements OnInit, AfterViewInit {
 
   getLoggedInUserDetail(){
     Helpers.setLoading(true);
-    this.userService.getLoggedInUserDetail().subscribe(res => {
-      this.userRole = res.mstRole.roleName;
+    this.userService.getLoggedInUserDetail().subscribe(loggedInUser => {
+      if(loggedInUser != null){
+        this.userRole = loggedInUser.mstRole.roleName;
+        this.userName = loggedInUser.userName;
+      }  
       if(this.userRole == "Customer") {
         this.showDashboardForAdmin = false;
         this.showDashboardForCustomer = true;

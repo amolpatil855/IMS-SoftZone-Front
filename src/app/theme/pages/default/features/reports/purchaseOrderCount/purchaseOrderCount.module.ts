@@ -43,7 +43,7 @@ const routes: Routes = [
             component: PurchaseOrderCountListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['purchaseorder']
+              permissions: ['reports']
             }
           }
         ]
