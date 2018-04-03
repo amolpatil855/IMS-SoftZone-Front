@@ -20,11 +20,13 @@
 						<div class="col-md-6">
 											<div class="dashboardBox">
 												<div class="dashboardStatBox dashboardStatBox1">
-													<h5><i class="fa fa-inr" aria-hidden="true"></i> {{ dashboardObj ? (dashboardObj.totalOutStandingAmount | number:'.0' ): ''}}</h5>
+													<a routerLink="/features/reports/totalOutstandingAmount/list" *ngIf="userRole == 'Administrator'"><h5><i class="fa fa-inr" aria-hidden="true"></i> {{ dashboardObj ? (dashboardObj.totalOutStandingAmount | number:'.0' ): ''}}</h5></a>
+													<h5 *ngIf="userRole != 'Customer' && userRole != 'Administrator'"><i class="fa fa-inr" aria-hidden="true"></i> {{ dashboardObj ? (dashboardObj.totalOutStandingAmount | number:'.0' ): ''}}</h5>
 													<h6>Total Outstanding Amount</h6>
 												</div>
 												<div class="dashboardStatBox dashboardStatBox2">
-													<h5>{{dashboardObj ? dashboardObj.totalSalesCount : ''}}</h5>
+													<a routerLink="/features/reports/salesOrderCount/list" *ngIf="userRole == 'Administrator'"><h5>{{dashboardObj ? dashboardObj.totalSalesCount : ''}}</h5></a>
+													<h5 *ngIf="userRole != 'Customer' && userRole != 'Administrator'">{{dashboardObj ? dashboardObj.totalSalesCount : ''}}</h5>
 													<h6>Sales Order Count</h6>
 												</div>
 											</div>
@@ -38,7 +40,8 @@
 										<h6>Total Payment Due</h6>
 									</div>
 									<div class="dashboardStatBox dashboardStatBox2">
-										<h5>{{dashboardObj ? dashboardObj.totalPurchaseCount : ''}}</h5>
+										<a routerLink="/features/reports/purchaseOrderCount/list" *ngIf="userRole == 'Administrator'"><h5>{{dashboardObj ? dashboardObj.totalPurchaseCount : ''}}</h5></a>
+										<h5 *ngIf="userRole != 'Customer' && userRole != 'Administrator'">{{dashboardObj ? dashboardObj.totalPurchaseCount : ''}}</h5>
 										<h6>Purchase Order Count</h6>
 									</div>
 								</div>
@@ -60,7 +63,8 @@
 							
 							<div class="col-md-3 col-sm-3">
 								<div class="dashboardBox">
-									<h4 class="redHeading">{{dashboardObj ? dashboardObj.itemsCountBelowReorderLevel : ''}}</h4>
+									<a routerLink="/features/reports/itemsBelowReorderLevel/list" *ngIf="userRole == 'Administrator'"><h4 class="redHeading">{{dashboardObj ? dashboardObj.itemsCountBelowReorderLevel : ''}}</h4></a>
+									<h4 class="redHeading" *ngIf="userRole != 'Customer' && userRole != 'Administrator'">{{dashboardObj ? dashboardObj.itemsCountBelowReorderLevel : ''}}</h4>
 									<h5>Items below Re-order Level</h5>
 								</div>
 							</div>
@@ -76,7 +80,7 @@
 		</div>
 		<div class="row  m-row--col-separator-xl" *ngIf="showDashboardForCustomer">
 			<div class="col-md-6">
-					<h1>Welcome to Customer Portal...</h1>			
+					<h1>Welcome {{userName ? userName : ''}}</h1>			
 			</div>
 		</div>
 	</div>
