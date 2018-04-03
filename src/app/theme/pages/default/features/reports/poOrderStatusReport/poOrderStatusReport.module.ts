@@ -43,7 +43,7 @@ const routes: Routes = [
             component: PoOrderStatusReportListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['reports']
+              permissions: ['purchaseorderstatuslist']
             }
           }
         ]
