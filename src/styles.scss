@@ -2415,3 +2415,12 @@ select option {
 .clientListTable .ui-datatable table thead > tr > th:nth-child(16){    
     width: 220px!important;
 }
+
+.masterListTable .ui-datatable table thead > tr > th:nth-child(22){    
+    width: 220px!important;
+}
+.masterListTable .ui-datatable table {    
+    min-width: 100%!important;
+    max-width: 120%!important;
+    width: 120%!important;
+}
