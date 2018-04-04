@@ -47,7 +47,7 @@
     <div class="row">
         <div class="col-lg-12">
             <!--begin::Portlet-->
-            <div class="m-portlet listTablePortlet">
+            <div class="m-portlet">
                 <div class="m-portlet__body">
                     <!--begin::Section-->
 
@@ -68,14 +68,14 @@
                                             class="btn-sm"></button>
                                     </div> 
                                 </div>
-                                <p-dataTable [value]="masterPriceListList" [emptyMessage]="tableEmptyMesssage" class="table listingTable priceTable" [rows]="pageSize"
+                                <p-dataTable [value]="masterPriceListList" [emptyMessage]="tableEmptyMesssage" class="table listingTable masterListTable" [rows]="pageSize"
                                     #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount"
                                     (onLazyLoad)="loadLazy($event)">
                                     <p-column field="collection" [hidden]="categoryId == 7" header="Collection" [style]="{'text-align':'left'}"></p-column>
                                     <p-column field="name" [hidden]="categoryId != 7" header="Name" [style]="{'text-align':'left'}"></p-column>
                                     <p-column field="itemCode" [hidden]="categoryId == 1 || categoryId == 4 || categoryId == 5 || categoryId == 6" header="Item Code"
                                         [style]="{'text-align':'left'}"></p-column>
-                                    <p-column field="uom" [hidden]="categoryId != 2" header="UOM" [style]="{'text-align':'left'}"></p-column>
+                                    <p-column field="uom" header="UOM" [style]="{'text-align':'left'}"></p-column>
                                     <p-column field="purchaseRatePerKG" [hidden]="categoryId != 2" header="Purchase Rate Per KG" [style]="{'text-align':'right'}">
                                         <ng-template let-col let-data="rowData" pTemplate="body">
                                             {{data[col.field] ? (data[col.field] | number:'.0') : ''}}

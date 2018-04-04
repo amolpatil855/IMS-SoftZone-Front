@@ -79,13 +79,13 @@ export class ClientListListComponent implements OnInit {
       });
   }
 
-  getAccessoryProductsExport(columns) {
+  getAccessoryProductsExport(columns, categoryName) {
     Helpers.setLoading(true);
     this.clientListService.getAccessoryProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns);
+          this.exporttoCSV(results, columns, categoryName);
         }
         Helpers.setLoading(false);
       },
@@ -115,13 +115,13 @@ export class ClientListListComponent implements OnInit {
       });
   }
 
-  getFabricProductsExport(columns) {
+  getFabricProductsExport(columns, categoryName) {
     Helpers.setLoading(true);
     this.clientListService.getFabricProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns);
+          this.exporttoCSV(results, columns, categoryName);
         }
         Helpers.setLoading(false);
       },
@@ -150,13 +150,13 @@ export class ClientListListComponent implements OnInit {
       });
   }
 
-  getFoamProductsExport(columns) {
+  getFoamProductsExport(columns, categoryName) {
     Helpers.setLoading(true);
     this.clientListService.getFoamProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns);
+          this.exporttoCSV(results, columns, categoryName);
         }
         Helpers.setLoading(false);
       },
@@ -184,13 +184,13 @@ export class ClientListListComponent implements OnInit {
       });
   }
 
-  getMattressProductsExport(columns) {
+  getMattressProductsExport(columns, categoryName) {
     Helpers.setLoading(true);
     this.clientListService.getMattressProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns);
+          this.exporttoCSV(results, columns, categoryName);
         }
         Helpers.setLoading(false);
       },
@@ -218,13 +218,13 @@ export class ClientListListComponent implements OnInit {
       });
   }
 
-  getRugProductsExport(columns) {
+  getRugProductsExport(columns, categoryName) {
     Helpers.setLoading(true);
     this.clientListService.getRugProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns);
+          this.exporttoCSV(results, columns, categoryName);
         }
         Helpers.setLoading(false);
       },
@@ -253,13 +253,13 @@ export class ClientListListComponent implements OnInit {
       });
   }
 
-  getWallpaperProductsExport(columns) {
+  getWallpaperProductsExport(columns, categoryName) {
     Helpers.setLoading(true);
     this.clientListService.getWallpaperProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns);
+          this.exporttoCSV(results, columns, categoryName);
         }
         Helpers.setLoading(false);
       },
@@ -354,7 +354,9 @@ export class ClientListListComponent implements OnInit {
           filter: 'bool'
         }
       ];
-      this.getFabricProductsExport(columns);
+      let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+      if(categoryObj)
+      this.getFabricProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 2) {
       columns = [
@@ -409,7 +411,9 @@ export class ClientListListComponent implements OnInit {
           filter: 'bool'
         }
       ];
-      this.getFoamProductsExport(columns);
+      let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+      if(categoryObj)
+      this.getFoamProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 7) {
       columns = [
@@ -451,7 +455,9 @@ export class ClientListListComponent implements OnInit {
           filter: 'bool'
         }
       ];
-      this.getAccessoryProductsExport(columns);
+      let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+      if(categoryObj)
+      this.getAccessoryProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 4) {
       columns = [
@@ -511,7 +517,9 @@ export class ClientListListComponent implements OnInit {
           filter: 'bool'
         }
       ];
-      this.getMattressProductsExport(columns);
+      let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+      if(categoryObj)
+      this.getMattressProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 5) {
       columns = [
@@ -595,7 +603,9 @@ export class ClientListListComponent implements OnInit {
           filter: 'bool'
         }
       ];
-      this.getWallpaperProductsExport(columns);
+      let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+      if(categoryObj)
+      this.getWallpaperProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 6) {
       columns = [
@@ -679,14 +689,16 @@ export class ClientListListComponent implements OnInit {
           filter: 'bool'
         }
       ];
-      this.getRugProductsExport(columns);
+      let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+      if(categoryObj)
+      this.getRugProductsExport(columns, categoryObj.label);
     }
   }
 
-  exporttoCSV(data, columns) {
+  exporttoCSV(data, columns, categoryName) {
     let exprtcsv: any[] = [];
     let _tempList = data;
-    let exportFileName: string = "Data_";
+    let exportFileName: string = "ClientPriceListReportFor" + categoryName + "_";
     (<any[]>JSON.parse(JSON.stringify(_tempList))).forEach(x => {
       var obj = new Object();
       var frmt = new FormatService();
