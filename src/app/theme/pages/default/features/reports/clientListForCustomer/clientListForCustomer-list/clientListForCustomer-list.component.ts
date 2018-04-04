@@ -12,6 +12,9 @@ import { FormatService } from '../../../../_services/tableToXls/format.service';
 import { CommonService } from '../../../../_services/common.service';
 import { DataGridUtil } from '../../../../_services/tableToXls/datagrid.util';
 import { Helpers } from "../../../../../../../helpers";
+import { MatSizeService } from "../../../../_services/matSize.service";
+import { ShadeService } from "../../../../_services/shade.service";
+import { FomSizeService } from "../../../../_services/fomSize.service";
 @Component({
   selector: "app-clientListForCustomer-list",
   templateUrl: "./clientListForCustomer-list.component.html",
@@ -21,8 +24,22 @@ export class ClientListForCustomerListComponent implements OnInit {
   params: number;
   clientListForCustomer = [];
   categoriesCodeList = [];
+  collectionList = [];
+  qualityList = [];
+  designList = [];
+  shadeList = [];
+  fomDensityList = [];
+  fomSuggestedMMList = [];
+  fomSizeList = [];
   categoryId = 1;
   categoryIdError = false;
+  selectedCollection = null
+  selectedQuality = null;
+  selectedDesign = null;
+  selectedDensity = null;
+  selectedSize = null;
+  shadeId = null;
+  fomSizeId = null;
   pageSize = 50;
   page = 1;
   totalCount = 0;
@@ -34,6 +51,9 @@ export class ClientListForCustomerListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private clientListForCustomerService: ClientListForCustomerService,
+    private matSizeService: MatSizeService,
+    private shadeService: ShadeService,
+    private fomSizeService: FomSizeService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private commonService: CommonService,
@@ -63,7 +83,7 @@ export class ClientListForCustomerListComponent implements OnInit {
 
   getAccessoryProducts() {
     Helpers.setLoading(true);
-    this.clientListForCustomerService.getAccessoryProducts(this.pageSize, this.page).subscribe(
+    this.clientListForCustomerService.getAccessoryProducts(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.clientListForCustomer = results.data;
         this.totalCount = results.totalCount;
@@ -99,7 +119,7 @@ export class ClientListForCustomerListComponent implements OnInit {
 
   getFabricProducts() {
     Helpers.setLoading(true);
-    this.clientListForCustomerService.getFabricProducts(this.pageSize, this.page).subscribe(
+    this.clientListForCustomerService.getFabricProducts(this.pageSize, this.page, this.search, this.selectedCollection, this.selectedQuality, this.selectedDesign, this.shadeId).subscribe(
       results => {
         this.clientListForCustomer = results.data;
         this.totalCount = results.totalCount;
@@ -134,7 +154,7 @@ export class ClientListForCustomerListComponent implements OnInit {
 
   getFoamProducts() {
     Helpers.setLoading(true);
-    this.clientListForCustomerService.getFoamProducts(this.pageSize, this.page).subscribe(
+    this.clientListForCustomerService.getFoamProducts(this.pageSize, this.page, this.search, this.selectedCollection, this.selectedQuality, this.selectedDensity, this.selectedSize, this.fomSizeId).subscribe(
       results => {
         this.clientListForCustomer = results.data;
         this.totalCount = results.totalCount;
@@ -347,15 +367,19 @@ export class ClientListForCustomerListComponent implements OnInit {
   }
 
 
-
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
     this.page = event.first / event.rows;
+    this.search = event.globalFilter;
+    if(this.search == null)
+        this.search = '';
     if (this.categoryId == 1) {
+      this.getFWRCollectionLookup();
       this.tableEmptyMesssage = 'Loading...';
       this.getFabricProducts();
     }
     else if (this.categoryId == 2) {
+      this.getFomCollectionLookUp();
       this.tableEmptyMesssage = 'Loading...';
       this.getFoamProducts();
     }
@@ -367,6 +391,45 @@ export class ClientListForCustomerListComponent implements OnInit {
 
   onChangeCategory() {
     this.page = 0;
+    this.search = '';
+    this.collectionList = [];
+    this.collectionList.unshift({ label: '--Select--', value: null });
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.designList = [];
+    this.designList.unshift({ label: '--Select--', value: null });
+    this.shadeList = [];
+    this.shadeList.unshift({ label: '--Select--', value: null });
+    this.fomDensityList = [];
+    this.fomDensityList.unshift({ label: '--Select--', value: null });
+    this.selectedDensity = null;
+    this.fomSuggestedMMList = [];
+    this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
+    this.selectedSize = null;
+    this.fomSizeList = [];
+    this.fomSizeList.unshift({ label: '--Select--', value: null });
+    this.fomSizeId = null;
+    this.shadeId = null;
+    this.selectedDesign = null;
+    this.selectedCollection = null;
+    this.selectedQuality = null;
+    if (this.categoryId == 1) {
+      this.getFWRCollectionLookup();
+      this.tableEmptyMesssage = 'Loading...';
+      this.getFabricProducts();
+    }
+    else if (this.categoryId == 2) {
+      this.getFomCollectionLookUp();
+      this.tableEmptyMesssage = 'Loading...';
+      this.getFoamProducts();
+    }
+    else if (this.categoryId == 7) {
+      this.tableEmptyMesssage = 'Loading...';
+      this.getAccessoryProducts();
+    }
+  }
+
+  getCategoryWiseProducts(){
     if (this.categoryId == 1) {
       this.tableEmptyMesssage = 'Loading...';
       this.getFabricProducts();
@@ -381,5 +444,196 @@ export class ClientListForCustomerListComponent implements OnInit {
     }
   }
 
-}
+  getFWRCollectionLookup(){
+    this.shadeService.getCollectionLookUp(this.categoryId).subscribe(
+        results => {
+          this.collectionList = results;
+          this.collectionList.unshift({ label: '--Select--', value: null });
+          if (this.selectedCollection > 0) {
+            this.onCollectionClick();
+          }
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+  }
 
+  getFomCollectionLookUp() {
+    this.fomSizeService.getFomCollectionLookUp().subscribe(
+      results => {
+        this.collectionList = results;
+        this.collectionList.unshift({ label: '--Select--', value: null });
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      });
+  }
+
+  getMatCollectionLookUp() {
+    Helpers.setLoading(true);
+    this.matSizeService.getMatCollectionLookUp().subscribe(
+      results => {
+        this.collectionList = results;
+        this.collectionList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+
+  onCollectionClick() {
+    this.qualityList = [];
+    this.qualityList.unshift({ label: '--Select--', value: null });
+    this.designList = [];
+    this.designList.unshift({ label: '--Select--', value: null });
+    this.shadeList = [];
+    this.shadeList.unshift({ label: '--Select--', value: null });
+    this.fomDensityList = [];
+    this.fomDensityList.unshift({ label: '--Select--', value: null });
+    this.selectedDensity = null;
+    this.fomSuggestedMMList = [];
+    this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
+    this.selectedSize = null;
+    this.fomSizeList = [];
+    this.fomSizeList.unshift({ label: '--Select--', value: null });
+    this.fomSizeId = null;
+    this.shadeId = null;
+    this.selectedDesign = null;
+    this.selectedQuality = null;
+    
+    this.getCategoryWiseProducts();
+    if (this.selectedCollection != null) {
+     Helpers.setLoading(true);
+      this.matSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
+        results => {
+          this.qualityList = results;
+          this.qualityList.unshift({ label: '--Select--', value: null });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
+  onQualityClick() {
+    this.designList = [];
+    this.designList.unshift({ label: '--Select--', value: null });
+    this.selectedDesign = null;
+    this.fomDensityList = [];
+    this.fomDensityList.unshift({ label: '--Select--', value: null });
+    this.selectedDensity = null;
+    this.fomSuggestedMMList = [];
+    this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
+    this.selectedSize = null;
+    this.fomSizeList = [];
+    this.fomSizeList.unshift({ label: '--Select--', value: null });
+    this.fomSizeId = null;
+    this.shadeList = [];
+    this.shadeList.unshift({ label: '--Select--', value: null });
+    this.shadeId = null;
+     this.getCategoryWiseProducts();
+    if (this.selectedQuality != null) {
+      if(this.categoryId == 1){
+        this.shadeService.getDesignLookupByQuality(this.selectedQuality).subscribe(
+        results => {
+          this.designList = results;
+          this.designList.unshift({ label: '--Select--', value: null });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+      }
+      else if(this.categoryId == 2){
+        this.fomSizeService.getFomDensityLookUpByQuality(this.selectedQuality).subscribe(
+          results => {
+            this.fomDensityList = results;
+            this.fomDensityList.unshift({ label: '--Select--', value: null });
+            Helpers.setLoading(false);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
+        }
+    }
+  }
+
+  onDesignClick(){
+    this.shadeList = [];
+    this.shadeList.unshift({ label: '--Select--', value: null });
+    this.shadeId = null;
+    this.getCategoryWiseProducts();
+    if (this.selectedDesign != null) {
+      Helpers.setLoading(true);
+      this.shadeService.getSerialNumberLookUpByDesign(this.selectedDesign).subscribe(
+        results => {
+          this.shadeList = results;
+          this.shadeList.unshift({ label: '--Select--', value: null });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
+  onDensityClick() {
+
+    this.fomSuggestedMMList = [];
+    this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
+    this.selectedSize = null;
+    this.fomSizeList = [];
+    this.fomSizeList.unshift({ label: '--Select--', value: null });
+    this.fomSizeId = null;
+    this.getCategoryWiseProducts();
+    if (this.selectedDensity != null) {
+      this.fomSizeService.getFomSuggestedMMLookUpByFomDensity(this.selectedDensity).subscribe(
+        results => {
+          this.fomSuggestedMMList = results;
+          this.fomSuggestedMMList.unshift({ label: '--Select--', value: null });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
+  onSuggestedMMChange(){
+    this.fomSizeList = [];
+    this.fomSizeList.unshift({ label: '--Select--', value: null });
+    this.fomSizeId = null;
+    this.getCategoryWiseProducts();
+    if (this.selectedSize != null) {
+      this.fomSizeService.getFomSizeLookUpByFomSuggestedMMId(this.selectedSize).subscribe(
+        results => {
+          this.fomSizeList = results;
+          this.fomSizeList.unshift({ label: '--Select--', value: null });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
+  onShadeIdChange(){
+    this.getCategoryWiseProducts();
+  }
+
+  onFoamItemChange(){
+    this.getCategoryWiseProducts();
+  }
+
+}

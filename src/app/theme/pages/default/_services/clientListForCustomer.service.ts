@@ -11,16 +11,16 @@ export class ClientListForCustomerService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAccessoryProducts(pageSize = 0, page = 0) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetAccessoryProducts?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAccessoryProducts(pageSize = 0, page = 0, search = '') {
+    return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetAccessoryProducts?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getFabricProducts(pageSize = 0, page = 0) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetFabricProducts?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getFabricProducts(pageSize = 0, page = 0, search = '', collectionId, qualityId, designId, shadeId) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetFabricProducts?pageSize=' + pageSize + '&page=' + page + '&search=' + search + '&collectionId=' + collectionId + '&qualityId=' + qualityId + '&designId=' + designId + '&shadeId=' + shadeId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getFoamProducts(pageSize = 0, page = 0) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetFoamProducts?pageSize=' + pageSize + '&page=' + page, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getFoamProducts(pageSize = 0, page = 0, search = '', collectionId, qualityId, densityId, fomSuggestedMMId, fomSizeId) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetFoamProducts?pageSize=' + pageSize + '&page=' + page + '&search=' + search + '&collectionId=' + collectionId + '&qualityId=' + qualityId + '&densityId=' + densityId + '&fomSuggestedMMId=' + fomSuggestedMMId + '&fomSizeId=' + fomSizeId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getAccessoryProductsForExport() {

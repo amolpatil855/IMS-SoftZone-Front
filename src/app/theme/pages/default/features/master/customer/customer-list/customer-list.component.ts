@@ -59,6 +59,7 @@ export class CustomerListComponent implements OnInit {
     this.params = null;
     this.isHide = false;
     this.misVal="";
+    this.disabled = false;
     this.customerObj = {
       id: 0,
       code: '',
@@ -330,9 +331,9 @@ export class CustomerListComponent implements OnInit {
         .subscribe(
         results => {
           this.getCustomersList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
         },
         error => {
@@ -344,9 +345,9 @@ export class CustomerListComponent implements OnInit {
         .subscribe(
         results => {
           this.getCustomersList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
         },
         error => {

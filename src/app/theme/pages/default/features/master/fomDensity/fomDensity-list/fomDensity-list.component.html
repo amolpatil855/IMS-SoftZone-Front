@@ -75,7 +75,7 @@
 														<label class="fieldLabel col-md-6 col-sm-6">Collection<span class="requiredField">*</span>
 														</label>
 														<div class="col-md-6 col-sm-6">
-															<select class="form-control" name="selectedCollection" [(ngModel)]="selectedCollection" [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" #selectedCollectionVal="ngModel" (ngModelChange)="onCollectionClick()" [disabled]="disabled" required autofocus tabindex="1">
+															<select class="form-control" name="collectionId" [(ngModel)]="selectedCollection" [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" #selectedCollectionVal="ngModel" (ngModelChange)="onCollectionClick()" [disabled]="disabled" required autofocus tabindex="1">
 																<option *ngFor="let x of collectionList" [ngValue]="x.value" [selected]="selectedCollection == x.value">{{x.label}}</option>
 															</select>
 															<!-- <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" #selectedCollectionVal="ngModel" required
@@ -88,7 +88,7 @@
 														<label class="fieldLabel  col-md-6 col-sm-6">Quality<span class="requiredField">*</span>
 														</label>
 														<div class="col-md-6 col-sm-6">
-															<select class="form-control" name="selectedQuality" [(ngModel)]="selectedQuality" [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" #selectedQualityVal="ngModel" [disabled]="disabled" required tabindex="2">
+															<select class="form-control" name="qualityId" [(ngModel)]="selectedQuality" [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" #selectedQualityVal="ngModel" [disabled]="disabled" required tabindex="2">
 																<option *ngFor="let x of qualityList" [ngValue]="x.value" [selected]="selectedQuality == x.value">{{x.label}}</option>
 															</select>
 															<!-- <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" #selectedQualityVal="ngModel" required
