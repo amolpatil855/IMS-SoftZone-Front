@@ -5,25 +5,25 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from "../../../default.component";
 import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
+import { CollectionService } from '../../../_services/collection.service';
+// import { RoleService, PermissionService } from '../../_services/index';
 import { CommonService } from '../../../_services/common.service';
-import {TrnProductStockService} from "../../../_services/trnProductStock.service";
 import {
   DataTableModule,
   SharedModule,
   ButtonModule,
   AutoCompleteModule,
   DropdownModule,
-  OverlayPanelModule,
-  DialogModule,
-  CalendarModule,
-  RadioButtonModule,
   ConfirmDialogModule,
   ConfirmationService,
+  CalendarModule
 } from 'primeng/primeng';
-
-import { DashboardService } from "../../../_services/dashboard.service";
-import { SalesOrderCountComponent } from "./salesOrderCount.component";
-import { SalesOrderCountListComponent } from "./salesOrderCount-list/salesOrderCount-list.component";
+import { SupplierService } from "../../../_services/supplier.service";
+import { TrnSalesInvoiceService } from "../../../_services/trnSalesInvoice.service";
+import { TotalOutstandingAmountForCustomerComponent } from "./totalOutstandingAmountForCustomer.component";
+import { TotalOutstandingAmountForCustomerListComponent } from "./totalOutstandingAmountForCustomer-list/totalOutstandingAmountForCustomer-list.component";
+import {TrnProductStockService} from "../../../_services/trnProductStock.service";
+import {MatSizeService} from "../../../_services/matSize.service";
 
 const routes: Routes = [
   {
@@ -32,14 +32,14 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: SalesOrderCountComponent,
+        component: TotalOutstandingAmountForCustomerComponent,
         children: [
           {
             path: 'list',
-            component: SalesOrderCountListComponent,
+            component: TotalOutstandingAmountForCustomerListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['pendingsalesorderlist']
+              permissions: ['customerLogin']
             }
           }
         ]
@@ -60,22 +60,22 @@ const routes: Routes = [
     ButtonModule,
     AutoCompleteModule,
     DropdownModule,
-    CalendarModule,
-    OverlayPanelModule,
-    DialogModule,
-    RadioButtonModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CalendarModule
   ],
   declarations: [
-    SalesOrderCountComponent,
-    SalesOrderCountListComponent
+    TotalOutstandingAmountForCustomerComponent,
+    TotalOutstandingAmountForCustomerListComponent
   ],
   providers: [
-    CommonService,
-    DashboardService,
+    TrnProductStockService,
+    TrnSalesInvoiceService,
     ConfirmationService,
-    TrnProductStockService
+    SupplierService,
+    CommonService,
+    CollectionService,
+    MatSizeService
   ],
 })
-export class SalesOrderCountModule {
+export class TotalOutstandingAmountForCustomerModule {
 }

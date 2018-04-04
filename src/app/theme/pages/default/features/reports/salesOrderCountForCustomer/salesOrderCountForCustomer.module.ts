@@ -22,8 +22,8 @@ import {
 } from 'primeng/primeng';
 
 import { DashboardService } from "../../../_services/dashboard.service";
-import { SalesOrderCountComponent } from "./salesOrderCount.component";
-import { SalesOrderCountListComponent } from "./salesOrderCount-list/salesOrderCount-list.component";
+import { SalesOrderCountForCustomerComponent } from "./salesOrderCountForCustomer.component";
+import { SalesOrderCountForCustomerListComponent } from "./salesOrderCountForCustomer-list/salesOrderCountForCustomer-list.component";
 
 const routes: Routes = [
   {
@@ -32,14 +32,14 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: SalesOrderCountComponent,
+        component: SalesOrderCountForCustomerComponent,
         children: [
           {
             path: 'list',
-            component: SalesOrderCountListComponent,
+            component: SalesOrderCountForCustomerListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['pendingsalesorderlist']
+              permissions: ['customerLogin']
             }
           }
         ]
@@ -67,8 +67,8 @@ const routes: Routes = [
     ConfirmDialogModule
   ],
   declarations: [
-    SalesOrderCountComponent,
-    SalesOrderCountListComponent
+    SalesOrderCountForCustomerComponent,
+    SalesOrderCountForCustomerListComponent
   ],
   providers: [
     CommonService,
@@ -77,5 +77,5 @@ const routes: Routes = [
     TrnProductStockService
   ],
 })
-export class SalesOrderCountModule {
+export class SalesOrderCountForCustomerModule {
 }

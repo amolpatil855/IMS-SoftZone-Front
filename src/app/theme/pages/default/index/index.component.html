@@ -12,81 +12,105 @@
 <!-- END: Subheader -->
 <div class="m-content">
 	<!--Begin::Main Portlet-->
-	
-  <!--begin:: Widgets/Stats-->
-  <div class="m-portlet dashboardPortlet">
-	<div class="m-portlet__body  m-portlet__body--no-padding" style="background: transparent!important;">
-		<div class="row  m-row--col-separator-xl" *ngIf="showDashboardForAdmin">
-						<div class="col-md-6">
-											<div class="dashboardBox">
-												<div class="dashboardStatBox dashboardStatBox1">
-													<a routerLink="/features/reports/totalOutstandingAmount/list" *ngIf="userRole == 'Administrator'"><h5><i class="fa fa-inr" aria-hidden="true"></i> {{ dashboardObj ? (dashboardObj.totalOutStandingAmount | number:'.0' ): ''}}</h5></a>
-													<h5 *ngIf="userRole != 'Customer' && userRole != 'Administrator'"><i class="fa fa-inr" aria-hidden="true"></i> {{ dashboardObj ? (dashboardObj.totalOutStandingAmount | number:'.0' ): ''}}</h5>
-													<h6>Total Outstanding Amount</h6>
-												</div>
-												<div class="dashboardStatBox dashboardStatBox2">
-													<a routerLink="/features/reports/salesOrderCount/list" *ngIf="userRole == 'Administrator'"><h5>{{dashboardObj ? dashboardObj.totalSalesCount : ''}}</h5></a>
-													<h5 *ngIf="userRole != 'Customer' && userRole != 'Administrator'">{{dashboardObj ? dashboardObj.totalSalesCount : ''}}</h5>
-													<h6>Sales Order Count</h6>
-												</div>
-											</div>
+
+	<!--begin:: Widgets/Stats-->
+	<div class="m-portlet dashboardPortlet">
+		<div class="m-portlet__body  m-portlet__body--no-padding" style="background: transparent!important;">
+			<div class="row  m-row--col-separator-xl" *ngIf="showDashboardForAdmin">
+				<div class="col-md-6">
+					<div class="dashboardBox">
+						<div class="dashboardStatBox dashboardStatBox1">
+							<a routerLink="/features/reports/totalOutstandingAmount/list" *ngIf="userRole == 'Administrator'">
+								<h5><i class="fa fa-inr" aria-hidden="true"></i> {{ dashboardObj ? (dashboardObj.totalOutStandingAmount | number:'.0'
+									): ''}}</h5>
+							</a>
+							<h5 *ngIf="userRole != 'Customer' && userRole != 'Administrator'"><i class="fa fa-inr" aria-hidden="true"></i> {{ dashboardObj ? (dashboardObj.totalOutStandingAmount | number:'.0'
+								): ''}}</h5>
+							<h6>Total Outstanding Amount</h6>
 						</div>
-							
-							
-							<div class="col-md-6">
-								<div class="dashboardBox">
-									<div class="dashboardStatBox dashboardStatBox1">
-										<h5><i class="fa fa-inr" aria-hidden="true"></i> {{dashboardObj ? (dashboardObj.totalPaymentDue | number:'.0') : ''}}</h5>
-										<h6>Total Payment Due</h6>
-									</div>
-									<div class="dashboardStatBox dashboardStatBox2">
-										<a routerLink="/features/reports/purchaseOrderCount/list" *ngIf="userRole == 'Administrator'"><h5>{{dashboardObj ? dashboardObj.totalPurchaseCount : ''}}</h5></a>
-										<h5 *ngIf="userRole != 'Customer' && userRole != 'Administrator'">{{dashboardObj ? dashboardObj.totalPurchaseCount : ''}}</h5>
-										<h6>Purchase Order Count</h6>
-									</div>
-								</div>
-							</div>
-							
-							<div class="col-md-3 col-sm-3">
-								<div class="dashboardBox">
-									<h4 class="blueHeading"><i class="fa fa-inr" aria-hidden="true"></i> {{dashboardObj ? (dashboardObj.ytdSale | number:'.0') : ''}}</h4>
-									<h5>YTD Sale</h5>
-								</div>
-							</div>
-							
-							<div class="col-md-3 col-sm-3">
-								<div class="dashboardBox">
-									<h4 class="greenHeading"><i class="fa fa-inr" aria-hidden="true"></i> {{dashboardObj ? (dashboardObj.currentMonthSale | number:'.0') : ''}}</h4>
-									<h5>Current Month Sale</h5>
-								</div>
-							</div>
-							
-							<div class="col-md-3 col-sm-3">
-								<div class="dashboardBox">
-									<a routerLink="/features/reports/itemsBelowReorderLevel/list" *ngIf="userRole == 'Administrator'"><h4 class="redHeading">{{dashboardObj ? dashboardObj.itemsCountBelowReorderLevel : ''}}</h4></a>
-									<h4 class="redHeading" *ngIf="userRole != 'Customer' && userRole != 'Administrator'">{{dashboardObj ? dashboardObj.itemsCountBelowReorderLevel : ''}}</h4>
-									<h5>Items below Re-order Level</h5>
-								</div>
-							</div>
-							
-							
-							<div class="col-md-3 col-sm-3">
-								<div class="dashboardBox">
-									<h4 class="orangeHeading"><i class="fa fa-inr" aria-hidden="true"></i> {{dashboardObj ? (dashboardObj.totalStockValue | number:'.0') : ''}}</h4>
-									<h5>Total Stock Value</h5>
-								</div>
-							</div>
-			
-		</div>
-		<div class="row  m-row--col-separator-xl" *ngIf="showDashboardForCustomer">
-			<div class="col-md-6">
-					<h1>Welcome {{userName ? userName : ''}}</h1>			
+						<div class="dashboardStatBox dashboardStatBox2">
+							<a routerLink="/features/reports/salesOrderCount/list" *ngIf="userRole == 'Administrator'">
+								<h5>{{dashboardObj ? dashboardObj.totalSalesCount : ''}}</h5>
+							</a>
+							<h5 *ngIf="userRole != 'Customer' && userRole != 'Administrator'">{{dashboardObj ? dashboardObj.totalSalesCount : ''}}</h5>
+							<h6>Sales Order Count</h6>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-md-6">
+					<div class="dashboardBox">
+						<div class="dashboardStatBox dashboardStatBox1">
+							<h5><i class="fa fa-inr" aria-hidden="true"></i> {{dashboardObj ? (dashboardObj.totalPaymentDue | number:'.0') : ''}}</h5>
+							<h6>Total Payment Due</h6>
+						</div>
+						<div class="dashboardStatBox dashboardStatBox2">
+							<a routerLink="/features/reports/purchaseOrderCount/list" *ngIf="userRole == 'Administrator'">
+								<h5>{{dashboardObj ? dashboardObj.totalPurchaseCount : ''}}</h5>
+							</a>
+							<h5 *ngIf="userRole != 'Customer' && userRole != 'Administrator'">{{dashboardObj ? dashboardObj.totalPurchaseCount : ''}}</h5>
+							<h6>Purchase Order Count</h6>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-3">
+					<div class="dashboardBox">
+						<h4 class="blueHeading"><i class="fa fa-inr" aria-hidden="true"></i> {{dashboardObj ? (dashboardObj.ytdSale | number:'.0') : ''}}</h4>
+						<h5>YTD Sale</h5>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-3">
+					<div class="dashboardBox">
+						<h4 class="greenHeading"><i class="fa fa-inr" aria-hidden="true"></i> {{dashboardObj ? (dashboardObj.currentMonthSale | number:'.0') : ''}}</h4>
+						<h5>Current Month Sale</h5>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-3">
+					<div class="dashboardBox">
+						<a routerLink="/features/reports/itemsBelowReorderLevel/list" *ngIf="userRole == 'Administrator'">
+							<h4 class="redHeading">{{dashboardObj ? dashboardObj.itemsCountBelowReorderLevel : ''}}</h4>
+						</a>
+						<h4 class="redHeading" *ngIf="userRole != 'Customer' && userRole != 'Administrator'">{{dashboardObj ? dashboardObj.itemsCountBelowReorderLevel : ''}}</h4>
+						<h5>Items below Re-order Level</h5>
+					</div>
+				</div>
+
+
+				<div class="col-md-3 col-sm-3">
+					<div class="dashboardBox">
+						<h4 class="orangeHeading"><i class="fa fa-inr" aria-hidden="true"></i> {{dashboardObj ? (dashboardObj.totalStockValue | number:'.0') : ''}}</h4>
+						<h5>Total Stock Value</h5>
+					</div>
+				</div>
+
+			</div>
+			<div class="row  m-row--col-separator-xl" *ngIf="showDashboardForCustomer">
+				<div class="col-md-6">
+					<div class="dashboardBox">
+						<div class="dashboardStatBox dashboardStatBox1">
+							<a routerLink="/features/reports/totalOutstandingAmountForCustomer/list">
+								<h5><i class="fa fa-inr" aria-hidden="true"></i> {{ dashboardObjForCustomer ? (dashboardObjForCustomer.totalOutStandingAmount
+									| number:'.0' ): ''}}</h5>
+							</a>
+							<h6>Total Outstanding Amount</h6>
+						</div>
+						<div class="dashboardStatBox dashboardStatBox2">
+							<a routerLink="/features/reports/salesOrderCountForCustomer/list">
+								<h5>{{dashboardObjForCustomer ? dashboardObjForCustomer.totalSalesCount : ''}}</h5>
+							</a>
+							<h6>Sales Order Count</h6>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!--end:: Widgets/Stats-->
-   
+	<!--end:: Widgets/Stats-->
+
 	<!--End::Main Portlet-->
 	<!--Begin::Main Portlet-->
 

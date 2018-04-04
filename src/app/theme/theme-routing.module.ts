@@ -152,8 +152,16 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/reports\/totalOutstandingAmount\/totalOutstandingAmount.module#TotalOutstandingAmountModule"
       },
       {
+        "path": "features\/reports\/totalOutstandingAmountForCustomer",
+        "loadChildren": ".\/pages\/default\/features\/reports\/totalOutstandingAmountForCustomer\/totalOutstandingAmountForCustomer.module#TotalOutstandingAmountForCustomerModule"
+      },
+      {
         "path": "features\/reports\/salesOrderCount",
         "loadChildren": ".\/pages\/default\/features\/reports\/salesOrderCount\/salesOrderCount.module#SalesOrderCountModule"
+      },
+      {
+        "path": "features\/reports\/salesOrderCountForCustomer",
+        "loadChildren": ".\/pages\/default\/features\/reports\/salesOrderCountForCustomer\/salesOrderCountForCustomer.module#SalesOrderCountForCustomerModule"
       },
       {
         "path": "features\/reports\/purchaseOrderCount",

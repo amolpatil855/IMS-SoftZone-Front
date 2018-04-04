@@ -344,7 +344,7 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'hsn (GST%)',
+          display: 'HSN (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -383,7 +383,7 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Selling Rate Per (GST)',
+          display: 'Selling Rate Per KG(GST)',
           variable: 'sellingRatePerKGWithGst',
           filter: 'text'
         }
@@ -401,7 +401,7 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'hsn (GST%)',
+          display: 'HSN (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -445,7 +445,7 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'hsn (GST%)',
+          display: 'HSN (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -507,7 +507,7 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'hsn (GST%)',
+          display: 'HSN (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -593,7 +593,7 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'hsn (GST%)',
+          display: 'HSN (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },
@@ -679,7 +679,7 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'hsn (GST%)',
+          display: 'HSN (GST%)',
           variable: 'hsnWithGST',
           filter: 'text'
         },

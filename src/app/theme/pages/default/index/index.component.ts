@@ -15,6 +15,7 @@ import { DashboardService } from "../_services/dashboard.service";
 })
 export class IndexComponent implements OnInit, AfterViewInit {
   dashboardObj: any;
+  dashboardObjForCustomer: any;
   selectedSchoolId: number;
   userRole: string;
   userName: string;
@@ -37,6 +38,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
     this.superAdmin = _.find(currentUser.roles, { 'name': 'SuperAdmin' });
     this.getLoggedInUserDetail();
     this.getDashboard();
+    this.getDashboardDataForCustomer();
   }
 
   getLoggedInUserDetail(){
@@ -59,8 +61,26 @@ export class IndexComponent implements OnInit, AfterViewInit {
 
 
   getDashboard(){
+    Helpers.setLoading(true);
     this.dashboardService.getDashboard().subscribe( result =>{
       this.dashboardObj = result;
+      Helpers.setLoading(false);
+    },
+    error => {
+      this.globalErrorHandler.handleError(error);
+      Helpers.setLoading(false);
+    });
+  }
+
+  getDashboardDataForCustomer(){
+    Helpers.setLoading(true);
+    this.dashboardService.getDashboardDataForCustomer().subscribe( result =>{
+      this.dashboardObjForCustomer = result;
+      Helpers.setLoading(false);
+    },
+    error => {
+      this.globalErrorHandler.handleError(error);
+      Helpers.setLoading(false);
     });
   }
 
