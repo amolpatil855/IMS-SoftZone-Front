@@ -79,13 +79,13 @@ export class MasterPriceListListComponent implements OnInit {
       });
   }
 
-  getAccessoryProductsExport(columns) {
+  getAccessoryProductsExport(columns, categoryName) {
     Helpers.setLoading(true);
     this.masterPriceListService.getAccessoryProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns)
+          this.exporttoCSV(results, columns, categoryName)
         }
         Helpers.setLoading(false);
       },
@@ -114,13 +114,13 @@ export class MasterPriceListListComponent implements OnInit {
       });
   }
 
-  getFabricProductsExport(columns) {
+  getFabricProductsExport(columns, categoryName) {
     Helpers.setLoading(true);
     this.masterPriceListService.getFabricProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns)
+          this.exporttoCSV(results, columns, categoryName)
         }
         Helpers.setLoading(false);
       },
@@ -149,13 +149,13 @@ export class MasterPriceListListComponent implements OnInit {
       });
   }
 
-  getFoamProductsExport(columns) {
+  getFoamProductsExport(columns, categoryName) {
     Helpers.setLoading(true);
     this.masterPriceListService.getFoamProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns)
+          this.exporttoCSV(results, columns, categoryName)
         }
         Helpers.setLoading(false);
       },
@@ -184,13 +184,13 @@ export class MasterPriceListListComponent implements OnInit {
       });
   }
 
-  getMattressProductsExport(columns) {
+  getMattressProductsExport(columns, categoryName) {
     Helpers.setLoading(true);
     this.masterPriceListService.getMattressProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns)
+          this.exporttoCSV(results, columns, categoryName)
         }
         Helpers.setLoading(false);
       },
@@ -219,13 +219,13 @@ export class MasterPriceListListComponent implements OnInit {
       });
   }
 
-  getRugProductsExport(columns) {
+  getRugProductsExport(columns, categoryName) {
     Helpers.setLoading(true);
     this.masterPriceListService.getRugProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns)
+          this.exporttoCSV(results, columns, categoryName)
         }
         Helpers.setLoading(false);
       },
@@ -254,13 +254,13 @@ export class MasterPriceListListComponent implements OnInit {
       });
   }
 
-  getWallpaperProductsExport(columns) {
+  getWallpaperProductsExport(columns, categoryName) {
     Helpers.setLoading(true);
     this.masterPriceListService.getWallpaperProductsForExport().subscribe(
       results => {
         this.totalCount = results.length;
         if (this.totalCount > 0) {
-          this.exporttoCSV(results, columns)
+          this.exporttoCSV(results, columns, categoryName)
         }
         Helpers.setLoading(false);
       },
@@ -352,10 +352,12 @@ export class MasterPriceListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
-      this.getFabricProductsExport(columns);
+      let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+      if(categoryObj)
+      this.getFabricProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 2) {
       columns = [
@@ -430,10 +432,12 @@ export class MasterPriceListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
-      this.getFoamProductsExport(columns);
+      let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+      if(categoryObj)
+      this.getFoamProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 7) {
       columns = [
@@ -484,10 +488,12 @@ export class MasterPriceListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
-      this.getAccessoryProductsExport(columns);
+      let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+      if(categoryObj)  
+      this.getAccessoryProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 4) {
       columns = [
@@ -556,10 +562,12 @@ export class MasterPriceListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
-      this.getMattressProductsExport(columns);
+      let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+      if(categoryObj)
+      this.getMattressProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 5) {
       columns = [
@@ -631,7 +639,6 @@ export class MasterPriceListListComponent implements OnInit {
           filter: 'text'
         }
         ,
-        ,
         {
           display: 'hsn (GST%)',
           variable: 'hsnWithGST',
@@ -640,10 +647,12 @@ export class MasterPriceListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
-      this.getWallpaperProductsExport(columns);
+      let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+      if(categoryObj)
+      this.getWallpaperProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 6) {
       columns = [
@@ -723,17 +732,19 @@ export class MasterPriceListListComponent implements OnInit {
         {
           display: 'Available Stock',
           variable: 'availableStock',
-          filter: 'text'
+          filter: 'bool'
         }
       ];
-      this.getRugProductsExport(columns);
+      let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
+      if(categoryObj)
+      this.getRugProductsExport(columns, categoryObj.label);
     }
   }
 
-  exporttoCSV(data, columns) {
+  exporttoCSV(data, columns, categoryName) {
     let exprtcsv: any[] = [];
     let _tempList = data;
-    let exportFileName: string = "StudentCategoryReport_";
+    let exportFileName: string = "MasterPriceListReportFor" + categoryName + "_";
     (<any[]>JSON.parse(JSON.stringify(_tempList))).forEach(x => {
       var obj = new Object();
       var frmt = new FormatService();
