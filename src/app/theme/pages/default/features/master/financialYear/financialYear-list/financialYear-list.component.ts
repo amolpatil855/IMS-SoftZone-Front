@@ -133,8 +133,6 @@ export class FinancialYearListComponent implements OnInit {
         .subscribe(
         results => {
           this.getFinancialYearsList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
 
@@ -148,7 +146,6 @@ export class FinancialYearListComponent implements OnInit {
         .subscribe(
         results => {
           this.getFinancialYearsList();
-          this.toggleDiv = false;
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);

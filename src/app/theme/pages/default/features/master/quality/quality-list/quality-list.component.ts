@@ -99,6 +99,7 @@ export class QualityListComponent implements OnInit {
     this.qualityForm.get('purchaseFlatRate').enable();
     this.qualityForm.get('flatRate').enable();
     this.slectedCategory = null;
+    this.disabled = false;
   }
 
 
@@ -503,9 +504,9 @@ export class QualityListComponent implements OnInit {
         .subscribe(
         results => {
           this.getQualityList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
         },
         error => {
@@ -517,9 +518,9 @@ export class QualityListComponent implements OnInit {
         .subscribe(
         results => {
           this.getQualityList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -556,7 +557,6 @@ export class QualityListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getQualityList();
-            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

@@ -331,9 +331,9 @@ export class SupplierListComponent implements OnInit {
         .subscribe(
         results => {
           this.getSuppliersList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -346,9 +346,9 @@ export class SupplierListComponent implements OnInit {
         .subscribe(
         results => {
           this.getSuppliersList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -381,7 +381,6 @@ export class SupplierListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getSuppliersList();
-            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

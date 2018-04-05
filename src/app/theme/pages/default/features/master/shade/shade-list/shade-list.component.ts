@@ -79,6 +79,7 @@ export class ShadeListComponent implements OnInit {
     this.selectedCollection = null;
     this.selectedDesign = null;
     this.selectedQuality = null;
+    this.disabled = false;
   }
 
   restrictDotMinus(e, limit) {
@@ -246,10 +247,10 @@ export class ShadeListComponent implements OnInit {
 
     }
     else {
-      this.shadeObj.categoryId = value.category;
-      this.shadeObj.collectionId = value.collection;
-      this.shadeObj.qualityId = value.quality;
-      this.shadeObj.designId = value.design;
+      this.shadeObj.categoryId = value.categoryId;
+      this.shadeObj.collectionId = value.collectionId;
+      this.shadeObj.qualityId = value.qualityId;
+      this.shadeObj.designId = value.designId;
     }
 
     this.saveShade(this.shadeObj);
@@ -262,9 +263,9 @@ export class ShadeListComponent implements OnInit {
         .subscribe(
         results => {
           this.getShadesList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -277,9 +278,9 @@ export class ShadeListComponent implements OnInit {
         .subscribe(
         results => {
           this.getShadesList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -311,7 +312,6 @@ export class ShadeListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getShadesList();
-            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

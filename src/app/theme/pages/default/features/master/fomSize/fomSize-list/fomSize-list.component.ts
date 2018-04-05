@@ -83,6 +83,7 @@ export class FomSizeListComponent implements OnInit {
     this.selectedQuality = null;
     this.selectedDensity = null;
     this.selectedSize = null;
+    this.disabled = false;
   }
   onInputChange() {
     if(this.fomSizeObj.width == '' || this.fomSizeObj.length == ''){
@@ -272,10 +273,10 @@ export class FomSizeListComponent implements OnInit {
     if (this.fomSizeObj.id > 0) {
 
     } else {
-      this.fomSizeObj.collectionId = value.collection;
-      this.fomSizeObj.qualityId = value.quality;
-      this.fomSizeObj.fomDensityId = value.density;
-      this.fomSizeObj.fomSuggestedMMId = value.size;
+      this.fomSizeObj.collectionId = value.collectionId;
+      this.fomSizeObj.qualityId = value.qualityId;
+      this.fomSizeObj.fomDensityId = value.fomDensityId;
+      this.fomSizeObj.fomSuggestedMMId = value.fomSuggestedMMId;
     }
     // this.fomSizeObj.sizeCode = value.width+'x'+value.length;
     // this.fomSizeObj.stockReorderLevel = value.stockReorderLevel;
@@ -289,9 +290,9 @@ export class FomSizeListComponent implements OnInit {
         .subscribe(
         results => {
           this.getFomSizesList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -305,9 +306,9 @@ export class FomSizeListComponent implements OnInit {
         .subscribe(
         results => {
           this.getFomSizesList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -339,7 +340,6 @@ export class FomSizeListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getFomSizesList();
-            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

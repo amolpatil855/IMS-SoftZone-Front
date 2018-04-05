@@ -21,6 +21,9 @@ import {
 import { MasterPriceListComponent } from "./masterPriceList.component";
 import { MasterPriceListListComponent } from "./masterPriceList-list/masterPriceList-list.component";
 import { MasterPriceListService } from "../../../_services/masterPriceList.service";
+import { MatSizeService } from "../../../_services/matSize.service";
+import { ShadeService } from "../../../_services/shade.service";
+import { FomSizeService } from "../../../_services/fomSize.service";
 
 const routes: Routes = [
   {
@@ -67,6 +70,9 @@ const routes: Routes = [
   providers: [
     MasterPriceListService,
     ConfirmationService,
+    MatSizeService,
+    ShadeService,
+    FomSizeService,
     CommonService,
     CollectionService,
   ],

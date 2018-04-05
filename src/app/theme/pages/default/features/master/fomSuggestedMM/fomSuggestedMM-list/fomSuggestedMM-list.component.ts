@@ -72,6 +72,7 @@ export class FomSuggestedMMListComponent implements OnInit {
     this.fomDensityList.unshift({ label: '--Select--', value: null });
     this.selectedQuality = null;
     this.selectedDensity = null;
+    this.disabled = false;
   }
 
   restrictDotMinus(e, limit) {
@@ -226,9 +227,9 @@ export class FomSuggestedMMListComponent implements OnInit {
         .subscribe(
         results => {
           this.getFomSuggestedMMsList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -241,9 +242,9 @@ export class FomSuggestedMMListComponent implements OnInit {
         .subscribe(
         results => {
           this.getFomSuggestedMMsList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -275,7 +276,6 @@ export class FomSuggestedMMListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getFomSuggestedMMsList();
-            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

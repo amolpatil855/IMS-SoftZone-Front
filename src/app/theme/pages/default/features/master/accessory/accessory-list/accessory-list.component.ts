@@ -72,6 +72,7 @@ export class AccessoryListComponent implements OnInit {
     this.selectedUnitOfMeasure = null;
     this.selectedHsn = null;
     this.selectedSupplier = null;
+    this.disabled = false;
   }
 
   toggleButton() {
@@ -89,6 +90,7 @@ export class AccessoryListComponent implements OnInit {
     this.newRecord();
   }
   getAccessorysList() {
+    Helpers.setLoading(true);
     this.accessoryService.getAllAccessories(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.accessoryList = results.data;
@@ -96,10 +98,12 @@ export class AccessoryListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
@@ -195,9 +199,9 @@ export class AccessoryListComponent implements OnInit {
         .subscribe(
         results => {
           this.getAccessorysList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
         },
         error => {
@@ -209,7 +213,6 @@ export class AccessoryListComponent implements OnInit {
         .subscribe(
         results => {
           this.getAccessorysList();
-          this.toggleDiv = false;
           this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
@@ -243,7 +246,6 @@ export class AccessoryListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getAccessorysList();
-            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

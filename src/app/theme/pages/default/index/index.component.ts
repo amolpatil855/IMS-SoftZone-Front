@@ -15,6 +15,7 @@ import { DashboardService } from "../_services/dashboard.service";
 })
 export class IndexComponent implements OnInit, AfterViewInit {
   dashboardObj: any;
+  dashboardObjForCustomer: any;
   selectedSchoolId: number;
   userRole: string;
   userName: string;
@@ -36,7 +37,6 @@ export class IndexComponent implements OnInit, AfterViewInit {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.superAdmin = _.find(currentUser.roles, { 'name': 'SuperAdmin' });
     this.getLoggedInUserDetail();
-    this.getDashboard();
   }
 
   getLoggedInUserDetail(){
@@ -49,9 +49,11 @@ export class IndexComponent implements OnInit, AfterViewInit {
       if(this.userRole == "Customer") {
         this.showDashboardForAdmin = false;
         this.showDashboardForCustomer = true;
+        this.getDashboardDataForCustomer();
       }else{
         this.showDashboardForAdmin = true;
         this.showDashboardForCustomer = false;
+        this.getDashboard();
       }
       Helpers.setLoading(false);
     });
@@ -59,8 +61,26 @@ export class IndexComponent implements OnInit, AfterViewInit {
 
 
   getDashboard(){
+    Helpers.setLoading(true);
     this.dashboardService.getDashboard().subscribe( result =>{
       this.dashboardObj = result;
+      Helpers.setLoading(false);
+    },
+    error => {
+      this.globalErrorHandler.handleError(error);
+      Helpers.setLoading(false);
+    });
+  }
+
+  getDashboardDataForCustomer(){
+    Helpers.setLoading(true);
+    this.dashboardService.getDashboardDataForCustomer().subscribe( result =>{
+      this.dashboardObjForCustomer = result;
+      Helpers.setLoading(false);
+    },
+    error => {
+      this.globalErrorHandler.handleError(error);
+      Helpers.setLoading(false);
     });
   }
 

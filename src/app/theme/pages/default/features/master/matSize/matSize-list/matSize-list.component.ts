@@ -81,6 +81,7 @@ export class MatSizeListComponent implements OnInit {
     this.thicknessList.unshift({ label: '--Select--', value: null });
     this.selectedQuality = null;
     this.selectedThickness = null;
+    this.disabled = false;
   }
 
   onInputChange() {
@@ -276,9 +277,9 @@ export class MatSizeListComponent implements OnInit {
     if (this.matSizeObj.id > 0) {
 
     } else {
-      this.matSizeObj.collectionId = value.collection;
-      this.matSizeObj.qualityId = value.quality;
-      this.matSizeObj.thicknessId = value.thickness;
+      this.matSizeObj.collectionId = value.collectionId;
+      this.matSizeObj.qualityId = value.qualityId;
+      this.matSizeObj.thicknessId = value.thicknessId;
     }
     this.saveMatSize(this.matSizeObj);
   }
@@ -290,9 +291,9 @@ export class MatSizeListComponent implements OnInit {
         .subscribe(
         results => {
           this.getMatSizesList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -305,9 +306,9 @@ export class MatSizeListComponent implements OnInit {
         .subscribe(
         results => {
           this.getMatSizesList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -339,7 +340,6 @@ export class MatSizeListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getMatSizesList();
-            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

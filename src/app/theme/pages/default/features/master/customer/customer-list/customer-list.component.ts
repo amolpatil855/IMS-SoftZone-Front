@@ -330,9 +330,9 @@ export class CustomerListComponent implements OnInit {
         .subscribe(
         results => {
           this.getCustomersList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
         },
         error => {
@@ -344,9 +344,9 @@ export class CustomerListComponent implements OnInit {
         .subscribe(
         results => {
           this.getCustomersList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
         },
         error => {

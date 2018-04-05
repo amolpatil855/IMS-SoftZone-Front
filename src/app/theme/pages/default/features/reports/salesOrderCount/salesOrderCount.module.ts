@@ -6,7 +6,6 @@ import { DefaultComponent } from "../../../default.component";
 import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
 import { CommonService } from '../../../_services/common.service';
-import { CollectionService } from '../../../_services/collection.service';
 import {TrnProductStockService} from "../../../_services/trnProductStock.service";
 import {
   DataTableModule,
@@ -25,9 +24,6 @@ import {
 import { DashboardService } from "../../../_services/dashboard.service";
 import { SalesOrderCountComponent } from "./salesOrderCount.component";
 import { SalesOrderCountListComponent } from "./salesOrderCount-list/salesOrderCount-list.component";
-import { ShadeService } from "../../../_services/shade.service";
-import { FomSizeService } from "../../../_services/fomSize.service";
-import { MatSizeService } from "../../../_services/matSize.service";
 
 const routes: Routes = [
   {
@@ -77,11 +73,7 @@ const routes: Routes = [
   providers: [
     CommonService,
     DashboardService,
-    ShadeService,
-    FomSizeService,
-    MatSizeService,
     ConfirmationService,
-    CollectionService,
     TrnProductStockService
   ],
 })

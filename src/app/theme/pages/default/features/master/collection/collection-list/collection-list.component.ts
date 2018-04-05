@@ -72,6 +72,7 @@ export class CollectionListComponent implements OnInit {
     this.collectionForm.get('supplierId').enable();
     this.getCategoryCodeList();
     this.getSupplierCodeList();
+    this.disabled = false;
   }
 
 
@@ -184,11 +185,10 @@ export class CollectionListComponent implements OnInit {
         .subscribe(
         results => {
           this.getCollectionList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
-
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -200,9 +200,9 @@ export class CollectionListComponent implements OnInit {
         .subscribe(
         results => {
           this.getCollectionList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -238,7 +238,6 @@ export class CollectionListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getCollectionList();
-            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);
