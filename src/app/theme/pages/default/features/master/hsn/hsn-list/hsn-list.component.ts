@@ -55,7 +55,6 @@ export class HsnListComponent implements OnInit {
       hsnCode: '',
       gst: ''
     };
-    this.disabled = false;
   }
 
   toggleButton() {

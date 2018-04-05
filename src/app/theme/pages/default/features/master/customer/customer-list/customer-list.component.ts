@@ -59,7 +59,6 @@ export class CustomerListComponent implements OnInit {
     this.params = null;
     this.isHide = false;
     this.misVal="";
-    this.disabled = false;
     this.customerObj = {
       id: 0,
       code: '',
