@@ -432,6 +432,7 @@ export class ClientListForCustomerListComponent implements OnInit {
   }
 
   getCategoryWiseProducts() {
+    this.page = 0;
     if (this.categoryId == 1) {
       this.tableEmptyMesssage = 'Loading...';
       this.getFabricProducts();

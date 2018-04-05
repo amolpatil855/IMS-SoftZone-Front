@@ -59,6 +59,7 @@ export class SoOrderStatusReportListComponent implements OnInit {
   }
 
   onChangeStatus(){
+    this.page = 0;
     this.getSOorderStatusReport();
   }
 

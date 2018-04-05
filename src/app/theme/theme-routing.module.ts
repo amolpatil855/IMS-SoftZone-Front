@@ -76,6 +76,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/fomSize\/fomSize.module#FomSizeModule"
       },
       {
+        "path": "features\/master\/pattern",
+        "loadChildren": ".\/pages\/default\/features\/master\/pattern\/pattern.module#PatternModule"
+      },
+      {
         "path": "features\/master\/trnProductStock",
         "loadChildren": ".\/pages\/default\/features\/master\/trnProductStock\/trnProductStock.module#TrnProductStockModule"
       },

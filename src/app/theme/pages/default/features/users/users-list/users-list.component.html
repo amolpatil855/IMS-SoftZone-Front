@@ -79,7 +79,7 @@
                                     </div>
                                     <p-dataTable [value]="userList" [emptyMessage]="tableEmptyMesssage" class="table listingTable halfWidthTable" [rows]="pageSize"
                                         [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
-                                        [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+                                        [totalRecords]="totalCount" [responsive]="true" (onLazyLoad)="loadLazy($event)">
                                         <p-column field="userName" header="User Name" [style]="{'text-align':'left'}"></p-column>
                                         <p-column field="mstRole.roleName" header="Role Name" [style]="{'text-align':'left'}"></p-column>
                                         <p-column field="phone" header="Phone" [style]="{'text-align':'center'}"></p-column>
