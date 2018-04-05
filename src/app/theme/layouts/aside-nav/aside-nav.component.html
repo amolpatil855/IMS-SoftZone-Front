@@ -18,7 +18,6 @@
                         </span>
                     </span>
                 </a>
-                
             </li>
 
             <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
@@ -64,392 +63,6 @@
                                         </span>
                                     </span>
                                 </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['productstock','stockmanagement']">
-                <a href="#" class="m-menu__link m-menu__toggle">
-                    <i class="m-menu__link-icon flaticon-clipboard"></i>
-                    <span class="m-menu__link-text">
-                        Stock
-                    </span>
-                    <i class="m-menu__ver-arrow la la-angle-right"></i>
-                </a>
-                <div class="m-menu__submenu">
-                    <span class="m-menu__arrow"></span>
-                    <ul class="m-menu__subnav">
-                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
-                            <a href="#" class="m-menu__link ">
-                                <span class="m-menu__link-text">Stock</span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['stockmanagement']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/master/trnProductStockDetail/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Product Stock
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['stockmanagement']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/master/trnProductStock/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Product Stock Detail
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['purchase','purchaseorder','grn','poagainstso']">
-                <a href="#" class="m-menu__link m-menu__toggle">
-                    <i class="m-menu__link-icon flaticon-cart"></i>
-                    <span class="m-menu__link-text">
-                        Purchase
-                    </span>
-                    <i class="m-menu__ver-arrow la la-angle-right"></i>
-                </a>
-                <div class="m-menu__submenu">
-                    <span class="m-menu__arrow"></span>
-                    <ul class="m-menu__subnav">
-                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
-                            <a href="#" class="m-menu__link ">
-                                <span class="m-menu__link-text">Purchase</span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['purchaseorder']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/purchase/trnPurchaseOrder/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Purchase Order
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['grn']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/purchase/trnGoodReceiveNote/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Good Receive Note
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['poagainstso']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/purchase/trnPOItemsWithInsufficientStock/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    PO Against SO
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['sales','salesorder','gin','invoice','ginforavailablestock','materialselection','materialquotation','advancepayment']">
-                <a href="#" class="m-menu__link m-menu__toggle">
-                    <i class="m-menu__link-icon flaticon-diagram"></i>
-                    <span class="m-menu__link-text">
-                        Sales
-                    </span>
-                    <i class="m-menu__ver-arrow la la-angle-right"></i>
-                </a>
-                <div class="m-menu__submenu">
-                    <span class="m-menu__arrow"></span>
-                    <ul class="m-menu__subnav">
-                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
-                            <a href="#" class="m-menu__link ">
-                                <span class="m-menu__link-text">Sales</span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['salesorder']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/sales/trnSalesOrder/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Sales Order
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['gin']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/sales/trnGoodIssueNote/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Good Issue Note
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['invoice']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/sales/trnSalesInvoice/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Sales Invoice
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['ginforavailablestock']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/sales/trnGINForItemsWithStockAvailable/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    GIN For Available Stock
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['materialselection']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/sales/trnMaterialSelection/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                   Material Selection
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['materialquotation']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/sales/trnMaterialQuotation/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                   Material Quotation
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['advancepayment']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/sales/trnAdvancePayment/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                   Advance Payment
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['reports','customerLogin','masterpricelist','clientpricelist','unpaidinvoicelist','pendingsalesorderlist','pendingpurchaseorderlist','reorderstocklist','purchaseorderstatuslist','salesorderstatuslist','invoicestatuslist']">
-                <a href="#" class="m-menu__link m-menu__toggle">
-                    <i class="m-menu__link-icon flaticon-cart"></i>
-                    <span class="m-menu__link-text">
-                        Reports
-                    </span>
-                    <i class="m-menu__ver-arrow la la-angle-right"></i>
-                </a>
-                <div class="m-menu__submenu">
-                    <span class="m-menu__arrow"></span>
-                    <ul class="m-menu__subnav">
-                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
-                            <a href="#" class="m-menu__link ">
-                                <span class="m-menu__link-text">Reports</span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['masterpricelist']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/reports/masterPriceList/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Master Price List
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['clientpricelist']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/reports/clientList/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Client Price List
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['customerLogin']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/reports/clientListForCustomer/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Client Price List
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['unpaidinvoicelist']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/reports/totalOutstandingAmount/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Unpaid Invoice List
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['pendingsalesorderlist']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/reports/salesOrderCount/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                   Pending Sales Order List
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['pendingpurchaseorderlist']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/reports/purchaseOrderCount/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                   Pending Purchase Order List
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['reorderstocklist']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/reports/itemsBelowReorderLevel/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Reorder Stock List
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['purchaseorderstatuslist']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/reports/poOrderStatusReport/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                   Purchase Order Status List
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['salesorderstatuslist']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/reports/soOrderStatusReport/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Sales Order Status List
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['invoicestatuslist']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/reports/salesInvoicePaymentStatusReport/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Invoice Status List
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['customerLogin']">
-                <a href="#" class="m-menu__link m-menu__toggle">
-                    <i class="m-menu__link-icon flaticon-cart"></i>
-                    <span class="m-menu__link-text">
-                        Order Management
-                    </span>
-                    <i class="m-menu__ver-arrow la la-angle-right"></i>
-                </a>
-                <div class="m-menu__submenu">
-                    <span class="m-menu__arrow"></span>
-                    <ul class="m-menu__subnav">
-                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
-                            <a href="#" class="m-menu__link ">
-                                <span class="m-menu__link-text">Order Management</span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['customerLogin']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/orderManagement/trnCustomerOrder/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Customer Order
-                                </span>
-                            </a>
-                        </li>
-                        <li [isAuthorize]="['customerLogin']" class="m-menu__item " aria-haspopup="true">
-                            <a routerLink="/features/orderManagement/invoice/list" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">
-                                    Invoice
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['customerLogin']">
-                <a routerLink="/features/productListing/list" class="m-menu__link m-menu__toggle">
-                    <i class="m-menu__link-icon flaticon-list-2"></i>
-                    <span class="m-menu__link-text">
-                        Product Listing
-                    </span>
-                    <i class="m-menu__ver-arrow la la-angle-right"></i>
-                </a>
-                <div class="m-menu__submenu">
-                    <span class="m-menu__arrow"></span>
-                    <ul class="m-menu__subnav">
-                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
-                            <a routerLink="/features/productListing/list" class="m-menu__link m-menu__toggle">
-                                <span class="m-menu__link-text">Product Listing</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
-                data-menu-submenu-toggle="hover" [isAuthorize]="['customerLogin']">
-                <a routerLink="/features/stockEnquiry/list" class="m-menu__link m-menu__toggle">
-                    <i class="m-menu__link-icon flaticon-info"></i>
-                    <span class="m-menu__link-text">
-                        Stock Enquiry
-                    </span>
-                    <i class="m-menu__ver-arrow la la-angle-right"></i>
-                </a>
-                <div class="m-menu__submenu">
-                    <span class="m-menu__arrow"></span>
-                    <ul class="m-menu__subnav">
-                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
-                            <a routerLink="/features/stockEnquiry/list" class="m-menu__link m-menu__toggle">
-                                <span class="m-menu__link-text">Stock Enquiry</span>
                             </a>
                         </li>
                     </ul>
@@ -669,6 +282,425 @@
                     </ul>
                 </div>
             </li>
+
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
+                data-menu-submenu-toggle="hover" [isAuthorize]="['productstock','stockmanagement']">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-clipboard"></i>
+                    <span class="m-menu__link-text">
+                        Stock
+                    </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a href="#" class="m-menu__link ">
+                                <span class="m-menu__link-text">Stock</span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['stockmanagement']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/master/trnProductStockDetail/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Product Stock
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['stockmanagement']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/master/trnProductStock/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Product Stock Detail
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
+                data-menu-submenu-toggle="hover" [isAuthorize]="['purchase','purchaseorder','grn','poagainstso']">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-cart"></i>
+                    <span class="m-menu__link-text">
+                        Purchase
+                    </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a href="#" class="m-menu__link ">
+                                <span class="m-menu__link-text">Purchase</span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['purchaseorder']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/purchase/trnPurchaseOrder/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Purchase Order
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['grn']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/purchase/trnGoodReceiveNote/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Good Receive Note
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['poagainstso']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/purchase/trnPOItemsWithInsufficientStock/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    PO Against SO
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
+                data-menu-submenu-toggle="hover" [isAuthorize]="['sales','salesorder','gin','invoice','ginforavailablestock','materialselection','materialquotation','advancepayment']">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-diagram"></i>
+                    <span class="m-menu__link-text">
+                        Sales
+                    </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a href="#" class="m-menu__link ">
+                                <span class="m-menu__link-text">Sales</span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['salesorder']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/sales/trnSalesOrder/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Sales Order
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['gin']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/sales/trnGoodIssueNote/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Good Issue Note
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['invoice']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/sales/trnSalesInvoice/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Sales Invoice
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['ginforavailablestock']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/sales/trnGINForItemsWithStockAvailable/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    GIN For Available Stock
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['materialselection']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/sales/trnMaterialSelection/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                   Material Selection
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['materialquotation']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/sales/trnMaterialQuotation/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                   Material Quotation
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['advancepayment']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/sales/trnAdvancePayment/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                   Advance Payment
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['curtainselection']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/sales/trnCurtainSelection/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                   Curtain Selection
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
+                data-menu-submenu-toggle="hover" [isAuthorize]="['reports','customerLogin','masterpricelist','clientpricelist','unpaidinvoicelist','pendingsalesorderlist','pendingpurchaseorderlist','reorderstocklist','purchaseorderstatuslist','salesorderstatuslist','invoicestatuslist']">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-cart"></i>
+                    <span class="m-menu__link-text">
+                        Reports
+                    </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a href="#" class="m-menu__link ">
+                                <span class="m-menu__link-text">Reports</span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['masterpricelist']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/reports/masterPriceList/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Master Price List
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['clientpricelist']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/reports/clientList/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Client Price List
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['customerLogin']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/reports/clientListForCustomer/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Client Price List
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['unpaidinvoicelist']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/reports/totalOutstandingAmount/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Unpaid Invoice List
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['customerLogin']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/reports/totalOutstandingAmountForCustomer/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Unpaid Invoice List
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['pendingsalesorderlist']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/reports/salesOrderCount/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                   Pending Sales Order List
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['customerLogin']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/reports/salesOrderCountForCustomer/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                   Pending Sales Order List
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['pendingpurchaseorderlist']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/reports/purchaseOrderCount/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                   Pending Purchase Order List
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['reorderstocklist']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/reports/itemsBelowReorderLevel/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Reorder Stock List
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['purchaseorderstatuslist']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/reports/poOrderStatusReport/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                   Purchase Order Status List
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['salesorderstatuslist']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/reports/soOrderStatusReport/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Sales Order Status List
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['invoicestatuslist']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/reports/salesInvoicePaymentStatusReport/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Invoice Status List
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
+                data-menu-submenu-toggle="hover" [isAuthorize]="['customerLogin']">
+                <a href="#" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-cart"></i>
+                    <span class="m-menu__link-text">
+                        Order Management
+                    </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a href="#" class="m-menu__link ">
+                                <span class="m-menu__link-text">Order Management</span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['customerLogin']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/orderManagement/trnCustomerOrder/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Customer Order
+                                </span>
+                            </a>
+                        </li>
+                        <li [isAuthorize]="['customerLogin']" class="m-menu__item " aria-haspopup="true">
+                            <a routerLink="/features/orderManagement/invoice/list" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">
+                                    Invoice
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
+                data-menu-submenu-toggle="hover" [isAuthorize]="['customerLogin']">
+                <a routerLink="/features/productListing/list" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-list-2"></i>
+                    <span class="m-menu__link-text">
+                        Product Listing
+                    </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a routerLink="/features/productListing/list" class="m-menu__link m-menu__toggle">
+                                <span class="m-menu__link-text">Product Listing</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="m-menu__item  m-menu__item--submenu m-menu__item--active" routerLinkActive="m-menu__item--active" aria-haspopup="true"
+                data-menu-submenu-toggle="hover" [isAuthorize]="['customerLogin']">
+                <a routerLink="/features/stockEnquiry/list" class="m-menu__link m-menu__toggle">
+                    <i class="m-menu__link-icon flaticon-info"></i>
+                    <span class="m-menu__link-text">
+                        Stock Enquiry
+                    </span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <a routerLink="/features/stockEnquiry/list" class="m-menu__link m-menu__toggle">
+                                <span class="m-menu__link-text">Stock Enquiry</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            
         </ul>
     </div>
     <!-- END: Aside Menu -->

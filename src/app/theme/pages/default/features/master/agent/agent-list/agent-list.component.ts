@@ -86,6 +86,7 @@ export class AgentListComponent implements OnInit {
     this.newRecord();
   }
   getAgentsList() {
+    Helpers.setLoading(true);
     this.agentService.getAllAgents(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.agentList = results.data;
@@ -93,10 +94,12 @@ export class AgentListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
   loadLazy(event: LazyLoadEvent) {
@@ -147,11 +150,10 @@ export class AgentListComponent implements OnInit {
         .subscribe(
         results => {
           this.getAgentsList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
-
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -162,8 +164,8 @@ export class AgentListComponent implements OnInit {
         .subscribe(
         results => {
           this.getAgentsList();
-          this.toggleDiv = false;
-          this.params = null;
+          this.isFormSubmitted = false;
+          this.newRecord();
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
 
@@ -195,7 +197,6 @@ export class AgentListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getAgentsList();
-            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

@@ -136,6 +136,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/sales\/trnAdvancePayment\/trnAdvancePayment.module#TrnAdvancePaymentModule"
       },
       {
+        "path": "features\/sales\/trnCurtainSelection",
+        "loadChildren": ".\/pages\/default\/features\/sales\/trnCurtainSelection\/trnCurtainSelection.module#TrnCurtainSelectionModule"
+      },
+      {
         "path": "features\/reports\/masterPriceList",
         "loadChildren": ".\/pages\/default\/features\/reports\/masterPriceList\/masterPriceList.module#MasterPriceListModule"
       },
@@ -152,8 +156,16 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/reports\/totalOutstandingAmount\/totalOutstandingAmount.module#TotalOutstandingAmountModule"
       },
       {
+        "path": "features\/reports\/totalOutstandingAmountForCustomer",
+        "loadChildren": ".\/pages\/default\/features\/reports\/totalOutstandingAmountForCustomer\/totalOutstandingAmountForCustomer.module#TotalOutstandingAmountForCustomerModule"
+      },
+      {
         "path": "features\/reports\/salesOrderCount",
         "loadChildren": ".\/pages\/default\/features\/reports\/salesOrderCount\/salesOrderCount.module#SalesOrderCountModule"
+      },
+      {
+        "path": "features\/reports\/salesOrderCountForCustomer",
+        "loadChildren": ".\/pages\/default\/features\/reports\/salesOrderCountForCustomer\/salesOrderCountForCustomer.module#SalesOrderCountForCustomerModule"
       },
       {
         "path": "features\/reports\/purchaseOrderCount",

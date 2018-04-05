@@ -37,6 +37,10 @@ export class FomSizeService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetFomSuggestedMMLookUpByFomDensity?fomDensityId=' + fomDensityId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getFomSizeLookUpByFomSuggestedMMId(fomSuggestedMMId) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetFomSizeLookUpByFomSuggestedMMId?fomSuggestedMMId=' + fomSuggestedMMId, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   createFomSize(fomSize: FomSize) {
     return this.http.post(AppSettings.API_ENDPOINT + 'FomSize', fomSize, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

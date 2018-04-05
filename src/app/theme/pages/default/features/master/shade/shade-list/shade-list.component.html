@@ -75,7 +75,7 @@
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxShade">
 														<label class="fieldLabel col-sm-5">Category<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
-															<select class="form-control" name="selectedCategory" [(ngModel)]="selectedCategory" [ngClass]="{'red-border-class': selectedCategoryVal.errors && isFormSubmitted}" #selectedCategoryVal="ngModel" (ngModelChange)="onCategoryClick()" [disabled]="disabled" required autofocus tabindex="1">
+															<select class="form-control" name="categoryId" [(ngModel)]="selectedCategory" [ngClass]="{'red-border-class': selectedCategoryVal.errors && isFormSubmitted}" #selectedCategoryVal="ngModel" (ngModelChange)="onCategoryClick()" [disabled]="disabled" required autofocus tabindex="1">
 																<option *ngFor="let x of categoryList" [ngValue]="x.value" [selected]="selectedCategory == x.value">{{x.label}}</option>
 															</select>
 															<!-- <p-dropdown class="feePlanBox" [options]="categoryList" [style]="{'width':'100%'}" #selectedCategoryVal="ngModel" required
@@ -86,7 +86,7 @@
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxShade">
 														<label class="fieldLabel col-sm-5">Collection<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
-															<select class="form-control" name="selectedCollection" [(ngModel)]="selectedCollection" [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" #selectedCollectionVal="ngModel" (ngModelChange)="onCollectionClick()" [disabled]="disabled" required tabindex="2">
+															<select class="form-control" name="collectionId" [(ngModel)]="selectedCollection" [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" #selectedCollectionVal="ngModel" (ngModelChange)="onCollectionClick()" [disabled]="disabled" required tabindex="2">
 																<option *ngFor="let x of collectionList" [ngValue]="x.value" [selected]="selectedCollection == x.value">{{x.label}}</option>
 															</select>
 															<!-- <p-dropdown class="feePlanBox" [options]="collectionList" [style]="{'width':'100%'}" [(ngModel)]="selectedCollection" #selectedCollectionVal="ngModel"
@@ -97,7 +97,7 @@
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxShade">
 														<label class="fieldLabel col-sm-5">Quality<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
-															<select class="form-control" name="selectedQuality" [(ngModel)]="selectedQuality" [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" #selectedQualityVal="ngModel" (ngModelChange)="onQualityClick()" [disabled]="disabled" required tabindex="3">
+															<select class="form-control" name="qualityId" [(ngModel)]="selectedQuality" [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" #selectedQualityVal="ngModel" (ngModelChange)="onQualityClick()" [disabled]="disabled" required tabindex="3">
 																<option *ngFor="let x of qualityList" [ngValue]="x.value" [selected]="selectedQuality == x.value">{{x.label}}</option>
 															</select>
 															<!-- <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="selectedQuality" #selectedQualityVal="ngModel"
@@ -108,7 +108,7 @@
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxShade">
 														<label class="fieldLabel col-sm-5">Design<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
-															<select class="form-control" name="selectedDesign" [(ngModel)]="selectedDesign" [ngClass]="{'red-border-class': selectedDesignVal.errors && isFormSubmitted}" #selectedDesignVal="ngModel" [disabled]="disabled" required tabindex="4">
+															<select class="form-control" name="designId" [(ngModel)]="selectedDesign" [ngClass]="{'red-border-class': selectedDesignVal.errors && isFormSubmitted}" #selectedDesignVal="ngModel" [disabled]="disabled" required tabindex="4">
 																<option *ngFor="let x of designList" [ngValue]="x.value" [selected]="selectedDesign == x.value">{{x.label}}</option>
 															</select>
 															<!-- <p-dropdown class="feePlanBox" [options]="designList" [style]="{'width':'100%'}" #selectedDesignVal="ngModel" required styleClass="{{ selectedDesignVal.errors && isFormSubmitted?'red-border-class':''}}"

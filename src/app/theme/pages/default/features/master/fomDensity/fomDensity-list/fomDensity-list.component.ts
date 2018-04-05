@@ -77,6 +77,7 @@ export class FomDensityListComponent implements OnInit {
     this.qualityList = [];
     this.qualityList.unshift({ label: '--Select--', value: null });
     this.selectedQuality = null;
+    this.disabled = false;
   }
 
   calculateSellingRate() {
@@ -205,10 +206,8 @@ export class FomDensityListComponent implements OnInit {
     if (this.fomDensityObj.id > 0) {
 
     } else {
-      this.fomDensityObj.categoryId = value.category;
-      this.fomDensityObj.collectionId = value.collection;
-      this.fomDensityObj.qualityId = value.quality;
-      this.fomDensityObj.thicknessId = value.thickness;
+      this.fomDensityObj.collectionId = value.collectionId;
+      this.fomDensityObj.qualityId = value.qualityId;
     }
 
     this.saveFomDensity(this.fomDensityObj);
@@ -221,9 +220,9 @@ export class FomDensityListComponent implements OnInit {
         .subscribe(
         results => {
           this.getFomDensitysList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -236,9 +235,10 @@ export class FomDensityListComponent implements OnInit {
         .subscribe(
         results => {
           this.getFomDensitysList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
+          this.disabled = false;
           Helpers.setLoading(false);
 
         },
@@ -270,7 +270,6 @@ export class FomDensityListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getFomDensitysList();
-            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

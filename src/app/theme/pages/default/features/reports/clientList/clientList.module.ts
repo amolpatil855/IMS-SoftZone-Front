@@ -21,6 +21,9 @@ import {
 import { ClientListComponent } from "./clientList.component";
 import { ClientListListComponent } from "./clientList-list/clientList-list.component";
 import { ClientListService } from "../../../_services/clientList.service";
+import { MatSizeService } from "../../../_services/matSize.service";
+import { ShadeService } from "../../../_services/shade.service";
+import { FomSizeService } from "../../../_services/fomSize.service";
 
 const routes: Routes = [
   {
@@ -67,6 +70,9 @@ const routes: Routes = [
   providers: [
     ClientListService,
     ConfirmationService,
+    MatSizeService,
+    ShadeService,
+    FomSizeService,
     CommonService,
     CollectionService,
   ],

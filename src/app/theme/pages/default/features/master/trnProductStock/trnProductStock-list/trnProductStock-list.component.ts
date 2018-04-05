@@ -100,6 +100,7 @@ export class TrnProductStockListComponent implements OnInit {
     this.shadeEnable = false;
     this.matEnable = false;
     this.fomEnable = false;
+    this.disabled = false;
   }
 
   toggleButton() {
@@ -334,9 +335,9 @@ export class TrnProductStockListComponent implements OnInit {
         .subscribe(
         results => {
           this.getTrnProductStocksList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -349,9 +350,9 @@ export class TrnProductStockListComponent implements OnInit {
         .subscribe(
         results => {
           this.getTrnProductStocksList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },

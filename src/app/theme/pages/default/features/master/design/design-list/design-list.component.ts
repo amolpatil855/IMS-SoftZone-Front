@@ -70,6 +70,7 @@ export class DesignListComponent implements OnInit {
     this.qualityList.unshift({ label: '--Select--', value: null });
     this.selectedCollection = null;
     this.selectedQuality = null;
+    this.disabled = false;
   }
 
   toggleButton() {
@@ -87,6 +88,7 @@ export class DesignListComponent implements OnInit {
     this.newRecord();
   }
   getDesignsList() {
+    Helpers.setLoading(true);
     this.designService.getAllDesigns(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.designList = results.data;
@@ -94,10 +96,12 @@ export class DesignListComponent implements OnInit {
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
         }
+        Helpers.setLoading(false);
       },
       error => {
         this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
       });
   }
 
@@ -204,9 +208,9 @@ export class DesignListComponent implements OnInit {
 
     }
     else {
-      this.designObj.categoryId = value.category;
-      this.designObj.collectionId = value.collection;
-      this.designObj.qualityId = value.quality;
+      this.designObj.categoryId = value.selectedCategory;
+      this.designObj.collectionId = value.selectedCollection;
+      this.designObj.qualityId = value.selectedQuality;
     }
     this.saveDesign(this.designObj);
   }
@@ -218,9 +222,9 @@ export class DesignListComponent implements OnInit {
         .subscribe(
         results => {
           this.getDesignsList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -233,9 +237,9 @@ export class DesignListComponent implements OnInit {
         .subscribe(
         results => {
           this.getDesignsList();
-          this.toggleDiv = false;
-          this.params = null;
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
+          this.isFormSubmitted = false;
+          this.newRecord();
           Helpers.setLoading(false);
 
         },
@@ -267,7 +271,6 @@ export class DesignListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getDesignsList();
-            this.toggleDiv = false;
           },
           error => {
             this.globalErrorHandler.handleError(error);

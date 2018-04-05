@@ -29,6 +29,10 @@ export class MatSizeService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetQualityLookUpByCollection?collectionId=' + collectionId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getMatSizeLookUpByMatThicknessId(matThicknessId) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetMatSizeLookUpByMatThicknessId?matThicknessId=' + matThicknessId, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   getMatThicknessLookUp() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetMatThicknessLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
