@@ -61,7 +61,8 @@ export class SalesInvoicePaymentStatusReportListComponent implements OnInit {
   }
 
   onChangePaymentStatus(){
-        this.getTotalOutstandingAmountList();
+    this.page = 0;
+    this.getTotalOutstandingAmountList();
   }
 
   loadLazy(event: LazyLoadEvent) {

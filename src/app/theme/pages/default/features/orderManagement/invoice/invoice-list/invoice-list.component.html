@@ -64,7 +64,7 @@
 								<i class="fa fa-search searchIcon"></i>
 								<input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
 							</div>
-							<p-dataTable [value]="invoiceList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb"
+							<p-dataTable [value]="invoiceList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" [responsive]="true"
 							 #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
 								<p-column field="invoiceNumber" header="Invoice No." [style]="{'text-align':'center'}"></p-column>
 								<p-column field="ginNumber" header="GIN No." [style]="{'text-align':'center'}"></p-column>
