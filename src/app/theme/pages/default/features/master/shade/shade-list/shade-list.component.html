@@ -223,7 +223,7 @@
 											</span>
 										</button>
 							</div>
-							<p-dataTable [value]="shadeList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb"
+							<p-dataTable [value]="shadeList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [globalFilter]="gb" [responsive]="true"
 							 #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
 								<p-column field="categoryCode" header="Category" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="collectionCode" header="Collection" [style]="{'text-align':'left'}"></p-column>

@@ -60,6 +60,7 @@ export class PoOrderStatusReportListComponent implements OnInit {
   }
 
   onChangeStatus(){
+    this.page = 0;
     this.getPOorderStatusReport();
   }
 
