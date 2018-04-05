@@ -15,6 +15,7 @@ import { Helpers } from "../../../../../../../helpers";
 import { MatSizeService } from "../../../../_services/matSize.service";
 import { ShadeService } from "../../../../_services/shade.service";
 import { FomSizeService } from "../../../../_services/fomSize.service";
+import { CollectionService } from "../../../../_services/collection.service";
 @Component({
   selector: "app-clientListForCustomer-list",
   templateUrl: "./clientListForCustomer-list.component.html",
@@ -54,6 +55,7 @@ export class ClientListForCustomerListComponent implements OnInit {
     private matSizeService: MatSizeService,
     private shadeService: ShadeService,
     private fomSizeService: FomSizeService,
+    private collectionService: CollectionService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private commonService: CommonService,
@@ -186,7 +188,7 @@ export class ClientListForCustomerListComponent implements OnInit {
         Helpers.setLoading(false);
       });
   }
-  
+
   export() {
     let columns: any[];
 
@@ -237,8 +239,8 @@ export class ClientListForCustomerListComponent implements OnInit {
         }
       ];
       let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
-      if(categoryObj)
-      this.getFabricProductsExport(columns, categoryObj.label);
+      if (categoryObj)
+        this.getFabricProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 2) {
       columns = [
@@ -294,8 +296,8 @@ export class ClientListForCustomerListComponent implements OnInit {
         }
       ];
       let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
-      if(categoryObj)
-      this.getFoamProductsExport(columns, categoryObj.label);
+      if (categoryObj)
+        this.getFoamProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 7) {
       columns = [
@@ -338,8 +340,8 @@ export class ClientListForCustomerListComponent implements OnInit {
         }
       ];
       let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
-      if(categoryObj)
-      this.getAccessoryProductsExport(columns, categoryObj.label);
+      if (categoryObj)
+        this.getAccessoryProductsExport(columns, categoryObj.label);
     }
   }
 
@@ -371,8 +373,8 @@ export class ClientListForCustomerListComponent implements OnInit {
     this.pageSize = event.rows;
     this.page = event.first / event.rows;
     this.search = event.globalFilter;
-    if(this.search == null)
-        this.search = '';
+    if (this.search == null)
+      this.search = '';
     if (this.categoryId == 1) {
       this.getFWRCollectionLookup();
       this.tableEmptyMesssage = 'Loading...';
@@ -429,7 +431,7 @@ export class ClientListForCustomerListComponent implements OnInit {
     }
   }
 
-  getCategoryWiseProducts(){
+  getCategoryWiseProducts() {
     if (this.categoryId == 1) {
       this.tableEmptyMesssage = 'Loading...';
       this.getFabricProducts();
@@ -444,19 +446,32 @@ export class ClientListForCustomerListComponent implements OnInit {
     }
   }
 
-  getFWRCollectionLookup(){
-    this.shadeService.getCollectionLookUp(this.categoryId).subscribe(
-        results => {
-          this.collectionList = results;
-          this.collectionList.unshift({ label: '--Select--', value: null });
-          if (this.selectedCollection > 0) {
-            this.onCollectionClick();
-          }
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+  getFWRCollectionLookup() {
+    Helpers.setLoading(true);
+    this.collectionService.getCollectionLookUpForSo(this.categoryId).subscribe(
+      results => {
+        this.collectionList = results;
+        this.collectionList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+  getQualityLookUpForSO() {
+    Helpers.setLoading(true);
+    this.collectionService.getQualityLookUpForSO(this.selectedCollection).subscribe(
+      results => {
+        this.qualityList = results;
+        this.qualityList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
   getFomCollectionLookUp() {
@@ -504,20 +519,24 @@ export class ClientListForCustomerListComponent implements OnInit {
     this.shadeId = null;
     this.selectedDesign = null;
     this.selectedQuality = null;
-    
+
     this.getCategoryWiseProducts();
     if (this.selectedCollection != null) {
-     Helpers.setLoading(true);
-      this.matSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
-        results => {
-          this.qualityList = results;
-          this.qualityList.unshift({ label: '--Select--', value: null });
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+      if (this.categoryId == 1) {
+        this.getQualityLookUpForSO();
+      } else if (this.categoryId == 2) {
+        Helpers.setLoading(true);
+        this.matSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
+          results => {
+            this.qualityList = results;
+            this.qualityList.unshift({ label: '--Select--', value: null });
+            Helpers.setLoading(false);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
+      }
     }
   }
 
@@ -537,21 +556,21 @@ export class ClientListForCustomerListComponent implements OnInit {
     this.shadeList = [];
     this.shadeList.unshift({ label: '--Select--', value: null });
     this.shadeId = null;
-     this.getCategoryWiseProducts();
+    this.getCategoryWiseProducts();
     if (this.selectedQuality != null) {
-      if(this.categoryId == 1){
+      if (this.categoryId == 1) {
         this.shadeService.getDesignLookupByQuality(this.selectedQuality).subscribe(
-        results => {
-          this.designList = results;
-          this.designList.unshift({ label: '--Select--', value: null });
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+          results => {
+            this.designList = results;
+            this.designList.unshift({ label: '--Select--', value: null });
+            Helpers.setLoading(false);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
       }
-      else if(this.categoryId == 2){
+      else if (this.categoryId == 2) {
         this.fomSizeService.getFomDensityLookUpByQuality(this.selectedQuality).subscribe(
           results => {
             this.fomDensityList = results;
@@ -562,11 +581,11 @@ export class ClientListForCustomerListComponent implements OnInit {
             this.globalErrorHandler.handleError(error);
             Helpers.setLoading(false);
           });
-        }
+      }
     }
   }
 
-  onDesignClick(){
+  onDesignClick() {
     this.shadeList = [];
     this.shadeList.unshift({ label: '--Select--', value: null });
     this.shadeId = null;
@@ -609,7 +628,7 @@ export class ClientListForCustomerListComponent implements OnInit {
     }
   }
 
-  onSuggestedMMChange(){
+  onSuggestedMMChange() {
     this.fomSizeList = [];
     this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.fomSizeId = null;
@@ -628,11 +647,11 @@ export class ClientListForCustomerListComponent implements OnInit {
     }
   }
 
-  onShadeIdChange(){
+  onShadeIdChange() {
     this.getCategoryWiseProducts();
   }
 
-  onFoamItemChange(){
+  onFoamItemChange() {
     this.getCategoryWiseProducts();
   }
 

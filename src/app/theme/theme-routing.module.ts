@@ -136,6 +136,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/sales\/trnAdvancePayment\/trnAdvancePayment.module#TrnAdvancePaymentModule"
       },
       {
+        "path": "features\/sales\/trnCurtainSelection",
+        "loadChildren": ".\/pages\/default\/features\/sales\/trnCurtainSelection\/trnCurtainSelection.module#TrnCurtainSelectionModule"
+      },
+      {
         "path": "features\/reports\/masterPriceList",
         "loadChildren": ".\/pages\/default\/features\/reports\/masterPriceList\/masterPriceList.module#MasterPriceListModule"
       },

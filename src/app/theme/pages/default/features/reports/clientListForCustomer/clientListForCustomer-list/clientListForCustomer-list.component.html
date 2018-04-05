@@ -56,7 +56,7 @@
                             <div class="ui-widget-header" style="border-bottom: 0 none">
                                 <div class="row" style="padding-top: 9px;padding-bottom: 10px;">
                                     <div class="col-md-4">
-                                        <label class="col-md-4 col-sm-4 fieldLabel">Category<span class="requiredField">*</span></label>
+                                        <label class="col-md-4 col-sm-4 fieldLabel">Category</label>
                                         <div class="col-md-8 col-sm-8">
                                             <select class="form-control" name="categoryId" [(ngModel)]="categoryId" (ngModelChange)="onChangeCategory()" autofocus tabindex="1">
                                                 <option *ngFor="let x of categoriesCodeList" [ngValue]="x.value" [selected]="categoryId == x.value">{{x.label}}</option>
@@ -64,17 +64,17 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4" *ngIf="categoryId!=7">
-                                        <label class="col-md-4 col-sm-4 fieldLabel">Collection<span class="requiredField">*</span></label>
+                                        <label class="col-md-4 col-sm-4 fieldLabel">Collection</label>
                                         <div class="col-md-8 col-sm-8">
-                                            <select class="form-control" name="collectionId" [(ngModel)]="selectedCollection" [ngClass]="{'red-border-class': selectedCollectionVal.errors && isFormSubmitted}" #selectedCollectionVal="ngModel" (ngModelChange)="onCollectionClick()" required tabindex="2">
+                                            <select class="form-control" name="collectionId" [(ngModel)]="selectedCollection" (ngModelChange)="onCollectionClick()" tabindex="2">
                                                 <option *ngFor="let x of collectionList" [ngValue]="x.value" [selected]="selectedCollection == x.value">{{x.label}}</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4" *ngIf="categoryId!=7">
-                                        <label class="col-md-4 col-sm-4 fieldLabel">Quality<span class="requiredField">*</span></label>
+                                        <label class="col-md-4 col-sm-4 fieldLabel">Quality</label>
                                         <div class="col-md-8 col-sm-8">
-                                            <select class="form-control" name="qualityId" [(ngModel)]="selectedQuality" [ngClass]="{'red-border-class': selectedQualityVal.errors && isFormSubmitted}" #selectedQualityVal="ngModel" (ngModelChange)="onQualityClick()" required tabindex="3">
+                                            <select class="form-control" name="qualityId" [(ngModel)]="selectedQuality" (ngModelChange)="onQualityClick()" tabindex="3">
                                                 <option *ngFor="let x of qualityList" [ngValue]="x.value" [selected]="selectedQuality == x.value">{{x.label}}</option>
                                             </select>
                                         </div>
@@ -82,45 +82,45 @@
                                 </div>
                                 <div class="row" style="padding-top: 9px;padding-bottom: 10px;" *ngIf="categoryId!=7">
                                     <div class="col-md-4" *ngIf="categoryId==1">
-                                        <label class="col-md-4 col-sm-4 fieldLabel">Design<span class="requiredField">*</span></label>
+                                        <label class="col-md-4 col-sm-4 fieldLabel">Design</label>
                                         <div class="col-md-8 col-sm-8">
-                                            <select class="form-control" name="designId" [(ngModel)]="selectedDesign" [ngClass]="{'red-border-class': selectedDesignVal.errors && isFormSubmitted}" #selectedDesignVal="ngModel" (ngModelChange)="onDesignClick()" required tabindex="4">
+                                            <select class="form-control" name="designId" [(ngModel)]="selectedDesign" (ngModelChange)="onDesignClick()" tabindex="4">
                                                 <option *ngFor="let x of designList" [ngValue]="x.value" [selected]="selectedDesign == x.value">{{x.label}}</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4" *ngIf="categoryId==1">
-                                         <label class="col-md-4 col-sm-4 fieldLabel">Shade<span class="requiredField">*</span></label>
+                                         <label class="col-md-4 col-sm-4 fieldLabel">Shade</label>
                                         <div class="col-md-8 col-sm-8">
-                                            <select class="form-control" name="shadeId" [(ngModel)]="shadeId" (ngModelChange)="onShadeIdChange()" tabindex="10">
+                                            <select class="form-control" name="shadeId" [(ngModel)]="shadeId" (ngModelChange)="onShadeIdChange()" tabindex="5">
                                                 <option *ngFor="let x of shadeList" [ngValue]="x.value" [selected]="shadeId == x.value">{{x.label}}</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4" *ngIf="categoryId==2">
-                                         <label class="col-md-4 col-sm-4 fieldLabel">Foam Item<span class="requiredField">*</span></label>
+                                       <label class="col-md-4 col-sm-4 fieldLabel">Density</label>
                                         <div class="col-md-8 col-sm-8">
-                                        <select class="form-control" name="fomSizeId" [(ngModel)]="fomSizeId" [ngClass]="{'red-border-class': fomSizeIdError}" (ngModelChange)="onFoamItemChange()" tabindex="10">
-                                            <option *ngFor="let x of fomSizeList" [ngValue]="x.value" [selected]="fomSizeId == x.value">{{x.label}}</option>
-                                        </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4" *ngIf="categoryId==2">
-                                       <label class="col-md-4 col-sm-4 fieldLabel">Density<span class="requiredField">*</span></label>
-                                        <div class="col-md-8 col-sm-8">
-                                           <select class="form-control" name="fomDensityId" [(ngModel)]="selectedDensity" [ngClass]="{'red-border-class': selectedDensityVal.errors && isFormSubmitted}" #selectedDensityVal="ngModel" (ngModelChange)="onDensityClick()" [disabled]="disabled" required tabindex="3">
+                                           <select class="form-control" name="fomDensityId" [(ngModel)]="selectedDensity" (ngModelChange)="onDensityClick()" tabindex="5">
                                             <option *ngFor="let x of fomDensityList" [ngValue]="x.value" [selected]="selectedDensity == x.value">{{x.label}}</option>
                                             </select>
                                         </div> 
                                     </div>
                                     <div class="col-md-4" *ngIf="categoryId==2">
-                                        <label class="col-md-4 col-sm-4 fieldLabel">SuggestedMM<span class="requiredField">*</span></label>
+                                        <label class="col-md-4 col-sm-4 fieldLabel">SuggestedMM</label>
                                         <div class="col-md-8 col-sm-8">
-                                            <select class="form-control" name="fomSuggestedMMId" [(ngModel)]="selectedSize" (ngModelChange)="onSuggestedMMChange()"  required tabindex="4">
+                                            <select class="form-control" name="fomSuggestedMMId" [(ngModel)]="selectedSize" (ngModelChange)="onSuggestedMMChange()"  tabindex="6">
                                                 <option *ngFor="let x of fomSuggestedMMList" [ngValue]="x.value" [selected]="selectedSize == x.value">{{x.label}}</option>
                                             </select>
                                         </div>
                                     </div> 
+                                    <div class="col-md-4" *ngIf="categoryId==2">
+                                         <label class="col-md-4 col-sm-4 fieldLabel">Foam Item</label>
+                                        <div class="col-md-8 col-sm-8">
+                                        <select class="form-control" name="fomSizeId" [(ngModel)]="fomSizeId" (ngModelChange)="onFoamItemChange()" tabindex="7">
+                                            <option *ngFor="let x of fomSizeList" [ngValue]="x.value" [selected]="fomSizeId == x.value">{{x.label}}</option>
+                                        </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row" style="padding-top: 9px;padding-bottom: 10px;">
                                     <div class="col-md-8">

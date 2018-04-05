@@ -37,8 +37,6 @@ export class IndexComponent implements OnInit, AfterViewInit {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.superAdmin = _.find(currentUser.roles, { 'name': 'SuperAdmin' });
     this.getLoggedInUserDetail();
-    this.getDashboard();
-    this.getDashboardDataForCustomer();
   }
 
   getLoggedInUserDetail(){
@@ -51,9 +49,11 @@ export class IndexComponent implements OnInit, AfterViewInit {
       if(this.userRole == "Customer") {
         this.showDashboardForAdmin = false;
         this.showDashboardForCustomer = true;
+        this.getDashboardDataForCustomer();
       }else{
         this.showDashboardForAdmin = true;
         this.showDashboardForCustomer = false;
+        this.getDashboard();
       }
       Helpers.setLoading(false);
     });
