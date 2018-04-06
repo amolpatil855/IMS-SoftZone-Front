@@ -32,8 +32,8 @@ export class CustomerListComponent implements OnInit {
   isFormSubmitted: boolean = false;
   tableEmptyMesssage = 'Loading...';
   customerTypeList = ["Furniture Showroom", "Workshop Big", "Workshop Small", "Karagir", "Designer", "Miscellaneous"];
-  misVal='';
-  isResponsive:boolean;
+  misVal = '';
+  isResponsive: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -50,15 +50,15 @@ export class CustomerListComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       this.params = params['customerId'];
     });
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-      this.isResponsive=true;
-      }
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      this.isResponsive = true;
+    }
     this.newRecord();
   }
   newRecord() {
     this.params = null;
     this.isHide = false;
-    this.misVal="";
+    this.misVal = "";
     this.customerObj = {
       id: 0,
       code: '',
@@ -77,7 +77,7 @@ export class CustomerListComponent implements OnInit {
       accountPersonEmail: '',
       creditPeriodDays: null,
       userName: '',
-      type:'',
+      type: '',
       MstCustomerAddresses: [],
     };
 
@@ -119,7 +119,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   onClickPrimary(row) {
-    this.customerObj.MstCustomerAddresses.forEach(function (value) {
+    this.customerObj.MstCustomerAddresses.forEach(function(value) {
       value.isPrimary = false;
     })
     row.isPrimary = true;
@@ -130,13 +130,12 @@ export class CustomerListComponent implements OnInit {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Primary address can not be deleted." });
     } else {
       Helpers.setLoading(true);
-      let id=this.customerObj.MstCustomerAddresses[supAddIndex].id;
+      let id = this.customerObj.MstCustomerAddresses[supAddIndex].id;
       this.customerService.canDeleteAddress(id).subscribe(
         results => {
-          if(results)
-          this.customerObj.MstCustomerAddresses.splice(supAddIndex, 1);
-          else
-          {
+          if (results)
+            this.customerObj.MstCustomerAddresses.splice(supAddIndex, 1);
+          else {
             this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Not able to delete the address due to reference exist with another record." });
             Helpers.setLoading(false);
           }
@@ -144,8 +143,8 @@ export class CustomerListComponent implements OnInit {
         error => {
           this.globalErrorHandler.handleError(error);
         });
-      
-     
+
+
     }
   }
 
@@ -244,7 +243,7 @@ export class CustomerListComponent implements OnInit {
   validateAddress() {
     let regex = new RegExp("^[A-Z0-9]{15}$");
     let isvalidAddress = true;
-    _.forEach(this.customerObj.MstCustomerAddresses, function (addressObj) {
+    _.forEach(this.customerObj.MstCustomerAddresses, function(addressObj) {
       if (!addressObj.addressLine1) {
         addressObj.invalidAddressLine1 = true;
         isvalidAddress = false;
@@ -285,7 +284,7 @@ export class CustomerListComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    _.forEach(this.customerObj.MstCustomerAddresses, function (addressObj) {
+    _.forEach(this.customerObj.MstCustomerAddresses, function(addressObj) {
       if (!addressObj.addressLine1) {
         addressObj.invalidAddressLine1 = true;
         valid = false;
@@ -320,9 +319,8 @@ export class CustomerListComponent implements OnInit {
   }
 
   saveCustomer(value) {
-    if(value.type == 'Miscellaneous')
-    {
-      value.type=this.misVal;
+    if (value.type == 'Miscellaneous') {
+      value.type = this.misVal;
     }
     Helpers.setLoading(true);
     if (this.params) {
@@ -363,8 +361,7 @@ export class CustomerListComponent implements OnInit {
         if (this.customerObj.isWholesaleCustomer) {
           this.isHide = true;
         }
-        else
-        {
+        else {
           this.isHide = false;
         }
         this.customerObj.MstCustomerAddresses = results.mstCustomerAddresses;
@@ -383,14 +380,14 @@ export class CustomerListComponent implements OnInit {
             contRoleId: Math.floor(Math.random() * 2000),
           });
         }
-        let custType=this.customerObj.type;
-        let index=  _.findIndex(this.customerTypeList, function(o) { return o == custType; });
-        if(index ==-1){
-          this.misVal=this.customerObj.type;
-          this.customerObj.type= custType? "Miscellaneous":null;
+        let custType = this.customerObj.type;
+        let index = _.findIndex(this.customerTypeList, function(o) { return o == custType; });
+        if (index == -1) {
+          this.misVal = this.customerObj.type;
+          this.customerObj.type = custType ? "Miscellaneous" : null;
         }
         delete this.customerObj['mstCustomerAddresses'];
-        _.forEach(this.customerObj.MstCustomerAddresses, function (value) {
+        _.forEach(this.customerObj.MstCustomerAddresses, function(value) {
           value.contRoleId = Math.floor(Math.random() * 2000);
         });
         Helpers.setLoading(false);

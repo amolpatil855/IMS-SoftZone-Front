@@ -24,17 +24,17 @@ export class TrnGoodIssueNoteService {
   getTrnGoodIssueNoteById(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnGoodIssueNote/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   getshadeIdTrnGoodIssueNotes(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpForGRN?collectionId=' + id , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpForGRN?collectionId=' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getFoamSizeTrnGoodIssueNotes(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetFomSizeLookUpForGRN?collectionId=' + id , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetFomSizeLookUpForGRN?collectionId=' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   getMatsizeTrnGoodIssueNotes(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetMatSizeLookUpForGRN?collectionId=' + id , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetMatSizeLookUpForGRN?collectionId=' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getAccessoryLookUp() {
@@ -44,7 +44,7 @@ export class TrnGoodIssueNoteService {
   getCompanyLocationLookUp() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   createTrnGoodIssueNote(trnGoodIssueNote: TrnGoodIssueNote) {
     return this.http.post(AppSettings.API_ENDPOINT + 'TrnGoodIssueNote', trnGoodIssueNote, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

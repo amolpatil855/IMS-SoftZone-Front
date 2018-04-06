@@ -17,7 +17,7 @@ export class FormatService {
       case 'text':
         return input;
       case 'bool':
-        return input=="0"?"No":"Yes";
+        return input == "0" ? "No" : "Yes";
       case 'date':
         return this.getDate(input);
       case 'csv':

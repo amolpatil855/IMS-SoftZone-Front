@@ -34,5 +34,5 @@ export class ClientListForCustomerService {
   getFoamProductsForExport() {
     return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetFoamProductsForExport', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
 }

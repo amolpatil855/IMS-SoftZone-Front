@@ -108,7 +108,7 @@ export class UsersListComponent implements OnInit {
             this.globalErrorHandler.handleError(error);
           });
 
-       // this.userForm.get('role').disable();
+        // this.userForm.get('role').disable();
         this.butDisabled = true;
       }
       else {
@@ -149,7 +149,7 @@ export class UsersListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getAllUserList();
   }
@@ -200,7 +200,7 @@ export class UsersListComponent implements OnInit {
   getUserById(id) {
     this.userService.getUserById(id).subscribe(
       results => {
-        this.userObj = results;       
+        this.userObj = results;
         this.getRoleList(results.userTypeId);
         this.userForm.setValue({
           id: results.id,

@@ -60,15 +60,15 @@ export class SalesInvoicePaymentStatusReportListComponent implements OnInit {
       });
   }
 
-  onChangePaymentStatus(){
+  onChangePaymentStatus() {
     this.page = 0;
     this.getTotalOutstandingAmountList();
   }
 
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
-        this.getTotalOutstandingAmountList();
+    this.page = event.first / event.rows;
+    this.getTotalOutstandingAmountList();
   }
 
 }

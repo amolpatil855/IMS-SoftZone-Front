@@ -58,14 +58,14 @@ export class SoOrderStatusReportListComponent implements OnInit {
       });
   }
 
-  onChangeStatus(){
+  onChangeStatus() {
     this.page = 0;
     this.getSOorderStatusReport();
   }
 
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.getSOorderStatusReport();
   }
 

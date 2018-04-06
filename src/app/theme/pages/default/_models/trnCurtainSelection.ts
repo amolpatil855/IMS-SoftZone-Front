@@ -1,3 +1,3 @@
-export class TrnCurtainSelection{
-    id: number;
+export class TrnCurtainSelection {
+  id: number;
 }

@@ -45,7 +45,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
   disabled: boolean = false;
   locationObj = null;
   courierList = [];
-  showForm:boolean;
+  showForm: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -64,7 +64,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showForm=true;
+    this.showForm = true;
     this.getLocationList();
     this.getCourierList();
     this.getLoggedInUserDetail();
@@ -198,7 +198,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
     }
 
     let sum = 0;
-    _.forEach(this.selectedItemsList, function (selectedItem) {
+    _.forEach(this.selectedItemsList, function(selectedItem) {
       sum = sum + selectedItem.amountWithGST;
     });
 
@@ -207,14 +207,14 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
 
 
   getTrnPurchaseOrderById() {
-    this.showForm=true;
+    this.showForm = true;
     this.isFormSubmitted = false;
     Helpers.setLoading(true);
     this.trnPOItemsWithInsufficientStockService.getPOItemsWithStockInsufficient().subscribe(
       results => {
         Helpers.setLoading(false);
         this.trnPurchaseOrderItems = results;
-        let vm=this;
+        let vm = this;
         this.filteredItems = this.trnPurchaseOrderItems;
         _.forEach(this.filteredItems, function(value) {
           vm.changeOrderType(value);
@@ -229,11 +229,11 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
   }
 
   onChangeSupplier() {
-    this.selectedItemsList=[];
+    this.selectedItemsList = [];
     this.trnPurchaseOrderObj.totalAmount = 0;
     let supplierId = this.trnPurchaseOrderObj.supplierId;
     if (supplierId != null) {
-      this.filteredItems = _.filter(this.trnPurchaseOrderItems, function (o) { return o.supplierId == supplierId; });
+      this.filteredItems = _.filter(this.trnPurchaseOrderItems, function(o) { return o.supplierId == supplierId; });
       this.filteredItems = this.filteredItems.length == 0 ? [] : this.filteredItems;
       if (this.filteredItems.length == 0)
         this.tableEmptyMesssage = "Records Not Available";
@@ -293,7 +293,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
       return false;
     }
 
-    _.forEach(this.selectedItemsList, function (selectedItem) {
+    _.forEach(this.selectedItemsList, function(selectedItem) {
       if (!selectedItem.amountWithGST || selectedItem.orderQuantity == 0 || !selectedItem.orderQuantity)
         isAmountAvailable = false;
     });
@@ -326,7 +326,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
     let tempOrderDate = new Date(value.orderDate);
     value.orderDate = new Date(tempOrderDate.setHours(23));
     Helpers.setLoading(true);
-    this.showForm=false;
+    this.showForm = false;
     this.trnPurchaseOrderService.createTrnPurchaseOrder(value)
       .subscribe(
       results => {
@@ -334,7 +334,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
         this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
         Helpers.setLoading(false);
         this.newPO();
-       // value.resetForm();
+        // value.resetForm();
       },
       error => {
         this.globalErrorHandler.handleError(error);

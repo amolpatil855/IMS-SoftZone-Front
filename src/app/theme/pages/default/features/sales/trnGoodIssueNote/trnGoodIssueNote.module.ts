@@ -23,8 +23,8 @@ import { TrnGoodIssueNoteService } from "../../../_services/trnGoodIssueNote.ser
 import { TrnGoodIssueNoteComponent } from "./trnGoodIssueNote.component";
 import { TrnGoodIssueNoteListComponent } from "./trnGoodIssueNote-list/trnGoodIssueNote-list.component";
 import { TrnGoodIssueNoteAddEditComponent } from "./trnGoodIssueNote-add-edit/trnGoodIssueNote-add-edit.component";
-import {TrnProductStockService} from "../../../_services/trnProductStock.service";
-import {MatSizeService} from "../../../_services/matSize.service";
+import { TrnProductStockService } from "../../../_services/trnProductStock.service";
+import { MatSizeService } from "../../../_services/matSize.service";
 import { TrnGINForItemsWithStockAvailableService } from '../../../_services/trnGINForItemsWithStockAvailable.service';
 const routes: Routes = [
   {

@@ -7,7 +7,7 @@ import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
 import { CommonService } from '../../../_services/common.service';
 import { CollectionService } from '../../../_services/collection.service';
-import {TrnProductStockService} from "../../../_services/trnProductStock.service";
+import { TrnProductStockService } from "../../../_services/trnProductStock.service";
 import {
   DataTableModule,
   SharedModule,

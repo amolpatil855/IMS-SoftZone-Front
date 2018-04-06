@@ -20,7 +20,7 @@ export class TrnCustomerOrderService {
   getTrnCustomerOrderById(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnCustomerOrder/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   createTrnCustomerOrder(trnCustomerOrder: TrnCustomerOrder) {
     return this.http.post(AppSettings.API_ENDPOINT + 'TrnCustomerOrder', trnCustomerOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

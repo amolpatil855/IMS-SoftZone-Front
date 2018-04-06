@@ -39,18 +39,18 @@ export class IndexComponent implements OnInit, AfterViewInit {
     this.getLoggedInUserDetail();
   }
 
-  getLoggedInUserDetail(){
+  getLoggedInUserDetail() {
     Helpers.setLoading(true);
     this.userService.getLoggedInUserDetail().subscribe(loggedInUser => {
-      if(loggedInUser != null){
+      if (loggedInUser != null) {
         this.userRole = loggedInUser.mstRole.roleName;
         this.userName = loggedInUser.userName;
-      }  
-      if(this.userRole == "Customer") {
+      }
+      if (this.userRole == "Customer") {
         this.showDashboardForAdmin = false;
         this.showDashboardForCustomer = true;
         this.getDashboardDataForCustomer();
-      }else{
+      } else {
         this.showDashboardForAdmin = true;
         this.showDashboardForCustomer = false;
         this.getDashboard();
@@ -60,28 +60,28 @@ export class IndexComponent implements OnInit, AfterViewInit {
   }
 
 
-  getDashboard(){
+  getDashboard() {
     Helpers.setLoading(true);
-    this.dashboardService.getDashboard().subscribe( result =>{
+    this.dashboardService.getDashboard().subscribe(result => {
       this.dashboardObj = result;
       Helpers.setLoading(false);
     },
-    error => {
-      this.globalErrorHandler.handleError(error);
-      Helpers.setLoading(false);
-    });
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
-  getDashboardDataForCustomer(){
+  getDashboardDataForCustomer() {
     Helpers.setLoading(true);
-    this.dashboardService.getDashboardDataForCustomer().subscribe( result =>{
+    this.dashboardService.getDashboardDataForCustomer().subscribe(result => {
       this.dashboardObjForCustomer = result;
       Helpers.setLoading(false);
     },
-    error => {
-      this.globalErrorHandler.handleError(error);
-      Helpers.setLoading(false);
-    });
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
   ngAfterViewInit() {

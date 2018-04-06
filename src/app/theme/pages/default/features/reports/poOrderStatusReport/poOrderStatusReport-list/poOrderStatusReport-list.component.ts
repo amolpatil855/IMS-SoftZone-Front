@@ -59,14 +59,14 @@ export class PoOrderStatusReportListComponent implements OnInit {
       });
   }
 
-  onChangeStatus(){
+  onChangeStatus() {
     this.page = 0;
     this.getPOorderStatusReport();
   }
 
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.getPOorderStatusReport();
   }
 

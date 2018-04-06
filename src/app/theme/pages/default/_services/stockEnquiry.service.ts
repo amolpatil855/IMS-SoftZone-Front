@@ -12,5 +12,5 @@ export class StockEnquiryService {
   perPage: any = 25;
   currentPos: any = 0;
   currentPageNumber: any = 1;
-  
+
 }

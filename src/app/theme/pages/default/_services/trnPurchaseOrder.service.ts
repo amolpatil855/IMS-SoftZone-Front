@@ -28,7 +28,7 @@ export class TrnPurchaseOrderService {
   getTrnPurchaseOrderById(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnPurchaseOrder/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   createTrnPurchaseOrder(trnPurchaseOrder: TrnPurchaseOrder) {
     return this.http.post(AppSettings.API_ENDPOINT + 'TrnPurchaseOrder', trnPurchaseOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
@@ -47,15 +47,15 @@ export class TrnPurchaseOrderService {
 
 
   getshadeIdPurchaseOrders(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpByCollection?collectionId=' + id , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpByCollection?collectionId=' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getFoamSizePurchaseOrders(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetFomSizeLookUpByCollection?collectionId=' + id , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetFomSizeLookUpByCollection?collectionId=' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   getMatsizePurchaseOrders(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetMatSizeLookUpByCollection?collectionId=' + id , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetMatSizeLookUpByCollection?collectionId=' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
 }

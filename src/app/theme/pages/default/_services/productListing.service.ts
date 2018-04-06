@@ -32,5 +32,5 @@ export class ProductListingService {
   getProductStock(categoryId, collectionId, parameterId) {
     return this.http.get(AppSettings.API_ENDPOINT + 'ProductList/GetProductStock?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
 }

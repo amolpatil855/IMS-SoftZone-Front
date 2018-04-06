@@ -17,7 +17,7 @@ export class CollectionService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Collection?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getCollectionForGRNByCategorynSupplierId(categoryId,supplierId) {
+  getCollectionForGRNByCategorynSupplierId(categoryId, supplierId) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionForGRNByCategorynSupplierId?categoryId=' + categoryId + '&supplierId=' + supplierId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 

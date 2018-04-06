@@ -1,3 +1,3 @@
-export class TrnCustomerOrder{
-    id: number;
+export class TrnCustomerOrder {
+  id: number;
 }

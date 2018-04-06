@@ -61,7 +61,7 @@ export class SalesOrderCountForCustomerListComponent implements OnInit {
 
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getTrnSalesOrdersList();
   }

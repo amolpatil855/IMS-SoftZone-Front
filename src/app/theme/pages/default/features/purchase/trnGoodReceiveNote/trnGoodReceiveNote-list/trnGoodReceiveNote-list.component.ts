@@ -18,7 +18,7 @@ import { TrnGoodReceiveNote } from "../../../../_models/trnGoodReceiveNote";
   encapsulation: ViewEncapsulation.None,
 })
 export class TrnGoodReceiveNoteListComponent implements OnInit {
- trnGoodReceiveNoteForm: any;
+  trnGoodReceiveNoteForm: any;
   trnGoodReceiveNoteObj: any;
   params: number;
   trnGoodReceiveNoteList = [];
@@ -58,7 +58,7 @@ export class TrnGoodReceiveNoteListComponent implements OnInit {
 
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getTrnGoodReceiveNotesList();
   }

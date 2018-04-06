@@ -62,5 +62,5 @@ export class ClientListService {
   getWallpaperProductsForExport() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Reports/GetWallpaperProductsForCLExport', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
 }
