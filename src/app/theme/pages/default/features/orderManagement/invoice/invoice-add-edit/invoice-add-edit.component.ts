@@ -16,6 +16,7 @@ import { CollectionService } from '../../../../_services/collection.service';
 import { TrnProductStockService } from '../../../../_services/trnProductStock.service';
 import { MatSizeService } from '../../../../_services/matSize.service';
 import { CustomerAddress } from '../../../../_models/customerAddress';
+declare function require(name: string);
 @Component({
   selector: "app-invoice-add-edit",
   templateUrl: "./invoice-add-edit.component.html",
@@ -165,8 +166,9 @@ export class InvoiceAddEditComponent implements OnInit {
         // else{
         //   this.trnSalesInvoiceObj.totalAmount = this.trnSalesInvoiceObj.totalAmount + this.iGstAll;
         // }
-        this.numberToWordConversion = this.numberToWords(this.trnSalesInvoiceObj.totalAmount, ",");
-        this.numberToWordConversionForTax = this.numberToWords(this.gstAll > 0 ? this.gstAll : this.iGstAll, ",");
+        var converter = require('number-to-words');
+        this.numberToWordConversion = converter.toWords(this.trnSalesInvoiceObj.totalAmount);
+        this.numberToWordConversionForTax = converter.toWords(this.gstAll > 0 ? this.gstAll : this.iGstAll);
         this.calculateGSTWiseAmount();
         Helpers.setLoading(false);
       },
@@ -202,98 +204,6 @@ export class InvoiceAddEditComponent implements OnInit {
     });
     this.totalTaxAmount = totalTax;
     this.invoiceGSTValues = lstGSTValue;
-  }
-
-
-  numberToWords(n, custom_join_character) {
-    if (!n)
-      n = 0;
-    var string = n.toString(),
-      units, tens, scales, start, end, chunks, chunksLen, chunk, ints, i, word, words;
-
-    var and = custom_join_character || 'and';
-
-    /* Is number zero? */
-    if (parseInt(string) === 0) {
-      return 'Zero';
-    }
-
-    /* Array of units as words */
-    units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-
-    /* Array of tens as words */
-    tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-
-    /* Array of scales as words */
-    scales = ['', 'Thousand', 'Million', 'Billion', 'Trillion', 'Quadrillion', 'Quintillion', 'Sextillion', 'Septillion', 'Octillion', 'Nonillion', 'Decillion', 'undecillion', 'duodecillion', 'tredecillion', 'quatttuor-decillion', 'quindecillion', 'sexdecillion', 'septen-decillion', 'octodecillion', 'novemdecillion', 'vigintillion', 'centillion'];
-
-    /* Split user arguemnt into 3 digit chunks from right to left */
-    start = string.length;
-    chunks = [];
-    while (start > 0) {
-      end = start;
-      chunks.push(string.slice((start = Math.max(0, start - 3)), end));
-    }
-
-    /* Check if function has enough scale words to be able to stringify the user argument */
-    chunksLen = chunks.length;
-    if (chunksLen > scales.length) {
-      return '';
-    }
-
-    /* Stringify each integer in each chunk */
-    words = [];
-    for (i = 0; i < chunksLen; i++) {
-
-      chunk = parseInt(chunks[i]);
-
-      if (chunk) {
-
-        /* Split chunk into array of individual integers */
-        ints = chunks[i].split('').reverse().map(parseFloat);
-
-        /* If tens integer is 1, i.e. 10, then add 10 to units integer */
-        if (ints[1] === 1) {
-          ints[0] += 10;
-        }
-
-        /* Add scale word if chunk is not zero and array item exists */
-        if ((word = scales[i])) {
-          words.push(word);
-        }
-
-        /* Add unit word if array item exists */
-        if ((word = units[ints[0]])) {
-          words.push(word);
-        }
-
-        /* Add tens word if array item exists */
-        if ((word = tens[ints[1]])) {
-          words.push(word);
-        }
-
-        /* Add 'and' string after units or tens integer if: */
-        if (ints[0] || ints[1]) {
-
-          /* Chunk has a hundreds integer or chunk is the first of multiple chunks */
-          if (ints[2] || !i && chunksLen) {
-            if (n > 100)
-              words.push(and);
-          }
-
-        }
-
-        /* Add hundreds word if array item exists */
-        if ((word = units[ints[2]])) {
-          words.push(word + ' Hundred');
-        }
-
-      }
-
-    }
-
-    return words.reverse().join(' ');
-
   }
 
   enableEdit(row) {
