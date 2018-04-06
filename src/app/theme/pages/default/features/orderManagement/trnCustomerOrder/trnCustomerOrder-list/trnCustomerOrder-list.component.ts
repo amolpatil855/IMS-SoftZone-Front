@@ -44,18 +44,18 @@ export class TrnCustomerOrderListComponent implements OnInit {
     this.getLoggedInUserDetail();
   }
 
-  getLoggedInUserDetail(){
+  getLoggedInUserDetail() {
     this.userService.getLoggedInUserDetail().subscribe(res => {
       this.userRole = res.mstRole.roleName;
       if (this.userRole == "Administrator") {
         this.adminFlag = true;
-      }else{
+      } else {
         this.adminFlag = false;
       }
     });
   }
 
-  onApprove(saleOrderObj){
+  onApprove(saleOrderObj) {
     Helpers.setLoading(true);
     if (saleOrderObj.id) {
       this.trnSalesOrderService.approveSalesOrder(saleOrderObj)
@@ -89,7 +89,7 @@ export class TrnCustomerOrderListComponent implements OnInit {
 
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getTrnSalesOrdersList();
   }

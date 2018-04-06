@@ -64,7 +64,7 @@ export class OnlyNumber {
       // if (valInFloat < parseFloat(this.minValue) && valInFloat != 0) {//|| (isNaN(valInFloat) && e.key === "0")
       //   e.preventDefault();
       // }
-       if (valInFloat < parseFloat(this.minValue)) {//|| (isNaN(valInFloat) && e.key === "0") //Do not allow zero else give error in quality
+      if (valInFloat < parseFloat(this.minValue)) {//|| (isNaN(valInFloat) && e.key === "0") //Do not allow zero else give error in quality
         e.preventDefault();
       }
     }
@@ -96,7 +96,7 @@ export class OnlyNumber {
         // Checking Backspace etc.. keys because firefox doesn't pressing them while chrome does by default
         if (dotLength > 1 || (dotLength === 1 && e.key === ".") || (decimalLength > (parseInt(this.DecimalPlaces) - 1) &&
           currentCursorPos > e.target.value.indexOf(".") && parseInt(this.DecimalPlaces) > 0) && ["Backspace", "ArrowLeft", "ArrowRight"].indexOf(e.key) === -1) {
-          e.preventDefault();        
+          e.preventDefault();
         }
       }
     }

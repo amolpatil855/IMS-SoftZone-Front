@@ -21,7 +21,7 @@ export class SupplierService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSupplierLookupForGRN', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
- 
+
   getSupplierById(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Supplier/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

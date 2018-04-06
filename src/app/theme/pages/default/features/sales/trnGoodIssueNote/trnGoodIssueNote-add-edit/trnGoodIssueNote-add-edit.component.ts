@@ -99,7 +99,7 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
     this.TrnGoodIssueNoteService.getTrnGoodIssueNoteById(id).subscribe(
       results => {
         this.trnGoodIssueNoteObj = results;
-        this.trnGoodIssueNoteObj.ginDate=new Date(this.trnGoodIssueNoteObj.ginDate);
+        this.trnGoodIssueNoteObj.ginDate = new Date(this.trnGoodIssueNoteObj.ginDate);
         Helpers.setLoading(false);
       },
       error => {
@@ -133,7 +133,7 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
       return false;
     }
 
-    _.forEach(this.trnGoodIssueNoteObj.trnGoodIssueNoteItems, function (item) {
+    _.forEach(this.trnGoodIssueNoteObj.trnGoodIssueNoteItems, function(item) {
       if (item.issuedQuantity || item.issuedQuantity > 0)
         orderQuantityFlag = true;
     });

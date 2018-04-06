@@ -85,21 +85,21 @@ export class MatSizeListComponent implements OnInit {
   }
 
   onInputChange() {
-    if(this.matSizeObj.rate > 0){
-    this.matSizeObj.purchaseRate = this.roundTo((this.matSizeObj.rate - ((this.matSizeObj.rate * this.purchaseDiscount) / 100)), 2);
+    if (this.matSizeObj.rate > 0) {
+      this.matSizeObj.purchaseRate = this.roundTo((this.matSizeObj.rate - ((this.matSizeObj.rate * this.purchaseDiscount) / 100)), 2);
     }
   }
 
   roundTo(n, digits) {
-     if (digits === undefined) {
-       digits = 0;
-     }
+    if (digits === undefined) {
+      digits = 0;
+    }
 
-     let multiplicator = Math.pow(10, digits);
-     n = parseFloat((n * multiplicator).toFixed(11));
-     let test =(Math.round(n) / multiplicator);
-     return +(test.toFixed(digits));
-   }
+    let multiplicator = Math.pow(10, digits);
+    n = parseFloat((n * multiplicator).toFixed(11));
+    let test = (Math.round(n) / multiplicator);
+    return +(test.toFixed(digits));
+  }
 
   restrictMinus(e, limit) {
 
@@ -181,15 +181,15 @@ export class MatSizeListComponent implements OnInit {
     if (this.selectedCollection != null) {
       Helpers.setLoading(true);
       this.collectionService.getCollectionById(this.selectedCollection).subscribe(
-      results => {
-        this.collectionObj = results;
-        this.purchaseDiscount = this.collectionObj.purchaseDiscount;
-        Helpers.setLoading(false);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-        Helpers.setLoading(false);
-      });
+        results => {
+          this.collectionObj = results;
+          this.purchaseDiscount = this.collectionObj.purchaseDiscount;
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
 
       this.matSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
         results => {
@@ -246,7 +246,7 @@ export class MatSizeListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getMatSizesList();
     this.getMatCollectionLookUp();

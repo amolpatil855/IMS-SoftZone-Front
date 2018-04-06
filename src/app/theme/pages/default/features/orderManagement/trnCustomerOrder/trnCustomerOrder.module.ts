@@ -28,8 +28,8 @@ import { SupplierService } from "../../../_services/supplier.service";
 import { TrnCustomerOrderService } from "../../../_services/trnCustomerOrder.service";
 import { TrnCustomerOrderListComponent } from "./trnCustomerOrder-list/trnCustomerOrder-list.component";
 import { TrnCustomerOrderAddEditComponent } from "./trnCustomerOrder-add-edit/trnCustomerOrder-add-edit.component";
-import {TrnProductStockService} from "../../../_services/trnProductStock.service";
-import {MatSizeService} from "../../../_services/matSize.service";
+import { TrnProductStockService } from "../../../_services/trnProductStock.service";
+import { MatSizeService } from "../../../_services/matSize.service";
 import { TrnCustomerOrderComponent } from "./trnCustomerOrder.component";
 import { TrnSalesOrderService } from '../../../_services/trnSalesOrder.service';
 const routes: Routes = [

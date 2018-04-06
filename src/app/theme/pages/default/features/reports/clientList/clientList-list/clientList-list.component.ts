@@ -27,7 +27,7 @@ export class ClientListListComponent implements OnInit {
   collectionList = [];
   qualityList = [];
   thicknessList = [];
-  matSizeList =  [];
+  matSizeList = [];
   designList = [];
   shadeList = [];
   fomDensityList = [];
@@ -192,7 +192,7 @@ export class ClientListListComponent implements OnInit {
   }
   getMattressProducts() {
     Helpers.setLoading(true);
-    this.clientListService.getMattressProducts(this.pageSize, this.page, this.search, this.selectedCollection, this.selectedQuality, this.selectedThickness, this.matSizeId ).subscribe(
+    this.clientListService.getMattressProducts(this.pageSize, this.page, this.search, this.selectedCollection, this.selectedQuality, this.selectedThickness, this.matSizeId).subscribe(
       results => {
         this.clientList = results.data;
         this.totalCount = results.totalCount;
@@ -355,8 +355,8 @@ export class ClientListListComponent implements OnInit {
         }
       ];
       let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
-      if(categoryObj)
-      this.getFabricProductsExport(columns, categoryObj.label);
+      if (categoryObj)
+        this.getFabricProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 2) {
       columns = [
@@ -412,8 +412,8 @@ export class ClientListListComponent implements OnInit {
         }
       ];
       let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
-      if(categoryObj)
-      this.getFoamProductsExport(columns, categoryObj.label);
+      if (categoryObj)
+        this.getFoamProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 7) {
       columns = [
@@ -456,8 +456,8 @@ export class ClientListListComponent implements OnInit {
         }
       ];
       let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
-      if(categoryObj)
-      this.getAccessoryProductsExport(columns, categoryObj.label);
+      if (categoryObj)
+        this.getAccessoryProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 4) {
       columns = [
@@ -518,8 +518,8 @@ export class ClientListListComponent implements OnInit {
         }
       ];
       let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
-      if(categoryObj)
-      this.getMattressProductsExport(columns, categoryObj.label);
+      if (categoryObj)
+        this.getMattressProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 5) {
       columns = [
@@ -580,8 +580,8 @@ export class ClientListListComponent implements OnInit {
         }
       ];
       let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
-      if(categoryObj)
-      this.getWallpaperProductsExport(columns, categoryObj.label);
+      if (categoryObj)
+        this.getWallpaperProductsExport(columns, categoryObj.label);
     }
     else if (this.categoryId == 6) {
       columns = [
@@ -642,8 +642,8 @@ export class ClientListListComponent implements OnInit {
         }
       ];
       let categoryObj = _.find(this.categoriesCodeList, ['value', this.categoryId]);
-      if(categoryObj)
-      this.getRugProductsExport(columns, categoryObj.label);
+      if (categoryObj)
+        this.getRugProductsExport(columns, categoryObj.label);
     }
   }
 
@@ -676,8 +676,8 @@ export class ClientListListComponent implements OnInit {
     this.pageSize = event.rows;
     this.page = event.first / event.rows;
     this.search = event.globalFilter;
-    if(this.search == null)
-        this.search = '';
+    if (this.search == null)
+      this.search = '';
     if (this.categoryId == 1) {
       this.getFWRCollectionLookup();
       this.tableEmptyMesssage = 'Loading...';
@@ -770,7 +770,7 @@ export class ClientListListComponent implements OnInit {
     }
   }
 
-  getCategoryWiseProducts(){
+  getCategoryWiseProducts() {
     this.page = 0;
     if (this.categoryId == 1) {
       this.tableEmptyMesssage = 'Loading...';
@@ -798,19 +798,19 @@ export class ClientListListComponent implements OnInit {
     }
   }
 
-  getFWRCollectionLookup(){
+  getFWRCollectionLookup() {
     this.shadeService.getCollectionLookUp(this.categoryId).subscribe(
-        results => {
-          this.collectionList = results;
-          this.collectionList.unshift({ label: '--Select--', value: null });
-          if (this.selectedCollection > 0) {
-            this.onCollectionClick();
-          }
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+      results => {
+        this.collectionList = results;
+        this.collectionList.unshift({ label: '--Select--', value: null });
+        if (this.selectedCollection > 0) {
+          this.onCollectionClick();
+        }
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
   getFomCollectionLookUp() {
@@ -864,10 +864,10 @@ export class ClientListListComponent implements OnInit {
     this.matSizeId = null;
     this.selectedQuality = null;
     this.selectedThickness = null;
-    
+
     this.getCategoryWiseProducts();
     if (this.selectedCollection != null) {
-     Helpers.setLoading(true);
+      Helpers.setLoading(true);
       this.matSizeService.getQualityLookUpByCollection(this.selectedCollection).subscribe(
         results => {
           this.qualityList = results;
@@ -903,21 +903,21 @@ export class ClientListListComponent implements OnInit {
     this.shadeList = [];
     this.shadeList.unshift({ label: '--Select--', value: null });
     this.shadeId = null;
-     this.getCategoryWiseProducts();
+    this.getCategoryWiseProducts();
     if (this.selectedQuality != null) {
-      if(this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6){
+      if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
         this.shadeService.getDesignLookupByQuality(this.selectedQuality).subscribe(
-        results => {
-          this.designList = results;
-          this.designList.unshift({ label: '--Select--', value: null });
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+          results => {
+            this.designList = results;
+            this.designList.unshift({ label: '--Select--', value: null });
+            Helpers.setLoading(false);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
       }
-      else if(this.categoryId == 4){
+      else if (this.categoryId == 4) {
         Helpers.setLoading(true);
         this.matSizeService.getMatThicknessLookUp().subscribe(
           results => {
@@ -930,7 +930,7 @@ export class ClientListListComponent implements OnInit {
             Helpers.setLoading(false);
           });
       }
-      else if(this.categoryId == 2){
+      else if (this.categoryId == 2) {
         this.fomSizeService.getFomDensityLookUpByQuality(this.selectedQuality).subscribe(
           results => {
             this.fomDensityList = results;
@@ -941,16 +941,16 @@ export class ClientListListComponent implements OnInit {
             this.globalErrorHandler.handleError(error);
             Helpers.setLoading(false);
           });
-        }
+      }
     }
   }
 
-  onThicknessChange(){
+  onThicknessChange() {
     this.matSizeList = [];
     this.matSizeList.unshift({ label: '--Select--', value: null });
     this.matSizeId = null;
-    
-     this.getCategoryWiseProducts();
+
+    this.getCategoryWiseProducts();
     if (this.selectedThickness != null) {
       Helpers.setLoading(true);
       this.matSizeService.getMatSizeLookUpByMatThicknessId(this.selectedThickness).subscribe(
@@ -966,11 +966,11 @@ export class ClientListListComponent implements OnInit {
     }
   }
 
-  onMatSizeChange(){
+  onMatSizeChange() {
     this.getCategoryWiseProducts();
   }
 
-  onDesignClick(){
+  onDesignClick() {
     this.shadeList = [];
     this.shadeList.unshift({ label: '--Select--', value: null });
     this.shadeId = null;
@@ -1013,7 +1013,7 @@ export class ClientListListComponent implements OnInit {
     }
   }
 
-  onSuggestedMMChange(){
+  onSuggestedMMChange() {
     this.fomSizeList = [];
     this.fomSizeList.unshift({ label: '--Select--', value: null });
     this.fomSizeId = null;
@@ -1032,11 +1032,11 @@ export class ClientListListComponent implements OnInit {
     }
   }
 
-  onShadeIdChange(){
+  onShadeIdChange() {
     this.getCategoryWiseProducts();
   }
 
-  onFoamItemChange(){
+  onFoamItemChange() {
     this.getCategoryWiseProducts();
   }
 

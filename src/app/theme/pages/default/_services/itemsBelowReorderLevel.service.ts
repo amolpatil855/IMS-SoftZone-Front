@@ -30,5 +30,5 @@ export class ItemsBelowReorderLevelService {
   getWallpaperProducts(pageSize = 0, page = 0, search = '') {
     return this.http.get(AppSettings.API_ENDPOINT + 'Dashboard/GetWallpaperItemsBelowReOrderLevel?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
 }

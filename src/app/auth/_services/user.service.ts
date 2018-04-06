@@ -24,7 +24,7 @@ export class UserService {
   // }
 
   forgotPassword(email: any) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'User/ForgetPassword?email=' + email,  AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.put(AppSettings.API_ENDPOINT + 'User/ForgetPassword?email=' + email, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getAll() {

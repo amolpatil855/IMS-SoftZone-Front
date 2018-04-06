@@ -44,7 +44,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   shadeIdList = [];
   categoryId = null;
   collectionId = null;
-  trncurtainSelectionItems = [];
+  trnCurtainSelectionItems = [];
   customerTypeList = [];
   shadeId = null;
   locationObj = null;
@@ -127,6 +127,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
       this.getTrncurtainSelectionById(this.params);
     }
     this.getCollectionList();
+    this.getAccessoryLookup();
     this.addArea();
   }
 
@@ -139,15 +140,18 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
     let areaObj = {
       area: null,
+      contRoleId: Math.floor(Math.random() * 2000),
       unitList: []
     }
 
     let unitObj = {
       unit: null,
+      contRoleId: Math.floor(Math.random() * 2000),
       pattern: null,
       fabricList: [
         {
           categoryId: 1,
+          contRoleId: Math.floor(Math.random() * 2000),
           collectionId: null,
           shadeId: null,
           isPatch: null,
@@ -160,6 +164,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
         {
           accessoryId: null,
           amount: null,
+          contRoleId: Math.floor(Math.random() * 2000),
         }
       ]
     }
@@ -170,7 +175,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   removeArea(areaIndex) {
     // this.trnCurtainSelectionObj.areaList.slice(index, 1);
     if (this.trnCurtainSelectionObj.areaList.length > 1)
-      this.trnCurtainSelectionObj.areaList = _.remove(this.trnCurtainSelectionObj.areaList, function (rec, index) {
+      this.trnCurtainSelectionObj.areaList = _.remove(this.trnCurtainSelectionObj.areaList, function(rec, index) {
         if (areaIndex != index) {
           return rec;
         }
@@ -180,9 +185,11 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   addUnit(areaObj) {
     let unitObj = {
       unit: null,
+      contRoleId: Math.floor(Math.random() * 2000),
       pattern: null,
       fabricList: [
         {
+          contRoleId: Math.floor(Math.random() * 2000),
           categoryId: 1,
           collectionId: null,
           shadeId: null,
@@ -194,6 +201,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
       ],
       accessoryList: [
         {
+          contRoleId: Math.floor(Math.random() * 2000),
           accessoryId: null,
           amount: null,
         }
@@ -205,7 +213,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   removeUnit(areaIndex, unitindex, unitList) {
     // this.trnCurtainSelectionObj.areaList[areaIndex].unitList.slice(unitindex, 1);
     if (this.trnCurtainSelectionObj.areaList[areaIndex].unitList.length > 1)
-      this.trnCurtainSelectionObj.areaList[areaIndex].unitList = _.remove(this.trnCurtainSelectionObj.areaList[areaIndex].unitList, function (rec, index) {
+      this.trnCurtainSelectionObj.areaList[areaIndex].unitList = _.remove(this.trnCurtainSelectionObj.areaList[areaIndex].unitList, function(rec, index) {
         if (unitindex != index) {
           return rec;
         }
@@ -214,6 +222,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   addFabricRow(row) {
     row.fabricList.push({
+      contRoleId: Math.floor(Math.random() * 2000),
       categoryId: 1,
       collectionId: null,
       shadeId: null,
@@ -226,7 +235,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   onDeleteFabricRow(areaindex, unitIndex, fabricIndex, fabricList) {
     if (this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList.length > 1)
-      this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList = _.remove(this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList, function (rec, index) {
+      this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList = _.remove(this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList, function(rec, index) {
         if (fabricIndex != index) {
           return rec;
         }
@@ -236,7 +245,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   deleteAccessoryRow(areaindex, unitIndex, accesoryIndex, accessoryList) {
     if (this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList.length > 1)
-      this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList = _.remove(this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList, function (rec, index) {
+      this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList = _.remove(this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList, function(rec, index) {
         if (accesoryIndex != index) {
           return rec;
         }
@@ -245,6 +254,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   addAccessoryRow(row) {
     row.accessoryList.push({
+      contRoleId: Math.floor(Math.random() * 2000),
       accessoryId: null,
       amount: null,
     });
@@ -268,7 +278,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
     else {
       if (this.params) {
         Helpers.setLoading(true);
-        this.trnCurtainSelectionObj.TrncurtainSelectionItems = this.trncurtainSelectionItems;
+        this.trnCurtainSelectionObj.trnCurtainSelectionItems = this.trnCurtainSelectionItems;
         this.trnCurtainSelectionService.updateTrnCurtainSelection(this.trnCurtainSelectionObj)
           .subscribe(
           results => {
@@ -310,16 +320,16 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
           this.viewItem = false;
         }
         this.trnCurtainSelectionObj.curtainSelectionDate = new Date(this.trnCurtainSelectionObj.curtainSelectionDate);
-        this.trncurtainSelectionItems = results.trncurtainSelectionItems;
+        this.trnCurtainSelectionItems = results.trnCurtainSelectionItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
-        _.forEach(this.trncurtainSelectionItems, function (value) {
+        _.forEach(this.trnCurtainSelectionItems, function(value) {
           if (value.mstCategory != null)
             value.categoryName = value.mstCategory.code;
           if (value.mstCollection != null)
             value.collectionName = value.mstCollection.collectionCode;
 
         });
-        delete this.trnCurtainSelectionObj['trncurtainSelectionItems'];
+        delete this.trnCurtainSelectionObj['trnCurtainSelectionItems'];
         Helpers.setLoading(false);
       },
       error => {
@@ -474,22 +484,22 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   }
 
 
-  onChangeCollection(collectionId) {
+  onChangeCollection(fabricRow) {
     this.shadeIdList = [];
     this.shadeIdList.unshift({ label: '--Select--', value: null });
     this.shadeId = null;
-    if (collectionId != null) {
-      this.getshadeIdList(collectionId);
+    if (fabricRow.collectionId != null) {
+      this.getshadeIdList(fabricRow);
     }
   }
 
 
-  getshadeIdList(collectionId) {
+  getshadeIdList(fabricRow) {
     Helpers.setLoading(true);
-    this.trnMaterialSelectionService.getSerialNumberLookUpByCollection(collectionId).subscribe(
+    this.trnMaterialSelectionService.getSerialNumberLookUpByCollection(fabricRow.collectionId).subscribe(
       results => {
-        this.shadeIdList = results;
-        this.shadeIdList.unshift({ label: '--Select--', value: null });
+        fabricRow.shadeIdList = results;
+        fabricRow.shadeIdList.unshift({ label: '--Select--', value: null });
         Helpers.setLoading(false);
       },
       error => {
@@ -514,10 +524,61 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    this.trnCurtainSelectionObj.TrncurtainSelectionItems = this.trncurtainSelectionItems;
+    let vm = this;
+    vm.trnCurtainSelectionObj.trnCurtainSelectionItems = [];
+    // this.trnCurtainSelectionObj.TrncurtainSelectionItems = this.trncurtainSelectionItems;
     let custObj = _.find(this.customerList, ['value', this.trnCurtainSelectionObj.customerId]);
     this.trnCurtainSelectionObj.customerName = custObj ? custObj.label : '';
-    if (this.trncurtainSelectionItems.length == 0) {
+
+    this.trnCurtainSelectionObj.areaList.forEach(function(areaObj) {
+      areaObj.unitList.forEach(function(unitObj) {
+        unitObj.fabricList.forEach(function(fabricobj) {
+          let collectionObj = _.find(vm.collectionList, ['value', fabricobj.collectionId]);
+          let obj = {
+            "area": areaObj.area,
+            "unit": unitObj.unit,
+            "patternId": unitObj.pattern,
+            "categoryId": 1,
+            "collectionId": fabricobj.collectionId,
+            "shadeId": fabricobj.shadeId,
+            "accessoryId": null,
+            "isPatch": fabricobj.isPatch,
+            "isLining": fabricobj.isLining,
+            "rate": fabricobj.rate,
+            "discount": null,
+            "categoryName": 'Fabric',
+            "collectionName": collectionObj ? collectionObj.label : '',
+            // "serialno": "5",
+            // "itemCode": null
+          }
+          vm.trnCurtainSelectionObj.trnCurtainSelectionItems.push(obj);
+        });
+
+        unitObj.accessoryList.forEach(function(accessoryobj) {
+          let obj = {
+            "area": areaObj.area,
+            "unit": unitObj.unit,
+            "patternId": unitObj.pattern,
+            "categoryId": null,
+            "collectionId": null,
+            "shadeId": null,
+            "accessoryId": accessoryobj.accessoryId,
+            "isPatch": null,
+            "isLining": null,
+            "rate": accessoryobj.amount,
+            "discount": null,
+            "categoryName": null,
+            "collectionName": null,
+            // "serialno": "5",
+            // "itemCode": null
+          }
+          vm.trnCurtainSelectionObj.trnCurtainSelectionItems.push(obj);
+        });
+
+      });
+    });
+    debugger;
+    if (this.trnCurtainSelectionItems.length == 0) {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
       return false;
     }

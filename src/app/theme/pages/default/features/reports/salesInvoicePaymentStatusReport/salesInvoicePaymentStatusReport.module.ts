@@ -21,7 +21,7 @@ import {
 import { SupplierService } from "../../../_services/supplier.service";
 import { TrnSalesInvoiceService } from "../../../_services/trnSalesInvoice.service";
 import { SalesInvoicePaymentStatusReportComponent } from "./salesInvoicePaymentStatusReport.component";
-import {TrnProductStockService} from "../../../_services/trnProductStock.service";
+import { TrnProductStockService } from "../../../_services/trnProductStock.service";
 import { SalesInvoicePaymentStatusReportListComponent } from "./salesInvoicePaymentStatusReport-list/salesInvoicePaymentStatusReport.component";
 
 const routes: Routes = [

@@ -185,9 +185,9 @@ export class AccessoryListComponent implements OnInit {
     this.isFormSubmitted = true;
     if (!valid)
       return;
-      this.accessoryObj.hsnId = value.hsnId;
-      this.accessoryObj.uomId = value.uomId;
-      if(!this.accessoryObj.id)
+    this.accessoryObj.hsnId = value.hsnId;
+    this.accessoryObj.uomId = value.uomId;
+    if (!this.accessoryObj.id)
       this.accessoryObj.supplierId = value.supplierId;
     this.saveAccessory(this.accessoryObj);
   }

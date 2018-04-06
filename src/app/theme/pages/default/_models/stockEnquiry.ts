@@ -1,3 +1,3 @@
-export class StockEnquiry{
-    
+export class StockEnquiry {
+
 }

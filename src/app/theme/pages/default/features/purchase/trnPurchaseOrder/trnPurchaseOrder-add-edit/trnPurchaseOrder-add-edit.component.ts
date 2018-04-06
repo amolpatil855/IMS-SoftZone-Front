@@ -193,25 +193,25 @@ export class TrnPurchaseOrderAddEditComponent implements OnInit {
           this.globalErrorHandler.handleError(error);
           Helpers.setLoading(false);
         });
-      
+
     }
   }
 
-  approvePurchaseOrder(){
+  approvePurchaseOrder() {
     this.trnPurchaseOrderService.approvePurchaseOrder(this.trnPurchaseOrderObj)
-        .subscribe(
-        results => {
-          this.params = null;
-          this.status = false;
-          this.viewItem = false;
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-          Helpers.setLoading(false);
-          this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+      .subscribe(
+      results => {
+        this.params = null;
+        this.status = false;
+        this.viewItem = false;
+        this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+        Helpers.setLoading(false);
+        this.router.navigate(['/features/purchase/trnPurchaseOrder/list']);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
   getTrnPurchaseOrderById(id) {

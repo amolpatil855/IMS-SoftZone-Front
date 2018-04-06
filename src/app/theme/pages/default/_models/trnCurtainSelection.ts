@@ -1,4 +1,4 @@
-export class TrnCurtainSelection{
-    id: number;
-    areaList=[];
+export class TrnCurtainSelection {
+  id: number;
+  areaList = [];
 }

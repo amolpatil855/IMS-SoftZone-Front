@@ -41,16 +41,16 @@
             </ul>
         </div>
         <div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-            <button type="submit" *ngIf="params" class="topBtn btn btn-success" [isAuthorize]="['curtainSelection']" title="{{ (params && (trnCurtainSelectionObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}"
+            <button type="submit" *ngIf="params" class="topBtn btn btn-success" [isAuthorize]="['curtainselection']" title="{{ (params && (trnCurtainSelectionObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}"
                 (click)="onUpdateAndCreateQuotation()" tabindex="9">
                 {{ (params && (trnCurtainSelectionObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}
             </button>
-            <button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnCurtainSelectionForm"
+            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnCurtainSelectionForm"
                 title="{{(trnCurtainSelectionForm && trnCurtainSelectionForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-                [isAuthorize]="['curtainSelection']" tabindex="16">
+                [isAuthorize]="['curtainselection']" tabindex="16">
                 {{ params ? 'Update' : 'Save' }}
             </button>
-            <button class="btn btn-secondary" [isAuthorize]="['curtainSelection']" (click)="onCancel()" tabindex="17">
+            <button class="btn btn-secondary" [isAuthorize]="['curtainselection']" (click)="onCancel()" tabindex="17">
                 Cancel
             </button>
         </div>
@@ -171,7 +171,7 @@
                                                                     <span class="requiredField">*</span>
                                                                 </label>
                                                                 <div class="col-md-8 col-sm-8">
-                                                                    <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': areaError}" [(ngModel)]="areaRow.area" name="{{'area'+index}}"
+                                                                    <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': areaError}" [(ngModel)]="areaRow.area" name="{{'area'+areaRow.contRoleId}}"
                                                                         id="{{'area'+rowNum}}" placeholder="" tabindex="6">
                                                                 </div>
                                                             </div>
@@ -187,7 +187,7 @@
                                                                                     <span class="requiredField">*</span>
                                                                                 </label>
                                                                                 <div class="col-md-8 col-sm-8">
-                                                                                    <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': areaError}" [(ngModel)]="unitRow.unit" name="{{'unit'+unitRowNum}}"
+                                                                                    <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': areaError}" [(ngModel)]="unitRow.unit" name="{{'unit'+unitRow.contRoleId}}"
                                                                                         placeholder="" tabindex="6">
                                                                                 </div>
                                                                             </div>
@@ -197,7 +197,7 @@
                                                                                 </label>
                                                                                 <div class="col-md-8 col-sm-8">
                                                                                     <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': areaError}" [(ngModel)]="unitRow.pattern"
-                                                                                        name="{{'patern'+unitRowNum}}" placeholder=""
+                                                                                        name="{{'patern'+unitRow.contRoleId}}" placeholder=""
                                                                                         tabindex="6">
                                                                                 </div>
                                                                             </div>
@@ -208,8 +208,8 @@
                                                                                     <span class="requiredField">*</span>
                                                                                 </label>
                                                                                 <div class="col-md-8 col-sm-8">
-                                                                                    <select class="form-control" name="collectionId" [(ngModel)]="fabricRow.collectionId" 
-                                                                                        (ngModelChange)="onChangeCollection(fabricRow.collectionId)"
+                                                                                    <select class="form-control" name="{{'collection'+fabricRow.contRoleId}}" [(ngModel)]="fabricRow.collectionId" 
+                                                                                        (ngModelChange)="onChangeCollection(fabricRow)"
                                                                                         tabindex="9">
                                                                                         <option *ngFor="let x of collectionList" [ngValue]="x.value" [selected]="fabricRow.collectionId == x.value">{{x.label}}</option>
                                                                                     </select>
@@ -222,43 +222,39 @@
                                                                                         <span class="requiredField">*</span>
                                                                                     </label>
                                                                                     <div class="col-md-8 col-sm-8">
-                                                                                        <select class="form-control" name="shadeId" [(ngModel)]="fabricRow.shadeId" 
+                                                                                        <select class="form-control" name="{{'shade'+fabricRow.contRoleId}}" [(ngModel)]="fabricRow.shadeId" 
                                                                                             tabindex="9">
-                                                                                            <option *ngFor="let x of shadeIdList" [ngValue]="x.value" [selected]="fabricRow.shadeId == x.value">{{x.label}}</option>
+                                                                                            <option *ngFor="let x of fabricRow.shadeIdList" [ngValue]="x.value" [selected]="fabricRow.shadeId == x.value">{{x.label}}</option>
                                                                                         </select>
                                                                                         <!-- <p-dropdown class="feePlanBox" [options]="collectionList" [(ngModel)]="collectionId" [style]="{'width':'100%'}" styleClass="{{collectionIdError?'red-border-class': ''}}"
                                                                                                  name="collectionCodeDDl" filter="true" tabindex="9" (ngModelChange)="onChangeCollection()"></p-dropdown> -->
                                                                                     </div>
                                                                                 </div>
-                                                                            <div class="col-md-3">
-                                                                                <label class="col-md-4 col-sm-4 fieldLabel ">Patch
-                                                                                    <span class="requiredField">*</span>
+                                                                            <div class="col-md-2">
+                                                                                <label class="col-md-3 col-sm-3 fieldLabel ">Patch
                                                                                 </label>
                                                                                 <div class="col-md-2 col-sm-2">
-                                                                                    <input type="checkbox" [(ngModel)]="unitRow.isPatch" name="{{'patch'+fabricRowNum}}">
+                                                                                    <input type="checkbox" [(ngModel)]="fabricRow.isPatch"  name="{{'patch'+fabricRow.contRoleId}}" >
                                                                                 </div>
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel ">Lining
-                                                                                    <span class="requiredField">*</span>
                                                                                 </label>
                                                                                 <div class="col-md-2 col-sm-2">
-                                                                                    <input type="checkbox" [(ngModel)]="unitRow.isLining" name="{{'lining'+fabricRowNum}}">
+                                                                                    <input type="radio"  name="{{'lining'+unitRow.contRoleId}}" [checked]="fabricRow.isLining == true" [value]="fabricRow.isLining">
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-4">
-                                                                                <label class="col-md-3 col-sm-3 fieldLabel ">Rate
-                                                                                    <span class="requiredField">*</span>
+                                                                            <div class="col-md-3">
+                                                                                <label class="col-md-1 col-sm-1 fieldLabel ">Rate
                                                                                 </label>
-                                                                                <div class="col-md-3 col-sm-3">
+                                                                                <div class="col-md-4 col-sm-4">
                                                                                     <label>{{fabricRow.rate}}</label>
                                                                                 </div>
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel ">Discount
-                                                                                    <span class="requiredField">*</span>
                                                                                 </label>
                                                                                 <div class="col-md-2 col-sm-2">
                                                                                     <label>{{fabricRow.discount}}%</label>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-2">
+                                                                            <div class="col-md-1">
                                                                                 <button type="button" pButton (click)="addFabricRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Add Unit"></button>
                                                                                 <button type="button" pButton (click)="onDeleteFabricRow(rowNum,unitRowNum,fabricRowNum, unitRow.fabricList)" icon="fa fa-times"
                                                                                     class="editBtn" title="Remove Unit"></button>
@@ -267,15 +263,15 @@
                                                                         <div class="row form-group" *ngFor="let accessoryRow of unitRow.accessoryList;let accessoryRowNum=index;let accessoryLastRowNum=last;">
                                                                             <div class="col-md-3">
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel ">Accessories
-                                                                                    <span class="requiredField">*</span>
                                                                                 </label>
                                                                                 <div class="col-md-8 col-sm-8">
-
+                                                                                    <select class="form-control" name="{{'accessory'+accessoryRow.contRoleId}}" [(ngModel)]="accessoryRow.accessoryId" [ngClass]="{'red-border-class': accessoryIdError}" tabindex="9">
+                                                                                        <option *ngFor="let x of accessoryCodeList" [ngValue]="x.value" [selected]="accessoryId == x.value">{{x.label}}</option>
+                                                                                    </select>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-4">
                                                                                 <label class="col-md-3 col-sm-3 fieldLabel ">Rate
-                                                                                    <span class="requiredField">*</span>
                                                                                 </label>
                                                                                 <div class="col-md-3 col-sm-3">
                                                                                     <label>{{accessoryRow.rate}}</label>

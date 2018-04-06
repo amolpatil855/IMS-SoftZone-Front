@@ -387,7 +387,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
             this.purchaseOrderList = [];
             let vm = this;
             console.log('this.purchaseItemList', this.purchaseItemList);
-            _.forEach(this.purchaseItemList, function (value) {
+            _.forEach(this.purchaseItemList, function(value) {
               vm.purchaseOrderList.push({ label: value.purchaseOrderNumber, value: value.purchaseOrderId });
             });
             this.purchaseOrderList.unshift({ label: '--Select--', value: null });
@@ -437,7 +437,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
             this.purchaseOrderList = [];
             let vm = this;
             console.log('this.purchaseItemList', this.purchaseItemList);
-            _.forEach(this.purchaseItemList, function (value) {
+            _.forEach(this.purchaseItemList, function(value) {
               vm.purchaseOrderList.push({ label: value.purchaseOrderNumber, value: value.purchaseOrderId });
             });
             this.purchaseOrderList.unshift({ label: '--Select--', value: null });
@@ -481,7 +481,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
             this.purchaseOrderList = [];
             let vm = this;
             console.log('this.purchaseItemList', this.purchaseItemList);
-            _.forEach(this.purchaseItemList, function (value) {
+            _.forEach(this.purchaseItemList, function(value) {
               vm.purchaseOrderList.push({ label: value.purchaseOrderNumber, value: value.purchaseOrderId });
             });
             this.purchaseOrderList.unshift({ label: '--Select--', value: null });
@@ -527,7 +527,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
             this.purchaseOrderList = [];
             let vm = this;
             console.log('this.purchaseItemList', this.purchaseItemList);
-            _.forEach(this.purchaseItemList, function (value) {
+            _.forEach(this.purchaseItemList, function(value) {
               vm.purchaseOrderList.push({ label: value.purchaseOrderNumber, value: value.purchaseOrderId });
             });
             this.purchaseOrderList.unshift({ label: '--Select--', value: null });
@@ -572,7 +572,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
             this.purchaseOrderList = [];
             let vm = this;
             console.log('this.purchaseItemList', this.purchaseItemList);
-            _.forEach(this.purchaseItemList, function (value) {
+            _.forEach(this.purchaseItemList, function(value) {
               vm.purchaseOrderList.push({ label: value.purchaseOrderNumber, value: value.purchaseOrderId });
             });
             this.purchaseOrderList.unshift({ label: '--Select--', value: null });
@@ -622,9 +622,9 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     }
 
     let poObj = _.find(this.purchaseItemList, { 'purchaseOrderId': this.purchaseOrderId });
-    if(!poObj)
+    if (!poObj)
       return false;
-    
+
     if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
       let applyDiscount = false;
       this.rate = (poObj.purchaseFlatRate ? poObj.purchaseFlatRate : poObj.orderQuantity >= 50 ? poObj.roleRate : poObj.cutRate);

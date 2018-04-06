@@ -17,7 +17,7 @@ import { TrnAdvancePayment } from "../../../../_models/trnAdvancePayment";
   encapsulation: ViewEncapsulation.None,
 })
 export class TrnAdvancePaymentListComponent implements OnInit {
-params: number;
+  params: number;
   trnAdvancePaymentList = [];
   pageSize = 50;
   page = 1;
@@ -54,7 +54,7 @@ params: number;
 
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getTrnAdvancePaymentsList();
   }

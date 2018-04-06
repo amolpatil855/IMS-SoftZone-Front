@@ -104,7 +104,7 @@ export class FinancialYearListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getFinancialYearsList();
   }
@@ -123,7 +123,7 @@ export class FinancialYearListComponent implements OnInit {
     this.isFormSubmitted = true;
     if (!valid)
       return;
-   this.saveFinancialYear(this.financialYearObj);
+    this.saveFinancialYear(this.financialYearObj);
   }
 
   saveFinancialYear(value) {

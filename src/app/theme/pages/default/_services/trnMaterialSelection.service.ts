@@ -28,7 +28,7 @@ export class TrnMaterialSelectionService {
   viewMaterialQuotationById(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnMaterialSelection/ViewMaterialQuotation/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   getCompanyLocationLookUp() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
@@ -56,7 +56,7 @@ export class TrnMaterialSelectionService {
   getCustomerAddressByCustomerId(customerId) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Customer/GetCustomerAddressByCustomerId?customerId=' + customerId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   getCollectionLookUpByCategory(categoryId) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCollectionLookUpByCategoryId?categoryId=' + categoryId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

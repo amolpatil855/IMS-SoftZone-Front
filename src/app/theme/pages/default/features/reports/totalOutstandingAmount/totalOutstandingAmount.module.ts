@@ -22,8 +22,8 @@ import { SupplierService } from "../../../_services/supplier.service";
 import { TrnSalesInvoiceService } from "../../../_services/trnSalesInvoice.service";
 import { TotalOutstandingAmountComponent } from "./totalOutstandingAmount.component";
 import { TotalOutstandingAmountListComponent } from "./totalOutstandingAmount-list/totalOutstandingAmount-list.component";
-import {TrnProductStockService} from "../../../_services/trnProductStock.service";
-import {MatSizeService} from "../../../_services/matSize.service";
+import { TrnProductStockService } from "../../../_services/trnProductStock.service";
+import { MatSizeService } from "../../../_services/matSize.service";
 
 const routes: Routes = [
   {

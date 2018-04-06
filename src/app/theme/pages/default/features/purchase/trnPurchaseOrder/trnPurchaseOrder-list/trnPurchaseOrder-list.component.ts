@@ -18,7 +18,7 @@ import { TrnPurchaseOrder } from "../../../../_models/trnPurchaseOrder";
   encapsulation: ViewEncapsulation.None,
 })
 export class TrnPurchaseOrderListComponent implements OnInit {
-trnPurchaseOrderForm: any;
+  trnPurchaseOrderForm: any;
   trnPurchaseOrderObj: TrnPurchaseOrder;
   params: number;
   userRole: string;
@@ -47,18 +47,18 @@ trnPurchaseOrderForm: any;
     this.getLoggedInUserDetail();
   }
 
-  getLoggedInUserDetail(){
+  getLoggedInUserDetail() {
     this.userService.getLoggedInUserDetail().subscribe(res => {
       this.userRole = res.mstRole.roleName;
       if (this.userRole == "Administrator") {
         this.adminFlag = true;
-      }else{
+      } else {
         this.adminFlag = false;
       }
     });
   }
 
-  onApprove(purchaseOrderObj){
+  onApprove(purchaseOrderObj) {
     Helpers.setLoading(true);
     if (purchaseOrderObj.id) {
       this.trnPurchaseOrderService.approvePurchaseOrder(purchaseOrderObj)
@@ -74,7 +74,7 @@ trnPurchaseOrderForm: any;
         });
     }
   }
-  getTrnPurchaseOrdersList(){
+  getTrnPurchaseOrdersList() {
     this.trnPurchaseOrderService.getAllTrnPurchaseOrders(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.trnPurchaseOrderList = results.data;
@@ -98,20 +98,20 @@ trnPurchaseOrderForm: any;
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getTrnPurchaseOrdersList();
   }
 
-    onEditClick(trnPurchaseOrder: TrnPurchaseOrder) {
-        this.router.navigate(['/features/purchase/trnPurchaseOrder/edit', trnPurchaseOrder.id]);
-    }
-    onDelete(trnPurchaseOrder: TrnPurchaseOrder) {
-        
-    }
+  onEditClick(trnPurchaseOrder: TrnPurchaseOrder) {
+    this.router.navigate(['/features/purchase/trnPurchaseOrder/edit', trnPurchaseOrder.id]);
+  }
+  onDelete(trnPurchaseOrder: TrnPurchaseOrder) {
 
-    onAddClick() {
-        this.router.navigate(['/features/purchase/trnPurchaseOrder/add']);
-    }
+  }
+
+  onAddClick() {
+    this.router.navigate(['/features/purchase/trnPurchaseOrder/add']);
+  }
 
 }

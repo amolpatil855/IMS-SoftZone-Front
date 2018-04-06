@@ -23,8 +23,8 @@ import { SupplierService } from "../../../_services/supplier.service";
 import { TrnPOItemsWithInsufficientStockService } from "../../../_services/TrnPOItemsWithInsufficientStock.service";
 import { TrnPOItemsWithInsufficientStockComponent } from "./trnPOItemsWithInsufficientStock.component";
 import { TrnPOItemsWithInsufficientStockListComponent } from "./trnPOItemsWithInsufficientStock-list/trnPOItemsWithInsufficientStock-list.component";
-import {TrnProductStockService} from "../../../_services/trnProductStock.service";
-import {MatSizeService} from "../../../_services/matSize.service";
+import { TrnProductStockService } from "../../../_services/trnProductStock.service";
+import { MatSizeService } from "../../../_services/matSize.service";
 
 const routes: Routes = [
   {

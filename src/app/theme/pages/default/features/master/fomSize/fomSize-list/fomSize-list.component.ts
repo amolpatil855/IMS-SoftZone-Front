@@ -86,13 +86,12 @@ export class FomSizeListComponent implements OnInit {
     this.disabled = false;
   }
   onInputChange() {
-    if(this.fomSizeObj.width == '' || this.fomSizeObj.length == ''){
+    if (this.fomSizeObj.width == '' || this.fomSizeObj.length == '') {
       this.fomSizeObj.sizeCode = '';
     }
-    else
-    {
+    else {
       this.fomSizeObj.sizeCode = this.fomSizeObj.length + 'x' + this.fomSizeObj.width;
-    }  
+    }
   }
 
   restrictMinus(e, limit) {
@@ -243,7 +242,7 @@ export class FomSizeListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getFomSizesList();
     this.getFomCollectionLookUp();

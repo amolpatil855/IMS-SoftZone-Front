@@ -90,7 +90,7 @@ export class MatThicknessListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getMatThicknesssList();
   }

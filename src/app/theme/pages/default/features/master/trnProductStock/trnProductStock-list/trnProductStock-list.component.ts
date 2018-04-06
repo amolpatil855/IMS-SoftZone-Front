@@ -194,32 +194,32 @@ export class TrnProductStockListComponent implements OnInit {
         }
       });
 
-      if(this.selectedCategory == 7){
+      if (this.selectedCategory == 7) {
         Helpers.setLoading(true);
         this.trnProductStockService.getAccessoryLookUp().subscribe(
-        results => {
-          this.accessoryCodeList = results;
-          this.accessoryCodeList.unshift({ label: '--Select--', value: null });
-          this.selectedAccessory = this.trnProductStockObj.accessoryId;
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+          results => {
+            this.accessoryCodeList = results;
+            this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+            this.selectedAccessory = this.trnProductStockObj.accessoryId;
+            Helpers.setLoading(false);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
       } else {
         this.trnProductStockService.getCollectionLookUpByCategory(this.selectedCategory).subscribe(
-        results => {
-          this.collectionList = results;
-          this.collectionList.unshift({ label: '--Select--', value: null });
-          this.selectedCollection = this.trnProductStockObj.collectionId;
-          if (this.selectedCollection > 0) {
-            this.onCollectionClick();
-          }
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-        });
+          results => {
+            this.collectionList = results;
+            this.collectionList.unshift({ label: '--Select--', value: null });
+            this.selectedCollection = this.trnProductStockObj.collectionId;
+            if (this.selectedCollection > 0) {
+              this.onCollectionClick();
+            }
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+          });
       }
     }
   }
@@ -282,7 +282,7 @@ export class TrnProductStockListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getTrnProductStocksList();
     this.getCategoryLookUp();
@@ -303,7 +303,7 @@ export class TrnProductStockListComponent implements OnInit {
       },
       error => {
         this.globalErrorHandler.handleError(error);
-         Helpers.setLoading(false);
+        Helpers.setLoading(false);
       });
   }
 
