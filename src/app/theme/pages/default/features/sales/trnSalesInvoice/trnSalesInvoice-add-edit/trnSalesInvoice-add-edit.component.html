@@ -329,7 +329,7 @@
 								<h5>Amount Chargeable (in words)
 									<span>E. & O.E</span>
 								</h5>
-								<h4>INR {{numberToWordConversion}}</h4>
+								<h4>INR {{numberToWordConversion ? (numberToWordConversion | titlecase) : ''}}</h4>
 							</div>
 
 							<!-- Tax Table -->
@@ -378,7 +378,7 @@
 											<td class="alignRight" *ngIf="gstAll>0">{{gstAll ? ((gstAll/2) | number:'.0') : '' }}</td>
 											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight"></td>
-											<td class="alignRight" *ngIf="gstAll>0">{{gstAll ? ((gstAll/2) | number:'.0') : ''  }}</td>
+											<td class="alignRight" *ngIf="gstAll>0">{{gstAll ? ((gstAll/2) | number:'.0') : '' }}</td>
 											<td class="alignRight" *ngIf="gstAll<=0">0</td>
 											<td class="alignRight"></td>
 											<td class="alignRight" *ngIf="iGstAll>0">{{iGstAll ? (iGstAll | number:'.0') : ''}}</td>
@@ -394,7 +394,8 @@
 							<!-- Tax Amount in words -->
 							<div class="amountWordsBox" style="margin-bottom: 0;">
 								<h4>
-									<span class="taxAmtSpan">Tax Amount in words : </span>INR {{numberToWordConversionForTax}} Only</h4>
+									<span class="taxAmtSpan">Tax Amount in words : </span>INR {{numberToWordConversionForTax ? (numberToWordConversionForTax
+									| titlecase ): '' }} Only</h4>
 							</div>
 
 							<!-- Declaration -->
@@ -745,7 +746,7 @@
 		<h5 style="font-family: Roboto;color: #2f2f2f;margin-top: 0;margin-bottom:0;font-size: 12px;font-weight: 400 !important;">Amount Chargeable (in words)
 			<span style="float:right">E. & O.E</span>
 		</h5>
-		<h4 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 12px;margin-bottom:0;font-weight: 600 !important;margin-bottom: 0;">INR {{numberToWordConversion}}</h4>
+		<h4 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 12px;margin-bottom:0;font-weight: 600 !important;margin-bottom: 0;">INR {{numberToWordConversion ? (numberToWordConversion | titlecase) : ''}}</h4>
 	</div>
 
 	<!-- Tax Table -->
@@ -786,7 +787,7 @@
 					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0%</td>
 					<td class="alignRight" *ngIf="iGstAll>0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row ? (row.amount | number:'.0') : ''}}</td>
 					<td class="alignRight" *ngIf="iGstAll<=0" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">0</td>
-					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row ?  (row.amount | number:'.0') : ''}}</td>
+					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;">{{row ? (row.amount | number:'.0') : ''}}</td>
 				</tr>
 				<tr class="totalRow">
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;text-align:right;border-collapse: collapse;font-size: 10px;"><b style="font-weight:900;">Total : {{trnSalesInvoiceObj ? ((trnSalesInvoiceObj.totalAmount -(gstAll || iGstAll)) | number:'.0') : ''}}</b></td>
@@ -810,7 +811,7 @@
 	<div class="amountWordsBox" style="padding: 5px 15px;margin-bottom: 10px;background: #f2f2f2;border-radius: 4px;margin-top: 10px;">
 		<h4 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 12px;margin-bottom:0;font-weight: 600 !important;margin-bottom: 0;">
 			<span class="taxAmtSpan"><span style="font-family: Roboto;color: #2f2f2f;margin-top: 0;margin-bottom:0;font-size: 12px;font-weight: 400 !important;">Tax Amount in words : </span></span>INR
-			{{numberToWordConversionForTax}} Only</h4>
+			{{numberToWordConversionForTax ? (numberToWordConversionForTax | titlecase ): ''}} Only</h4>
 	</div>
 
 	<!-- Declaration -->
