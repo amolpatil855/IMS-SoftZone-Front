@@ -318,7 +318,7 @@
 								<h5>Amount Chargeable (in words)
 									<span>E. & O.E</span>
 								</h5>
-								<h4>INR {{numberToWordConversion}}</h4>
+								<h4>INR {{numberToWordConversion ? (numberToWordConversion | titlecase) : ''}}</h4>
 							</div>
 
 							<!-- Tax Table -->
@@ -383,7 +383,8 @@
 							<!-- Tax Amount in words -->
 							<div class="amountWordsBox" style="margin-bottom: 0;">
 								<h4>
-									<span class="taxAmtSpan">Tax Amount in words : </span>INR {{numberToWordConversionForTax}} Only</h4>
+									<span class="taxAmtSpan">Tax Amount in words : </span>INR {{numberToWordConversionForTax ? (numberToWordConversionForTax
+									| titlecase ): ''}} Only</h4>
 							</div>
 
 							<!-- Declaration -->
@@ -734,7 +735,7 @@
 		<h5 style="font-family: Roboto;color: #2f2f2f;margin-top: 0;margin-bottom:0;font-size: 12px;font-weight: 400 !important;">Amount Chargeable (in words)
 			<span style="float:right">E. & O.E</span>
 		</h5>
-		<h4 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 12px;margin-bottom:0;font-weight: 600 !important;margin-bottom: 0;">INR {{numberToWordConversion}}</h4>
+		<h4 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 12px;margin-bottom:0;font-weight: 600 !important;margin-bottom: 0;">INR {{numberToWordConversion ? (numberToWordConversion | titlecase) : ''}}</h4>
 	</div>
 
 	<!-- Tax Table -->
@@ -799,7 +800,7 @@
 	<div class="amountWordsBox" style="padding: 5px 15px;margin-bottom: 10px;background: #f2f2f2;border-radius: 4px;margin-top: 10px;">
 		<h4 style="font-family: Roboto;color: #000;margin-top: 0;font-size: 12px;margin-bottom:0;font-weight: 600 !important;margin-bottom: 0;">
 			<span class="taxAmtSpan"><span style="font-family: Roboto;color: #2f2f2f;margin-top: 0;margin-bottom:0;font-size: 12px;font-weight: 400 !important;">Tax Amount in words : </span></span>INR
-			{{numberToWordConversionForTax}} Only</h4>
+			{{numberToWordConversionForTax ? (numberToWordConversionForTax | titlecase ): ''}} Only</h4>
 	</div>
 
 	<!-- Declaration -->
