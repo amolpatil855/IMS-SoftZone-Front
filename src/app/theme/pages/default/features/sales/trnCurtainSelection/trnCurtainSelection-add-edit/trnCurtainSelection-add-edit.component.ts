@@ -46,7 +46,6 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   collectionId = null;
   trnCurtainSelectionItems = [];
   customerTypeList = [];
-  shadeId = null;
   locationObj = null;
   selectedAddress: any;
   isFormSubmitted = false;
@@ -54,6 +53,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   courierModeList = [];
   selectionTypeList = [];
   accessoryCodeList = [];
+  patternList = [];
   disabled: boolean = false;
   shippingAddressObj = null;
   shippingAddress = '';
@@ -129,6 +129,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
     this.getCollectionList();
     this.getAccessoryLookup();
     this.addArea();
+    this.getPatternLookup();
   }
 
   ngAfterViewInit() {
@@ -175,7 +176,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   removeArea(areaIndex) {
     // this.trnCurtainSelectionObj.areaList.slice(index, 1);
     if (this.trnCurtainSelectionObj.areaList.length > 1)
-      this.trnCurtainSelectionObj.areaList = _.remove(this.trnCurtainSelectionObj.areaList, function(rec, index) {
+      this.trnCurtainSelectionObj.areaList = _.remove(this.trnCurtainSelectionObj.areaList, function (rec, index) {
         if (areaIndex != index) {
           return rec;
         }
@@ -213,7 +214,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   removeUnit(areaIndex, unitindex, unitList) {
     // this.trnCurtainSelectionObj.areaList[areaIndex].unitList.slice(unitindex, 1);
     if (this.trnCurtainSelectionObj.areaList[areaIndex].unitList.length > 1)
-      this.trnCurtainSelectionObj.areaList[areaIndex].unitList = _.remove(this.trnCurtainSelectionObj.areaList[areaIndex].unitList, function(rec, index) {
+      this.trnCurtainSelectionObj.areaList[areaIndex].unitList = _.remove(this.trnCurtainSelectionObj.areaList[areaIndex].unitList, function (rec, index) {
         if (unitindex != index) {
           return rec;
         }
@@ -235,7 +236,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   onDeleteFabricRow(areaindex, unitIndex, fabricIndex, fabricList) {
     if (this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList.length > 1)
-      this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList = _.remove(this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList, function(rec, index) {
+      this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList = _.remove(this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList, function (rec, index) {
         if (fabricIndex != index) {
           return rec;
         }
@@ -245,7 +246,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   deleteAccessoryRow(areaindex, unitIndex, accesoryIndex, accessoryList) {
     if (this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList.length > 1)
-      this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList = _.remove(this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList, function(rec, index) {
+      this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList = _.remove(this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList, function (rec, index) {
         if (accesoryIndex != index) {
           return rec;
         }
@@ -322,7 +323,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
         this.trnCurtainSelectionObj.curtainSelectionDate = new Date(this.trnCurtainSelectionObj.curtainSelectionDate);
         this.trnCurtainSelectionItems = results.trnCurtainSelectionItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
-        _.forEach(this.trnCurtainSelectionItems, function(value) {
+        _.forEach(this.trnCurtainSelectionItems, function (value) {
           if (value.mstCategory != null)
             value.categoryName = value.mstCategory.code;
           if (value.mstCollection != null)
@@ -421,8 +422,16 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
     this.display = true;
   }
 
-  addItemToList() {
+  onChangeShade(fabricRow) {
+    let shadeObj = _.find(fabricRow.shadeIdList, ['shadeId', fabricRow.shadeId]);
+    fabricRow.rate = shadeObj.rrp;
+    fabricRow.discount = shadeObj.maxFlatRateDisc ? shadeObj.maxFlatRateDisc : 0;
+  }
 
+
+  onChangeAccesory(accessoryRow) {
+    let shadeObj = _.find(this.accessoryCodeList, ['accessoryId', accessoryRow.accessoryId]);
+    accessoryRow.rate = shadeObj.sellingRate;
   }
 
   onCancelItemDetails() {
@@ -444,10 +453,10 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   getAccessoryLookup() {
     Helpers.setLoading(true);
-    this.commonService.getAccessoryLookUp().subscribe(
+    this.trnCurtainSelectionService.getAccessoryCodeListForselection().subscribe(
       results => {
         this.accessoryCodeList = results;
-        this.accessoryCodeList.unshift({ label: '--Select--', value: null });
+        this.accessoryCodeList.unshift({ itemCode: '--Select--', accessoryId: null });
         Helpers.setLoading(false);
       },
       error => {
@@ -486,8 +495,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   onChangeCollection(fabricRow) {
     this.shadeIdList = [];
-    this.shadeIdList.unshift({ label: '--Select--', value: null });
-    this.shadeId = null;
+    this.shadeIdList.unshift({ serialno: '--Select--', shadeId: null });
     if (fabricRow.collectionId != null) {
       this.getshadeIdList(fabricRow);
     }
@@ -496,10 +504,10 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   getshadeIdList(fabricRow) {
     Helpers.setLoading(true);
-    this.trnMaterialSelectionService.getSerialNumberLookUpByCollection(fabricRow.collectionId).subscribe(
+    this.trnCurtainSelectionService.getShadeForCurtainSelectionByCollectionId(fabricRow.collectionId).subscribe(
       results => {
         fabricRow.shadeIdList = results;
-        fabricRow.shadeIdList.unshift({ label: '--Select--', value: null });
+        fabricRow.shadeIdList.unshift({ serialno: '--Select--', shadeId: null });
         Helpers.setLoading(false);
       },
       error => {
@@ -522,6 +530,22 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
       });
   }
 
+
+
+  getPatternLookup() {
+    Helpers.setLoading(true);
+    this.commonService.getPatternLookup().subscribe(
+      results => {
+        this.patternList = results;
+        this.patternList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
     let vm = this;
@@ -530,9 +554,9 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
     let custObj = _.find(this.customerList, ['value', this.trnCurtainSelectionObj.customerId]);
     this.trnCurtainSelectionObj.customerName = custObj ? custObj.label : '';
 
-    this.trnCurtainSelectionObj.areaList.forEach(function(areaObj) {
-      areaObj.unitList.forEach(function(unitObj) {
-        unitObj.fabricList.forEach(function(fabricobj) {
+    this.trnCurtainSelectionObj.areaList.forEach(function (areaObj) {
+      areaObj.unitList.forEach(function (unitObj) {
+        unitObj.fabricList.forEach(function (fabricobj) {
           let collectionObj = _.find(vm.collectionList, ['value', fabricobj.collectionId]);
           let obj = {
             "area": areaObj.area,
@@ -554,7 +578,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
           vm.trnCurtainSelectionObj.trnCurtainSelectionItems.push(obj);
         });
 
-        unitObj.accessoryList.forEach(function(accessoryobj) {
+        unitObj.accessoryList.forEach(function (accessoryobj) {
           let obj = {
             "area": areaObj.area,
             "unit": unitObj.unit,
@@ -577,11 +601,6 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
       });
     });
-    debugger;
-    if (this.trnCurtainSelectionItems.length == 0) {
-      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
-      return false;
-    }
     if (valid) {
       this.saveTrncurtainSelection(this.trnCurtainSelectionObj);
     }
