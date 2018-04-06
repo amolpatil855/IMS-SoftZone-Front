@@ -150,7 +150,7 @@
                                 </div>
                                   
                                 <p-dataTable [value]="masterPriceListList" [emptyMessage]="tableEmptyMesssage" class="table listingTable masterListTable" [rows]="pageSize"
-                                    [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount"
+                                    [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount" [responsive]="true"
                                     (onLazyLoad)="loadLazy($event)">
                                     <p-column field="collection" [hidden]="categoryId == 7" header="Collection" [style]="{'text-align':'left'}"></p-column>
                                     <p-column field="name" [hidden]="categoryId != 7" header="Name" [style]="{'text-align':'left'}"></p-column>
@@ -248,7 +248,7 @@
                                             {{data[col.field] ? (data[col.field] | number:'.0') : ''}}
                                         </ng-template>
                                     </p-column>
-                                    <p-column field="rollRateWithGst" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Roll Rate (Gst)"
+                                    <p-column field="rollRateWithGst" [hidden]="categoryId == 2 || categoryId == 4 || categoryId == 7" header="Role Rate (Gst)"
                                         [style]="{'text-align':'right'}">
                                     <ng-template let-col let-data="rowData" pTemplate="body">
                                             {{data[col.field] ? (data[col.field] | number:'.0') : ''}}

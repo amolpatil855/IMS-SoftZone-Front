@@ -320,30 +320,6 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Cut Rate',
-          variable: 'cutRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Cut Rate(GST)',
-          variable: 'cutRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Role Rate',
-          variable: 'roleRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Roll Rate (GST)',
-          variable: 'rollRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
           display: 'RRP',
           variable: 'rrp',
           filter: 'text'
@@ -569,30 +545,6 @@ export class ClientListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Cut Rate',
-          variable: 'cutRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Cut Rate(GST)',
-          variable: 'cutRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Role Rate',
-          variable: 'roleRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Roll Rate (GST)',
-          variable: 'rollRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
           display: 'RRP',
           variable: 'rrp',
           filter: 'text'
@@ -651,30 +603,6 @@ export class ClientListListComponent implements OnInit {
         {
           display: 'Serial No.',
           variable: 'serialNumber',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Cut Rate',
-          variable: 'cutRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Cut Rate(GST)',
-          variable: 'cutRateWithGst',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Role Rate',
-          variable: 'roleRate',
-          filter: 'text'
-        }
-        ,
-        {
-          display: 'Roll Rate (GST)',
-          variable: 'rollRateWithGst',
           filter: 'text'
         }
         ,
@@ -843,6 +771,7 @@ export class ClientListListComponent implements OnInit {
   }
 
   getCategoryWiseProducts(){
+    this.page = 0;
     if (this.categoryId == 1) {
       this.tableEmptyMesssage = 'Loading...';
       this.getFabricProducts();

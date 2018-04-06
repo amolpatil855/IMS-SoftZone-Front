@@ -342,7 +342,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Roll Rate (GST)',
+          display: 'Role Rate (GST)',
           variable: 'rollRateWithGst',
           filter: 'text'
         },
@@ -409,7 +409,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Purchase Rate Per(GST)',
+          display: 'Purchase Rate Per KG(GST)',
           variable: 'purchaseRatePerKGWithGst',
           filter: 'text'
         }
@@ -445,7 +445,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'selling Rate Per MM(GST)',
+          display: 'Selling Rate Per MM(GST)',
           variable: 'sellingRatePerMMWithGst',
           filter: 'text'
         }
@@ -637,7 +637,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Roll Rate (GST)',
+          display: 'Role Rate (GST)',
           variable: 'rollRateWithGst',
           filter: 'text'
         },
@@ -722,7 +722,7 @@ export class MasterPriceListListComponent implements OnInit {
         }
         ,
         {
-          display: 'Roll Rate (GST)',
+          display: 'Role Rate (GST)',
           variable: 'rollRateWithGst',
           filter: 'text'
         },
@@ -889,8 +889,9 @@ export class MasterPriceListListComponent implements OnInit {
   }
 
   getCategoryWiseProducts(){
+    this.page = 0;
+    this.search = '';
     if (this.categoryId == 1) {
-      this.tableEmptyMesssage = 'Loading...';
       this.getFabricProducts();
     }
     else if (this.categoryId == 2) {
