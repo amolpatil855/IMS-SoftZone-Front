@@ -41,7 +41,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   collectionList = [];
   addressList = [];
   categoriesCodeList = [];
-  shadeIdList = [];
+  shadeList = [];
   categoryId = null;
   collectionId = null;
   trnCurtainSelectionItems = [];
@@ -126,9 +126,11 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
       this.disabled = true;
       this.getTrncurtainSelectionById(this.params);
     }
+    else {
+      this.addArea();
+    }
     this.getCollectionList();
     this.getAccessoryLookup();
-    this.addArea();
     this.getPatternLookup();
   }
 
@@ -148,7 +150,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
     let unitObj = {
       unit: null,
       contRoleId: Math.floor(Math.random() * 2000),
-      pattern: null,
+      patternId: null,
       fabricList: [
         {
           categoryId: 1,
@@ -187,7 +189,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
     let unitObj = {
       unit: null,
       contRoleId: Math.floor(Math.random() * 2000),
-      pattern: null,
+      patternId: null,
       fabricList: [
         {
           contRoleId: Math.floor(Math.random() * 2000),
@@ -314,6 +316,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
     Helpers.setLoading(true);
     this.trnCurtainSelectionService.getTrnCurtainSelectionById(id).subscribe(
       results => {
+        let vm = this;
         this.trnCurtainSelectionObj = results;
         if (this.trnCurtainSelectionObj.isQuotationCreated == false) {
           this.viewItem = true;
@@ -322,6 +325,55 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
         }
         this.trnCurtainSelectionObj.curtainSelectionDate = new Date(this.trnCurtainSelectionObj.curtainSelectionDate);
         this.trnCurtainSelectionItems = results.trnCurtainSelectionItems;
+
+        let areaObjList = _.uniqBy(results.trnCurtainSelectionItems, 'area');
+        vm.trnCurtainSelectionObj.areaList = [];
+        _.forEach(areaObjList, function (value) {
+          vm.trnCurtainSelectionObj.areaList.push({
+            area: value.area,
+            contRoleId: Math.floor(Math.random() * 2000),
+          });
+        });
+
+        _.forEach(vm.trnCurtainSelectionObj.areaList, function (areaObj) {
+
+          areaObj.unitList = [];
+          let repetedUnit = _.filter(results.trnCurtainSelectionItems, { 'area': areaObj.area });
+
+          let unitObjList = _.uniqBy(repetedUnit, 'unit');
+
+          _.forEach(unitObjList, function (value) {
+            areaObj.unitList.push({
+              unit: value.unit,
+              area: value.area,
+              patternId: value.patternId,
+              contRoleId: Math.floor(Math.random() * 2000),
+            });
+          });
+          // _.forEach(results.trnCurtainSelectionItems, function (value) {
+          //   let unitObj = _.find(areaObj.unitList, { 'unit': value.unit, 'area': value.area });
+          //   if (!unitObj) {
+          //     areaObj.unitList = areaObj.unitList || [];
+          //     areaObj.unitList.push({
+          //       unit: value.unit,
+          //       area: value.area,
+          //       patternId: value.patternId,
+          //       contRoleId: Math.floor(Math.random() * 2000),
+          //     });
+          //   }
+          // });
+        });
+
+        _.forEach(vm.trnCurtainSelectionObj.areaList, function (areaObj) {
+          _.forEach(areaObj.unitList, function (value) {
+            let fabricDataList = _.filter(results.trnCurtainSelectionItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
+            value.fabricList = fabricDataList;
+            let accssoryDataList = _.filter(results.trnCurtainSelectionItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7 });
+            value.accessoryList = accssoryDataList;
+          });
+        });
+
+
         this.addressList = results.mstCustomer.mstCustomerAddresses;
         _.forEach(this.trnCurtainSelectionItems, function (value) {
           if (value.mstCategory != null)
@@ -337,6 +389,13 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
         this.globalErrorHandler.handleError(error);
         Helpers.setLoading(false);
       });
+  }
+
+  selectedLining(areaIndex, unitIndex, fabricIndex) {
+    _.forEach(this.trnCurtainSelectionObj.areaList[areaIndex].unitList[unitIndex].fabricList, function (fabObj) {
+      fabObj.isLining = false;
+    });
+    this.trnCurtainSelectionObj.areaList[areaIndex].unitList[unitIndex].fabricList[fabricIndex].isLining = true;
   }
 
   addCustomer({ value, valid }: { value: any, valid: boolean }) {
@@ -423,7 +482,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   }
 
   onChangeShade(fabricRow) {
-    let shadeObj = _.find(fabricRow.shadeIdList, ['shadeId', fabricRow.shadeId]);
+    let shadeObj = _.find(fabricRow.shadeList, ['shadeId', fabricRow.shadeId]);
     fabricRow.rate = shadeObj.rrp;
     fabricRow.discount = shadeObj.maxFlatRateDisc ? shadeObj.maxFlatRateDisc : 0;
   }
@@ -494,20 +553,20 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
 
   onChangeCollection(fabricRow) {
-    this.shadeIdList = [];
-    this.shadeIdList.unshift({ serialno: '--Select--', shadeId: null });
+    this.shadeList = [];
+    this.shadeList.unshift({ serialno: '--Select--', shadeId: null });
     if (fabricRow.collectionId != null) {
-      this.getshadeIdList(fabricRow);
+      this.getshadeList(fabricRow);
     }
   }
 
 
-  getshadeIdList(fabricRow) {
+  getshadeList(fabricRow) {
     Helpers.setLoading(true);
     this.trnCurtainSelectionService.getShadeForCurtainSelectionByCollectionId(fabricRow.collectionId).subscribe(
       results => {
-        fabricRow.shadeIdList = results;
-        fabricRow.shadeIdList.unshift({ serialno: '--Select--', shadeId: null });
+        fabricRow.shadeList = results;
+        fabricRow.shadeList.unshift({ serialno: '--Select--', shadeId: null });
         Helpers.setLoading(false);
       },
       error => {
@@ -561,7 +620,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
           let obj = {
             "area": areaObj.area,
             "unit": unitObj.unit,
-            "patternId": unitObj.pattern,
+            "patternId": unitObj.patternId,
             "categoryId": 1,
             "collectionId": fabricobj.collectionId,
             "shadeId": fabricobj.shadeId,
@@ -582,14 +641,14 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
           let obj = {
             "area": areaObj.area,
             "unit": unitObj.unit,
-            "patternId": unitObj.pattern,
-            "categoryId": null,
+            "patternId": unitObj.patternId,
+            "categoryId": 7,
             "collectionId": null,
             "shadeId": null,
             "accessoryId": accessoryobj.accessoryId,
             "isPatch": null,
             "isLining": null,
-            "rate": accessoryobj.amount,
+            "rate": accessoryobj.rate,
             "discount": null,
             "categoryName": null,
             "collectionName": null,
@@ -618,7 +677,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
           this.params = null;
           this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
-          this.router.navigate(['/features/sales/trncurtainSelection/list']);
+          this.router.navigate(['/features/sales/trnCurtainSelection/list']);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -631,7 +690,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
           this.params = null;
           this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
           Helpers.setLoading(false);
-          this.router.navigate(['/features/sales/trncurtainSelection/list']);
+          this.router.navigate(['/features/sales/trnCurtainSelection/list']);
         },
         error => {
           this.globalErrorHandler.handleError(error);
@@ -641,7 +700,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['/features/sales/trncurtainSelection/list']);
+    this.router.navigate(['/features/sales/trnCurtainSelection/list']);
     this.disabled = false;
     this.viewItem = true;
   }
