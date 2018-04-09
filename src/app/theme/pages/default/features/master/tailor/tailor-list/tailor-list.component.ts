@@ -99,7 +99,7 @@ export class TailorListComponent implements OnInit {
   }
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getTailorsList();
   }
@@ -110,15 +110,14 @@ export class TailorListComponent implements OnInit {
       results => {
         this.patternList = results;
         let vm = this;
-         _.forEach(this.patternList, function (selectedItem) {
-           vm.patternChargeList.push({
-            id: 0,
+        _.forEach(this.patternList, function (selectedItem) {
+          vm.patternChargeList.push({
             name: selectedItem.label,
             patternId: selectedItem.value,
-            charge: '',
-           });
+            charge: 0,
+          });
         });
-        
+
         Helpers.setLoading(false);
       },
       error => {
@@ -129,10 +128,10 @@ export class TailorListComponent implements OnInit {
 
   onChangeCharge(row) {
     if (!row.charge)
-      return;
+      row.charge = 0;
 
     row.charge = parseFloat(row.charge);
-    
+
   }
 
   getTailorById(id) {
@@ -140,6 +139,11 @@ export class TailorListComponent implements OnInit {
     this.tailorService.getTailorById(id).subscribe(
       results => {
         this.tailorObj = results;
+        this.patternChargeList = this.tailorObj.mstTailorPatternChargeDetails;
+        let vm = this;
+        _.forEach(this.patternChargeList, function (selectedItem) {
+          selectedItem.name = selectedItem.mstPattern.name;
+        });
         Helpers.setLoading(false);
       },
       error => {
@@ -150,14 +154,17 @@ export class TailorListComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    this.tailorObj.MstTailorPatternChargeDetails = this.patternChargeList;
-    if (valid)
+    if (valid) {
+      this.tailorObj.MstTailorPatternChargeDetails = this.patternChargeList;
       this.saveTailor(this.tailorObj);
+    }
+
   }
 
   saveTailor(value) {
     Helpers.setLoading(true);
     if (this.params) {
+      delete value.mstTailorPatternChargeDetails;
       this.tailorService.updateTailor(value)
         .subscribe(
         results => {
@@ -165,6 +172,7 @@ export class TailorListComponent implements OnInit {
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           this.isFormSubmitted = false;
           this.newRecord();
+          this.getPatternLookup();
           Helpers.setLoading(false);
         },
         error => {
@@ -172,12 +180,17 @@ export class TailorListComponent implements OnInit {
           Helpers.setLoading(false);
         });
     } else {
+      _.forEach(value.MstTailorPatternChargeDetails, function (selectedItem) {
+        if (selectedItem.mstPattern != null)
+          selectedItem.mstPattern = null;
+      });
       this.tailorService.createTailor(value)
         .subscribe(
         results => {
           this.getTailorsList();
           this.isFormSubmitted = false;
           this.newRecord();
+          this.getPatternLookup();
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
 
