@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation ,ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
@@ -94,7 +94,7 @@ export class CompanyAddEditComponent implements OnInit {
     }
     this.saveCompany(value);
   }
-  onUploadLogo(fileInput: any,e) {
+  onUploadLogo(fileInput: any, e) {
     var rec = this;
     var fr = new FileReader;
 
@@ -104,8 +104,8 @@ export class CompanyAddEditComponent implements OnInit {
     if (ext != 'jpeg' && ext != 'jpg' && ext != 'png') {
       this.messageService.addMessage({ severity: 'fail', summary: 'Fail', detail: 'Wrong extention' });
       this.myInputVariable.nativeElement.value = "";
-     // e.target.files=[];
-     fileInput=[];
+      // e.target.files=[];
+      fileInput = [];
       return;
     }
     rec.imageFileName = fileInput[0].name;

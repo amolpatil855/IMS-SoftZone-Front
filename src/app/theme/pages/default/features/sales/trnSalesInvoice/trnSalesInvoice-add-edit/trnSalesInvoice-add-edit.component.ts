@@ -135,13 +135,13 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
         if (results.trnSaleOrder != null) {
           this.orderNumber = results.trnSaleOrder.orderNumber;
           this.customerAddresses = results.trnSaleOrder.mstCustomer.mstCustomerAddresses;
-          customerInMH = _.find(this.customerAddresses, function (o) { return o.state == "Maharashtra" && o.id == results.trnSaleOrder.shippingAddressId; });
-          this.customerShippingAddress = _.find(this.customerAddresses, function (o) { return o.id == results.trnSaleOrder.shippingAddressId; });
+          customerInMH = _.find(this.customerAddresses, function(o) { return o.state == "Maharashtra" && o.id == results.trnSaleOrder.shippingAddressId; });
+          this.customerShippingAddress = _.find(this.customerAddresses, function(o) { return o.id == results.trnSaleOrder.shippingAddressId; });
         } else {
           this.orderNumber = results.trnMaterialQuotation.materialQuotationNumber;
           this.customerAddresses = results.trnMaterialQuotation.mstCustomer.mstCustomerAddresses;
-          customerInMH = _.find(this.customerAddresses, function (o) { return o.state == "Maharashtra" && o.isPrimary == true; });
-          this.customerShippingAddress = _.find(this.customerAddresses, function (o) { return o.isPrimary == true; });
+          customerInMH = _.find(this.customerAddresses, function(o) { return o.state == "Maharashtra" && o.isPrimary == true; });
+          this.customerShippingAddress = _.find(this.customerAddresses, function(o) { return o.isPrimary == true; });
         }
 
         this.trnSalesInvoiceObj.trnSalesInvoiceItems.forEach(item => {
@@ -179,11 +179,11 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
     let totalTax = 0;
     let vm = this;
     vm.invoiceItemQuantityTotal = 0;
-    _.forEach(lstGST, function (gstVal) {
+    _.forEach(lstGST, function(gstVal) {
       //console.log(value);
       let gstTotal = 0;
       let taxsableValue = 0;
-      _.forEach(invoiceItems, function (item) {
+      _.forEach(invoiceItems, function(item) {
         if (item.gst == gstVal) {
           vm.invoiceItemQuantityTotal = vm.invoiceItemQuantityTotal + item.quantity;
           gstTotal = gstTotal + (item.amount * item.gst / 100);

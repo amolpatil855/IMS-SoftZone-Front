@@ -17,7 +17,7 @@ import { ProductListing } from "../../../_models/productListing";
   encapsulation: ViewEncapsulation.None,
 })
 export class ProductListingListComponent implements OnInit {
-params: number;
+  params: number;
   productListingList = [];
   categoriesCodeList = [];
   categoryId = 1;
@@ -116,34 +116,34 @@ params: number;
 
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
-    if(this.categoryId == 1){
+    if (this.categoryId == 1) {
       this.tableEmptyMesssage = 'Loading...';
       this.getFabricProducts();
     }
-   else if(this.categoryId == 2){
+    else if (this.categoryId == 2) {
       this.tableEmptyMesssage = 'Loading...';
       this.getFoamProducts();
     }
-   else if(this.categoryId == 7){
+    else if (this.categoryId == 7) {
       this.tableEmptyMesssage = 'Loading...';
       this.getAccessoryProducts();
     }
   }
 
-  onChangeCategory(){
-    this.page=0;
-    this.search='';
-    if(this.categoryId == 1){
+  onChangeCategory() {
+    this.page = 0;
+    this.search = '';
+    if (this.categoryId == 1) {
       this.tableEmptyMesssage = 'Loading...';
       this.getFabricProducts();
-    }  
-    else if(this.categoryId == 2){
+    }
+    else if (this.categoryId == 2) {
       this.tableEmptyMesssage = 'Loading...';
       this.getFoamProducts();
-    }  
-    else if(this.categoryId == 7){
+    }
+    else if (this.categoryId == 7) {
       this.tableEmptyMesssage = 'Loading...';
       this.getAccessoryProducts();
     }

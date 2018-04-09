@@ -38,7 +38,7 @@ export class PurchaseOrderCountListComponent implements OnInit {
 
   ngOnInit() {
   }
-  getRecordsForPOCountList(){
+  getRecordsForPOCountList() {
     this.dashboardService.getRecordsForPOCount(this.pageSize, this.page, this.search).subscribe(
       results => {
         this.purchaseOrderCountList = results.data;
@@ -55,7 +55,7 @@ export class PurchaseOrderCountListComponent implements OnInit {
 
   loadLazy(event: LazyLoadEvent) {
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getRecordsForPOCountList();
   }

@@ -314,7 +314,7 @@ export class TrnMaterialSelectionAddEditComponent implements OnInit {
         this.trnMaterialSelectionObj.materialSelectionDate = new Date(this.trnMaterialSelectionObj.materialSelectionDate);
         this.trnMaterialSelectionItems = results.trnMaterialSelectionItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
-        _.forEach(this.trnMaterialSelectionItems, function (value) {
+        _.forEach(this.trnMaterialSelectionItems, function(value) {
           if (value.mstCategory != null)
             value.categoryName = value.mstCategory.code;
           if (value.mstCollection != null)

@@ -44,17 +44,17 @@ export class TrnSalesInvoiceService {
   getSalesInvoiceByIdForCustomerUser(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetSalesInvoiceByIdForCustomerUser/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   getshadeIdTrnSalesInvoices(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpForGRN?collectionId=' + id , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetSerialNumberLookUpForGRN?collectionId=' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getFoamSizeTrnSalesInvoices(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetFomSizeLookUpForGRN?collectionId=' + id , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetFomSizeLookUpForGRN?collectionId=' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   getMatsizeTrnSalesInvoices(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetMatSizeLookUpForGRN?collectionId=' + id , AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetMatSizeLookUpForGRN?collectionId=' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getAccessoryLookUp() {
@@ -64,7 +64,7 @@ export class TrnSalesInvoiceService {
   getCompanyLocationLookUp() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   createTrnSalesInvoice(trnSalesInvoice: TrnSalesInvoice) {
     return this.http.post(AppSettings.API_ENDPOINT + 'TrnSalesInvoice', trnSalesInvoice, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

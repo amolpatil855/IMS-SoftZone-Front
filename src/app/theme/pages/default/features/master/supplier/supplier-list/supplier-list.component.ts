@@ -30,7 +30,7 @@ export class SupplierListComponent implements OnInit {
   isDelete = false;
   states = [];
   isFormSubmitted: boolean = false;
-  isResponsive:boolean;
+  isResponsive: boolean;
   tableEmptyMesssage = 'Loading...';
   constructor(
     private formBuilder: FormBuilder,
@@ -45,9 +45,9 @@ export class SupplierListComponent implements OnInit {
 
   ngOnInit() {
     // this.getSuppliersList();
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-     this.isResponsive=true;
-     }
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      this.isResponsive = true;
+    }
     this.states = this.commonService.states;
     this.route.params.forEach((params: Params) => {
       this.params = params['supplierId'];
@@ -143,7 +143,7 @@ export class SupplierListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getSuppliersList();
   }

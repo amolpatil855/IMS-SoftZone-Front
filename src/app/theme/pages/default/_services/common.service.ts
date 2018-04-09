@@ -16,7 +16,7 @@ export class CommonService {
   states = [];
   stateData = ['Andra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jammu and Kashmir', 'Jharkhand', 'Karnataka', 'Kerala', 'Madya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Orissa', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Tripura', 'Uttaranchal', 'Uttar Pradesh', 'West Bengal', 'Andaman and Nicobar Islands', 'Chandigarh', 'Dadar and Nagar Haveli', 'Daman and Diu', 'Delhi', 'Lakshadeep', 'Pondicherry'];
   courierMode = [];
-  courierModeData = ['Surface','Air'];
+  courierModeData = ['Surface', 'Air'];
   getStateList() {
     let stateList = this.states;
     stateList.push({ label: '--Select--', value: '0' });
@@ -39,6 +39,9 @@ export class CommonService {
     //return this.http.get(AppSettings.API_ENDPOINT + 'categories', AppSettings.requestOptions()).map((response: Response) => response.json());  
   }
 
+  getPatternLookup() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetPatternLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
   getCategoryCodes() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
@@ -49,9 +52,9 @@ export class CommonService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
   getLocationById(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationById?locationId='+id, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCompanyLocationById?locationId=' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
-  
+
   getCategoryCodesForSO() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookupForSO', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
@@ -59,7 +62,7 @@ export class CommonService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetAccessoryLookUp', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getAccessoryLookUpBySupplierId(supplierId){
+  getAccessoryLookUpBySupplierId(supplierId) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetAccessoryLookUpBySupplierId?supplierId=' + supplierId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 }

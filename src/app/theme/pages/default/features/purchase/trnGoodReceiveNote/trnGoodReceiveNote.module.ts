@@ -23,8 +23,8 @@ import { TrnGoodReceiveNoteService } from "../../../_services/trnGoodReceiveNote
 import { TrnGoodReceiveNoteComponent } from "./trnGoodReceiveNote.component";
 import { TrnGoodReceiveNoteListComponent } from "./trnGoodReceiveNote-list/trnGoodReceiveNote-list.component";
 import { TrnGoodReceiveNoteAddEditComponent } from "./trnGoodReceiveNote-add-edit/trnGoodReceiveNote-add-edit.component";
-import {TrnProductStockService} from "../../../_services/trnProductStock.service";
-import {MatSizeService} from "../../../_services/matSize.service";
+import { TrnProductStockService } from "../../../_services/trnProductStock.service";
+import { MatSizeService } from "../../../_services/matSize.service";
 
 const routes: Routes = [
   {

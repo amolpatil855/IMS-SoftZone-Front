@@ -271,7 +271,7 @@ export class TrnCustomerOrderAddEditComponent implements OnInit {
         this.trnSaleOrderItems = results.trnSaleOrderItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
         let shippingAddressId = this.trnSalesOrderObj.shippingAddressId;
-        this.shippingAddressObj = _.find(this.addressList, function (o) { return o.id == shippingAddressId; });
+        this.shippingAddressObj = _.find(this.addressList, function(o) { return o.id == shippingAddressId; });
         // _.forEach(this.trnSaleOrderItems, function (value) {
         //   if (value.mstCategory != null)
         //     value.categoryName = value.mstCategory.code;

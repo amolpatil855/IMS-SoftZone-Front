@@ -23,8 +23,8 @@ import { TrnAdvancePaymentService } from "../../../_services/trnAdvancePayment.s
 import { TrnAdvancePaymentComponent } from "./trnAdvancePayment.component";
 import { TrnAdvancePaymentListComponent } from "./trnAdvancePayment-list/trnAdvancePayment-list.component";
 import { TrnAdvancePaymentAddEditComponent } from "./trnAdvancePayment-add-edit/trnAdvancePayment-add-edit.component";
-import {TrnProductStockService} from "../../../_services/trnProductStock.service";
-import {MatSizeService} from "../../../_services/matSize.service";
+import { TrnProductStockService } from "../../../_services/trnProductStock.service";
+import { MatSizeService } from "../../../_services/matSize.service";
 import { TrnGINForItemsWithStockAvailableService } from '../../../_services/trnGINForItemsWithStockAvailable.service';
 const routes: Routes = [
   {

@@ -23,8 +23,8 @@ import { TrnSalesInvoiceService } from "../../../_services/trnSalesInvoice.servi
 import { InvoiceComponent } from "./invoice.component";
 import { InvoiceListComponent } from "./invoice-list/invoice-list.component";
 import { InvoiceAddEditComponent } from "./invoice-add-edit/invoice-add-edit.component";
-import {TrnProductStockService} from "../../../_services/trnProductStock.service";
-import {MatSizeService} from "../../../_services/matSize.service";
+import { TrnProductStockService } from "../../../_services/trnProductStock.service";
+import { MatSizeService } from "../../../_services/matSize.service";
 
 const routes: Routes = [
   {

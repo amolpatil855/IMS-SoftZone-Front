@@ -7,7 +7,7 @@ import { AuthGuard } from "../../../../../../auth/_guards/auth.guard";
 import { LayoutModule } from "../../../../../layouts/layout.module";
 import { CommonService } from '../../../_services/common.service';
 import { CollectionService } from '../../../_services/collection.service';
-import {TrnProductStockService} from "../../../_services/trnProductStock.service";
+import { TrnProductStockService } from "../../../_services/trnProductStock.service";
 import {
   DataTableModule,
   SharedModule,
@@ -22,6 +22,7 @@ import {
   ConfirmationService,
 } from 'primeng/primeng';
 
+import { TrnMaterialSelectionService } from "../../../_services/trnMaterialSelection.service";
 import { TrnCurtainSelectionService } from "../../../_services/trnCurtainSelection.service";
 import { TrnCurtainSelectionComponent } from "./trnCurtainSelection.component";
 import { TrnCurtainSelectionListComponent } from "./trnCurtainSelection-list/trnCurtainSelection-list.component";
@@ -102,7 +103,8 @@ const routes: Routes = [
     MatSizeService,
     ConfirmationService,
     CollectionService,
-    TrnProductStockService
+    TrnProductStockService,
+    TrnMaterialSelectionService
   ],
 })
 export class TrnCurtainSelectionModule {

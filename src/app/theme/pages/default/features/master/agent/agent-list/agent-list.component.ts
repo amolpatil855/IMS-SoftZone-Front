@@ -63,7 +63,7 @@ export class AgentListComponent implements OnInit {
       commision: null,
     };
   }
-  
+
   validateState(agentObj) {
     if (!agentObj.state || agentObj.state == '0' || agentObj.state == 0) {
       agentObj.invalidState = true;
@@ -111,7 +111,7 @@ export class AgentListComponent implements OnInit {
     //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
     //imitate db connection over a network
     this.pageSize = event.rows;
-    this.page = event.first/event.rows;
+    this.page = event.first / event.rows;
     this.search = event.globalFilter;
     this.getAgentsList();
   }

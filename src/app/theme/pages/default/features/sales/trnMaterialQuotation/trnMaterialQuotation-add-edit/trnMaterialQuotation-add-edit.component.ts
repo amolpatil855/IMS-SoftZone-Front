@@ -88,9 +88,9 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   rateWithGST = null;
   qualityList = [];
   thicknessList = [];
-  customerShippingAddress:any;
-  numberToWordsVal:string;
-  hidePrint:boolean;
+  customerShippingAddress: any;
+  numberToWordsVal: string;
+  hidePrint: boolean;
   productDetails = {
     sellingRate: null,
     flatRate: null,
@@ -123,7 +123,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   fomEnable: boolean = false;
   isMatSelectionId: boolean = false;
   customerList = [];
-  mstCompanyInfo:any;
+  mstCompanyInfo: any;
   constructor(
     private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -146,7 +146,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.hidePrint=true;
+    this.hidePrint = true;
     this.route.queryParams
       .subscribe(params => {
         this.materialSelectionId = params.materialSelectionId;
@@ -203,7 +203,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
   getAllCompanyInfo() {
     this.companyService.getAllCompanyInfo().subscribe(
       (results: any) => {
-        this.mstCompanyInfo=results;
+        this.mstCompanyInfo = results;
       });
   }
   ngAfterViewInit() {
@@ -381,7 +381,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
     Helpers.setLoading(true);
     this.trnMaterialQuotationService.getTrnMaterialQuotationById(id).subscribe(
       results => {
-      
+
         this.trnMaterialQuotationObj = results;
         if (this.trnMaterialQuotationObj.status == "Created") {
           this.status = true;
@@ -391,13 +391,13 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
           this.viewItem = false;
         }
         this.trnMaterialQuotationObj.materialQuotationDate = new Date(this.trnMaterialQuotationObj.materialQuotationDate);
-        this.customerShippingAddress= this.trnMaterialQuotationObj.mstCustomer.mstCustomerAddresses[0];
+        this.customerShippingAddress = this.trnMaterialQuotationObj.mstCustomer.mstCustomerAddresses[0];
         this.trnMaterialQuotationItems = results.trnMaterialQuotationItems;
         this.addressList = results.mstCustomer.mstCustomerAddresses;
         //delete this.trnMaterialQuotationObj['trnMaterialQuotationItems'];
         Helpers.setLoading(false);
-        this.hidePrint=false;
-        this.numberToWordsVal= this.numberToWords(this.trnMaterialQuotationObj.totalAmount, ",");
+        this.hidePrint = false;
+        this.numberToWordsVal = this.numberToWords(this.trnMaterialQuotationObj.totalAmount, ",");
       },
       error => {
         this.globalErrorHandler.handleError(error);
@@ -986,7 +986,7 @@ export class TrnMaterialQuotationAddEditComponent implements OnInit {
     row.rateWithGST = parseFloat(row.rateWithGST);
 
     let sum = 0;
-    _.forEach(this.trnMaterialQuotationItems, function (selectedItem) {
+    _.forEach(this.trnMaterialQuotationItems, function(selectedItem) {
       sum = sum + selectedItem.amountWithGST;
     });
 
