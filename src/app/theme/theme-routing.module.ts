@@ -80,6 +80,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/master\/pattern\/pattern.module#PatternModule"
       },
       {
+        "path": "features\/master\/tailor",
+        "loadChildren": ".\/pages\/default\/features\/master\/tailor\/tailor.module#TailorModule"
+      },
+      {
         "path": "features\/master\/trnProductStock",
         "loadChildren": ".\/pages\/default\/features\/master\/trnProductStock\/trnProductStock.module#TrnProductStockModule"
       },
@@ -142,6 +146,10 @@ const routes: Routes = [
       {
         "path": "features\/sales\/trnCurtainSelection",
         "loadChildren": ".\/pages\/default\/features\/sales\/trnCurtainSelection\/trnCurtainSelection.module#TrnCurtainSelectionModule"
+      },
+      {
+        "path": "features\/sales\/trnCurtainQuotation",
+        "loadChildren": ".\/pages\/default\/features\/sales\/trnCurtainQuotation\/trnCurtainQuotation.module#TrnCurtainQuotationModule"
       },
       {
         "path": "features\/reports\/masterPriceList",
