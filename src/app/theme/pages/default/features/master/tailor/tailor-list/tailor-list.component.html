@@ -1,0 +1,309 @@
+<p-confirmDialog #cd>
+    <p-footer>
+        <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+            <span>
+                <i class="la la-check"></i>
+                <span>
+                    Yes
+                </span>
+            </span>
+        </button>
+        <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+            <span>
+                <i class="la la-close"></i>
+                <span>
+                    No
+                </span>
+            </span>
+        </button>
+    </p-footer>
+</p-confirmDialog>
+
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="#" class="m-nav__link m-nav__link--icon">
+                        <i class="m-nav__link-icon la la-home"></i>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a class="m-nav__link">
+                        <span class="m-nav__link-text">
+                            Tailors
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="tailorForm" [ngClass]="(tailorForm && !tailorForm.form.valid) ?'cursorNotAllowed':'cursorPointer'"
+                title="{{(tailorForm && tailorForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+                [disabled]="tailorForm && !tailorForm.form.valid" [isAuthorize]="['agent']" tabindex="10">
+                {{ params ? 'Update' : 'Save' }}
+            </button>
+            <button class="btn btn-secondary" [isAuthorize]="['agent']" (click)="onCancel()" tabindex="11">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+
+                <div class="row">
+
+                    <div class="col-md-12" *ngIf="toggleDiv">
+                        <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" role="form" novalidate (ngSubmit)="onSubmit(tailorForm)"
+                            #tailorForm="ngForm" id="tailorForm">
+                            <div class="formContainerSamePage">
+
+                                <div class="row">
+
+                                    <div class="col-md-7">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">Tailor Basic Details</div>
+                                            <div class="panel-body">
+                                                <div class="form-group">
+                                                    <div class="col-lg-6 col-md-6 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">Name
+                                                                <span class="requiredField">*</span>
+                                                            </label>
+                                                            <div class="col-sm-7">
+                                                                <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==100) return false;" [ngClass]="{'red-border-class': nameVal.errors && isFormSubmitted}"
+                                                                    #nameVal="ngModel" required [(ngModel)]="tailorObj.name" name="name"
+                                                                    id="name" placeholder="Name" autofocus tabindex="1">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-6 col-md-6 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">Mobile<span class="requiredField">*</span>
+                                                            </label>
+                                                            <div class="col-sm-7">
+                                                                <input type="phone" class="form-control" pattern="^[0-9]+" [ngClass]="{'red-border-class': phoneVal.errors && isFormSubmitted}"
+                                                                    [(ngModel)]="tailorObj.phone" name="phone" required #phoneVal="ngModel"
+                                                                    placeholder="Mobile" minlength="10" maxlength="10" tabindex="2">
+
+                                                                <!-- <div *ngIf="phoneVal.errors && (phoneVal.dirty || phoneVal.touched)" class="alertMsg">
+                                                                    <div *ngIf="phoneVal.errors.minlength && !phoneVal.errors.pattern">
+                                                                        Mobile number should be 10 digit.
+                                                                    </div>
+                                                                    <div *ngIf="phoneVal.errors.pattern">
+                                                                        Mobile number must be a number.
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+												</div>
+												<div class="form-group">
+                                                    <div class="col-lg-6 col-md-6 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">Alternate Phone<span class="requiredField">*</span>
+                                                            </label>
+                                                            <div class="col-sm-7">
+                                                                <input type="phone" class="form-control" pattern="^[0-9]+" [ngClass]="{'red-border-class': alternatePhone1Val.errors && isFormSubmitted}"
+                                                                    [(ngModel)]="tailorObj.alternatePhone1" name="alternatePhone1" #alternatePhone1Val="ngModel"
+                                                                    placeholder="Alternate Phone" minlength="10" maxlength="10" tabindex="3">
+
+                                                                <!-- <div *ngIf="phoneVal.errors && (phoneVal.dirty || phoneVal.touched)" class="alertMsg">
+                                                                    <div *ngIf="phoneVal.errors.minlength && !phoneVal.errors.pattern">
+                                                                        Mobile number should be 10 digit.
+                                                                    </div>
+                                                                    <div *ngIf="phoneVal.errors.pattern">
+                                                                        Mobile number must be a number.
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">Email
+                                                                <span class="requiredField">*</span>
+                                                            </label>
+                                                            <div class="col-sm-7">
+                                                                <input type="email" class="form-control" email pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"
+                                                                    [ngClass]="{'red-border-class': emailVal.errors && isFormSubmitted}"
+                                                                    #emailVal="ngModel" required [(ngModel)]="tailorObj.email"
+                                                                    name="email" placeholder="Email" maxlength="254" tabindex="4">
+                                                                <!-- <div class="alertMsg" *ngIf="emailVal.errors && emailVal.errors.required && (emailVal.dirty || emailVal.touched)">
+                                                                            Please enter Email
+                                                                        </div> -->
+                                                                <!-- <div *ngIf="emailVal.errors && (emailVal.dirty || emailVal.touched)" class="alertMsg">
+                                                                    <div *ngIf="emailVal.errors.pattern">
+                                                                        Please enter valid email.
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="col-lg-6 col-md-6 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">Address 1
+                                                                <span class="requiredField">*</span>
+                                                            </label>
+                                                            <div class="col-sm-7">
+                                                                <input type="text" class="form-control" [ngClass]="{'red-border-class': addressLine1Val.errors && isFormSubmitted}" #addressLine1Val="ngModel"
+                                                                    required [(ngModel)]="tailorObj.addressLine1" name="addressLine1"
+                                                                    placeholder="Address Line 1" id="addressLine1" tabindex="5">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">Address 2</label>
+                                                            <div class="col-sm-7">
+                                                                <input type="text" class="form-control" [(ngModel)]="tailorObj.addressLine2" name="addressLine2" placeholder="Address Line 2"
+                                                                    id="addressLine2" tabindex="6">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    
+												</div>
+												<div class="form-group">
+                                                    <div class="col-lg-6 col-md-6 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">City
+                                                                <span class="requiredField">*</span>
+                                                            </label>
+                                                            <div class="col-sm-7">
+                                                                <input type="text" class="form-control" [ngClass]="{'red-border-class': cityVal.errors && isFormSubmitted}" #cityVal="ngModel"
+                                                                    required [(ngModel)]="tailorObj.city" name="city" placeholder="City"
+                                                                    id="city" tabindex="7">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">State
+                                                                <span class="requiredField">*</span>
+                                                            </label>
+                                                            <div class="col-sm-7">
+                                                                <select class="form-control" required name="state" [(ngModel)]="tailorObj.state" #selectedStateVal="ngModel"
+                                                                [ngClass]="{'red-border-class': selectedStateVal.errors && isFormSubmitted}" tabindex="8">
+                                                                    <option *ngFor="let x of states" [ngValue]="x.value">{{x.label}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="col-lg-6 col-md-6 formContentbox">
+                                                        <div class="form-group">
+                                                            <label class="fieldLabel col-sm-5">Pin
+                                                                <span class="requiredField">*</span>
+                                                            </label>
+                                                            <div class="col-sm-7">
+                                                                <input type="text" class="form-control" pattern="^[0-9]+" onKeyPress="if(this.value.length==6) return false;" [ngClass]="{'red-border-class': pinVal.errors && isFormSubmitted}"
+                                                                    #pinVal="ngModel" required [(ngModel)]="tailorObj.pin" name="pin"
+                                                                    placeholder="PIN" id="pin" minlength="6" maxlength="6" tabindex="8">
+                                                                 <div *ngIf="pinVal.errors && (pinVal.dirty || pinVal.touched)" class="alertMsg">
+                                                                    <div *ngIf="pinVal.errors.minlength && !pinVal.errors.pattern">
+                                                                        Pin number should be 6 digit.
+                                                                    </div>
+                                                                    <div *ngIf="pinVal.errors.pattern">
+                                                                        Pin number must be a number.
+                                                                    </div>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5" *ngIf="toggleDiv">
+                                        <div class="panel panel-default">
+                                                                  <div class="panel-heading">Pattern Charge Details</div>
+                                                                  <div class="panel-body">
+                                          <p-dataTable [value]="patternChargeList" [editable]="true" [paginator]="true"
+									 [rows]="100" [headerCheckboxToggleAllPages]="true" class="table listingTable">
+										<p-column field="name" header="Pattern Name" [editable]="false" [style]="{'text-align':'left'}"></p-column>
+										<p-column field="charge" header="Charge" [editable]="true" [style]="{'text-align':'center'}">
+											<ng-template let-col let-row="rowData" pTemplate="editor">
+												<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="999" [(ngModel)]="row[col.field]"
+												 name="charge" (blur)="onChangeCharge(row)">
+											</ng-template>
+										</p-column>
+                                         </p-dataTable>    
+                                     </div>
+                                     </div>   
+                                    </div>    
+
+                                </div>
+
+
+
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+                <div class="m-portlet__body">
+                    <!--begin::Section-->
+
+                    <div class="m-section">
+                        <div class="m-section__content">
+                            <div class="ui-widget-header" style="border-bottom: 0 none">
+                                <i class="fa fa-search searchIcon"></i>
+                                <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox" tabindex="12">
+
+                                <!-- Add Button -->
+                                <button *ngIf="!toggleDiv" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm" (click)="toggleButton()"
+                                    [isAuthorize]="['agent']">
+                                    <span>
+                                        <i class="flaticon-add"></i>
+                                        <span>
+                                            Add Tailor
+                                        </span>
+                                    </span>
+                                </button>
+                            </div>
+                            <p-dataTable [value]="tailorList" [emptyMessage]="tableEmptyMesssage" class="table listingTable halfWidthTable" [rows]="pageSize"
+                                [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [responsive]="true"
+                                [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
+                                <p-column field="name" header="Name" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="phone" header="Mobile" [style]="{'text-align':'left'}"></p-column>
+                                <p-column field="email" header="Email" [style]="{'text-align':'left'}"></p-column>
+                                <p-column styleClass="col-button" [style]="{'text-align':'center'}">
+                                    <ng-template pTemplate="header">
+                                        Action
+                                    </ng-template>
+                                    <ng-template let-row="rowData" pTemplate="body">
+                                        <button type="button" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit"></button>
+                                        <button type="button" pButton (click)="onDelete(row)" icon="fa fa-trash-o" class="delBtn" title="Delete"></button>
+                                    </ng-template>
+                                </p-column>
+                            </p-dataTable>
+                        </div>
+                    </div>
+                    <!--end::Section-->
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+</div>
