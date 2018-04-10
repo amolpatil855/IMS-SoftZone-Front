@@ -170,6 +170,8 @@ export class MatThicknessListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getMatThicknesssList();
+            this.isFormSubmitted = false;
+            this.newRecord();
           },
           error => {
             this.globalErrorHandler.handleError(error);

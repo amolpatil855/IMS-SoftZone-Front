@@ -174,6 +174,8 @@ export class CourierListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getCouriersList();
+            this.isFormSubmitted = false;
+            this.newRecord();
           },
           error => {
             this.globalErrorHandler.handleError(error);
