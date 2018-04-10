@@ -104,7 +104,7 @@
                                                                         <div class="col-md-7 col-sm-7">
                                                                             <!-- <input type="text" [(ngModel)]="trnGoodIssueNoteObj.salesOrderNumber" name="salesOrderNumber" class="form-control" #salesOrderNumberVal="ngModel"
                                                                                 readonly tabindex="3" placeholder=""> -->
-                                                                                {{trnGoodIssueNoteObj.salesOrderNumber|| trnGoodIssueNoteObj.materialQuotationNumber}}
+                                                                            {{trnGoodIssueNoteObj.salesOrderNumber|| trnGoodIssueNoteObj.materialQuotationNumber}}
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-3">
@@ -172,17 +172,17 @@
                                         <p-dataTable [value]="trnGoodIssueNoteObj.trnGoodIssueNoteItems" [editable]="true" [emptyMessage]="tableEmptyMesssage" class="table listingTable">
                                             <p-column field="categoryName" header="Category" [editable]="false" [style]="{'text-align':'left'}"></p-column>
                                             <p-column field="collectionName" header="Collection" [editable]="false" [style]="{'text-align':'left'}"></p-column>
-                                            <p-column  header="Sr. No. / Size / Accessory" [style]="{'text-align':'left'}">
-                                                    <ng-template let-row="rowData" pTemplate="body">
-                                                        <span > {{row.serialno}} {{row.size}} {{row.accessoryName}}</span>
-                                                    </ng-template>
-                                                </p-column>
+                                            <p-column header="Sr. No. / Size / Accessory" [style]="{'text-align':'left'}">
+                                                <ng-template let-row="rowData" pTemplate="body">
+                                                    <span> {{row.serialno}} {{row.size}} {{row.accessoryName}}</span>
+                                                </ng-template>
+                                            </p-column>
                                             <p-column field="orderQuantity" header="Or. Quantity" [editable]="false" [style]="{'text-align':'center'}"></p-column>
                                             <p-column field="availableStock" header="Available Stock" [editable]="false" [style]="{'text-align':'center'}"></p-column>
                                             <p-column field="issuedQuantity" header="Issue Quantity" [editable]="trnGoodIssueNoteObj.status=='Created'" [style]="{'text-align':'center'}">
                                                 <ng-template let-col let-row="rowData" pTemplate="editor">
                                                     <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{row.orderQuantity > row.availableStock ? row.availableStock : row.orderQuantity }}"
-                                                        [(ngModel)]="row[col.field]" name="issuedQuantity">
+                                                        [(ngModel)]="row[col.field]" name="issuedQuantity" (blur)="onChangeIssuedQuantity(row)">
                                                 </ng-template>
                                             </p-column>
                                         </p-dataTable>

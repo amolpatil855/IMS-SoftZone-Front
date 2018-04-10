@@ -213,7 +213,8 @@ export class AccessoryListComponent implements OnInit {
         .subscribe(
         results => {
           this.getAccessorysList();
-          this.params = null;
+          this.isFormSubmitted = false;
+          this.newRecord();
           this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
 
