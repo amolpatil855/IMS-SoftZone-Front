@@ -22,7 +22,7 @@ export class TailorService {
   }
 
   getPatternLookup() {
-    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetPatternLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetPatternDetailsForTailor', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createTailor(tailor: Tailor) {

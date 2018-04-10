@@ -70,6 +70,7 @@ export class TailorListComponent implements OnInit {
 
   toggleButton() {
     this.toggleDiv = !this.toggleDiv;
+    this.getPatternLookup();
     if (this.toggleDiv && !this.params) {
       this.isFormSubmitted = false;
       this.newRecord();
@@ -108,16 +109,7 @@ export class TailorListComponent implements OnInit {
     Helpers.setLoading(true);
     this.tailorService.getPatternLookup().subscribe(
       results => {
-        this.patternList = results;
-        let vm = this;
-        _.forEach(this.patternList, function (selectedItem) {
-          vm.patternChargeList.push({
-            name: selectedItem.label,
-            patternId: selectedItem.value,
-            charge: 0,
-          });
-        });
-
+        this.patternChargeList = results;
         Helpers.setLoading(false);
       },
       error => {
@@ -139,10 +131,13 @@ export class TailorListComponent implements OnInit {
     this.tailorService.getTailorById(id).subscribe(
       results => {
         this.tailorObj = results;
-        this.patternChargeList = this.tailorObj.mstTailorPatternChargeDetails;
         let vm = this;
-        _.forEach(this.patternChargeList, function (selectedItem) {
-          selectedItem.name = selectedItem.mstPattern.name;
+        _.forEach(this.tailorObj.mstTailorPatternChargeDetails, function (selectedItem) {
+          let poItemObj = _.find(vm.patternChargeList, { 'patternId': selectedItem.patternId });
+          if (poItemObj != null) {
+            if (id == selectedItem.tailorId && poItemObj.patternId == selectedItem.patternId)
+              poItemObj.charge = selectedItem.charge;
+          }
         });
         Helpers.setLoading(false);
       },
@@ -169,10 +164,10 @@ export class TailorListComponent implements OnInit {
         .subscribe(
         results => {
           this.getTailorsList();
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           this.isFormSubmitted = false;
-          this.newRecord();
           this.getPatternLookup();
+          this.newRecord();
+          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
           Helpers.setLoading(false);
         },
         error => {
