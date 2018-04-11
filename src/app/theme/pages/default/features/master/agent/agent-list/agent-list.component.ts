@@ -58,19 +58,10 @@ export class AgentListComponent implements OnInit {
       address1: '',
       address2: '',
       city: '',
-      state: '',
+      state: null,
       pin: '',
       commision: null,
     };
-  }
-
-  validateState(agentObj) {
-    if (!agentObj.state || agentObj.state == '0' || agentObj.state == 0) {
-      agentObj.invalidState = true;
-    }
-    else {
-      agentObj.invalidState = false;
-    }
   }
 
   toggleButton() {
@@ -79,7 +70,6 @@ export class AgentListComponent implements OnInit {
       this.isFormSubmitted = false;
       this.newRecord();
     }
-
   }
   onCancel() {
     this.toggleDiv = false;
@@ -197,6 +187,8 @@ export class AgentListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getAgentsList();
+            this.isFormSubmitted = false;
+            this.newRecord();
           },
           error => {
             this.globalErrorHandler.handleError(error);
