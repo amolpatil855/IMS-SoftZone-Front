@@ -96,8 +96,8 @@
                                         Action
                                     </ng-template>
                                     <ng-template let-row="rowData" pTemplate="body">
-                                        <button type="button" pButton (click)="onEditClick(row)" icon="{{row.isQuotationCreated? 'fa fa-pencil' : 'fa fa-info-circle'}}"
-                                            class="editBtn" title="{{row.isQuotationCreated? 'Edit' : 'View Details'}}"></button>
+                                        <button type="button" pButton (click)="onEditClick(row)" icon="{{row.isQuotationCreated?  'fa fa-info-circle' : 'fa fa-pencil'}}"
+                                            class="editBtn" title="{{row.isQuotationCreated ? 'View Details' : 'Edit'}}"></button>
                                     </ng-template>
                                 </p-column>
                             </p-dataTable>

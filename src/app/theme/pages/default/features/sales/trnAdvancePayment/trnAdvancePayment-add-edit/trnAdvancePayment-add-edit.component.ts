@@ -214,8 +214,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
         this.viewItem = false;
         this.trnAdvancePaymentObj.advancePaymentDate = new Date(this.trnAdvancePaymentObj.advancePaymentDate);
         this.trnAdvancePaymentObj.chequeDate = new Date(this.trnAdvancePaymentObj.chequeDate);
-        if (this.trnAdvancePaymentObj.trnMaterialQuotation)
-          this.totalAmount = this.trnAdvancePaymentObj.trnMaterialQuotation.totalAmount;
+        this.trnAdvancePaymentObj.trnMaterialQuotation != null ? this.totalAmount = this.trnAdvancePaymentObj.trnMaterialQuotation.totalAmount : this.totalAmount = this.trnAdvancePaymentObj.trnCurtainQuotation.totalAmount;
         Helpers.setLoading(false);
       },
       error => {
