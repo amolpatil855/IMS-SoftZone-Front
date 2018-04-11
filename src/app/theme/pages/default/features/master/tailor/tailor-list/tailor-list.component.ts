@@ -213,13 +213,19 @@ export class TailorListComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
+        Helpers.setLoading(true);
         this.tailorService.deleteTailor(tailor.id).subscribe(
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getTailorsList();
+            this.isFormSubmitted = false;
+            this.newRecord();
+            this.getPatternLookup();
+            Helpers.setLoading(false);
           },
           error => {
             this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
           })
       },
       reject: () => {

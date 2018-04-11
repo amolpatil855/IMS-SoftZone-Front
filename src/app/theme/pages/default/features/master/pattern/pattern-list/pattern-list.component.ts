@@ -177,6 +177,8 @@ export class PatternListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getPatternsList();
+            this.isFormSubmitted = false;
+            this.newRecord();
             Helpers.setLoading(false);
           },
           error => {
