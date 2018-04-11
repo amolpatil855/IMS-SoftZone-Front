@@ -19,10 +19,12 @@ import { TrnAdvancePayment } from "../../../../_models/trnAdvancePayment";
 export class TrnAdvancePaymentListComponent implements OnInit {
   params: number;
   trnAdvancePaymentList = [];
+  quotationTypeList = [];
   pageSize = 50;
   page = 1;
   totalCount = 0;
   search = '';
+  quotationType = '';
   tableEmptyMesssage = 'Loading...';
   constructor(
     private formBuilder: FormBuilder,
@@ -35,10 +37,13 @@ export class TrnAdvancePaymentListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.quotationTypeList.push({ label: 'All', value: '' });
+    this.quotationTypeList.push({ label: 'Curtain', value: 'Curtain' });
+    this.quotationTypeList.push({ label: 'Material', value: 'Material' });
   }
 
   getTrnAdvancePaymentsList() {
-    this.trnAdvancePaymentService.getAllTrnAdvancePayments(this.pageSize, this.page, this.search).subscribe(
+    this.trnAdvancePaymentService.getAllTrnAdvancePayments(this.pageSize, this.page, this.search, this.quotationType).subscribe(
       results => {
         this.trnAdvancePaymentList = results.data;
         this.totalCount = results.totalCount;
@@ -50,6 +55,11 @@ export class TrnAdvancePaymentListComponent implements OnInit {
         this.tableEmptyMesssage = "No Records Found";
         this.globalErrorHandler.handleError(error);
       });
+  }
+
+  onChangeQuotationType(){
+    this.page = 0;
+    this.getTrnAdvancePaymentsList();
   }
 
   loadLazy(event: LazyLoadEvent) {

@@ -41,7 +41,7 @@
             </ul>
         </div>
         <div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-                <button class="topBtn btn btn-info" *ngIf="params" title="Print" (click)="print()" tabindex="5">print</button>
+            <button class="topBtn btn btn-info" *ngIf="params" title="Print" (click)="print()" tabindex="5">print</button>
             <button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnAdvancePaymentForm"
                 title="{{(trnAdvancePaymentForm && trnAdvancePaymentForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
                 [isAuthorize]="['advancepayment']" tabindex="11">
@@ -84,7 +84,7 @@
 
                                                             <div class="col-md-12">
                                                                 <div class="row">
-                                                                    <div class="col-md-3">
+                                                                    <div class="col-md-4">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Adv. Payment Date</label>
                                                                         <div class="col-md-8 col-sm-8">
                                                                             <p-calendar class="purchaseOrderDate" #advancePaymentDateVal="ngModel" [(ngModel)]="trnAdvancePaymentObj.advancePaymentDate"
@@ -96,7 +96,7 @@
                                                                             </p-calendar>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-3">
+                                                                    <div class="col-md-4">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Adv. Payment No.</label>
                                                                         <div class="col-md-8 col-sm-8">
                                                                             <input type="text" [(ngModel)]="trnAdvancePaymentObj.advancePaymentNumber" name="advancePaymentNumber" class="form-control"
@@ -104,60 +104,78 @@
                                                                                 placeholder="">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-3">
-                                                                        <label class="col-md-4 col-sm-4 fieldLabel noPadding">Quotation No.<span class="requiredField">*</span>
+                                                                    <div class="col-md-4">
+                                                                        <label class="col-md-4 col-sm-4 fieldLabel noPadding">Quotation Type<span class="requiredField">*</span>
 																        </label>
                                                                         <div class="col-md-8 col-sm-8">
-                                                                            <select class="form-control" name="materialQuotationId" [(ngModel)]="trnAdvancePaymentObj.materialQuotationId" required [disabled]="disabled" #materialQuotationIdVal="ngModel" [ngClass]="{'red-border-class': materialQuotationIdVal.errors && isFormSubmitted}" (ngModelChange)="onMaterialQuotationNoChange()" tabindex="3">
-                                                                                <option *ngFor="let x of materialQuotationNumberList" [ngValue]="x.value" [selected]="trnAdvancePaymentObj.materialQuotationId == x.value">{{x.label}}</option>
+                                                                            <select class="form-control" name="quotationType" [(ngModel)]="trnAdvancePaymentObj.quotationType" required [disabled]="disabled"
+                                                                                #quotationTypeVal="ngModel" [ngClass]="{'red-border-class': quotationTypeVal.errors && isFormSubmitted}"
+                                                                                (ngModelChange)="onQuotationTypeChange()" tabindex="3">
+                                                                                <option *ngFor="let x of quotationTypeList" [ngValue]="x.value" [selected]="trnAdvancePaymentObj.quotationType == x.value">{{x.label}}</option>
                                                                             </select>
-                                                                            <!-- <p-dropdown class="feePlanBox" [options]="materialQuotationNumberList" required [(ngModel)]="trnAdvancePaymentObj.materialQuotationId"
-                                                                                #materialQuotationIdVal="ngModel" required [style]="{'width':'100%'}"
-                                                                                [disabled]="disabled" styleClass="{{ materialQuotationIdVal.errors && isFormSubmitted?'red-border-class':''}}"
-                                                                                (ngModelChange)="onMaterialQuotationNoChange()"
-                                                                                name="materialQuotationId" filter="true" tabindex="3"></p-dropdown> -->
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-3">
-                                                                        <label class="col-md-4 col-sm-4 fieldLabel">Customer
-                                                                        </label>
-                                                                        <div class="col-md-8 col-sm-8 customerNameBox">
-                                                                            <label class="orderTypeLabel">{{ trnAdvancePaymentObj.customerName }}</label>
-                                                                        </div>
-                                                                    </div>
+
+
                                                                 </div>
                                                             </div>
 
                                                         </div>
                                                         <div class="row form-group">
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-4">
+                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Quotation No.<span class="requiredField">*</span>
+																        </label>
+                                                                <div class="col-md-8 col-sm-8" *ngIf="trnAdvancePaymentObj.quotationType == 'Material'">
+                                                                    <select class="form-control" name="materialQuotationId" [(ngModel)]="trnAdvancePaymentObj.materialQuotationId" required [disabled]="disabled"
+                                                                        #materialQuotationIdVal="ngModel" [ngClass]="{'red-border-class': materialQuotationIdVal.errors && isFormSubmitted}"
+                                                                        (ngModelChange)="onQuotationNoChange()" tabindex="4">
+                                                                                <option *ngFor="let x of quotationNumberList" [ngValue]="x.value" [selected]="trnAdvancePaymentObj.materialQuotationId == x.value">{{x.label}}</option>
+                                                                            </select>
+                                                                </div>
+                                                                <div class="col-md-8 col-sm-8" *ngIf="trnAdvancePaymentObj.quotationType == 'Curtain'">
+                                                                    <select class="form-control" name="curtainQuotationId" [(ngModel)]="trnAdvancePaymentObj.curtainQuotationId" required [disabled]="disabled"
+                                                                        #curtainQuotationIdVal="ngModel" [ngClass]="{'red-border-class': curtainQuotationIdVal.errors && isFormSubmitted}"
+                                                                        (ngModelChange)="onQuotationNoChange()" tabindex="4">
+                                                                                <option *ngFor="let x of quotationNumberList" [ngValue]="x.value" [selected]="trnAdvancePaymentObj.curtainQuotationId == x.value">{{x.label}}</option>
+                                                                            </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Customer
+                                                                        </label>
+                                                                <div class="col-md-8 col-sm-8 customerNameBox">
+                                                                    <label class="orderTypeLabel">{{ trnAdvancePaymentObj.customerName }}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Total Amount
 																</label>
                                                                 <div class="col-md-8 col-sm-8 customerNameBox">
                                                                     <label class="orderTypeLabel">{{ totalAmount ? (totalAmount | number:'.0') : ''}}</label>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-3" *ngIf="!params" >
-                                                                    <label class="col-md-4 col-sm-4 fieldLabel noPadding">Balance Amount
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-md-4" *ngIf="!params">
+                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Balance Amount
                                                                     </label>
-                                                                    <div class="col-md-8 col-sm-8 customerNameBox">
-                                                                        <label class="orderTypeLabel">{{ balanceAmount ? (balanceAmount | number:'.0') : '' }}</label>
-                                                                    </div>
+                                                                <div class="col-md-8 col-sm-8 customerNameBox">
+                                                                    <label class="orderTypeLabel">{{ balanceAmount ? (balanceAmount | number:'.0') : '' }}</label>
                                                                 </div>
-                                                            
-                                                            <div class="col-md-3">
+                                                            </div>
+                                                            <div class="col-md-4">
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Amount<span class="requiredField">*</span></label>
                                                                 <div class="col-md-8 col-sm-8" *ngIf="!params">
                                                                     <input OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="2147483647" #amountVal="ngModel" required [ngClass]="{'red-border-class': amountVal.errors && isFormSubmitted}"
                                                                         [(ngModel)]="trnAdvancePaymentObj.amount" name="amount"
-                                                                        class="form-control" [disabled]="disabled" placeholder="" (blur)="onAmountChange()"
-                                                                        autocomplete="off" tabindex="4">
+                                                                        class="form-control" [disabled]="disabled" placeholder=""
+                                                                        (blur)="onAmountChange()" autocomplete="off" tabindex="4">
                                                                 </div>
                                                                 <div class="col-md-8 col-sm-8" *ngIf="params">
                                                                     <label class="orderTypeLabel">{{ trnAdvancePaymentObj ? (trnAdvancePaymentObj.amount | number:'.0') : '' }}</label>
-                                                                </div>   
+                                                                </div>
                                                             </div>
-                                                            <div class="col-md-3" *ngIf="viewItem">
+                                                            <div class="col-md-4" *ngIf="viewItem">
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Confirm Amount<span class="requiredField">*</span></label>
                                                                 <div class="col-md-8 col-sm-8">
                                                                     <input OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="2147483647" #confirmAmountVal="ngModel" required [ngClass]="{'red-border-class': confirmAmountVal.errors && isFormSubmitted}"
@@ -186,10 +204,12 @@
 
                                                             <div class="col-md-12">
                                                                 <div class="row">
-                                                                    <div class="col-md-3">
+                                                                    <div class="col-md-4">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel ">Payment Mode<span class="requiredField">*</span></label>
                                                                         <div class="col-md-8 col-sm-8">
-                                                                            <select class="form-control" required name="paymentMode" [(ngModel)]="trnAdvancePaymentObj.paymentMode" [disabled]="disabled" #paymentModeVal="ngModel" [ngClass]="{'red-border-class': paymentModeVal.errors && isFormSubmitted}" tabindex="6">
+                                                                            <select class="form-control" required name="paymentMode" [(ngModel)]="trnAdvancePaymentObj.paymentMode" [disabled]="disabled"
+                                                                                #paymentModeVal="ngModel" [ngClass]="{'red-border-class': paymentModeVal.errors && isFormSubmitted}"
+                                                                                tabindex="6">
 																				<option *ngFor="let x of paymentModeList" [ngValue]="x.value" [selected]="trnAdvancePaymentObj.paymentMode == x.value">{{x.label}}</option>
 																			</select>
                                                                             <!-- <p-dropdown class="feePlanBox" [options]="paymentModeList" [disabled]="disabled" required [(ngModel)]="trnAdvancePaymentObj.paymentMode"
@@ -198,7 +218,7 @@
                                                                                 name="paymentMode" filter="true" tabindex="6"></p-dropdown> -->
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-3" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
+                                                                    <div class="col-md-4" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Cheque Number<span class="requiredField">*</span></label>
                                                                         <div class="col-md-8 col-sm-8">
                                                                             <input class="form-control m-input" type="text" [disabled]="disabled" [ngClass]="{'red-border-class': chequeNumberVal.errors && isFormSubmitted}"
@@ -207,7 +227,7 @@
                                                                                 maxlength="20" tabindex="7">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-3" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
+                                                                    <div class="col-md-4" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Cheque Date<span class="requiredField">*</span></label>
                                                                         <div class="col-md-8 col-sm-8">
                                                                             <p-calendar class="purchaseOrderDate" #chequeDateVal="ngModel" [disabled]="disabled" [(ngModel)]="trnAdvancePaymentObj.chequeDate"
@@ -217,7 +237,10 @@
                                                                                 required></p-calendar>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-3" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
+                                                                </div>
+
+                                                                <div class="row form-group">
+                                                                    <div class="col-md-4" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel ">Bank Name<span class="requiredField">*</span></label>
                                                                         <div class="col-md-8 col-sm-8">
                                                                             <input class="form-control m-input" type="text" [disabled]="disabled" [ngClass]="{'red-border-class': bankNameVal.errors && isFormSubmitted}"
@@ -226,10 +249,7 @@
                                                                                 maxlength="50" tabindex="9">
                                                                         </div>
                                                                     </div>
-                                                                </div>
-
-                                                                <div class="row form-group">
-                                                                    <div class="col-md-3" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
+                                                                    <div class="col-md-4" *ngIf="trnAdvancePaymentObj.paymentMode == 'Cheque'">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Bank Branch<span class="requiredField">*</span></label>
                                                                         <div class="col-md-8 col-sm-8">
                                                                             <input class="form-control m-input" type="text" [disabled]="disabled" [ngClass]="{'red-border-class': bankBranchVal.errors && isFormSubmitted}"
@@ -269,71 +289,67 @@
 
 
 <!-- Advance Payment Receipt - Print -->
-					
-<div class="invoiceMainBox" id="invoiceMainBox" style="display:none;" >
-        <h3 style="margin-bottom: 25px;font-family: Roboto;color: #000;margin-top: 0;font-size: 22px;text-align:center;">Advance Payment Receipt</h3>
-        <table style="display: inline;">
-            <tr>
-                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Payment Date:</td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;">{{trnAdvancePaymentObj.advancePaymentDate | date: 'dd/MM/yyyy' }}</td>
-            </tr>
-            <tr>
-                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Receipt No:</td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;">{{trnAdvancePaymentObj.advancePaymentNumber}}</td>
-            </tr>
-        </table>
-        <table style="float:right;">
-            <tr>
-                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Quotation No:</td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding-right:10px;padding-left:10px;">{{trnAdvancePaymentObj.materialQuotationNumber}}</td>
-            </tr>
-            <tr>									
-                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Payment Mode:</td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;">By {{trnAdvancePaymentObj.paymentMode}}</td>
-            </tr>
-        </table>
-        <!--<hr style="border-top:1px solid #000;"/>-->
-        
-        <table style="margin-top:30px;width: 100%;">
-            <tr>
-                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;text-align:left;padding-right:10px;padding-left:10px;font-size:13px;width:50%;">
-                    From - <br/>
-                    <p style="font-weight:400;">
-                        <b style="font-weight:600;">{{mstCompanyInfo ? mstCompanyInfo["companyName"] : ""}}</b> <br/>
-                        {{mstCompanyInfo ? mstCompanyInfo["address1"] : ""}}
-                        {{mstCompanyInfo ? mstCompanyInfo["address2"] : ""}},
-                        {{mstCompanyInfo ? mstCompanyInfo["city"] : ""}}
-                    </p>
-                </td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:left;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;width:50%;">
-                    To - <br/>
-                    <p style="font-weight:400;">
-                        <b style="font-weight:600;">{{trnAdvancePaymentObj.mstCustomer?trnAdvancePaymentObj.mstCustomer.name:""}}</b><br/>
-                        {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
-                            [0]["addressLine1"]:""}}
-                            {{ trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
-                                [0]["addressLine2"]:""}}, {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
-                                    [0]["state"]:""}},
-                            {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
-                                [0]["city"]:""}}, PINCODE - {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses
-                                    [0]["pin"]:"" }}
 
-                    </p>
-                </td>									
+<div class="invoiceMainBox" id="invoiceMainBox" style="display:none;">
+    <h3 style="margin-bottom: 25px;font-family: Roboto;color: #000;margin-top: 0;font-size: 22px;text-align:center;">Advance Payment Receipt</h3>
+    <table style="display: inline;">
+        <tr>
+            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Payment Date:</td>
+            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;">{{trnAdvancePaymentObj.advancePaymentDate | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+        <tr>
+            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Receipt No:</td>
+            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;">{{trnAdvancePaymentObj.advancePaymentNumber}}</td>
+        </tr>
+    </table>
+    <table style="float:right;">
+        <tr>
+            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Quotation No:</td>
+            <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding-right:10px;padding-left:10px;">{{trnAdvancePaymentObj.materialQuotationNumber}}</td>
+        </tr>
+        <tr>
+            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Payment Mode:</td>
+            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;">By {{trnAdvancePaymentObj.paymentMode}}</td>
+        </tr>
+    </table>
+    <!--<hr style="border-top:1px solid #000;"/>-->
+
+    <table style="margin-top:30px;width: 100%;">
+        <tr>
+            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;text-align:left;padding-right:10px;padding-left:10px;font-size:13px;width:50%;">
+                From - <br/>
+                <p style="font-weight:400;">
+                    <b style="font-weight:600;">{{mstCompanyInfo ? mstCompanyInfo["companyName"] : ""}}</b> <br/> {{mstCompanyInfo
+                    ? mstCompanyInfo["address1"] : ""}} {{mstCompanyInfo ? mstCompanyInfo["address2"] : ""}}, {{mstCompanyInfo
+                    ? mstCompanyInfo["city"] : ""}}
+                </p>
+            </td>
+            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:left;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;width:50%;">
+                To - <br/>
+                <p style="font-weight:400;">
+                    <b style="font-weight:600;">{{trnAdvancePaymentObj.mstCustomer?trnAdvancePaymentObj.mstCustomer.name:""}}</b><br/>                    {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses [0]["addressLine1"]:""}}
+                    {{ trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses [0]["addressLine2"]:""}},
+                    {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses [0]["state"]:""}},
+                    {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses [0]["city"]:""}},
+                    PINCODE - {{trnAdvancePaymentObj.mstCustomer? trnAdvancePaymentObj.mstCustomer.mstCustomerAddresses [0]["pin"]:""
+                    }}
+
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    <div style="width:100%;display:inline;margin-top:35px;">
+        <table style="width: 50%;margin: 0 auto;margin-top: 50px;">
+            <tr>
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Total Amount</td>
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. {{totalAmount | number:'.0'}}</td>
             </tr>
-        </table>	
-        
-        <div style="width:100%;display:inline;margin-top:35px;">
-            <table style="width: 50%;margin: 0 auto;margin-top: 50px;">
-                <tr>
-                    <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Total Amount</td>	
-                    <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. {{totalAmount | number:'.0'}}</td>
-                </tr>
-                <tr>
-                    <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Advance Amount</td>	
-                    <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. {{trnAdvancePaymentObj ? (trnAdvancePaymentObj.amount | number:'.0') : ''}}</td>
-                </tr>
-                <!-- <tr>
+            <tr>
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Advance Amount</td>
+                <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. {{trnAdvancePaymentObj ? (trnAdvancePaymentObj.amount | number:'.0') : ''}}</td>
+            </tr>
+            <!-- <tr>
                     <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Total Amount Paid</td>	
                     <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. 1000.00</td>
                 </tr>
@@ -341,33 +357,32 @@
                     <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Balance Amount</td>	
                     <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:5px;padding-bottom:5px;font-weight:400;padding-right:10px;padding-left:10px;border:1px solid #000;border-collapse:collapse;width:50%;">Rs. 1000.00</td>
                 </tr> -->
-            </table>
+        </table>
 
-            
-                
-        </div>
-        
-        <div style="width:100%;margin-top:35px;">
-            <table style="margin-top:35px;width:100%;">
-                <tr>
-                    <td style="width:75%;">
-                        
-                    </td>
-                    <td style="text-align:right;font-family: Roboto;width:25%;">
-                        <br/><br/>
-                        <hr style="border-top:1px solid #000;margin-bottom:2px;"/>
-                        Issued By
-                        <br/>
-                        <label style="font-size:11px;font-style:italic;font-family: Roboto;">(Softzone Fabrics Pvt. Ltd.)</label>
-                    </td>
-                </tr>
-            </table>								
-            
-        </div>
-            
-        <div style="text-align:center;width: 100%;margin-top:35px;">							
-            <label style="font-family:Roboto;font-size:13px;font-weight:400;">This is a Computer Generated Receipt</label>
-        </div>	
-        
-        
+
+
     </div>
+
+    <div style="width:100%;margin-top:35px;">
+        <table style="margin-top:35px;width:100%;">
+            <tr>
+                <td style="width:75%;">
+
+                </td>
+                <td style="text-align:right;font-family: Roboto;width:25%;">
+                    <br/><br/>
+                    <hr style="border-top:1px solid #000;margin-bottom:2px;" /> Issued By
+                    <br/>
+                    <label style="font-size:11px;font-style:italic;font-family: Roboto;">(Softzone Fabrics Pvt. Ltd.)</label>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div style="text-align:center;width: 100%;margin-top:35px;">
+        <label style="font-family:Roboto;font-size:13px;font-weight:400;">This is a Computer Generated Receipt</label>
+    </div>
+
+
+</div>

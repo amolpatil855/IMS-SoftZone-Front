@@ -4,6 +4,8 @@ export class TrnAdvancePayment {
   advancePaymentDate: Date;
   customerId: number;
   materialQuotationId: number;
+  curtainQuotationId: number;
+  quotationType: string;
   amount: number;
   paymentMode: string;
   chequeNumber: string;
