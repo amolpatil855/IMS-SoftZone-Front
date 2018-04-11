@@ -36,7 +36,7 @@ const routes: Routes = [
             component: TailorListComponent,
             canActivate: [AuthGuard],
             data: {
-              permissions: ['agent']
+              permissions: ['tailor']
             }
 
           },
