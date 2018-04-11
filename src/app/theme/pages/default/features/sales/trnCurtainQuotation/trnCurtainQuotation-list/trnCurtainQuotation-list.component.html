@@ -67,8 +67,8 @@
 							<p-dataTable [value]="trnCurtainQuotationList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize"
 							 [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount"
 							 [responsive]="true" (onLazyLoad)="loadLazy($event)">
-								<p-column field="curtainQuotationNumber" header="M. Quotation No." [style]="{'text-align':'left'}"></p-column>
-								<p-column field="curtainQuotationDate" header="M. Quotation Date" [style]="{'text-align':'left'}">
+								<p-column field="curtainQuotationNumber" header="C. Quotation No." [style]="{'text-align':'left'}"></p-column>
+								<p-column field="curtainQuotationDate" header="C. Quotation Date" [style]="{'text-align':'left'}">
 									<ng-template let-col let-data="rowData" pTemplate="body">
 										{{data[col.field]|date: 'dd/MM/yyyy' }}
 									</ng-template>
