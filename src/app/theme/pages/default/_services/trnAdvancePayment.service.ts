@@ -13,8 +13,8 @@ export class TrnAdvancePaymentService {
   currentPos: any = 0;
   currentPageNumber: any = 1;
 
-  getAllTrnAdvancePayments(pageSize = 0, page = 0, search = '') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'TrnAdvancePayment?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
+  getAllTrnAdvancePayments(pageSize = 0, page = 0, search = '', quotationType) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnAdvancePayment?pageSize=' + pageSize + '&page=' + page + '&search=' + search  + '&quotationType=' + quotationType, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getTrnAdvancePaymentById(id: number) {
@@ -23,6 +23,10 @@ export class TrnAdvancePaymentService {
 
   getMaterialQuotationLookup() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetMaterialQuotationLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getCurtainQuotationLookup() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCurtainQuotationLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getCustomerLookupByMaterialQuotationId(materialQuotationId) {
