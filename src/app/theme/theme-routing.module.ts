@@ -152,6 +152,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/sales\/trnCurtainQuotation\/trnCurtainQuotation.module#TrnCurtainQuotationModule"
       },
       {
+        "path": "features\/sales\/trnWorkOrder",
+        "loadChildren": ".\/pages\/default\/features\/sales\/trnWorkOrder\/trnWorkOrder.module#TrnWorkOrderModule"
+      },
+      {
         "path": "features\/reports\/masterPriceList",
         "loadChildren": ".\/pages\/default\/features\/reports\/masterPriceList\/masterPriceList.module#MasterPriceListModule"
       },
