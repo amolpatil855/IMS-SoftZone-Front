@@ -267,9 +267,9 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
     if (this.trnCurtainSelectionObj.isQuotationCreated) {
       if (this.trnCurtainSelectionObj.id != null) {
         Helpers.setLoading(true);
-        this.trnCurtainSelectionService.getTrnCurtainSelectionById(this.trnCurtainSelectionObj.id).subscribe(
+        this.trnCurtainSelectionService.viewCurtainQuotation(this.trnCurtainSelectionObj.id).subscribe(
           result => {
-            this.router.navigate(['/features/sales/trnMaterialQuotation/edit', result], { queryParams: { materialQuotationId: result } });
+            this.router.navigate(['/features/sales/trnCurtainSelection/edit', result], { queryParams: { curtainQu0tationId: result } });
             Helpers.setLoading(false);
           },
           error => {
@@ -281,14 +281,14 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
     else {
       if (this.params) {
         Helpers.setLoading(true);
-        this.trnCurtainSelectionObj.trnCurtainSelectionItems = this.trnCurtainSelectionItems;
+        this.formatrequest();
         this.trnCurtainSelectionService.updateTrnCurtainSelection(this.trnCurtainSelectionObj)
           .subscribe(
           results => {
             this.params = null;
             this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
             Helpers.setLoading(false);
-            this.router.navigate(['/features/sales/trnMaterialQuotation/add'], { queryParams: { curtainSelectionId: this.trnCurtainSelectionObj.id } });
+            this.router.navigate(['/features/sales/trnCurtainQuotation/add'], { queryParams: { curtainSelectionId: this.trnCurtainSelectionObj.id } });
           },
           error => {
             this.globalErrorHandler.handleError(error);
@@ -374,14 +374,14 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
         });
 
 
-        this.addressList = results.mstCustomer.mstCustomerAddresses;
-        _.forEach(this.trnCurtainSelectionItems, function (value) {
-          if (value.mstCategory != null)
-            value.categoryName = value.mstCategory.code;
-          if (value.mstCollection != null)
-            value.collectionName = value.mstCollection.collectionCode;
+        // this.addressList = results.mstCustomer.mstCustomerAddresses;
+        // _.forEach(this.trnCurtainSelectionItems, function (value) {
+        //   if (value.mstCategory != null)
+        //     value.categoryName = value.mstCategory.code;
+        //   if (value.mstCollection != null)
+        //     value.collectionName = value.mstCollection.collectionCode;
 
-        });
+        // });
         delete this.trnCurtainSelectionObj['trnCurtainSelectionItems'];
         Helpers.setLoading(false);
       },
@@ -482,9 +482,9 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   }
 
   onChangeShade(fabricRow) {
-    let shadeObj = _.find(fabricRow.shadeList, ['shadeId', fabricRow.shadeId]);
-    fabricRow.rate = shadeObj.rrp;
-    fabricRow.discount = shadeObj.maxFlatRateDisc ? shadeObj.maxFlatRateDisc : 0;
+    // let shadeObj = _.find(fabricRow.shadeList, ['shadeId', fabricRow.shadeId]);
+    // fabricRow.rate = shadeObj.rrp;
+    // fabricRow.discount = shadeObj.maxFlatRateDisc ? shadeObj.maxFlatRateDisc : 0;
   }
 
 
@@ -607,12 +607,17 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
     this.isFormSubmitted = true;
-    let vm = this;
-    vm.trnCurtainSelectionObj.trnCurtainSelectionItems = [];
-    // this.trnCurtainSelectionObj.TrncurtainSelectionItems = this.trncurtainSelectionItems;
     let custObj = _.find(this.customerList, ['value', this.trnCurtainSelectionObj.customerId]);
     this.trnCurtainSelectionObj.customerName = custObj ? custObj.label : '';
+    this.formatrequest();
+    if (valid) {
+      this.saveTrncurtainSelection(this.trnCurtainSelectionObj);
+    }
+  }
 
+  formatrequest() {
+    let vm = this;
+    this.trnCurtainSelectionObj.trnCurtainSelectionItems = [];
     this.trnCurtainSelectionObj.areaList.forEach(function (areaObj) {
       areaObj.unitList.forEach(function (unitObj) {
         unitObj.fabricList.forEach(function (fabricobj) {
@@ -627,8 +632,8 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
             "accessoryId": null,
             "isPatch": fabricobj.isPatch,
             "isLining": fabricobj.isLining,
-            "rate": fabricobj.rate,
-            "discount": null,
+            // "rate": fabricobj.rate,
+            // "discount": null,
             "categoryName": 'Fabric',
             "collectionName": collectionObj ? collectionObj.label : '',
             // "serialno": "5",
@@ -649,7 +654,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
             "isPatch": null,
             "isLining": null,
             "rate": accessoryobj.rate,
-            "discount": null,
+            //"discount": null,
             "categoryName": null,
             "collectionName": null,
             // "serialno": "5",
@@ -660,12 +665,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
       });
     });
-    if (valid) {
-      this.saveTrncurtainSelection(this.trnCurtainSelectionObj);
-    }
   }
-
-
   saveTrncurtainSelection(value) {
     let tempcurtainSelectionDate = new Date(value.curtainSelectionDate);
     value.curtainSelectionDate = new Date(tempcurtainSelectionDate.setHours(23));

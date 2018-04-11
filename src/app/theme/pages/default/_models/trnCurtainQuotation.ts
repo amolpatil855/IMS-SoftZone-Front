@@ -20,4 +20,5 @@ export class TrnCurtainQuotation {
     MstCustomer: Customer;
     TrnCurtainSelection: TrnCurtainSelection;
     TrnCurtainQuotationItems = [];
+    areaList=[];
 }

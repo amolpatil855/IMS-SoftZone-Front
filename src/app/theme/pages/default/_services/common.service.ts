@@ -42,6 +42,11 @@ export class CommonService {
   getPatternLookup() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetPatternLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
+
+  getAllPatternData(){
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetAllPatterns', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   getCategoryCodes() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
