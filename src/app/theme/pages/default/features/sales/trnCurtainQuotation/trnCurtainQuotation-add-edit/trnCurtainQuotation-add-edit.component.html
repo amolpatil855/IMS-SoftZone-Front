@@ -268,7 +268,7 @@
                                                                                     {{fabricRow.isLining?"Yes":"No"}}
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-4">
+                                                                            <div class="col-md-4" *ngIf="fabricRow.isLining || !fabricRow.isPatch">
                                                                                 <label class="col-md-1 col-sm-1 fieldLabel ">Rate
                                                                                 </label>
                                                                                 <div class="col-md-3 col-sm-3">
@@ -285,7 +285,7 @@
                                                                                     <!-- <label>{{fabricRow.discount}}%</label> -->
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-3">
+                                                                            <div class="col-md-3" *ngIf="fabricRow.isLining || !fabricRow.isPatch">
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel ">Discount
                                                                                     <span class="requiredField">*</span>
                                                                                 </label>
@@ -304,7 +304,7 @@
                                                                                     %
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-4">
+                                                                            <div class="col-md-4" *ngIf="fabricRow.isLining || !fabricRow.isPatch">
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel ">Amount
                                                                                     <span class="requiredField">*</span>
                                                                                 </label>
@@ -332,7 +332,8 @@
                                                                                     <div class="col-md-4 col-sm-4">
                                                                                         <input class="form-control m-input" type="text" [(ngModel)]="fabricRow.noOfVerticalPatch" name="{{'noOfVerticalpatch'+unitRow.contRoleId+fabricRowNum+0000}}"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': noOfverticalVal.errors && isFormSubmitted}"
-                                                                                            #noOfverticalVal="ngModel" required   (blur)="calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
+                                                                                            #noOfverticalVal="ngModel" required
+                                                                                            (blur)="calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-2">
@@ -373,8 +374,8 @@
                                                                                             [(ngModel)]="fabricRow.verticalPatchDiscount"
                                                                                             name="{{'discount'+fabricRowNum.contRoleId}}"
                                                                                             #verticalPatchMaxDiscountVal="ngModel"
-                                                                                            tabindex="21" placeholder="" (blur)="changeVerticalDiscount(fabricRow,fabricRowNum,unitRowNum,rowNum)">
-                                                                                    %</div>
+                                                                                            tabindex="21" placeholder="" (blur)="changeVerticalDiscount(fabricRow,fabricRowNum,unitRowNum,rowNum)"> %
+                                                                                    </div>
                                                                                 </div>
                                                                                 <div class="col-md-2">
                                                                                     <label class="col-md-6 col-sm-6 fieldLabel ">Amount
@@ -399,22 +400,22 @@
                                                                                     <div class="col-md-6 col-sm-6">
                                                                                         <input class="form-control m-input" type="text" [(ngModel)]="fabricRow.noOfHorizontalPatch" name="{{'noOfHorizontalpatch'+unitRow.contRoleId+fabricRowNum+0000}}"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': noOfHorizontalVal.errors && isFormSubmitted}"
-                                                                                            #noOfHorizontalVal="ngModel" required>
+                                                                                            #noOfHorizontalVal="ngModel" required (blur)="calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-md-3">
+                                                                                <div class="col-md-2">
                                                                                     <label class="col-md-6 col-sm-6 fieldLabel ">Height
                                                                                         <span class="requiredField">*</span>
                                                                                     </label>
                                                                                     <div class="col-md-6 col-sm-6">
                                                                                         <input class="form-control m-input" type="text" [(ngModel)]="fabricRow.horizontalPatchHeight" name="{{'horizontalPatchHeight'+unitRow.contRoleId+fabricRowNum+0000}}"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': horizontalPatchHeightVal.errors && isFormSubmitted}"
-                                                                                            #horizontalPatchHeightVal="ngModel"
+                                                                                            #horizontalPatchHeightVal="ngModel" (blur)="calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)"
                                                                                             required>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-md-3">
-                                                                                    <label class="col-md-1 col-sm-1 fieldLabel ">Quantity
+                                                                                <div class="col-md-4">
+                                                                                    <label class="col-md-2 col-sm-2 fieldLabel ">Quantity
                                                                                     </label>
                                                                                     <div class="col-md-4 col-sm-4">
                                                                                         <label>{{fabricRow.horizontalPatchQuantity}}</label>
@@ -426,28 +427,30 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-2">
-                                                                                        <label class="col-md-6 col-sm-6 fieldLabel ">Discount
-                                                                                            <span class="requiredField">*</span>
-                                                                                        </label>
-                                                                                        <div class="col-md-6 col-sm-6">
-                                                                                            <!-- <input class="form-control m-input" type="text" [(ngModel)]="fabricRow.verticalPatchMaxDiscount" name="{{'verticalPatchMaxDiscount'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                    <label class="col-md-6 col-sm-6 fieldLabel ">Discount
+                                                                                        <span class="requiredField">*</span>
+                                                                                    </label>
+                                                                                    <div class="col-md-6 col-sm-6">
+                                                                                        <!-- <input class="form-control m-input" type="text" [(ngModel)]="fabricRow.verticalPatchMaxDiscount" name="{{'verticalPatchMaxDiscount'+unitRow.contRoleId+fabricRowNum+0000}}"
                                                                                                 placeholder="" tabindex="6" [ngClass]="{'red-border-class': verticalPatchMaxDiscountVal.errors && isFormSubmitted}"
                                                                                                 #verticalPatchMaxDiscountVal="ngModel"
                                                                                                 required> -->
-                                                                                            <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{fabricRow.horizontalPatchMaxDiscount}}"
-                                                                                                [ngClass]="{'red-border-class': horizontalPatchMaxDiscountVal.errors}"
-                                                                                                [(ngModel)]="fabricRow.horizontalPatchDiscount" name="{{'discount'+fabricRowNum.contRoleId}}"
-                                                                                                #horizontalPatchMaxDiscountVal="ngModel" tabindex="21" placeholder="" (blur)="changeVerticalDiscount(fabricRow,fabricRowNum,unitRowNum,rowNum)">
-                                                                                        %</div>
+                                                                                        <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{fabricRow.horizontalPatchMaxDiscount}}"
+                                                                                            [ngClass]="{'red-border-class': horizontalPatchMaxDiscountVal.errors}"
+                                                                                            [(ngModel)]="fabricRow.horizontalPatchDiscount"
+                                                                                            name="{{'discount'+fabricRowNum.contRoleId}}"
+                                                                                            #horizontalPatchMaxDiscountVal="ngModel"
+                                                                                            tabindex="21" placeholder="" (blur)="changeHorizontalDiscount(fabricRow,fabricRowNum,unitRowNum,rowNum)"> %
                                                                                     </div>
-                                                                                    <div class="col-md-2">
-                                                                                        <label class="col-md-6 col-sm-6 fieldLabel ">Amount
-                                                                                            <span class="requiredField">*</span>
-                                                                                        </label>
-                                                                                        <div class="col-md-6 col-sm-6">
-                                                                                            {{fabricRow.horizontalPatchAmountWithGST}}
-                                                                                        </div>
+                                                                                </div>
+                                                                                <div class="col-md-2">
+                                                                                    <label class="col-md-6 col-sm-6 fieldLabel ">Amount
+                                                                                        <span class="requiredField">*</span>
+                                                                                    </label>
+                                                                                    <div class="col-md-6 col-sm-6">
+                                                                                        {{fabricRow.horizontalPatchRateWithGST}}
                                                                                     </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row form-group" *ngFor="let accessoryRow of unitRow.accessoryList;let accessoryRowNum=index;let accessoryLastRowNum=last;">
@@ -477,10 +480,10 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="row form-group">
-                                                                            <div class="col-md-3">
-                                                                                <label class="col-md-4 col-sm-4 fieldLabel ">Is Track
+                                                                            <div class="col-md-2">
+                                                                                <label class="col-md-8 col-sm-8 fieldLabel ">Is Track
                                                                                 </label>
-                                                                                <div class="col-md-8 col-sm-8">
+                                                                                <div class="col-md-4 col-sm-4">
                                                                                     <input type="checkbox" name="{{'istrack'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isTrack">
                                                                                 </div>
                                                                             </div>
@@ -488,21 +491,36 @@
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel ">Tracks
                                                                                 </label>
                                                                                 <div class="col-md-8 col-sm-8">
-                                                                                    <select class="form-control" name="{{'tracks'+unitRow.contRoleId}}" [(ngModel)]="unitRow.accessoryId" tabindex="9" (ngModelChange)="onChangeTrackAccesory(unitRow)"
+                                                                                    <select class="form-control" name="{{'tracks'+unitRow.contRoleId}}" [(ngModel)]="unitRow.trackAccessoryId" tabindex="9" (ngModelChange)="onChangeTrackAccesory(unitRow)"
                                                                                         [ngClass]="{'red-border-class': accessoryTrackVal.errors && isFormSubmitted}"
                                                                                         #accessoryTrackVal="ngModel">
-                                                                                        <option *ngFor="let x of trackAccessoryCodeList" [ngValue]="x.accessoryId" [selected]="accessoryId == x.accessoryId">{{x.itemCode}}</option>
+                                                                                        <option *ngFor="let x of trackCodeList" [ngValue]="x.accessoryId" [selected]="accessoryId == x.accessoryId">{{x.itemCode}}</option>
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-4">
+                                                                            <div class="col-md-2">
                                                                                 <label class="col-md-3 col-sm-3 fieldLabel ">Rate
                                                                                 </label>
-                                                                                <div class="col-md-3 col-sm-3">
+                                                                                <div class="col-md-9 col-sm-9">
                                                                                     <label>{{unitRow.trackRate}}</label>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-2">
+                                                                            <div class="col-md-4">
+                                                                                <label class="col-md-2 col-sm-2 fieldLabel ">Quantity
+                                                                                </label>
+                                                                                <div class="col-md-4 col-sm-4">
+                                                                                    <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="10000" [ngClass]="{'red-border-class': trackQuantityVal.errors}"
+                                                                                        [(ngModel)]="unitRow.trackQuantity" name="{{'trackQuantity'+unitRow.contRoleId}}"
+                                                                                        #trackQuantityVal="ngModel" tabindex="21"
+                                                                                        placeholder="" (blur)="changeTrackQuantity(unitRow,unitRowNum,rowNum)">
+                                                                                </div>
+                                                                                <label class="col-md-2 col-sm-2 fieldLabel ">Amount
+                                                                                </label>
+                                                                                <div class="col-md-4 col-sm-4">
+                                                                                    {{unitRow.trackAmount}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-1">
                                                                                 <button type="button" pButton (click)="addAccessoryRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Delete Accessory"></button>
                                                                                 <button type="button" pButton (click)="deleteAccessoryRow(rowNum,unitRowNum,accessoryRowNum,unitRow.accessoryList)" icon="fa fa-times"
                                                                                     class="editBtn" title="Delete Accessory"></button>

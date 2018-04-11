@@ -61,6 +61,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   typeError: boolean;
   display: boolean = false;
   curtainSelectionId: null;
+  trackCodeList = [];
+  rodCodeList = [];
   constructor(
     private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -125,6 +127,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.getCollectionList();
     this.getAccessoryLookup();
     this.getPatternLookup();
+    this.getRodAccessoryLookup();
+    this.getTrackAccessoryLookup();
   }
 
   ngAfterViewInit() {
@@ -159,18 +163,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           contRoleId: Math.floor(Math.random() * 2000),
         });
       });
-      // _.forEach(results.trnCurtainSelectionItems, function (value) {
-      //   let unitObj = _.find(areaObj.unitList, { 'unit': value.unit, 'area': value.area });
-      //   if (!unitObj) {
-      //     areaObj.unitList = areaObj.unitList || [];
-      //     areaObj.unitList.push({
-      //       unit: value.unit,
-      //       area: value.area,
-      //       patternId: value.patternId,
-      //       contRoleId: Math.floor(Math.random() * 2000),
-      //     });
-      //   }
-      // });
+
     });
 
     _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
@@ -416,7 +409,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let selectedPatternId = this.trnCurtainQuotationObj.areaList[rowNum].unitList[unitRowNum].patternId;
     let selectedPatternObj = _.find(this.patternList, { id: selectedPatternId });
     if (selectedPatternObj) {
-      let tempQuantity = ((parseFloat(unitRow.horizontalPatchHeight) + parseFloat(selectedPatternObj.horizontalPatch)) / parseFloat(selectedPatternObj.meterPerInch)).toFixed(2);
+      let tempQuantity = ((parseFloat(fabricRow.horizontalPatchHeight) + parseFloat(selectedPatternObj.horizontalPatch)) / parseFloat(selectedPatternObj.meterPerInch)).toFixed(2);
       let patchQuantity = parseFloat(tempQuantity);
       // let patchsize = (parseFloat(fabricRow.horizontalPatchHeight) + parseFloat(selectedPatternObj.horizontalPatch)) * parseFloat(fabricRow.noOfVerticalPatch);
       // while (patchsize < unitRow.unitWidth) {
@@ -430,6 +423,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       fabricRow.horizontalPatchDiscount = 0;
       this.changeHorizontalDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
     }
+  }
+
+  changeTrackQuantity(unitRow, unitRowNum, rowNum) {
+    unitRow.trackAmount= unitRow.trackRate * unitRow.trackQuantity;
   }
 
   changeHorizontalDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum) {
@@ -449,9 +446,6 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     fabricRow.horizontalPatchRateWithGST = parseFloat(fabricRow.horizontalPatchRateWithGST).toFixed(2);
   }
 
-  calculateAmount(givenDicount = 0) {
-
-  }
   onUpdateAndCreateQuotation() {
     if (this.trnCurtainQuotationObj.isQuotationCreated) {
       if (this.trnCurtainQuotationObj.id != null) {
@@ -599,6 +593,14 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     accessoryRow.rate = shadeObj.sellingRate;
   }
 
+  onChangeTrackAccesory(accessoryRow) {
+    let shadeObj = _.find(this.trackCodeList, ['accessoryId', accessoryRow.trackAccessoryId]);
+    accessoryRow.trackRate = shadeObj.sellingRate;
+    accessoryRow.trackQuantity = accessoryRow.trackQuantity || 1;
+    accessoryRow.trackAmount = Math.round(parseFloat(accessoryRow.trackQuantity) * parseFloat(accessoryRow.trackRate));
+
+  }
+
   onCancelItemDetails() {
 
     this.trnCurtainQuotationObj.selectionType = null;
@@ -630,7 +632,33 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       });
   }
 
+  getTrackAccessoryLookup() {
+    Helpers.setLoading(true);
+    this.commonService.GetTrackAccessoryItemCodeForCQ().subscribe(
+      results => {
+        this.trackCodeList = results;
+        this.trackCodeList.unshift({ itemCode: '--Select--', accessoryId: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
 
+  getRodAccessoryLookup() {
+    Helpers.setLoading(true);
+    this.commonService.getRodAccessoryItemCodeForCQ().subscribe(
+      results => {
+        this.rodCodeList = results;
+        this.rodCodeList.unshift({ itemCode: '--Select--', accessoryId: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
 
   getCourierList() {
     this.trnMaterialSelectionService.getCourierLookup().subscribe(
