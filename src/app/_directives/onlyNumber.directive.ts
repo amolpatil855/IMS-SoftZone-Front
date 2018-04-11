@@ -111,4 +111,12 @@ export class OnlyNumber {
       e.target.value = '';
     }
   }
+
+  @HostListener('paste', ['$event']) blockPaste(pasteEvent: KeyboardEvent) {
+    pasteEvent.preventDefault();
+  }
+
+  @HostListener('copy', ['$event']) blockCopy(copyEvent: KeyboardEvent) {
+    copyEvent.preventDefault();
+  }
 }

@@ -21,6 +21,14 @@ export class TrnCurtainQuotationService {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnCurtainQuotation/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  approveCurtainQuotation(trnCurtainQuotation: TrnCurtainQuotation) {
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnCurtainQuotation/ApproveCurtainQuotation/' + trnCurtainQuotation.id, trnCurtainQuotation, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  cancelCurtainQuotation(trnCurtainQuotation: TrnCurtainQuotation) {
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnCurtainQuotation/CancelCurtainQuotation/' + trnCurtainQuotation.id, trnCurtainQuotation, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   createTrnCurtainQuotation(trnCurtainQuotation: TrnCurtainQuotation) {
     return this.http.post(AppSettings.API_ENDPOINT + 'TrnCurtainQuotation', trnCurtainQuotation, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
