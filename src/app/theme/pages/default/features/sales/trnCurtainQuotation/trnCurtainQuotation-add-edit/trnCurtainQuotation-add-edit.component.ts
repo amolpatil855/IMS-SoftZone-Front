@@ -195,6 +195,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unit: null,
       contRoleId: Math.floor(Math.random() * 2000),
       patternId: null,
+      trackAccessoryId: null,
       fabricList: [
         {
           categoryId: 1,
@@ -307,6 +308,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     });
   }
 
+
+
   onUnitWidthChange(unitRow, unitIndex, areaIndex) {
     if (!unitRow.unitWidth)
       return;
@@ -314,6 +317,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let selectedPatternObj = _.find(this.patternList, { id: selectedPatternId });
     if (selectedPatternObj) {
       this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel = Math.ceil(unitRow.unitWidth / selectedPatternObj.widthPerInch);
+      this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].laborCharges = Math.round(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel * selectedPatternObj.setRateForPattern);
     }
   }
 
@@ -426,7 +430,13 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   }
 
   changeTrackQuantity(unitRow, unitRowNum, rowNum) {
-    unitRow.trackAmount= unitRow.trackRate * unitRow.trackQuantity;
+    unitRow.trackAmount = unitRow.trackRate * unitRow.trackQuantity;
+  }
+  changeRodQuantity() {
+    this.trnCurtainQuotationObj.rodAmount = this.trnCurtainQuotationObj.rodRate * this.trnCurtainQuotationObj.rodQuantity;
+  }
+  changeAccessoryQuantity(accessoryRow) {
+    accessoryRow.amount = accessoryRow.rate * accessoryRow.quantity;
   }
 
   changeHorizontalDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum) {
@@ -592,7 +602,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let shadeObj = _.find(this.accessoryCodeList, ['accessoryId', accessoryRow.accessoryId]);
     accessoryRow.rate = shadeObj.sellingRate;
   }
-
+  onChangeRodAccesory() {
+    let shadeObj = _.find(this.rodCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodAccessoryId]);
+    this.trnCurtainQuotationObj.rodRate = shadeObj.sellingRate;
+  }
   onChangeTrackAccesory(accessoryRow) {
     let shadeObj = _.find(this.trackCodeList, ['accessoryId', accessoryRow.trackAccessoryId]);
     accessoryRow.trackRate = shadeObj.sellingRate;

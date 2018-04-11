@@ -21,4 +21,5 @@ export class TrnCurtainQuotation {
     TrnCurtainSelection: TrnCurtainSelection;
     TrnCurtainQuotationItems = [];
     areaList=[];
+    rodAccessoryId:number
 }
