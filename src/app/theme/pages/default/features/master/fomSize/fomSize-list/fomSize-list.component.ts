@@ -339,6 +339,8 @@ export class FomSizeListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getFomSizesList();
+            this.isFormSubmitted = false;
+            this.newRecord();
           },
           error => {
             this.globalErrorHandler.handleError(error);

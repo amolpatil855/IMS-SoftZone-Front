@@ -414,13 +414,18 @@ export class CustomerListComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
+        Helpers.setLoading(true);
         this.customerService.deleteCustomer(customer.id).subscribe(
           results => {
             this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
             this.getCustomersList();
+            this.isFormSubmitted = false;
+            this.newRecord();
+            Helpers.setLoading(false);
           },
           error => {
             this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
           })
       },
       reject: () => {

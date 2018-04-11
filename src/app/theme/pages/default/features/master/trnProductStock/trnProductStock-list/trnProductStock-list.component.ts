@@ -311,6 +311,8 @@ export class TrnProductStockListComponent implements OnInit {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
 
     this.isFormSubmitted = true;
+    
+
     if (!valid)
       return;
     if (this.trnProductStockObj.id > 0) {
@@ -325,7 +327,14 @@ export class TrnProductStockListComponent implements OnInit {
       this.trnProductStockObj.accessoryId = value.accessoryId;
       this.trnProductStockObj.locationId = value.location;
     }
-    this.saveTrnProductStock(this.trnProductStockObj);
+
+    if (parseFloat(this.trnProductStockObj.stock) > 0 || parseFloat(this.trnProductStockObj.stockInKg) > 0) {
+      this.saveTrnProductStock(this.trnProductStockObj);
+    }else{
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Stock value must be greater than zero." });
+      return false;
+    }
+    
   }
 
   saveTrnProductStock(value) {
