@@ -19,13 +19,8 @@ export class CommonService {
   courierModeData = ['Surface', 'Air'];
   getStateList() {
     let stateList = this.states;
-<<<<<<< HEAD
-    stateList.push({ label: '--Select--', value: '0' });
-    this.stateData.forEach(function (element) {
-=======
     stateList.push({ label: '--Select--', value: null });
     this.stateData.forEach(function(element) {
->>>>>>> a0c0d88ba4c0ef1ffd9678b7d79f8e1fa4b425a2
       stateList.push({ label: element, value: element });
     });
   }
