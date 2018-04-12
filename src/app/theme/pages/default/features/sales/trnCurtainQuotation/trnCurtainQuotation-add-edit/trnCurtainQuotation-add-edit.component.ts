@@ -92,13 +92,13 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let today = new Date();
     this.locationObj = {};
     this.disabled = false;
-    this.trnCurtainQuotationObj.CurtainQuotationDate = today;
+    this.trnCurtainQuotationObj.curtainQuotationDate = today;
     this.trnCurtainQuotationObj.selectionType = null;
     this.route.queryParams
       .subscribe(params => {
         this.curtainSelectionId = params.curtainSelectionId;
         if (this.curtainSelectionId) {
-          this.trnCurtainSelectionService.getTrnCurtainSelectionById(this.curtainSelectionId).subscribe(
+          this.trnCurtainSelectionService.createCurtainQuotation(this.curtainSelectionId).subscribe(
             results => {
               this.trnCurtainQuotationObj = results;
               this.trnCurtainQuotationObj.curtainQuotationDate = new Date();
@@ -139,7 +139,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
   formatGetData(results) {
     let vm = this;
-    let areaObjList = _.uniqBy(results.trnCurtainSelectionItems, 'area');
+    let areaObjList = _.uniqBy(results.trnCurtainQuotationItems, 'area');
     vm.trnCurtainQuotationObj.areaList = [];
     _.forEach(areaObjList, function (value) {
       vm.trnCurtainQuotationObj.areaList.push({
@@ -151,7 +151,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
 
       areaObj.unitList = [];
-      let repetedUnit = _.filter(results.trnCurtainSelectionItems, { 'area': areaObj.area });
+      let repetedUnit = _.filter(results.trnCurtainQuotationItems, { 'area': areaObj.area });
 
       let unitObjList = _.uniqBy(repetedUnit, 'unit');
 
@@ -159,6 +159,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         areaObj.unitList.push({
           unit: value.unit,
           area: value.area,
+          unitHeight: value.unitHeight,
+          unitWidth: value.unitWidth,
           patternId: value.patternId,
           contRoleId: Math.floor(Math.random() * 2000),
         });
@@ -168,13 +170,13 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
     _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
       _.forEach(areaObj.unitList, function (value) {
-        let fabricDataList = _.filter(results.trnCurtainSelectionItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
+        let fabricDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
         _.forEach(fabricDataList, function (temp) {
           temp.contRoleId = Math.floor(Math.random() * 2000)
         });
 
         value.fabricList = fabricDataList;
-        let accssoryDataList = _.filter(results.trnCurtainSelectionItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7 });
+        let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7 });
         _.forEach(accssoryDataList, function (temp) {
           temp.contRoleId = Math.floor(Math.random() * 2000)
         });
@@ -337,10 +339,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           else
             fabObj.orderQuantity = parseFloat(((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
 
-          let shadeObj = _.find(fabObj.shadeList, { shadeId: fabObj.shadeId });
-          if (shadeObj) {
-            fabObj.rate = parseFloat(shadeObj.flatRate ? shadeObj.flatRate : shadeObj.rrp).toFixed(2);
-            fabObj.maxDiscount = shadeObj.flatRate ? shadeObj.maxFlatRateDisc : fabObj.orderQuantity >= 50 ? shadeObj.maxRoleRateDisc : shadeObj.maxCutRateDisc;
+          //let shadeObj = _.find(fabObj.shadeList, { shadeId: fabObj.shadeId });
+          if (fabObj.shadeDetails) {
+            fabObj.rate = parseFloat(fabObj.shadeDetails.flatRate ? fabObj.shadeDetails.flatRate : fabObj.shadeDetails.rrp).toFixed(2);
+            fabObj.maxDiscount = fabObj.shadeDetails.flatRate ? fabObj.shadeDetails.maxFlatRateDisc : fabObj.orderQuantity >= 50 ? fabObj.shadeDetails.maxRoleRateDisc : fabObj.shadeDetails.maxCutRateDisc;
             fabObj.discount = 0;
             vm.changeDiscount(fabObj, index, unitIndex, areaIndex);
           }
@@ -352,35 +354,17 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum) {
     if (!fabricRow.rate)
       return;
-    let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
+    //let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
     let rate = parseFloat(fabricRow.rate);
     if (rate) {
-      fabricRow.rateWithGST = rate + (rate * shadeObj.gst) / 100;
+      fabricRow.rateWithGST = rate + (rate * fabricRow.shadeDetails.gst) / 100;
       //this.amountWithGST =this.rateWithGST * this.orderQuantity;
       fabricRow.amount = rate * fabricRow.orderQuantity;
-      fabricRow.amount = parseFloat(fabricRow.amount).toFixed(2);
       //this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
       fabricRow.amount = Math.round(fabricRow.amount - ((fabricRow.amount * fabricRow.discount) / 100));
-      fabricRow.amountWithGST = Math.round(fabricRow.amount + ((fabricRow.amount * shadeObj.gst) / 100));
+      fabricRow.amountWithGST = Math.round(fabricRow.amount + ((fabricRow.amount * fabricRow.shadeDetails.gst) / 100));
     }
-    fabricRow.rateWithGST = parseFloat(fabricRow.rateWithGST).toFixed(2);
-  }
 
-  changeVerticalDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum) {
-    if (!fabricRow.verticalPatchRate)
-      return;
-    let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
-    let rate = parseFloat(fabricRow.verticalPatchRate);
-    if (rate) {
-      fabricRow.verticalPatchRateWithGST = rate + (rate * shadeObj.gst) / 100;
-      //this.amountWithGST =this.rateWithGST * this.orderQuantity;
-      fabricRow.verticalPatchAmount = rate * fabricRow.verticalPatchQuantity;
-      fabricRow.verticalPatchAmount = parseFloat(fabricRow.verticalPatchAmount).toFixed(2);
-      //this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
-      fabricRow.verticalPatchAmount = Math.round(fabricRow.verticalPatchAmount - ((fabricRow.verticalPatchAmount * fabricRow.verticalPatchDiscount) / 100));
-      fabricRow.verticalPatchAmountWithGST = Math.round(fabricRow.verticalPatchAmount + ((fabricRow.verticalPatchAmount * shadeObj.gst) / 100));
-    }
-    fabricRow.verticalPatchRateWithGST = parseFloat(fabricRow.verticalPatchRateWithGST).toFixed(2);
   }
 
   calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow) {
@@ -397,11 +381,13 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         patchQuantity = patchQuantity + patchQuantity;
       }
       fabricRow.verticalPatchQuantity = patchQuantity;
-      let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
-      fabricRow.verticalPatchRate = parseFloat(shadeObj.flatRate ? shadeObj.flatRate : shadeObj.rrp).toFixed(2);
-      fabricRow.verticalPatchMaxDiscount = shadeObj.flatRate ? shadeObj.maxFlatRateDisc : fabricRow.verticalPatchQuantity >= 50 ? shadeObj.maxRoleRateDisc : shadeObj.maxCutRateDisc;
+      fabricRow.orderQuantity = fabricRow.horizontalPatchQuantity + fabricRow.verticalPatchQuantity;
+      fabricRow.orderQuantity = this.adjustQuantity(fabricRow.orderQuantity);
+      //let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
+      fabricRow.verticalPatchRate = parseFloat(fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.flatRate : fabricRow.shadeDetails.rrp).toFixed(2);
+      fabricRow.verticalPatchMaxDiscount = fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.maxFlatRateDisc : fabricRow.verticalPatchQuantity >= 50 ? fabricRow.shadeDetails.maxRoleRateDisc : fabricRow.shadeDetails.maxCutRateDisc;
       fabricRow.verticalPatchDiscount = 0;
-      this.changeVerticalDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
+      this.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
     }
 
   }
@@ -421,40 +407,52 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       //   patchQuantity = patchQuantity + patchQuantity;
       // }
       fabricRow.horizontalPatchQuantity = patchQuantity;
-      let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
-      fabricRow.horizontalPatchRate = parseFloat(shadeObj.flatRate ? shadeObj.flatRate : shadeObj.rrp).toFixed(2);
-      fabricRow.horizontalPatchMaxDiscount = shadeObj.flatRate ? shadeObj.maxFlatRateDisc : fabricRow.horizontalPatchQuantity >= 50 ? shadeObj.maxRoleRateDisc : shadeObj.maxCutRateDisc;
+      //let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
+      fabricRow.horizontalPatchRate = parseFloat(fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.flatRate : fabricRow.shadeDetails.rrp).toFixed(2);
+      fabricRow.horizontalPatchMaxDiscount = fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.maxFlatRateDisc : fabricRow.horizontalPatchQuantity >= 50 ? fabricRow.shadeDetails.maxRoleRateDisc : fabricRow.shadeDetails.maxCutRateDisc;
       fabricRow.horizontalPatchDiscount = 0;
-      this.changeHorizontalDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
+      fabricRow.orderQuantity = fabricRow.horizontalPatchQuantity + fabricRow.verticalPatchQuantity;
+      fabricRow.orderQuantity = this.adjustQuantity(fabricRow.orderQuantity);
+      this.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
     }
+  }
+
+  adjustQuantity(orderQuantity) {
+    if (!orderQuantity)
+      return 0;
+
+    let tempQuantity = parseFloat(orderQuantity).toFixed(2);
+    let quantityArray = tempQuantity.split('.');
+    if (quantityArray.length > 1) {
+
+      if (parseInt(quantityArray[1]) > 50) {
+        orderQuantity = parseInt(quantityArray[0]) + 1;
+      }
+      else {
+        orderQuantity = parseInt(quantityArray[0]) + 0.5;
+      }
+    }
+    return orderQuantity;
   }
 
   changeTrackQuantity(unitRow, unitRowNum, rowNum) {
+    let trackObj = _.find(this.trackCodeList, { accessoryId: unitRow.trackAccessoryId });
     unitRow.trackAmount = unitRow.trackRate * unitRow.trackQuantity;
+    unitRow.trackAmountWithGST = Math.round(unitRow.trackAmount + (unitRow.trackAmount * trackObj.gst) / 100);
+    unitRow.trackGST=trackObj.gst;
   }
   changeRodQuantity() {
-    this.trnCurtainQuotationObj.rodAmount = this.trnCurtainQuotationObj.rodRate * this.trnCurtainQuotationObj.rodQuantity;
+    let rodObj = _.find(this.rodCodeList, { accessoryId: this.trnCurtainQuotationObj.rodAccessoryId });
+    this.trnCurtainQuotationObj.rodAmount = Math.round(this.trnCurtainQuotationObj.rodRate * this.trnCurtainQuotationObj.rodQuantity);
+    this.trnCurtainQuotationObj.rodAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodAmount + (this.trnCurtainQuotationObj.rodAmount * rodObj.gst) / 100);
+    this.trnCurtainQuotationObj.rodGST=rodObj.gst;
   }
   changeAccessoryQuantity(accessoryRow) {
-    accessoryRow.amount = accessoryRow.rate * accessoryRow.quantity;
+    accessoryRow.amount = Math.round(accessoryRow.accessoriesDetails.sellingRate * accessoryRow.orderQuantity);
+    accessoryRow.amountWithGST = Math.round(accessoryRow.amount + (accessoryRow.amount * accessoryRow.accessoriesDetails.gst) / 100);
   }
 
-  changeHorizontalDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum) {
-    if (!fabricRow.horizontalPatchRate)
-      return;
-    let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
-    let rate = parseFloat(fabricRow.horizontalPatchRate);
-    if (rate) {
-      fabricRow.horizontalPatchRateWithGST = rate + (rate * shadeObj.gst) / 100;
-      //this.amountWithGST =this.rateWithGST * this.orderQuantity;
-      fabricRow.horizontalPatchAmount = rate * fabricRow.horizontalPatchQuantity;
-      fabricRow.horizontalPatchAmount = parseFloat(fabricRow.horizontalPatchAmount).toFixed(2);
-      //this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
-      fabricRow.horizontalPatchAmount = Math.round(fabricRow.horizontalPatchAmount - ((fabricRow.horizontalPatchAmount * fabricRow.horizontalPatchDiscount) / 100));
-      fabricRow.horizontalPatchAmountWithGST = Math.round(fabricRow.horizontalPatchAmount + ((fabricRow.horizontalPatchAmount * shadeObj.gst) / 100));
-    }
-    fabricRow.horizontalPatchRateWithGST = parseFloat(fabricRow.horizontalPatchRateWithGST).toFixed(2);
-  }
+
 
   onUpdateAndCreateQuotation() {
     if (this.trnCurtainQuotationObj.isQuotationCreated) {
@@ -502,16 +500,18 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         } else {
           this.viewItem = false;
         }
-        this.trnCurtainQuotationObj.CurtainQuotationDate = new Date(this.trnCurtainQuotationObj.CurtainQuotationDate);
+        this.trnCurtainQuotationObj.curtainQuotationDate = new Date(this.trnCurtainQuotationObj.curtainQuotationDate);
         this.trnCurtainQuotationItems = results.trnCurtainQuotationItems;
 
         let areaObjList = _.uniqBy(results.trnCurtainQuotationItems, 'area');
         vm.trnCurtainQuotationObj.areaList = [];
         _.forEach(areaObjList, function (value) {
-          vm.trnCurtainQuotationObj.areaList.push({
-            area: value.area,
-            contRoleId: Math.floor(Math.random() * 2000),
-          });
+          if (value.area) {
+            vm.trnCurtainQuotationObj.areaList.push({
+              area: value.area,
+              contRoleId: Math.floor(Math.random() * 2000),
+            });
+          }
         });
 
         _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
@@ -522,12 +522,19 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           let unitObjList = _.uniqBy(repetedUnit, 'unit');
 
           _.forEach(unitObjList, function (value) {
-            areaObj.unitList.push({
-              unit: value.unit,
-              area: value.area,
-              patternId: value.patternId,
-              contRoleId: Math.floor(Math.random() * 2000),
-            });
+
+            if (value.unit) {
+              areaObj.unitList.push({
+                unit: value.unit,
+                area: value.area,
+                patternId: value.patternId,
+                unitHeight: value.unitHeight,
+                unitWidth: value.unitWidth,
+                laborCharges:value.laborCharges,
+                numberOfPanel:value.numberOfPanel,
+                contRoleId: Math.floor(Math.random() * 2000),
+              });
+            }
           });
           // _.forEach(results.trnCurtainQuotationItems, function (value) {
           //   let unitObj = _.find(areaObj.unitList, { 'unit': value.unit, 'area': value.area });
@@ -547,21 +554,33 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           _.forEach(areaObj.unitList, function (value) {
             let fabricDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
             value.fabricList = fabricDataList;
-            let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7 });
+            let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': null, 'isRod': null });
             value.accessoryList = accssoryDataList;
+            let trackObj = _.find(results.trnCurtainQuotationItems, { "isTrack": true, unit: value.unit });
+            if (trackObj) {
+              value.trackId = trackObj.id;
+              value.trackGST = trackObj.gst;
+              value.trackAccessoryId = trackObj.accessoryId;
+              value.isTrack = true;
+              value.trackAmount = trackObj.amount;
+              value.trackAmountWithGST = trackObj.amountWithGST;
+              value.trackRate = trackObj.rate;
+              value.trackQuantity = trackObj.orderQuantity;
+            }
           });
         });
 
-
-        this.addressList = results.mstCustomer.mstCustomerAddresses;
-        _.forEach(this.trnCurtainQuotationItems, function (value) {
-          if (value.mstCategory != null)
-            value.categoryName = value.mstCategory.code;
-          if (value.mstCollection != null)
-            value.collectionName = value.mstCollection.collectionCode;
-
-        });
-        delete this.trnCurtainQuotationObj['trnCurtainQuotationItems'];
+        let isRodObj = _.find(results.trnCurtainQuotationItems, { "isRod": true });
+        if (isRodObj) {
+          vm.trnCurtainQuotationObj.rodId = isRodObj.id;
+          vm.trnCurtainQuotationObj.rodGST = isRodObj.gst;
+          vm.trnCurtainQuotationObj.rodAccessoryId = isRodObj.accessoryId;
+          vm.trnCurtainQuotationObj.isRod = true;
+          vm.trnCurtainQuotationObj.rodAmount = isRodObj.amount;
+          vm.trnCurtainQuotationObj.rodAmountWithGST = isRodObj.amountWithGST;
+          vm.trnCurtainQuotationObj.rodQuantity = isRodObj.orderQuantity;
+          vm.trnCurtainQuotationObj.rodRate = isRodObj.rate;
+        }
         Helpers.setLoading(false);
       },
       error => {
@@ -591,17 +610,17 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.display = true;
   }
 
-  onChangeShade(fabricRow) {
-    let shadeObj = _.find(fabricRow.shadeList, ['shadeId', fabricRow.shadeId]);
-    fabricRow.rate = shadeObj.rrp;
-    fabricRow.discount = shadeObj.maxFlatRateDisc ? shadeObj.maxFlatRateDisc : 0;
-  }
+  // onChangeShade(fabricRow) {
+  //   let shadeObj = _.find(fabricRow.shadeList, ['shadeId', fabricRow.shadeId]);
+  //   fabricRow.rate = shadeObj.rrp;
+  //   fabricRow.discount = shadeObj.maxFlatRateDisc ? shadeObj.maxFlatRateDisc : 0;
+  // }
 
 
-  onChangeAccesory(accessoryRow) {
-    let shadeObj = _.find(this.accessoryCodeList, ['accessoryId', accessoryRow.accessoryId]);
-    accessoryRow.rate = shadeObj.sellingRate;
-  }
+  // onChangeAccesory(accessoryRow) {
+  //   let shadeObj = _.find(this.accessoryCodeList, ['accessoryId', accessoryRow.accessoryId]);
+  //   accessoryRow.rate = shadeObj.sellingRate;
+  // }
   onChangeRodAccesory() {
     let shadeObj = _.find(this.rodCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodAccessoryId]);
     this.trnCurtainQuotationObj.rodRate = shadeObj.sellingRate;
@@ -699,27 +718,27 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   }
 
 
-  onChangeCollection(fabricRow) {
-    this.shadeList = [];
-    this.shadeList.unshift({ serialno: '--Select--', shadeId: null });
-    if (fabricRow.collectionId != null) {
-      this.getshadeList(fabricRow);
-    }
-  }
+  // onChangeCollection(fabricRow) {
+  //   this.shadeList = [];
+  //   this.shadeList.unshift({ serialno: '--Select--', shadeId: null });
+  //   if (fabricRow.collectionId != null) {
+  //     this.getshadeList(fabricRow);
+  //   }
+  // }
 
-  getshadeList(fabricRow) {
-    Helpers.setLoading(true);
-    this.trnCurtainSelectionService.getShadeForCurtainSelectionByCollectionId(fabricRow.collectionId).subscribe(
-      results => {
-        fabricRow.shadeList = results;
-        fabricRow.shadeList.unshift({ serialno: '--Select--', shadeId: null });
-        Helpers.setLoading(false);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-        Helpers.setLoading(false);
-      });
-  }
+  // getshadeList(fabricRow) {
+  //   Helpers.setLoading(true);
+  //   this.trnCurtainSelectionService.getShadeForCurtainSelectionByCollectionId(fabricRow.collectionId).subscribe(
+  //     results => {
+  //       fabricRow.shadeList = results;
+  //       fabricRow.shadeList.unshift({ serialno: '--Select--', shadeId: null });
+  //       Helpers.setLoading(false);
+  //     },
+  //     error => {
+  //       this.globalErrorHandler.handleError(error);
+  //       Helpers.setLoading(false);
+  //     });
+  // }
 
   getCollectionList() {
     Helpers.setLoading(true);
@@ -768,13 +787,34 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "unit": unitObj.unit,
             "patternId": unitObj.patternId,
             "categoryId": 1,
+            'id':fabricobj.id,
             "collectionId": fabricobj.collectionId,
             "shadeId": fabricobj.shadeId,
             "accessoryId": null,
             "isPatch": fabricobj.isPatch,
+
+            "isVerticalPatch": fabricobj.isVerticalPatch,
+            "noOfVerticalPatch": fabricobj.noOfVerticalPatch,
+            "verticalPatchWidth": fabricobj.verticalPatchWidth,
+            "verticalPatchQuantity": fabricobj.verticalPatchQuantity,
+            "isHorizontalPatch": fabricobj.isHorizontalPatch,
+            "noOfHorizontalPatch": fabricobj.noOfHorizontalPatch,
+            "horizontalPatchHeight": fabricobj.horizontalPatchHeight,
+            "horizontalPatchQuantity": fabricobj.horizontalPatchQuantity,
             "isLining": fabricobj.isLining,
+
+            "unitHeight": unitObj.unitHeight,
+            "unitWidth": unitObj.unitWidth,
+            "orderQuantity": fabricobj.orderQuantity,
+            "numberOfPanel": unitObj.numberOfPanel,
+            "laborCharges": unitObj.laborCharges,
+            "discount": fabricobj.discount,
             "rate": fabricobj.rate,
-            "discount": null,
+            "rateWithGST": fabricobj.rateWithGST,
+            "amount": fabricobj.amount,
+            "amountWithGST": fabricobj.amountWithGST,
+            "gst": fabricobj.shadeDetails.gst,
+
             "categoryName": 'Fabric',
             "collectionName": collectionObj ? collectionObj.label : '',
             // "serialno": "5",
@@ -788,15 +828,20 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "area": areaObj.area,
             "unit": unitObj.unit,
             "patternId": unitObj.patternId,
+            'id':accessoryobj.id,
             "categoryId": 7,
             "collectionId": null,
             "shadeId": null,
             "accessoryId": accessoryobj.accessoryId,
             "isPatch": null,
             "isLining": null,
-            "rate": accessoryobj.rate,
+            "orderQuantity": accessoryobj.orderQuantity,
+            "rate": accessoryobj.accessoriesDetails.sellingRate,
+            "gst": accessoryobj.accessoriesDetails.gst,
+            "amount": accessoryobj.amount,
+            "amountWithGST": accessoryobj.amountWithGST,
             "discount": null,
-            "categoryName": null,
+            "categoryName": "Accessories",
             "collectionName": null,
             // "serialno": "5",
             // "itemCode": null
@@ -804,8 +849,56 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
         });
 
+
+        if (unitObj.isTrack) {
+          let obj = {
+            "area": areaObj.area,
+            "unit": unitObj.unit,
+            "patternId": unitObj.patternId,
+            "categoryId": 7,
+            "collectionId": null,
+            "shadeId": null,
+            "accessoryId": unitObj.trackAccessoryId,
+            "isTrack": true,
+            "orderQuantity": unitObj.trackQuantity,
+            'id':unitObj.trackId,
+            "rate": unitObj.trackRate,
+            "gst":unitObj.trackGST,
+            "amount": unitObj.trackAmount,
+            "amountWithGST": unitObj.trackAmountWithGST,
+            "discount": null,
+            "categoryName": "Accessories",
+            "collectionName": null,
+            // "serialno": "5",
+            // "itemCode": null
+          }
+          vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
+        }
       });
     });
+
+    if (vm.trnCurtainQuotationObj.isRod) {
+      let obj = {
+        "categoryId": 7,
+        "collectionId": null,
+        "shadeId": null,
+        "accessoryId": vm.trnCurtainQuotationObj.rodAccessoryId,
+        "isRod": true,
+        'id':vm.trnCurtainQuotationObj.rodId,
+        "orderQuantity": vm.trnCurtainQuotationObj.rodQuantity,
+        "rate": vm.trnCurtainQuotationObj.rodRate,
+        "gst":vm.trnCurtainQuotationObj.rodGST,
+        "amount": vm.trnCurtainQuotationObj.rodAmount,
+        "amountWithGST": vm.trnCurtainQuotationObj.rodAmountWithGST,
+        "discount": null,
+        "categoryName": "Accessories",
+        "collectionName": null,
+        // "serialno": "5",
+        // "itemCode": null
+      }
+      vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
+    }
+
     if (valid) {
       this.saveTrnCurtainQuotation(this.trnCurtainQuotationObj);
     }
@@ -813,8 +906,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
 
   saveTrnCurtainQuotation(value) {
-    let tempCurtainQuotationDate = new Date(value.CurtainQuotationDate);
-    value.CurtainQuotationDate = new Date(tempCurtainQuotationDate.setHours(23));
+    let tempCurtainQuotationDate = new Date(value.curtainQuotationDate);
+    value.curtainQuotationDate = new Date(tempCurtainQuotationDate.setHours(23));
     Helpers.setLoading(true);
     if (this.params) {
       this.trnCurtainQuotationService.updateTrnCurtainQuotation(value)

@@ -242,9 +242,10 @@
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel ">Lining
                                                                                 </label>
                                                                                 <div class="col-md-2 col-sm-2">
-                                                                                    <input type="radio" name="{{'lining'+unitRow.contRoleId+fabricRowNum+0000}}" [checked]="fabricRow.isLining == true" [value]="fabricRow.isLining"
+                                                                                    <!-- <input type="radio" name="{{'lining'+unitRow.contRoleId+fabricRowNum+0000}}" [checked]="fabricRow.isLining == true" [value]="fabricRow.isLining"
                                                                                     (click)="selectedLining(rowNum,unitRowNum,fabricRowNum)"
-                                                                                    >
+                                                                                    > -->
+                                                                                    <input type="checkbox" [(ngModel)]="fabricRow.isLining" name="{{'lining'+unitRow.contRoleId+fabricRowNum+0000}}">
                                                                                 </div>
                                                                             </div>
                                                                             <!-- <div class="col-md-3">
