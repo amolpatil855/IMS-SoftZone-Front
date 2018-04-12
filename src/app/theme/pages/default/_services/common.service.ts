@@ -28,7 +28,7 @@ export class CommonService {
   getCourierMode() {
     let courierMode = this.courierMode;
     courierMode.push({ label: '--Select--', value: '0' });
-    this.courierModeData.forEach(function(element) {
+    this.courierModeData.forEach(function (element) {
       courierMode.push({ label: element, value: element });
     });
   }
@@ -42,6 +42,19 @@ export class CommonService {
   getPatternLookup() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetPatternLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
+
+  getAllPatternData() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetAllPatterns', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getRodAccessoryItemCodeForCQ() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetRodAccessoryItemCodeForCQ', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  GetTrackAccessoryItemCodeForCQ() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetTrackAccessoryItemCodeForCQ', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   getCategoryCodes() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetCategoryLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
   }

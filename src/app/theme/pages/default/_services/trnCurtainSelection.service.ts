@@ -29,6 +29,10 @@ export class TrnCurtainSelectionService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetAccessoryItemCodeForCS', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  viewCurtainQuotation(id) {
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnCurtainSelection/ViewCurtainQuotation' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
 
   createTrnCurtainSelection(trnCurtainSelection: TrnCurtainSelection) {
     return this.http.post(AppSettings.API_ENDPOINT + 'TrnCurtainSelection', trnCurtainSelection, AppSettings.requestOptions()).map((response: Response) => response.json());

@@ -2435,3 +2435,71 @@ select option {
 .ui-datatable-emptymessage{
     text-align: left!important;
 }
+
+/******* D. 11 April 2018 *********/
+.unitMainBox{
+	border: 1px solid #cacaca;
+    border-radius: 2px;
+    padding: 5px;
+}
+.unitHeading{
+	font-family: Poppins;
+    margin-top: 0;
+    font-weight: 600;
+    color: #24a1e0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+}
+.unitFormLabel{
+	font-family: Roboto;
+    margin-bottom: 0;
+    padding-top: 4px;
+    color: #585858;
+    font-size: 13px;
+    font-weight: 500;
+}
+.patchRow{
+	margin-top: 15px;
+    margin-bottom: 0;
+   /* padding: 8px;
+    border: 1px dotted;
+    border-color: #bbb;
+    border-radius: 3px;*/
+}
+.patchLabel{
+	margin-bottom: 5px;
+    padding: 2px 15px;
+    background: #dedede;
+    font-family: Roboto;
+    border-radius: 2px;
+    font-size: 13px;
+}
+.collectionActionBtn{
+	background: #e6e6e6;
+    border: 1px solid #dadada;
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 2px;
+    color: #424242;
+    margin-top: 5px;
+    margin-right: 4px;
+}
+.collectionRow{
+	margin-top: 5px;
+    margin-bottom: 0;
+    padding: 8px;
+    border: 1px dotted;
+    border-color: #bbb;
+    border-radius: 3px;
+}
+.isTrackRow {
+    margin-top: 5px;
+    margin-bottom: 0;
+    padding: 8px;
+    border: 1px dotted;
+    border-color: #bbb;
+    border-radius: 3px;
+}

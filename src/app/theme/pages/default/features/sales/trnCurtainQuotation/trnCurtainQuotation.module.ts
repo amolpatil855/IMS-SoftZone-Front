@@ -21,7 +21,8 @@ import {
   ConfirmDialogModule,
   ConfirmationService,
 } from 'primeng/primeng';
-
+import { ShadeService } from "../../../_services/shade.service";
+import { TrnCurtainSelectionService } from "../../../_services/trnCurtainSelection.service";
 import { TrnCurtainQuotationService } from "../../../_services/trnCurtainQuotation.service";
 import { TrnCurtainQuotationComponent } from "./trnCurtainQuotation.component";
 import { TrnCurtainQuotationListComponent } from "./trnCurtainQuotation-list/trnCurtainQuotation-list.component";
@@ -98,7 +99,9 @@ const routes: Routes = [
     CustomerService,
     ConfirmationService,
     CollectionService,
-    TrnProductStockService
+    TrnProductStockService,
+    TrnCurtainSelectionService,
+    ShadeService
   ],
 })
 export class TrnCurtainQuotationModule {
