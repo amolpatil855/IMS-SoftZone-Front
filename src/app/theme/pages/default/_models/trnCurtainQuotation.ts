@@ -4,6 +4,7 @@ import { TrnCurtainSelection } from "./trnCurtainSelection";
 
 export class TrnCurtainQuotation {
     id: number;
+    globalDiscount:number;
     curtainSelectionId: number;
     curtainQuotationNumber: string;
     curtainQuotationDate: Date;
