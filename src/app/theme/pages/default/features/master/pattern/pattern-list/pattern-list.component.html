@@ -117,16 +117,6 @@
 														<div class="form-group">
 															<label class="fieldLabel col-sm-5">Set Rate<span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #setRateVal="ngModel"
-																 required [(ngModel)]="patternObj.setRate" [ngClass]="{'red-border-class': setRateVal.errors && isFormSubmitted}"
-																 name="setRate" id="setRate" placeholder="" autocomplete="off" tabindex="6">
-															</div>
-														</div>
-													</div>
-													<div class="col-lg-3 col-md-6 formContentbox formContentboxPattern">
-														<div class="form-group">
-															<label class="fieldLabel col-sm-5">Set Rate For Customer<span class="requiredField">*</span></label>
-															<div class="col-sm-7">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #setRateForCustomerVal="ngModel"
 																 required [(ngModel)]="patternObj.setRateForCustomer" [ngClass]="{'red-border-class': setRateForCustomerVal.errors && isFormSubmitted}"
 																 name="setRateForCustomer" id="setRateForCustomer" placeholder="" autocomplete="off" tabindex="6">
@@ -143,8 +133,6 @@
 															</div>
 														</div>
 													</div>
-												</div>
-												<div class="form-group">
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxPattern">
 														<div class="form-group">
 															<label class="fieldLabel col-sm-5">Horizontal Patch<span class="requiredField">*</span></label>
