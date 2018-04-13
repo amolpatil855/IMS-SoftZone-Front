@@ -617,7 +617,21 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   }
 
   onPatternChange(unitRow) {
+    let vm = this;
     unitRow.mstPattern = _.find(this.patternList, ['id', unitRow.patternId]);
+    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
+      _.forEach(areaObj.unitList, function (unitRow, unitRowNum) {
+        vm.onUnitHeightChange(unitRow, unitRowNum, rowNum);
+        _.forEach(unitRow.fabricList, function (fabricRow, fabricRowNum) {
+          if (fabricRow.isPatch) {
+            if (fabricRow.isVerticalPatch)
+              vm.calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
+            if (fabricRow.isHorizontalPatch)
+              vm.calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
+          }
+        });
+      });
+    });
   }
 
   onStateChange() {
