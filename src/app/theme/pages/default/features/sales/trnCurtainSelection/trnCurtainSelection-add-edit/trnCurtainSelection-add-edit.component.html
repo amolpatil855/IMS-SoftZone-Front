@@ -85,9 +85,7 @@
 
                                                         <div class="row form-group">
 
-                                                            <div class="col-md-6">
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-3">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Date</label>
                                                                         <div class="col-md-8 col-sm-8">
                                                                             <p-calendar class="purchaseOrderDate" #curtainSelectionDateVal="ngModel" [(ngModel)]="trnCurtainSelectionObj.curtainSelectionDate"
@@ -97,7 +95,7 @@
                                                                                 autofocus required></p-calendar>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-3">
                                                                         <label class="col-md-5 col-sm-5 fieldLabel noPadding">Curtain Selection No.</label>
                                                                         <div class="col-md-7 col-sm-7">
                                                                             <input type="text" [(ngModel)]="trnCurtainSelectionObj.curtainSelectionNumber" name="curtainSelectionNumber" class="form-control"
@@ -105,10 +103,8 @@
                                                                         </div>
                                                                     </div>
 
-                                                                </div>
-                                                            </div>
                                                             <div class="col-md-6">
-                                                                <label class="col-md-2 col-sm-2 fieldLabel">Customer
+                                                                <label class="col-md-3 col-sm-3 fieldLabel">Customer
                                                                     <span class="requiredField">*</span>
                                                                 </label>
                                                                 <div class="col-md-8 col-sm-8 customerNameBox">
@@ -127,7 +123,6 @@
                                                                     </button>
                                                                 </div>
                                                             </div>
-
 
                                                         </div>
                                                         <div class="row form-group">
@@ -166,11 +161,11 @@
 
                                                     <div class="panel-body" *ngFor="let areaRow of trnCurtainSelectionObj.areaList;let rowNum=index;let lastRowNum=last;">
                                                         <div class="row form-group">
-                                                            <div class="col-md-4">
-                                                                <label class="col-md-4 col-sm-4 fieldLabel ">Area
+                                                            <div class="col-md-5">
+                                                                <label class="col-md-3 col-sm-3 fieldLabel ">Area
                                                                     <span class="requiredField">*</span>
                                                                 </label>
-                                                                <div class="col-md-8 col-sm-8">
+                                                                <div class="col-md-6 col-sm-6" style="padding-left: 24px;padding-right: 0;">
                                                                     <input class="form-control m-input" type="text" [(ngModel)]="areaRow.area" name="{{'area'+areaRow.contRoleId}}"
                                                                         id="{{'area'+rowNum}}" placeholder="" tabindex="6"  [ngClass]="{'red-border-class': areaVal.errors && isFormSubmitted}" #areaVal="ngModel" required>
                                                                 </div>
@@ -182,7 +177,7 @@
                                                                     <div class="panel-heading">Unit Details</div>
                                                                     <div class="panel-body" *ngFor="let unitRow of areaRow?.unitList;let unitRowNum=index;let unitLastRowNum=last;">
                                                                         <div class="row form-group">
-                                                                            <div class="col-md-3">
+                                                                            <div class="col-md-4">
 
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel ">Unit
                                                                                     <span class="requiredField">*</span>
@@ -192,7 +187,7 @@
                                                                                         placeholder="" tabindex="6"  [ngClass]="{'red-border-class': unitVal.errors && isFormSubmitted}" #unitVal="ngModel" required>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-3">
+                                                                            <div class="col-md-4">
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel ">Pattern
                                                                                     <span class="requiredField">*</span>
                                                                                 </label>
@@ -207,7 +202,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="row form-group" *ngFor="let fabricRow of unitRow?.fabricList;let fabricRowNum=index;let fabricLastRowNum=last;">
-                                                                            <div class="col-md-3">
+                                                                            <div class="col-md-4">
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel">Collection
                                                                                     <span class="requiredField">*</span>
                                                                                 </label>
@@ -220,7 +215,7 @@
                                                                                              name="collectionCodeDDl" filter="true" tabindex="9" (ngModelChange)="onChangeCollection()"></p-dropdown> -->
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-3">
+                                                                            <div class="col-md-4">
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel">Shade
                                                                                     <span class="requiredField">*</span>
                                                                                 </label>
@@ -234,14 +229,14 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <label class="col-md-3 col-sm-3 fieldLabel ">Patch
+                                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Patch
                                                                                 </label>
-                                                                                <div class="col-md-2 col-sm-2">
+                                                                                <div class="col-md-2 col-sm-2 noPadding alignCenter" >
                                                                                     <input type="checkbox" [(ngModel)]="fabricRow.isPatch" name="{{'patch'+unitRow.contRoleId+fabricRowNum+0000}}">
                                                                                 </div>
-                                                                                <label class="col-md-4 col-sm-4 fieldLabel ">Lining
+                                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Lining
                                                                                 </label>
-                                                                                <div class="col-md-2 col-sm-2">
+                                                                                <div class="col-md-2 col-sm-2 noPadding alignCenter">
                                                                                     <!-- <input type="radio" name="{{'lining'+unitRow.contRoleId+fabricRowNum+0000}}" [checked]="fabricRow.isLining == true" [value]="fabricRow.isLining"
                                                                                     (click)="selectedLining(rowNum,unitRowNum,fabricRowNum)"
                                                                                     > -->
@@ -267,7 +262,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="row form-group" *ngFor="let accessoryRow of unitRow.accessoryList;let accessoryRowNum=index;let accessoryLastRowNum=last;">
-                                                                            <div class="col-md-3">
+                                                                            <div class="col-md-4">
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel ">Accessories
                                                                                 </label>
                                                                                 <div class="col-md-8 col-sm-8">
@@ -277,7 +272,7 @@
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-4">
+                                                                            <div class="col-md-6">
                                                                                 <label class="col-md-3 col-sm-3 fieldLabel ">Rate
                                                                                 </label>
                                                                                 <div class="col-md-3 col-sm-3">
