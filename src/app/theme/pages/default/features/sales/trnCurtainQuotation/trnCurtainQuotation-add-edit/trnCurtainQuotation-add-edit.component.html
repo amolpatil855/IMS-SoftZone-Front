@@ -44,7 +44,7 @@
             <button class="topBtn btn btn-info" title="Print" (click)="print()" tabindex="5">Print</button>
             <button type="submit" *ngIf="params" class="topBtn btn btn-success" [isAuthorize]="['curtainselection']" title="{{ (params && (trnCurtainQuotationObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}"
                 (click)="onUpdateAndCreateQuotation()" tabindex="9">
-                {{ (params && (trnCurtainQuotationObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}
+                Approve
             </button>
             <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnCurtainSelectionForm"
                 title="{{(trnCurtainSelectionForm && trnCurtainSelectionForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
@@ -108,8 +108,15 @@
 
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <label class="col-md-2 col-sm-2 fieldLabel">Customer
+                                                            <div class="col-md-3">
+                                                                <label class="col-md-5 col-sm-5 fieldLabel noPadding">Curtain Quotation No.</label>
+                                                                <div class="col-md-7 col-sm-7">
+                                                                    <input type="text" [(ngModel)]="trnCurtainQuotationObj.curtainQuotationNumber" name="curtainQuotationNumber" class="form-control"
+                                                                        #orderNoVal="ngModel" disabled placeholder="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="col-md-4 col-sm-4 fieldLabel">Customer
                                                                 </label>
                                                                 <div class="col-md-8 col-sm-8 customerNameBox">
                                                                     {{trnCurtainQuotationObj.customerName}}
