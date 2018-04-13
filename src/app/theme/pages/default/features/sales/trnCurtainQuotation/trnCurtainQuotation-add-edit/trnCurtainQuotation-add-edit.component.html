@@ -182,7 +182,7 @@
                                                                             <div class="col-md-2">
                                                                                 <label class="fieldLabel">Pattern</label>
                                                                                 <select class="form-control" name="{{'patern'+unitRow.contRoleId}}" [(ngModel)]="unitRow.patternId" tabindex="9" [ngClass]="{'red-border-class': paternVal.errors && isFormSubmitted}"
-                                                                                    #paternVal="ngModel" required>
+                                                                                    #paternVal="ngModel" required (ngModelChange)="onPatternChange(unitRow)">
                                                                                     <option *ngFor="let x of patternList" [ngValue]="x.id" [selected]="unitRow.patternId == x.id">{{x.name}}</option>
                                                                                 </select>
                                                                             </div>
@@ -224,14 +224,14 @@
                                                                                     </select>
                                                                                 </div>
                                                                                 <div class="col-md-2">
-                                                                                    <label class="fieldLabel">Shade</label> <br/>
+                                                                                    <label class="fieldLabel">Shade</label>                                                                                    <br/>
                                                                                     <!-- <select class="form-control" name="{{'shade'+unitRow.contRoleId+fabricRowNum+0000}}" [(ngModel)]="fabricRow.shadeId" tabindex="9"
                                                                                         (ngModelChange)="onChangeShade(fabricRow)"
                                                                                         [ngClass]="{'red-border-class': shadeVal.errors && isFormSubmitted}"
                                                                                         #shadeVal="ngModel" required>
                                                                                         <option *ngFor="let x of fabricRow.shadeList" [ngValue]="x.shadeId" [selected]="fabricRow.shadeId == x.shadeId">{{x.serialno}}</option>
                                                                                     </select> -->
-                                                                                     <label class="unitFormLabel">{{fabricRow.serialno}}</label>
+                                                                                    <label class="unitFormLabel">{{fabricRow.serialno}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Patch</label>
@@ -251,10 +251,10 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Quantity</label>
                                                                                     <br/>
-                                                                                    <input  *ngIf="!fabricRow.isPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.orderQuantity" name="{{'orderQuantity'+fabricRow.contRoleId}}"
+                                                                                    <input *ngIf="!fabricRow.isPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.orderQuantity" name="{{'orderQuantity'+fabricRow.contRoleId}}"
                                                                                         placeholder="" tabindex="6" [ngClass]="{'red-border-class': orderQuantityVal.errors && isFormSubmitted}"
                                                                                         #orderQuantityVal="ngModel" required>
-                                                                                        <label  *ngIf="fabricRow.isPatch" class="unitFormLabel">{{fabricRow.orderQuantity}}</label>
+                                                                                    <label *ngIf="fabricRow.isPatch" class="unitFormLabel">{{fabricRow.orderQuantity}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Discount</label>
@@ -395,7 +395,7 @@
                                                                         <div class="form-group collectionRow" *ngFor="let accessoryRow of unitRow.accessoryList;let accessoryRowNum=index;let accessoryLastRowNum=last;">
                                                                             <div class="row">
                                                                                 <div class="col-md-2">
-                                                                                    <label class="fieldLabel">Accessories</label> <br/>
+                                                                                    <label class="fieldLabel">Accessories</label>                                                                                    <br/>
                                                                                     <!-- <select class="form-control" name="{{'accessory'+unitRow.contRoleId+accessoryRowNum+111}}" [(ngModel)]="accessoryRow.accessoryId"
                                                                                         tabindex="9" (ngModelChange)="onChangeAccesory(accessoryRow)"
                                                                                         [ngClass]="{'red-border-class': accessoryVal.errors && isFormSubmitted}"
@@ -403,7 +403,7 @@
                                                                                         <option *ngFor="let x of accessoryCodeList" [ngValue]="x.accessoryId" [selected]="accessoryId == x.accessoryId">{{x.itemCode}}</option>
                                                                                     </select> -->
                                                                                     <label class="unitFormLabel">{{ accessoryRow.accessoriesDetails?accessoryRow.accessoriesDetails.itemCode:""}}</label>
-                                                                                    
+
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Rate</label>
@@ -414,7 +414,8 @@
                                                                                     <label class="fieldLabel">Quantity</label>
                                                                                     <br/>
                                                                                     <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="10000" [ngClass]="{'red-border-class': accessoryQuantityVal.errors && isFormSubmitted}"
-                                                                                        [(ngModel)]="accessoryRow.orderQuantity" name="{{'accessoryDiscount'+accessoryRow.contRoleId}}"
+                                                                                        [(ngModel)]="accessoryRow.orderQuantity"
+                                                                                        name="{{'accessoryDiscount'+accessoryRow.contRoleId}}"
                                                                                         #accessoryQuantityVal="ngModel" tabindex="21"
                                                                                         placeholder="" (blur)="changeAccessoryQuantity(accessoryRow)"
                                                                                         required>
@@ -615,44 +616,73 @@
     <br/>
 
     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
-    <div *ngFor="let item of trnCurtainQuotationItems; let i=index;">
-        <table style="width:100%;margin-bottom:2px;">
-            <tr>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Area: <span style="font-weight:400;">{{item ? item.area : ""}}</span></td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Unit: <span style="font-weight:400;">{{item ? item.unit : ""}}</span></td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Pattern: <span style="font-weight:400;">{{item ? item.mstPattern ? item.mstPattern.name : "" : ""}}</span></td>
-            </tr>
-        </table>
-        <table style="width:100%;margin-bottom:10px;">
-            <tr>
-                <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:15%;">Category</th>
-                <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:25%;">Description</th>
-                <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:25%;">Type</th>
-                <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:10%;">Quantity</th>
-                <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">H/W</th>
-                <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Rate (GST)</th>
-                <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">Amount</th>
-            </tr>
-            <tr *ngFor="let item of trnCurtainQuotationItems; let i=index;">
-                <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{item ? item.categoryName : ""}}</td>
-                <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{item ? item.categoryId == 7 ? item.itemCode : (item.collectionName + "-"+ item.serialno) }}</td>
-                <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{item ? ((item.isPatch || item.isLining) ? ((item.isLining && item.isPatch) ? (item.isLining ? "Lining, " : ((item.isPatch && item.isHorizontalPatch) ? "Lining, Patch-Horizontal" : ((item.isPatch && item.isVerticalPatch) ? "Lining, Patch-Vertical": (item.isPatch ? "Lining, Patch" : "")))) : (item.isLining ? "Lining" : ((item.isPatch && item.isHorizontalPatch) ? "Patch-Horizontal" : ((item.isPatch && item.isVerticalPatch) ? "Patch-Vertical" : (item.isPatch ? "Patch" : ""))))) : "Main") : ""}}</td>
-                <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">20</td>
-                <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{item ? (item.unitHeight + " x") : ""}} {{item ? item.unitWidth : ""}}</td>
-                <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{item ? (item.rateWithGST | number:'.2') : ''}}</td>
-                <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{ item ? (item.amountWithGST | number:'.0') : ''}}</td>
-            </tr>
-        </table>
+    <div *ngFor="let areaRow of trnCurtainQuotationObj.areaList;let rowNum=index;let lastRowNum=last;">
+        <div *ngFor="let unitRow of areaRow?.unitList;let unitRowNum=index;let unitLastRowNum=last;">
+
+            <table style="width:100%;margin-bottom:2px;">
+                <tr>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Area: <span style="font-weight:400;">{{areaRow.area}}</span></td>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Unit: <span style="font-weight:400;">{{unitRow.unit}}</span></td>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Pattern: <span style="font-weight:400;">{{unitRow.mstPattern ? unitRow.mstPattern.name : "" }}</span></td>
+                </tr>
+            </table>
+            <table style="width:100%;margin-bottom:10px;">
+                <tr>
+                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:15%;">Category</th>
+                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:25%;">Description</th>
+                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:25%;">Type</th>
+                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:10%;">Quantity</th>
+                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">H/W</th>
+                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Rate (GST)</th>
+                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">Amount</th>
+                </tr>
+                <tr *ngFor="let fabricRow of unitRow?.fabricList;let fabricRowNum=index;let fabricLastRowNum=last;">
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Fabric</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{fabricRow.collectionId}}{{fabricRow.serialno}}</td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
+                        {{fabricRow.isPatch?"Patch":""}} {{fabricRow.isVerticalPatch?"Vertical":""}} {{fabricRow.isHorizontalPatch?"Horizontal":""}}
+                        {{fabricRow.isLining?"Lining":""}} {{(!fabricRow.isPatch && !fabricRow.isLining)?"Main":""}}
+                    </td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{fabricRow.orderQuantity}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;"></td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{fabricRow.rateWithGST}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{fabricRow.amountWithGST}}</td>
+                </tr>
+                <tr *ngFor="let accessoryRow of unitRow.accessoryList;let accessoryRowNum=index;let accessoryLastRowNum=last;">
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Accessory</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{ accessoryRow.accessoriesDetails?accessoryRow.accessoriesDetails.itemCode:""}}</td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
+
+                    </td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{accessoryRow.orderQuantity}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;"></td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{accessoryRow.rateWithGST}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{accessoryRow.amountWithGST}}</td>
+                </tr>
+                <tr *ngIf="unitRow.isTrack">
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Accessory</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">
+                        {{ unitRow.trackAccessoriesDetails?unitRow.trackAccessoriesDetails.itemCode:""}}</td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
+                        Track
+                    </td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{unitRow.trackQuantity}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;"></td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{unitRow.trackRate}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{unitRow.trackAmountWithGST}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
     <!-- Accessories -->
-    <table style="width:100%;margin-bottom:2px;margin-top:-5px;">
+    <table *ngIf="trnCurtainQuotationObj.isRod" style="width:100%;margin-bottom:2px;margin-top:-5px;">
         <tr>
             <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;width:33.33%;font-size:15px;">Accessories</td>
         </tr>
     </table>
-    <table style="width:100%;margin-bottom:10px;">
+    <table *ngIf="trnCurtainQuotationObj.isRod" style="width:100%;margin-bottom:10px;">
         <tr>
             <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Descripton</th>
             <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Quantity</th>
@@ -660,46 +690,40 @@
             <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">Amount</th>
         </tr>
         <tr>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 70%;">This is Description</td>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 10%;">10</td>
-            <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 10%;">600</td>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 10%;">6000</td>
-        </tr>
-        <tr>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 70%;">This is Description</td>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 10%;">10</td>
-            <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 10%;">600</td>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 10%;">6000</td>
+            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 70%;">{{ trnCurtainQuotationObj.rodAccessoriesDetails?trnCurtainQuotationObj.rodAccessoriesDetails.itemCode:""}}</td>
+            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 10%;">{{trnCurtainQuotationObj.rodQuantity}}</td>
+            <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 10%;">{{trnCurtainQuotationObj.rodRate}}</td>
+            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 10%;">{{trnCurtainQuotationObj.rodAmountWithGST}}</td>
         </tr>
     </table>
     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
     <!-- Stitching -->
-    <table style="width:100%;margin-bottom:2px;margin-top:-5px;">
-        <tr>
-            <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;width:33.33%;font-size:15px;">Stitching</td>
-        </tr>
-    </table>
-    <table style="width:100%;">
-        <tr>
-            <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Area</th>
-            <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Unit</th>
-            <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Pattern</th>
-            <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 25%;">Amount</th>
-        </tr>
-        <tr>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Area 1</td>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Unit 1</td>
-            <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 25%;">Pattern 1</td>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 25%;">6000</td>
-        </tr>
-        <tr>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Area 2</td>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Unit 2</td>
-            <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 25%;">Pattern 2</td>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 25%;">4000</td>
-        </tr>
-    </table>
+     <table style="width:100%;margin-bottom:2px;margin-top:-5px;">
+                <tr>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;width:33.33%;font-size:15px;">Stitching</td>
+                </tr>
+            </table>
+    <div *ngFor="let areaRow of trnCurtainQuotationObj.areaList;let rowNum=index;let lastRowNum=last;">
+     
+
+           
+            <table style="width:100%;">
+                <tr>
+                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Area</th>
+                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Unit</th>
+                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Pattern</th>
+                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 25%;">Amount</th>
+                </tr>
+                <tr *ngFor="let unitRow of areaRow?.unitList;let unitRowNum=index;let unitLastRowNum=last;">
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">{{areaRow.area}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">{{unitRow.unit}}</td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 25%;">{{unitRow.mstPattern ? unitRow.mstPattern.name : "" }}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 25%;">{{unitRow.laborCharges}}</td>
+                </tr>
+            </table>
+      
+    </div>
     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
 
