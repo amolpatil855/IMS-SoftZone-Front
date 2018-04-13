@@ -616,7 +616,9 @@
     <table style="width:100%;">
         <tr>
             <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:0px;padding-bottom:0px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;width:17.3%;">Address:</td>
-            <td style="font-family: Roboto;padding-top:0px;padding-bottom:0px;color: #000;font-weight:500;font-weight:400;padding-right:10px;padding-left:10px;">84, GANESH PETH Opp Ganesh Peth Police Station, LAXMI ROAD,PUNE</td>
+            <td style="font-family: Roboto;padding-top:0px;padding-bottom:0px;color: #000;font-weight:500;font-weight:400;padding-right:10px;padding-left:10px;">{{customerShippingAddress?customerShippingAddress["addressLine1"]:""}} {{ customerShippingAddress?customerShippingAddress["addressLine2"]:""}},
+                {{customerShippingAddress?customerShippingAddress["city"]:""}}, {{customerShippingAddress?customerShippingAddress["state"]:""}},
+                PINCODE - {{customerShippingAddress?customerShippingAddress["pin"]:"" }}</td>
         </tr>
     </table>
 
@@ -653,18 +655,18 @@
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{fabricRow.orderQuantity}}</td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;"></td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{fabricRow.rateWithGST}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{fabricRow.amountWithGST}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{fabricRow ? (fabricRow.amountWithGST | number:'.0') : ''}}</td>
                 </tr>
                 <tr *ngFor="let accessoryRow of unitRow.accessoryList;let accessoryRowNum=index;let accessoryLastRowNum=last;">
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Accessory</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{ accessoryRow.accessoriesDetails?accessoryRow.accessoriesDetails.itemCode:""}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{ accessoryRow.accessoriesDetails ? accessoryRow.accessoriesDetails.itemCode:""}}</td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
 
                     </td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{accessoryRow.orderQuantity}}</td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;"></td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{accessoryRow.rateWithGST}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{accessoryRow.amountWithGST}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{accessoryRow ? (accessoryRow.amountWithGST | number:'.0') : ''}}</td>
                 </tr>
                 <tr *ngIf="unitRow.isTrack">
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Accessory</td>
@@ -676,7 +678,7 @@
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{unitRow.trackQuantity}}</td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;"></td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{unitRow.trackRate}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{unitRow.trackAmountWithGST}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{unitRow ? (unitRow.trackAmountWithGST | number:'.0') : ''}}</td>
                 </tr>
             </table>
         </div>
@@ -700,36 +702,36 @@
             <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 70%;">{{ trnCurtainQuotationObj.rodAccessoriesDetails?trnCurtainQuotationObj.rodAccessoriesDetails.itemCode:""}}</td>
             <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 10%;">{{trnCurtainQuotationObj.rodQuantity}}</td>
             <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 10%;">{{trnCurtainQuotationObj.rodRate}}</td>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 10%;">{{trnCurtainQuotationObj.rodAmountWithGST}}</td>
+            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 10%;">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodAmountWithGST | number:'.0') : ''}}</td>
         </tr>
     </table>
     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
     <!-- Stitching -->
-     <table style="width:100%;margin-bottom:2px;margin-top:-5px;">
-                <tr>
-                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;width:33.33%;font-size:15px;">Stitching</td>
-                </tr>
-            </table>
+    <table style="width:100%;margin-bottom:2px;margin-top:-5px;">
+        <tr>
+            <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;width:33.33%;font-size:15px;">Stitching</td>
+        </tr>
+    </table>
     <div *ngFor="let areaRow of trnCurtainQuotationObj.areaList;let rowNum=index;let lastRowNum=last;">
-     
 
-           
-            <table style="width:100%;">
-                <tr>
-                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Area</th>
-                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Unit</th>
-                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Pattern</th>
-                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 25%;">Amount</th>
-                </tr>
-                <tr *ngFor="let unitRow of areaRow?.unitList;let unitRowNum=index;let unitLastRowNum=last;">
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">{{areaRow.area}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">{{unitRow.unit}}</td>
-                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 25%;">{{unitRow.mstPattern ? unitRow.mstPattern.name : "" }}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 25%;">{{unitRow.laborCharges}}</td>
-                </tr>
-            </table>
-      
+
+
+        <table style="width:100%;">
+            <tr>
+                <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Area</th>
+                <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Unit</th>
+                <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Pattern</th>
+                <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 25%;">Amount</th>
+            </tr>
+            <tr *ngFor="let unitRow of areaRow?.unitList;let unitRowNum=index;let unitLastRowNum=last;">
+                <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">{{areaRow.area}}</td>
+                <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">{{unitRow.unit}}</td>
+                <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 25%;">{{unitRow.mstPattern ? unitRow.mstPattern.name : "" }}</td>
+                <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 25%;">{{unitRow ? (unitRow.laborCharges | number:'.0') : ''}}</td>
+            </tr>
+        </table>
+
     </div>
     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
@@ -739,19 +741,19 @@
         <table style="width: 50%;margin: 0 auto;margin-top: 15px;margin-right: 0;">
             <tr>
                 <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;text-align:right;padding:0 1px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Fabric Total</td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. 2000.00</td>
+                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. {{fabricTotal ? (fabricTotal | number:'.0') : ''}}</td>
             </tr>
             <tr>
                 <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;text-align:right;padding:0 1px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Accessories Total</td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. 1000.00</td>
+                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. {{accessoriesTotal ? (accessoriesTotal | number:'.0') : ''}}</td>
             </tr>
             <tr>
                 <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;text-align:right;padding:0 1px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Stitching Total</td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. 1000.00</td>
+                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. {{stitchingTotal ? (stitchingTotal | number:'.0') : ''}}</td>
             </tr>
             <tr>
                 <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;text-align:right;padding:0 1px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Grand Total</td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. 4000.00</td>
+                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. {{grandTotal ? (grandTotal | number:'.0') : ''}}</td>
             </tr>
         </table>
 
