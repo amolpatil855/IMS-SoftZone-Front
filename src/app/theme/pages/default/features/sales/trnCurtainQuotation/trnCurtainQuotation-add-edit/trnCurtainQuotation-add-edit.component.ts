@@ -403,7 +403,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       let tempQuantity = ((parseFloat(unitRow.unitHeight) + 12) / parseFloat(selectedPatternObj.meterPerInch)).toFixed(2);
       let patchQuantity = parseFloat(tempQuantity);
       let patchsize = (parseFloat(fabricRow.verticalPatchWidth) + parseFloat(selectedPatternObj.verticalPatch)) * parseFloat(fabricRow.noOfVerticalPatch);
-      while ( fabricRow.shadeDetails.fabricWidth <patchsize ) {
+      while (fabricRow.shadeDetails.fabricWidth > patchsize) {
         patchsize = patchsize + patchsize;
         patchQuantity = patchQuantity + patchQuantity;
       }
@@ -691,7 +691,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   onChangeTrackAccesory(accessoryRow) {
     let shadeObj = _.find(this.trackCodeList, ['accessoryId', accessoryRow.trackAccessoryId]);
     accessoryRow.trackRate = shadeObj.sellingRate;
-    accessoryRow.trackQuantity =Math.round( accessoryRow.unitWidth/ 12);
+    accessoryRow.trackQuantity = Math.round(accessoryRow.unitWidth / 12);
     accessoryRow.trackAmount = Math.round(parseFloat(accessoryRow.trackQuantity) * parseFloat(accessoryRow.trackRate));
 
   }
