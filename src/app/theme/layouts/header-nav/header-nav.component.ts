@@ -58,7 +58,7 @@ export class HeaderNavComponent implements OnInit, AfterViewInit {
       }
     });
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.defaultLogo = "./assets/img/demo.png";
+    this.defaultLogo = "";
     this.getAllCompanyInfo();
     this.logoUrl = this.imageUploadService.getImageUrl("default");
     if (localStorage.getItem("IMSLogo") != null) {
