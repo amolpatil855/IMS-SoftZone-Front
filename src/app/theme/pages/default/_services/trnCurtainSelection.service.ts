@@ -30,7 +30,7 @@ export class TrnCurtainSelectionService {
   }
 
   viewCurtainQuotation(id) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'TrnCurtainSelection/ViewCurtainQuotation' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnCurtainSelection/ViewCurtainQuotation/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
 

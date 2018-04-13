@@ -135,7 +135,24 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-
+  print(): void {
+    let printContents, popupWin;
+    printContents = document.getElementById('invoiceMainBox').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.title = "Curtain_Quotation.pdf";
+    popupWin.document.write(`
+      <html>
+        <head>
+          <style>
+          //........Customized style.......
+          </style>
+        </head>
+    <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
+  }
 
   formatGetData(results) {
     let vm = this;
