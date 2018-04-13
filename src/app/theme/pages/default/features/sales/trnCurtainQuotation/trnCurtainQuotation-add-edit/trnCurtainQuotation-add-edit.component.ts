@@ -46,6 +46,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   customerTypeList = [];
   locationObj = null;
   selectedAddress: any;
+  customerShippingAddress: any;
   isFormSubmitted = false;
   courierList = [];
   courierModeList = [];
@@ -63,6 +64,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   curtainSelectionId: null;
   trackCodeList = [];
   rodCodeList = [];
+  fabricTotal = 0;
+  accessoriesTotal = 0;
+  stitchingTotal = 0;
+  grandTotal = 0;
   constructor(
     private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -336,7 +341,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let selectedPatternObj = _.find(this.patternList, { id: selectedPatternId });
     if (selectedPatternObj) {
       this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel = Math.ceil(unitRow.unitWidth / selectedPatternObj.widthPerInch);
-      this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].laborCharges = Math.round(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel * selectedPatternObj.setRateForPattern);
+      this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].laborCharges = Math.round(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel * selectedPatternObj.setRateForCustomer);
     }
   }
 
@@ -518,6 +523,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           this.viewItem = false;
         }
         this.trnCurtainQuotationObj.curtainQuotationDate = new Date(this.trnCurtainQuotationObj.curtainQuotationDate);
+        this.customerShippingAddress = this.trnCurtainQuotationObj.mstCustomer.mstCustomerAddresses[0];
         this.trnCurtainQuotationItems = results.trnCurtainQuotationItems;
 
         let areaObjList = _.uniqBy(results.trnCurtainQuotationItems, 'area');
@@ -530,7 +536,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             });
           }
         });
-
+        vm.stitchingTotal = 0;
+        vm.fabricTotal = 0;
+        vm.accessoriesTotal = 0;
+        vm.grandTotal = 0;
         _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
 
           areaObj.unitList = [];
@@ -539,8 +548,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           let unitObjList = _.uniqBy(repetedUnit, 'unit');
 
           _.forEach(unitObjList, function (value) {
-
             if (value.unit) {
+              vm.stitchingTotal = vm.stitchingTotal + value.laborCharges;
               areaObj.unitList.push({
                 unit: value.unit,
                 area: value.area,
@@ -552,8 +561,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
                 mstPattern: value.mstPattern,
                 contRoleId: Math.floor(Math.random() * 2000),
               });
+
             }
           });
+
           // _.forEach(results.trnCurtainQuotationItems, function (value) {
           //   let unitObj = _.find(areaObj.unitList, { 'unit': value.unit, 'area': value.area });
           //   if (!unitObj) {
@@ -567,15 +578,20 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           //   }
           // });
         });
-
+        let trackAccessoryAmount = 0;
+        let rodAccessoryAmount = 0;
         _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
           _.forEach(areaObj.unitList, function (value) {
             let fabricDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
             value.fabricList = fabricDataList;
             let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': false, 'isRod': false });
             value.accessoryList = accssoryDataList;
+            _.forEach(value.fabricList, function (fabricObj) {
+              vm.fabricTotal = vm.fabricTotal + fabricObj.amountWithGST;
+            });
             let trackObj = _.find(results.trnCurtainQuotationItems, { "isTrack": true, unit: value.unit });
             if (trackObj) {
+              trackAccessoryAmount = trackAccessoryAmount + trackObj.amountWithGST;
               value.trackAccessoriesDetails = trackObj.accessoriesDetails;
               value.trackId = trackObj.id;
               value.trackGST = trackObj.gst;
@@ -591,6 +607,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
         let isRodObj = _.find(results.trnCurtainQuotationItems, { "isRod": true });
         if (isRodObj) {
+          rodAccessoryAmount = rodAccessoryAmount + isRodObj.amountWithGST;
           vm.trnCurtainQuotationObj.rodAccessoriesDetails = isRodObj.accessoriesDetails;
           vm.trnCurtainQuotationObj.rodId = isRodObj.id;
           vm.trnCurtainQuotationObj.rodGST = isRodObj.gst;
@@ -601,6 +618,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           vm.trnCurtainQuotationObj.rodQuantity = isRodObj.orderQuantity;
           vm.trnCurtainQuotationObj.rodRate = isRodObj.rate;
         }
+
+        vm.accessoriesTotal = vm.accessoriesTotal + trackAccessoryAmount + rodAccessoryAmount;
+
+        vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
         Helpers.setLoading(false);
       },
       error => {
