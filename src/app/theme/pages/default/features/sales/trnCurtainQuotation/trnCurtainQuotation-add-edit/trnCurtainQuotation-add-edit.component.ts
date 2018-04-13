@@ -554,7 +554,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           _.forEach(areaObj.unitList, function (value) {
             let fabricDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
             value.fabricList = fabricDataList;
-            let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': null, 'isRod': null });
+            let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': false, 'isRod': false });
             value.accessoryList = accssoryDataList;
             let trackObj = _.find(results.trnCurtainQuotationItems, { "isTrack": true, unit: value.unit });
             if (trackObj) {
