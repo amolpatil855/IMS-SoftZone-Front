@@ -135,7 +135,24 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-
+  print(): void {
+    let printContents, popupWin;
+    printContents = document.getElementById('invoiceMainBox').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.title = "Curtain_Quotation.pdf";
+    popupWin.document.write(`
+      <html>
+        <head>
+          <style>
+          //........Customized style.......
+          </style>
+        </head>
+    <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
+  }
 
   formatGetData(results) {
     let vm = this;
@@ -439,13 +456,13 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let trackObj = _.find(this.trackCodeList, { accessoryId: unitRow.trackAccessoryId });
     unitRow.trackAmount = unitRow.trackRate * unitRow.trackQuantity;
     unitRow.trackAmountWithGST = Math.round(unitRow.trackAmount + (unitRow.trackAmount * trackObj.gst) / 100);
-    unitRow.trackGST=trackObj.gst;
+    unitRow.trackGST = trackObj.gst;
   }
   changeRodQuantity() {
     let rodObj = _.find(this.rodCodeList, { accessoryId: this.trnCurtainQuotationObj.rodAccessoryId });
     this.trnCurtainQuotationObj.rodAmount = Math.round(this.trnCurtainQuotationObj.rodRate * this.trnCurtainQuotationObj.rodQuantity);
     this.trnCurtainQuotationObj.rodAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodAmount + (this.trnCurtainQuotationObj.rodAmount * rodObj.gst) / 100);
-    this.trnCurtainQuotationObj.rodGST=rodObj.gst;
+    this.trnCurtainQuotationObj.rodGST = rodObj.gst;
   }
   changeAccessoryQuantity(accessoryRow) {
     accessoryRow.amount = Math.round(accessoryRow.accessoriesDetails.sellingRate * accessoryRow.orderQuantity);
@@ -530,8 +547,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
                 patternId: value.patternId,
                 unitHeight: value.unitHeight,
                 unitWidth: value.unitWidth,
-                laborCharges:value.laborCharges,
-                numberOfPanel:value.numberOfPanel,
+                laborCharges: value.laborCharges,
+                numberOfPanel: value.numberOfPanel,
+                mstPattern: value.mstPattern,
                 contRoleId: Math.floor(Math.random() * 2000),
               });
             }
@@ -558,6 +576,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             value.accessoryList = accssoryDataList;
             let trackObj = _.find(results.trnCurtainQuotationItems, { "isTrack": true, unit: value.unit });
             if (trackObj) {
+              value.trackAccessoriesDetails = trackObj.accessoriesDetails;
               value.trackId = trackObj.id;
               value.trackGST = trackObj.gst;
               value.trackAccessoryId = trackObj.accessoryId;
@@ -572,6 +591,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
         let isRodObj = _.find(results.trnCurtainQuotationItems, { "isRod": true });
         if (isRodObj) {
+          vm.trnCurtainQuotationObj.rodAccessoriesDetails = isRodObj.accessoriesDetails;
           vm.trnCurtainQuotationObj.rodId = isRodObj.id;
           vm.trnCurtainQuotationObj.rodGST = isRodObj.gst;
           vm.trnCurtainQuotationObj.rodAccessoryId = isRodObj.accessoryId;
@@ -596,6 +616,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].fabricList[fabricIndex].isLining = true;
   }
 
+  onPatternChange(unitRow) {
+    unitRow.mstPattern = _.find(this.patternList, ['id', unitRow.patternId]);
+  }
 
   onStateChange() {
     this.stateError = false;
@@ -787,7 +810,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "unit": unitObj.unit,
             "patternId": unitObj.patternId,
             "categoryId": 1,
-            'id':fabricobj.id,
+            'id': fabricobj.id,
             "collectionId": fabricobj.collectionId,
             "shadeId": fabricobj.shadeId,
             "accessoryId": null,
@@ -828,7 +851,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "area": areaObj.area,
             "unit": unitObj.unit,
             "patternId": unitObj.patternId,
-            'id':accessoryobj.id,
+            'id': accessoryobj.id,
             "categoryId": 7,
             "collectionId": null,
             "shadeId": null,
@@ -861,9 +884,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "accessoryId": unitObj.trackAccessoryId,
             "isTrack": true,
             "orderQuantity": unitObj.trackQuantity,
-            'id':unitObj.trackId,
+            'id': unitObj.trackId,
             "rate": unitObj.trackRate,
-            "gst":unitObj.trackGST,
+            "gst": unitObj.trackGST,
             "amount": unitObj.trackAmount,
             "amountWithGST": unitObj.trackAmountWithGST,
             "discount": null,
@@ -884,10 +907,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         "shadeId": null,
         "accessoryId": vm.trnCurtainQuotationObj.rodAccessoryId,
         "isRod": true,
-        'id':vm.trnCurtainQuotationObj.rodId,
+        'id': vm.trnCurtainQuotationObj.rodId,
         "orderQuantity": vm.trnCurtainQuotationObj.rodQuantity,
         "rate": vm.trnCurtainQuotationObj.rodRate,
-        "gst":vm.trnCurtainQuotationObj.rodGST,
+        "gst": vm.trnCurtainQuotationObj.rodGST,
         "amount": vm.trnCurtainQuotationObj.rodAmount,
         "amountWithGST": vm.trnCurtainQuotationObj.rodAmountWithGST,
         "discount": null,
