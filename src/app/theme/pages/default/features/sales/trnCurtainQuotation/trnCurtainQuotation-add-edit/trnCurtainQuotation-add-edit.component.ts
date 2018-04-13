@@ -337,6 +337,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     if (selectedPatternObj) {
       this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel = Math.ceil(unitRow.unitWidth / selectedPatternObj.widthPerInch);
       this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].laborCharges = Math.round(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel * selectedPatternObj.setRateForPattern);
+      this.onUnitHeightChange(unitRow, unitIndex, areaIndex);
     }
   }
 
@@ -356,6 +357,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           else
             fabObj.orderQuantity = parseFloat(((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
 
+          if (vm.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel)
+            fabObj.orderQuantity = fabObj.orderQuantity * vm.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel;
           //let shadeObj = _.find(fabObj.shadeList, { shadeId: fabObj.shadeId });
           if (fabObj.shadeDetails) {
             fabObj.rate = parseFloat(fabObj.shadeDetails.flatRate ? fabObj.shadeDetails.flatRate : fabObj.shadeDetails.rrp).toFixed(2);
@@ -393,7 +396,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       let tempQuantity = ((parseFloat(unitRow.unitHeight) + 12) / parseFloat(selectedPatternObj.meterPerInch)).toFixed(2);
       let patchQuantity = parseFloat(tempQuantity);
       let patchsize = (parseFloat(fabricRow.verticalPatchWidth) + parseFloat(selectedPatternObj.verticalPatch)) * parseFloat(fabricRow.noOfVerticalPatch);
-      while (patchsize < unitRow.unitWidth) {
+      while ( fabricRow.shadeDetails.fabricWidth <patchsize ) {
         patchsize = patchsize + patchsize;
         patchQuantity = patchQuantity + patchQuantity;
       }
@@ -665,7 +668,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   onChangeTrackAccesory(accessoryRow) {
     let shadeObj = _.find(this.trackCodeList, ['accessoryId', accessoryRow.trackAccessoryId]);
     accessoryRow.trackRate = shadeObj.sellingRate;
-    accessoryRow.trackQuantity = accessoryRow.trackQuantity || 1;
+    accessoryRow.trackQuantity =Math.round( accessoryRow.unitWidth/ 12);
     accessoryRow.trackAmount = Math.round(parseFloat(accessoryRow.trackQuantity) * parseFloat(accessoryRow.trackRate));
 
   }
