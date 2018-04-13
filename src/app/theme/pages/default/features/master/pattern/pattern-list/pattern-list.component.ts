@@ -55,7 +55,6 @@ export class PatternListComponent implements OnInit {
       liningHeight: null,
       meterPerInch: null,
       widthPerInch: null,
-      setRate: null,
       setRateForCustomer: null,
       verticalPatch: null,
       horizontalPatch: null,
