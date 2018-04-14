@@ -369,6 +369,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
     else
       fabObj.orderQuantity = 0;
+
+    fabObj.orderQuantity = vm.adjustMainFabricQuantity(fabObj.orderQuantity);
   }
 
   onUnitHeightChange(unitRow, unitIndex, areaIndex) {
@@ -389,17 +391,30 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
               fabObj.orderQuantity = parseFloat(((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
           }
           else {
-            if (fabObj.isLining && fabObj.fabricDirection == "Vertical")
+            if (fabObj.isLining && fabObj.fabricDirection == "Vertical") {
               fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
+              let fabricWidth = _.cloneDeep(fabObj.shadeDetails.fabricWidth);
+              while (fabricWidth < unitRow.unitHeight) {
+                fabricWidth = fabricWidth + fabricWidth;
+                fabObj.orderQuantity = fabObj.orderQuantity + fabObj.orderQuantity;
+              }
+            }
             else if (fabObj.isLining && fabObj.fabricDirection == "Horizontal")
               fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.liningHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
-            else if (!fabObj.isLining && fabObj.fabricDirection == "Vertical")
+            else if (!fabObj.isLining && fabObj.fabricDirection == "Vertical") {
               fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
-            else if (!fabObj.isLining && fabObj.fabricDirection == "Horizontal")
+              let fabricWidth = _.cloneDeep(fabObj.shadeDetails.fabricWidth);
+              while (fabricWidth < unitRow.unitHeight) {
+                fabricWidth = fabricWidth + fabricWidth;
+                fabObj.orderQuantity = fabObj.orderQuantity + fabObj.orderQuantity;
+              }
+            } else if (!fabObj.isLining && fabObj.fabricDirection == "Horizontal")
               fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
           }
           if (vm.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel)
             fabObj.orderQuantity = fabObj.orderQuantity * vm.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel;
+
+          fabObj.orderQuantity = vm.adjustMainFabricQuantity(fabObj.orderQuantity);
           //let shadeObj = _.find(fabObj.shadeList, { shadeId: fabObj.shadeId });
           if (fabObj.shadeDetails) {
             fabObj.rate = parseFloat(fabObj.shadeDetails.flatRate ? fabObj.shadeDetails.flatRate : fabObj.shadeDetails.rrp).toFixed(2);
@@ -470,7 +485,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       }
       fabricRow.verticalPatchQuantity = patchQuantity;
       fabricRow.orderQuantity = fabricRow.horizontalPatchQuantity + fabricRow.verticalPatchQuantity;
-      fabricRow.orderQuantity = this.adjustQuantity(fabricRow.orderQuantity);
+      fabricRow.orderQuantity = this.adjustPatchQuantity(fabricRow.orderQuantity);
       //let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
       fabricRow.verticalPatchRate = parseFloat(fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.flatRate : fabricRow.shadeDetails.rrp).toFixed(2);
       fabricRow.verticalPatchMaxDiscount = fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.maxFlatRateDisc : fabricRow.verticalPatchQuantity >= 50 ? fabricRow.shadeDetails.maxRoleRateDisc : fabricRow.shadeDetails.maxCutRateDisc;
@@ -500,12 +515,12 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       fabricRow.horizontalPatchMaxDiscount = fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.maxFlatRateDisc : fabricRow.horizontalPatchQuantity >= 50 ? fabricRow.shadeDetails.maxRoleRateDisc : fabricRow.shadeDetails.maxCutRateDisc;
       fabricRow.horizontalPatchDiscount = 0;
       fabricRow.orderQuantity = fabricRow.horizontalPatchQuantity + fabricRow.verticalPatchQuantity;
-      fabricRow.orderQuantity = this.adjustQuantity(fabricRow.orderQuantity);
+      fabricRow.orderQuantity = this.adjustPatchQuantity(fabricRow.orderQuantity);
       this.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
     }
   }
 
-  adjustQuantity(orderQuantity) {
+  adjustPatchQuantity(orderQuantity) {
     if (!orderQuantity)
       return 0;
 
@@ -515,6 +530,26 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
       if (parseInt(quantityArray[1]) > 50) {
         orderQuantity = parseInt(quantityArray[0]) + 1;
+      }
+      else {
+        orderQuantity = parseInt(quantityArray[0]) + 0.5;
+      }
+    }
+    return orderQuantity;
+  }
+
+
+  adjustMainFabricQuantity(orderQuantity) {
+    if (!orderQuantity)
+      return 0;
+    let partNumber = 0;
+    let tempQuantity = parseFloat(orderQuantity).toFixed(2);
+    let quantityArray = tempQuantity.split('.');
+    if (quantityArray.length > 1) {
+      if (parseInt(quantityArray[1]) > 50) {
+        partNumber = parseInt(quantityArray[1]) % 10;
+        partNumber = (10 - partNumber) / 10;
+        orderQuantity = parseInt(quantityArray[0]) + partNumber;
       }
       else {
         orderQuantity = parseInt(quantityArray[0]) + 0.5;
@@ -549,6 +584,14 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.trnCurtainQuotationObj.rodAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodAmount + (this.trnCurtainQuotationObj.rodAmount * rodObj.gst) / 100);
     this.trnCurtainQuotationObj.rodGST = rodObj.gst;
   }
+
+  changeRodItemAccessoryQuantity() {
+    let rodObj = _.find(this.rodCodeList, { accessoryId: this.trnCurtainQuotationObj.rodItemAccessoryId });
+    this.trnCurtainQuotationObj.rodItemAccessoryAmount = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryRate * this.trnCurtainQuotationObj.rodItemAccessoryQuantity);
+    this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryAmount + (this.trnCurtainQuotationObj.rodItemAccessoryAmount * rodObj.gst) / 100);
+    this.trnCurtainQuotationObj.rodItemAccessoryGST = rodObj.gst;
+  }
+
   changeAccessoryQuantity(accessoryRow) {
     accessoryRow.amount = Math.round(accessoryRow.accessoriesDetails.sellingRate * accessoryRow.orderQuantity);
     accessoryRow.amountWithGST = Math.round(accessoryRow.amount + (accessoryRow.amount * accessoryRow.accessoriesDetails.gst) / 100);
@@ -661,7 +704,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         let trackAccessoryAmount = 0;
         let motorAccessoryAmount = 0;
         let rodAccessoryAmount = 0;
-        let remoteAccessoryAmount=0;
+        let remoteAccessoryAmount = 0;
         _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
           _.forEach(areaObj.unitList, function (value) {
             let fabricDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
@@ -737,6 +780,21 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           vm.trnCurtainQuotationObj.rodRate = isRodObj.rate;
         }
 
+
+        let isRodAccessoryObj = _.find(results.trnCurtainQuotationItems, { "isRodAccessory": true });
+        if (isRodAccessoryObj) {
+          rodAccessoryAmount = rodAccessoryAmount + isRodAccessoryObj.amountWithGST;
+          vm.trnCurtainQuotationObj.rodItemAccessoryDetails = isRodAccessoryObj.accessoriesDetails;
+          vm.trnCurtainQuotationObj.rodAccessoryRecordId = isRodAccessoryObj.id;
+          vm.trnCurtainQuotationObj.rodItemAccessoryGST = isRodAccessoryObj.gst;
+          vm.trnCurtainQuotationObj.rodItemAccessoryId = isRodAccessoryObj.accessoryId;
+          vm.trnCurtainQuotationObj.isRodAccessory = true;
+          vm.trnCurtainQuotationObj.rodItemAccessoryAmount = isRodAccessoryObj.amount;
+          vm.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = isRodAccessoryObj.amountWithGST;
+          vm.trnCurtainQuotationObj.rodItemAccessoryQuantity = isRodAccessoryObj.orderQuantity;
+          vm.trnCurtainQuotationObj.rodItemAccessoryRate = isRodAccessoryObj.rate;
+        }
+
         vm.accessoriesTotal = vm.accessoriesTotal + trackAccessoryAmount + rodAccessoryAmount;
 
         vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
@@ -802,6 +860,12 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let shadeObj = _.find(this.rodCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodAccessoryId]);
     this.trnCurtainQuotationObj.rodRate = shadeObj.sellingRate;
   }
+
+  onChangeRodItemAccessory() {
+    let shadeObj = _.find(this.rodCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodItemAccessoryId]);
+    this.trnCurtainQuotationObj.rodItemAccessoryRate = shadeObj.sellingRate;
+  }
+
   onChangeTrackAccesory(accessoryRow) {
     let shadeObj = _.find(this.trackCodeList, ['accessoryId', accessoryRow.trackAccessoryId]);
     accessoryRow.trackRate = shadeObj.sellingRate;
@@ -1082,6 +1146,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "rate": unitObj.trackRate,
             "gst": unitObj.trackGST,
             "amount": unitObj.trackAmount,
+            "unitHeight": unitObj.unitHeight,
+            "unitWidth": unitObj.unitWidth,
+            "numberOfPanel": unitObj.numberOfPanel,
             "amountWithGST": unitObj.trackAmountWithGST,
             "discount": null,
             "categoryName": "Accessories",
@@ -1168,6 +1235,30 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         // "itemCode": null
       }
       vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
+
+
+      if (vm.trnCurtainQuotationObj.isRodAccessory) {
+        let obj = {
+          "categoryId": 7,
+          "collectionId": null,
+          "shadeId": null,
+          "accessoryId": vm.trnCurtainQuotationObj.rodItemAccessoryId,
+          "isRodAccessory": true,
+          'id': vm.trnCurtainQuotationObj.rodAccessoryRecordId,
+          "orderQuantity": vm.trnCurtainQuotationObj.rodItemAccessoryQuantity,
+          "rate": vm.trnCurtainQuotationObj.rodItemAccessoryRate,
+          "gst": vm.trnCurtainQuotationObj.rodItemAccessoryGST,
+          "amount": vm.trnCurtainQuotationObj.rodItemAccessoryAmount,
+          "amountWithGST": vm.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST,
+          "discount": null,
+          "categoryName": "Accessories",
+          "collectionName": null,
+          // "serialno": "5",
+          // "itemCode": null
+        }
+        vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
+      }
+
     }
 
     if (valid) {
