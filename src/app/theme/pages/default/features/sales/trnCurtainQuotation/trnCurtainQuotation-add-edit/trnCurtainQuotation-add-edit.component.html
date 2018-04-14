@@ -678,6 +678,42 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="form-group isTrackRow" *ngIf="trnCurtainQuotationObj.isRod" >
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <label class="fieldLabel">Is Rod Accessory?</label>
+                                                            <br>
+                                                            <input type="checkbox" name="isRodAccessoryCkb" [(ngModel)]="trnCurtainQuotationObj.isRodAccessory">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label class="fieldLabel">Rod Accessory</label>
+                                                            <select *ngIf="trnCurtainQuotationObj.isRodAccessory" class="form-control" name="rodItemAccessoryName" [(ngModel)]="trnCurtainQuotationObj.rodItemAccessoryId"
+                                                                tabindex="9" (ngModelChange)="onChangeRodItemAccessory()" [ngClass]="{'red-border-class': rodItemAccessoryIdVal.errors && isFormSubmitted}"
+                                                                #rodItemAccessoryIdVal="ngModel">
+                                                                <option *ngFor="let x of rodCodeList" [ngValue]="x.accessoryId" [selected]="rodItemAccessoryId == x.accessoryId">{{x.itemCode}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label class="fieldLabel">Rate</label>
+                                                            <br>
+                                                            <label *ngIf="trnCurtainQuotationObj.isRodAccessory" class="unitFormLabel">{{trnCurtainQuotationObj.rodItemAccessoryRate}}</label>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label class="fieldLabel">Quantity</label>
+                                                            <br>
+                                                            <input *ngIf="trnCurtainQuotationObj.isRodAccessory" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0"
+                                                                maxValue="10000" [ngClass]="{'red-border-class': rodItemAccessoryQuantityVal.errors  && isFormSubmitted}"
+                                                                [(ngModel)]="trnCurtainQuotationObj.rodItemAccessoryQuantity" name="rodItemAccessoryquantity"
+                                                                #rodItemAccessoryQuantityVal="ngModel" tabindex="21" placeholder="" (blur)="changeRodItemAccessoryQuantity()"
+                                                                required>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <label class="fieldLabel">Amount</label>
+                                                            <br>
+                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj.rodItemAccessoryAmountWithGST}}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <!-- Is Rod? Row Ends -->
 
 
