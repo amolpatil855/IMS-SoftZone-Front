@@ -42,16 +42,18 @@
         </div>
         <div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
             <button class="topBtn btn btn-info" title="Print" (click)="print()" tabindex="5">Print</button>
-            <button type="submit" *ngIf="params" class="topBtn btn btn-success" [isAuthorize]="['curtainselection']" title="{{ (params && (trnCurtainQuotationObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}"
-                (click)="onUpdateAndCreateQuotation()" tabindex="9">
-                Approve
-            </button>
+            <button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnCurtainQuotationObj.status == 'Created'" [isAuthorize]="['curtainquotation']" title="Approve" (click)="onApprove()" tabindex="7">
+				Approve
+			</button>
+			<button type="submit" class="topBtn btn btn-error" *ngIf="adminFlag && trnCurtainQuotationObj.status == 'Created'" [isAuthorize]="['curtainquotation']" title="Cancel CQ" (click)="onCancelCQ()" tabindex="8">
+				Cancel CQ
+			</button>
             <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnCurtainSelectionForm"
                 title="{{(trnCurtainSelectionForm && trnCurtainSelectionForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-                [isAuthorize]="['curtainselection']" tabindex="16">
+                [isAuthorize]="['curtainquotation']" tabindex="16">
                 {{ params ? 'Update' : 'Save' }}
             </button>
-            <button class="btn btn-secondary" [isAuthorize]="['curtainselection']" (click)="onCancel()" tabindex="17">
+            <button class="btn btn-secondary" [isAuthorize]="['curtainquotation']" (click)="onCancel()" tabindex="17">
                 Cancel
             </button>
         </div>
@@ -91,10 +93,10 @@
                                                                     <div class="col-md-6">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Date</label>
                                                                         <div class="col-md-8 col-sm-8">
-                                                                            <p-calendar class="purchaseOrderDate" #curtainSelectionDateVal="ngModel" [(ngModel)]="trnCurtainQuotationObj.curtainQuotationDate"
-                                                                                name="curtainSelectionDate" [monthNavigator]="true"
+                                                                            <p-calendar class="purchaseOrderDate" #curtainQuotationDateVal="ngModel" [(ngModel)]="trnCurtainQuotationObj.curtainQuotationDate"
+                                                                                name="curtainQuotationDate" [monthNavigator]="true"
                                                                                 [yearNavigator]="true" tabindex="1" [disabled]="disabled"
-                                                                                yearRange="2015:2030" dateFormat="dd/mm/yy" styleClass="{{ curtainSelectionDateVal.errors && isFormSubmitted?'red-border-class':''}}"
+                                                                                yearRange="2015:2030" dateFormat="dd/mm/yy" styleClass="{{ curtainQuotationDateVal.errors && isFormSubmitted?'red-border-class':''}}"
                                                                                 autofocus required></p-calendar>
                                                                         </div>
                                                                     </div>
@@ -152,6 +154,20 @@
                                                                         [(ngModel)]="trnCurtainQuotationObj.commonDiscount" name="minAllowedDiscountVal"
                                                                         #minAllowedDiscountVal="ngModel" tabindex="21" placeholder=""
                                                                         (blur)="changeGlobalDiscount()" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Grand Total
+                                                                </label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                    <label class="orderTypeLabel">{{ grandTotalWithoutLabourCharges ? (grandTotalWithoutLabourCharges | number:'.0') : '' }}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Advance Amount
+                                                                </label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                   <label class="orderTypeLabel">{{ trnCurtainQuotationObj ? (trnCurtainQuotationObj.advanceAmount | number:'.0') : '' }}</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -326,7 +342,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">Vertical</label>
                                                                                         <br/>
-                                                                                        <input type="checkbox" [(ngModel)]="fabricRow.isVerticalPatch" name="{{'isVerticalPatch'+unitRow.contRoleId+fabricRowNum+0000}}">
+                                                                                        <input type="checkbox" [(ngModel)]="fabricRow.isVerticalPatch" name="{{'isVerticalPatch'+unitRow.contRoleId+fabricRowNum+0000}}" (ngModelChange)="onChangeIsVerticalPatchCheckbox(fabricRow)">
                                                                                     </div>
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">No. of patch</label>
@@ -376,7 +392,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">Horizontal</label>
                                                                                         <br/>
-                                                                                        <input type="checkbox" [(ngModel)]="fabricRow.isHorizontalPatch" name="{{'isHorizontalPatch'+unitRow.contRoleId+fabricRowNum+0000}}">
+                                                                                        <input type="checkbox" [(ngModel)]="fabricRow.isHorizontalPatch" name="{{'isHorizontalPatch'+unitRow.contRoleId+fabricRowNum+0000}}" (ngModelChange)="onChangeIsHorizontalPatchCheckbox(fabricRow)">
                                                                                     </div>
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">No. of patch</label>
@@ -492,7 +508,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Is Track?</label>
                                                                                     <br>
-                                                                                    <input type="checkbox" name="{{'istrack'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isTrack">
+                                                                                    <input type="checkbox" name="{{'istrack'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isTrack" (ngModelChange)="onChangeIsTrackCheckbox(unitRow)">
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Tracks</label>
@@ -531,7 +547,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Is Motor?</label>
                                                                                     <br>
-                                                                                    <input type="checkbox" name="{{'isMotor'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isMotor">
+                                                                                    <input type="checkbox" name="{{'isMotor'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isMotor" (ngModelChange)="onChangeIsMotorCheckbox(unitRow)">
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Motor</label>
@@ -570,7 +586,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Is Remote?</label>
                                                                                     <br>
-                                                                                    <input type="checkbox" name="{{'isRemote'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isRemote">
+                                                                                    <input type="checkbox" name="{{'isRemote'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isRemote" (ngModelChange)="onChangeIsRemoteCheckbox(unitRow)">
 
                                                                                 </div>
                                                                                 <div class="col-md-3">
@@ -647,7 +663,7 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Is Rod?</label>
                                                             <br>
-                                                            <input type="checkbox" name="isRoadCkb" [(ngModel)]="trnCurtainQuotationObj.isRod">
+                                                            <input type="checkbox" name="isRoadCkb" [(ngModel)]="trnCurtainQuotationObj.isRod" (ngModelChange)="onChangeIsRodCheckbox()">
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label class="fieldLabel">Rod</label>
@@ -683,7 +699,7 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Is Rod Accessory?</label>
                                                             <br>
-                                                            <input type="checkbox" name="isRodAccessoryCkb" [(ngModel)]="trnCurtainQuotationObj.isRodAccessory">
+                                                            <input type="checkbox" name="isRodAccessoryCkb" [(ngModel)]="trnCurtainQuotationObj.isRodAccessory" (ngModelChange)="onChangeIsRodAccessoryCheckbox()">
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label class="fieldLabel">Rod Accessory</label>
@@ -785,6 +801,9 @@
                     <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Unit:
                         <span style="font-weight:400;">{{unitRow.unit}}</span>
                     </td>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">H/W:
+                        <span style="font-weight:400;">{{unitRow.unitHeight}} {{unitRow.unitWidth}}</span>
+                    </td>
                     <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Pattern:
                         <span style="font-weight:400;">{{unitRow.mstPattern ? unitRow.mstPattern.name : "" }}</span>
                     </td>
@@ -796,7 +815,6 @@
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:25%;">Description</th>
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:25%;">Type</th>
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:10%;">Quantity</th>
-                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">H/W</th>
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Rate (GST)</th>
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">Amount</th>
                 </tr>
@@ -808,7 +826,6 @@
                         {{fabricRow.isLining?"Lining":""}} {{(!fabricRow.isPatch && !fabricRow.isLining)?"Main":""}}
                     </td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{fabricRow.orderQuantity}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;"></td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{fabricRow.rateWithGST}}</td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{fabricRow ? (fabricRow.amountWithGST | number:'.0') : ''}}</td>
                 </tr>
@@ -831,7 +848,6 @@
                         Track
                     </td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{unitRow.trackQuantity}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;"></td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{unitRow.trackRate}}</td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{unitRow ? (unitRow.trackAmountWithGST | number:'.0') : ''}}</td>
                 </tr>

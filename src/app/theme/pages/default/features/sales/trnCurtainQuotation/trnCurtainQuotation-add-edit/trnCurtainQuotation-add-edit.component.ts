@@ -28,7 +28,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   customerForm: any;
   trnCurtainQuotationObj: any;
   params: number;
+  userRole: string;
   viewItem: boolean = true;
+  adminFlag: boolean = false;
   isCustomerSubmitted: boolean = false;
   trnCurtainQuotationList = [];
   MstCustomerAddresses = [];
@@ -72,6 +74,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   accessoriesTotal = 0;
   stitchingTotal = 0;
   grandTotal = 0;
+  grandTotalWithoutLabourCharges = 0;
   constructor(
     private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -93,6 +96,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getLoggedInUserDetail();
     this.trnCurtainQuotationObj = new TrnCurtainQuotation();
     this.trnCurtainQuotationObj.customerId = null;
     this.trnCurtainQuotationObj.referById = null;
@@ -144,6 +148,142 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
   ngAfterViewInit() {
     this.cdr.detectChanges();
+  }
+
+  getLoggedInUserDetail() {
+    this.userService.getLoggedInUserDetail().subscribe(res => {
+      this.userRole = res.mstRole.roleName;
+      if (this.userRole == "Administrator") {
+        this.adminFlag = true;
+      } else {
+        this.adminFlag = false;
+      }
+    });
+  }
+
+  onApprove() {
+    let vm = this;
+    if (this.params) {
+      if (vm.grandTotalWithoutLabourCharges > this.trnCurtainQuotationObj.advanceAmount) {
+        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Advance amount must be greater than grand total." });
+        return false;
+      }
+
+      if (this.params) {
+        this.trnCurtainQuotationObj.trnCurtainQuotationItems = this.trnCurtainQuotationItems;
+        Helpers.setLoading(true);
+        this.trnCurtainQuotationService.updateTrnCurtainQuotation(this.trnCurtainQuotationObj)
+          .subscribe(
+          results => {
+            this.approveCurtainQuotation();
+            Helpers.setLoading(false);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
+      }
+    }
+  }
+
+  approveCurtainQuotation() {
+    this.trnCurtainQuotationService.approveCurtainQuotation(this.trnCurtainQuotationObj)
+      .subscribe(
+      results => {
+        this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+        if (results.type == 'Success') {
+          this.params = null;
+          this.viewItem = false;
+          this.trnCurtainQuotationObj.status = 'Approved';
+        }
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+  onCancelCQ() {
+    if (this.params) {
+      Helpers.setLoading(true);
+      this.trnCurtainQuotationService.cancelCurtainQuotation(this.trnCurtainQuotationObj)
+        .subscribe(
+        results => {
+          this.params = null;
+          this.viewItem = false;
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
+          Helpers.setLoading(false);
+          this.disabled = false;
+          this.viewItem = true;
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
+    }
+  }
+
+  onChangeIsVerticalPatchCheckbox(fabricRow){
+    if(fabricRow.isVerticalPatch == false){
+      fabricRow.noOfVerticalPatch = null;
+      fabricRow.verticalPatchWidth = null;
+      fabricRow.verticalPatchQuantity = null;
+    }
+  }
+
+  onChangeIsHorizontalPatchCheckbox(fabricRow){
+    if(fabricRow.isHorizontalPatch == false){
+      fabricRow.noOfHorizontalPatch = null;
+      fabricRow.horizontalPatchHeight = null;
+      fabricRow.horizontalPatchQuantity = null;
+    }
+  }
+
+  onChangeIsTrackCheckbox(unitRow){
+    if(unitRow.isTrack == false){
+      unitRow.trackAccessoryId = null;
+      unitRow.trackRate = null;
+      unitRow.trackQuantity = null;
+      unitRow.trackAmountWithGST = null;
+    }
+  }
+
+  onChangeIsMotorCheckbox(unitRow){
+    if(unitRow.isMotor == false){
+      unitRow.motorAccessoryId = null;
+      unitRow.motorRate = null;
+      unitRow.motorQuantity = null;
+      unitRow.motorAmountWithGST = null;
+    }
+  }
+
+  onChangeIsRemoteCheckbox(unitRow){
+    if(unitRow.isRemote == false){
+      unitRow.remoteAccessoryId = null;
+      unitRow.remoteRate = null;
+      unitRow.remoteQuantity = null;
+      unitRow.remoteAmountWithGST = null;
+    }
+  }
+
+  onChangeIsRodCheckbox(){
+    if(this.trnCurtainQuotationObj.isRod == false){
+      this.trnCurtainQuotationObj.rodAccessoryId = null;
+      this.trnCurtainQuotationObj.rodRate = null;
+      this.trnCurtainQuotationObj.rodQuantity = null;
+      this.trnCurtainQuotationObj.rodAmountWithGST = null;
+    }
+  }
+
+  onChangeIsRodAccessoryCheckbox(){
+    if(this.trnCurtainQuotationObj.isRodAccessory == false){
+      this.trnCurtainQuotationObj.rodItemAccessoryId = null;
+      this.trnCurtainQuotationObj.rodItemAccessoryRate = null;
+      this.trnCurtainQuotationObj.rodItemAccessoryQuantity = null;
+      this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = null;
+    }
   }
 
   print(): void {
@@ -605,7 +745,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         Helpers.setLoading(true);
         this.trnCurtainQuotationService.getTrnCurtainQuotationById(this.trnCurtainQuotationObj.id).subscribe(
           result => {
-            this.router.navigate(['/features/sales/trnMaterialQuotation/edit', result], { queryParams: { materialQuotationId: result } });
+            this.router.navigate(['/features/sales/trnCurtainQuotation/edit', result], { queryParams: { curtainQuotationId: result } });
             Helpers.setLoading(false);
           },
           error => {
@@ -624,7 +764,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             this.params = null;
             this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
             Helpers.setLoading(false);
-            this.router.navigate(['/features/sales/trnMaterialQuotation/add'], { queryParams: { CurtainQuotationId: this.trnCurtainQuotationObj.id } });
+            this.router.navigate(['/features/sales/trnCurtainQuotation/add'], { queryParams: { CurtainQuotationId: this.trnCurtainQuotationObj.id } });
           },
           error => {
             this.globalErrorHandler.handleError(error);
@@ -663,6 +803,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         vm.fabricTotal = 0;
         vm.accessoriesTotal = 0;
         vm.grandTotal = 0;
+        vm.grandTotalWithoutLabourCharges = 0;
         _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
 
           areaObj.unitList = [];
@@ -795,9 +936,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           vm.trnCurtainQuotationObj.rodItemAccessoryRate = isRodAccessoryObj.rate;
         }
 
-        vm.accessoriesTotal = vm.accessoriesTotal + trackAccessoryAmount + rodAccessoryAmount;
+        vm.accessoriesTotal = vm.accessoriesTotal + trackAccessoryAmount + rodAccessoryAmount + motorAccessoryAmount + remoteAccessoryAmount;
 
         vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
+        vm.grandTotalWithoutLabourCharges = Math.round((vm.grandTotal - vm.stitchingTotal) * 0.8);
         this.findMinGlobalDiscount();
         Helpers.setLoading(false);
       },
