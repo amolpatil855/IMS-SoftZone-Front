@@ -149,7 +149,7 @@
                                                                 <div class="col-md-8 col-sm-8">
                                                                     <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{trnCurtainQuotationObj.minAllowedDiscount}}"
                                                                         [ngClass]="{'red-border-class': minAllowedDiscountVal.errors  && isFormSubmitted}"
-                                                                        [(ngModel)]="trnCurtainQuotationObj.globalDiscount" name="minAllowedDiscountVal"
+                                                                        [(ngModel)]="trnCurtainQuotationObj.commonDiscount" name="minAllowedDiscountVal"
                                                                         #minAllowedDiscountVal="ngModel" tabindex="21" placeholder=""
                                                                         (blur)="changeGlobalDiscount()" required>
                                                                 </div>
@@ -300,7 +300,7 @@
                                                                                     <br/>
                                                                                     <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{fabricRow.maxDiscount}}"
                                                                                         [ngClass]="{'red-border-class': discountVal.errors  && isFormSubmitted}"
-                                                                                        [(ngModel)]="fabricRow.discount" name="{{'unitdiscount'+fabricRowNum.contRoleId}}"
+                                                                                        [(ngModel)]="fabricRow.discount" name="{{'unitdiscount'+fabricRow.contRoleId}}"
                                                                                         #discountVal="ngModel" tabindex="21"
                                                                                         placeholder="" (blur)="changeDiscount(fabricRow,fabricRowNum,unitRowNum,rowNum)"
                                                                                         required>
@@ -413,7 +413,7 @@
                                                                                             maxValue="{{fabricRow.horizontalPatchMaxDiscount}}"
                                                                                             [ngClass]="{'red-border-class': horizontalPatchMaxDiscountVal.errors  && isFormSubmitted}"
                                                                                             [(ngModel)]="fabricRow.horizontalPatchDiscount"
-                                                                                            name="{{'horizontalPatchMaxDiscount'+fabricRowNum.contRoleId}}"
+                                                                                            name="{{'horizontalPatchMaxDiscount'+fabricRow.contRoleId}}"
                                                                                             #horizontalPatchMaxDiscountVal="ngModel"
                                                                                             tabindex="21" placeholder="" (blur)="changeHorizontalDiscount(fabricRow,fabricRowNum,unitRowNum,rowNum)">
                                                                                     </div>
