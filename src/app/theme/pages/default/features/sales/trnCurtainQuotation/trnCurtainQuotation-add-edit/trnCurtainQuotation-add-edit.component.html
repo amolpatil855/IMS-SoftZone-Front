@@ -143,6 +143,17 @@
 																	 name="agent" filter="true" tabindex="4"></p-dropdown> -->
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-3">
+                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Discount
+                                                                </label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                    <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{trnCurtainQuotationObj.minAllowedDiscount}}"
+                                                                        [ngClass]="{'red-border-class': minAllowedDiscountVal.errors  && isFormSubmitted}"
+                                                                        [(ngModel)]="trnCurtainQuotationObj.globalDiscount" name="minAllowedDiscountVal"
+                                                                        #minAllowedDiscountVal="ngModel" tabindex="21" placeholder=""
+                                                                        (blur)="changeGlobalDiscount()" required>
+                                                                </div>
+                                                            </div>
                                                         </div>
 
 
@@ -213,7 +224,8 @@
                                                                                     #hightVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <label class="fieldLabel">Labor</label><br/>
+                                                                                <label class="fieldLabel">Labor</label>
+                                                                                <br/>
                                                                                 <label class="unitFormLabel"> {{unitRow.laborCharges}}</label>
                                                                             </div>
                                                                         </div>
@@ -231,7 +243,8 @@
                                                                                     </select>
                                                                                 </div>
                                                                                 <div class="col-md-2">
-                                                                                    <label class="fieldLabel">Serial No.</label>                                                                                    <br/>
+                                                                                    <label class="fieldLabel">Serial No.</label>
+                                                                                    <br/>
                                                                                     <!-- <select class="form-control" name="{{'shade'+unitRow.contRoleId+fabricRowNum+0000}}" [(ngModel)]="fabricRow.shadeId" tabindex="9"
                                                                                         (ngModelChange)="onChangeShade(fabricRow)"
                                                                                         [ngClass]="{'red-border-class': shadeVal.errors && isFormSubmitted}"
@@ -240,6 +253,25 @@
                                                                                     </select> -->
                                                                                     <label class="unitFormLabel">{{fabricRow.serialno}}</label>
                                                                                 </div>
+                                                                                <div class="col-md-1" *ngIf="fabricRow.shadeDetails && fabricRow.shadeDetails.fabricWidth>100">
+                                                                                    <label class="fieldLabel">Direction</label>
+                                                                                    <br/>
+                                                                                    <select class="form-control" name="{{'verticalHorizontal'+unitRow.contRoleId}}" [(ngModel)]="fabricRow.fabricDirection" tabindex="9"
+                                                                                        [ngClass]="{'red-border-class': fabricDirectionVal.errors && isFormSubmitted}"
+                                                                                        #fabricDirectionVal="ngModel" required
+                                                                                        (ngModelChange)="onFabricDirectionChange(fabricRow,unitRowNum,rowNum,unitRow)">
+                                                                                        <option value="Vertical">Vertical</option>
+                                                                                        <option value="Horizontal">Horizontal</option>
+                                                                                    </select>
+                                                                                    <!-- <input type="checkbox" [(ngModel)]="fabricRow.isHarizontal" name="{{'isHarizontalFabric'+unitRow.contRoleId+fabricRowNum+0000}}"> -->
+                                                                                    <!-- <label class="unitFormLabel"> {{fabricRow.isHarizontal?"Yes":"No"}}</label> -->
+                                                                                </div>
+                                                                                <!-- <div class="col-md-1" *ngIf="fabricRow.shadeDetails && fabricRow.shadeDetails.fabricWidth>100">
+                                                                                    <label class="fieldLabel">Vertical</label>
+                                                                                    <br/>
+                                                                                    <label class="unitFormLabel"> {{fabricRow.isVertical?"Yes":"No"}}</label>
+                                                                                <input type="checkbox" [(ngModel)]="fabricRow.isVertical" name="{{'isVerticalFabric'+unitRow.contRoleId+fabricRowNum+0000}}">
+                                                                            </div> -->
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Patch</label>
                                                                                     <br/>
@@ -402,7 +434,8 @@
                                                                         <div class="form-group collectionRow" *ngFor="let accessoryRow of unitRow.accessoryList;let accessoryRowNum=index;let accessoryLastRowNum=last;">
                                                                             <div class="row">
                                                                                 <div class="col-md-2">
-                                                                                    <label class="fieldLabel">Accessories</label>                                                                                    <br/>
+                                                                                    <label class="fieldLabel">Accessories</label>
+                                                                                    <br/>
                                                                                     <!-- <select class="form-control" name="{{'accessory'+unitRow.contRoleId+accessoryRowNum+111}}" [(ngModel)]="accessoryRow.accessoryId"
                                                                                         tabindex="9" (ngModelChange)="onChangeAccesory(accessoryRow)"
                                                                                         [ngClass]="{'red-border-class': accessoryVal.errors && isFormSubmitted}"
@@ -489,6 +522,86 @@
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br>
                                                                                     <label *ngIf="unitRow.isTrack" class="unitFormLabel">{{unitRow.trackAmountWithGST}}</label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="form-group isTrackRow">
+                                                                            <div class="row">
+                                                                                <div class="col-md-1">
+                                                                                    <label class="fieldLabel">Is Motor?</label>
+                                                                                    <br>
+                                                                                    <input type="checkbox" name="{{'isMotor'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isMotor">
+                                                                                </div>
+                                                                                <div class="col-md-3">
+                                                                                    <label class="fieldLabel">Motor</label>
+                                                                                    <select *ngIf="unitRow.isMotor" class="form-control" name="{{'isMotor'+unitRow.contRoleId}}" [(ngModel)]="unitRow.motorAccessoryId"
+                                                                                        tabindex="9" (ngModelChange)="onChangeMotorAccesory(unitRow)"
+                                                                                        [ngClass]="{'red-border-class': accessoryMotorVal.errors && isFormSubmitted}"
+                                                                                        #accessoryMotorVal="ngModel">
+                                                                                        <option *ngFor="let x of motorCodeList" [ngValue]="x.accessoryId" [selected]="accessoryId == x.accessoryId">{{x.itemCode}}</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-md-1">
+                                                                                    <label class="fieldLabel">Rate</label>
+                                                                                    <br/>
+                                                                                    <label *ngIf="unitRow.isMotor" class="unitFormLabel">{{unitRow.motorRate}}</label>
+                                                                                </div>
+                                                                                <div class="col-md-1">
+                                                                                    <label class="fieldLabel">Quantity</label>
+                                                                                    <br/>
+                                                                                    <input *ngIf="unitRow.isMotor" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="10000"
+                                                                                        [ngClass]="{'red-border-class': motorQuantityVal.errors && isFormSubmitted}"
+                                                                                        [(ngModel)]="unitRow.motorQuantity" name="{{'motorQuantity'+unitRow.contRoleId}}"
+                                                                                        #motorQuantityVal="ngModel" tabindex="21"
+                                                                                        placeholder="" (blur)="changeMotorQuantity(unitRow,unitRowNum,rowNum)"
+                                                                                        required>
+                                                                                </div>
+                                                                                <div class="col-md-1">
+                                                                                    <label class="fieldLabel">Amount</label>
+                                                                                    <br>
+                                                                                    <label *ngIf="unitRow.isMotor" class="unitFormLabel">{{unitRow.motorAmountWithGST}}</label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="form-group isTrackRow"  *ngIf="unitRow.isMotor">
+                                                                            <div class="row">
+                                                                                <div class="col-md-1">
+                                                                                    <label class="fieldLabel">Is Remote?</label>
+                                                                                    <br>
+                                                                                    <input type="checkbox" name="{{'isRemote'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isRemote">
+
+                                                                                </div>
+                                                                                <div class="col-md-3">
+                                                                                    <label class="fieldLabel">Remote</label>
+                                                                                    <select *ngIf="unitRow.isRemote" class="form-control" name="{{'isRemote'+unitRow.contRoleId}}" [(ngModel)]="unitRow.remoteAccessoryId"
+                                                                                        tabindex="9" (ngModelChange)="onChangeRemoteAccesory(unitRow)"
+                                                                                        [ngClass]="{'red-border-class': accessoryRemoteVal.errors && isFormSubmitted}"
+                                                                                        #accessoryRemoteVal="ngModel">
+                                                                                        <option *ngFor="let x of remoteCodeList" [ngValue]="x.accessoryId" [selected]="accessoryId == x.accessoryId">{{x.itemCode}}</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-md-1">
+                                                                                    <label class="fieldLabel">Rate</label>
+                                                                                    <br/>
+                                                                                    <label *ngIf="unitRow.isRemote" class="unitFormLabel">{{unitRow.remoteRate}}</label>
+                                                                                </div>
+                                                                                <div class="col-md-1">
+                                                                                    <label class="fieldLabel">Quantity</label>
+                                                                                    <br/>
+                                                                                    <input *ngIf="unitRow.isRemote" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0"
+                                                                                        maxValue="10000" [ngClass]="{'red-border-class': remoteQuantityVal.errors && isFormSubmitted}"
+                                                                                        [(ngModel)]="unitRow.remoteQuantity"
+                                                                                        name="{{'remoteQuantity'+unitRow.contRoleId}}"
+                                                                                        #remoteQuantityVal="ngModel" tabindex="21"
+                                                                                        placeholder="" (blur)="changeRemoteQuantity(unitRow,unitRowNum,rowNum)"
+                                                                                        required>
+                                                                                </div>
+                                                                                <div class="col-md-1">
+                                                                                    <label class="fieldLabel">Amount</label>
+                                                                                    <br>
+                                                                                    <label *ngIf="unitRow.isRemote" class="unitFormLabel">{{unitRow.remoteAmountWithGST}}</label>
                                                                                 </div>
                                                                             </div>
 
@@ -630,9 +743,15 @@
 
             <table style="width:100%;margin-bottom:2px;">
                 <tr>
-                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Area: <span style="font-weight:400;">{{areaRow.area}}</span></td>
-                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Unit: <span style="font-weight:400;">{{unitRow.unit}}</span></td>
-                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Pattern: <span style="font-weight:400;">{{unitRow.mstPattern ? unitRow.mstPattern.name : "" }}</span></td>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Area:
+                        <span style="font-weight:400;">{{areaRow.area}}</span>
+                    </td>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Unit:
+                        <span style="font-weight:400;">{{unitRow.unit}}</span>
+                    </td>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Pattern:
+                        <span style="font-weight:400;">{{unitRow.mstPattern ? unitRow.mstPattern.name : "" }}</span>
+                    </td>
                 </tr>
             </table>
             <table style="width:100%;margin-bottom:10px;">

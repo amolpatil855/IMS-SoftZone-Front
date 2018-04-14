@@ -64,7 +64,11 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   curtainSelectionId: null;
   trackCodeList = [];
   rodCodeList = [];
+  rodAccessoryCodeList = [];
+  motorCodeList = [];
+  remoteCodeList = [];
   fabricTotal = 0;
+  minAllowedDiscount = 0;
   accessoriesTotal = 0;
   stitchingTotal = 0;
   grandTotal = 0;
@@ -134,6 +138,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.getPatternLookup();
     this.getRodAccessoryLookup();
     this.getTrackAccessoryLookup();
+    this.getMotorLookup();
+    this.getRemoteLookup();
   }
 
   ngAfterViewInit() {
@@ -205,6 +211,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         value.accessoryList = accssoryDataList;
       });
     });
+    this.findMinGlobalDiscount();
   }
 
   addArea() {
@@ -348,6 +355,22 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     }
   }
 
+  onFabricDirectionChange(fabObj, unitIndex, areaIndex, unitRow) {
+    let vm = this;
+    let selectedPatternId = this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].patternId;
+    let selectedPatternObj = _.find(this.patternList, { id: selectedPatternId });
+    if (fabObj.isLining && fabObj.fabricDirection == "Vertical")
+      fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
+    else if (fabObj.isLining && fabObj.fabricDirection == "Horizontal")
+      fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.liningHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
+    else if (!fabObj.isLining && fabObj.fabricDirection == "Vertical")
+      fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
+    else if (!fabObj.isLining && fabObj.fabricDirection == "Horizontal")
+      fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
+    else
+      fabObj.orderQuantity = 0;
+  }
+
   onUnitHeightChange(unitRow, unitIndex, areaIndex) {
     if (!unitRow.unitHeight)
       return;
@@ -359,17 +382,28 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
       _.forEach(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].fabricList, function (fabObj, index) {
         if (fabObj.isLining || (!fabObj.isLining && !fabObj.isPatch)) {
-          if (fabObj.isLining)
-            fabObj.orderQuantity = parseFloat(((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.liningHeight)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
-          else
-            fabObj.orderQuantity = parseFloat(((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
-
+          if (fabObj.shadeDetails.fabricWidth <= 100) {
+            if (fabObj.isLining)
+              fabObj.orderQuantity = parseFloat(((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.liningHeight)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
+            else
+              fabObj.orderQuantity = parseFloat(((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
+          }
+          else {
+            if (fabObj.isLining && fabObj.fabricDirection == "Vertical")
+              fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
+            else if (fabObj.isLining && fabObj.fabricDirection == "Horizontal")
+              fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.liningHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
+            else if (!fabObj.isLining && fabObj.fabricDirection == "Vertical")
+              fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
+            else if (!fabObj.isLining && fabObj.fabricDirection == "Horizontal")
+              fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
+          }
           if (vm.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel)
             fabObj.orderQuantity = fabObj.orderQuantity * vm.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel;
           //let shadeObj = _.find(fabObj.shadeList, { shadeId: fabObj.shadeId });
           if (fabObj.shadeDetails) {
             fabObj.rate = parseFloat(fabObj.shadeDetails.flatRate ? fabObj.shadeDetails.flatRate : fabObj.shadeDetails.rrp).toFixed(2);
-            fabObj.maxDiscount = fabObj.shadeDetails.flatRate ? fabObj.shadeDetails.maxFlatRateDisc : fabObj.orderQuantity >= 50 ? fabObj.shadeDetails.maxRoleRateDisc : fabObj.shadeDetails.maxCutRateDisc;
+            fabObj.maxDiscount = fabObj.shadeDetails.flatRate ? 0 : fabObj.orderQuantity >= 50 ? fabObj.shadeDetails.maxRoleRateDisc : fabObj.shadeDetails.maxCutRateDisc;
             fabObj.discount = 0;
             vm.changeDiscount(fabObj, index, unitIndex, areaIndex);
           }
@@ -378,6 +412,33 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     }
   }
 
+  findMinGlobalDiscount() {
+    let vm = this;
+    let discountArray = [];
+    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
+      _.forEach(areaObj.unitList, function (unitObj) {
+        _.forEach(unitObj.fabricList, function (fabObj) {
+          discountArray.push(fabObj.shadeDetails.maxCutRateDisc);
+        });
+      });
+    });
+    vm.minAllowedDiscount = _.min(discountArray);
+  }
+  changeGlobalDiscount() {
+    let vm = this;
+
+    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
+      _.forEach(areaObj.unitList, function (unitObj, unitRowNum) {
+        _.forEach(unitObj.fabricList, function (fabricRow, fabricRowNum) {
+          if (!fabricRow.shadeDetails.flatRate) {
+            fabricRow.discount = vm.trnCurtainQuotationObj.globalDiscount;
+            vm.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
+          }
+
+        });
+      });
+    });
+  }
   changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum) {
     if (!fabricRow.rate)
       return;
@@ -403,7 +464,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       let tempQuantity = ((parseFloat(unitRow.unitHeight) + 12) / parseFloat(selectedPatternObj.meterPerInch)).toFixed(2);
       let patchQuantity = parseFloat(tempQuantity);
       let patchsize = (parseFloat(fabricRow.verticalPatchWidth) + parseFloat(selectedPatternObj.verticalPatch)) * parseFloat(fabricRow.noOfVerticalPatch);
-      while ( fabricRow.shadeDetails.fabricWidth <patchsize ) {
+      while (fabricRow.shadeDetails.fabricWidth > patchsize) {
         patchsize = patchsize + patchsize;
         patchQuantity = patchQuantity + patchQuantity;
       }
@@ -468,6 +529,20 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     unitRow.trackAmountWithGST = Math.round(unitRow.trackAmount + (unitRow.trackAmount * trackObj.gst) / 100);
     unitRow.trackGST = trackObj.gst;
   }
+
+  changeMotorQuantity(unitRow, unitRowNum, rowNum) {
+    let motorObj = _.find(this.motorCodeList, { accessoryId: unitRow.motorAccessoryId });
+    unitRow.motorAmount = unitRow.motorRate * unitRow.motorQuantity;
+    unitRow.motorAmountWithGST = Math.round(unitRow.trackAmount + (unitRow.trackAmount * motorObj.gst) / 100);
+    unitRow.motorGST = motorObj.gst;
+  }
+  changeRemoteQuantity(unitRow, unitRowNum, rowNum) {
+    let remoteObj = _.find(this.remoteCodeList, { accessoryId: unitRow.remoteAccessoryId });
+    unitRow.remoteAmount = unitRow.remoteRate * unitRow.remoteQuantity;
+    unitRow.remoteAmountWithGST = Math.round(unitRow.trackAmount + (unitRow.trackAmount * remoteObj.gst) / 100);
+    unitRow.remoteGST = remoteObj.gst;
+  }
+
   changeRodQuantity() {
     let rodObj = _.find(this.rodCodeList, { accessoryId: this.trnCurtainQuotationObj.rodAccessoryId });
     this.trnCurtainQuotationObj.rodAmount = Math.round(this.trnCurtainQuotationObj.rodRate * this.trnCurtainQuotationObj.rodQuantity);
@@ -584,16 +659,25 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           // });
         });
         let trackAccessoryAmount = 0;
+        let motorAccessoryAmount = 0;
         let rodAccessoryAmount = 0;
+        let remoteAccessoryAmount=0;
         _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
           _.forEach(areaObj.unitList, function (value) {
             let fabricDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
+            _.forEach(fabricDataList, function (temp) {
+              temp.contRoleId = Math.floor(Math.random() * 2000)
+            });
             value.fabricList = fabricDataList;
             let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': false, 'isRod': false });
+            _.forEach(accssoryDataList, function (temp) {
+              temp.contRoleId = Math.floor(Math.random() * 2000)
+            });
             value.accessoryList = accssoryDataList;
             _.forEach(value.fabricList, function (fabricObj) {
               vm.fabricTotal = vm.fabricTotal + fabricObj.amountWithGST;
             });
+
             let trackObj = _.find(results.trnCurtainQuotationItems, { "isTrack": true, unit: value.unit });
             if (trackObj) {
               trackAccessoryAmount = trackAccessoryAmount + trackObj.amountWithGST;
@@ -607,6 +691,35 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
               value.trackRate = trackObj.rate;
               value.trackQuantity = trackObj.orderQuantity;
             }
+
+            let motorObj = _.find(results.trnCurtainQuotationItems, { "isMotor": true, unit: value.unit });
+            if (motorObj) {
+              motorAccessoryAmount = motorAccessoryAmount + motorObj.amountWithGST;
+              value.motorAccessoriesDetails = motorObj.accessoriesDetails;
+              value.motorId = motorObj.id;
+              value.motorGST = motorObj.gst;
+              value.motorAccessoryId = motorObj.accessoryId;
+              value.isMotor = true;
+              value.motorAmount = motorObj.amount;
+              value.motorAmountWithGST = motorObj.amountWithGST;
+              value.motorRate = motorObj.rate;
+              value.motorQuantity = motorObj.orderQuantity;
+            }
+
+            let remoteObj = _.find(results.trnCurtainQuotationItems, { "isRemote": true, unit: value.unit });
+            if (motorObj) {
+              remoteAccessoryAmount = remoteAccessoryAmount + remoteObj.amountWithGST;
+              value.remoteAccessoriesDetails = remoteObj.accessoriesDetails;
+              value.remoteId = remoteObj.id;
+              value.remoteGST = remoteObj.gst;
+              value.remoteAccessoryId = remoteObj.accessoryId;
+              value.isRemote = true;
+              value.remoteAmount = remoteObj.amount;
+              value.remoteAmountWithGST = remoteObj.amountWithGST;
+              value.remoteRate = remoteObj.rate;
+              value.remoteQuantity = remoteObj.orderQuantity;
+            }
+
           });
         });
 
@@ -627,6 +740,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         vm.accessoriesTotal = vm.accessoriesTotal + trackAccessoryAmount + rodAccessoryAmount;
 
         vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
+        this.findMinGlobalDiscount();
         Helpers.setLoading(false);
       },
       error => {
@@ -691,9 +805,19 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   onChangeTrackAccesory(accessoryRow) {
     let shadeObj = _.find(this.trackCodeList, ['accessoryId', accessoryRow.trackAccessoryId]);
     accessoryRow.trackRate = shadeObj.sellingRate;
-    accessoryRow.trackQuantity =Math.round( accessoryRow.unitWidth/ 12);
+    accessoryRow.trackQuantity = Math.round(accessoryRow.unitWidth / 12);
     accessoryRow.trackAmount = Math.round(parseFloat(accessoryRow.trackQuantity) * parseFloat(accessoryRow.trackRate));
 
+  }
+  onChangeMotorAccesory(accessoryRow) {
+    let shadeObj = _.find(this.motorCodeList, ['accessoryId', accessoryRow.motorAccessoryId]);
+    accessoryRow.motorRate = shadeObj.sellingRate;
+    accessoryRow.motorAmount = Math.round(parseFloat(accessoryRow.motorQuantity) * parseFloat(accessoryRow.motorRate));
+  }
+  onChangeRemoteAccesory(accessoryRow) {
+    let shadeObj = _.find(this.remoteCodeList, ['accessoryId', accessoryRow.remoteAccessoryId]);
+    accessoryRow.remoteRate = shadeObj.sellingRate;
+    accessoryRow.remoteAmount = Math.round(parseFloat(accessoryRow.remoteQuantity) * parseFloat(accessoryRow.remoteRate));
   }
 
   onCancelItemDetails() {
@@ -747,6 +871,36 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       results => {
         this.rodCodeList = results;
         this.rodCodeList.unshift({ itemCode: '--Select--', accessoryId: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+
+  getMotorLookup() {
+    Helpers.setLoading(true);
+    this.commonService.getMotorItemCodeForCQ().subscribe(
+      results => {
+        this.motorCodeList = results;
+        this.motorCodeList.unshift({ itemCode: '--Select--', accessoryId: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+
+  getRemoteLookup() {
+    Helpers.setLoading(true);
+    this.commonService.getRemoteCodeForCQ().subscribe(
+      results => {
+        this.remoteCodeList = results;
+        this.remoteCodeList.unshift({ itemCode: '--Select--', accessoryId: null });
         Helpers.setLoading(false);
       },
       error => {
@@ -935,8 +1089,62 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             // "serialno": "5",
             // "itemCode": null
           }
-          vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
+          if (obj)
+            vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
         }
+
+        if (unitObj.isMotor) {
+          let obj = {
+            "area": areaObj.area,
+            "unit": unitObj.unit,
+            "patternId": unitObj.patternId,
+            "categoryId": 7,
+            "collectionId": null,
+            "shadeId": null,
+            "accessoryId": unitObj.motorAccessoryId,
+            "isMotor": true,
+            "orderQuantity": unitObj.motorQuantity,
+            'id': unitObj.motorId,
+            "rate": unitObj.motorRate,
+            "gst": unitObj.motorGST,
+            "amount": unitObj.motorAmount,
+            "amountWithGST": unitObj.motorAmountWithGST,
+            "discount": null,
+            "categoryName": "Accessories",
+            "collectionName": null,
+            // "serialno": "5",
+            // "itemCode": null
+          }
+          if (obj)
+            vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
+        }
+
+        if (unitObj.isRemote) {
+          let obj = {
+            "area": areaObj.area,
+            "unit": unitObj.unit,
+            "patternId": unitObj.patternId,
+            "categoryId": 7,
+            "collectionId": null,
+            "shadeId": null,
+            "accessoryId": unitObj.remoteAccessoryId,
+            "isRemote": true,
+            "orderQuantity": unitObj.remoteQuantity,
+            'id': unitObj.remoteId,
+            "rate": unitObj.remoteRate,
+            "gst": unitObj.remoteGST,
+            "amount": unitObj.remoteAmount,
+            "amountWithGST": unitObj.remoteAmountWithGST,
+            "discount": null,
+            "categoryName": "Accessories",
+            "collectionName": null,
+            // "serialno": "5",
+            // "itemCode": null
+          }
+          if (obj)
+            vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
+        }
+
       });
     });
 
