@@ -106,7 +106,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let today = new Date();
     this.locationObj = {};
     this.disabled = false;
-    this.trnCurtainQuotationObj.curtainQuotationDate = today;
+    this.trnCurtainQuotationObj.workOrderDate = today;
     this.trnCurtainQuotationObj.selectionType = null;
     this.route.queryParams
       .subscribe(params => {
@@ -115,7 +115,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           this.trnCurtainSelectionService.createCurtainQuotation(this.curtainSelectionId).subscribe(
             results => {
               this.trnCurtainQuotationObj = results;
-              this.trnCurtainQuotationObj.curtainQuotationDate = new Date();
+              this.trnCurtainQuotationObj.workOrderDate = new Date();
               this.trnCurtainQuotationItems = this.trnCurtainQuotationObj.trnCurtainQuotationItems;
               this.formatGetData(results);
               Helpers.setLoading(false);
@@ -787,7 +787,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         } else {
           this.viewItem = false;
         }
-        this.trnCurtainQuotationObj.curtainQuotationDate = new Date(this.trnCurtainQuotationObj.curtainQuotationDate);
+        this.trnCurtainQuotationObj.workOrderDate = new Date(this.trnCurtainQuotationObj.workOrderDate);
         this.customerShippingAddress = this.trnCurtainQuotationObj.mstCustomer.mstCustomerAddresses[0];
         this.trnCurtainQuotationItems = results.trnCurtainQuotationItems;
 
@@ -1008,24 +1008,28 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   onChangeRodItemAccessory() {
     let shadeObj = _.find(this.rodAccessoriesCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodItemAccessoryId]);
     this.trnCurtainQuotationObj.rodItemAccessoryRate = shadeObj.sellingRate;
+    this.trnCurtainQuotationObj.rodItemAccessoryRateWithGST = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryRate + ((this.trnCurtainQuotationObj.rodItemAccessoryRate * shadeObj.gst) / 100));
   }
 
   onChangeTrackAccesory(accessoryRow) {
     let shadeObj = _.find(this.trackCodeList, ['accessoryId', accessoryRow.trackAccessoryId]);
     accessoryRow.trackRate = shadeObj.sellingRate;
+    accessoryRow.trackRateWithGST = Math.round(accessoryRow.motorRate + (accessoryRow.motorRate * shadeObj.gst) / 100);
     accessoryRow.trackQuantity = Math.round(accessoryRow.unitWidth / 12);
-    accessoryRow.trackAmount = Math.round(parseFloat(accessoryRow.trackQuantity) * parseFloat(accessoryRow.trackRate));
+    accessoryRow.trackAmount = Math.round(parseFloat(accessoryRow.trackQuantity) * parseFloat(accessoryRow.trackRateWithGST));
 
   }
   onChangeMotorAccesory(accessoryRow) {
     let shadeObj = _.find(this.motorCodeList, ['accessoryId', accessoryRow.motorAccessoryId]);
     accessoryRow.motorRate = shadeObj.sellingRate;
-    accessoryRow.motorAmount = Math.round(parseFloat(accessoryRow.motorQuantity) * parseFloat(accessoryRow.motorRate));
+    accessoryRow.motorRateWithGST = Math.round(accessoryRow.motorRate + (accessoryRow.motorRate * shadeObj.gst) / 100);
+    accessoryRow.motorAmount = Math.round(parseFloat(accessoryRow.motorQuantity) * parseFloat(accessoryRow.motorRateWithGST));
   }
   onChangeRemoteAccesory(accessoryRow) {
     let shadeObj = _.find(this.remoteCodeList, ['accessoryId', accessoryRow.remoteAccessoryId]);
     accessoryRow.remoteRate = shadeObj.sellingRate;
-    accessoryRow.remoteAmount = Math.round(parseFloat(accessoryRow.remoteQuantity) * parseFloat(accessoryRow.remoteRate));
+    accessoryRow.remoteRateWithGST = Math.round(accessoryRow.motorRate + (accessoryRow.motorRate * shadeObj.gst) / 100);
+    accessoryRow.remoteAmount = Math.round(parseFloat(accessoryRow.remoteQuantity) * parseFloat(accessoryRow.remoteRateWithGST));
   }
 
   onCancelItemDetails() {
@@ -1275,6 +1279,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "isPatch": false,
             "isLining": false,
             "orderQuantity": accessoryobj.orderQuantity,
+            "rateWithGST": accessoryobj.rateWithGST,
             "rate": accessoryobj.accessoriesDetails.sellingRate,
             "gst": accessoryobj.accessoriesDetails.gst,
             "amount": accessoryobj.amount,
@@ -1302,6 +1307,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "orderQuantity": unitObj.trackQuantity,
             'id': unitObj.trackId,
             "rate": unitObj.trackRate,
+            "rateWithGST": unitObj.trackAmountWithGST,
             "gst": unitObj.trackGST,
             "amount": unitObj.trackAmount,
             "unitHeight": unitObj.unitHeight,
@@ -1331,6 +1337,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "orderQuantity": unitObj.motorQuantity,
             'id': unitObj.motorId,
             "rate": unitObj.motorRate,
+            "rateWithGST": unitObj.motorRateWithGST,
             "gst": unitObj.motorGST,
             "amount": unitObj.motorAmount,
             "amountWithGST": unitObj.motorAmountWithGST,
@@ -1357,6 +1364,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "orderQuantity": unitObj.remoteQuantity,
             'id': unitObj.remoteId,
             "rate": unitObj.remoteRate,
+            "rateWithGST": unitObj.remoteRateWithGST,
             "gst": unitObj.remoteGST,
             "amount": unitObj.remoteAmount,
             "amountWithGST": unitObj.remoteAmountWithGST,
@@ -1426,8 +1434,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
 
   saveTrnCurtainQuotation(value) {
-    let tempCurtainQuotationDate = new Date(value.curtainQuotationDate);
-    value.curtainQuotationDate = new Date(tempCurtainQuotationDate.setHours(23));
+    let tempworkOrderDate = new Date(value.workOrderDate);
+    value.workOrderDate = new Date(tempworkOrderDate.setHours(23));
     Helpers.setLoading(true);
     if (this.params) {
       this.trnCurtainQuotationService.updateTrnCurtainQuotation(value)
