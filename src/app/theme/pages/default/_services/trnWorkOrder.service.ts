@@ -17,19 +17,6 @@ export class TrnWorkOrderService {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnWorkOrder?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  getAllTrnWorkOrdersForCustomer(pageSize = 0, page = 0, search = '') {
-    return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetWorkOrdersForLoggedInUser?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
-  }
-
-
-  getTrnWorkOrderByIdForCustomer(id: number) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'CustomerLogin/GetWorkOrderByIdForCustomerUser/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
-  }
-
-  cancelWOForCustomerUser(trnWorkOrder: TrnWorkOrder) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'CustomerLogin/CancelWOForCustomerUser/' + trnWorkOrder.id, trnWorkOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
-  }
-
   cancelWO(trnWorkOrder: TrnWorkOrder) {
     return this.http.put(AppSettings.API_ENDPOINT + 'TrnWorkOrder/CancelWO/' + trnWorkOrder.id, trnWorkOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
@@ -62,17 +49,8 @@ export class TrnWorkOrderService {
     return this.http.post(AppSettings.API_ENDPOINT + 'TrnWorkOrder', trnWorkOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
-  createTrnWorkOrderByCustomer(trnWorkOrder: TrnWorkOrder) {
-    return this.http.post(AppSettings.API_ENDPOINT + 'CustomerLogin/PostTrnWorkOrderForCustomerUser', trnWorkOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
-  }
-
-
   updateTrnWorkOrder(trnWorkOrder: TrnWorkOrder) {
     return this.http.put(AppSettings.API_ENDPOINT + 'TrnWorkOrder/' + trnWorkOrder.id, trnWorkOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
-  }
-
-  updateTrnWorkOrderForCustomer(trnWorkOrder: TrnWorkOrder) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'CustomerLogin/PutTrnWorkOrderForCustomerUser', trnWorkOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   deleteTrnWorkOrder(id: number) {

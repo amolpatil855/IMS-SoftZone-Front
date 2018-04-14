@@ -51,6 +51,10 @@ export class CommonService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetRodAccessoryItemCodeForCQ', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getRodAccessoriesItemCodeForCQ() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetRodAccessoriesItemCodeForCQ', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
   getMotorItemCodeForCQ() {
     return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetMotorAccessoryItemCodeForCQ', AppSettings.requestOptions()).map((response: Response) => response.json());
   }

@@ -66,6 +66,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   curtainSelectionId: null;
   trackCodeList = [];
   rodCodeList = [];
+  rodAccessoriesCodeList = [];
   rodAccessoryCodeList = [];
   motorCodeList = [];
   remoteCodeList = [];
@@ -141,6 +142,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.getAccessoryLookup();
     this.getPatternLookup();
     this.getRodAccessoryLookup();
+    this.getRodAccessoriesItemCodeLookup();
     this.getTrackAccessoryLookup();
     this.getMotorLookup();
     this.getRemoteLookup();
@@ -225,24 +227,24 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     }
   }
 
-  onChangeIsVerticalPatchCheckbox(fabricRow){
-    if(fabricRow.isVerticalPatch == false){
+  onChangeIsVerticalPatchCheckbox(fabricRow) {
+    if (fabricRow.isVerticalPatch == false) {
       fabricRow.noOfVerticalPatch = null;
       fabricRow.verticalPatchWidth = null;
       fabricRow.verticalPatchQuantity = null;
     }
   }
 
-  onChangeIsHorizontalPatchCheckbox(fabricRow){
-    if(fabricRow.isHorizontalPatch == false){
+  onChangeIsHorizontalPatchCheckbox(fabricRow) {
+    if (fabricRow.isHorizontalPatch == false) {
       fabricRow.noOfHorizontalPatch = null;
       fabricRow.horizontalPatchHeight = null;
       fabricRow.horizontalPatchQuantity = null;
     }
   }
 
-  onChangeIsTrackCheckbox(unitRow){
-    if(unitRow.isTrack == false){
+  onChangeIsTrackCheckbox(unitRow) {
+    if (unitRow.isTrack == false) {
       unitRow.trackAccessoryId = null;
       unitRow.trackRate = null;
       unitRow.trackQuantity = null;
@@ -250,8 +252,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     }
   }
 
-  onChangeIsMotorCheckbox(unitRow){
-    if(unitRow.isMotor == false){
+  onChangeIsMotorCheckbox(unitRow) {
+    if (unitRow.isMotor == false) {
       unitRow.motorAccessoryId = null;
       unitRow.motorRate = null;
       unitRow.motorQuantity = null;
@@ -259,8 +261,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     }
   }
 
-  onChangeIsRemoteCheckbox(unitRow){
-    if(unitRow.isRemote == false){
+  onChangeIsRemoteCheckbox(unitRow) {
+    if (unitRow.isRemote == false) {
       unitRow.remoteAccessoryId = null;
       unitRow.remoteRate = null;
       unitRow.remoteQuantity = null;
@@ -268,8 +270,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     }
   }
 
-  onChangeIsRodCheckbox(){
-    if(this.trnCurtainQuotationObj.isRod == false){
+  onChangeIsRodCheckbox() {
+    if (this.trnCurtainQuotationObj.isRod == false) {
       this.trnCurtainQuotationObj.rodAccessoryId = null;
       this.trnCurtainQuotationObj.rodRate = null;
       this.trnCurtainQuotationObj.rodQuantity = null;
@@ -277,8 +279,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     }
   }
 
-  onChangeIsRodAccessoryCheckbox(){
-    if(this.trnCurtainQuotationObj.isRodAccessory == false){
+  onChangeIsRodAccessoryCheckbox() {
+    if (this.trnCurtainQuotationObj.isRodAccessory == false) {
       this.trnCurtainQuotationObj.rodItemAccessoryId = null;
       this.trnCurtainQuotationObj.rodItemAccessoryRate = null;
       this.trnCurtainQuotationObj.rodItemAccessoryQuantity = null;
@@ -726,7 +728,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   }
 
   changeRodItemAccessoryQuantity() {
-    let rodObj = _.find(this.rodCodeList, { accessoryId: this.trnCurtainQuotationObj.rodItemAccessoryId });
+    let rodObj = _.find(this.rodAccessoriesCodeList, { accessoryId: this.trnCurtainQuotationObj.rodItemAccessoryId });
     this.trnCurtainQuotationObj.rodItemAccessoryAmount = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryRate * this.trnCurtainQuotationObj.rodItemAccessoryQuantity);
     this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryAmount + (this.trnCurtainQuotationObj.rodItemAccessoryAmount * rodObj.gst) / 100);
     this.trnCurtainQuotationObj.rodItemAccessoryGST = rodObj.gst;
@@ -1004,7 +1006,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   }
 
   onChangeRodItemAccessory() {
-    let shadeObj = _.find(this.rodCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodItemAccessoryId]);
+    let shadeObj = _.find(this.rodAccessoriesCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodItemAccessoryId]);
     this.trnCurtainQuotationObj.rodItemAccessoryRate = shadeObj.sellingRate;
   }
 
@@ -1077,6 +1079,20 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       results => {
         this.rodCodeList = results;
         this.rodCodeList.unshift({ itemCode: '--Select--', accessoryId: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+  getRodAccessoriesItemCodeLookup() {
+    Helpers.setLoading(true);
+    this.commonService.getRodAccessoriesItemCodeForCQ().subscribe(
+      results => {
+        this.rodAccessoriesCodeList = results;
+        this.rodAccessoriesCodeList.unshift({ itemCode: '--Select--', accessoryId: null });
         Helpers.setLoading(false);
       },
       error => {
