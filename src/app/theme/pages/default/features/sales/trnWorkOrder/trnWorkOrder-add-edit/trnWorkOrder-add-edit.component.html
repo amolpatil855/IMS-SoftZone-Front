@@ -101,8 +101,7 @@
                                                                     <div class="col-md-6">
                                                                         <label class="col-md-5 col-sm-5 fieldLabel noPadding">Curtain Selection No.</label>
                                                                         <div class="col-md-7 col-sm-7">
-                                                                            <input type="text" [(ngModel)]="trnWorkOrderObj.curtainSelectionNo" name="curtainSelectionNumber" class="form-control" #orderNoVal="ngModel"
-                                                                                disabled placeholder="">
+                                                                            <input type="text" [(ngModel)]="trnWorkOrderObj.workOrderNumber" name="workOrderNumberNumber" class="form-control" disabled placeholder="">
                                                                         </div>
                                                                     </div>
 
@@ -111,8 +110,7 @@
                                                             <div class="col-md-3">
                                                                 <label class="col-md-5 col-sm-5 fieldLabel noPadding">Curtain Quotation No.</label>
                                                                 <div class="col-md-7 col-sm-7">
-                                                                    <input type="text" [(ngModel)]="trnWorkOrderObj.WorkOrderNumber" name="WorkOrderNumber" class="form-control" #orderNoVal="ngModel"
-                                                                        disabled placeholder="">
+                                                                    <input type="text" [(ngModel)]="trnWorkOrderObj.curtainQuotationNo" name="curtainQuotationNo" class="form-control" disabled placeholder="">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -215,7 +213,7 @@
                                                                             <div class="col-md-2">
                                                                                 <label class="fieldLabel">Labor</label>
                                                                                 <br/>
-                                                                                <label class="unitFormLabel"> {{unitRow.laborCharges}}</label>
+                                                                                <label class="unitFormLabel"> {{unitRow.labourCharges}}</label>
                                                                             </div>
                                                                         </div>
 
@@ -489,8 +487,9 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Is Track?</label>
                                                                                     <br>
-                                                                                    <input type="checkbox" name="{{'istrack'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isTrack" [disabled]="trnWorkOrderObj.status != 'Created'"
-                                                                                        (ngModelChange)="onChangeIsTrackCheckbox(unitRow)">
+                                                                                    <!-- <input type="checkbox" name="{{'istrack'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isTrack" [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                        (ngModelChange)="onChangeIsTrackCheckbox(unitRow)"> -->
+                                                                                        <label class="unitFormLabel">{{unitRow.isTrack?"Yes":"No"}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Tracks</label>
@@ -513,21 +512,20 @@
                                                                                         placeholder="" (blur)="changeTrackQuantity(unitRow,unitRowNum,rowNum)"
                                                                                         required>
                                                                                 </div>
-                                                                                <div class="col-md-1">
+                                                                                <!-- <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br>
                                                                                     <label *ngIf="unitRow.isTrack" class="unitFormLabel">{{unitRow.trackAmountWithGST}}</label>
-                                                                                </div>
+                                                                                </div> -->
                                                                             </div>
 
                                                                         </div>
-                                                                        <div class="form-group isTrackRow">
+                                                                        <div class="form-group isTrackRow" *ngIf="unitRow.isMotor">
                                                                             <div class="row">
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Is Motor?</label>
                                                                                     <br>
-                                                                                    <input type="checkbox" name="{{'isMotor'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isMotor" [disabled]="trnWorkOrderObj.status != 'Created'"
-                                                                                        (ngModelChange)="onChangeIsMotorCheckbox(unitRow)">
+                                                                                    <label class="unitFormLabel"> {{unitRow.isMotor?"Yes":"No"}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Motor</label>
@@ -550,11 +548,11 @@
                                                                                         placeholder="" (blur)="changeMotorQuantity(unitRow,unitRowNum,rowNum)"
                                                                                         required>
                                                                                 </div>
-                                                                                <div class="col-md-1">
+                                                                                <!-- <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br>
                                                                                     <label *ngIf="unitRow.isMotor" class="unitFormLabel">{{unitRow.motorAmountWithGST}}</label>
-                                                                                </div>
+                                                                                </div> -->
                                                                             </div>
 
                                                                         </div>
@@ -563,9 +561,9 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Is Remote?</label>
                                                                                     <br>
-                                                                                    <input type="checkbox" name="{{'isRemote'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isRemote" [disabled]="trnWorkOrderObj.status != 'Created'"
-                                                                                        (ngModelChange)="onChangeIsRemoteCheckbox(unitRow)">
-
+                                                                                    <!-- <input type="checkbox" name="{{'isRemote'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isRemote" [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                        (ngModelChange)="onChangeIsRemoteCheckbox(unitRow)"> -->
+                                                                                        <label class="unitFormLabel">{{unitRow.isRemote?"Yes":"No"}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Remote</label>
@@ -595,11 +593,11 @@
                                                                                         placeholder="" (blur)="changeRemoteQuantity(unitRow,unitRowNum,rowNum)"
                                                                                         required>
                                                                                 </div>
-                                                                                <div class="col-md-1">
+                                                                                <!-- <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br>
                                                                                     <label *ngIf="unitRow.isRemote" class="unitFormLabel">{{unitRow.remoteAmountWithGST}}</label>
-                                                                                </div>
+                                                                                </div> -->
                                                                             </div>
 
                                                                         </div>
@@ -639,13 +637,14 @@
                                                 <!-- Add New Area Row Ends -->
 
                                                 <!-- Is Rod? Row -->
-                                                <div class="form-group isTrackRow">
+                                                <div class="form-group isTrackRow" *ngIf="trnWorkOrderObj.isRod">
                                                     <div class="row">
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Is Rod?</label>
                                                             <br>
-                                                            <input type="checkbox" name="isRoadCkb" [(ngModel)]="trnWorkOrderObj.isRod" [disabled]="trnWorkOrderObj.status != 'Created'"
-                                                                (ngModelChange)="onChangeIsRodCheckbox()">
+                                                            <label class="unitFormLabel">{{trnWorkOrderObj.isRod?"Yes":"No"}}</label>
+                                                            <!-- <input type="checkbox" name="isRoadCkb" [(ngModel)]="trnWorkOrderObj.isRod" [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                (ngModelChange)="onChangeIsRodCheckbox()"> -->
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label class="fieldLabel">Rod</label>
@@ -671,11 +670,11 @@
                                                                 [disabled]="trnWorkOrderObj.status != 'Created'" #rodQuantityVal="ngModel"
                                                                 tabindex="21" placeholder="" (blur)="changeRodQuantity()" required>
                                                         </div>
-                                                        <div class="col-md-1">
+                                                        <!-- <div class="col-md-1">
                                                             <label class="fieldLabel">Amount</label>
                                                             <br>
                                                             <label *ngIf="trnWorkOrderObj.isRod" class="unitFormLabel">{{trnWorkOrderObj.rodAmountWithGST}}</label>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                                 <div class="form-group isTrackRow" *ngIf="trnWorkOrderObj.isRod">
@@ -683,8 +682,9 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Is Rod Accessory?</label>
                                                             <br>
-                                                            <input type="checkbox" name="isRodAccessoryCkb" [(ngModel)]="trnWorkOrderObj.isRodAccessory" [disabled]="trnWorkOrderObj.status != 'Created'"
-                                                                (ngModelChange)="onChangeIsRodAccessoryCheckbox()">
+                                                            <!-- <input type="checkbox" name="isRodAccessoryCkb" [(ngModel)]="trnWorkOrderObj.isRodAccessory" [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                (ngModelChange)="onChangeIsRodAccessoryCheckbox()"> -->
+                                                                <label class="unitFormLabel">{{trnWorkOrderObj.isRodAccessory?"Yes":"No"}}</label>
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label class="fieldLabel">Rod Accessory</label>
@@ -711,11 +711,11 @@
                                                                 tabindex="21" placeholder="" (blur)="changeRodItemAccessoryQuantity()"
                                                                 required>
                                                         </div>
-                                                        <div class="col-md-1">
+                                                        <!-- <div class="col-md-1">
                                                             <label class="fieldLabel">Amount</label>
                                                             <br>
                                                             <label *ngIf="trnWorkOrderObj.isRod" class="unitFormLabel">{{trnWorkOrderObj.rodItemAccessoryAmountWithGST}}</label>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                                 <!-- Is Rod? Row Ends -->

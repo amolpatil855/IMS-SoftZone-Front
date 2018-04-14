@@ -106,7 +106,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let today = new Date();
     this.locationObj = {};
     this.disabled = false;
-    this.trnCurtainQuotationObj.workOrderDate = today;
+    this.trnCurtainQuotationObj.curtainQuotationDate = today;
     this.trnCurtainQuotationObj.selectionType = null;
     this.route.queryParams
       .subscribe(params => {
@@ -115,7 +115,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           this.trnCurtainSelectionService.createCurtainQuotation(this.curtainSelectionId).subscribe(
             results => {
               this.trnCurtainQuotationObj = results;
-              this.trnCurtainQuotationObj.workOrderDate = new Date();
+              this.trnCurtainQuotationObj.curtainQuotationDate = new Date();
               this.trnCurtainQuotationItems = this.trnCurtainQuotationObj.trnCurtainQuotationItems;
               this.formatGetData(results);
               Helpers.setLoading(false);
@@ -349,6 +349,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7 });
         _.forEach(accssoryDataList, function (temp) {
           temp.contRoleId = Math.floor(Math.random() * 2000)
+          temp.rate = temp.accessoriesDetails.sellingRate;
+          temp.rateWithGST = temp.rate + ((temp.rate * temp.accessoriesDetails.gst) / 100);
         });
         value.accessoryList = accssoryDataList;
       });
@@ -710,13 +712,13 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   changeMotorQuantity(unitRow, unitRowNum, rowNum) {
     let motorObj = _.find(this.motorCodeList, { accessoryId: unitRow.motorAccessoryId });
     unitRow.motorAmount = unitRow.motorRate * unitRow.motorQuantity;
-    unitRow.motorAmountWithGST = Math.round(unitRow.trackAmount + (unitRow.trackAmount * motorObj.gst) / 100);
+    unitRow.motorAmountWithGST = Math.round(unitRow.motorAmount + (unitRow.motorAmount * motorObj.gst) / 100);
     unitRow.motorGST = motorObj.gst;
   }
   changeRemoteQuantity(unitRow, unitRowNum, rowNum) {
     let remoteObj = _.find(this.remoteCodeList, { accessoryId: unitRow.remoteAccessoryId });
     unitRow.remoteAmount = unitRow.remoteRate * unitRow.remoteQuantity;
-    unitRow.remoteAmountWithGST = Math.round(unitRow.trackAmount + (unitRow.trackAmount * remoteObj.gst) / 100);
+    unitRow.remoteAmountWithGST = Math.round(unitRow.remoteAmount + (unitRow.remoteAmount * remoteObj.gst) / 100);
     unitRow.remoteGST = remoteObj.gst;
   }
 
@@ -787,7 +789,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         } else {
           this.viewItem = false;
         }
-        this.trnCurtainQuotationObj.workOrderDate = new Date(this.trnCurtainQuotationObj.workOrderDate);
+        this.trnCurtainQuotationObj.curtainQuotationDate = new Date(this.trnCurtainQuotationObj.curtainQuotationDate);
         this.customerShippingAddress = this.trnCurtainQuotationObj.mstCustomer.mstCustomerAddresses[0];
         this.trnCurtainQuotationItems = results.trnCurtainQuotationItems;
 
@@ -857,7 +859,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             value.fabricList = fabricDataList;
             let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': false, 'isRod': false });
             _.forEach(accssoryDataList, function (temp) {
-              temp.contRoleId = Math.floor(Math.random() * 2000)
+              temp.contRoleId = Math.floor(Math.random() * 2000),
+              temp.rate = temp.accessoriesDetails.sellingRate;
+              temp.rateWithGST = temp.rate + ((temp.rate * temp.accessoriesDetails.gst) / 100);
             });
             value.accessoryList = accssoryDataList;
             _.forEach(value.fabricList, function (fabricObj) {
@@ -1016,6 +1020,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   onChangeRodAccesory() {
     let shadeObj = _.find(this.rodCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodAccessoryId]);
     this.trnCurtainQuotationObj.rodRate = shadeObj.sellingRate;
+    this.trnCurtainQuotationObj.rodRateWithGST = Math.round(this.trnCurtainQuotationObj.rodRate + ((this.trnCurtainQuotationObj.rodRate * shadeObj.gst) / 100));
+
   }
 
   onChangeRodItemAccessory() {
@@ -1027,7 +1033,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   onChangeTrackAccesory(accessoryRow) {
     let shadeObj = _.find(this.trackCodeList, ['accessoryId', accessoryRow.trackAccessoryId]);
     accessoryRow.trackRate = shadeObj.sellingRate;
-    accessoryRow.trackRateWithGST = Math.round(accessoryRow.motorRate + (accessoryRow.motorRate * shadeObj.gst) / 100);
+    accessoryRow.trackRateWithGST = Math.round(accessoryRow.trackRate + (accessoryRow.trackRate * shadeObj.gst) / 100);
     accessoryRow.trackQuantity = Math.round(accessoryRow.unitWidth / 12);
     accessoryRow.trackAmount = Math.round(parseFloat(accessoryRow.trackQuantity) * parseFloat(accessoryRow.trackRateWithGST));
 
@@ -1447,8 +1453,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
 
   saveTrnCurtainQuotation(value) {
-    let tempworkOrderDate = new Date(value.workOrderDate);
-    value.workOrderDate = new Date(tempworkOrderDate.setHours(23));
+    let tempcurtainQuotationDate = new Date(value.curtainQuotationDate);
+    value.curtainQuotationDate = new Date(tempcurtainQuotationDate.setHours(23));
     Helpers.setLoading(true);
     if (this.params) {
       this.trnCurtainQuotationService.updateTrnCurtainQuotation(value)
