@@ -42,16 +42,20 @@
         </div>
         <div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
             <button class="topBtn btn btn-info" title="Print" (click)="print()" tabindex="5">Print</button>
-            <button type="submit" *ngIf="params" class="topBtn btn btn-success" [isAuthorize]="['curtainselection']" title="{{ (params && (trnCurtainQuotationObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}"
-                (click)="onUpdateAndCreateQuotation()" tabindex="9">
-                Approve
-            </button>
-            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnCurtainSelectionForm"
-                title="{{(trnCurtainSelectionForm && trnCurtainSelectionForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-                [isAuthorize]="['curtainselection']" tabindex="16">
+            <button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnCurtainQuotationObj.status == 'Created'" [isAuthorize]="['curtainquotation']"
+                title="Approve" (click)="onApprove()" tabindex="7">
+				Approve
+			</button>
+            <button type="submit" class="topBtn btn btn-error" *ngIf="adminFlag && trnCurtainQuotationObj.status == 'Created'" [isAuthorize]="['curtainquotation']"
+                title="Cancel CQ" (click)="onCancelCQ()" tabindex="8">
+				Cancel CQ
+			</button>
+            <button type="submit" *ngIf="trnCurtainQuotationObj.status == 'Created'" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"
+                form="trnCurtainSelectionForm" title="{{(trnCurtainSelectionForm && trnCurtainSelectionForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+                [isAuthorize]="['curtainquotation']" tabindex="16">
                 {{ params ? 'Update' : 'Save' }}
             </button>
-            <button class="btn btn-secondary" [isAuthorize]="['curtainselection']" (click)="onCancel()" tabindex="17">
+            <button class="btn btn-secondary" [isAuthorize]="['curtainquotation']" (click)="onCancel()" tabindex="17">
                 Cancel
             </button>
         </div>
@@ -91,10 +95,10 @@
                                                                     <div class="col-md-6">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Date</label>
                                                                         <div class="col-md-8 col-sm-8">
-                                                                            <p-calendar class="purchaseOrderDate" #curtainSelectionDateVal="ngModel" [(ngModel)]="trnCurtainQuotationObj.curtainQuotationDate"
-                                                                                name="curtainSelectionDate" [monthNavigator]="true"
+                                                                            <p-calendar class="purchaseOrderDate" #curtainQuotationDateVal="ngModel" [(ngModel)]="trnCurtainQuotationObj.curtainQuotationDate"
+                                                                                name="curtainQuotationDate" [monthNavigator]="true"
                                                                                 [yearNavigator]="true" tabindex="1" [disabled]="disabled"
-                                                                                yearRange="2015:2030" dateFormat="dd/mm/yy" styleClass="{{ curtainSelectionDateVal.errors && isFormSubmitted?'red-border-class':''}}"
+                                                                                yearRange="2015:2030" dateFormat="dd/mm/yy" styleClass="{{ curtainQuotationDateVal.errors && isFormSubmitted?'red-border-class':''}}"
                                                                                 autofocus required></p-calendar>
                                                                         </div>
                                                                     </div>
@@ -150,8 +154,23 @@
                                                                     <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{trnCurtainQuotationObj.minAllowedDiscount}}"
                                                                         [ngClass]="{'red-border-class': minAllowedDiscountVal.errors  && isFormSubmitted}"
                                                                         [(ngModel)]="trnCurtainQuotationObj.commonDiscount" name="minAllowedDiscountVal"
+                                                                        [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                         #minAllowedDiscountVal="ngModel" tabindex="21" placeholder=""
                                                                         (blur)="changeGlobalDiscount()" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Grand Total
+                                                                </label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                    <label class="orderTypeLabel">{{ grandTotalWithoutLabourCharges ? (grandTotalWithoutLabourCharges | number:'.0') : '' }}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Advance Amount
+                                                                </label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                    <label class="orderTypeLabel">{{ trnCurtainQuotationObj ? (trnCurtainQuotationObj.advanceAmount | number:'.0') : '' }}</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -181,7 +200,8 @@
                                                                     <div class="col-md-3 col-sm-3">
                                                                         <input class="form-control m-input" type="text" [(ngModel)]="areaRow.area" name="{{'area'+areaRow.contRoleId}}" id="{{'area'+rowNum}}"
                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': areaVal.errors && isFormSubmitted}"
-                                                                            #areaVal="ngModel" required>
+                                                                            #areaVal="ngModel" [disabled]="trnCurtainQuotationObj.status != 'Created'"
+                                                                            required>
                                                                     </div>
                                                                 </div>
 
@@ -195,11 +215,13 @@
                                                                                 <label class="fieldLabel">Unit</label>
                                                                                 <input class="form-control m-input" type="text" [(ngModel)]="unitRow.unit" name="{{'unit'+unitRow.contRoleId}}" placeholder=""
                                                                                     tabindex="6" [ngClass]="{'red-border-class': unitVal.errors && isFormSubmitted}"
-                                                                                    #unitVal="ngModel" required>
+                                                                                    #unitVal="ngModel" [disabled]="trnCurtainQuotationObj.status != 'Created'"
+                                                                                    required>
                                                                             </div>
                                                                             <div class="col-md-2">
                                                                                 <label class="fieldLabel">Pattern</label>
-                                                                                <select class="form-control" name="{{'patern'+unitRow.contRoleId}}" [(ngModel)]="unitRow.patternId" tabindex="9" [ngClass]="{'red-border-class': paternVal.errors && isFormSubmitted}"
+                                                                                <select class="form-control" name="{{'patern'+unitRow.contRoleId}}" [(ngModel)]="unitRow.patternId" [disabled]="trnCurtainQuotationObj.status != 'Created'"
+                                                                                    tabindex="9" [ngClass]="{'red-border-class': paternVal.errors && isFormSubmitted}"
                                                                                     #paternVal="ngModel" required (ngModelChange)="onPatternChange(unitRow)">
                                                                                     <option *ngFor="let x of patternList" [ngValue]="x.id" [selected]="unitRow.patternId == x.id">{{x.name}}</option>
                                                                                 </select>
@@ -207,6 +229,7 @@
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Height</label>
                                                                                 <input class="form-control m-input" type="text" [(ngModel)]="unitRow.unitHeight" name="{{'unitheight'+unitRow.contRoleId}}"
+                                                                                    [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                     placeholder="" tabindex="6" [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
                                                                                     #hightVal="ngModel" (blur)="onUnitHeightChange(unitRow,unitRowNum,rowNum)"
                                                                                     required>
@@ -214,12 +237,14 @@
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Width</label>
                                                                                 <input class="form-control m-input" type="text" [(ngModel)]="unitRow.unitWidth" name="{{'unitwidth'+unitRow.contRoleId}}"
+                                                                                    [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                     placeholder="" tabindex="6" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
                                                                                     #widthVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
                                                                             </div>
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Panels</label>
                                                                                 <input class="form-control m-input" type="text" [(ngModel)]="unitRow.numberOfPanel" name="{{'unitnumberOfPanel'+unitRow.contRoleId}}"
+                                                                                    [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                     placeholder="" tabindex="6" [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
                                                                                     #hightVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
                                                                             </div>
@@ -292,7 +317,8 @@
                                                                                     <br/>
                                                                                     <input *ngIf="!fabricRow.isPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.orderQuantity" name="{{'orderQuantity'+fabricRow.contRoleId}}"
                                                                                         placeholder="" tabindex="6" [ngClass]="{'red-border-class': orderQuantityVal.errors && isFormSubmitted}"
-                                                                                        #orderQuantityVal="ngModel" required>
+                                                                                        #orderQuantityVal="ngModel" [disabled]="trnCurtainQuotationObj.status != 'Created'"
+                                                                                        required>
                                                                                     <label *ngIf="fabricRow.isPatch" class="unitFormLabel">{{fabricRow.orderQuantity}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
@@ -302,6 +328,7 @@
                                                                                         [ngClass]="{'red-border-class': discountVal.errors  && isFormSubmitted}"
                                                                                         [(ngModel)]="fabricRow.discount" name="{{'unitdiscount'+fabricRow.contRoleId}}"
                                                                                         #discountVal="ngModel" tabindex="21"
+                                                                                        [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                         placeholder="" (blur)="changeDiscount(fabricRow,fabricRowNum,unitRowNum,rowNum)"
                                                                                         required>
                                                                                 </div>
@@ -326,12 +353,15 @@
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">Vertical</label>
                                                                                         <br/>
-                                                                                        <input type="checkbox" [(ngModel)]="fabricRow.isVerticalPatch" name="{{'isVerticalPatch'+unitRow.contRoleId+fabricRowNum+0000}}">
+                                                                                        <input type="checkbox" [(ngModel)]="fabricRow.isVerticalPatch" name="{{'isVerticalPatch'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                            [disabled]="trnCurtainQuotationObj.status != 'Created'"
+                                                                                            (ngModelChange)="onChangeIsVerticalPatchCheckbox(fabricRow)">
                                                                                     </div>
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">No. of patch</label>
                                                                                         <input *ngIf="fabricRow.isVerticalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.noOfVerticalPatch"
                                                                                             name="{{'noOfVerticalpatch'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                            [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': noOfverticalVal.errors && isFormSubmitted}"
                                                                                             #noOfverticalVal="ngModel" required
                                                                                             (blur)="calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
@@ -340,6 +370,7 @@
                                                                                         <label class="fieldLabel">Width</label>
                                                                                         <input *ngIf="fabricRow.isVerticalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.verticalPatchWidth"
                                                                                             name="{{'verticalPatchWidth'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                            [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': verticalPatchWidthVal.errors && isFormSubmitted}"
                                                                                             (blur)="calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)"
                                                                                             #verticalPatchWidthVal="ngModel"
@@ -376,12 +407,15 @@
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">Horizontal</label>
                                                                                         <br/>
-                                                                                        <input type="checkbox" [(ngModel)]="fabricRow.isHorizontalPatch" name="{{'isHorizontalPatch'+unitRow.contRoleId+fabricRowNum+0000}}">
+                                                                                        <input type="checkbox" [(ngModel)]="fabricRow.isHorizontalPatch" name="{{'isHorizontalPatch'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                            [disabled]="trnCurtainQuotationObj.status != 'Created'"
+                                                                                            (ngModelChange)="onChangeIsHorizontalPatchCheckbox(fabricRow)">
                                                                                     </div>
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">No. of patch</label>
                                                                                         <input *ngIf="fabricRow.isHorizontalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.noOfHorizontalPatch"
                                                                                             name="{{'noOfHorizontalpatch'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                            [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': noOfHorizontalVal.errors && isFormSubmitted}"
                                                                                             #noOfHorizontalVal="ngModel" required
                                                                                             (blur)="calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
@@ -391,6 +425,7 @@
                                                                                         <label class="fieldLabel">Height</label>
                                                                                         <input *ngIf="fabricRow.isHorizontalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.horizontalPatchHeight"
                                                                                             name="{{'horizontalPatchHeight'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                            [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': horizontalPatchHeightVal.errors && isFormSubmitted}"
                                                                                             #horizontalPatchHeightVal="ngModel"
                                                                                             (blur)="calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)"
@@ -457,6 +492,7 @@
                                                                                         [(ngModel)]="accessoryRow.orderQuantity"
                                                                                         name="{{'accessoryDiscount'+accessoryRow.contRoleId}}"
                                                                                         #accessoryQuantityVal="ngModel" tabindex="21"
+                                                                                        [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                         placeholder="" (blur)="changeAccessoryQuantity(accessoryRow)"
                                                                                         required>
                                                                                 </div>
@@ -492,12 +528,14 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Is Track?</label>
                                                                                     <br>
-                                                                                    <input type="checkbox" name="{{'istrack'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isTrack">
+                                                                                    <input type="checkbox" name="{{'istrack'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isTrack" [disabled]="trnCurtainQuotationObj.status != 'Created'"
+                                                                                        (ngModelChange)="onChangeIsTrackCheckbox(unitRow)">
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Tracks</label>
                                                                                     <select *ngIf="unitRow.isTrack" class="form-control" name="{{'tracks'+unitRow.contRoleId}}" [(ngModel)]="unitRow.trackAccessoryId"
                                                                                         tabindex="9" (ngModelChange)="onChangeTrackAccesory(unitRow)"
+                                                                                        [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                         [ngClass]="{'red-border-class': accessoryTrackVal.errors && isFormSubmitted}"
                                                                                         #accessoryTrackVal="ngModel">
                                                                                         <option *ngFor="let x of trackCodeList" [ngValue]="x.accessoryId" [selected]="accessoryId == x.accessoryId">{{x.itemCode}}</option>
@@ -513,6 +551,7 @@
                                                                                     <br/>
                                                                                     <input *ngIf="unitRow.isTrack" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="10000"
                                                                                         [ngClass]="{'red-border-class': trackQuantityVal.errors && isFormSubmitted}"
+                                                                                        [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                         [(ngModel)]="unitRow.trackQuantity" name="{{'trackQuantity'+unitRow.contRoleId}}"
                                                                                         #trackQuantityVal="ngModel" tabindex="21"
                                                                                         placeholder="" (blur)="changeTrackQuantity(unitRow,unitRowNum,rowNum)"
@@ -531,12 +570,14 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Is Motor?</label>
                                                                                     <br>
-                                                                                    <input type="checkbox" name="{{'isMotor'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isMotor">
+                                                                                    <input type="checkbox" name="{{'isMotor'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isMotor" [disabled]="trnCurtainQuotationObj.status != 'Created'"
+                                                                                        (ngModelChange)="onChangeIsMotorCheckbox(unitRow)">
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Motor</label>
                                                                                     <select *ngIf="unitRow.isMotor" class="form-control" name="{{'isMotor'+unitRow.contRoleId}}" [(ngModel)]="unitRow.motorAccessoryId"
                                                                                         tabindex="9" (ngModelChange)="onChangeMotorAccesory(unitRow)"
+                                                                                        [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                         [ngClass]="{'red-border-class': accessoryMotorVal.errors && isFormSubmitted}"
                                                                                         #accessoryMotorVal="ngModel">
                                                                                         <option *ngFor="let x of motorCodeList" [ngValue]="x.accessoryId" [selected]="accessoryId == x.accessoryId">{{x.itemCode}}</option>
@@ -554,6 +595,7 @@
                                                                                         [ngClass]="{'red-border-class': motorQuantityVal.errors && isFormSubmitted}"
                                                                                         [(ngModel)]="unitRow.motorQuantity" name="{{'motorQuantity'+unitRow.contRoleId}}"
                                                                                         #motorQuantityVal="ngModel" tabindex="21"
+                                                                                        [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                         placeholder="" (blur)="changeMotorQuantity(unitRow,unitRowNum,rowNum)"
                                                                                         required>
                                                                                 </div>
@@ -565,18 +607,20 @@
                                                                             </div>
 
                                                                         </div>
-                                                                        <div class="form-group isTrackRow"  *ngIf="unitRow.isMotor">
+                                                                        <div class="form-group isTrackRow" *ngIf="unitRow.isMotor">
                                                                             <div class="row">
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Is Remote?</label>
                                                                                     <br>
-                                                                                    <input type="checkbox" name="{{'isRemote'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isRemote">
+                                                                                    <input type="checkbox" name="{{'isRemote'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isRemote" [disabled]="trnCurtainQuotationObj.status != 'Created'"
+                                                                                        (ngModelChange)="onChangeIsRemoteCheckbox(unitRow)">
 
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Remote</label>
                                                                                     <select *ngIf="unitRow.isRemote" class="form-control" name="{{'isRemote'+unitRow.contRoleId}}" [(ngModel)]="unitRow.remoteAccessoryId"
                                                                                         tabindex="9" (ngModelChange)="onChangeRemoteAccesory(unitRow)"
+                                                                                        [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                         [ngClass]="{'red-border-class': accessoryRemoteVal.errors && isFormSubmitted}"
                                                                                         #accessoryRemoteVal="ngModel">
                                                                                         <option *ngFor="let x of remoteCodeList" [ngValue]="x.accessoryId" [selected]="accessoryId == x.accessoryId">{{x.itemCode}}</option>
@@ -593,6 +637,7 @@
                                                                                     <input *ngIf="unitRow.isRemote" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0"
                                                                                         maxValue="10000" [ngClass]="{'red-border-class': remoteQuantityVal.errors && isFormSubmitted}"
                                                                                         [(ngModel)]="unitRow.remoteQuantity"
+                                                                                        [disabled]="trnCurtainQuotationObj.status != 'Created'"
                                                                                         name="{{'remoteQuantity'+unitRow.contRoleId}}"
                                                                                         #remoteQuantityVal="ngModel" tabindex="21"
                                                                                         placeholder="" (blur)="changeRemoteQuantity(unitRow,unitRowNum,rowNum)"
@@ -647,13 +692,14 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Is Rod?</label>
                                                             <br>
-                                                            <input type="checkbox" name="isRoadCkb" [(ngModel)]="trnCurtainQuotationObj.isRod">
+                                                            <input type="checkbox" name="isRoadCkb" [(ngModel)]="trnCurtainQuotationObj.isRod" [disabled]="trnCurtainQuotationObj.status != 'Created'"
+                                                                (ngModelChange)="onChangeIsRodCheckbox()">
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label class="fieldLabel">Rod</label>
                                                             <select *ngIf="trnCurtainQuotationObj.isRod" class="form-control" name="rodName" [(ngModel)]="trnCurtainQuotationObj.rodAccessoryId"
                                                                 tabindex="9" (ngModelChange)="onChangeRodAccesory()" [ngClass]="{'red-border-class': accessoryRodVal.errors && isFormSubmitted}"
-                                                                #accessoryRodVal="ngModel">
+                                                                #accessoryRodVal="ngModel" [disabled]="trnCurtainQuotationObj.status != 'Created'">
                                                                 <option *ngFor="let x of rodCodeList" [ngValue]="x.accessoryId" [selected]="rodAccessoryId == x.accessoryId">{{x.itemCode}}</option>
                                                             </select>
                                                         </div>
@@ -668,8 +714,8 @@
                                                             <input *ngIf="trnCurtainQuotationObj.isRod" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0"
                                                                 maxValue="10000" [ngClass]="{'red-border-class': rodQuantityVal.errors  && isFormSubmitted}"
                                                                 [(ngModel)]="trnCurtainQuotationObj.rodQuantity" name="rodquantity"
-                                                                #rodQuantityVal="ngModel" tabindex="21" placeholder="" (blur)="changeRodQuantity()"
-                                                                required>
+                                                                [disabled]="trnCurtainQuotationObj.status != 'Created'" #rodQuantityVal="ngModel"
+                                                                tabindex="21" placeholder="" (blur)="changeRodQuantity()" required>
                                                         </div>
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Amount</label>
@@ -678,19 +724,20 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group isTrackRow" *ngIf="trnCurtainQuotationObj.isRod" >
+                                                <div class="form-group isTrackRow" *ngIf="trnCurtainQuotationObj.isRod">
                                                     <div class="row">
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Is Rod Accessory?</label>
                                                             <br>
-                                                            <input type="checkbox" name="isRodAccessoryCkb" [(ngModel)]="trnCurtainQuotationObj.isRodAccessory">
+                                                            <input type="checkbox" name="isRodAccessoryCkb" [(ngModel)]="trnCurtainQuotationObj.isRodAccessory" [disabled]="trnCurtainQuotationObj.status != 'Created'"
+                                                                (ngModelChange)="onChangeIsRodAccessoryCheckbox()">
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label class="fieldLabel">Rod Accessory</label>
                                                             <select *ngIf="trnCurtainQuotationObj.isRodAccessory" class="form-control" name="rodItemAccessoryName" [(ngModel)]="trnCurtainQuotationObj.rodItemAccessoryId"
                                                                 tabindex="9" (ngModelChange)="onChangeRodItemAccessory()" [ngClass]="{'red-border-class': rodItemAccessoryIdVal.errors && isFormSubmitted}"
-                                                                #rodItemAccessoryIdVal="ngModel">
-                                                                <option *ngFor="let x of rodCodeList" [ngValue]="x.accessoryId" [selected]="rodItemAccessoryId == x.accessoryId">{{x.itemCode}}</option>
+                                                                #rodItemAccessoryIdVal="ngModel" [disabled]="trnCurtainQuotationObj.status != 'Created'">
+                                                                <option *ngFor="let x of rodAccessoriesCodeList" [ngValue]="x.accessoryId" [selected]="rodItemAccessoryId == x.accessoryId">{{x.itemCode}}</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-1">
@@ -701,11 +748,12 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Quantity</label>
                                                             <br>
-                                                            <input *ngIf="trnCurtainQuotationObj.isRodAccessory" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0"
-                                                                maxValue="10000" [ngClass]="{'red-border-class': rodItemAccessoryQuantityVal.errors  && isFormSubmitted}"
-                                                                [(ngModel)]="trnCurtainQuotationObj.rodItemAccessoryQuantity" name="rodItemAccessoryquantity"
-                                                                #rodItemAccessoryQuantityVal="ngModel" tabindex="21" placeholder="" (blur)="changeRodItemAccessoryQuantity()"
-                                                                required>
+                                                            <input *ngIf="trnCurtainQuotationObj.isRodAccessory" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off"
+                                                                minValue="0" maxValue="10000" [ngClass]="{'red-border-class': rodItemAccessoryQuantityVal.errors  && isFormSubmitted}"
+                                                                [(ngModel)]="trnCurtainQuotationObj.rodItemAccessoryQuantity"
+                                                                name="rodItemAccessoryquantity" [disabled]="trnCurtainQuotationObj.status != 'Created'"
+                                                                #rodItemAccessoryQuantityVal="ngModel" tabindex="21" placeholder=""
+                                                                (blur)="changeRodItemAccessoryQuantity()" required>
                                                         </div>
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Amount</label>
@@ -758,7 +806,7 @@
         </tr>
         <tr>
             <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:0px;padding-bottom:0px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Delivery Date:</td>
-            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:0px;padding-bottom:0px;font-weight:400;padding-right:10px;padding-left:10px;">16/4/2018</td>
+            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:0px;padding-bottom:0px;font-weight:400;padding-right:10px;padding-left:10px;">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.expectedDeliveryDate | date: 'dd/MM/yyyy') : ""}}</td>
         </tr>
     </table>
 
@@ -785,6 +833,9 @@
                     <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Unit:
                         <span style="font-weight:400;">{{unitRow.unit}}</span>
                     </td>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">H/W:
+                        <span style="font-weight:400;">{{unitRow.unitHeight}} {{unitRow.unitWidth}}</span>
+                    </td>
                     <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Pattern:
                         <span style="font-weight:400;">{{unitRow.mstPattern ? unitRow.mstPattern.name : "" }}</span>
                     </td>
@@ -796,7 +847,6 @@
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:25%;">Description</th>
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:25%;">Type</th>
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:10%;">Quantity</th>
-                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">H/W</th>
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Rate (GST)</th>
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">Amount</th>
                 </tr>
@@ -804,11 +854,11 @@
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Fabric</td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{fabricRow.collectionId}}{{fabricRow.serialno}}</td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
-                        {{fabricRow.isPatch?"Patch":""}} {{fabricRow.isVerticalPatch?"Vertical":""}} {{fabricRow.isHorizontalPatch?"Horizontal":""}}
-                        {{fabricRow.isLining?"Lining":""}} {{(!fabricRow.isPatch && !fabricRow.isLining)?"Main":""}}
+                        {{fabricRow.isPatch?"Patch":""}} {{fabricRow.isVerticalPatch?"Vertical":""}} {{fabricRow ? fabricRow.verticalPatchWidth :
+                        ""}} {{fabricRow.isHorizontalPatch?"Horizontal":""}} {{fabricRow ? fabricRow.horizontalPatchHeight
+                        : ""}} {{fabricRow.isLining?"Lining":""}} {{(!fabricRow.isPatch && !fabricRow.isLining)?"Main":""}}
                     </td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{fabricRow.orderQuantity}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;"></td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{fabricRow.rateWithGST}}</td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{fabricRow ? (fabricRow.amountWithGST | number:'.0') : ''}}</td>
                 </tr>
@@ -831,7 +881,6 @@
                         Track
                     </td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{unitRow.trackQuantity}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;"></td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{unitRow.trackRate}}</td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{unitRow ? (unitRow.trackAmountWithGST | number:'.0') : ''}}</td>
                 </tr>
@@ -854,10 +903,16 @@
             <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">Amount</th>
         </tr>
         <tr>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 70%;">{{ trnCurtainQuotationObj.rodAccessoriesDetails?trnCurtainQuotationObj.rodAccessoriesDetails.itemCode:""}}</td>
+            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 70%;">{{trnCurtainQuotationObj.rodAccessoriesDetails ? trnCurtainQuotationObj.rodAccessoriesDetails.itemCode:""}}</td>
             <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 10%;">{{trnCurtainQuotationObj.rodQuantity}}</td>
             <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 10%;">{{trnCurtainQuotationObj.rodRate}}</td>
             <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 10%;">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodAmountWithGST | number:'.0') : ''}}</td>
+        </tr>
+        <tr>
+            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 70%;">{{ trnCurtainQuotationObj.rodItemAccessoryDetails ? trnCurtainQuotationObj.rodItemAccessoryDetails.itemCode:""}}</td>
+            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 10%;">{{trnCurtainQuotationObj.rodItemAccessoryQuantity}}</td>
+            <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 10%;">{{trnCurtainQuotationObj.rodItemAccessoryRate}}</td>
+            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 10%;">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodItemAccessoryAmountWithGST | number:'.0') : ''}}</td>
         </tr>
     </table>
     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->

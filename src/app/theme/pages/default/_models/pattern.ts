@@ -3,6 +3,8 @@ export class Pattern {
   name: string;
   fabricHeight: number;
   liningHeight: number;
+  woFabricHeight: number;
+  woLiningHeight: number;
   meterPerInch: number;
   widthPerInch: number;
   setRateForPattern: number;

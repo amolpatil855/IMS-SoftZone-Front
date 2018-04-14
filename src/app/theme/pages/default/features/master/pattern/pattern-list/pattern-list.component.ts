@@ -53,6 +53,8 @@ export class PatternListComponent implements OnInit {
       name: null,
       fabricHeight: null,
       liningHeight: null,
+      woFabricHeight: null,
+      woLiningHeight: null,
       meterPerInch: null,
       widthPerInch: null,
       setRateForCustomer: null,
