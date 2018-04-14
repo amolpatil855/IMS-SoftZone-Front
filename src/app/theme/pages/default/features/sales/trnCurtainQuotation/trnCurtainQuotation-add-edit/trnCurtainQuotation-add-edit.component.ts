@@ -960,6 +960,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
   onPatternChange(unitRow) {
     let vm = this;
+    let accessoryAmount = 0;
+    vm.fabricTotal = 0;
+    vm.grandTotal = 0;
+    vm.grandTotalWithoutLabourCharges = 0;
     unitRow.mstPattern = _.find(this.patternList, ['id', unitRow.patternId]);
     _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
       _.forEach(areaObj.unitList, function (unitRow, unitRowNum) {
@@ -971,9 +975,18 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             if (fabricRow.isHorizontalPatch)
               vm.calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
           }
+          vm.fabricTotal += fabricRow.amountWithGST;
+        });
+        _.forEach(unitRow.accessoryList, function (accessoryRow) {
+          accessoryAmount += accessoryRow.amountWithGST;
         });
       });
     });
+
+    vm.accessoriesTotal = vm.accessoriesTotal + accessoryAmount;
+
+    vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
+    vm.grandTotalWithoutLabourCharges = Math.round((vm.grandTotal - vm.stitchingTotal) * 0.8);
   }
 
   onStateChange() {
