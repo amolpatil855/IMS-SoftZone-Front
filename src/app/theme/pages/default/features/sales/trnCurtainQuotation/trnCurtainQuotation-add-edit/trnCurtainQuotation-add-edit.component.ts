@@ -422,7 +422,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         });
       });
     });
-    vm.minAllowedDiscount = _.min(discountArray);
+    vm.trnCurtainQuotationObj.minAllowedDiscount = _.min(discountArray);
   }
   changeGlobalDiscount() {
     let vm = this;
@@ -431,7 +431,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       _.forEach(areaObj.unitList, function (unitObj, unitRowNum) {
         _.forEach(unitObj.fabricList, function (fabricRow, fabricRowNum) {
           if (!fabricRow.shadeDetails.flatRate) {
-            fabricRow.discount = vm.trnCurtainQuotationObj.globalDiscount;
+            fabricRow.discount = vm.trnCurtainQuotationObj.commonDiscount;
             vm.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
           }
 
