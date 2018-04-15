@@ -245,7 +245,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
       results => {
         let vm = this;
         this.trnWorkOrderObj = results;
-        if (this.trnWorkOrderObj.isQuotationCreated == false) {
+        if (this.trnWorkOrderObj.status == "Created") {
           this.viewItem = true;
         } else {
           this.viewItem = false;

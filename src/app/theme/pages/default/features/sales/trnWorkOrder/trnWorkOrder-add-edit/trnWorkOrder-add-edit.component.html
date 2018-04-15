@@ -46,7 +46,7 @@
                 title="Approve" (click)="onApprove()" tabindex="7">
                 Approve
             </button>
-            <button type="submit" *ngIf="trnWorkOrderObj.status == 'Created'" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"
+            <button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"
                 form="trnCurtainSelectionForm" title="{{(trnCurtainSelectionForm && trnCurtainSelectionForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
                 [isAuthorize]="['workorder']" tabindex="16">
                 {{ params ? 'Update' : 'Save' }}

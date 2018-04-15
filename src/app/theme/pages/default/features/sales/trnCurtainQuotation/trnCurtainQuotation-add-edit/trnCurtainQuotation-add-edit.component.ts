@@ -784,7 +784,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       results => {
         let vm = this;
         this.trnCurtainQuotationObj = results;
-        if (this.trnCurtainQuotationObj.isQuotationCreated == false) {
+        if (this.trnCurtainQuotationObj.status == "Created") {
           this.viewItem = true;
         } else {
           this.viewItem = false;
