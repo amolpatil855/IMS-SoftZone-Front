@@ -40,6 +40,7 @@
                       [totalRecords]="totalCount" [responsive]="true" (onLazyLoad)="loadLazy($event)">
                       <p-column field="salesOrderNumber" header="Sales Order No." [style]="{'text-align':'center'}"></p-column>
                       <p-column field="materialQuotationNumber" header="Quotation Order No." [style]="{'text-align':'center'}"></p-column>
+                      <p-column field="workOrderNumber" header="Work Order No." [style]="{'text-align':'center'}"></p-column>
                       <p-column field="ginNumber" header="GIN No." [style]="{'text-align':'center'}"></p-column>
                       <p-column field="ginDate" header="GIN Date" [style]="{'text-align':'center'}">
                           <ng-template let-col let-data="rowData" pTemplate="body">

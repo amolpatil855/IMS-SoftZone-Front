@@ -42,7 +42,7 @@ export class TrnWorkOrderService {
   }
 
   approveWorkOrder(trnWorkOrder: TrnWorkOrder) {
-    return this.http.put(AppSettings.API_ENDPOINT + 'TrnWorkOrder/ApproveSO/' + trnWorkOrder.id, trnWorkOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.put(AppSettings.API_ENDPOINT + 'TrnWorkOrder/ApproveWO/' + trnWorkOrder.id, trnWorkOrder, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   createTrnWorkOrder(trnWorkOrder: TrnWorkOrder) {

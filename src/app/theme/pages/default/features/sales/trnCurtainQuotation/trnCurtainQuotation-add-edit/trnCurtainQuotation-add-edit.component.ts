@@ -898,16 +898,18 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
             let remoteObj = _.find(results.trnCurtainQuotationItems, { "isRemote": true, unit: value.unit });
             if (motorObj) {
-              remoteAccessoryAmount = remoteAccessoryAmount + remoteObj.amountWithGST;
-              value.remoteAccessoriesDetails = remoteObj.accessoriesDetails;
-              value.remoteId = remoteObj.id;
-              value.remoteGST = remoteObj.gst;
-              value.remoteAccessoryId = remoteObj.accessoryId;
-              value.isRemote = true;
-              value.remoteAmount = remoteObj.amount;
-              value.remoteAmountWithGST = remoteObj.amountWithGST;
-              value.remoteRate = remoteObj.rate;
-              value.remoteQuantity = remoteObj.orderQuantity;
+              if(remoteObj != null){
+                remoteAccessoryAmount = remoteAccessoryAmount + remoteObj.amountWithGST;
+                value.remoteAccessoriesDetails = remoteObj.accessoriesDetails;
+                value.remoteId = remoteObj.id;
+                value.remoteGST = remoteObj.gst;
+                value.remoteAccessoryId = remoteObj.accessoryId;
+                value.isRemote = true;
+                value.remoteAmount = remoteObj.amount;
+                value.remoteAmountWithGST = remoteObj.amountWithGST;
+                value.remoteRate = remoteObj.rate;
+                value.remoteQuantity = remoteObj.orderQuantity;
+              }
             }
 
           });
@@ -1239,7 +1241,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     // this.trnCurtainQuotationObj.TrnCurtainQuotationItems = this.trnCurtainQuotationItems;
     // let custObj = _.find(this.customerList, ['value', this.trnCurtainQuotationObj.customerId]);
     //this.trnCurtainQuotationObj.customerName = custObj ? custObj.label : '';
-
+    vm.trnCurtainQuotationObj.totalAmount = this.grandTotalWithoutLabourCharges;
     this.trnCurtainQuotationObj.areaList.forEach(function (areaObj) {
       areaObj.unitList.forEach(function (unitObj) {
         unitObj.fabricList.forEach(function (fabricobj) {
