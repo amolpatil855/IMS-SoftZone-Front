@@ -128,7 +128,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
         _.forEach(areaObj.unitList, function (value, unitIndex) {
           if (value.unit) {
             let patternCharges = _.find(tailorObj.mstTailorPatternChargeDetails, ['patternId', vm.trnWorkOrderObj.areaList[areaIndex].unitList[unitIndex].patternId]);
-            vm.trnWorkOrderObj.areaList[areaIndex].unitList[unitIndex].laborCharges = Math.round(vm.trnWorkOrderObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel * patternCharges.charge);
+            vm.trnWorkOrderObj.areaList[areaIndex].unitList[unitIndex].labourCharges = Math.round(vm.trnWorkOrderObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel * patternCharges.charge);
           }
         });
       });
@@ -265,14 +265,14 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
 
           _.forEach(unitObjList, function (value) {
             if (value.unit) {
-              vm.stitchingTotal = vm.stitchingTotal + value.laborCharges;
+              vm.stitchingTotal = vm.stitchingTotal + value.labourCharges;
               areaObj.unitList.push({
                 unit: value.unit,
                 area: value.area,
                 patternId: value.patternId,
                 unitHeight: value.unitHeight,
                 unitWidth: value.unitWidth,
-                laborCharges: value.laborCharges,
+                labourCharges: value.labourCharges,
                 numberOfPanel: value.numberOfPanel,
                 mstPattern: value.mstPattern,
                 contRoleId: Math.floor(Math.random() * 2000),
@@ -440,7 +440,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
             "unitWidth": unitObj.unitWidth,
             "orderQuantity": fabricobj.orderQuantity,
             "numberOfPanel": unitObj.numberOfPanel,
-            "laborCharges": unitObj.laborCharges,
+            "labourCharges": unitObj.labourCharges,
             "discount": fabricobj.discount,
             "rate": fabricobj.rate,
             "rateWithGST": fabricobj.rateWithGST,
