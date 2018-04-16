@@ -11,6 +11,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 import { CommonService } from '../../../../_services/common.service';
 import { Helpers } from "../../../../../../../helpers";
 import { TrnWorkOrder } from "../../../../_models/trnWorkOrder";
+import { UserService } from "../../../../_services/user.service";
 @Component({
   selector: "app-trnWorkOrder-add-edit",
   templateUrl: "./trnWorkOrder-add-edit.component.html",
@@ -74,6 +75,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private userService: UserService,
     private trnWorkOrderService: TrnWorkOrderService,
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
@@ -82,7 +84,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.getLoggedInUserDetail();
+    this.getLoggedInUserDetail();
     this.trnWorkOrderObj = new TrnWorkOrder();
     this.trnWorkOrderObj.customerId = null;
     this.trnWorkOrderObj.referById = null;
@@ -103,6 +105,17 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
 
   ngAfterViewInit() {
     this.cdr.detectChanges();
+  }
+
+  getLoggedInUserDetail() {
+    this.userService.getLoggedInUserDetail().subscribe(res => {
+      this.userRole = res.mstRole.roleName;
+      if (this.userRole == "Administrator") {
+        this.adminFlag = true;
+      } else {
+        this.adminFlag = false;
+      }
+    });
   }
 
   getTailorLookup() {
@@ -232,7 +245,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
       results => {
         let vm = this;
         this.trnWorkOrderObj = results;
-        if (this.trnWorkOrderObj.isQuotationCreated == false) {
+        if (this.trnWorkOrderObj.status == "Created") {
           this.viewItem = true;
         } else {
           this.viewItem = false;
@@ -344,16 +357,18 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
 
             let remoteObj = _.find(results.trnWorkOrderItems, { "isRemote": true, unit: value.unit });
             if (motorObj) {
-              remoteAccessoryAmount = remoteAccessoryAmount + remoteObj.amountWithGST;
-              value.remoteAccessoriesDetails = remoteObj.accessoriesDetails;
-              value.remoteId = remoteObj.id;
-              value.remoteGST = remoteObj.gst;
-              value.remoteAccessoryId = remoteObj.accessoryId;
-              value.isRemote = true;
-              value.remoteAmount = remoteObj.amount;
-              value.remoteAmountWithGST = remoteObj.amountWithGST;
-              value.remoteRate = remoteObj.rate;
-              value.remoteQuantity = remoteObj.orderQuantity;
+              if(remoteObj != null){
+                remoteAccessoryAmount = remoteAccessoryAmount + remoteObj.amountWithGST;
+                value.remoteAccessoriesDetails = remoteObj.accessoriesDetails;
+                value.remoteId = remoteObj.id;
+                value.remoteGST = remoteObj.gst;
+                value.remoteAccessoryId = remoteObj.accessoryId;
+                value.isRemote = true;
+                value.remoteAmount = remoteObj.amount;
+                value.remoteAmountWithGST = remoteObj.amountWithGST;
+                value.remoteRate = remoteObj.rate;
+                value.remoteQuantity = remoteObj.orderQuantity;
+              }
             }
 
           });
@@ -411,9 +426,9 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
     // let custObj = _.find(this.customerList, ['value', this.trnWorkOrderObj.customerId]);
     //this.trnWorkOrderObj.customerName = custObj ? custObj.label : '';
 
-    this.trnWorkOrderObj.areaList.forEach(function (areaObj) {
-      areaObj.unitList.forEach(function (unitObj) {
-        unitObj.fabricList.forEach(function (fabricobj) {
+    _.forEach( this.trnWorkOrderObj.areaList, function (areaObj) {
+      _.forEach(areaObj.unitList, function (unitObj) {
+        _.forEach(unitObj.fabricList, function (fabricobj) {
           let collectionObj = _.find(vm.collectionList, ['value', fabricobj.collectionId]);
           let obj = {
             "area": areaObj.area,
