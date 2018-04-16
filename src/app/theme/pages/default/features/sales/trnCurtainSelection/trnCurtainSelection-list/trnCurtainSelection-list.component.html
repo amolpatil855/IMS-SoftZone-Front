@@ -78,9 +78,9 @@
                             <p-dataTable [value]="trnselectionList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize"
                                 [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
                                 [totalRecords]="totalCount" [responsive]="true" (onLazyLoad)="loadLazy($event)">
-                                <p-column field="curtainSelectionNumber" header="Order No." [style]="{'text-align':'center'}"></p-column>
+                                <p-column field="curtainSelectionNumber" header="C. Selection No." [style]="{'text-align':'center'}"></p-column>
                                 <!-- <p-column field="orderDate" header="Date" [style]="{'text-align':'center'}"></p-column> -->
-                                <p-column field="curtainSelectionDate" header="Date" [style]="{'text-align':'center'}">
+                                <p-column field="curtainSelectionDate" header="C. Selection Date" [style]="{'text-align':'center'}">
                                     <ng-template let-col let-data="rowData" pTemplate="body">
                                         {{data[col.field] ? (data[col.field]|date: 'dd/MM/yyyy') : '' }}
                                     </ng-template>
