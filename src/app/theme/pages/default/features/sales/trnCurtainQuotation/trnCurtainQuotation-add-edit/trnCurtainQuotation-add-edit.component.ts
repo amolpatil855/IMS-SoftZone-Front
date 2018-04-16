@@ -528,6 +528,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       let quantity = 0;// ((unitRow.unitHeight + )/ selectedPatternObj.meterPerInch);
 
       _.forEach(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].fabricList, function (fabObj, index) {
+        fabObj.orderQuantity = 0;
         if (fabObj.isLining || (!fabObj.isLining && !fabObj.isPatch)) {
           if (fabObj.shadeDetails.fabricWidth <= 100) {
             if (fabObj.isLining)
@@ -540,8 +541,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
               fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
               let fabricWidth = _.cloneDeep(fabObj.shadeDetails.fabricWidth);
               while (fabricWidth < unitRow.unitHeight) {
-                fabricWidth = fabricWidth + fabricWidth;
-                fabObj.orderQuantity = fabObj.orderQuantity + fabObj.orderQuantity;
+                fabricWidth = parseFloat(fabricWidth) + parseFloat(fabricWidth);
+                fabObj.orderQuantity = parseFloat(fabObj.orderQuantity) + parseFloat(fabObj.orderQuantity);
               }
             }
             else if (fabObj.isLining && fabObj.fabricDirection == "Horizontal")
@@ -550,8 +551,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
               fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
               let fabricWidth = _.cloneDeep(fabObj.shadeDetails.fabricWidth);
               while (fabricWidth < unitRow.unitHeight) {
-                fabricWidth = fabricWidth + fabricWidth;
-                fabObj.orderQuantity = fabObj.orderQuantity + fabObj.orderQuantity;
+                fabricWidth = parseFloat(fabricWidth) + parseFloat(fabricWidth);
+                fabObj.orderQuantity = parseFloat(fabObj.orderQuantity) + parseFloat(fabObj.orderQuantity);
               }
             } else if (!fabObj.isLining && fabObj.fabricDirection == "Horizontal")
               fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
@@ -871,7 +872,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': false, 'isRod': false });
             _.forEach(accssoryDataList, function (temp) {
               temp.contRoleId = Math.floor(Math.random() * 2000),
-              temp.rate = temp.accessoriesDetails.sellingRate;
+                temp.rate = temp.accessoriesDetails.sellingRate;
               temp.rateWithGST = temp.rate + ((temp.rate * temp.accessoriesDetails.gst) / 100);
             });
             value.accessoryList = accssoryDataList;
@@ -909,7 +910,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
             let remoteObj = _.find(results.trnCurtainQuotationItems, { "isRemote": true, unit: value.unit });
             if (motorObj) {
-              if(remoteObj != null){
+              if (remoteObj != null) {
                 remoteAccessoryAmount = remoteAccessoryAmount + remoteObj.amountWithGST;
                 value.remoteAccessoriesDetails = remoteObj.accessoriesDetails;
                 value.remoteId = remoteObj.id;
