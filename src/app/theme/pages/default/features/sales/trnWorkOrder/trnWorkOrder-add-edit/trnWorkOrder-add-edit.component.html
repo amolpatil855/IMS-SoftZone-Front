@@ -46,7 +46,7 @@
                 title="Approve" (click)="onApprove()" tabindex="7">
                 Approve
             </button>
-            <button type="submit" *ngIf="trnWorkOrderObj.status == 'Created'" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"
+            <button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"
                 form="trnCurtainSelectionForm" title="{{(trnCurtainSelectionForm && trnCurtainSelectionForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
                 [isAuthorize]="['workorder']" tabindex="16">
                 {{ params ? 'Update' : 'Save' }}
@@ -101,7 +101,8 @@
                                                                     <div class="col-md-6">
                                                                         <label class="col-md-5 col-sm-5 fieldLabel noPadding">Curtain Selection No.</label>
                                                                         <div class="col-md-7 col-sm-7">
-                                                                            <input type="text" [(ngModel)]="trnWorkOrderObj.workOrderNumber" name="workOrderNumberNumber" class="form-control" disabled placeholder="">
+                                                                            <input type="text" [(ngModel)]="trnWorkOrderObj.workOrderNumber" name="workOrderNumberNumber" class="form-control" disabled
+                                                                                placeholder="">
                                                                         </div>
                                                                     </div>
 
@@ -110,7 +111,8 @@
                                                             <div class="col-md-3">
                                                                 <label class="col-md-5 col-sm-5 fieldLabel noPadding">Curtain Quotation No.</label>
                                                                 <div class="col-md-7 col-sm-7">
-                                                                    <input type="text" [(ngModel)]="trnWorkOrderObj.curtainQuotationNo" name="curtainQuotationNo" class="form-control" disabled placeholder="">
+                                                                    <input type="text" [(ngModel)]="trnWorkOrderObj.curtainQuotationNo" name="curtainQuotationNo" class="form-control" disabled
+                                                                        placeholder="">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -132,7 +134,7 @@
                                                                     <select class="form-control" name="agent" [(ngModel)]="trnWorkOrderObj.tailorId" tabindex="4" (ngModelChange)="onChangeTailor()">
                                                                         <option *ngFor="let x of tailorCodeList" [ngValue]="x.id" [selected]="trnWorkOrderObj.tailorId == x.id">{{x.name}}</option>
                                                                     </select>
-                                                                  
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -489,7 +491,7 @@
                                                                                     <br>
                                                                                     <!-- <input type="checkbox" name="{{'istrack'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isTrack" [disabled]="trnWorkOrderObj.status != 'Created'"
                                                                                         (ngModelChange)="onChangeIsTrackCheckbox(unitRow)"> -->
-                                                                                        <label class="unitFormLabel">{{unitRow.isTrack?"Yes":"No"}}</label>
+                                                                                    <label class="unitFormLabel">{{unitRow.isTrack?"Yes":"No"}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Tracks</label>
@@ -563,7 +565,7 @@
                                                                                     <br>
                                                                                     <!-- <input type="checkbox" name="{{'isRemote'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isRemote" [disabled]="trnWorkOrderObj.status != 'Created'"
                                                                                         (ngModelChange)="onChangeIsRemoteCheckbox(unitRow)"> -->
-                                                                                        <label class="unitFormLabel">{{unitRow.isRemote?"Yes":"No"}}</label>
+                                                                                    <label class="unitFormLabel">{{unitRow.isRemote?"Yes":"No"}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Remote</label>
@@ -684,7 +686,7 @@
                                                             <br>
                                                             <!-- <input type="checkbox" name="isRodAccessoryCkb" [(ngModel)]="trnWorkOrderObj.isRodAccessory" [disabled]="trnWorkOrderObj.status != 'Created'"
                                                                 (ngModelChange)="onChangeIsRodAccessoryCheckbox()"> -->
-                                                                <label class="unitFormLabel">{{trnWorkOrderObj.isRodAccessory?"Yes":"No"}}</label>
+                                                            <label class="unitFormLabel">{{trnWorkOrderObj.isRodAccessory?"Yes":"No"}}</label>
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label class="fieldLabel">Rod Accessory</label>
@@ -744,7 +746,7 @@
 
 <!--Print Curtain Quotation-->
 <div class="invoiceMainBox" id="invoiceMainBox" style="display:none;">
-    <h3 style="margin-bottom: 25px;font-family: Roboto;color: #000;margin-top: 0;font-size: 22px;text-align:center;">Curtain Quotation</h3>
+    <h3 style="margin-bottom: 25px;font-family: Roboto;color: #000;margin-top: 0;font-size: 22px;text-align:center;">Work Order</h3>
     <table style="display: inline;width:60%;">
         <tr>
             <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:0px;padding-bottom:0px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Customer Name:</td>
@@ -803,8 +805,6 @@
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:25%;">Description</th>
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:25%;">Type</th>
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:10%;">Quantity</th>
-                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Rate (GST)</th>
-                    <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">Amount</th>
                 </tr>
                 <tr *ngFor="let fabricRow of unitRow?.fabricList;let fabricRowNum=index;let fabricLastRowNum=last;">
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Fabric</td>
@@ -815,8 +815,6 @@
                         : ""}} {{fabricRow.isLining?"Lining":""}} {{(!fabricRow.isPatch && !fabricRow.isLining)?"Main":""}}
                     </td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{fabricRow.orderQuantity}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{fabricRow.rateWithGST}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{fabricRow ? (fabricRow.amountWithGST | number:'.0') : ''}}</td>
                 </tr>
                 <tr *ngFor="let accessoryRow of unitRow.accessoryList;let accessoryRowNum=index;let accessoryLastRowNum=last;">
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Accessory</td>
@@ -825,9 +823,6 @@
 
                     </td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{accessoryRow.orderQuantity}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;"></td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{accessoryRow.rateWithGST}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{accessoryRow ? (accessoryRow.amountWithGST | number:'.0') : ''}}</td>
                 </tr>
                 <tr *ngIf="unitRow.isTrack">
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Accessory</td>
@@ -837,8 +832,6 @@
                         Track
                     </td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{unitRow.trackQuantity}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{unitRow.trackRate}}</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{unitRow ? (unitRow.trackAmountWithGST | number:'.0') : ''}}</td>
                 </tr>
             </table>
         </div>
@@ -855,20 +848,14 @@
         <tr>
             <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Descripton</th>
             <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Quantity</th>
-            <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Rate (GST)</th>
-            <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">Amount</th>
         </tr>
         <tr>
             <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 70%;">{{trnWorkOrderObj.rodAccessoriesDetails ? trnWorkOrderObj.rodAccessoriesDetails.itemCode:""}}</td>
             <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 10%;">{{trnWorkOrderObj.rodQuantity}}</td>
-            <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 10%;">{{trnWorkOrderObj.rodRate}}</td>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 10%;">{{trnWorkOrderObj ? (trnWorkOrderObj.rodAmountWithGST | number:'.0') : ''}}</td>
         </tr>
         <tr>
             <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 70%;">{{ trnWorkOrderObj.rodItemAccessoryDetails ? trnWorkOrderObj.rodItemAccessoryDetails.itemCode:""}}</td>
             <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 10%;">{{trnWorkOrderObj.rodItemAccessoryQuantity}}</td>
-            <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 10%;">{{trnWorkOrderObj.rodItemAccessoryRate}}</td>
-            <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 10%;">{{trnWorkOrderObj ? (trnWorkOrderObj.rodItemAccessoryAmountWithGST | number:'.0') : ''}}</td>
         </tr>
     </table>
     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
@@ -906,20 +893,8 @@
     <div style="width:100%;display:inline;margin-top:15px;">
         <table style="width: 50%;margin: 0 auto;margin-top: 15px;margin-right: 0;">
             <tr>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;text-align:right;padding:0 1px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Fabric Total</td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. {{fabricTotal ? (fabricTotal | number:'.0') : ''}}</td>
-            </tr>
-            <tr>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;text-align:right;padding:0 1px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Accessories Total</td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. {{accessoriesTotal ? (accessoriesTotal | number:'.0') : ''}}</td>
-            </tr>
-            <tr>
                 <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;text-align:right;padding:0 1px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Stitching Total</td>
                 <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. {{stitchingTotal ? (stitchingTotal | number:'.0') : ''}}</td>
-            </tr>
-            <tr>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;text-align:right;padding:0 1px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Grand Total</td>
-                <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. {{grandTotal ? (grandTotal | number:'.0') : ''}}</td>
             </tr>
         </table>
 
