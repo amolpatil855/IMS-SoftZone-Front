@@ -99,9 +99,9 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
-                                                                        <label class="col-md-5 col-sm-5 fieldLabel noPadding">Curtain Selection No.</label>
+                                                                        <label class="col-md-5 col-sm-5 fieldLabel noPadding">Work Order No.</label>
                                                                         <div class="col-md-7 col-sm-7">
-                                                                            <input type="text" [(ngModel)]="trnWorkOrderObj.workOrderNumber" name="workOrderNumberNumber" class="form-control" disabled
+                                                                            <input type="text" [(ngModel)]="trnWorkOrderObj.workOrderNumber" name="workOrderNumber" class="form-control" disabled
                                                                                 placeholder="">
                                                                         </div>
                                                                     </div>
@@ -213,7 +213,7 @@
                                                                                     #hightVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <label class="fieldLabel">Labor</label>
+                                                                                <label class="fieldLabel">Labour</label>
                                                                                 <br/>
                                                                                 <label class="unitFormLabel"> {{unitRow ? (unitRow.labourCharges | number:'.0') : ''}}</label>
                                                                             </div>
