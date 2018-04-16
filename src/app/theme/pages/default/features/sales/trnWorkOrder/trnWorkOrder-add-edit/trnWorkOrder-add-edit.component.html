@@ -783,23 +783,23 @@
     <div *ngFor="let areaRow of trnWorkOrderObj.areaList;let rowNum=index;let lastRowNum=last;">
         <div *ngFor="let unitRow of areaRow?.unitList;let unitRowNum=index;let unitLastRowNum=last;">
 
-            <table style="width:100%;margin-bottom:2px;">
+            <table style="width:100%;margin-bottom:2px;border-collapse: collapse;">
                 <tr>
-                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Area:
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:25%;font-size:13px;">Area:
                         <span style="font-weight:400;">{{areaRow.area}}</span>
                     </td>
-                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Unit:
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:25%;font-size:13px;">Unit:
                         <span style="font-weight:400;">{{unitRow.unit}}</span>
                     </td>
-                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">HxW:
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:25%;font-size:13px;">HxW:
                         <span style="font-weight:400;">{{unitRow.unitHeight}}{{ "x"+unitRow.unitWidth}}</span>
                     </td>
-                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:33.33%;font-size:13px;">Pattern:
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:25%;font-size:13px;">Pattern:
                         <span style="font-weight:400;">{{unitRow.mstPattern ? unitRow.mstPattern.name : "" }}</span>
                     </td>
                 </tr>
             </table>
-            <table style="width:100%;margin-bottom:10px;">
+            <table style="width:100%;margin-bottom:10px;border-collapse: collapse;">
                 <tr>
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:15%;">Category</th>
                     <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width:25%;">Description</th>
@@ -808,7 +808,7 @@
                 </tr>
                 <tr *ngFor="let fabricRow of unitRow?.fabricList;let fabricRowNum=index;let fabricLastRowNum=last;">
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Fabric</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{fabricRow.collectionId}}{{fabricRow.serialno}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{fabricRow.collectionName}}{{"-"+fabricRow.serialno}}</td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
                         {{fabricRow.isPatch?"Patch":""}} {{fabricRow.isVerticalPatch?"Vertical":""}} {{fabricRow ? fabricRow.verticalPatchWidth :
                         ""}} {{fabricRow.isHorizontalPatch?"Horizontal":""}} {{fabricRow ? fabricRow.horizontalPatchHeight
@@ -844,7 +844,7 @@
             <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;width:33.33%;font-size:15px;">Accessories</td>
         </tr>
     </table>
-    <table *ngIf="trnWorkOrderObj.isRod" style="width:100%;margin-bottom:10px;">
+    <table *ngIf="trnWorkOrderObj.isRod" style="width:100%;margin-bottom:10px;border-collapse: collapse;">
         <tr>
             <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Descripton</th>
             <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Quantity</th>
@@ -861,7 +861,7 @@
     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
     <!-- Stitching -->
-    <table style="width:100%;margin-bottom:2px;margin-top:-5px;">
+    <!-- <table style="width:100%;margin-bottom:2px;margin-top:-5px;">
         <tr>
             <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;width:33.33%;font-size:15px;">Stitching</td>
         </tr>
@@ -870,7 +870,7 @@
 
 
 
-        <table style="width:100%;">
+        <table style="width:100%;border-collapse: collapse;">
             <tr>
                 <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Area</th>
                 <th style="font-family: Roboto;color: #000;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">Unit</th>
@@ -885,20 +885,20 @@
             </tr>
         </table>
 
-    </div>
+    </div> -->
     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
 
 
-    <div style="width:100%;display:inline;margin-top:15px;">
-        <table style="width: 50%;margin: 0 auto;margin-top: 15px;margin-right: 0;">
+    <!-- <div style="width:100%;display:inline;margin-top:15px;">
+        <table style="width: 50%;margin: 0 auto;margin-top: 15px;margin-right: 0;border-collapse: collapse;">
             <tr>
                 <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;text-align:right;padding:0 1px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Stitching Total</td>
                 <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:400;padding:0 1px;border:1px solid #000;border-collapse:collapse;width:50%;text-align:right;">Rs. {{stitchingTotal ? (stitchingTotal | number:'.0') : ''}}</td>
             </tr>
         </table>
 
-    </div>
+    </div> -->
 
     <div style="text-align:center;width: 100%;margin-top:35px;">
         <label style="font-family:Roboto;font-size:13px;font-weight:400;">This is a Computer Generated Receipt</label>
