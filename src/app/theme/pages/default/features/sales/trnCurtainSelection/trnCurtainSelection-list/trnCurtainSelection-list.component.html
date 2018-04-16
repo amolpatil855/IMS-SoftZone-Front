@@ -86,7 +86,7 @@
                                     </ng-template>
                                 </p-column>
                                 <p-column field="customerName" header="Customer" [style]="{'text-align':'left'}"></p-column>
-                                <p-column field="isQuotationCreated" header="Is Quotation Created" [style]="{'text-align':'right'}">
+                                <p-column field="isQuotationCreated" header="Is Quotation Created" [style]="{'text-align':'left'}">
                                     <ng-template let-col let-data="rowData" pTemplate="body">
                                         {{data[col.field] ? 'Yes' : 'No'}}
                                     </ng-template>
