@@ -15,6 +15,7 @@ export class TrnCurtainQuotation {
     status: string;
     customerName: string;
     agentName: string;
+    expectedDeliveryDate: Date;
     curtainSelectionNo: string;
     advanceAmount: number;
     MstAgent: Agent;
