@@ -63,7 +63,7 @@
 							<div class="ui-widget-header" style="border-bottom: 0 none">
 								<div class="row" style="padding-top: 9px;padding-bottom: 10px;">
                                     <div class="col-md-4">
-                                        <label class="col-md-4 col-sm-4 fieldLabel">Quotation Type</label>
+                                        <label class="col-md-4 col-sm-4 fieldLabel noPadding">Quotation Type</label>
                                         <div class="col-md-8 col-sm-8">
                                             <select class="form-control" name="quotationType" [(ngModel)]="quotationType" (ngModelChange)="onChangeQuotationType()" autofocus tabindex="1">
                                             <option *ngFor="let x of quotationTypeList" [ngValue]="x.value" [selected]="quotationType == x.quotationType">{{x.label}}</option>

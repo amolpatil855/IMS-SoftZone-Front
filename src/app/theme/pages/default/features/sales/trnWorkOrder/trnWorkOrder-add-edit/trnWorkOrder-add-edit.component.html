@@ -215,7 +215,7 @@
                                                                             <div class="col-md-2">
                                                                                 <label class="fieldLabel">Labor</label>
                                                                                 <br/>
-                                                                                <label class="unitFormLabel"> {{unitRow.labourCharges}}</label>
+                                                                                <label class="unitFormLabel"> {{unitRow ? (unitRow.labourCharges | number:'.0') : ''}}</label>
                                                                             </div>
                                                                         </div>
 
@@ -243,6 +243,11 @@
                                                                                         <option *ngFor="let x of fabricRow.shadeList" [ngValue]="x.shadeId" [selected]="fabricRow.shadeId == x.shadeId">{{x.serialno}}</option>
                                                                                     </select> -->
                                                                                     <label class="unitFormLabel">{{fabricRow.serialno}}</label>
+                                                                                </div>
+                                                                                <div class="col-md-1" *ngIf="fabricRow.mstFWRShade && fabricRow.mstFWRShade.mstQuality">
+                                                                                    <label class="fieldLabel">Width</label>
+                                                                                    <br/>
+                                                                                    <label class="unitFormLabel">{{fabricRow.mstFWRShade ? fabricRow.mstFWRShade.mstQuality.width : ""}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1" *ngIf="fabricRow.shadeDetails && fabricRow.shadeDetails.fabricWidth>100">
                                                                                     <label class="fieldLabel">Direction</label>
