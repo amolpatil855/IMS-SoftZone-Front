@@ -261,7 +261,7 @@
                                                                             <div class="col-md-2">
                                                                                 <label class="fieldLabel">Labor</label>
                                                                                 <br/>
-                                                                                <label class="unitFormLabel"> {{unitRow.laborCharges}}</label>
+                                                                                <label class="unitFormLabel"> {{unitRow ? (unitRow.laborCharges | number:'.0') : ''}}</label>
                                                                             </div>
                                                                         </div>
 
@@ -287,6 +287,11 @@
                                                                                         <option *ngFor="let x of fabricRow.shadeList" [ngValue]="x.shadeId" [selected]="fabricRow.shadeId == x.shadeId">{{x.serialno}}</option>
                                                                                     </select> -->
                                                                                     <label class="unitFormLabel">{{fabricRow.serialno}}</label>
+                                                                                </div>
+                                                                                <div class="col-md-1" *ngIf="fabricRow.shadeDetails">
+                                                                                    <label class="fieldLabel">Width</label>
+                                                                                    <br/>
+                                                                                    <label class="unitFormLabel">{{fabricRow.shadeDetails ? fabricRow.shadeDetails.fabricWidth : ""}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1" *ngIf="fabricRow.shadeDetails && fabricRow.shadeDetails.fabricWidth>100">
                                                                                     <label class="fieldLabel">Direction</label>
@@ -320,7 +325,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Rate</label>
                                                                                     <br/>
-                                                                                    <label class="unitFormLabel">{{fabricRow.rate}}</label>
+                                                                                    <label class="unitFormLabel">{{fabricRow ? (fabricRow.rate | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Quantity</label>
@@ -345,7 +350,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br/>
-                                                                                    <label class="unitFormLabel">{{fabricRow.amountWithGST}}</label>
+                                                                                    <label class="unitFormLabel">{{fabricRow ? (fabricRow.amountWithGST | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                                 <!-- <div class="col-md-2">
                                                                                     <button type="button" *ngIf="fabricLastRowNum" pButton (click)="addFabricRow(unitRow)" icon="fa fa-plus" class="editBtn"
@@ -493,7 +498,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Rate</label>
                                                                                     <br/>
-                                                                                    <label class="unitFormLabel">{{accessoryRow.rate}}</label>
+                                                                                    <label class="unitFormLabel">{{accessoryRow ? (accessoryRow.rate | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Quantity</label>
@@ -509,7 +514,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br/>
-                                                                                    <label class="unitFormLabel">{{accessoryRow.amountWithGST}}</label>
+                                                                                    <label class="unitFormLabel">{{accessoryRow ? (accessoryRow.amountWithGST | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                                 <!-- <div class="col-md-2">
                                                                                     <button type="button" *ngIf="accessoryLastRowNum" pButton (click)="addAccessoryRow(unitRow)" icon="fa fa-plus" class="editBtn"
@@ -554,7 +559,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Rate</label>
                                                                                     <br/>
-                                                                                    <label *ngIf="unitRow.isTrack" class="unitFormLabel">{{unitRow.trackRate}}</label>
+                                                                                    <label *ngIf="unitRow.isTrack" class="unitFormLabel">{{unitRow ? (unitRow.trackRate | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Quantity</label>
@@ -570,7 +575,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br>
-                                                                                    <label *ngIf="unitRow.isTrack" class="unitFormLabel">{{unitRow.trackAmountWithGST}}</label>
+                                                                                    <label *ngIf="unitRow.isTrack" class="unitFormLabel">{{unitRow ? (unitRow.trackAmountWithGST | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                             </div>
 
@@ -596,7 +601,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Rate</label>
                                                                                     <br/>
-                                                                                    <label *ngIf="unitRow.isMotor" class="unitFormLabel">{{unitRow.motorRate}}</label>
+                                                                                    <label *ngIf="unitRow.isMotor" class="unitFormLabel">{{unitRow ? (unitRow.motorRate | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Quantity</label>
@@ -612,7 +617,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br>
-                                                                                    <label *ngIf="unitRow.isMotor" class="unitFormLabel">{{unitRow.motorAmountWithGST}}</label>
+                                                                                    <label *ngIf="unitRow.isMotor" class="unitFormLabel">{{unitRow ? (unitRow.motorAmountWithGST | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                             </div>
 
@@ -639,7 +644,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Rate</label>
                                                                                     <br/>
-                                                                                    <label *ngIf="unitRow.isRemote" class="unitFormLabel">{{unitRow.remoteRate}}</label>
+                                                                                    <label *ngIf="unitRow.isRemote" class="unitFormLabel">{{unitRow ? (unitRow.remoteRate | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Quantity</label>
@@ -656,7 +661,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br>
-                                                                                    <label *ngIf="unitRow.isRemote" class="unitFormLabel">{{unitRow.remoteAmountWithGST}}</label>
+                                                                                    <label *ngIf="unitRow.isRemote" class="unitFormLabel">{{unitRow ? (unitRow.remoteAmountWithGST | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                             </div>
 
@@ -716,7 +721,7 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Rate</label>
                                                             <br>
-                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj.rodRate}}</label>
+                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodRate | number:'.0') : ''}}</label>
                                                         </div>
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Quantity</label>
@@ -730,7 +735,7 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Amount</label>
                                                             <br>
-                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj.rodAmountWithGST}}</label>
+                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodAmountWithGST | number:'.0') : ''}}</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -753,7 +758,7 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Rate</label>
                                                             <br>
-                                                            <label *ngIf="trnCurtainQuotationObj.isRodAccessory" class="unitFormLabel">{{trnCurtainQuotationObj.rodItemAccessoryRate}}</label>
+                                                            <label *ngIf="trnCurtainQuotationObj.isRodAccessory" class="unitFormLabel">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodItemAccessoryRate | number:'.0') : ''}}</label>
                                                         </div>
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Quantity</label>
@@ -768,7 +773,7 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Amount</label>
                                                             <br>
-                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj.rodItemAccessoryAmountWithGST}}</label>
+                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodItemAccessoryAmountWithGST | number:'.0') : ''}}</label>
                                                         </div>
                                                     </div>
                                                 </div>
