@@ -333,7 +333,7 @@
                                                                                     <input *ngIf="!fabricRow.isPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.orderQuantity" name="{{'orderQuantity'+fabricRow.contRoleId}}"
                                                                                         placeholder="" tabindex="6" [ngClass]="{'red-border-class': orderQuantityVal.errors && isFormSubmitted}"
                                                                                         #orderQuantityVal="ngModel" [disabled]="trnCurtainQuotationObj.status == 'Approved'"
-                                                                                        required>
+                                                                                        required  (blur)="changeDiscount(fabricRow,fabricRowNum,unitRowNum,rowNum)">
                                                                                     <label *ngIf="fabricRow.isPatch" class="unitFormLabel">{{fabricRow.orderQuantity}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
