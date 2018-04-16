@@ -11,4 +11,5 @@ export class TrnGoodIssueNote {
   mstCustomer: Customer;
   salesOrderNumber: string;
   materialQuotationNumber: string;
+  workOrderNumber: string;
 }
