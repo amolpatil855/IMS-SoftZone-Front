@@ -377,13 +377,18 @@ export class SupplierListComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
+        Helpers.setLoading(true);
         this.supplierService.deleteSupplier(supplier.id).subscribe(
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getSuppliersList();
+            this.isFormSubmitted = false;
+            this.newRecord();
+            Helpers.setLoading(false);
           },
           error => {
             this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
           })
       },
       reject: () => {

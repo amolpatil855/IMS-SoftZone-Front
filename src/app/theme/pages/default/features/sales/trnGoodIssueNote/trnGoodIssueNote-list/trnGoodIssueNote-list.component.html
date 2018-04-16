@@ -75,9 +75,9 @@
 									</span>
 								</button> -->
 							</div>
-							<p-dataTable [value]="trnGoodIssueNoteList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize" [responsive]="true"
-							 [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount"
-							 (onLazyLoad)="loadLazy($event)">
+							<p-dataTable [value]="trnGoodIssueNoteList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize"
+							 [responsive]="true" [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]"
+							 [totalRecords]="totalCount" (onLazyLoad)="loadLazy($event)">
 								<p-column field="ginNumber" header="GIN No." [style]="{'text-align':'center'}"></p-column>
 								<!-- <p-column field="orderDate" header="Date" [style]="{'text-align':'center'}"></p-column> -->
 								<p-column field="ginDate" header="Date" [style]="{'text-align':'center'}">
@@ -86,17 +86,19 @@
 									</ng-template>
 								</p-column>
 								<p-column field="salesOrderNumber" header="Sales Order No." [style]="{'text-align':'center'}"></p-column>
-                                <p-column field="materialQuotationNumber" header="Mat Quotation No." [style]="{'text-align':'center'}"></p-column>
+								<p-column field="workOrderNumber" header="Work Order No." [style]="{'text-align':'center'}"></p-column>
 								<p-column field="customerName" header="Customer" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="status" header="Status" [style]="{'text-align':'left'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">
 									<ng-template pTemplate="header">
 										Action
 									</ng-template>
-                                    <ng-template let-row="rowData" pTemplate="body">
-                                            <button type="button" pButton  *ngIf="row.status != 'Created'" (click)="onEditClick(row)" icon="fa fa-info-circle" class="editBtn" title="View GIN"></button>
-                                            <button type="button"  *ngIf="row.status == 'Created'" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn" title="Edit GIN"></button> 
-                                    </ng-template>
+									<ng-template let-row="rowData" pTemplate="body">
+										<button type="button" pButton *ngIf="row.status != 'Created'" (click)="onEditClick(row)" icon="fa fa-info-circle" class="editBtn"
+										 title="View GIN"></button>
+										<button type="button" *ngIf="row.status == 'Created'" pButton (click)="onEditClick(row)" icon="fa fa-pencil" class="editBtn"
+										 title="Edit GIN"></button>
+									</ng-template>
 								</p-column>
 							</p-dataTable>
 						</div>

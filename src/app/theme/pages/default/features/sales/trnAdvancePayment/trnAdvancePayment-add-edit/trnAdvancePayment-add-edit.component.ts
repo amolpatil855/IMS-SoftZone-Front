@@ -37,8 +37,9 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
   totalAmount: number;
   balanceAmount: number;
   paymentModeList = [];
+  quotationTypeList = [];
   customerList = [];
-  materialQuotationNumberList = [];
+  quotationNumberList = [];
   mstCompanyInfo: any;
   constructor(
     private formBuilder: FormBuilder,
@@ -58,13 +59,17 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
   ngOnInit() {
     this.trnAdvancePaymentObj = new TrnAdvancePayment();
     this.getLoggedInUserDetail();
-    this.getMaterialQuotationLookup();
     let today = new Date();
     this.disabled = false;
     this.trnAdvancePaymentObj.advancePaymentDate = today;
     this.trnAdvancePaymentObj.chequeDate = today;
     this.trnAdvancePaymentObj.materialQuotationId = null;
+    this.trnAdvancePaymentObj.curtainQuotationId = null;
+    this.trnAdvancePaymentObj.quotationType = null;
     this.trnAdvancePaymentObj.paymentMode = null;
+    this.quotationTypeList.push({ label: '--Select--', value: null });
+    this.quotationTypeList.push({ label: 'Curtain', value: 'Curtain' });
+    this.quotationTypeList.push({ label: 'Material', value: 'Material' });
     this.paymentModeList.push({ label: '--Select--', value: null });
     this.paymentModeList.push({ label: 'Cash', value: 'Cash' });
     this.paymentModeList.push({ label: 'Card', value: 'Card' });
@@ -124,12 +129,12 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
     this.trnAdvancePaymentService.getMaterialQuotationLookup().subscribe(
       results => {
         this.quotationObjList = results;
-        this.materialQuotationNumberList = [];
+        this.quotationNumberList = [];
         let vm = this;
         _.forEach(this.quotationObjList, item => {
-          vm.materialQuotationNumberList.push({ label: item.materialQuotationNumber, value: item.id })
+          vm.quotationNumberList.push({ label: item.materialQuotationNumber, value: item.id })
         })
-        this.materialQuotationNumberList.unshift({ label: '--Select--', value: null });
+        this.quotationNumberList.unshift({ label: '--Select--', value: null });
         Helpers.setLoading(false);
       },
       error => {
@@ -138,12 +143,54 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
       });
   }
 
-  onMaterialQuotationNoChange() {
+  getCurtainQuotationLookup() {
+    Helpers.setLoading(true);
+    this.trnAdvancePaymentService.getCurtainQuotationLookup().subscribe(
+      results => {
+        this.quotationObjList = results;
+        this.quotationNumberList = [];
+        let vm = this;
+        _.forEach(this.quotationObjList, item => {
+          vm.quotationNumberList.push({ label: item.curtainQuotationNumber, value: item.id })
+        })
+        this.quotationNumberList.unshift({ label: '--Select--', value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
+  }
+
+  onQuotationTypeChange() {
+    this.quotationNumberList = [];
+    this.quotationNumberList.unshift({ label: '--Select--', value: null });
+    this.trnAdvancePaymentObj.materialQuotationId = null;
+    this.trnAdvancePaymentObj.curtainQuotationId = null;
+    this.trnAdvancePaymentObj.customerName = null;
+    this.trnAdvancePaymentObj.customerId = null;
+    this.totalAmount = null;
+    this.balanceAmount = null;
+    if (this.trnAdvancePaymentObj.quotationType != null) {
+      if (this.trnAdvancePaymentObj.quotationType == "Curtain")
+        this.getCurtainQuotationLookup();
+      else if (this.trnAdvancePaymentObj.quotationType == "Material")
+        this.getMaterialQuotationLookup();
+    }
+  }
+
+  onQuotationNoChange() {
     this.customerList = [];
     this.trnAdvancePaymentObj.customerName = null;
     this.totalAmount = null;
     if (this.trnAdvancePaymentObj.materialQuotationId != null) {
       let qoObj = _.find(this.quotationObjList, ['id', this.trnAdvancePaymentObj.materialQuotationId]);
+      this.trnAdvancePaymentObj.customerName = qoObj.customerName;
+      this.trnAdvancePaymentObj.customerId = qoObj.customerId;
+      this.totalAmount = qoObj.totalAmount;
+      this.balanceAmount = qoObj.balanceAmount;
+    } else if (this.trnAdvancePaymentObj.curtainQuotationId != null) {
+      let qoObj = _.find(this.quotationObjList, ['id', this.trnAdvancePaymentObj.curtainQuotationId]);
       this.trnAdvancePaymentObj.customerName = qoObj.customerName;
       this.trnAdvancePaymentObj.customerId = qoObj.customerId;
       this.totalAmount = qoObj.totalAmount;
@@ -168,8 +215,7 @@ export class TrnAdvancePaymentAddEditComponent implements OnInit {
         this.viewItem = false;
         this.trnAdvancePaymentObj.advancePaymentDate = new Date(this.trnAdvancePaymentObj.advancePaymentDate);
         this.trnAdvancePaymentObj.chequeDate = new Date(this.trnAdvancePaymentObj.chequeDate);
-        if (this.trnAdvancePaymentObj.trnMaterialQuotation)
-          this.totalAmount = this.trnAdvancePaymentObj.trnMaterialQuotation.totalAmount;
+        this.trnAdvancePaymentObj.trnMaterialQuotation != null ? this.totalAmount = this.trnAdvancePaymentObj.trnMaterialQuotation.totalAmount : this.totalAmount = this.trnAdvancePaymentObj.trnCurtainQuotation.totalAmount;
         Helpers.setLoading(false);
       },
       error => {

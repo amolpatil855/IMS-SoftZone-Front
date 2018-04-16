@@ -53,9 +53,11 @@ export class PatternListComponent implements OnInit {
       name: null,
       fabricHeight: null,
       liningHeight: null,
+      woFabricHeight: null,
+      woLiningHeight: null,
       meterPerInch: null,
       widthPerInch: null,
-      setRateForPattern: null,
+      setRateForCustomer: null,
       verticalPatch: null,
       horizontalPatch: null,
     };
@@ -177,6 +179,8 @@ export class PatternListComponent implements OnInit {
           results => {
             this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
             this.getPatternsList();
+            this.isFormSubmitted = false;
+            this.newRecord();
             Helpers.setLoading(false);
           },
           error => {

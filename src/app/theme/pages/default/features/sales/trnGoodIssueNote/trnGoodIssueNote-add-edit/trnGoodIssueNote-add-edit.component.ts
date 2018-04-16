@@ -108,6 +108,15 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
       });
   }
 
+  onChangeIssuedQuantity(row) {
+    row.orderQuantity = parseFloat(row.orderQuantity);
+    row.availableStock = parseFloat(row.availableStock);
+    row.issuedQuantity = parseFloat(row.issuedQuantity);
+    if (!row.issuedQuantity || row.issuedQuantity > row.orderQuantity || row.issuedQuantity > row.availableStock) {
+      row.issuedQuantity = 0;
+    }
+  }
+
   enableEdit(row) {
     row.enable = true;
   }

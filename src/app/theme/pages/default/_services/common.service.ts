@@ -19,7 +19,7 @@ export class CommonService {
   courierModeData = ['Surface', 'Air'];
   getStateList() {
     let stateList = this.states;
-    stateList.push({ label: '--Select--', value: '0' });
+    stateList.push({ label: '--Select--', value: null });
     this.stateData.forEach(function(element) {
       stateList.push({ label: element, value: element });
     });
@@ -28,7 +28,7 @@ export class CommonService {
   getCourierMode() {
     let courierMode = this.courierMode;
     courierMode.push({ label: '--Select--', value: '0' });
-    this.courierModeData.forEach(function(element) {
+    this.courierModeData.forEach(function (element) {
       courierMode.push({ label: element, value: element });
     });
   }
@@ -37,6 +37,38 @@ export class CommonService {
     let gender = ["Male", "Female", "Other"];
     return gender;
     //return this.http.get(AppSettings.API_ENDPOINT + 'categories', AppSettings.requestOptions()).map((response: Response) => response.json());  
+  }
+
+  getPatternLookup() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetPatternLookup', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getAllPatternData() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetAllPatterns', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getRodAccessoryItemCodeForCQ() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetRodAccessoryItemCodeForCQ', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getRodAccessoriesItemCodeForCQ() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetRodAccessoriesItemCodeForCQ', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getMotorItemCodeForCQ() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetMotorAccessoryItemCodeForCQ', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getRemoteCodeForCQ() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetRemoteAccessoryItemCodeForCQ', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  getGetAllTailors() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetAllTailors', AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  GetTrackAccessoryItemCodeForCQ() {
+    return this.http.get(AppSettings.API_ENDPOINT + 'Common/GetTrackAccessoryItemCodeForCQ', AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getCategoryCodes() {

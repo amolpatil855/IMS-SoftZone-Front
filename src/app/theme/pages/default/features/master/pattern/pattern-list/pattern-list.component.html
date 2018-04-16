@@ -78,7 +78,7 @@
 														 [(ngModel)]="patternObj.name" name="name" id="name" placeholder="" autofocus tabindex="1">
 													</div>
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxPattern">
-														<label class="fieldLabel col-sm-5">Fabric Height<span class="requiredField">*</span></label>
+														<label class="fieldLabel col-sm-5">Fabric Height+<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
 															<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #fabricHeightVal="ngModel"
 															 required [(ngModel)]="patternObj.fabricHeight" [ngClass]="{'red-border-class': fabricHeightVal.errors && isFormSubmitted}"
@@ -86,11 +86,29 @@
 														</div>
 													</div>
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxPattern">
-														<label class="fieldLabel col-sm-5">Lining Height<span class="requiredField">*</span></label>
+														<label class="fieldLabel col-sm-5">Lining Height+<span class="requiredField">*</span></label>
 														<div class="col-sm-7">
 															<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #liningHeightVal="ngModel"
 															 required [(ngModel)]="patternObj.liningHeight" [ngClass]="{'red-border-class': liningHeightVal.errors && isFormSubmitted}"
 															 name="liningHeight" id="liningHeight" placeholder="" autocomplete="off" tabindex="3">
+														</div>
+													</div>
+													<div class="col-lg-3 col-md-6 formContentbox formContentboxPattern">
+														<label class="fieldLabel col-sm-5">WO Fabric Height+<span class="requiredField">*</span></label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #woFabricHeightVal="ngModel"
+															 required [(ngModel)]="patternObj.woFabricHeight" [ngClass]="{'red-border-class': woFabricHeightVal.errors && isFormSubmitted}"
+															 name="woFabricHeight" id="woFabricHeight" placeholder="" autocomplete="off" tabindex="2">
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-lg-3 col-md-6 formContentbox formContentboxPattern">
+														<label class="fieldLabel col-sm-5">WO Lining Height+<span class="requiredField">*</span></label>
+														<div class="col-sm-7">
+															<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #woLiningHeightVal="ngModel"
+															 required [(ngModel)]="patternObj.woLiningHeight" [ngClass]="{'red-border-class': woLiningHeightVal.errors && isFormSubmitted}"
+															 name="woLiningHeight" id="woLiningHeight" placeholder="" autocomplete="off" tabindex="3">
 														</div>
 													</div>
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxPattern">
@@ -101,8 +119,6 @@
 															 name="meterPerInch" id="meterPerInch" placeholder="" autocomplete="off" tabindex="4">
 														</div>
 													</div>
-												</div>
-												<div class="form-group">
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxPattern">
 														<div class="form-group">
 															<label class="fieldLabel col-sm-5">Width Per Inch<span class="requiredField">*</span></label>
@@ -115,14 +131,16 @@
 													</div>
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxPattern">
 														<div class="form-group">
-															<label class="fieldLabel col-sm-5">Set Rate For Pattern<span class="requiredField">*</span></label>
+															<label class="fieldLabel col-sm-5">Set Rate<span class="requiredField">*</span></label>
 															<div class="col-sm-7">
-																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #setRateForPatternVal="ngModel"
-																 required [(ngModel)]="patternObj.setRateForPattern" [ngClass]="{'red-border-class': setRateForPatternVal.errors && isFormSubmitted}"
-																 name="setRateForPattern" id="setRateForPattern" placeholder="" autocomplete="off" tabindex="6">
+																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #setRateForCustomerVal="ngModel"
+																 required [(ngModel)]="patternObj.setRateForCustomer" [ngClass]="{'red-border-class': setRateForCustomerVal.errors && isFormSubmitted}"
+																 name="setRateForCustomer" id="setRateForCustomer" placeholder="" autocomplete="off" tabindex="6">
 															</div>
 														</div>
 													</div>
+												</div>
+												<div class="form-group">
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxPattern">
 														<div class="form-group">
 															<label class="fieldLabel col-sm-5">Vertical Patch<span class="requiredField">*</span></label>
@@ -178,11 +196,11 @@
 							 [responsive]="true" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount"
 							 (onLazyLoad)="loadLazy($event)">
 								<p-column field="name" header="Name" [style]="{'text-align':'left'}"></p-column>
-								<p-column field="fabricHeight" header="Fabric Height" [style]="{'text-align':'left'}"></p-column>
-								<p-column field="liningHeight" header="Lining Height" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="fabricHeight" header="Fabric Height +" [style]="{'text-align':'left'}"></p-column>
+								<p-column field="liningHeight" header="Lining Height +" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="meterPerInch" header="Meter Per Inch" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="widthPerInch" header="Width Per Inch" [style]="{'text-align':'left'}"></p-column>
-								<p-column field="setRateForPattern" header="Set Rate For Pattern" [style]="{'text-align':'right'}"></p-column>
+								<p-column field="setRateForCustomer" header="Set Rate For Customer" [style]="{'text-align':'right'}"></p-column>
 								<p-column field="verticalPatch" header="Vertical Patch" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="horizontalPatch" header="Horizontal Patch" [style]="{'text-align':'left'}"></p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">

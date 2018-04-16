@@ -174,9 +174,9 @@
                                                                 <span class="requiredField">*</span>
                                                             </label>
                                                             <div class="col-sm-7">
-                                                                <p-dropdown class="feePlanBox" [options]="states" [style]="{'width':'100%'}" required styleClass="{{ agentObj.invalidState && isFormSubmitted?'red-border-class':''}}"
-                                                                    [(ngModel)]="agentObj.state" (onChange)="validateState(agentObj)"
-                                                                    name="state" filter="true" tabindex="7"></p-dropdown>
+                                                                <select class="form-control" required name="state" [(ngModel)]="agentObj.state" #selectedStateVal="ngModel" [ngClass]="{'red-border-class': selectedStateVal.errors && isFormSubmitted}" style="float: left;width: 100%;" tabindex="7">
+																		<option *ngFor="let x of states" [ngValue]="x.value">{{x.label}}</option>
+																</select>
                                                             </div>
                                                         </div>
                                                     </div>
