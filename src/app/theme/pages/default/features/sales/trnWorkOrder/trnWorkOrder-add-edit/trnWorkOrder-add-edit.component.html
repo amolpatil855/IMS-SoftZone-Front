@@ -46,8 +46,8 @@
                 title="Approve" (click)="onApprove()" tabindex="7">
                 Approve
             </button>
-            <button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"
-                form="trnCurtainSelectionForm" title="{{(trnCurtainSelectionForm && trnCurtainSelectionForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+            <button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnCurtainSelectionForm"
+                title="{{(trnCurtainSelectionForm && trnCurtainSelectionForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
                 [isAuthorize]="['workorder']" tabindex="16">
                 {{ params ? 'Update' : 'Save' }}
             </button>
@@ -91,10 +91,10 @@
                                                                     <div class="col-md-6">
                                                                         <label class="col-md-4 col-sm-4 fieldLabel noPadding">Date</label>
                                                                         <div class="col-md-8 col-sm-8">
-                                                                            <p-calendar class="purchaseOrderDate" #WorkOrderDateVal="ngModel" [(ngModel)]="trnWorkOrderObj.workOrderDate" name="WorkOrderDate"
+                                                                            <p-calendar class="purchaseOrderDate" #workOrderDateVal="ngModel" [(ngModel)]="trnWorkOrderObj.workOrderDate" name="workOrderDate"
                                                                                 [monthNavigator]="true" [yearNavigator]="true"
                                                                                 tabindex="1" [disabled]="disabled" yearRange="2015:2030"
-                                                                                dateFormat="dd/mm/yy" styleClass="{{ WorkOrderDateVal.errors && isFormSubmitted?'red-border-class':''}}"
+                                                                                dateFormat="dd/mm/yy" styleClass="{{ workOrderDateVal.errors && isFormSubmitted?'red-border-class':''}}"
                                                                                 autofocus required></p-calendar>
                                                                         </div>
                                                                     </div>
@@ -215,7 +215,7 @@
                                                                             <div class="col-md-2">
                                                                                 <label class="fieldLabel">Labor</label>
                                                                                 <br/>
-                                                                                <label class="unitFormLabel"> {{unitRow.labourCharges}}</label>
+                                                                                <label class="unitFormLabel"> {{unitRow ? (unitRow.labourCharges | number:'.0') : ''}}</label>
                                                                             </div>
                                                                         </div>
 
@@ -243,6 +243,11 @@
                                                                                         <option *ngFor="let x of fabricRow.shadeList" [ngValue]="x.shadeId" [selected]="fabricRow.shadeId == x.shadeId">{{x.serialno}}</option>
                                                                                     </select> -->
                                                                                     <label class="unitFormLabel">{{fabricRow.serialno}}</label>
+                                                                                </div>
+                                                                                <div class="col-md-1" *ngIf="fabricRow.mstFWRShade && fabricRow.mstFWRShade.mstQuality">
+                                                                                    <label class="fieldLabel">Width</label>
+                                                                                    <br/>
+                                                                                    <label class="unitFormLabel">{{fabricRow.mstFWRShade ? fabricRow.mstFWRShade.mstQuality.width : ""}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1" *ngIf="fabricRow.shadeDetails && fabricRow.shadeDetails.fabricWidth>100">
                                                                                     <label class="fieldLabel">Direction</label>
@@ -753,14 +758,14 @@
             <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:0px;padding-bottom:0px;font-weight:400;padding-right:10px;padding-left:10px;">{{trnWorkOrderObj ? trnWorkOrderObj.customerName : ""}}</td>
         </tr>
         <tr>
-            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:0px;padding-bottom:0px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Quotation No:</td>
-            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:0px;padding-bottom:0px;font-weight:400;padding-right:10px;padding-left:10px;">{{trnWorkOrderObj ? trnWorkOrderObj.WorkOrderNumber : ""}}</td>
+            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:0px;padding-bottom:0px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Work Order No:</td>
+            <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:0px;padding-bottom:0px;font-weight:400;padding-right:10px;padding-left:10px;">{{trnWorkOrderObj ? trnWorkOrderObj.workOrderNumber : ""}}</td>
         </tr>
     </table>
     <table style="float:right;">
         <tr>
             <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:0px;padding-bottom:0px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Date:</td>
-            <td style="font-family: Roboto;padding-top:0px;padding-bottom:0px;color: #000;font-weight:500;font-weight:400;padding-right:10px;padding-left:10px;">12/4/2018</td>
+            <td style="font-family: Roboto;padding-top:0px;padding-bottom:0px;color: #000;font-weight:500;font-weight:400;padding-right:10px;padding-left:10px;">{{trnWorkOrderObj ? (trnWorkOrderObj.workOrderDate | date: 'dd/MM/yyyy') : ""}}</td>
         </tr>
         <tr>
             <td style="font-family: Roboto;color: #000;font-weight:500;padding-top:0px;padding-bottom:0px;font-weight:500;text-align:right;padding-right:10px;padding-left:10px;">Delivery Date:</td>
@@ -791,8 +796,8 @@
                     <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:25%;font-size:13px;">Unit:
                         <span style="font-weight:400;">{{unitRow.unit}}</span>
                     </td>
-                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:25%;font-size:13px;">H/W:
-                        <span style="font-weight:400;">{{unitRow.unitHeight}} {{unitRow.unitWidth}}</span>
+                    <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:25%;font-size:13px;">HxW:
+                        <span style="font-weight:400;">{{unitRow.unitHeight}}{{ "x"+unitRow.unitWidth}}</span>
                     </td>
                     <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;border:1px solid #000;border-collapse:collapse;padding:0 1px;width:25%;font-size:13px;">Pattern:
                         <span style="font-weight:400;">{{unitRow.mstPattern ? unitRow.mstPattern.name : "" }}</span>
@@ -808,21 +813,21 @@
                 </tr>
                 <tr *ngFor="let fabricRow of unitRow?.fabricList;let fabricRowNum=index;let fabricLastRowNum=last;">
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Fabric</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{fabricRow.collectionId}}{{fabricRow.serialno}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{fabricRow.collectionName}}{{"-"+fabricRow.serialno}}</td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
                         {{fabricRow.isPatch?"Patch":""}} {{fabricRow.isVerticalPatch?"Vertical":""}} {{fabricRow ? fabricRow.verticalPatchWidth :
                         ""}} {{fabricRow.isHorizontalPatch?"Horizontal":""}} {{fabricRow ? fabricRow.horizontalPatchHeight
                         : ""}} {{fabricRow.isLining?"Lining":""}} {{(!fabricRow.isPatch && !fabricRow.isLining)?"Main":""}}
                     </td>
-                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{fabricRow.orderQuantity}}</td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;text-align:center;">{{fabricRow.orderQuantity}}</td>
                 </tr>
                 <tr *ngFor="let accessoryRow of unitRow.accessoryList;let accessoryRowNum=index;let accessoryLastRowNum=last;">
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Accessory</td>
-                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{ accessoryRow.accessoriesDetails ? accessoryRow.accessoriesDetails.itemCode:""}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{ accessoryRow.mstAccessory?accessoryRow.mstAccessory.itemCode:""}}</td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
 
                     </td>
-                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{accessoryRow.orderQuantity}}</td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;text-align:center;">{{accessoryRow.orderQuantity}}</td>
                 </tr>
                 <tr *ngIf="unitRow.isTrack">
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Accessory</td>
@@ -831,7 +836,7 @@
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
                         Track
                     </td>
-                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">{{unitRow.trackQuantity}}</td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;text-align:center;">{{unitRow.trackQuantity}}</td>
                 </tr>
             </table>
         </div>
@@ -861,7 +866,7 @@
     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
     <!-- Stitching -->
-    <table style="width:100%;margin-bottom:2px;margin-top:-5px;">
+    <!-- <table style="width:100%;margin-bottom:2px;margin-top:-5px;">
         <tr>
             <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;width:33.33%;font-size:15px;">Stitching</td>
         </tr>
@@ -881,16 +886,16 @@
                 <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">{{areaRow.area}}</td>
                 <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;width: 25%;">{{unitRow.unit}}</td>
                 <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;width: 25%;">{{unitRow.mstPattern ? unitRow.mstPattern.name : "" }}</td>
-                <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 25%;">{{unitRow ? (unitRow.laborCharges | number:'.0') : ''}}</td>
+                <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;width: 25%;">{{unitRow ? (unitRow.labourCharges | number:'.0') : ''}}</td>
             </tr>
         </table>
 
-    </div>
+    </div> -->
     <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
 
 
-    <div style="width:100%;display:inline;margin-top:15px;">
+    <!-- <div style="width:100%;display:inline;margin-top:15px;">
         <table style="width: 50%;margin: 0 auto;margin-top: 15px;margin-right: 0;border-collapse: collapse;">
             <tr>
                 <td style="font-family: Roboto;color: #000;font-weight:500;font-weight:500;text-align:right;padding:0 1px;vertical-align:top;font-size:13px;border:1px solid #000;border-collapse:collapse;width:50%;">Stitching Total</td>
@@ -898,7 +903,7 @@
             </tr>
         </table>
 
-    </div>
+    </div> -->
 
     <div style="text-align:center;width: 100%;margin-top:35px;">
         <label style="font-family:Roboto;font-size:13px;font-weight:400;">This is a Computer Generated Receipt</label>

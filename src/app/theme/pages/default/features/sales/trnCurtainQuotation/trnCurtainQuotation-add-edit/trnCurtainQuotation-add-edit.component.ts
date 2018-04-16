@@ -116,6 +116,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             results => {
               this.trnCurtainQuotationObj = results;
               this.trnCurtainQuotationObj.curtainQuotationDate = new Date();
+              this.trnCurtainQuotationObj.expectedDeliveryDate = null;
               this.trnCurtainQuotationItems = this.trnCurtainQuotationObj.trnCurtainQuotationItems;
               this.formatGetData(results);
               Helpers.setLoading(false);
@@ -778,6 +779,12 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     }
   }
 
+  onDateSelect() {
+    if (this.trnCurtainQuotationObj.expectedDeliveryDate < this.trnCurtainQuotationObj.curtainQuotationDate) {
+      this.trnCurtainQuotationObj.expectedDeliveryDate = new Date();
+    }
+  }
+
   getTrnCurtainQuotationById(id) {
     Helpers.setLoading(true);
     this.trnCurtainQuotationService.getTrnCurtainQuotationById(id).subscribe(
@@ -790,6 +797,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           this.viewItem = false;
         }
         this.trnCurtainQuotationObj.curtainQuotationDate = new Date(this.trnCurtainQuotationObj.curtainQuotationDate);
+        this.trnCurtainQuotationObj.expectedDeliveryDate = new Date(this.trnCurtainQuotationObj.expectedDeliveryDate);
+        if (this.trnCurtainQuotationObj.expectedDeliveryDate.getFullYear() < 2017) {
+          this.trnCurtainQuotationObj.expectedDeliveryDate = null;
+        }
         this.customerShippingAddress = this.trnCurtainQuotationObj.mstCustomer.mstCustomerAddresses[0];
         this.trnCurtainQuotationItems = results.trnCurtainQuotationItems;
 
@@ -1456,7 +1467,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
   saveTrnCurtainQuotation(value) {
     let tempcurtainQuotationDate = new Date(value.curtainQuotationDate);
+    let tempExpectedDeliveryDate = new Date(value.expectedDeliveryDate);
     value.curtainQuotationDate = new Date(tempcurtainQuotationDate.setHours(23));
+    value.expectedDeliveryDate = new Date(tempExpectedDeliveryDate.setHours(23));
     Helpers.setLoading(true);
     if (this.params) {
       this.trnCurtainQuotationService.updateTrnCurtainQuotation(value)
