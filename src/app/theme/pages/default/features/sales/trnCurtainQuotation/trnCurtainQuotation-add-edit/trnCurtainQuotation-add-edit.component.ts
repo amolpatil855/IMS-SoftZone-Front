@@ -700,9 +700,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let quantityArray = tempQuantity.split('.');
     if (quantityArray.length > 1) {
       if (parseInt(quantityArray[1]) > 50) {
-        partNumber = parseInt(quantityArray[1]) % 10;
-        partNumber = (10 - partNumber) / 10;
-        orderQuantity = parseInt(quantityArray[0]) + partNumber;
+        // partNumber = parseInt(quantityArray[1]) % 10;
+        // partNumber = (10 - partNumber) / 10;
+        // orderQuantity = parseInt(quantityArray[0]) + partNumber;
+        orderQuantity = parseInt(quantityArray[0]) + 1;
       }
       else {
         orderQuantity = parseInt(quantityArray[0]) + 0.5;
@@ -879,7 +880,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': false, 'isRod': false });
             _.forEach(accssoryDataList, function (temp) {
               temp.contRoleId = Math.floor(Math.random() * 2000),
-              temp.rate = temp.accessoriesDetails.sellingRate;
+                temp.rate = temp.accessoriesDetails.sellingRate;
               temp.rateWithGST = temp.rate + ((temp.rate * temp.accessoriesDetails.gst) / 100);
             });
             value.accessoryList = accssoryDataList;
@@ -917,7 +918,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
             let remoteObj = _.find(results.trnCurtainQuotationItems, { "isRemote": true, unit: value.unit });
             if (motorObj) {
-              if(remoteObj != null){
+              if (remoteObj != null) {
                 remoteAccessoryAmount = remoteAccessoryAmount + remoteObj.amountWithGST;
                 value.remoteAccessoriesDetails = remoteObj.accessoriesDetails;
                 value.remoteId = remoteObj.id;
@@ -1041,18 +1042,21 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   onChangeRodAccesory() {
     let shadeObj = _.find(this.rodCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodAccessoryId]);
     this.trnCurtainQuotationObj.rodRate = shadeObj.sellingRate;
+    this.trnCurtainQuotationObj.rodItemCode = shadeObj.itemCode;
     this.trnCurtainQuotationObj.rodRateWithGST = Math.round(this.trnCurtainQuotationObj.rodRate + ((this.trnCurtainQuotationObj.rodRate * shadeObj.gst) / 100));
 
   }
 
   onChangeRodItemAccessory() {
     let shadeObj = _.find(this.rodAccessoriesCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodItemAccessoryId]);
+    this.trnCurtainQuotationObj.rodItemAccessoryItemCode = shadeObj.itemCode;
     this.trnCurtainQuotationObj.rodItemAccessoryRate = shadeObj.sellingRate;
     this.trnCurtainQuotationObj.rodItemAccessoryRateWithGST = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryRate + ((this.trnCurtainQuotationObj.rodItemAccessoryRate * shadeObj.gst) / 100));
   }
 
   onChangeTrackAccesory(accessoryRow) {
     let shadeObj = _.find(this.trackCodeList, ['accessoryId', accessoryRow.trackAccessoryId]);
+    accessoryRow.trackItemCode = shadeObj.itemCode;
     accessoryRow.trackRate = shadeObj.sellingRate;
     accessoryRow.trackRateWithGST = Math.round(accessoryRow.trackRate + (accessoryRow.trackRate * shadeObj.gst) / 100);
     accessoryRow.trackQuantity = Math.round(accessoryRow.unitWidth / 12);
@@ -1062,12 +1066,14 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   onChangeMotorAccesory(accessoryRow) {
     let shadeObj = _.find(this.motorCodeList, ['accessoryId', accessoryRow.motorAccessoryId]);
     accessoryRow.motorRate = shadeObj.sellingRate;
+    accessoryRow.motorItemCode = shadeObj.itemCode;
     accessoryRow.motorRateWithGST = Math.round(accessoryRow.motorRate + (accessoryRow.motorRate * shadeObj.gst) / 100);
     accessoryRow.motorAmount = Math.round(parseFloat(accessoryRow.motorQuantity) * parseFloat(accessoryRow.motorRateWithGST));
   }
   onChangeRemoteAccesory(accessoryRow) {
     let shadeObj = _.find(this.remoteCodeList, ['accessoryId', accessoryRow.remoteAccessoryId]);
     accessoryRow.remoteRate = shadeObj.sellingRate;
+    accessoryRow.remoteItemCode = shadeObj.itemCode;
     accessoryRow.remoteRateWithGST = Math.round(accessoryRow.motorRate + (accessoryRow.motorRate * shadeObj.gst) / 100);
     accessoryRow.remoteAmount = Math.round(parseFloat(accessoryRow.remoteQuantity) * parseFloat(accessoryRow.remoteRateWithGST));
   }
@@ -1300,8 +1306,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
             "categoryName": 'Fabric',
             "collectionName": collectionObj ? collectionObj.label : '',
-            // "serialno": "5",
-            // "itemCode": null
+            "serialno": fabricobj.serialno,
           }
           vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
         });
@@ -1327,8 +1332,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "discount": null,
             "categoryName": "Accessories",
             "collectionName": null,
-            // "serialno": "5",
-            // "itemCode": null
+            "itemCode": accessoryobj.itemCode
           }
           vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
         });
@@ -1358,7 +1362,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "categoryName": "Accessories",
             "collectionName": null,
             // "serialno": "5",
-            // "itemCode": null
+            "itemCode": unitObj.trackItemCode
           }
           if (obj)
             vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
@@ -1385,7 +1389,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "categoryName": "Accessories",
             "collectionName": null,
             // "serialno": "5",
-            // "itemCode": null
+            "itemCode": unitObj.motorItemCode
           }
           if (obj)
             vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
@@ -1412,7 +1416,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "categoryName": "Accessories",
             "collectionName": null,
             // "serialno": "5",
-            // "itemCode": null
+            "itemCode": unitObj.remoteItemCode
           }
           if (obj)
             vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
@@ -1438,7 +1442,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         "categoryName": "Accessories",
         "collectionName": null,
         // "serialno": "5",
-        // "itemCode": null
+        "itemCode": vm.trnCurtainQuotationObj.rodItemCode
       }
       vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
 
@@ -1460,7 +1464,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           "categoryName": "Accessories",
           "collectionName": null,
           // "serialno": "5",
-          // "itemCode": null
+          "itemCode": vm.trnCurtainQuotationObj.rodItemAccessoryItemCode
         }
         vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
       }
