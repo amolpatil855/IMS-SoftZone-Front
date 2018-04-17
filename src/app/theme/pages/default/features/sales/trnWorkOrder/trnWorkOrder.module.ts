@@ -40,7 +40,7 @@ const routes: Routes = [
                         component: TrnWorkOrderListComponent,
                         canActivate: [AuthGuard],
                         data: {
-                            permissions: ['salesorder']
+                            permissions: ['workorder']
                         }
                     },
                     {
@@ -48,7 +48,7 @@ const routes: Routes = [
                         component: TrnWorkOrderAddEditComponent,
                         canActivate: [AuthGuard],
                         data: {
-                            permissions: ['salesorder']
+                            permissions: ['workorder']
                         }
                     },
                     {
@@ -56,7 +56,7 @@ const routes: Routes = [
                         component: TrnWorkOrderAddEditComponent,
                         canActivate: [AuthGuard],
                         data: {
-                            permissions: ['salesorder']
+                            permissions: ['workorder']
                         }
                     },
                 ]

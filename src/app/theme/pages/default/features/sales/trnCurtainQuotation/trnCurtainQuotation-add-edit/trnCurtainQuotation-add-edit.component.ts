@@ -1267,7 +1267,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             "shadeId": fabricobj.shadeId,
             "accessoryId": null,
             "isPatch": fabricobj.isPatch,
-
+            "fabricDirection": fabricobj.fabricDirection,
             "isVerticalPatch": fabricobj.isVerticalPatch,
             "noOfVerticalPatch": fabricobj.noOfVerticalPatch,
             "verticalPatchWidth": fabricobj.verticalPatchWidth,
