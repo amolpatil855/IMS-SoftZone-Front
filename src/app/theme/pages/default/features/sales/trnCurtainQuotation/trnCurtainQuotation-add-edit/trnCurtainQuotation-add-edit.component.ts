@@ -655,7 +655,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let selectedPatternId = this.trnCurtainQuotationObj.areaList[rowNum].unitList[unitRowNum].patternId;
     let selectedPatternObj = _.find(this.patternList, { id: selectedPatternId });
     if (selectedPatternObj) {
-      let tempQuantity = ((parseFloat(fabricRow.horizontalPatchHeight) + parseFloat(selectedPatternObj.horizontalPatch)) / parseFloat(selectedPatternObj.meterPerInch)).toFixed(2);
+      let tempQuantity = (((parseFloat(fabricRow.horizontalPatchHeight) + parseFloat(selectedPatternObj.horizontalPatch)) / parseFloat(selectedPatternObj.meterPerInch))* parseFloat(fabricRow.noOfHorizontalPatch)).toFixed(2);
       let patchQuantity = parseFloat(tempQuantity);
       // let patchsize = (parseFloat(fabricRow.horizontalPatchHeight) + parseFloat(selectedPatternObj.horizontalPatch)) * parseFloat(fabricRow.noOfVerticalPatch);
       // while (patchsize < unitRow.unitWidth) {
