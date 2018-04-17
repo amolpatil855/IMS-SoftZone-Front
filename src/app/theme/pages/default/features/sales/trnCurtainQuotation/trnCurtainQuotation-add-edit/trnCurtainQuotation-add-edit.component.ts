@@ -625,8 +625,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       let tempQuantity = ((parseFloat(unitRow.unitHeight) + 12) / parseFloat(selectedPatternObj.meterPerInch)).toFixed(2);
       let patchQuantity = parseFloat(tempQuantity);
       let patchsize = (parseFloat(fabricRow.verticalPatchWidth) + parseFloat(selectedPatternObj.verticalPatch)) * parseFloat(fabricRow.noOfVerticalPatch);
-      while (fabricRow.shadeDetails.fabricWidth > patchsize) {
-        patchsize = patchsize + patchsize;
+      let fabricWidth=_.cloneDeep(fabricRow.shadeDetails.fabricWidth);
+      while (fabricRow.shadeDetails.fabricWidth < patchsize) {
+        fabricWidth = fabricWidth + fabricWidth;
         patchQuantity = patchQuantity + patchQuantity;
       }
       fabricRow.verticalPatchQuantity = patchQuantity;
