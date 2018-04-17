@@ -269,7 +269,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
         Helpers.setLoading(true);
         this.trnCurtainSelectionService.viewCurtainQuotation(this.trnCurtainSelectionObj.id).subscribe(
           result => {
-            this.router.navigate(['/features/sales/trnCurtainSelection/edit', result], { queryParams: { curtainQu0tationId: result } });
+            this.router.navigate(['/features/sales/trnCurtainQuotation/edit', result], { queryParams: { curtainQuotationId: result } });
             Helpers.setLoading(false);
           },
           error => {

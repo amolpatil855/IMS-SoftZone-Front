@@ -528,6 +528,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       let quantity = 0;// ((unitRow.unitHeight + )/ selectedPatternObj.meterPerInch);
 
       _.forEach(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].fabricList, function (fabObj, index) {
+        fabObj.orderQuantity = 0;
         if (fabObj.isLining || (!fabObj.isLining && !fabObj.isPatch)) {
           if (fabObj.shadeDetails.fabricWidth <= 100) {
             if (fabObj.isLining)
@@ -537,21 +538,27 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           }
           else {
             if (fabObj.isLining && fabObj.fabricDirection == "Vertical") {
-              fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
-              let fabricWidth = _.cloneDeep(fabObj.shadeDetails.fabricWidth);
-              while (fabricWidth < unitRow.unitHeight) {
-                fabricWidth = fabricWidth + fabricWidth;
-                fabObj.orderQuantity = fabObj.orderQuantity + fabObj.orderQuantity;
+              if (unitRow.numberOfPanel) {
+                fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
+                let tempQuantity = parseFloat(fabObj.orderQuantity);
+                let fabricWidth = _.cloneDeep(fabObj.shadeDetails.fabricWidth);
+                while (fabricWidth < unitRow.unitHeight) {
+                  fabricWidth = parseFloat(fabricWidth) + parseFloat(fabObj.shadeDetails.fabricWidth);
+                  fabObj.orderQuantity = parseFloat(fabObj.orderQuantity) + tempQuantity;
+                }
               }
             }
             else if (fabObj.isLining && fabObj.fabricDirection == "Horizontal")
               fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.liningHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
             else if (!fabObj.isLining && fabObj.fabricDirection == "Vertical") {
-              fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
-              let fabricWidth = _.cloneDeep(fabObj.shadeDetails.fabricWidth);
-              while (fabricWidth < unitRow.unitHeight) {
-                fabricWidth = fabricWidth + fabricWidth;
-                fabObj.orderQuantity = fabObj.orderQuantity + fabObj.orderQuantity;
+              if (unitRow.numberOfPanel) {
+                fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
+                let tempQuantity = parseFloat(fabObj.orderQuantity);
+                let fabricWidth = _.cloneDeep(fabObj.shadeDetails.fabricWidth);
+                while (fabricWidth < unitRow.unitHeight) {
+                  fabricWidth = parseFloat(fabricWidth) + parseFloat(fabricWidth);
+                  fabObj.orderQuantity = parseFloat(fabObj.orderQuantity) + tempQuantity;
+                }
               }
             } else if (!fabObj.isLining && fabObj.fabricDirection == "Horizontal")
               fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
@@ -624,9 +631,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       let tempQuantity = ((parseFloat(unitRow.unitHeight) + 12) / parseFloat(selectedPatternObj.meterPerInch)).toFixed(2);
       let patchQuantity = parseFloat(tempQuantity);
       let patchsize = (parseFloat(fabricRow.verticalPatchWidth) + parseFloat(selectedPatternObj.verticalPatch)) * parseFloat(fabricRow.noOfVerticalPatch);
-      while (fabricRow.shadeDetails.fabricWidth > patchsize) {
-        patchsize = patchsize + patchsize;
-        patchQuantity = patchQuantity + patchQuantity;
+      let fabricWidth=_.cloneDeep(fabricRow.shadeDetails.fabricWidth);
+      while (fabricWidth < patchsize) {
+        fabricWidth = fabricWidth + fabricRow.shadeDetails.fabricWidth;
+        patchQuantity = patchQuantity + parseFloat(tempQuantity);
       }
       fabricRow.verticalPatchQuantity = patchQuantity;
       fabricRow.orderQuantity = fabricRow.horizontalPatchQuantity + fabricRow.verticalPatchQuantity;
