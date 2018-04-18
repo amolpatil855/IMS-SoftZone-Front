@@ -167,7 +167,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   onApprove() {
     let vm = this;
     if (this.params) {
-      if (vm.grandTotalWithoutLabourCharges > this.trnCurtainQuotationObj.advanceAmount) {
+      if (Math.round(vm.grandTotalWithoutLabourCharges*0.8) > parseInt(this.trnCurtainQuotationObj.advanceAmount)) {
         this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Advance amount must be greater than grand total." });
         return false;
       }
@@ -487,16 +487,16 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
 
   onUnitWidthChange(unitRow, unitIndex, areaIndex) {
-    if (!unitRow.unitWidth)
-      return;
-    let selectedPatternId = this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].patternId;
-    let selectedPatternObj = _.find(this.patternList, { id: selectedPatternId });
-    if (selectedPatternObj) {
-      this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel = Math.ceil(unitRow.unitWidth / selectedPatternObj.widthPerInch);
+    if (unitRow.unitWidth){
+      let selectedPatternId = this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].patternId;
+      let selectedPatternObj = _.find(this.patternList, { id: selectedPatternId });
+      if (selectedPatternObj) {
+        this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel = Math.ceil(unitRow.unitWidth / selectedPatternObj.widthPerInch);
 
-      this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].laborCharges = Math.round(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel * selectedPatternObj.setRateForCustomer);
-      this.onUnitHeightChange(unitRow, unitIndex, areaIndex);
-
+        this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].laborCharges = Math.round(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel * selectedPatternObj.setRateForCustomer);
+        this.onUnitHeightChange(unitRow, unitIndex, areaIndex);
+        this.calculateGrandTotal();
+      }
     }
   }
 
@@ -593,7 +593,6 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   }
   changeGlobalDiscount() {
     let vm = this;
-
     _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
       _.forEach(areaObj.unitList, function (unitObj, unitRowNum) {
         _.forEach(unitObj.fabricList, function (fabricRow, fabricRowNum) {
@@ -606,6 +605,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       });
     });
   }
+  
   changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum) {
     if (!fabricRow.rate)
       return;
@@ -619,7 +619,28 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       fabricRow.amount = Math.round(fabricRow.amount - ((fabricRow.amount * fabricRow.discount) / 100));
       fabricRow.amountWithGST = Math.round(fabricRow.amount + ((fabricRow.amount * fabricRow.shadeDetails.gst) / 100));
     }
+    this.calculateGrandTotal();
 
+  }
+
+  calculateGrandTotal() {
+    let vm = this;
+    vm.fabricTotal = 0;
+    vm.accessoriesTotal = 0;
+    vm.grandTotal = 0;
+    vm.grandTotalWithoutLabourCharges = 0;
+    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
+      _.forEach(areaObj.unitList, function (unitObj, unitRowNum) {
+        _.forEach(unitObj.fabricList, function (fabricRow, fabricRowNum) {
+            vm.fabricTotal += fabricRow.amountWithGST;
+        });
+        _.forEach(unitObj.accessoryList, function (accessoryRow) {
+          vm.accessoriesTotal += accessoryRow.amountWithGST;
+        });
+      });
+    });
+    vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
+    vm.grandTotalWithoutLabourCharges = Math.round(vm.grandTotal - vm.stitchingTotal);
   }
 
   calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow) {
@@ -628,6 +649,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let selectedPatternId = this.trnCurtainQuotationObj.areaList[rowNum].unitList[unitRowNum].patternId;
     let selectedPatternObj = _.find(this.patternList, { id: selectedPatternId });
     if (selectedPatternObj) {
+      if(unitRow.unitHeight){
       let tempQuantity = ((parseFloat(unitRow.unitHeight) + 12) / parseFloat(selectedPatternObj.meterPerInch)).toFixed(2);
       let patchQuantity = parseFloat(tempQuantity);
       let patchsize = (parseFloat(fabricRow.verticalPatchWidth) + parseFloat(selectedPatternObj.verticalPatch)) * parseFloat(fabricRow.noOfVerticalPatch);
@@ -637,6 +659,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         patchQuantity = patchQuantity + parseFloat(tempQuantity);
       }
       fabricRow.verticalPatchQuantity = patchQuantity;
+      fabricRow.verticalPatchQuantity = fabricRow.verticalPatchQuantity.toFixed(2);
       fabricRow.orderQuantity = fabricRow.horizontalPatchQuantity + fabricRow.verticalPatchQuantity;
       fabricRow.orderQuantity = this.adjustPatchQuantity(fabricRow.orderQuantity);
       //let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
@@ -644,6 +667,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       fabricRow.verticalPatchMaxDiscount = fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.maxFlatRateDisc : fabricRow.verticalPatchQuantity >= 50 ? fabricRow.shadeDetails.maxRoleRateDisc : fabricRow.shadeDetails.maxCutRateDisc;
       fabricRow.verticalPatchDiscount = 0;
       this.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
+      }
     }
 
   }
@@ -663,6 +687,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       //   patchQuantity = patchQuantity + patchQuantity;
       // }
       fabricRow.horizontalPatchQuantity = patchQuantity;
+      fabricRow.horizontalPatchQuantity = fabricRow.horizontalPatchQuantity.toFixed(2);
       //let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
       fabricRow.horizontalPatchRate = parseFloat(fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.flatRate : fabricRow.shadeDetails.rrp).toFixed(2);
       fabricRow.horizontalPatchMaxDiscount = fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.maxFlatRateDisc : fabricRow.horizontalPatchQuantity >= 50 ? fabricRow.shadeDetails.maxRoleRateDisc : fabricRow.shadeDetails.maxCutRateDisc;
@@ -713,42 +738,69 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   }
 
   changeTrackQuantity(unitRow, unitRowNum, rowNum) {
+    unitRow.trackAmount = 0;
+    unitRow.trackAmountWithGST = 0;
+    unitRow.trackGST = 0;
+    if(unitRow.trackAccessoryId != null){
     let trackObj = _.find(this.trackCodeList, { accessoryId: unitRow.trackAccessoryId });
-    unitRow.trackAmount = unitRow.trackRate * unitRow.trackQuantity;
-    unitRow.trackAmountWithGST = Math.round(unitRow.trackAmount + (unitRow.trackAmount * trackObj.gst) / 100);
-    unitRow.trackGST = trackObj.gst;
+      unitRow.trackAmount = unitRow.trackRate * unitRow.trackQuantity;
+      unitRow.trackAmountWithGST = Math.round(unitRow.trackAmount + (unitRow.trackAmount * trackObj.gst) / 100);
+      unitRow.trackGST = trackObj.gst;
+    }
   }
 
   changeMotorQuantity(unitRow, unitRowNum, rowNum) {
+    unitRow.motorAmount = 0;
+    unitRow.motorAmountWithGST = 0;
+    unitRow.motorGST = 0;
+    if(unitRow.motorAccessoryId != null){
     let motorObj = _.find(this.motorCodeList, { accessoryId: unitRow.motorAccessoryId });
-    unitRow.motorAmount = unitRow.motorRate * unitRow.motorQuantity;
-    unitRow.motorAmountWithGST = Math.round(unitRow.motorAmount + (unitRow.motorAmount * motorObj.gst) / 100);
-    unitRow.motorGST = motorObj.gst;
+      unitRow.motorAmount = unitRow.motorRate * unitRow.motorQuantity;
+      unitRow.motorAmountWithGST = Math.round(unitRow.motorAmount + (unitRow.motorAmount * motorObj.gst) / 100);
+      unitRow.motorGST = motorObj.gst;
+    }
   }
   changeRemoteQuantity(unitRow, unitRowNum, rowNum) {
+    unitRow.remoteAmount = 0;
+    unitRow.remoteAmountWithGST = 0;
+    unitRow.remoteGST = 0;
+    if(unitRow.remoteAccessoryId != null){
     let remoteObj = _.find(this.remoteCodeList, { accessoryId: unitRow.remoteAccessoryId });
-    unitRow.remoteAmount = unitRow.remoteRate * unitRow.remoteQuantity;
-    unitRow.remoteAmountWithGST = Math.round(unitRow.remoteAmount + (unitRow.remoteAmount * remoteObj.gst) / 100);
-    unitRow.remoteGST = remoteObj.gst;
+      unitRow.remoteAmount = unitRow.remoteRate * unitRow.remoteQuantity;
+      unitRow.remoteAmountWithGST = Math.round(unitRow.remoteAmount + (unitRow.remoteAmount * remoteObj.gst) / 100);
+      unitRow.remoteGST = remoteObj.gst;
+    }
   }
 
   changeRodQuantity() {
+    this.trnCurtainQuotationObj.rodAmount = 0;
+    this.trnCurtainQuotationObj.rodAmountWithGST = 0;
+    this.trnCurtainQuotationObj.rodGST = 0;
+    if(this.trnCurtainQuotationObj.rodAccessoryId != null){
     let rodObj = _.find(this.rodCodeList, { accessoryId: this.trnCurtainQuotationObj.rodAccessoryId });
-    this.trnCurtainQuotationObj.rodAmount = Math.round(this.trnCurtainQuotationObj.rodRate * this.trnCurtainQuotationObj.rodQuantity);
-    this.trnCurtainQuotationObj.rodAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodAmount + (this.trnCurtainQuotationObj.rodAmount * rodObj.gst) / 100);
-    this.trnCurtainQuotationObj.rodGST = rodObj.gst;
+      this.trnCurtainQuotationObj.rodAmount = Math.round(this.trnCurtainQuotationObj.rodRate * this.trnCurtainQuotationObj.rodQuantity);
+      this.trnCurtainQuotationObj.rodAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodAmount + (this.trnCurtainQuotationObj.rodAmount * rodObj.gst) / 100);
+      this.trnCurtainQuotationObj.rodGST = rodObj.gst;
+    }
   }
 
   changeRodItemAccessoryQuantity() {
+    this.trnCurtainQuotationObj.rodItemAccessoryAmount = 0;
+    this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = 0;
+    this.trnCurtainQuotationObj.rodItemAccessoryGST = 0;
+    if(this.trnCurtainQuotationObj.rodItemAccessoryId != null){
     let rodObj = _.find(this.rodAccessoriesCodeList, { accessoryId: this.trnCurtainQuotationObj.rodItemAccessoryId });
-    this.trnCurtainQuotationObj.rodItemAccessoryAmount = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryRate * this.trnCurtainQuotationObj.rodItemAccessoryQuantity);
-    this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryAmount + (this.trnCurtainQuotationObj.rodItemAccessoryAmount * rodObj.gst) / 100);
-    this.trnCurtainQuotationObj.rodItemAccessoryGST = rodObj.gst;
+      this.trnCurtainQuotationObj.rodItemAccessoryAmount = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryRate * this.trnCurtainQuotationObj.rodItemAccessoryQuantity);
+      this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryAmount + (this.trnCurtainQuotationObj.rodItemAccessoryAmount * rodObj.gst) / 100);
+      this.trnCurtainQuotationObj.rodItemAccessoryGST = rodObj.gst;
+    }
   }
 
   changeAccessoryQuantity(accessoryRow) {
-    accessoryRow.amount = Math.round(accessoryRow.accessoriesDetails.sellingRate * accessoryRow.orderQuantity);
-    accessoryRow.amountWithGST = Math.round(accessoryRow.amount + (accessoryRow.amount * accessoryRow.accessoriesDetails.gst) / 100);
+    if(accessoryRow.orderQuantity){
+      accessoryRow.amount = Math.round(accessoryRow.accessoriesDetails.sellingRate * accessoryRow.orderQuantity);
+      accessoryRow.amountWithGST = Math.round(accessoryRow.amount + (accessoryRow.amount * accessoryRow.accessoriesDetails.gst) / 100);
+    }
   }
 
 
@@ -866,6 +918,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           //   }
           // });
         });
+        let normalAccessoryAmount = 0;
         let trackAccessoryAmount = 0;
         let motorAccessoryAmount = 0;
         let rodAccessoryAmount = 0;
@@ -886,6 +939,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             value.accessoryList = accssoryDataList;
             _.forEach(value.fabricList, function (fabricObj) {
               vm.fabricTotal = vm.fabricTotal + fabricObj.amountWithGST;
+            });
+
+            _.forEach(value.accessoryList, function (accessoryObj) {
+              normalAccessoryAmount = normalAccessoryAmount + accessoryObj.amountWithGST;
             });
 
             let trackObj = _.find(results.trnCurtainQuotationItems, { "isTrack": true, unit: value.unit });
@@ -964,10 +1021,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           vm.trnCurtainQuotationObj.rodItemAccessoryRate = isRodAccessoryObj.rate;
         }
 
-        vm.accessoriesTotal = vm.accessoriesTotal + trackAccessoryAmount + rodAccessoryAmount + motorAccessoryAmount + remoteAccessoryAmount;
+        vm.accessoriesTotal = vm.accessoriesTotal + normalAccessoryAmount + trackAccessoryAmount + rodAccessoryAmount + motorAccessoryAmount + remoteAccessoryAmount;
 
         vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
-        vm.grandTotalWithoutLabourCharges = Math.round((vm.grandTotal - vm.stitchingTotal) * 0.8);
+        vm.grandTotalWithoutLabourCharges = Math.round(vm.grandTotal - vm.stitchingTotal);
         this.findMinGlobalDiscount();
         Helpers.setLoading(false);
       },
@@ -988,6 +1045,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let vm = this;
     let accessoryAmount = 0;
     vm.fabricTotal = 0;
+    vm.accessoriesTotal = 0;
     vm.grandTotal = 0;
     vm.grandTotalWithoutLabourCharges = 0;
     unitRow.mstPattern = _.find(this.patternList, ['id', unitRow.patternId]);
@@ -1012,7 +1070,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     vm.accessoriesTotal = vm.accessoriesTotal + accessoryAmount;
 
     vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
-    vm.grandTotalWithoutLabourCharges = Math.round((vm.grandTotal - vm.stitchingTotal) * 0.8);
+    vm.grandTotalWithoutLabourCharges = Math.round(vm.grandTotal - vm.stitchingTotal);
   }
 
   onStateChange() {
@@ -1055,27 +1113,50 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   }
 
   onChangeTrackAccesory(accessoryRow) {
-    let shadeObj = _.find(this.trackCodeList, ['accessoryId', accessoryRow.trackAccessoryId]);
-    accessoryRow.trackItemCode = shadeObj.itemCode;
-    accessoryRow.trackRate = shadeObj.sellingRate;
-    accessoryRow.trackRateWithGST = Math.round(accessoryRow.trackRate + (accessoryRow.trackRate * shadeObj.gst) / 100);
-    accessoryRow.trackQuantity = Math.round(accessoryRow.unitWidth / 12);
-    accessoryRow.trackAmount = Math.round(parseFloat(accessoryRow.trackQuantity) * parseFloat(accessoryRow.trackRateWithGST));
-
+    accessoryRow.trackItemCode = null;
+    accessoryRow.trackRate = 0;
+    accessoryRow.trackRateWithGST = 0;
+    accessoryRow.trackQuantity = 0;
+    accessoryRow.trackAmount = 0;
+    accessoryRow.trackAmountWithGST = 0;
+    if(accessoryRow.trackAccessoryId != null){
+      let accessoryObj = _.find(this.trackCodeList, ['accessoryId', accessoryRow.trackAccessoryId]);
+      accessoryRow.trackItemCode = accessoryObj.itemCode;
+      accessoryRow.trackRate = accessoryObj.sellingRate;
+      accessoryRow.trackRateWithGST = Math.round(accessoryRow.trackRate + (accessoryRow.trackRate * accessoryObj.gst) / 100);
+      accessoryRow.trackQuantity = Math.round(accessoryRow.unitWidth / 12);
+      accessoryRow.trackAmount = Math.round(parseFloat(accessoryRow.trackQuantity) * parseFloat(accessoryRow.trackRateWithGST));
+    }
   }
   onChangeMotorAccesory(accessoryRow) {
-    let shadeObj = _.find(this.motorCodeList, ['accessoryId', accessoryRow.motorAccessoryId]);
-    accessoryRow.motorRate = shadeObj.sellingRate;
-    accessoryRow.motorItemCode = shadeObj.itemCode;
-    accessoryRow.motorRateWithGST = Math.round(accessoryRow.motorRate + (accessoryRow.motorRate * shadeObj.gst) / 100);
-    accessoryRow.motorAmount = Math.round(parseFloat(accessoryRow.motorQuantity) * parseFloat(accessoryRow.motorRateWithGST));
+    accessoryRow.motorItemCode = null;
+    accessoryRow.motorRate = 0;
+    accessoryRow.motorRateWithGST = 0;
+    accessoryRow.motorQuantity = 0;
+    accessoryRow.motorAmount = 0;
+    accessoryRow.motorAmountWithGST = 0;
+    if(accessoryRow.motorAccessoryId != null){
+      let accessoryObj = _.find(this.motorCodeList, ['accessoryId', accessoryRow.motorAccessoryId]);
+      accessoryRow.motorRate = accessoryObj.sellingRate;
+      accessoryRow.motorItemCode = accessoryObj.itemCode;
+      accessoryRow.motorRateWithGST = Math.round(accessoryRow.motorRate + (accessoryRow.motorRate * accessoryObj.gst) / 100);
+      accessoryRow.motorAmount = Math.round(parseFloat(accessoryRow.motorQuantity) * parseFloat(accessoryRow.motorRateWithGST));
+    }
   }
   onChangeRemoteAccesory(accessoryRow) {
-    let shadeObj = _.find(this.remoteCodeList, ['accessoryId', accessoryRow.remoteAccessoryId]);
-    accessoryRow.remoteRate = shadeObj.sellingRate;
-    accessoryRow.remoteItemCode = shadeObj.itemCode;
-    accessoryRow.remoteRateWithGST = Math.round(accessoryRow.motorRate + (accessoryRow.motorRate * shadeObj.gst) / 100);
+    accessoryRow.remoteItemCode = null;
+    accessoryRow.remoteRate = 0;
+    accessoryRow.remoterRateWithGST = 0;
+    accessoryRow.remoteQuantity = 0;
+    accessoryRow.remoteAmount = 0;
+    accessoryRow.remoteAmountWithGST = 0;
+    if(accessoryRow.remoteAccessoryId != null){
+    let accessoryObj = _.find(this.remoteCodeList, ['accessoryId', accessoryRow.remoteAccessoryId]);
+    accessoryRow.remoteRate = accessoryObj.sellingRate;
+    accessoryRow.remoteItemCode = accessoryObj.itemCode;
+    accessoryRow.remoteRateWithGST = Math.round(accessoryRow.motorRate + (accessoryRow.motorRate * accessoryObj.gst) / 100);
     accessoryRow.remoteAmount = Math.round(parseFloat(accessoryRow.remoteQuantity) * parseFloat(accessoryRow.remoteRateWithGST));
+    }
   }
 
   onCancelItemDetails() {
@@ -1470,6 +1551,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       }
 
     }
+    this.trnCurtainQuotationObj.totalAmount = this.grandTotalWithoutLabourCharges;
 
     if (valid) {
       this.saveTrnCurtainQuotation(this.trnCurtainQuotationObj);

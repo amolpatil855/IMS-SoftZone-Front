@@ -350,6 +350,17 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
               contRoleId: Math.floor(Math.random() * 2000),
             });
           });
+
+          //  if (this.trnCurtainSelectionObj.areaList.unitList.accessoryList.length == 0){
+          //   accessoryList: [
+          //       {
+          //         contRoleId: Math.floor(Math.random() * 2000),
+          //         accessoryId: null,
+          //         amount: null,
+          //       }
+          //     ]
+          //  }
+
           // _.forEach(results.trnCurtainSelectionItems, function (value) {
           //   let unitObj = _.find(areaObj.unitList, { 'unit': value.unit, 'area': value.area });
           //   if (!unitObj) {
@@ -369,6 +380,15 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
             let fabricDataList = _.filter(results.trnCurtainSelectionItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
             value.fabricList = fabricDataList;
             let accssoryDataList = _.filter(results.trnCurtainSelectionItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7 });
+            if (accssoryDataList && accssoryDataList.length == 0) {
+              accssoryDataList.push(
+                {
+                  contRoleId: Math.floor(Math.random() * 2000),
+                  accessoryId: null,
+                  amount: null,
+                }
+              );
+            }
             value.accessoryList = accssoryDataList;
           });
         });
@@ -643,24 +663,32 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
         });
 
         unitObj.accessoryList.forEach(function (accessoryobj) {
-          let obj = {
-            "area": areaObj.area,
-            "unit": unitObj.unit,
-            "patternId": unitObj.patternId,
-            "categoryId": 7,
-            "collectionId": null,
-            "shadeId": null,
-            "accessoryId": accessoryobj.accessoryId,
-            "isPatch": false,
-            "isLining": false,
-            "rate": accessoryobj.rate,
-            //"discount": null,
-            "categoryName": null,
-            "collectionName": null,
-            // "serialno": "5",
-            // "itemCode": null
+
+          if (accessoryobj.accessoryId != null) {
+            let obj = {
+              "area": areaObj.area,
+              "unit": unitObj.unit,
+              "patternId": unitObj.patternId,
+              "categoryId": 7,
+              "collectionId": null,
+              "shadeId": null,
+              "accessoryId": accessoryobj.accessoryId,
+              "isPatch": false,
+              "isLining": false,
+              "rate": accessoryobj.rate,
+              //"discount": null,
+              "categoryName": null,
+              "collectionName": null,
+              // "serialno": "5",
+              // "itemCode": null
+            }
+            vm.trnCurtainSelectionObj.trnCurtainSelectionItems.push(obj);
           }
-          vm.trnCurtainSelectionObj.trnCurtainSelectionItems.push(obj);
+
+          // if(unitObj.accessoryList[0].accessoryId == null){
+          //   unitObj.accessoryList.shift();
+          // }
+
         });
 
       });
