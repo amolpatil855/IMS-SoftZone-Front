@@ -44,8 +44,8 @@
             <button class="topBtn btn btn-info" title="Print" (click)="print()" tabindex="5">Print</button>
             <button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnCurtainQuotationObj.status == 'Created'" [isAuthorize]="['curtainquotation']"
                 title="Approve" (click)="onApprove()" tabindex="7">
-				Approve
-			</button>
+                Approve
+            </button>
             <!-- <button type="submit" class="topBtn btn btn-error" *ngIf="trnCurtainQuotationObj.status == 'Created'" [isAuthorize]="['curtainquotation']"
                 title="Cancel CQ" (click)="onCancelCQ()" tabindex="8">
 				Cancel CQ
@@ -163,14 +163,16 @@
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Grand Total
                                                                 </label>
                                                                 <div class="col-md-8 col-sm-8">
-                                                                    <label class="orderTypeLabel">{{ grandTotalWithoutLabourCharges ? (grandTotalWithoutLabourCharges | number:'.0') : '' }}</label>
+                                                                    <label class="orderTypeLabel">{{ grandTotalWithoutLabourCharges ? (grandTotalWithoutLabourCharges
+                                                                        | number:'.0') : '' }}</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Advance Amount
                                                                 </label>
                                                                 <div class="col-md-8 col-sm-8">
-                                                                    <label class="orderTypeLabel">{{ trnCurtainQuotationObj ? (trnCurtainQuotationObj.advanceAmount | number:'.0') : '' }}</label>
+                                                                    <label class="orderTypeLabel">{{ trnCurtainQuotationObj ? (trnCurtainQuotationObj.advanceAmount
+                                                                        | number:'.0') : '' }}</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -238,7 +240,8 @@
                                                                             </div>
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Height</label>
-                                                                                <input class="form-control m-input" type="text" [(ngModel)]="unitRow.unitHeight" name="{{'unitheight'+unitRow.contRoleId}}"
+                                                                                <input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" autocomplete="off" minValue="0" maxValue="9999.99"
+                                                                                    [(ngModel)]="unitRow.unitHeight" name="{{'unitheight'+unitRow.contRoleId}}"
                                                                                     [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                     placeholder="" tabindex="8" [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
                                                                                     #hightVal="ngModel" (blur)="onUnitHeightChange(unitRow,unitRowNum,rowNum)"
@@ -246,7 +249,8 @@
                                                                             </div>
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Width</label>
-                                                                                <input class="form-control m-input" type="text" [(ngModel)]="unitRow.unitWidth" name="{{'unitwidth'+unitRow.contRoleId}}"
+                                                                                <input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" autocomplete="off" minValue="0" maxValue="9999.99"
+                                                                                    [(ngModel)]="unitRow.unitWidth" name="{{'unitwidth'+unitRow.contRoleId}}"
                                                                                     [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                     placeholder="" tabindex="9" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
                                                                                     #widthVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
@@ -261,7 +265,8 @@
                                                                             <div class="col-md-2">
                                                                                 <label class="fieldLabel">Labor</label>
                                                                                 <br/>
-                                                                                <label class="unitFormLabel"> {{unitRow ? (unitRow.laborCharges | number:'.0') : ''}}</label>
+                                                                                <label class="unitFormLabel"> {{unitRow ? (unitRow.laborCharges | number:'.0')
+                                                                                    : ''}}</label>
                                                                             </div>
                                                                         </div>
 
@@ -291,7 +296,8 @@
                                                                                 <div class="col-md-1" *ngIf="fabricRow.shadeDetails">
                                                                                     <label class="fieldLabel">Width</label>
                                                                                     <br/>
-                                                                                    <label class="unitFormLabel">{{fabricRow.shadeDetails ? fabricRow.shadeDetails.fabricWidth : ""}}</label>
+                                                                                    <label class="unitFormLabel">{{fabricRow.shadeDetails ? fabricRow.shadeDetails.fabricWidth
+                                                                                        : ""}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1" *ngIf="fabricRow.shadeDetails && fabricRow.shadeDetails.fabricWidth>100 && !fabricRow.isPatch">
                                                                                     <label class="fieldLabel">Direction</label>
@@ -325,7 +331,8 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Rate</label>
                                                                                     <br/>
-                                                                                    <label class="unitFormLabel">{{fabricRow ? (fabricRow.rate | number:'.0') : ''}}</label>
+                                                                                    <label class="unitFormLabel">{{fabricRow ? (fabricRow.rate | number:'.0')
+                                                                                        : ''}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Quantity</label>
@@ -333,7 +340,7 @@
                                                                                     <input *ngIf="!fabricRow.isPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.orderQuantity" name="{{'orderQuantity'+fabricRow.contRoleId}}"
                                                                                         placeholder="" tabindex="6" [ngClass]="{'red-border-class': orderQuantityVal.errors && isFormSubmitted}"
                                                                                         #orderQuantityVal="ngModel" [disabled]="trnCurtainQuotationObj.status == 'Approved'"
-                                                                                        required  (blur)="changeDiscount(fabricRow,fabricRowNum,unitRowNum,rowNum)">
+                                                                                        required (blur)="changeDiscount(fabricRow,fabricRowNum,unitRowNum,rowNum)">
                                                                                     <label *ngIf="fabricRow.isPatch" class="unitFormLabel">{{fabricRow.orderQuantity}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
@@ -350,7 +357,8 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br/>
-                                                                                    <label class="unitFormLabel">{{fabricRow ? (fabricRow.amountWithGST | number:'.0') : ''}}</label>
+                                                                                    <label class="unitFormLabel">{{fabricRow ? (fabricRow.amountWithGST
+                                                                                        | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                                 <!-- <div class="col-md-2">
                                                                                     <button type="button" *ngIf="fabricLastRowNum" pButton (click)="addFabricRow(unitRow)" icon="fa fa-plus" class="editBtn"
@@ -370,11 +378,12 @@
                                                                                         <br/>
                                                                                         <input type="checkbox" [(ngModel)]="fabricRow.isVerticalPatch" name="{{'isVerticalPatch'+unitRow.contRoleId+fabricRowNum+0000}}"
                                                                                             [disabled]="trnCurtainQuotationObj.status == 'Approved'"
-                                                                                            (ngModelChange)="onChangeIsVerticalPatchCheckbox(fabricRow)">
+                                                                                            (ngModelChange)="onChangeIsVerticalPatchCheckbox(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
                                                                                     </div>
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">No. of patch</label>
-                                                                                        <input *ngIf="fabricRow.isVerticalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.noOfVerticalPatch"
+                                                                                        <input *ngIf="fabricRow.isVerticalPatch" class="form-control m-input" OnlyNumber="true" DecimalPlaces="0" autocomplete="off"
+                                                                                            minValue="0" maxValue="99" [(ngModel)]="fabricRow.noOfVerticalPatch"
                                                                                             name="{{'noOfVerticalpatch'+unitRow.contRoleId+fabricRowNum+0000}}"
                                                                                             [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': noOfverticalVal.errors && isFormSubmitted}"
@@ -383,7 +392,8 @@
                                                                                     </div>
                                                                                     <div class="col-md-1">
                                                                                         <label class="fieldLabel">Width</label>
-                                                                                        <input *ngIf="fabricRow.isVerticalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.verticalPatchWidth"
+                                                                                        <input *ngIf="fabricRow.isVerticalPatch" class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" autocomplete="off"
+                                                                                            minValue="0" maxValue="999.99" [(ngModel)]="fabricRow.verticalPatchWidth"
                                                                                             name="{{'verticalPatchWidth'+unitRow.contRoleId+fabricRowNum+0000}}"
                                                                                             [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': verticalPatchWidthVal.errors && isFormSubmitted}"
@@ -424,11 +434,12 @@
                                                                                         <br/>
                                                                                         <input type="checkbox" [(ngModel)]="fabricRow.isHorizontalPatch" name="{{'isHorizontalPatch'+unitRow.contRoleId+fabricRowNum+0000}}"
                                                                                             [disabled]="trnCurtainQuotationObj.status == 'Approved'"
-                                                                                            (ngModelChange)="onChangeIsHorizontalPatchCheckbox(fabricRow)">
+                                                                                            (ngModelChange)="onChangeIsHorizontalPatchCheckbox(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
                                                                                     </div>
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">No. of patch</label>
-                                                                                        <input *ngIf="fabricRow.isHorizontalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.noOfHorizontalPatch"
+                                                                                        <input *ngIf="fabricRow.isHorizontalPatch" class="form-control m-input" OnlyNumber="true" DecimalPlaces="0" autocomplete="off"
+                                                                                            minValue="0" maxValue="99" [(ngModel)]="fabricRow.noOfHorizontalPatch"
                                                                                             name="{{'noOfHorizontalpatch'+unitRow.contRoleId+fabricRowNum+0000}}"
                                                                                             [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': noOfHorizontalVal.errors && isFormSubmitted}"
@@ -438,7 +449,8 @@
                                                                                     </div>
                                                                                     <div class="col-md-1">
                                                                                         <label class="fieldLabel">Height</label>
-                                                                                        <input *ngIf="fabricRow.isHorizontalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.horizontalPatchHeight"
+                                                                                        <input *ngIf="fabricRow.isHorizontalPatch" class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" autocomplete="off"
+                                                                                            minValue="0" maxValue="999.99" [(ngModel)]="fabricRow.horizontalPatchHeight"
                                                                                             name="{{'horizontalPatchHeight'+unitRow.contRoleId+fabricRowNum+0000}}"
                                                                                             [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': horizontalPatchHeightVal.errors && isFormSubmitted}"
@@ -498,7 +510,8 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Rate</label>
                                                                                     <br/>
-                                                                                    <label class="unitFormLabel">{{accessoryRow ? (accessoryRow.rate | number:'.0') : ''}}</label>
+                                                                                    <label class="unitFormLabel">{{accessoryRow ? (accessoryRow.rate |
+                                                                                        number:'.0') : ''}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Quantity</label>
@@ -514,7 +527,8 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br/>
-                                                                                    <label class="unitFormLabel">{{accessoryRow ? (accessoryRow.amountWithGST | number:'.0') : ''}}</label>
+                                                                                    <label class="unitFormLabel">{{accessoryRow ? (accessoryRow.amountWithGST
+                                                                                        | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                                 <!-- <div class="col-md-2">
                                                                                     <button type="button" *ngIf="accessoryLastRowNum" pButton (click)="addAccessoryRow(unitRow)" icon="fa fa-plus" class="editBtn"
@@ -559,7 +573,8 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Rate</label>
                                                                                     <br/>
-                                                                                    <label *ngIf="unitRow.isTrack" class="unitFormLabel">{{unitRow ? (unitRow.trackRate | number:'.0') : ''}}</label>
+                                                                                    <label *ngIf="unitRow.isTrack" class="unitFormLabel">{{unitRow ? (unitRow.trackRate | number:'.0')
+                                                                                        : ''}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Quantity</label>
@@ -575,7 +590,8 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br>
-                                                                                    <label *ngIf="unitRow.isTrack" class="unitFormLabel">{{unitRow ? (unitRow.trackAmountWithGST | number:'.0') : ''}}</label>
+                                                                                    <label *ngIf="unitRow.isTrack" class="unitFormLabel">{{unitRow ? (unitRow.trackAmountWithGST
+                                                                                        | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                             </div>
 
@@ -601,7 +617,8 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Rate</label>
                                                                                     <br/>
-                                                                                    <label *ngIf="unitRow.isMotor" class="unitFormLabel">{{unitRow ? (unitRow.motorRate | number:'.0') : ''}}</label>
+                                                                                    <label *ngIf="unitRow.isMotor" class="unitFormLabel">{{unitRow ? (unitRow.motorRate | number:'.0')
+                                                                                        : ''}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Quantity</label>
@@ -617,7 +634,8 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br>
-                                                                                    <label *ngIf="unitRow.isMotor" class="unitFormLabel">{{unitRow ? (unitRow.motorAmountWithGST | number:'.0') : ''}}</label>
+                                                                                    <label *ngIf="unitRow.isMotor" class="unitFormLabel">{{unitRow ? (unitRow.motorAmountWithGST
+                                                                                        | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                             </div>
 
@@ -644,7 +662,8 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Rate</label>
                                                                                     <br/>
-                                                                                    <label *ngIf="unitRow.isRemote" class="unitFormLabel">{{unitRow ? (unitRow.remoteRate | number:'.0') : ''}}</label>
+                                                                                    <label *ngIf="unitRow.isRemote" class="unitFormLabel">{{unitRow ? (unitRow.remoteRate | number:'.0')
+                                                                                        : ''}}</label>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Quantity</label>
@@ -661,7 +680,8 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Amount</label>
                                                                                     <br>
-                                                                                    <label *ngIf="unitRow.isRemote" class="unitFormLabel">{{unitRow ? (unitRow.remoteAmountWithGST | number:'.0') : ''}}</label>
+                                                                                    <label *ngIf="unitRow.isRemote" class="unitFormLabel">{{unitRow ? (unitRow.remoteAmountWithGST
+                                                                                        | number:'.0') : ''}}</label>
                                                                                 </div>
                                                                             </div>
 
@@ -721,7 +741,8 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Rate</label>
                                                             <br>
-                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodRate | number:'.0') : ''}}</label>
+                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodRate |
+                                                                number:'.0') : ''}}</label>
                                                         </div>
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Quantity</label>
@@ -735,7 +756,8 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Amount</label>
                                                             <br>
-                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodAmountWithGST | number:'.0') : ''}}</label>
+                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodAmountWithGST
+                                                                | number:'.0') : ''}}</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -758,7 +780,8 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Rate</label>
                                                             <br>
-                                                            <label *ngIf="trnCurtainQuotationObj.isRodAccessory" class="unitFormLabel">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodItemAccessoryRate | number:'.0') : ''}}</label>
+                                                            <label *ngIf="trnCurtainQuotationObj.isRodAccessory" class="unitFormLabel">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodItemAccessoryRate
+                                                                | number:'.0') : ''}}</label>
                                                         </div>
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Quantity</label>
@@ -773,7 +796,8 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Amount</label>
                                                             <br>
-                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodItemAccessoryAmountWithGST | number:'.0') : ''}}</label>
+                                                            <label *ngIf="trnCurtainQuotationObj.isRod" class="unitFormLabel">{{trnCurtainQuotationObj ? (trnCurtainQuotationObj.rodItemAccessoryAmountWithGST
+                                                                | number:'.0') : ''}}</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -869,8 +893,8 @@
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Fabric</td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">{{fabricRow.collectionName}}{{"-"+fabricRow.serialno}}</td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
-                        {{fabricRow.isPatch?"Patch":""}} {{fabricRow.isVerticalPatch?"Vertical":""}} {{fabricRow.isVerticalPatch ? "(W-"+fabricRow.verticalPatchWidth+")" :
-                        ""}} {{fabricRow.isHorizontalPatch?"Horizontal":""}} {{fabricRow.isHorizontalPatch ? "(H-"+fabricRow.horizontalPatchHeight+")"
+                        {{fabricRow.isPatch?"Patch":""}} {{fabricRow.isVerticalPatch?"Vertical":""}} {{fabricRow.isVerticalPatch ? "(W-"+fabricRow.verticalPatchWidth+")"
+                        : ""}} {{fabricRow.isHorizontalPatch?"Horizontal":""}} {{fabricRow.isHorizontalPatch ? "(H-"+fabricRow.horizontalPatchHeight+")"
                         : ""}} {{fabricRow.isLining?"Lining":""}} {{(!fabricRow.isPatch && !fabricRow.isLining)?"Main":""}}
                     </td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;text-align:center;">{{fabricRow.orderQuantity}}</td>
