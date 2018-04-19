@@ -76,7 +76,7 @@
                                         <div class="col-md-8 col-sm-8">
                                             <p-calendar class="purchaseOrderDate" #startDateVal="ngModel" [(ngModel)]="startDate" (ngModelChange)="onChangeDate()"
                                                 name="startDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="1" yearRange="2015:2030" dateFormat="dd/mm/yy"
-                                                styleClass="{{ startDateVal.errors && isFormSubmitted?'red-border-class':''}}" required></p-calendar>
+                                                styleClass="{{ startDateVal.errors?'red-border-class':''}}" required></p-calendar>
                                         </div>
                                     </div> 
                                 </div>

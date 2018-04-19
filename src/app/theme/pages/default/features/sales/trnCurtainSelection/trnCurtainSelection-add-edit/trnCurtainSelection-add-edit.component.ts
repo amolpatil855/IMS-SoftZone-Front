@@ -260,6 +260,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
       contRoleId: Math.floor(Math.random() * 2000),
       accessoryId: null,
       amount: null,
+      rate: null
     });
   }
 

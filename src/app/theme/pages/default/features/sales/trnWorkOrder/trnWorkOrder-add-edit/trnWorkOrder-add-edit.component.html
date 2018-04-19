@@ -131,7 +131,7 @@
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Tailor<span class="requiredField">*</span>
                                                                 </label>
                                                                 <div class="col-md-8 col-sm-8">
-                                                                    <select class="form-control" name="tailorId" [(ngModel)]="trnWorkOrderObj.tailorId" required #tailorIdCodeVal="ngModel" [ngClass]="{'red-border-class': tailorIdCodeVal.errors && isFormSubmitted}" tabindex="4" (ngModelChange)="onChangeTailor()">
+                                                                    <select class="form-control" name="tailorId" [(ngModel)]="trnWorkOrderObj.tailorId" required [disabled]="trnWorkOrderObj.status != 'Created'" #tailorIdCodeVal="ngModel" [ngClass]="{'red-border-class': tailorIdCodeVal.errors && isFormSubmitted}" tabindex="4" (ngModelChange)="onChangeTailor()">
                                                                         <option *ngFor="let x of tailorCodeList" [ngValue]="x.id" [selected]="trnWorkOrderObj.tailorId == x.id">{{x.name}}</option>
                                                                     </select>
 
@@ -162,7 +162,7 @@
                                                                     <div class="col-md-3 col-sm-3">
                                                                         <input class="form-control m-input" type="text" [(ngModel)]="areaRow.area" name="{{'area'+areaRow.contRoleId}}" id="{{'area'+rowNum}}"
                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': areaVal.errors && isFormSubmitted}"
-                                                                            #areaVal="ngModel" [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                            #areaVal="ngModel" [disabled]="true"
                                                                             required>
                                                                     </div>
                                                                 </div>
@@ -177,13 +177,13 @@
                                                                                 <label class="fieldLabel">Unit</label>
                                                                                 <input class="form-control m-input" type="text" [(ngModel)]="unitRow.unit" name="{{'unit'+unitRow.contRoleId}}" placeholder=""
                                                                                     tabindex="6" [ngClass]="{'red-border-class': unitVal.errors && isFormSubmitted}"
-                                                                                    #unitVal="ngModel" [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                    #unitVal="ngModel" [disabled]="true"
                                                                                     required>
                                                                             </div>
                                                                             <div class="col-md-2">
                                                                                 <label class="fieldLabel">Pattern</label>
                                                                                 <br/>
-                                                                                <!-- <select class="form-control" name="{{'patern'+unitRow.contRoleId}}" [(ngModel)]="unitRow.patternId" [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                <!-- <select class="form-control" name="{{'patern'+unitRow.contRoleId}}" [(ngModel)]="unitRow.patternId" [disabled]="true"
                                                                                     tabindex="9" [ngClass]="{'red-border-class': paternVal.errors && isFormSubmitted}"
                                                                                     #paternVal="ngModel" required (ngModelChange)="onPatternChange(unitRow)">
                                                                                     <option *ngFor="let x of patternList" [ngValue]="x.id" [selected]="unitRow.patternId == x.id">{{x.name}}</option>
@@ -193,7 +193,7 @@
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Height</label>
                                                                                 <input class="form-control m-input" type="text" [(ngModel)]="unitRow.unitHeight" name="{{'unitheight'+unitRow.contRoleId}}"
-                                                                                    [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                    [disabled]="true"
                                                                                     placeholder="" tabindex="6" [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
                                                                                     #hightVal="ngModel" (blur)="onUnitHeightChange(unitRow,unitRowNum,rowNum)"
                                                                                     required>
@@ -201,14 +201,14 @@
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Width</label>
                                                                                 <input class="form-control m-input" type="text" [(ngModel)]="unitRow.unitWidth" name="{{'unitwidth'+unitRow.contRoleId}}"
-                                                                                    [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                    [disabled]="true"
                                                                                     placeholder="" tabindex="6" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
                                                                                     #widthVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
                                                                             </div>
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Panels</label>
                                                                                 <input class="form-control m-input" type="text" [(ngModel)]="unitRow.numberOfPanel" name="{{'unitnumberOfPanel'+unitRow.contRoleId}}"
-                                                                                    [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                    [disabled]="true"
                                                                                     placeholder="" tabindex="6" [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
                                                                                     #hightVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
                                                                             </div>
@@ -288,7 +288,7 @@
                                                                                     <br/>
                                                                                     <input *ngIf="!fabricRow.isPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.orderQuantity" name="{{'orderQuantity'+fabricRow.contRoleId}}"
                                                                                         placeholder="" tabindex="6" [ngClass]="{'red-border-class': orderQuantityVal.errors && isFormSubmitted}"
-                                                                                        #orderQuantityVal="ngModel" [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                        #orderQuantityVal="ngModel" [disabled]="true"
                                                                                         required>
                                                                                     <label *ngIf="fabricRow.isPatch" class="unitFormLabel">{{fabricRow.orderQuantity}}</label>
                                                                                 </div>
@@ -299,7 +299,7 @@
                                                                                         [ngClass]="{'red-border-class': discountVal.errors  && isFormSubmitted}"
                                                                                         [(ngModel)]="fabricRow.discount" name="{{'unitdiscount'+fabricRow.contRoleId}}"
                                                                                         #discountVal="ngModel" tabindex="21"
-                                                                                        [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                        [disabled]="true"
                                                                                         placeholder="" (blur)="changeDiscount(fabricRow,fabricRowNum,unitRowNum,rowNum)"
                                                                                         required>
                                                                                 </div> -->
@@ -325,14 +325,14 @@
                                                                                         <label class="fieldLabel">Vertical</label>
                                                                                         <br/>
                                                                                         <input type="checkbox" [(ngModel)]="fabricRow.isVerticalPatch" name="{{'isVerticalPatch'+unitRow.contRoleId+fabricRowNum+0000}}"
-                                                                                            [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                            [disabled]="true"
                                                                                             (ngModelChange)="onChangeIsVerticalPatchCheckbox(fabricRow)">
                                                                                     </div>
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">No. of patch</label>
                                                                                         <input *ngIf="fabricRow.isVerticalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.noOfVerticalPatch"
                                                                                             name="{{'noOfVerticalpatch'+unitRow.contRoleId+fabricRowNum+0000}}"
-                                                                                            [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                            [disabled]="true"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': noOfverticalVal.errors && isFormSubmitted}"
                                                                                             #noOfverticalVal="ngModel" required
                                                                                             (blur)="calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
@@ -341,7 +341,7 @@
                                                                                         <label class="fieldLabel">Width</label>
                                                                                         <input *ngIf="fabricRow.isVerticalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.verticalPatchWidth"
                                                                                             name="{{'verticalPatchWidth'+unitRow.contRoleId+fabricRowNum+0000}}"
-                                                                                            [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                            [disabled]="true"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': verticalPatchWidthVal.errors && isFormSubmitted}"
                                                                                             (blur)="calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)"
                                                                                             #verticalPatchWidthVal="ngModel"
@@ -379,14 +379,14 @@
                                                                                         <label class="fieldLabel">Horizontal</label>
                                                                                         <br/>
                                                                                         <input type="checkbox" [(ngModel)]="fabricRow.isHorizontalPatch" name="{{'isHorizontalPatch'+unitRow.contRoleId+fabricRowNum+0000}}"
-                                                                                            [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                            [disabled]="true"
                                                                                             (ngModelChange)="onChangeIsHorizontalPatchCheckbox(fabricRow)">
                                                                                     </div>
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">No. of patch</label>
                                                                                         <input *ngIf="fabricRow.isHorizontalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.noOfHorizontalPatch"
                                                                                             name="{{'noOfHorizontalpatch'+unitRow.contRoleId+fabricRowNum+0000}}"
-                                                                                            [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                            [disabled]="true"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': noOfHorizontalVal.errors && isFormSubmitted}"
                                                                                             #noOfHorizontalVal="ngModel" required
                                                                                             (blur)="calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
@@ -396,7 +396,7 @@
                                                                                         <label class="fieldLabel">Height</label>
                                                                                         <input *ngIf="fabricRow.isHorizontalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.horizontalPatchHeight"
                                                                                             name="{{'horizontalPatchHeight'+unitRow.contRoleId+fabricRowNum+0000}}"
-                                                                                            [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                            [disabled]="true"
                                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': horizontalPatchHeightVal.errors && isFormSubmitted}"
                                                                                             #horizontalPatchHeightVal="ngModel"
                                                                                             (blur)="calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)"
@@ -458,7 +458,7 @@
                                                                                         [(ngModel)]="accessoryRow.orderQuantity"
                                                                                         name="{{'accessoryDiscount'+accessoryRow.contRoleId}}"
                                                                                         #accessoryQuantityVal="ngModel" tabindex="21"
-                                                                                        [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                        [disabled]="true"
                                                                                         placeholder="" (blur)="changeAccessoryQuantity(accessoryRow)"
                                                                                         required>
                                                                                 </div>
@@ -494,7 +494,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Is Track?</label>
                                                                                     <br>
-                                                                                    <!-- <input type="checkbox" name="{{'istrack'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isTrack" [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                    <!-- <input type="checkbox" name="{{'istrack'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isTrack" [disabled]="true"
                                                                                         (ngModelChange)="onChangeIsTrackCheckbox(unitRow)"> -->
                                                                                     <label class="unitFormLabel">{{unitRow.isTrack?"Yes":"No"}}</label>
                                                                                 </div>
@@ -513,7 +513,7 @@
                                                                                     <br/>
                                                                                     <input *ngIf="unitRow.isTrack" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="10000"
                                                                                         [ngClass]="{'red-border-class': trackQuantityVal.errors && isFormSubmitted}"
-                                                                                        [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                        [disabled]="true"
                                                                                         [(ngModel)]="unitRow.trackQuantity" name="{{'trackQuantity'+unitRow.contRoleId}}"
                                                                                         #trackQuantityVal="ngModel" tabindex="21"
                                                                                         placeholder="" (blur)="changeTrackQuantity(unitRow,unitRowNum,rowNum)"
@@ -551,7 +551,7 @@
                                                                                         [ngClass]="{'red-border-class': motorQuantityVal.errors && isFormSubmitted}"
                                                                                         [(ngModel)]="unitRow.motorQuantity" name="{{'motorQuantity'+unitRow.contRoleId}}"
                                                                                         #motorQuantityVal="ngModel" tabindex="21"
-                                                                                        [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                        [disabled]="true"
                                                                                         placeholder="" (blur)="changeMotorQuantity(unitRow,unitRowNum,rowNum)"
                                                                                         required>
                                                                                 </div>
@@ -568,7 +568,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <label class="fieldLabel">Is Remote?</label>
                                                                                     <br>
-                                                                                    <!-- <input type="checkbox" name="{{'isRemote'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isRemote" [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                    <!-- <input type="checkbox" name="{{'isRemote'+unitRow.contRoleId+77}}" [(ngModel)]="unitRow.isRemote" [disabled]="true"
                                                                                         (ngModelChange)="onChangeIsRemoteCheckbox(unitRow)"> -->
                                                                                     <label class="unitFormLabel">{{unitRow.isRemote?"Yes":"No"}}</label>
                                                                                 </div>
@@ -576,7 +576,7 @@
                                                                                     <label class="fieldLabel">Remote</label>
                                                                                     <!-- <select *ngIf="unitRow.isRemote" class="form-control" name="{{'isRemote'+unitRow.contRoleId}}" [(ngModel)]="unitRow.remoteAccessoryId"
                                                                                         tabindex="9" (ngModelChange)="onChangeRemoteAccesory(unitRow)"
-                                                                                        [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                        [disabled]="true"
                                                                                         [ngClass]="{'red-border-class': accessoryRemoteVal.errors && isFormSubmitted}"
                                                                                         #accessoryRemoteVal="ngModel">
                                                                                         <option *ngFor="let x of remoteCodeList" [ngValue]="x.accessoryId" [selected]="accessoryId == x.accessoryId">{{x.itemCode}}</option>
@@ -594,7 +594,7 @@
                                                                                     <input *ngIf="unitRow.isRemote" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0"
                                                                                         maxValue="10000" [ngClass]="{'red-border-class': remoteQuantityVal.errors && isFormSubmitted}"
                                                                                         [(ngModel)]="unitRow.remoteQuantity"
-                                                                                        [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                                        [disabled]="true"
                                                                                         name="{{'remoteQuantity'+unitRow.contRoleId}}"
                                                                                         #remoteQuantityVal="ngModel" tabindex="21"
                                                                                         placeholder="" (blur)="changeRemoteQuantity(unitRow,unitRowNum,rowNum)"
@@ -650,14 +650,14 @@
                                                             <label class="fieldLabel">Is Rod?</label>
                                                             <br>
                                                             <label class="unitFormLabel">{{trnWorkOrderObj.isRod?"Yes":"No"}}</label>
-                                                            <!-- <input type="checkbox" name="isRoadCkb" [(ngModel)]="trnWorkOrderObj.isRod" [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                            <!-- <input type="checkbox" name="isRoadCkb" [(ngModel)]="trnWorkOrderObj.isRod" [disabled]="true"
                                                                 (ngModelChange)="onChangeIsRodCheckbox()"> -->
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label class="fieldLabel">Rod</label>
                                                             <!-- <select *ngIf="trnWorkOrderObj.isRod" class="form-control" name="rodName" [(ngModel)]="trnWorkOrderObj.rodAccessoryId"
                                                                 tabindex="9" (ngModelChange)="onChangeRodAccesory()" [ngClass]="{'red-border-class': accessoryRodVal.errors && isFormSubmitted}"
-                                                                #accessoryRodVal="ngModel" [disabled]="trnWorkOrderObj.status != 'Created'">
+                                                                #accessoryRodVal="ngModel" [disabled]="true">
                                                                 <option *ngFor="let x of rodCodeList" [ngValue]="x.accessoryId" [selected]="rodAccessoryId == x.accessoryId">{{x.itemCode}}</option>
                                                             </select> -->
                                                             <br>
@@ -674,7 +674,7 @@
                                                             <input *ngIf="trnWorkOrderObj.isRod" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0"
                                                                 maxValue="10000" [ngClass]="{'red-border-class': rodQuantityVal.errors  && isFormSubmitted}"
                                                                 [(ngModel)]="trnWorkOrderObj.rodQuantity" name="rodquantity"
-                                                                [disabled]="trnWorkOrderObj.status != 'Created'" #rodQuantityVal="ngModel"
+                                                                [disabled]="true" #rodQuantityVal="ngModel"
                                                                 tabindex="21" placeholder="" (blur)="changeRodQuantity()" required>
                                                         </div>
                                                         <!-- <div class="col-md-1">
@@ -689,7 +689,7 @@
                                                         <div class="col-md-1">
                                                             <label class="fieldLabel">Is Rod Accessory?</label>
                                                             <br>
-                                                            <!-- <input type="checkbox" name="isRodAccessoryCkb" [(ngModel)]="trnWorkOrderObj.isRodAccessory" [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                            <!-- <input type="checkbox" name="isRodAccessoryCkb" [(ngModel)]="trnWorkOrderObj.isRodAccessory" [disabled]="true"
                                                                 (ngModelChange)="onChangeIsRodAccessoryCheckbox()"> -->
                                                             <label class="unitFormLabel">{{trnWorkOrderObj.isRodAccessory?"Yes":"No"}}</label>
                                                         </div>
@@ -697,7 +697,7 @@
                                                             <label class="fieldLabel">Rod Accessory</label>
                                                             <!-- <select *ngIf="trnWorkOrderObj.isRodAccessory" class="form-control" name="rodItemAccessoryName" [(ngModel)]="trnWorkOrderObj.rodItemAccessoryId"
                                                                 tabindex="9" (ngModelChange)="onChangeRodItemAccessory()" [ngClass]="{'red-border-class': rodItemAccessoryIdVal.errors && isFormSubmitted}"
-                                                                #rodItemAccessoryIdVal="ngModel" [disabled]="trnWorkOrderObj.status != 'Created'">
+                                                                #rodItemAccessoryIdVal="ngModel" [disabled]="true">
                                                                 <option *ngFor="let x of rodAccessoriesCodeList" [ngValue]="x.accessoryId" [selected]="rodItemAccessoryId == x.accessoryId">{{x.itemCode}}</option>
                                                             </select> -->
                                                             <br>
@@ -714,7 +714,7 @@
                                                             <input *ngIf="trnWorkOrderObj.isRodAccessory" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off"
                                                                 minValue="0" maxValue="10000" [ngClass]="{'red-border-class': rodItemAccessoryQuantityVal.errors  && isFormSubmitted}"
                                                                 [(ngModel)]="trnWorkOrderObj.rodItemAccessoryQuantity" name="rodItemAccessoryquantity"
-                                                                [disabled]="trnWorkOrderObj.status != 'Created'" #rodItemAccessoryQuantityVal="ngModel"
+                                                                [disabled]="true" #rodItemAccessoryQuantityVal="ngModel"
                                                                 tabindex="21" placeholder="" (blur)="changeRodItemAccessoryQuantity()"
                                                                 required>
                                                         </div>
