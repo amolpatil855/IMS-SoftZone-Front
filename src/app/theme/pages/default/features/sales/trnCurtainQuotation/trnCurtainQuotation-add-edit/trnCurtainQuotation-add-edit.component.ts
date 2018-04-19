@@ -496,6 +496,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].laborCharges = Math.round(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel * selectedPatternObj.setRateForCustomer);
         this.onUnitHeightChange(unitRow, unitIndex, areaIndex);
         this.calculateGrandTotal();
+        this.onChangeRodAccesory();
       }
     }
   }
@@ -792,6 +793,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.trnCurtainQuotationObj.rodAmountWithGST = 0;
     this.trnCurtainQuotationObj.rodGST = 0;
     if (this.trnCurtainQuotationObj.rodAccessoryId != null) {
+
       let rodObj = _.find(this.rodCodeList, { accessoryId: this.trnCurtainQuotationObj.rodAccessoryId });
       this.trnCurtainQuotationObj.rodAmount = Math.round(this.trnCurtainQuotationObj.rodRate * this.trnCurtainQuotationObj.rodQuantity);
       this.trnCurtainQuotationObj.rodAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodAmount + (this.trnCurtainQuotationObj.rodAmount * rodObj.gst) / 100);
@@ -1113,11 +1115,21 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   //   accessoryRow.rate = shadeObj.sellingRate;
   // }
   onChangeRodAccesory() {
+    let vm = this;
+    let totalWidth = 0;
+    if (!this.trnCurtainQuotationObj.rodAccessoryId) {
+      return;
+    }
     let shadeObj = _.find(this.rodCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodAccessoryId]);
     this.trnCurtainQuotationObj.rodRate = shadeObj.sellingRate;
     this.trnCurtainQuotationObj.rodItemCode = shadeObj.itemCode;
     this.trnCurtainQuotationObj.rodRateWithGST = Math.round(this.trnCurtainQuotationObj.rodRate + ((this.trnCurtainQuotationObj.rodRate * shadeObj.gst) / 100));
-
+    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
+      _.forEach(areaObj.unitList, function (value) {
+        totalWidth = value.unitWidth;
+      });
+    });
+    this.trnCurtainQuotationObj.rodQuantity = Math.round(totalWidth / 12);
   }
 
   onChangeRodItemAccessory() {
