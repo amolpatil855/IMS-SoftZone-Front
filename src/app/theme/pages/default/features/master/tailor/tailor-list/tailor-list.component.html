@@ -242,7 +242,7 @@
                                                     <p-column field="name" header="Pattern Name" [editable]="false" [style]="{'text-align':'left'}"></p-column>
                                                     <p-column field="charge" header="Charges" [editable]="true" [style]="{'text-align':'center'}">
                                                         <ng-template let-col let-row="rowData" pTemplate="editor">
-                                                            <input class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" autocomplete="off" [(ngModel)]="row[col.field]"
+                                                            <input class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="99999" autocomplete="off" [(ngModel)]="row[col.field]"
                                                                 name="{{'chargeVal'+row.patternId}}" (blur)="onChangeCharge(row)" >
                                                         </ng-template>
                                                     </p-column>

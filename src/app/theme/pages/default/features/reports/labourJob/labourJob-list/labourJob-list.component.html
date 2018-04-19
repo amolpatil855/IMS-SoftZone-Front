@@ -1,0 +1,130 @@
+<p-confirmDialog #cd>
+    <p-footer>
+        <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
+			<span>
+				<i class="la la-check"></i>
+				<span>
+					Yes
+				</span>
+			</span>
+		</button>
+        <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
+			<span>
+				<i class="la la-close"></i>
+				<span>
+					No
+				</span>
+			</span>
+		</button>
+    </p-footer>
+</p-confirmDialog>
+
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="#" class="m-nav__link m-nav__link--icon">
+						<i class="m-nav__link-icon la la-home"></i>
+					</a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a class="m-nav__link">
+						<span class="m-nav__link-text">
+							Labour Job
+						</span>
+					</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-portlet__body">
+                    <!--begin::Section-->
+
+                    <div class="m-section">
+                        <div class="m-section__content">
+                            <div class="ui-widget-header" style="border-bottom: 0 none">
+                                <div class="row" style="padding-top: 9px;padding-bottom: 10px;">
+                                    <div class="col-md-4">
+                                        <label class="col-md-4 col-sm-4 fieldLabel">Tailor</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <select class="form-control" name="tailorId" [(ngModel)]="tailorId" (ngModelChange)="onTailorChange()" autofocus tabindex="1">
+                                            <option *ngFor="let x of tailorList" [ngValue]="x.value" [selected]="tailorId == x.value">{{x.label}}</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-md-4 col-sm-4 fieldLabel">Is Paid</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <select class="form-control" name="isPaid" [(ngModel)]="isPaid" (ngModelChange)="onChangePaymentStatus()" tabindex="2">
+                                            <option *ngFor="let x of paymentList" [ngValue]="x.value" [selected]="isPaid == x.value">{{x.label}}</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-4">
+                                         <label class="col-md-4 col-sm-4 fieldLabel">From Date</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <p-calendar class="purchaseOrderDate" #startDateVal="ngModel" [(ngModel)]="startDate" (ngModelChange)="onChangeDate()"
+                                                name="startDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="1" yearRange="2015:2030" dateFormat="dd/mm/yy"
+                                                styleClass="{{ startDateVal.errors && isFormSubmitted?'red-border-class':''}}" required></p-calendar>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="row" style="padding-top: 9px;padding-bottom: 10px;">
+                                    <div class="col-md-4">
+                                         <label class="col-md-4 col-sm-4 fieldLabel">To Date</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <p-calendar class="purchaseOrderDate" [(ngModel)]="endDate"
+                                            name="endDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="6" yearRange="2015:2030" [minDate]="startDate" dateFormat="dd/mm/yy"
+                                            (ngModelChange)="onChangeDate()" placeholder="dd/mm/yyyy"></p-calendar>
+                                        </div>
+                                    </div> 
+                                    <div class="col-md-8">
+                                        <i class="fa fa-search searchIcon"></i>
+								        <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+                                    </div>
+                                </div>         
+
+                                <p-dataTable [value]="labourJobList" [emptyMessage]="tableEmptyMesssage" class="table listingTable" [rows]="pageSize"
+							    [globalFilter]="gb" #dt [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[20,50,100,200,500]" [totalRecords]="totalCount" [responsive]="true"
+							 (onLazyLoad)="loadLazy($event)">
+								<p-column field="tailorName" header="tailor Name" [style]="{'text-align':'center'}"></p-column>
+								<p-column field="workOrderNumber" header="work Order No." [style]="{'text-align':'center'}"></p-column>
+								<!-- <p-column field="startDate" header="Date" [style]="{'text-align':'center'}"></p-column> -->
+								<p-column field="workOrderDate" header="work Order Date" [style]="{'text-align':'center'}">
+									<ng-template let-col let-data="rowData" pTemplate="body">
+										{{data[col.field]|date: 'dd/MM/yyyy' }}
+									</ng-template>
+								</p-column>
+								<p-column field="curtainQuotationNumber" header="curtain Quotation No." [style]="{'text-align':'center'}"></p-column>
+								<p-column field="labourcharges" header="labour charges" [style]="{'text-align':'right'}">
+									<ng-template let-col let-data="rowData" pTemplate="body">
+										{{data[col.field] | number:'.0' }}
+									</ng-template>
+								</p-column>
+								<p-column field="isLabourChargesPaid" header="Is Paid" [style]="{'text-align':'left'}">
+									<ng-template let-col let-data="rowData" pTemplate="body">
+                                        {{data[col.field] ? 'Yes' : '' }}
+                                        <button type="button" *ngIf="data.isLabourChargesPaid == false" pButton (click)="updatePaidLabourCharge(data)" icon="fa fa-check" class="editBtn" title="No"></button>
+									</ng-template>
+								</p-column>
+							</p-dataTable>
+                            </div>
+                        </div>
+                        <!--end::Section-->
+                    </div>
+                </div>
+                <!--end::Portlet-->
+            </div>
+        </div>
+    </div>

@@ -181,7 +181,7 @@
                                             <p-column field="availableStock" header="Available Stock" [editable]="false" [style]="{'text-align':'center'}"></p-column>
                                             <p-column field="issuedQuantity" header="Issue Quantity" [editable]="trnGoodIssueNoteObj.status=='Created'" [style]="{'text-align':'center'}">
                                                 <ng-template let-col let-row="rowData" pTemplate="editor">
-                                                    <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="{{row.orderQuantity > row.availableStock ? row.availableStock : row.orderQuantity }}"
+                                                    <input class="form-control" OnlyNumber="true" DecimalPlaces="2" autocomplete="off" minValue="0" maxValue="{{row.orderQuantity > row.availableStock ? row.availableStock : row.orderQuantity }}"
                                                         [(ngModel)]="row[col.field]" name="issuedQuantity" (blur)="onChangeIssuedQuantity(row)">
                                                 </ng-template>
                                             </p-column>
