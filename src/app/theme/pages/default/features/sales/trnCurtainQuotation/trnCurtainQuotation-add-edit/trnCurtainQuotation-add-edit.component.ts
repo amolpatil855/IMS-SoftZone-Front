@@ -270,6 +270,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unitRow.trackRate = null;
       unitRow.trackQuantity = null;
       unitRow.trackAmountWithGST = null;
+      this.calculateGrandTotal();
     }
   }
 
@@ -279,6 +280,12 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unitRow.motorRate = null;
       unitRow.motorQuantity = null;
       unitRow.motorAmountWithGST = null;
+      unitRow.isRemote = false;
+      unitRow.remoteAccessoryId = null;
+      unitRow.remoteRate = null;
+      unitRow.remoteQuantity = null;
+      unitRow.remoteAmountWithGST = null;
+      this.calculateGrandTotal();
     }
   }
 
@@ -288,6 +295,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unitRow.remoteRate = null;
       unitRow.remoteQuantity = null;
       unitRow.remoteAmountWithGST = null;
+      this.calculateGrandTotal();
     }
   }
 
@@ -297,6 +305,12 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       this.trnCurtainQuotationObj.rodRate = null;
       this.trnCurtainQuotationObj.rodQuantity = null;
       this.trnCurtainQuotationObj.rodAmountWithGST = null;
+      this.trnCurtainQuotationObj.isRodAccessory = false;
+      this.trnCurtainQuotationObj.rodItemAccessoryId = null;
+      this.trnCurtainQuotationObj.rodItemAccessoryRate = null;
+      this.trnCurtainQuotationObj.rodItemAccessoryQuantity = null;
+      this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = null;
+      this.calculateGrandTotal();
     }
   }
 
@@ -306,6 +320,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       this.trnCurtainQuotationObj.rodItemAccessoryRate = null;
       this.trnCurtainQuotationObj.rodItemAccessoryQuantity = null;
       this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = null;
+      this.calculateGrandTotal();
     }
   }
 
@@ -667,6 +682,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     vm.fabricTotal = 0;
     vm.accessoriesTotal = 0;
     vm.grandTotal = 0;
+    vm.tempAccessory = 0;
     vm.grandTotalWithoutLabourCharges = 0;
     _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
       _.forEach(areaObj.unitList, function (unitObj, unitRowNum) {
@@ -676,8 +692,27 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         _.forEach(unitObj.accessoryList, function (accessoryObj) {
           vm.accessoriesTotal += accessoryObj.amountWithGST;
         });
-      });
-    });
+            if (unitObj.trackAmountWithGST) {
+              vm.tempAccessory = vm.tempAccessory + unitObj.trackAmountWithGST;
+            }
+            if (unitObj.motorAmountWithGST) {
+              vm.tempAccessory = vm.tempAccessory + unitObj.motorAmountWithGST;
+            }
+
+              if (unitObj.remoteAmountWithGST) {
+                vm.tempAccessory = vm.tempAccessory + unitObj.remoteAmountWithGST;
+              }
+
+          });
+        });
+
+        if (vm.trnCurtainQuotationObj.rodAmountWithGST) {
+          vm.tempAccessory = vm.tempAccessory + vm.trnCurtainQuotationObj.rodAmountWithGST;
+        }
+
+        if (vm.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST) {
+          vm.tempAccessory = vm.tempAccessory + vm.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST;
+        }
     vm.accessoriesTotal +=  vm.tempAccessory;
     vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
     vm.grandTotalWithoutLabourCharges = Math.round(vm.grandTotal - vm.stitchingTotal);
@@ -787,7 +822,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unitRow.trackAmountWithGST = Math.round(unitRow.trackAmount + (unitRow.trackAmount * trackObj.gst) / 100);
       unitRow.trackGST = trackObj.gst;
       this.calculateGrandTotal();
-      this.grandTotalWithoutLabourCharges += unitRow.trackAmountWithGST;
+      //this.grandTotalWithoutLabourCharges += unitRow.trackAmountWithGST;
     }
   }
 
@@ -801,7 +836,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unitRow.motorAmountWithGST = Math.round(unitRow.motorAmount + (unitRow.motorAmount * motorObj.gst) / 100);
       unitRow.motorGST = motorObj.gst;
       this.calculateGrandTotal();
-      this.grandTotalWithoutLabourCharges += unitRow.motorAmountWithGST;
+      //this.grandTotalWithoutLabourCharges += unitRow.motorAmountWithGST;
     }
   }
   changeRemoteQuantity(unitRow, unitRowNum, rowNum) {
@@ -814,7 +849,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unitRow.remoteAmountWithGST = Math.round(unitRow.remoteAmount + (unitRow.remoteAmount * remoteObj.gst) / 100);
       unitRow.remoteGST = remoteObj.gst;
       this.calculateGrandTotal();
-      this.grandTotalWithoutLabourCharges += unitRow.remoteAmountWithGST;
+      //this.grandTotalWithoutLabourCharges += unitRow.remoteAmountWithGST;
     }
   }
 
@@ -828,7 +863,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       this.trnCurtainQuotationObj.rodAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodAmount + (this.trnCurtainQuotationObj.rodAmount * rodObj.gst) / 100);
       this.trnCurtainQuotationObj.rodGST = rodObj.gst;
       this.calculateGrandTotal();
-      this.grandTotalWithoutLabourCharges += this.trnCurtainQuotationObj.rodAmountWithGST;
+      //this.grandTotalWithoutLabourCharges += this.trnCurtainQuotationObj.rodAmountWithGST;
     }
   }
 
@@ -842,7 +877,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryAmount + (this.trnCurtainQuotationObj.rodItemAccessoryAmount * rodObj.gst) / 100);
       this.trnCurtainQuotationObj.rodItemAccessoryGST = rodObj.gst;
       this.calculateGrandTotal();
-      this.grandTotalWithoutLabourCharges += this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST;
+      //this.grandTotalWithoutLabourCharges += this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST;
     }
   }
 
