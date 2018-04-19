@@ -179,14 +179,14 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         Helpers.setLoading(true);
         this.trnCurtainQuotationService.updateTrnCurtainQuotation(this.trnCurtainQuotationObj)
           .subscribe(
-          results => {
-            this.approveCurtainQuotation();
-            Helpers.setLoading(false);
-          },
-          error => {
-            this.globalErrorHandler.handleError(error);
-            Helpers.setLoading(false);
-          });
+            results => {
+              this.approveCurtainQuotation();
+              Helpers.setLoading(false);
+            },
+            error => {
+              this.globalErrorHandler.handleError(error);
+              Helpers.setLoading(false);
+            });
       }
     }
   }
@@ -194,19 +194,19 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   approveCurtainQuotation() {
     this.trnCurtainQuotationService.approveCurtainQuotation(this.trnCurtainQuotationObj)
       .subscribe(
-      results => {
-        this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-        if (results.type == 'Success') {
-          this.params = null;
-          this.viewItem = false;
-          this.trnCurtainQuotationObj.status = 'Approved';
-        }
-        Helpers.setLoading(false);
-      },
-      error => {
-        this.globalErrorHandler.handleError(error);
-        Helpers.setLoading(false);
-      });
+        results => {
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          if (results.type == 'Success') {
+            this.params = null;
+            this.viewItem = false;
+            this.trnCurtainQuotationObj.status = 'Approved';
+          }
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
   }
 
   onCancelCQ() {
@@ -214,35 +214,53 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       Helpers.setLoading(true);
       this.trnCurtainQuotationService.cancelCurtainQuotation(this.trnCurtainQuotationObj)
         .subscribe(
-        results => {
-          this.params = null;
-          this.viewItem = false;
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-          this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
-          Helpers.setLoading(false);
-          this.disabled = false;
-          this.viewItem = true;
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+          results => {
+            this.params = null;
+            this.viewItem = false;
+            this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+            this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
+            Helpers.setLoading(false);
+            this.disabled = false;
+            this.viewItem = true;
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
     }
   }
 
-  onChangeIsVerticalPatchCheckbox(fabricRow) {
+  onChangeIsVerticalPatchCheckbox(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow) {
     if (fabricRow.isVerticalPatch == false) {
       fabricRow.noOfVerticalPatch = null;
       fabricRow.verticalPatchWidth = null;
       fabricRow.verticalPatchQuantity = null;
+      if (fabricRow.isHorizontalPatch == true && fabricRow.noOfHorizontalPatch && fabricRow.horizontalPatchHeight)
+        this.calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
+      else {
+        fabricRow.orderQuantity = 0;
+        this.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
+      }
+
+    } else {
+      this.calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
     }
   }
 
-  onChangeIsHorizontalPatchCheckbox(fabricRow) {
+  onChangeIsHorizontalPatchCheckbox(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow) {
     if (fabricRow.isHorizontalPatch == false) {
       fabricRow.noOfHorizontalPatch = null;
       fabricRow.horizontalPatchHeight = null;
       fabricRow.horizontalPatchQuantity = null;
+      if (fabricRow.isVerticalPatch == true && fabricRow.noOfVerticalPatch && fabricRow.verticalPatchWidth)
+        this.calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
+      else {
+        fabricRow.orderQuantity = 0;
+        this.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
+      }
+
+    } else {
+      this.calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
     }
   }
 
@@ -498,6 +516,10 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].laborCharges = Math.round(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel * selectedPatternObj.setRateForCustomer);
         this.onUnitHeightChange(unitRow, unitIndex, areaIndex);
         this.calculateGrandTotal();
+
+        if (unitRow.isTrack)
+          unitRow.trackQuantity = Math.round(unitRow.unitWidth / 12);
+        this.changeTrackQuantity(unitRow, unitIndex, areaIndex);
       }
     }
   }
@@ -678,7 +700,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         }
         fabricRow.verticalPatchQuantity = patchQuantity;
         fabricRow.verticalPatchQuantity = fabricRow.verticalPatchQuantity.toFixed(2);
-        fabricRow.orderQuantity = fabricRow.horizontalPatchQuantity + fabricRow.verticalPatchQuantity;
+        fabricRow.orderQuantity = (fabricRow.horizontalPatchQuantity ? parseFloat(fabricRow.horizontalPatchQuantity) : 0) + parseFloat(fabricRow.verticalPatchQuantity);
         fabricRow.orderQuantity = this.adjustPatchQuantity(fabricRow.orderQuantity);
         //let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
         fabricRow.verticalPatchRate = parseFloat(fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.flatRate : fabricRow.shadeDetails.rrp).toFixed(2);
@@ -710,7 +732,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       fabricRow.horizontalPatchRate = parseFloat(fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.flatRate : fabricRow.shadeDetails.rrp).toFixed(2);
       fabricRow.horizontalPatchMaxDiscount = fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.maxFlatRateDisc : fabricRow.horizontalPatchQuantity >= 50 ? fabricRow.shadeDetails.maxRoleRateDisc : fabricRow.shadeDetails.maxCutRateDisc;
       fabricRow.horizontalPatchDiscount = 0;
-      fabricRow.orderQuantity = fabricRow.horizontalPatchQuantity + fabricRow.verticalPatchQuantity;
+      fabricRow.orderQuantity = parseFloat(fabricRow.horizontalPatchQuantity) + (fabricRow.verticalPatchQuantity ? parseFloat(fabricRow.verticalPatchQuantity) : 0);
       fabricRow.orderQuantity = this.adjustPatchQuantity(fabricRow.orderQuantity);
       this.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
     }
@@ -857,16 +879,16 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         this.trnCurtainQuotationObj.trnCurtainQuotationItems = this.trnCurtainQuotationItems;
         this.trnCurtainQuotationService.updateTrnCurtainQuotation(this.trnCurtainQuotationObj)
           .subscribe(
-          results => {
-            this.params = null;
-            this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-            Helpers.setLoading(false);
-            this.router.navigate(['/features/sales/trnCurtainQuotation/add'], { queryParams: { CurtainQuotationId: this.trnCurtainQuotationObj.id } });
-          },
-          error => {
-            this.globalErrorHandler.handleError(error);
-            Helpers.setLoading(false);
-          });
+            results => {
+              this.params = null;
+              this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+              Helpers.setLoading(false);
+              this.router.navigate(['/features/sales/trnCurtainQuotation/add'], { queryParams: { CurtainQuotationId: this.trnCurtainQuotationObj.id } });
+            },
+            error => {
+              this.globalErrorHandler.handleError(error);
+              Helpers.setLoading(false);
+            });
       }
     }
   }
@@ -1601,29 +1623,29 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     if (this.params) {
       this.trnCurtainQuotationService.updateTrnCurtainQuotation(value)
         .subscribe(
-        results => {
-          this.params = null;
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-          Helpers.setLoading(false);
-          this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+          results => {
+            this.params = null;
+            this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+            Helpers.setLoading(false);
+            this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
     } else {
       this.trnCurtainQuotationService.createTrnCurtainQuotation(value)
         .subscribe(
-        results => {
-          this.params = null;
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-          Helpers.setLoading(false);
-          this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+          results => {
+            this.params = null;
+            this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+            Helpers.setLoading(false);
+            this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
     }
   }
 
