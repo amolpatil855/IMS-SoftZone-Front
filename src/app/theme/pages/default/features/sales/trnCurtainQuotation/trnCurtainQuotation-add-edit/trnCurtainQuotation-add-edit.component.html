@@ -253,10 +253,12 @@
                                                                             </div>
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Panels</label>
-                                                                                <input class="form-control m-input" type="text" [(ngModel)]="unitRow.numberOfPanel" name="{{'unitnumberOfPanel'+unitRow.contRoleId}}"
+                                                                                <!-- <input class="form-control m-input" type="text" [(ngModel)]="unitRow.numberOfPanel" name="{{'unitnumberOfPanel'+unitRow.contRoleId}}"
                                                                                     [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                     placeholder="" tabindex="10" [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
-                                                                                    #hightVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
+                                                                                    #hightVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)"> -->
+                                                                                    <br/>
+                                                                                    <label class="unitFormLabel"> {{unitRow ? (unitRow.numberOfPanel | number:'.0') : ''}}</label>
                                                                             </div>
                                                                             <div class="col-md-2">
                                                                                 <label class="fieldLabel">Labor</label>
@@ -549,7 +551,7 @@
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Tracks</label>
                                                                                     <select *ngIf="unitRow.isTrack" class="form-control" name="{{'tracks'+unitRow.contRoleId}}" [(ngModel)]="unitRow.trackAccessoryId"
-                                                                                        tabindex="9" (ngModelChange)="onChangeTrackAccesory(unitRow)"
+                                                                                        tabindex="9" (ngModelChange)="onChangeTrackAccesory(unitRow)" required
                                                                                         [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                         [ngClass]="{'red-border-class': accessoryTrackVal.errors && isFormSubmitted}"
                                                                                         #accessoryTrackVal="ngModel">
@@ -591,7 +593,7 @@
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Motor</label>
                                                                                     <select *ngIf="unitRow.isMotor" class="form-control" name="{{'isMotor'+unitRow.contRoleId}}" [(ngModel)]="unitRow.motorAccessoryId"
-                                                                                        tabindex="9" (ngModelChange)="onChangeMotorAccesory(unitRow)"
+                                                                                        tabindex="9" (ngModelChange)="onChangeMotorAccesory(unitRow)" required
                                                                                         [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                         [ngClass]="{'red-border-class': accessoryMotorVal.errors && isFormSubmitted}"
                                                                                         #accessoryMotorVal="ngModel">
@@ -634,7 +636,7 @@
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Remote</label>
                                                                                     <select *ngIf="unitRow.isRemote" class="form-control" name="{{'isRemote'+unitRow.contRoleId}}" [(ngModel)]="unitRow.remoteAccessoryId"
-                                                                                        tabindex="9" (ngModelChange)="onChangeRemoteAccesory(unitRow)"
+                                                                                        tabindex="9" (ngModelChange)="onChangeRemoteAccesory(unitRow)" required
                                                                                         [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                         [ngClass]="{'red-border-class': accessoryRemoteVal.errors && isFormSubmitted}"
                                                                                         #accessoryRemoteVal="ngModel">
@@ -651,7 +653,7 @@
                                                                                     <br/>
                                                                                     <input *ngIf="unitRow.isRemote" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0"
                                                                                         maxValue="10000" [ngClass]="{'red-border-class': remoteQuantityVal.errors && isFormSubmitted}"
-                                                                                        [(ngModel)]="unitRow.remoteQuantity"
+                                                                                        [(ngModel)]="unitRow.remoteQuantity" 
                                                                                         [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                         name="{{'remoteQuantity'+unitRow.contRoleId}}"
                                                                                         #remoteQuantityVal="ngModel" tabindex="21"
@@ -713,7 +715,7 @@
                                                         <div class="col-md-3">
                                                             <label class="fieldLabel">Rod</label>
                                                             <select *ngIf="trnCurtainQuotationObj.isRod" class="form-control" name="rodName" [(ngModel)]="trnCurtainQuotationObj.rodAccessoryId"
-                                                                tabindex="9" (ngModelChange)="onChangeRodAccesory()" [ngClass]="{'red-border-class': accessoryRodVal.errors && isFormSubmitted}"
+                                                                tabindex="9" (ngModelChange)="onChangeRodAccesory()" required [ngClass]="{'red-border-class': accessoryRodVal.errors && isFormSubmitted}"
                                                                 #accessoryRodVal="ngModel" [disabled]="trnCurtainQuotationObj.status == 'Approved'">
                                                                 <option *ngFor="let x of rodCodeList" [ngValue]="x.accessoryId" [selected]="rodAccessoryId == x.accessoryId">{{x.itemCode}}</option>
                                                             </select>
@@ -750,7 +752,7 @@
                                                         <div class="col-md-3">
                                                             <label class="fieldLabel">Rod Accessory</label>
                                                             <select *ngIf="trnCurtainQuotationObj.isRodAccessory" class="form-control" name="rodItemAccessoryName" [(ngModel)]="trnCurtainQuotationObj.rodItemAccessoryId"
-                                                                tabindex="9" (ngModelChange)="onChangeRodItemAccessory()" [ngClass]="{'red-border-class': rodItemAccessoryIdVal.errors && isFormSubmitted}"
+                                                                tabindex="9" (ngModelChange)="onChangeRodItemAccessory()" required [ngClass]="{'red-border-class': rodItemAccessoryIdVal.errors && isFormSubmitted}"
                                                                 #rodItemAccessoryIdVal="ngModel" [disabled]="trnCurtainQuotationObj.status == 'Approved'">
                                                                 <option *ngFor="let x of rodAccessoriesCodeList" [ngValue]="x.accessoryId" [selected]="rodItemAccessoryId == x.accessoryId">{{x.itemCode}}</option>
                                                             </select>

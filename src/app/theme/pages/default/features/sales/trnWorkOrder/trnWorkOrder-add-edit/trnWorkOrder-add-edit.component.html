@@ -128,10 +128,10 @@
                                                         <div class="row form-group">
 
                                                             <div class="col-md-3">
-                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Tailor
+                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Tailor<span class="requiredField">*</span>
                                                                 </label>
                                                                 <div class="col-md-8 col-sm-8">
-                                                                    <select class="form-control" name="agent" [(ngModel)]="trnWorkOrderObj.tailorId" tabindex="4" (ngModelChange)="onChangeTailor()">
+                                                                    <select class="form-control" name="tailorId" [(ngModel)]="trnWorkOrderObj.tailorId" required #tailorIdCodeVal="ngModel" [ngClass]="{'red-border-class': tailorIdCodeVal.errors && isFormSubmitted}" tabindex="4" (ngModelChange)="onChangeTailor()">
                                                                         <option *ngFor="let x of tailorCodeList" [ngValue]="x.id" [selected]="trnWorkOrderObj.tailorId == x.id">{{x.name}}</option>
                                                                     </select>
 
