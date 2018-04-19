@@ -293,7 +293,7 @@
                                                                                     <br/>
                                                                                     <label class="unitFormLabel">{{fabricRow.shadeDetails ? fabricRow.shadeDetails.fabricWidth : ""}}</label>
                                                                                 </div>
-                                                                                <div class="col-md-1" *ngIf="fabricRow.shadeDetails && fabricRow.shadeDetails.fabricWidth>100">
+                                                                                <div class="col-md-1" *ngIf="fabricRow.shadeDetails && fabricRow.shadeDetails.fabricWidth>100 && !fabricRow.isPatch">
                                                                                     <label class="fieldLabel">Direction</label>
                                                                                     <br/>
                                                                                     <select class="form-control" name="{{'verticalHorizontal'+unitRow.contRoleId}}" [(ngModel)]="fabricRow.fabricDirection" tabindex="9"
