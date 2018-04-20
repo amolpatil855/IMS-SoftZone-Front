@@ -73,9 +73,11 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   fabricTotal = 0;
   minAllowedDiscount = 0;
   accessoriesTotal = 0;
+  tempAccessory = 0;
   stitchingTotal = 0;
   grandTotal = 0;
   grandTotalWithoutLabourCharges = 0;
+  isAlreadySubtracted = true;
   constructor(
     private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -268,6 +270,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unitRow.trackRate = null;
       unitRow.trackQuantity = null;
       unitRow.trackAmountWithGST = null;
+      this.calculateGrandTotal();
     }
   }
 
@@ -277,6 +280,12 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unitRow.motorRate = null;
       unitRow.motorQuantity = null;
       unitRow.motorAmountWithGST = null;
+      unitRow.isRemote = false;
+      unitRow.remoteAccessoryId = null;
+      unitRow.remoteRate = null;
+      unitRow.remoteQuantity = null;
+      unitRow.remoteAmountWithGST = null;
+      this.calculateGrandTotal();
     }
   }
 
@@ -286,6 +295,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unitRow.remoteRate = null;
       unitRow.remoteQuantity = null;
       unitRow.remoteAmountWithGST = null;
+      this.calculateGrandTotal();
     }
   }
 
@@ -295,6 +305,12 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       this.trnCurtainQuotationObj.rodRate = null;
       this.trnCurtainQuotationObj.rodQuantity = null;
       this.trnCurtainQuotationObj.rodAmountWithGST = null;
+      this.trnCurtainQuotationObj.isRodAccessory = false;
+      this.trnCurtainQuotationObj.rodItemAccessoryId = null;
+      this.trnCurtainQuotationObj.rodItemAccessoryRate = null;
+      this.trnCurtainQuotationObj.rodItemAccessoryQuantity = null;
+      this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = null;
+      this.calculateGrandTotal();
     }
   }
 
@@ -304,6 +320,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       this.trnCurtainQuotationObj.rodItemAccessoryRate = null;
       this.trnCurtainQuotationObj.rodItemAccessoryQuantity = null;
       this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = null;
+      this.calculateGrandTotal();
     }
   }
 
@@ -614,6 +631,11 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         }
       });
     }
+    let fabricObj = _.find(unitRow.fabricList, ['isPatch', true]);
+    if (fabricObj) {
+      if (fabricObj.isVerticalPatch)
+        this.calculateVerticalQuantity(fabricObj, fabricObj.contRoleId, unitIndex, areaIndex, unitRow);
+    }
   }
 
   findMinGlobalDiscount() {
@@ -665,17 +687,38 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     vm.fabricTotal = 0;
     vm.accessoriesTotal = 0;
     vm.grandTotal = 0;
+    vm.tempAccessory = 0;
     vm.grandTotalWithoutLabourCharges = 0;
     _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
       _.forEach(areaObj.unitList, function (unitObj, unitRowNum) {
         _.forEach(unitObj.fabricList, function (fabricRow, fabricRowNum) {
           vm.fabricTotal += fabricRow.amountWithGST;
         });
-        _.forEach(unitObj.accessoryList, function (accessoryRow) {
-          vm.accessoriesTotal += accessoryRow.amountWithGST;
+        _.forEach(unitObj.accessoryList, function (accessoryObj) {
+          vm.accessoriesTotal += accessoryObj.amountWithGST;
         });
+        if (unitObj.trackAmountWithGST) {
+          vm.tempAccessory = vm.tempAccessory + unitObj.trackAmountWithGST;
+        }
+        if (unitObj.motorAmountWithGST) {
+          vm.tempAccessory = vm.tempAccessory + unitObj.motorAmountWithGST;
+        }
+
+        if (unitObj.remoteAmountWithGST) {
+          vm.tempAccessory = vm.tempAccessory + unitObj.remoteAmountWithGST;
+        }
+
       });
     });
+
+    if (vm.trnCurtainQuotationObj.rodAmountWithGST) {
+      vm.tempAccessory = vm.tempAccessory + vm.trnCurtainQuotationObj.rodAmountWithGST;
+    }
+
+    if (vm.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST) {
+      vm.tempAccessory = vm.tempAccessory + vm.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST;
+    }
+    vm.accessoriesTotal += vm.tempAccessory;
     vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
     vm.grandTotalWithoutLabourCharges = Math.round(vm.grandTotal - vm.stitchingTotal);
   }
@@ -783,6 +826,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unitRow.trackAmount = unitRow.trackRate * unitRow.trackQuantity;
       unitRow.trackAmountWithGST = Math.round(unitRow.trackAmount + (unitRow.trackAmount * trackObj.gst) / 100);
       unitRow.trackGST = trackObj.gst;
+      this.calculateGrandTotal();
+      //this.grandTotalWithoutLabourCharges += unitRow.trackAmountWithGST;
     }
   }
 
@@ -795,6 +840,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unitRow.motorAmount = unitRow.motorRate * unitRow.motorQuantity;
       unitRow.motorAmountWithGST = Math.round(unitRow.motorAmount + (unitRow.motorAmount * motorObj.gst) / 100);
       unitRow.motorGST = motorObj.gst;
+      this.calculateGrandTotal();
+      //this.grandTotalWithoutLabourCharges += unitRow.motorAmountWithGST;
     }
   }
   changeRemoteQuantity(unitRow, unitRowNum, rowNum) {
@@ -806,6 +853,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       unitRow.remoteAmount = unitRow.remoteRate * unitRow.remoteQuantity;
       unitRow.remoteAmountWithGST = Math.round(unitRow.remoteAmount + (unitRow.remoteAmount * remoteObj.gst) / 100);
       unitRow.remoteGST = remoteObj.gst;
+      this.calculateGrandTotal();
+      //this.grandTotalWithoutLabourCharges += unitRow.remoteAmountWithGST;
     }
   }
 
@@ -819,6 +868,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       this.trnCurtainQuotationObj.rodAmount = Math.round(this.trnCurtainQuotationObj.rodRate * this.trnCurtainQuotationObj.rodQuantity);
       this.trnCurtainQuotationObj.rodAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodAmount + (this.trnCurtainQuotationObj.rodAmount * rodObj.gst) / 100);
       this.trnCurtainQuotationObj.rodGST = rodObj.gst;
+      this.calculateGrandTotal();
+      //this.grandTotalWithoutLabourCharges += this.trnCurtainQuotationObj.rodAmountWithGST;
     }
   }
 
@@ -831,6 +882,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       this.trnCurtainQuotationObj.rodItemAccessoryAmount = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryRate * this.trnCurtainQuotationObj.rodItemAccessoryQuantity);
       this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryAmount + (this.trnCurtainQuotationObj.rodItemAccessoryAmount * rodObj.gst) / 100);
       this.trnCurtainQuotationObj.rodItemAccessoryGST = rodObj.gst;
+      this.calculateGrandTotal();
+      //this.grandTotalWithoutLabourCharges += this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST;
     }
   }
 
@@ -838,6 +891,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     if (accessoryRow.orderQuantity) {
       accessoryRow.amount = Math.round(accessoryRow.accessoriesDetails.sellingRate * accessoryRow.orderQuantity);
       accessoryRow.amountWithGST = Math.round(accessoryRow.amount + (accessoryRow.amount * accessoryRow.accessoriesDetails.gst) / 100);
+      this.calculateGrandTotal();
+      //vm.grandTotalWithoutLabourCharges -= accessoryRow.amountWithGST;
+
     }
   }
 
@@ -1058,9 +1114,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           vm.trnCurtainQuotationObj.rodItemAccessoryQuantity = isRodAccessoryObj.orderQuantity;
           vm.trnCurtainQuotationObj.rodItemAccessoryRate = isRodAccessoryObj.rate;
         }
-
-        vm.accessoriesTotal = vm.accessoriesTotal + normalAccessoryAmount + trackAccessoryAmount + rodAccessoryAmount + motorAccessoryAmount + remoteAccessoryAmount;
-
+        vm.tempAccessory = normalAccessoryAmount + trackAccessoryAmount + rodAccessoryAmount + motorAccessoryAmount + remoteAccessoryAmount;
+        vm.accessoriesTotal = vm.accessoriesTotal + vm.tempAccessory;
         vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
         vm.grandTotalWithoutLabourCharges = Math.round(vm.grandTotal - vm.stitchingTotal);
         this.findMinGlobalDiscount();
@@ -1083,32 +1138,35 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let vm = this;
     let accessoryAmount = 0;
     vm.fabricTotal = 0;
-    vm.accessoriesTotal = 0;
     vm.grandTotal = 0;
     vm.grandTotalWithoutLabourCharges = 0;
-    unitRow.mstPattern = _.find(this.patternList, ['id', unitRow.patternId]);
-    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
-      _.forEach(areaObj.unitList, function (unitRow, unitRowNum) {
-        vm.onUnitHeightChange(unitRow, unitRowNum, rowNum);
-        _.forEach(unitRow.fabricList, function (fabricRow, fabricRowNum) {
-          if (fabricRow.isPatch) {
-            if (fabricRow.isVerticalPatch)
-              vm.calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
-            if (fabricRow.isHorizontalPatch)
-              vm.calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
-          }
-          vm.fabricTotal += fabricRow.amountWithGST;
-        });
-        _.forEach(unitRow.accessoryList, function (accessoryRow) {
-          accessoryAmount += accessoryRow.amountWithGST;
+    unitRow.numberOfPanel = 0;
+    if (unitRow.patternId != null) {
+      unitRow.mstPattern = _.find(this.patternList, ['id', unitRow.patternId]);
+      _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
+        _.forEach(areaObj.unitList, function (unitRow, unitRowNum) {
+          unitRow.numberOfPanel = Math.ceil(unitRow.unitWidth / unitRow.mstPattern.widthPerInch);
+          unitRow.laborCharges = Math.round(unitRow.numberOfPanel * unitRow.mstPattern.setRateForCustomer);
+          vm.onUnitHeightChange(unitRow, unitRowNum, rowNum);
+          _.forEach(unitRow.fabricList, function (fabricRow, fabricRowNum) {
+            if (fabricRow.isPatch) {
+              if (fabricRow.isVerticalPatch)
+                vm.calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
+              if (fabricRow.isHorizontalPatch)
+                vm.calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
+            }
+            vm.fabricTotal += fabricRow.amountWithGST;
+          });
+          _.forEach(unitRow.accessoryList, function (accessoryRow) {
+            accessoryAmount += accessoryRow.amountWithGST;
+          });
         });
       });
-    });
+      vm.accessoriesTotal = vm.accessoriesTotal + accessoryAmount + vm.tempAccessory;
 
-    vm.accessoriesTotal = vm.accessoriesTotal + accessoryAmount;
-
-    vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
-    vm.grandTotalWithoutLabourCharges = Math.round(vm.grandTotal - vm.stitchingTotal);
+      vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
+      vm.grandTotalWithoutLabourCharges = Math.round(vm.grandTotal - vm.stitchingTotal);
+    }
   }
 
   onStateChange() {

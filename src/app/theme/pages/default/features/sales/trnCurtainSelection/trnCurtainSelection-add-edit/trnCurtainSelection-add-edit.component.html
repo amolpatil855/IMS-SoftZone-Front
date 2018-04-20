@@ -264,9 +264,9 @@
                                                                                 </div>
                                                                             </div> -->
                                                                             <div class="col-md-2">
-                                                                                <button type="button" pButton (click)="addFabricRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Add Unit"></button>
-                                                                                <button type="button" pButton (click)="onDeleteFabricRow(rowNum,unitRowNum,fabricRowNum, unitRow.fabricList)" icon="fa fa-times"
-                                                                                    class="editBtn" title="Remove Unit"></button>
+                                                                                <button type="button" *ngIf="viewItem" pButton (click)="addFabricRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Add Unit"></button>
+                                                                                <button type="button" *ngIf="unitRow.fabricList.length > 1" pButton (click)="onDeleteFabricRow(rowNum,unitRowNum,fabricRowNum, unitRow.fabricList)" icon="fa fa-times"
+                                                                                    class="editBtn" title="Delete Fabric"></button>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row form-group" *ngFor="let accessoryRow of unitRow.accessoryList;let accessoryRowNum=index;let accessoryLastRowNum=last;">
@@ -290,8 +290,8 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <button type="button" *ngIf="viewItem" pButton (click)="addAccessoryRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Delete Accessory"></button>
-                                                                                <button type="button" pButton *ngIf="viewItem" (click)="deleteAccessoryRow(rowNum,unitRowNum,accessoryRowNum,unitRow.accessoryList)"
+                                                                                <button type="button" *ngIf="viewItem" pButton (click)="addAccessoryRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Add Accessory"></button>
+                                                                                <button type="button" pButton *ngIf="unitRow.accessoryList.length > 1" (click)="deleteAccessoryRow(rowNum,unitRowNum,accessoryRowNum,unitRow.accessoryList)"
                                                                                     icon="fa fa-times" class="editBtn" title="Delete Accessory"></button>
                                                                             </div>
                                                                         </div>
