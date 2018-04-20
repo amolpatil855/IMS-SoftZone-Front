@@ -160,13 +160,23 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Grand Total
+                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Material Total Cost
                                                                 </label>
                                                                 <div class="col-md-8 col-sm-8">
                                                                     <label class="orderTypeLabel">{{ grandTotalWithoutLabourCharges ? (grandTotalWithoutLabourCharges
                                                                         | number:'.0') : '' }}</label>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-3">
+                                                                <label class="col-md-4 col-sm-4 fieldLabel noPadding">Labor Total Cost
+                                                                </label>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                    <label class="orderTypeLabel">{{ stitchingTotal ? (stitchingTotal
+                                                                        | number:'.0') : '' }}</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
                                                             <div class="col-md-3">
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Advance Amount
                                                                 </label>
@@ -175,10 +185,8 @@
                                                                         | number:'.0') : '' }}</label>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row form-group">
                                                             <div class="col-md-3">
-                                                                <label class="col-md-6 col-sm-6 fieldLabel">Exp. Delivery Date</label>
+                                                                <label class="col-md-6 col-sm-6 fieldLabel noPadding">Exp. Delivery Date</label>
                                                                 <div class="col-md-6 col-sm-6">
                                                                     <p-calendar class="purchaseOrderDate" [disabled]="!viewItem" #expectedDeliveryDateVal="ngModel" [(ngModel)]="trnCurtainQuotationObj.expectedDeliveryDate"
                                                                         name="expectedDeliveryDate" [monthNavigator]="true" [yearNavigator]="true"
@@ -257,7 +265,7 @@
                                                                             </div>
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Panels</label>
-                                                                                <input class="form-control m-input" type="text" [(ngModel)]="unitRow.numberOfPanel" name="{{'unitnumberOfPanel'+unitRow.contRoleId}}"
+                                                                                <input class="form-control m-input" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="500" [(ngModel)]="unitRow.numberOfPanel" name="{{'unitnumberOfPanel'+unitRow.contRoleId}}"
                                                                                     [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                     placeholder="" tabindex="10" [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
                                                                                     #hightVal="ngModel" required (blur)="onPannelChange(unitRow,unitRowNum,rowNum)">
