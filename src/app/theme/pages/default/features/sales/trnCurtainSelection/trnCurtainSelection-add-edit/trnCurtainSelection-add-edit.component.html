@@ -297,7 +297,7 @@
                                                                         </div>
                                                                         <div class="row form-group">
                                                                             <div class="col-md-4">
-                                                                                <input type="button" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add Unit"
+                                                                                <input type="button" *ngIf="viewItem && unitLastRowNum" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add Unit"
                                                                                     tabindex="14" (click)="addUnit(areaRow)"
                                                                                 />
                                                                                 <input type="button" *ngIf="viewItem" class="btn btn-secondary" value="Remove" (click)="removeUnit(rowNum,unitRowNum,areaRow.unitList)"
@@ -309,7 +309,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="m-form__actions m-form__actions--solid formTopActionBtnBox formAddItemBox">
-                                                            <input type="button" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add Area"
+                                                            <input type="button" *ngIf="viewItem && lastRowNum" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add Area"
                                                                 tabindex="14" (click)="addArea()" />
                                                             <input type="button" *ngIf="viewItem" class="btn btn-secondary" value="Remove" (click)="removeArea(rowNum)" tabindex="15">
                                                         </div>
