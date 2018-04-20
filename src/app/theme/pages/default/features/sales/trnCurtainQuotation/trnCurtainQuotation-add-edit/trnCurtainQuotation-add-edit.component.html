@@ -307,7 +307,7 @@
                                                                                     <select class="form-control" name="{{'verticalHorizontal'+unitRow.contRoleId}}" [(ngModel)]="fabricRow.fabricDirection" tabindex="9"
                                                                                         [ngClass]="{'red-border-class': fabricDirectionVal.errors && isFormSubmitted}"
                                                                                         #fabricDirectionVal="ngModel" required
-                                                                                        (ngModelChange)="onFabricDirectionChange(fabricRow,unitRowNum,rowNum,unitRow)">
+                                                                                        (ngModelChange)="onFabricDirectionChange(fabricRow,fabricRowNum,unitRowNum,rowNum,unitRow)">
                                                                                         <option value="Vertical">Vertical</option>
                                                                                         <option value="Horizontal">Horizontal</option>
                                                                                     </select>
@@ -565,7 +565,7 @@
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Tracks</label>
                                                                                     <select *ngIf="unitRow.isTrack" class="form-control" name="{{'tracks'+unitRow.contRoleId}}" [(ngModel)]="unitRow.trackAccessoryId"
-                                                                                        tabindex="9" (ngModelChange)="onChangeTrackAccesory(unitRow)" required
+                                                                                        tabindex="9" (ngModelChange)="onChangeTrackAccesory(unitRow,unitRowNum,rowNum)" required
                                                                                         [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                         [ngClass]="{'red-border-class': accessoryTrackVal.errors && isFormSubmitted}"
                                                                                         #accessoryTrackVal="ngModel">

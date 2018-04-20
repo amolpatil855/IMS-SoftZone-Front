@@ -170,7 +170,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let vm = this;
     if (this.params) {
       if (Math.round(vm.grandTotalWithoutLabourCharges * 0.8) > parseInt(this.trnCurtainQuotationObj.advanceAmount)) {
-        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Advance amount must be greater than grand total." });
+        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Advance amount should be at least 80% of total amount." });
         return false;
       }
 
@@ -556,7 +556,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     }
   }
 
-  onFabricDirectionChange(fabObj, unitIndex, areaIndex, unitRow) {
+  onFabricDirectionChange(fabObj, fabricRowNum, unitIndex, areaIndex, unitRow) {
     let vm = this;
     let selectedPatternId = this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].patternId;
     let selectedPatternObj = _.find(this.patternList, { id: selectedPatternId });
@@ -570,7 +570,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       }
     }
     else if (fabObj.isLining && fabObj.fabricDirection == "Horizontal")
-      fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.liningHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
+      fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.liningHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (Math.ceil(parseFloat(unitRow.unitWidth) / 50))).toFixed(2);
     else if (!fabObj.isLining && fabObj.fabricDirection == "Vertical") {
       fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
       let tempQuantity = parseFloat(fabObj.orderQuantity);
@@ -580,11 +580,12 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         fabObj.orderQuantity = parseFloat(fabObj.orderQuantity) + tempQuantity;
       }
     } else if (!fabObj.isLining && fabObj.fabricDirection == "Horizontal")
-      fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
+      fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (Math.ceil(parseFloat(unitRow.unitWidth) / 50))).toFixed(2);
     else
       fabObj.orderQuantity = 0;
 
     fabObj.orderQuantity = vm.adjustMainFabricQuantity(fabObj.orderQuantity);
+     vm.changeDiscount(fabObj, fabricRowNum, unitIndex, areaIndex);
   }
 
   onUnitHeightChange(unitRow, unitIndex, areaIndex) {
@@ -621,7 +622,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
               }
             }
             else if (fabObj.isLining && fabObj.fabricDirection == "Horizontal")
-              fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.liningHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
+              fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.liningHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * Math.ceil((parseFloat(unitRow.unitWidth) / 50))).toFixed(2);
             else if (!fabObj.isLining && fabObj.fabricDirection == "Vertical") {
               if (unitRow.numberOfPanel) {
                 fabObj.orderQuantity = parseFloat(((54 * parseFloat(unitRow.numberOfPanel)) / parseFloat(selectedPatternObj.meterPerInch)).toString()).toFixed(2);
@@ -633,7 +634,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
                 }
               }
             } else if (!fabObj.isLining && fabObj.fabricDirection == "Horizontal")
-              fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * (parseFloat(unitRow.unitWidth) / 50)).toFixed(2);
+              fabObj.orderQuantity = (((parseFloat(unitRow.unitHeight) + parseFloat(selectedPatternObj.fabricHeight)) / parseFloat(selectedPatternObj.meterPerInch)) * Math.ceil((parseFloat(unitRow.unitWidth) / 50))).toFixed(2);
           }
 
 
@@ -806,7 +807,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       if (parseInt(quantityArray[1]) > 50) {
         orderQuantity = parseInt(quantityArray[0]) + 1;
       }
-      else {
+      else if(parseInt(quantityArray[1]) > 0){
         orderQuantity = parseInt(quantityArray[0]) + 0.5;
       }
     }
@@ -827,7 +828,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         // orderQuantity = parseInt(quantityArray[0]) + partNumber;
         orderQuantity = parseInt(quantityArray[0]) + 1;
       }
-      else {
+      else if(parseInt(quantityArray[1]) > 0){
         orderQuantity = parseInt(quantityArray[0]) + 0.5;
       }
     }
@@ -1235,7 +1236,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.trnCurtainQuotationObj.rodItemAccessoryRateWithGST = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryRate + ((this.trnCurtainQuotationObj.rodItemAccessoryRate * shadeObj.gst) / 100));
   }
 
-  onChangeTrackAccesory(accessoryRow) {
+  onChangeTrackAccesory(accessoryRow,unitRowNum,rowNum) {
     accessoryRow.trackItemCode = null;
     accessoryRow.trackRate = 0;
     accessoryRow.trackRateWithGST = 0;
@@ -1249,6 +1250,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       accessoryRow.trackRateWithGST = Math.round(accessoryRow.trackRate + (accessoryRow.trackRate * accessoryObj.gst) / 100);
       accessoryRow.trackQuantity = Math.round(accessoryRow.unitWidth / 12);
       accessoryRow.trackAmount = Math.round(parseFloat(accessoryRow.trackQuantity) * parseFloat(accessoryRow.trackRateWithGST));
+      this.changeTrackQuantity(accessoryRow, unitRowNum, rowNum);
     }
   }
   onChangeMotorAccesory(accessoryRow) {
