@@ -640,6 +640,14 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
     let vm = this;
     this.trnCurtainSelectionObj.trnCurtainSelectionItems = [];
     this.trnCurtainSelectionObj.areaList.forEach(function (areaObj) {
+      if(vm.trnCurtainSelectionObj.areaList.length > 1){
+        let areaObject = _.filter(vm.trnCurtainSelectionObj.areaList, {'area':areaObj.area});
+            if(areaObject.length > 1){
+            vm.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please choose different area name." });
+            return false;
+          }
+        
+      }
       areaObj.unitList.forEach(function (unitObj) {
         unitObj.fabricList.forEach(function (fabricobj) {
           let collectionObj = _.find(vm.collectionList, ['value', fabricobj.collectionId]);
