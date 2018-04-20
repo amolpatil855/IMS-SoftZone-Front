@@ -1042,7 +1042,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
               temp.contRoleId = Math.floor(Math.random() * 2000)
             });
             value.fabricList = fabricDataList;
-            let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': false, 'isRod': false });
+            let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': false, 'isRod': false, 'isRemote': false, 'isMotor': false });
             _.forEach(accssoryDataList, function (temp) {
               temp.contRoleId = Math.floor(Math.random() * 2000),
                 temp.rate = temp.accessoriesDetails.sellingRate;
@@ -1215,6 +1215,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let vm = this;
     let totalWidth = 0;
     if (!this.trnCurtainQuotationObj.rodAccessoryId) {
+      this.trnCurtainQuotationObj.rodRate = null;
+      this.trnCurtainQuotationObj.rodQuantity = null;
+      this.trnCurtainQuotationObj.rodAmountWithGST = null;
       return;
     }
     let shadeObj = _.find(this.rodCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodAccessoryId]);
@@ -1227,13 +1230,19 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       });
     });
     this.trnCurtainQuotationObj.rodQuantity = Math.round(totalWidth / 12);
+    this.changeRodQuantity();
   }
 
   onChangeRodItemAccessory() {
-    let shadeObj = _.find(this.rodAccessoriesCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodItemAccessoryId]);
-    this.trnCurtainQuotationObj.rodItemAccessoryItemCode = shadeObj.itemCode;
-    this.trnCurtainQuotationObj.rodItemAccessoryRate = shadeObj.sellingRate;
-    this.trnCurtainQuotationObj.rodItemAccessoryRateWithGST = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryRate + ((this.trnCurtainQuotationObj.rodItemAccessoryRate * shadeObj.gst) / 100));
+    this.trnCurtainQuotationObj.rodItemAccessoryRate = null;
+    this.trnCurtainQuotationObj.rodItemAccessoryQuantity = null;
+    this.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST = null;
+    if(this.trnCurtainQuotationObj.rodItemAccessoryId != null){
+      let rodItemAccessoryObj = _.find(this.rodAccessoriesCodeList, ['accessoryId', this.trnCurtainQuotationObj.rodItemAccessoryId]);
+      this.trnCurtainQuotationObj.rodItemAccessoryItemCode = rodItemAccessoryObj.itemCode;
+      this.trnCurtainQuotationObj.rodItemAccessoryRate = rodItemAccessoryObj.sellingRate;
+      this.trnCurtainQuotationObj.rodItemAccessoryRateWithGST = Math.round(this.trnCurtainQuotationObj.rodItemAccessoryRate + ((this.trnCurtainQuotationObj.rodItemAccessoryRate * rodItemAccessoryObj.gst) / 100));
+    }  
   }
 
   onChangeTrackAccesory(accessoryRow,unitRowNum,rowNum) {

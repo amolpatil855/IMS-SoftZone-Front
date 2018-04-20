@@ -322,7 +322,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
               temp.contRoleId = Math.floor(Math.random() * 2000)
             });
             value.fabricList = fabricDataList;
-            let accssoryDataList = _.filter(results.trnWorkOrderItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': false, 'isRod': false });
+            let accssoryDataList = _.filter(results.trnWorkOrderItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': false, 'isRod': false, 'isRemote': false, 'isMotor': false });
             _.forEach(accssoryDataList, function (temp) {
               temp.contRoleId = Math.floor(Math.random() * 2000)
             });
@@ -348,7 +348,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
             let motorObj = _.find(results.trnWorkOrderItems, { "isMotor": true, unit: value.unit });
             if (motorObj) {
               motorAccessoryAmount = motorAccessoryAmount + motorObj.amountWithGST;
-              value.motorAccessoriesDetails = motorObj.accessoriesDetails;
+              value.motorAccessoriesDetails = motorObj.mstAccessory;
               value.motorId = motorObj.id;
               value.motorGST = motorObj.gst;
               value.motorAccessoryId = motorObj.accessoryId;
@@ -363,7 +363,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
             if (motorObj) {
               if(remoteObj != null){
                 remoteAccessoryAmount = remoteAccessoryAmount + remoteObj.amountWithGST;
-                value.remoteAccessoriesDetails = remoteObj.accessoriesDetails;
+                value.remoteAccessoriesDetails = remoteObj.mstAccessory;
                 value.remoteId = remoteObj.id;
                 value.remoteGST = remoteObj.gst;
                 value.remoteAccessoryId = remoteObj.accessoryId;
