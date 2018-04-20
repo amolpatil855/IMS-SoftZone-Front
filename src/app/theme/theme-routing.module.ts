@@ -176,6 +176,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/reports\/totalOutstandingAmountForCustomer\/totalOutstandingAmountForCustomer.module#TotalOutstandingAmountForCustomerModule"
       },
       {
+        "path": "features\/reports\/labourJob",
+        "loadChildren": ".\/pages\/default\/features\/reports\/labourJob\/labourJob.module#LabourJobModule"
+      },
+      {
         "path": "features\/reports\/salesOrderCount",
         "loadChildren": ".\/pages\/default\/features\/reports\/salesOrderCount\/salesOrderCount.module#SalesOrderCountModule"
       },

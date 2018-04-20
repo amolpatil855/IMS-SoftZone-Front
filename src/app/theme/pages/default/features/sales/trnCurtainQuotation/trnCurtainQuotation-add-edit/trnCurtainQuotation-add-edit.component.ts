@@ -228,19 +228,37 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     }
   }
 
-  onChangeIsVerticalPatchCheckbox(fabricRow) {
+  onChangeIsVerticalPatchCheckbox(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow) {
     if (fabricRow.isVerticalPatch == false) {
       fabricRow.noOfVerticalPatch = null;
       fabricRow.verticalPatchWidth = null;
       fabricRow.verticalPatchQuantity = null;
+      if (fabricRow.isHorizontalPatch == true && fabricRow.noOfHorizontalPatch && fabricRow.horizontalPatchHeight)
+        this.calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
+      else {
+        fabricRow.orderQuantity = 0;
+        this.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
+      }
+
+    } else {
+      this.calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
     }
   }
 
-  onChangeIsHorizontalPatchCheckbox(fabricRow) {
+  onChangeIsHorizontalPatchCheckbox(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow) {
     if (fabricRow.isHorizontalPatch == false) {
       fabricRow.noOfHorizontalPatch = null;
       fabricRow.horizontalPatchHeight = null;
       fabricRow.horizontalPatchQuantity = null;
+      if (fabricRow.isVerticalPatch == true && fabricRow.noOfVerticalPatch && fabricRow.verticalPatchWidth)
+        this.calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
+      else {
+        fabricRow.orderQuantity = 0;
+        this.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
+      }
+
+    } else {
+      this.calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
     }
   }
 
@@ -497,6 +515,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         this.onUnitHeightChange(unitRow, unitIndex, areaIndex);
         this.calculateGrandTotal();
         this.onChangeRodAccesory();
+        if (unitRow.isTrack)
+          unitRow.trackQuantity = Math.round(unitRow.unitWidth / 12);
+        this.changeTrackQuantity(unitRow, unitIndex, areaIndex);
       }
     }
   }
@@ -676,7 +697,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         }
         fabricRow.verticalPatchQuantity = patchQuantity;
         fabricRow.verticalPatchQuantity = fabricRow.verticalPatchQuantity.toFixed(2);
-        fabricRow.orderQuantity = fabricRow.horizontalPatchQuantity + fabricRow.verticalPatchQuantity;
+        fabricRow.orderQuantity = (fabricRow.horizontalPatchQuantity ? parseFloat(fabricRow.horizontalPatchQuantity) : 0) + parseFloat(fabricRow.verticalPatchQuantity);
         fabricRow.orderQuantity = this.adjustPatchQuantity(fabricRow.orderQuantity);
         //let shadeObj = _.find(fabricRow.shadeList, { shadeId: fabricRow.shadeId });
         fabricRow.verticalPatchRate = parseFloat(fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.flatRate : fabricRow.shadeDetails.rrp).toFixed(2);
@@ -708,7 +729,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       fabricRow.horizontalPatchRate = parseFloat(fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.flatRate : fabricRow.shadeDetails.rrp).toFixed(2);
       fabricRow.horizontalPatchMaxDiscount = fabricRow.shadeDetails.flatRate ? fabricRow.shadeDetails.maxFlatRateDisc : fabricRow.horizontalPatchQuantity >= 50 ? fabricRow.shadeDetails.maxRoleRateDisc : fabricRow.shadeDetails.maxCutRateDisc;
       fabricRow.horizontalPatchDiscount = 0;
-      fabricRow.orderQuantity = fabricRow.horizontalPatchQuantity + fabricRow.verticalPatchQuantity;
+      fabricRow.orderQuantity = parseFloat(fabricRow.horizontalPatchQuantity) + (fabricRow.verticalPatchQuantity ? parseFloat(fabricRow.verticalPatchQuantity) : 0);
       fabricRow.orderQuantity = this.adjustPatchQuantity(fabricRow.orderQuantity);
       this.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
     }
