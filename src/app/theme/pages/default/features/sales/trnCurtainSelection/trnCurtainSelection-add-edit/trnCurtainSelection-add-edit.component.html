@@ -211,7 +211,7 @@
                                                                                     <span class="requiredField">*</span>
                                                                                 </label>
                                                                                 <div class="col-md-8 col-sm-8">
-                                                                                    <select class="form-control" name="{{'collection'+unitRow.contRoleId+fabricRowNum+0000}}" [(ngModel)]="fabricRow.collectionId"
+                                                                                    <select class="form-control" name="{{'collection'+fabricRow.contRoleId+fabricRowNum+0000}}" [(ngModel)]="fabricRow.collectionId"
                                                                                         [disabled]="!viewItem" (ngModelChange)="onChangeCollection(fabricRow)"
                                                                                         tabindex="9" [ngClass]="{'red-border-class': collectionVal.errors && isFormSubmitted}"
                                                                                         #collectionVal="ngModel" required>
@@ -226,7 +226,7 @@
                                                                                     <span class="requiredField">*</span>
                                                                                 </label>
                                                                                 <div class="col-md-8 col-sm-8">
-                                                                                    <select class="form-control" name="{{'shade'+unitRow.contRoleId+fabricRowNum+0000}}" [(ngModel)]="fabricRow.shadeId" tabindex="9"
+                                                                                    <select class="form-control" name="{{'shade'+fabricRow.contRoleId+fabricRowNum+0000}}" [(ngModel)]="fabricRow.shadeId" tabindex="9"
                                                                                         [disabled]="!viewItem" (ngModelChange)="onChangeShade(fabricRow)"
                                                                                         [ngClass]="{'red-border-class': shadeVal.errors && isFormSubmitted}"
                                                                                         #shadeVal="ngModel" required>
@@ -240,7 +240,7 @@
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Patch
                                                                                 </label>
                                                                                 <div class="col-md-2 col-sm-2 noPadding alignCenter">
-                                                                                    <input type="checkbox" [(ngModel)]="fabricRow.isPatch" [disabled]="fabricRow.isLining || !viewItem" name="{{'patch'+unitRow.contRoleId+fabricRowNum+0000}}">
+                                                                                    <input type="checkbox" [(ngModel)]="fabricRow.isPatch" [disabled]="fabricRow.isLining || !viewItem" name="{{'patch'+fabricRow.contRoleId+fabricRowNum+0000}}">
                                                                                 </div>
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Lining
                                                                                 </label>
@@ -248,7 +248,7 @@
                                                                                     <!-- <input type="radio" name="{{'lining'+unitRow.contRoleId+fabricRowNum+0000}}" [checked]="fabricRow.isLining == true" [value]="fabricRow.isLining"
                                                                                     (click)="selectedLining(rowNum,unitRowNum,fabricRowNum)"
                                                                                     > -->
-                                                                                    <input type="checkbox" [(ngModel)]="fabricRow.isLining" [disabled]="fabricRow.isPatch  || !viewItem" name="{{'lining'+unitRow.contRoleId+fabricRowNum+0000}}">
+                                                                                    <input type="checkbox" [(ngModel)]="fabricRow.isLining" [disabled]="fabricRow.isPatch  || !viewItem" name="{{'lining'+fabricRow.contRoleId+fabricRowNum+0000}}">
                                                                                 </div>
                                                                             </div>
                                                                             <!-- <div class="col-md-3">
@@ -264,9 +264,9 @@
                                                                                 </div>
                                                                             </div> -->
                                                                             <div class="col-md-2">
-                                                                                <button type="button" pButton (click)="addFabricRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Add Unit"></button>
-                                                                                <button type="button" pButton (click)="onDeleteFabricRow(rowNum,unitRowNum,fabricRowNum, unitRow.fabricList)" icon="fa fa-times"
-                                                                                    class="editBtn" title="Remove Unit"></button>
+                                                                                <button type="button" *ngIf="viewItem" pButton (click)="addFabricRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Add Unit"></button>
+                                                                                <button type="button" *ngIf="unitRow.fabricList.length > 1" pButton (click)="onDeleteFabricRow(rowNum,unitRowNum,fabricRowNum, unitRow.fabricList)" icon="fa fa-times"
+                                                                                    class="editBtn" title="Delete Fabric"></button>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row form-group" *ngFor="let accessoryRow of unitRow.accessoryList;let accessoryRowNum=index;let accessoryLastRowNum=last;">
@@ -274,7 +274,7 @@
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel ">Accessories
                                                                                 </label>
                                                                                 <div class="col-md-8 col-sm-8">
-                                                                                    <select class="form-control" name="{{'accessory'+unitRow.contRoleId+accessoryRowNum+111}}" [(ngModel)]="accessoryRow.accessoryId"
+                                                                                    <select class="form-control" name="{{'accessory'+accessoryRow.contRoleId+accessoryRowNum+111}}" [(ngModel)]="accessoryRow.accessoryId"
                                                                                         [disabled]="!viewItem" tabindex="9" (ngModelChange)="onChangeAccesory(accessoryRow)"
                                                                                         [required]="params" [ngClass]="{'red-border-class': accessoryVal.errors && isFormSubmitted}"
                                                                                         #accessoryVal="ngModel">
@@ -290,14 +290,14 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <button type="button" *ngIf="viewItem" pButton (click)="addAccessoryRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Delete Accessory"></button>
-                                                                                <button type="button" pButton *ngIf="viewItem" (click)="deleteAccessoryRow(rowNum,unitRowNum,accessoryRowNum,unitRow.accessoryList)"
+                                                                                <button type="button" *ngIf="viewItem" pButton (click)="addAccessoryRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Add Accessory"></button>
+                                                                                <button type="button" pButton *ngIf="unitRow.accessoryList.length > 1" (click)="deleteAccessoryRow(rowNum,unitRowNum,accessoryRowNum,unitRow.accessoryList)"
                                                                                     icon="fa fa-times" class="editBtn" title="Delete Accessory"></button>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row form-group">
                                                                             <div class="col-md-4">
-                                                                                <input type="button" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add Unit"
+                                                                                <input type="button" *ngIf="viewItem && unitLastRowNum" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add Unit"
                                                                                     tabindex="14" (click)="addUnit(areaRow)"
                                                                                 />
                                                                                 <input type="button" *ngIf="viewItem" class="btn btn-secondary" value="Remove" (click)="removeUnit(rowNum,unitRowNum,areaRow.unitList)"
@@ -309,7 +309,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="m-form__actions m-form__actions--solid formTopActionBtnBox formAddItemBox">
-                                                            <input type="button" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add Area"
+                                                            <input type="button" *ngIf="viewItem && lastRowNum" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add Area"
                                                                 tabindex="14" (click)="addArea()" />
                                                             <input type="button" *ngIf="viewItem" class="btn btn-secondary" value="Remove" (click)="removeArea(rowNum)" tabindex="15">
                                                         </div>
