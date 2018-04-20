@@ -253,16 +253,16 @@
                                                                                     [(ngModel)]="unitRow.unitWidth" name="{{'unitwidth'+unitRow.contRoleId}}"
                                                                                     [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                     placeholder="" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
-                                                                                    #widthVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
+                                                                                    #widthVal="ngModel" required (input)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
                                                                             </div>
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Panels</label>
-                                                                                <!-- <input class="form-control m-input" type="text" [(ngModel)]="unitRow.numberOfPanel" name="{{'unitnumberOfPanel'+unitRow.contRoleId}}"
+                                                                                <input class="form-control m-input" type="text" [(ngModel)]="unitRow.numberOfPanel" name="{{'unitnumberOfPanel'+unitRow.contRoleId}}"
                                                                                     [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                     placeholder="" tabindex="10" [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
-                                                                                    #hightVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)"> -->
-                                                                                    <br/>
-                                                                                    <label class="unitFormLabel"> {{unitRow ? (unitRow.numberOfPanel | number:'.0') : ''}}</label>
+                                                                                    #hightVal="ngModel" required (blur)="onPannelChange(unitRow,unitRowNum,rowNum)">
+                                                                                    <!-- <br/>
+                                                                                    <label class="unitFormLabel"> {{unitRow ? (unitRow.numberOfPanel | number:'.0') : ''}}</label> -->
                                                                             </div>
                                                                             <div class="col-md-2">
                                                                                 <label class="fieldLabel">Labor</label>
@@ -307,7 +307,7 @@
                                                                                     <select class="form-control" name="{{'verticalHorizontal'+unitRow.contRoleId}}" [(ngModel)]="fabricRow.fabricDirection"
                                                                                         [ngClass]="{'red-border-class': fabricDirectionVal.errors && isFormSubmitted}"
                                                                                         #fabricDirectionVal="ngModel" required
-                                                                                        (ngModelChange)="onFabricDirectionChange(fabricRow,unitRowNum,rowNum,unitRow)">
+                                                                                        (ngModelChange)="onFabricDirectionChange(fabricRow,fabricRowNum,unitRowNum,rowNum,unitRow)">
                                                                                         <option value="Vertical">Vertical</option>
                                                                                         <option value="Horizontal">Horizontal</option>
                                                                                     </select>
@@ -565,7 +565,7 @@
                                                                                 <div class="col-md-3">
                                                                                     <label class="fieldLabel">Tracks</label>
                                                                                     <select *ngIf="unitRow.isTrack" class="form-control" name="{{'tracks'+unitRow.contRoleId}}" [(ngModel)]="unitRow.trackAccessoryId"
-                                                                                        (ngModelChange)="onChangeTrackAccesory(unitRow)" required
+                                                                                        (ngModelChange)="onChangeTrackAccesory(unitRow,unitRowNum,rowNum)" required
                                                                                         [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                         [ngClass]="{'red-border-class': accessoryTrackVal.errors && isFormSubmitted}"
                                                                                         #accessoryTrackVal="ngModel">
