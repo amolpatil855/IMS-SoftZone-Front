@@ -77,7 +77,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   stitchingTotal = 0;
   grandTotal = 0;
   grandTotalWithoutLabourCharges = 0;
-  isAlreadySubtracted= true;
+  isAlreadySubtracted = true;
   constructor(
     private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -179,14 +179,14 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         Helpers.setLoading(true);
         this.trnCurtainQuotationService.updateTrnCurtainQuotation(this.trnCurtainQuotationObj)
           .subscribe(
-            results => {
-              this.approveCurtainQuotation();
-              Helpers.setLoading(false);
-            },
-            error => {
-              this.globalErrorHandler.handleError(error);
-              Helpers.setLoading(false);
-            });
+          results => {
+            this.approveCurtainQuotation();
+            Helpers.setLoading(false);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
       }
     }
   }
@@ -194,19 +194,19 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   approveCurtainQuotation() {
     this.trnCurtainQuotationService.approveCurtainQuotation(this.trnCurtainQuotationObj)
       .subscribe(
-        results => {
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-          if (results.type == 'Success') {
-            this.params = null;
-            this.viewItem = false;
-            this.trnCurtainQuotationObj.status = 'Approved';
-          }
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+      results => {
+        this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+        if (results.type == 'Success') {
+          this.params = null;
+          this.viewItem = false;
+          this.trnCurtainQuotationObj.status = 'Approved';
+        }
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      });
   }
 
   onCancelCQ() {
@@ -214,19 +214,19 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       Helpers.setLoading(true);
       this.trnCurtainQuotationService.cancelCurtainQuotation(this.trnCurtainQuotationObj)
         .subscribe(
-          results => {
-            this.params = null;
-            this.viewItem = false;
-            this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-            this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
-            Helpers.setLoading(false);
-            this.disabled = false;
-            this.viewItem = true;
-          },
-          error => {
-            this.globalErrorHandler.handleError(error);
-            Helpers.setLoading(false);
-          });
+        results => {
+          this.params = null;
+          this.viewItem = false;
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
+          Helpers.setLoading(false);
+          this.disabled = false;
+          this.viewItem = true;
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
     }
   }
 
@@ -631,6 +631,11 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         }
       });
     }
+    let fabricObj = _.find(unitRow.fabricList, ['isPatch', true]);
+    if (fabricObj) {
+      if (fabricObj.isVerticalPatch)
+        this.calculateVerticalQuantity(fabricObj, fabricObj.contRoleId, unitIndex, areaIndex, unitRow);
+    }
   }
 
   findMinGlobalDiscount() {
@@ -692,28 +697,28 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         _.forEach(unitObj.accessoryList, function (accessoryObj) {
           vm.accessoriesTotal += accessoryObj.amountWithGST;
         });
-            if (unitObj.trackAmountWithGST) {
-              vm.tempAccessory = vm.tempAccessory + unitObj.trackAmountWithGST;
-            }
-            if (unitObj.motorAmountWithGST) {
-              vm.tempAccessory = vm.tempAccessory + unitObj.motorAmountWithGST;
-            }
-
-              if (unitObj.remoteAmountWithGST) {
-                vm.tempAccessory = vm.tempAccessory + unitObj.remoteAmountWithGST;
-              }
-
-          });
-        });
-
-        if (vm.trnCurtainQuotationObj.rodAmountWithGST) {
-          vm.tempAccessory = vm.tempAccessory + vm.trnCurtainQuotationObj.rodAmountWithGST;
+        if (unitObj.trackAmountWithGST) {
+          vm.tempAccessory = vm.tempAccessory + unitObj.trackAmountWithGST;
+        }
+        if (unitObj.motorAmountWithGST) {
+          vm.tempAccessory = vm.tempAccessory + unitObj.motorAmountWithGST;
         }
 
-        if (vm.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST) {
-          vm.tempAccessory = vm.tempAccessory + vm.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST;
+        if (unitObj.remoteAmountWithGST) {
+          vm.tempAccessory = vm.tempAccessory + unitObj.remoteAmountWithGST;
         }
-    vm.accessoriesTotal +=  vm.tempAccessory;
+
+      });
+    });
+
+    if (vm.trnCurtainQuotationObj.rodAmountWithGST) {
+      vm.tempAccessory = vm.tempAccessory + vm.trnCurtainQuotationObj.rodAmountWithGST;
+    }
+
+    if (vm.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST) {
+      vm.tempAccessory = vm.tempAccessory + vm.trnCurtainQuotationObj.rodItemAccessoryAmountWithGST;
+    }
+    vm.accessoriesTotal += vm.tempAccessory;
     vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
     vm.grandTotalWithoutLabourCharges = Math.round(vm.grandTotal - vm.stitchingTotal);
   }
@@ -886,8 +891,8 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
       accessoryRow.amount = Math.round(accessoryRow.accessoriesDetails.sellingRate * accessoryRow.orderQuantity);
       accessoryRow.amountWithGST = Math.round(accessoryRow.amount + (accessoryRow.amount * accessoryRow.accessoriesDetails.gst) / 100);
       this.calculateGrandTotal();
-        //vm.grandTotalWithoutLabourCharges -= accessoryRow.amountWithGST;
-      
+      //vm.grandTotalWithoutLabourCharges -= accessoryRow.amountWithGST;
+
     }
   }
 
@@ -914,16 +919,16 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         this.trnCurtainQuotationObj.trnCurtainQuotationItems = this.trnCurtainQuotationItems;
         this.trnCurtainQuotationService.updateTrnCurtainQuotation(this.trnCurtainQuotationObj)
           .subscribe(
-            results => {
-              this.params = null;
-              this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-              Helpers.setLoading(false);
-              this.router.navigate(['/features/sales/trnCurtainQuotation/add'], { queryParams: { CurtainQuotationId: this.trnCurtainQuotationObj.id } });
-            },
-            error => {
-              this.globalErrorHandler.handleError(error);
-              Helpers.setLoading(false);
-            });
+          results => {
+            this.params = null;
+            this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+            Helpers.setLoading(false);
+            this.router.navigate(['/features/sales/trnCurtainQuotation/add'], { queryParams: { CurtainQuotationId: this.trnCurtainQuotationObj.id } });
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
       }
     }
   }
@@ -1135,32 +1140,32 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     vm.grandTotal = 0;
     vm.grandTotalWithoutLabourCharges = 0;
     unitRow.numberOfPanel = 0;
-    if(unitRow.patternId != null){
+    if (unitRow.patternId != null) {
       unitRow.mstPattern = _.find(this.patternList, ['id', unitRow.patternId]);
-    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
-      _.forEach(areaObj.unitList, function (unitRow, unitRowNum) {
-        unitRow.numberOfPanel = Math.ceil(unitRow.unitWidth / unitRow.mstPattern.widthPerInch);
-        unitRow.laborCharges = Math.round(unitRow.numberOfPanel * unitRow.mstPattern.setRateForCustomer);
-        vm.onUnitHeightChange(unitRow, unitRowNum, rowNum);
-        _.forEach(unitRow.fabricList, function (fabricRow, fabricRowNum) {
-          if (fabricRow.isPatch) {
-            if (fabricRow.isVerticalPatch)
-              vm.calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
-            if (fabricRow.isHorizontalPatch)
-              vm.calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
-          }
-          vm.fabricTotal += fabricRow.amountWithGST;
-        });
-        _.forEach(unitRow.accessoryList, function (accessoryRow) {
-          accessoryAmount += accessoryRow.amountWithGST;
+      _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
+        _.forEach(areaObj.unitList, function (unitRow, unitRowNum) {
+          unitRow.numberOfPanel = Math.ceil(unitRow.unitWidth / unitRow.mstPattern.widthPerInch);
+          unitRow.laborCharges = Math.round(unitRow.numberOfPanel * unitRow.mstPattern.setRateForCustomer);
+          vm.onUnitHeightChange(unitRow, unitRowNum, rowNum);
+          _.forEach(unitRow.fabricList, function (fabricRow, fabricRowNum) {
+            if (fabricRow.isPatch) {
+              if (fabricRow.isVerticalPatch)
+                vm.calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
+              if (fabricRow.isHorizontalPatch)
+                vm.calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
+            }
+            vm.fabricTotal += fabricRow.amountWithGST;
+          });
+          _.forEach(unitRow.accessoryList, function (accessoryRow) {
+            accessoryAmount += accessoryRow.amountWithGST;
+          });
         });
       });
-    });
-    vm.accessoriesTotal = vm.accessoriesTotal + accessoryAmount + vm.tempAccessory;
+      vm.accessoriesTotal = vm.accessoriesTotal + accessoryAmount + vm.tempAccessory;
 
-    vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
-    vm.grandTotalWithoutLabourCharges = Math.round(vm.grandTotal - vm.stitchingTotal);
-    } 
+      vm.grandTotal = vm.grandTotal + vm.fabricTotal + vm.accessoriesTotal + vm.stitchingTotal;
+      vm.grandTotalWithoutLabourCharges = Math.round(vm.grandTotal - vm.stitchingTotal);
+    }
   }
 
   onStateChange() {
@@ -1658,29 +1663,29 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     if (this.params) {
       this.trnCurtainQuotationService.updateTrnCurtainQuotation(value)
         .subscribe(
-          results => {
-            this.params = null;
-            this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-            Helpers.setLoading(false);
-            this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
-          },
-          error => {
-            this.globalErrorHandler.handleError(error);
-            Helpers.setLoading(false);
-          });
+        results => {
+          this.params = null;
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          Helpers.setLoading(false);
+          this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
     } else {
       this.trnCurtainQuotationService.createTrnCurtainQuotation(value)
         .subscribe(
-          results => {
-            this.params = null;
-            this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
-            Helpers.setLoading(false);
-            this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
-          },
-          error => {
-            this.globalErrorHandler.handleError(error);
-            Helpers.setLoading(false);
-          });
+        results => {
+          this.params = null;
+          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          Helpers.setLoading(false);
+          this.router.navigate(['/features/sales/trnCurtainQuotation/list']);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        });
     }
   }
 
