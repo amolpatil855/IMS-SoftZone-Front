@@ -151,6 +151,10 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
   onApprove() {
     let vm = this;
     if (this.params) {
+      if (this.trnWorkOrderObj.tailorId == null) {
+        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please select Tailor." });
+        return false;
+      }
       this.trnWorkOrderObj.trnWorkOrderItems = this.trnWorkOrderItems;
       Helpers.setLoading(true);
       this.trnWorkOrderService.updateTrnWorkOrder(this.trnWorkOrderObj)
