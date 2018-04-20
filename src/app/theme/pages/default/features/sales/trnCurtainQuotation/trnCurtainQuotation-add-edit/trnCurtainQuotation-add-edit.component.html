@@ -253,16 +253,16 @@
                                                                                     [(ngModel)]="unitRow.unitWidth" name="{{'unitwidth'+unitRow.contRoleId}}"
                                                                                     [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                     placeholder="" tabindex="9" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
-                                                                                    #widthVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
+                                                                                    #widthVal="ngModel" required (input)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
                                                                             </div>
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Panels</label>
-                                                                                <!-- <input class="form-control m-input" type="text" [(ngModel)]="unitRow.numberOfPanel" name="{{'unitnumberOfPanel'+unitRow.contRoleId}}"
+                                                                                <input class="form-control m-input" type="text" [(ngModel)]="unitRow.numberOfPanel" name="{{'unitnumberOfPanel'+unitRow.contRoleId}}"
                                                                                     [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                     placeholder="" tabindex="10" [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
-                                                                                    #hightVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)"> -->
-                                                                                    <br/>
-                                                                                    <label class="unitFormLabel"> {{unitRow ? (unitRow.numberOfPanel | number:'.0') : ''}}</label>
+                                                                                    #hightVal="ngModel" required (blur)="onPannelChange(unitRow,unitRowNum,rowNum)">
+                                                                                    <!-- <br/>
+                                                                                    <label class="unitFormLabel"> {{unitRow ? (unitRow.numberOfPanel | number:'.0') : ''}}</label> -->
                                                                             </div>
                                                                             <div class="col-md-2">
                                                                                 <label class="fieldLabel">Labor</label>

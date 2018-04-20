@@ -539,6 +539,23 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     }
   }
 
+
+  onPannelChange(unitRow, unitIndex, areaIndex) {
+    if (unitRow.unitWidth) {
+      let selectedPatternId = this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].patternId;
+      let selectedPatternObj = _.find(this.patternList, { id: selectedPatternId });
+      if (selectedPatternObj) {       
+        this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].laborCharges = Math.round(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel * selectedPatternObj.setRateForCustomer);
+        this.onUnitHeightChange(unitRow, unitIndex, areaIndex);
+        this.calculateGrandTotal();
+        this.onChangeRodAccesory();
+        if (unitRow.isTrack)
+          unitRow.trackQuantity = Math.round(unitRow.unitWidth / 12);
+        this.changeTrackQuantity(unitRow, unitIndex, areaIndex);
+      }
+    }
+  }
+
   onFabricDirectionChange(fabObj, unitIndex, areaIndex, unitRow) {
     let vm = this;
     let selectedPatternId = this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].patternId;
