@@ -1242,7 +1242,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.trnCurtainQuotationObj.rodRateWithGST = Math.round(this.trnCurtainQuotationObj.rodRate + ((this.trnCurtainQuotationObj.rodRate * shadeObj.gst) / 100));
     _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
       _.forEach(areaObj.unitList, function (value) {
-        totalWidth += value.unitWidth;
+        totalWidth += parseFloat(value.unitWidth);
       });
     });
     this.trnCurtainQuotationObj.rodQuantity = Math.round(totalWidth / 12);
