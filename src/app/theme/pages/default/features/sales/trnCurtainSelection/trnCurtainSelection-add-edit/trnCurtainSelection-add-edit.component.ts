@@ -73,6 +73,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   state: string = null;
   customerList = [];
   states = [];
+  duplicateFlag: boolean = false;
   constructor(
     private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
@@ -632,7 +633,8 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
     this.trnCurtainSelectionObj.customerName = custObj ? custObj.label : '';
     this.formatrequest();
     if (valid) {
-      this.saveTrncurtainSelection(this.trnCurtainSelectionObj);
+      if (!this.duplicateFlag)
+        this.saveTrncurtainSelection(this.trnCurtainSelectionObj);
     }
   }
 
@@ -640,13 +642,16 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
     let vm = this;
     this.trnCurtainSelectionObj.trnCurtainSelectionItems = [];
     this.trnCurtainSelectionObj.areaList.forEach(function (areaObj) {
-      if(vm.trnCurtainSelectionObj.areaList.length > 1){
-        let areaObject = _.filter(vm.trnCurtainSelectionObj.areaList, {'area':areaObj.area});
-            if(areaObject.length > 1){
-            vm.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please choose different area name." });
-            return false;
-          }
-        
+      if (vm.trnCurtainSelectionObj.areaList.length > 1) {
+        let areaObject = _.filter(vm.trnCurtainSelectionObj.areaList, { 'area': areaObj.area });
+        if (areaObject.length > 1) {
+          vm.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please choose different area name." });
+          vm.duplicateFlag = true;
+          return false;
+        } else {
+          vm.duplicateFlag = false;
+        }
+
       }
       areaObj.unitList.forEach(function (unitObj) {
         unitObj.fabricList.forEach(function (fabricobj) {

@@ -274,7 +274,7 @@
                                                                                     <label class="unitFormLabel"> {{unitRow ? (unitRow.numberOfPanel | number:'.0') : ''}}</label> -->
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <label class="fieldLabel">Labor</label>
+                                                                                <label class="fieldLabel">Labour</label>
                                                                                 <br/>
                                                                                 <label class="unitFormLabel"> {{unitRow ? (unitRow.laborCharges | number:'.0')
                                                                                     : ''}}</label>
@@ -286,7 +286,7 @@
                                                                             <div class="row">
                                                                                 <div class="col-md-2">
                                                                                     <label class="fieldLabel">Collection</label>
-                                                                                    <select class="form-control" name="{{'collection'+unitRow.contRoleId+fabricRowNum+0000}}" [(ngModel)]="fabricRow.collectionId"
+                                                                                    <select class="form-control" name="{{'collection'+fabricRow.contRoleId+fabricRowNum+0000}}" [(ngModel)]="fabricRow.collectionId"
                                                                                         (ngModelChange)="onChangeCollection(fabricRow)"
                                                                                         [ngClass]="{'red-border-class': collectionVal.errors && isFormSubmitted}"
                                                                                         #collectionVal="ngModel" required disabled>
@@ -313,7 +313,7 @@
                                                                                 <div class="col-md-1" *ngIf="fabricRow.shadeDetails && fabricRow.shadeDetails.fabricWidth>100 && !fabricRow.isPatch">
                                                                                     <label class="fieldLabel">Direction</label>
                                                                                     <br/>
-                                                                                    <select class="form-control" name="{{'verticalHorizontal'+unitRow.contRoleId}}" [(ngModel)]="fabricRow.fabricDirection" [ngClass]="{'red-border-class': fabricDirectionVal.errors && isFormSubmitted}"
+                                                                                    <select class="form-control" name="{{'verticalHorizontal'+fabricRow.contRoleId}}" [(ngModel)]="fabricRow.fabricDirection" [ngClass]="{'red-border-class': fabricDirectionVal.errors && isFormSubmitted}"
                                                                                         #fabricDirectionVal="ngModel" required
                                                                                         (ngModelChange)="onFabricDirectionChange(fabricRow,fabricRowNum,unitRowNum,rowNum,unitRow)">
                                                                                         <option value="Vertical">Vertical</option>
@@ -385,7 +385,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">Vertical</label>
                                                                                         <br/>
-                                                                                        <input type="checkbox" [(ngModel)]="fabricRow.isVerticalPatch" name="{{'isVerticalPatch'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                        <input type="checkbox" [(ngModel)]="fabricRow.isVerticalPatch" name="{{'isVerticalPatch'+fabricRow.contRoleId+fabricRowNum+0000}}"
                                                                                             [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                             (ngModelChange)="onChangeIsVerticalPatchCheckbox(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
                                                                                     </div>
@@ -393,7 +393,7 @@
                                                                                         <label class="fieldLabel">No. of patch</label>
                                                                                         <input *ngIf="fabricRow.isVerticalPatch" class="form-control m-input" OnlyNumber="true" DecimalPlaces="0" autocomplete="off"
                                                                                             minValue="0" maxValue="99" [(ngModel)]="fabricRow.noOfVerticalPatch"
-                                                                                            name="{{'noOfVerticalpatch'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                            name="{{'noOfVerticalpatch'+fabricRow.contRoleId+fabricRowNum+0000}}"
                                                                                             [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                             placeholder="" [ngClass]="{'red-border-class': noOfverticalVal.errors && isFormSubmitted}"
                                                                                             #noOfverticalVal="ngModel" required
@@ -403,7 +403,7 @@
                                                                                         <label class="fieldLabel">Width</label>
                                                                                         <input *ngIf="fabricRow.isVerticalPatch" class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" autocomplete="off"
                                                                                             minValue="0" maxValue="999.99" [(ngModel)]="fabricRow.verticalPatchWidth"
-                                                                                            name="{{'verticalPatchWidth'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                            name="{{'verticalPatchWidth'+fabricRow.contRoleId+fabricRowNum+0000}}"
                                                                                             [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                             placeholder="" [ngClass]="{'red-border-class': verticalPatchWidthVal.errors && isFormSubmitted}"
                                                                                             (blur)="calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)"
@@ -441,7 +441,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">Horizontal</label>
                                                                                         <br/>
-                                                                                        <input type="checkbox" [(ngModel)]="fabricRow.isHorizontalPatch" name="{{'isHorizontalPatch'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                        <input type="checkbox" [(ngModel)]="fabricRow.isHorizontalPatch" name="{{'isHorizontalPatch'+fabricRow.contRoleId+fabricRowNum+0000}}"
                                                                                             [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                             (ngModelChange)="onChangeIsHorizontalPatchCheckbox(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
                                                                                     </div>
@@ -449,7 +449,7 @@
                                                                                         <label class="fieldLabel">No. of patch</label>
                                                                                         <input *ngIf="fabricRow.isHorizontalPatch" class="form-control m-input" OnlyNumber="true" DecimalPlaces="0" autocomplete="off"
                                                                                             minValue="0" maxValue="99" [(ngModel)]="fabricRow.noOfHorizontalPatch"
-                                                                                            name="{{'noOfHorizontalpatch'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                            name="{{'noOfHorizontalpatch'+fabricRow.contRoleId+fabricRowNum+0000}}"
                                                                                             [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                             placeholder="" [ngClass]="{'red-border-class': noOfHorizontalVal.errors && isFormSubmitted}"
                                                                                             #noOfHorizontalVal="ngModel" required
@@ -460,7 +460,7 @@
                                                                                         <label class="fieldLabel">Height</label>
                                                                                         <input *ngIf="fabricRow.isHorizontalPatch" class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" autocomplete="off"
                                                                                             minValue="0" maxValue="999.99" [(ngModel)]="fabricRow.horizontalPatchHeight"
-                                                                                            name="{{'horizontalPatchHeight'+unitRow.contRoleId+fabricRowNum+0000}}"
+                                                                                            name="{{'horizontalPatchHeight'+fabricRow.contRoleId+fabricRowNum+0000}}"
                                                                                             [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                             placeholder="" [ngClass]="{'red-border-class': horizontalPatchHeightVal.errors && isFormSubmitted}"
                                                                                             #horizontalPatchHeightVal="ngModel"
@@ -928,6 +928,28 @@
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;text-align:center;">{{unitRow.trackQuantity}}</td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:center;">{{unitRow ? (unitRow.trackRate | number:'.2') : ''}}</td>
                     <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{unitRow ? (unitRow.trackAmountWithGST | number:'.0') : ''}}</td>
+                </tr>
+                <tr *ngIf="unitRow.isMotor">
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Accessory</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">
+                        {{ unitRow.motorAccessoriesDetails?unitRow.motorAccessoriesDetails.itemCode:""}}</td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
+                        Motor
+                    </td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;text-align:center;">{{unitRow.motorQuantity}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:center;">{{unitRow ? (unitRow.motorRate | number:'.2') : ''}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{unitRow ? (unitRow.motorAmountWithGST | number:'.0') : ''}}</td>
+                </tr>
+                <tr *ngIf="unitRow.isRemote">
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Accessory</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">
+                        {{ unitRow.remoteAccessoriesDetails?unitRow.remoteAccessoriesDetails.itemCode:""}}</td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
+                        Remote
+                    </td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;text-align:center;">{{unitRow.remoteQuantity}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:center;">{{unitRow ? (unitRow.remoteRate | number:'.2') : ''}}</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;text-align:right;">{{unitRow ? (unitRow.remoteAmountWithGST | number:'.0') : ''}}</td>
                 </tr>
             </table>
         </div>
