@@ -155,9 +155,211 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
         this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please select Tailor." });
         return false;
       }
-      this.trnWorkOrderObj.trnWorkOrderItems = this.trnWorkOrderItems;
+      let vm = this;
+    vm.trnWorkOrderObj.trnWorkOrderItems = [];
+    // this.trnWorkOrderObj.TrnWorkOrderItems = this.trnWorkOrderItems;
+    // let custObj = _.find(this.customerList, ['value', this.trnWorkOrderObj.customerId]);
+    //this.trnWorkOrderObj.customerName = custObj ? custObj.label : '';
+
+    _.forEach( this.trnWorkOrderObj.areaList, function (areaObj) {
+      _.forEach(areaObj.unitList, function (unitObj) {
+        _.forEach(unitObj.fabricList, function (fabricobj) {
+          let collectionObj = _.find(vm.collectionList, ['value', fabricobj.collectionId]);
+          let obj = {
+            "area": areaObj.area,
+            "unit": unitObj.unit,
+            "patternId": unitObj.patternId,
+            "categoryId": 1,
+            'id': fabricobj.id,
+            "collectionId": fabricobj.collectionId,
+            "shadeId": fabricobj.shadeId,
+            "accessoryId": null,
+            "isPatch": fabricobj.isPatch,
+
+            "isVerticalPatch": fabricobj.isVerticalPatch,
+            "noOfVerticalPatch": fabricobj.noOfVerticalPatch,
+            "verticalPatchWidth": fabricobj.verticalPatchWidth,
+            "verticalPatchQuantity": fabricobj.verticalPatchQuantity,
+            "isHorizontalPatch": fabricobj.isHorizontalPatch,
+            "noOfHorizontalPatch": fabricobj.noOfHorizontalPatch,
+            "horizontalPatchHeight": fabricobj.horizontalPatchHeight,
+            "horizontalPatchQuantity": fabricobj.horizontalPatchQuantity,
+            "isLining": fabricobj.isLining,
+
+            "unitHeight": unitObj.unitHeight,
+            "unitWidth": unitObj.unitWidth,
+            "orderQuantity": fabricobj.orderQuantity,
+            "numberOfPanel": unitObj.numberOfPanel,
+            "labourCharges": unitObj.labourCharges,
+            "discount": fabricobj.discount,
+            "rate": fabricobj.rate,
+            "rateWithGST": fabricobj.rateWithGST,
+            "amount": fabricobj.amount,
+            "amountWithGST": fabricobj.amountWithGST,
+            "categoryName": 'Fabric',
+            "collectionName": collectionObj ? collectionObj.label : '',
+            // "serialno": "5",
+            // "itemCode": null
+          }
+          vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+        });
+
+        unitObj.accessoryList.forEach(function (accessoryobj) {
+          let obj = {
+            "area": areaObj.area,
+            "unit": unitObj.unit,
+            "patternId": unitObj.patternId,
+            'id': accessoryobj.id,
+            "categoryId": 7,
+            "collectionId": null,
+            "shadeId": null,
+            "accessoryId": accessoryobj.accessoryId,
+            "isPatch": false,
+            "isLining": false,
+            "orderQuantity": accessoryobj.orderQuantity,
+            "amount": accessoryobj.amount,
+            "amountWithGST": accessoryobj.amountWithGST,
+            "discount": null,
+            "categoryName": "Accessories",
+            "collectionName": null,
+            // "serialno": "5",
+            // "itemCode": null
+          }
+          vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+        });
+
+
+        if (unitObj.isTrack) {
+          let obj = {
+            "area": areaObj.area,
+            "unit": unitObj.unit,
+            "patternId": unitObj.patternId,
+            "categoryId": 7,
+            "collectionId": null,
+            "shadeId": null,
+            "accessoryId": unitObj.trackAccessoryId,
+            "isTrack": true,
+            "orderQuantity": unitObj.trackQuantity,
+            'id': unitObj.trackId,
+            "rate": unitObj.trackRate,
+            "gst": unitObj.trackGST,
+            "amount": unitObj.trackAmount,
+            "unitHeight": unitObj.unitHeight,
+            "unitWidth": unitObj.unitWidth,
+            "numberOfPanel": unitObj.numberOfPanel,
+            "amountWithGST": unitObj.trackAmountWithGST,
+            "discount": null,
+            "categoryName": "Accessories",
+            "collectionName": null,
+            // "serialno": "5",
+            // "itemCode": null
+          }
+          if (obj)
+            vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+        }
+
+        if (unitObj.isMotor) {
+          let obj = {
+            "area": areaObj.area,
+            "unit": unitObj.unit,
+            "patternId": unitObj.patternId,
+            "categoryId": 7,
+            "collectionId": null,
+            "shadeId": null,
+            "accessoryId": unitObj.motorAccessoryId,
+            "isMotor": true,
+            "orderQuantity": unitObj.motorQuantity,
+            'id': unitObj.motorId,
+            "rate": unitObj.motorRate,
+            "gst": unitObj.motorGST,
+            "amount": unitObj.motorAmount,
+            "amountWithGST": unitObj.motorAmountWithGST,
+            "discount": null,
+            "categoryName": "Accessories",
+            "collectionName": null,
+            // "serialno": "5",
+            // "itemCode": null
+          }
+          if (obj)
+            vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+        }
+
+        if (unitObj.isRemote) {
+          let obj = {
+            "area": areaObj.area,
+            "unit": unitObj.unit,
+            "patternId": unitObj.patternId,
+            "categoryId": 7,
+            "collectionId": null,
+            "shadeId": null,
+            "accessoryId": unitObj.remoteAccessoryId,
+            "isRemote": true,
+            "orderQuantity": unitObj.remoteQuantity,
+            'id': unitObj.remoteId,
+            "rate": unitObj.remoteRate,
+            "gst": unitObj.remoteGST,
+            "amount": unitObj.remoteAmount,
+            "amountWithGST": unitObj.remoteAmountWithGST,
+            "discount": null,
+            "categoryName": "Accessories",
+            "collectionName": null,
+            // "serialno": "5",
+            // "itemCode": null
+          }
+          if (obj)
+            vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+        }
+
+      });
+    });
+
+    if (vm.trnWorkOrderObj.isRod) {
+      let obj = {
+        "categoryId": 7,
+        "collectionId": null,
+        "shadeId": null,
+        "accessoryId": vm.trnWorkOrderObj.rodAccessoryId,
+        "isRod": true,
+        'id': vm.trnWorkOrderObj.rodId,
+        "orderQuantity": vm.trnWorkOrderObj.rodQuantity,
+        "rate": vm.trnWorkOrderObj.rodRate,
+        "gst": vm.trnWorkOrderObj.rodGST,
+        "amount": vm.trnWorkOrderObj.rodAmount,
+        "amountWithGST": vm.trnWorkOrderObj.rodAmountWithGST,
+        "discount": null,
+        "categoryName": "Accessories",
+        "collectionName": null,
+        // "serialno": "5",
+        // "itemCode": null
+      }
+      vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+
+
+      if (vm.trnWorkOrderObj.isRodAccessory) {
+        let obj = {
+          "categoryId": 7,
+          "collectionId": null,
+          "shadeId": null,
+          "accessoryId": vm.trnWorkOrderObj.rodItemAccessoryId,
+          "isRodAccessory": true,
+          'id': vm.trnWorkOrderObj.rodAccessoryRecordId,
+          "orderQuantity": vm.trnWorkOrderObj.rodItemAccessoryQuantity,
+          "rate": vm.trnWorkOrderObj.rodItemAccessoryRate,
+          "gst": vm.trnWorkOrderObj.rodItemAccessoryGST,
+          "amount": vm.trnWorkOrderObj.rodItemAccessoryAmount,
+          "amountWithGST": vm.trnWorkOrderObj.rodItemAccessoryAmountWithGST,
+          "discount": null,
+          "categoryName": "Accessories",
+          "collectionName": null,
+          // "serialno": "5",
+          // "itemCode": null
+        }
+        vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+      }
+
+    }
       Helpers.setLoading(true);
-      this.trnWorkOrderService.updateTrnWorkOrder(this.trnWorkOrderObj)
+      this.trnWorkOrderService.updateTrnWorkOrder(vm.trnWorkOrderObj)
         .subscribe(
         results => {
           this.approveWorkOrder();
