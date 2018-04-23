@@ -170,7 +170,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let vm = this;
     if (this.params) {
       if (Math.round(vm.grandTotalWithoutLabourCharges * 0.8) > parseInt(this.trnCurtainQuotationObj.advanceAmount)) {
-        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Advance amount should be at least 80% of total amount." });
+        this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Advance amount should be at least 80% of Material Total Cost." });
         return false;
       }
 
@@ -704,11 +704,13 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let vm = this;
     vm.fabricTotal = 0;
     vm.accessoriesTotal = 0;
+    vm.stitchingTotal = 0;
     vm.grandTotal = 0;
     vm.tempAccessory = 0;
     vm.grandTotalWithoutLabourCharges = 0;
     _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
       _.forEach(areaObj.unitList, function (unitObj, unitRowNum) {
+        vm.stitchingTotal += unitObj.laborCharges;
         _.forEach(unitObj.fabricList, function (fabricRow, fabricRowNum) {
           vm.fabricTotal += fabricRow.amountWithGST;
         });
@@ -1226,7 +1228,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.trnCurtainQuotationObj.rodRateWithGST = Math.round(this.trnCurtainQuotationObj.rodRate + ((this.trnCurtainQuotationObj.rodRate * shadeObj.gst) / 100));
     _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
       _.forEach(areaObj.unitList, function (value) {
-        totalWidth = value.unitWidth;
+        totalWidth += value.unitWidth;
       });
     });
     this.trnCurtainQuotationObj.rodQuantity = Math.round(totalWidth / 12);

@@ -320,7 +320,7 @@
                                                                             <!-- Patch Row -->
                                                                             <div class="patchRow" *ngIf="fabricRow.isPatch">
                                                                                 <label class="patchLabel">Patch Details</label>
-                                                                                <div class="row" *ngIf="fabricRow.isPatch">
+                                                                                <div class="row" *ngIf="fabricRow.isPatch && fabricRow.isVerticalPatch">
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">Vertical</label>
                                                                                         <br/>
@@ -374,7 +374,7 @@
                                                                                         <label *ngIf="fabricRow.isVerticalPatch" class="unitFormLabel"> {{fabricRow.verticalPatchAmountWithGST}}</label>
                                                                                     </div> -->
                                                                                 </div>
-                                                                                <div class="row" *ngIf="fabricRow.isPatch">
+                                                                                <div class="row" *ngIf="fabricRow.isPatch && fabricRow.isHorizontalPatch">
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">Horizontal</label>
                                                                                         <br/>

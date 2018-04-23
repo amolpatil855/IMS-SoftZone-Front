@@ -74,9 +74,9 @@
                                      <div class="col-md-4">
                                          <label class="col-md-4 col-sm-4 fieldLabel">From Date</label>
                                         <div class="col-md-8 col-sm-8">
-                                            <p-calendar class="purchaseOrderDate" #startDateVal="ngModel" [(ngModel)]="startDate" (ngModelChange)="onChangeDate()"
+                                            <p-calendar class="purchaseOrderDate" [(ngModel)]="startDate" (ngModelChange)="onChangeDate()"
                                                 name="startDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="1" yearRange="2015:2030" dateFormat="dd/mm/yy"
-                                                styleClass="{{ startDateVal.errors?'red-border-class':''}}" required></p-calendar>
+                                                placeholder="dd/mm/yyyy"></p-calendar>
                                         </div>
                                     </div> 
                                 </div>

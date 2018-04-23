@@ -258,8 +258,7 @@
 													<b>{{trnSalesInvoiceItem.quantity}}</b>
 												</td>
 												<td class="alignRight" style="text-align:center;">{{trnSalesInvoiceItem ? (trnSalesInvoiceItem.rate | number:'.0') : ''}}</td>
-												<td style="text-align:center;">{{trnSalesInvoiceItem.uom}} {{trnSalesInvoiceItem.mstAccessory? trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure?
-													trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure.uomCode:'':''}}
+												<td style="text-align:center;">{{trnSalesInvoiceItem.uom}}
 												</td>
 												<td class="alignRight" style="text-align:left;">{{trnSalesInvoiceItem.discountPercentage || 0}}</td>
 												<td class="alignRight">
@@ -676,7 +675,7 @@
 						<b>{{trnSalesInvoiceItem.quantity}}</b>
 					</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem ? (trnSalesInvoiceItem.rate | number:'.0') : ''}}</td>
-					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.uom}} {{trnSalesInvoiceItem.mstAccessory? trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure? trnSalesInvoiceItem.mstAccessory.mstUnitOfMeasure.uomCode:'':''}}
+					<td style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.uom}}
 					</td>
 					<td class="alignRight" style="border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;text-align:center;">{{trnSalesInvoiceItem.discountPercentage || 0}}</td>
 					<td class="alignRight" style="text-align:right;border: 1px solid #000;font-family:Roboto;border-collapse: collapse;font-size: 10px;">
