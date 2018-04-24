@@ -533,7 +533,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
               vm.fabricTotal = vm.fabricTotal + fabricObj.amountWithGST;
             });
 
-            let trackObj = _.find(results.trnWorkOrderItems, { "isTrack": true, unit: value.unit });
+            let trackObj = _.find(results.trnWorkOrderItems, { "isTrack": true, unit: value.unit, 'area': value.area });
             if (trackObj) {
               trackAccessoryAmount = trackAccessoryAmount + trackObj.amountWithGST;
               value.trackAccessoriesDetails = trackObj.mstAccessory;
@@ -547,7 +547,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
               value.trackQuantity = trackObj.orderQuantity;
             }
 
-            let motorObj = _.find(results.trnWorkOrderItems, { "isMotor": true, unit: value.unit });
+            let motorObj = _.find(results.trnWorkOrderItems, { "isMotor": true, unit: value.unit, 'area': value.area });
             if (motorObj) {
               motorAccessoryAmount = motorAccessoryAmount + motorObj.amountWithGST;
               value.motorAccessoriesDetails = motorObj.mstAccessory;
@@ -561,7 +561,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
               value.motorQuantity = motorObj.orderQuantity;
             }
 
-            let remoteObj = _.find(results.trnWorkOrderItems, { "isRemote": true, unit: value.unit });
+            let remoteObj = _.find(results.trnWorkOrderItems, { "isRemote": true, unit: value.unit, 'area': value.area });
             if (motorObj) {
               if(remoteObj != null){
                 remoteAccessoryAmount = remoteAccessoryAmount + remoteObj.amountWithGST;
