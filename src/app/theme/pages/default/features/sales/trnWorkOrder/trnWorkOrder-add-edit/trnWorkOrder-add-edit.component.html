@@ -101,8 +101,7 @@
                                                                     <div class="col-md-6">
                                                                         <label class="col-md-5 col-sm-5 fieldLabel noPadding">Work Order No.</label>
                                                                         <div class="col-md-7 col-sm-7">
-                                                                            <input type="text" [(ngModel)]="trnWorkOrderObj.workOrderNumber" name="workOrderNumber" class="form-control" disabled
-                                                                                placeholder="">
+                                                                            <input type="text" [(ngModel)]="trnWorkOrderObj.workOrderNumber" name="workOrderNumber" class="form-control" disabled placeholder="">
                                                                         </div>
                                                                     </div>
 
@@ -131,7 +130,9 @@
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Tailor<span class="requiredField">*</span>
                                                                 </label>
                                                                 <div class="col-md-8 col-sm-8">
-                                                                    <select class="form-control" name="tailorId" [(ngModel)]="trnWorkOrderObj.tailorId" required [disabled]="trnWorkOrderObj.status != 'Created'" #tailorIdCodeVal="ngModel" [ngClass]="{'red-border-class': tailorIdCodeVal.errors && isFormSubmitted}" tabindex="4" (ngModelChange)="onChangeTailor()">
+                                                                    <select class="form-control" name="tailorId" [(ngModel)]="trnWorkOrderObj.tailorId" required [disabled]="trnWorkOrderObj.status != 'Created'"
+                                                                        #tailorIdCodeVal="ngModel" [ngClass]="{'red-border-class': tailorIdCodeVal.errors && isFormSubmitted}"
+                                                                        tabindex="4" (ngModelChange)="onChangeTailor()">
                                                                         <option *ngFor="let x of tailorCodeList" [ngValue]="x.id" [selected]="trnWorkOrderObj.tailorId == x.id">{{x.name}}</option>
                                                                     </select>
 
@@ -162,8 +163,7 @@
                                                                     <div class="col-md-3 col-sm-3">
                                                                         <input class="form-control m-input" type="text" [(ngModel)]="areaRow.area" name="{{'area'+areaRow.contRoleId}}" id="{{'area'+rowNum}}"
                                                                             placeholder="" tabindex="6" [ngClass]="{'red-border-class': areaVal.errors && isFormSubmitted}"
-                                                                            #areaVal="ngModel" [disabled]="true"
-                                                                            required>
+                                                                            #areaVal="ngModel" [disabled]="true" required>
                                                                     </div>
                                                                 </div>
 
@@ -177,8 +177,7 @@
                                                                                 <label class="fieldLabel">Unit</label>
                                                                                 <input class="form-control m-input" type="text" [(ngModel)]="unitRow.unit" name="{{'unit'+unitRow.contRoleId}}" placeholder=""
                                                                                     tabindex="6" [ngClass]="{'red-border-class': unitVal.errors && isFormSubmitted}"
-                                                                                    #unitVal="ngModel" [disabled]="true"
-                                                                                    required>
+                                                                                    #unitVal="ngModel" [disabled]="true" required>
                                                                             </div>
                                                                             <div class="col-md-2">
                                                                                 <label class="fieldLabel">Pattern</label>
@@ -193,23 +192,23 @@
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Height</label>
                                                                                 <input class="form-control m-input" type="text" [(ngModel)]="unitRow.unitHeight" name="{{'unitheight'+unitRow.contRoleId}}"
-                                                                                    [disabled]="true"
-                                                                                    placeholder="" tabindex="6" [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
+                                                                                    [disabled]="true" placeholder="" tabindex="6"
+                                                                                    [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
                                                                                     #hightVal="ngModel" (blur)="onUnitHeightChange(unitRow,unitRowNum,rowNum)"
                                                                                     required>
                                                                             </div>
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Width</label>
                                                                                 <input class="form-control m-input" type="text" [(ngModel)]="unitRow.unitWidth" name="{{'unitwidth'+unitRow.contRoleId}}"
-                                                                                    [disabled]="true"
-                                                                                    placeholder="" tabindex="6" [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
+                                                                                    [disabled]="true" placeholder="" tabindex="6"
+                                                                                    [ngClass]="{'red-border-class': widthVal.errors && isFormSubmitted}"
                                                                                     #widthVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
                                                                             </div>
                                                                             <div class="col-md-1">
                                                                                 <label class="fieldLabel">Panels</label>
                                                                                 <input class="form-control m-input" type="text" [(ngModel)]="unitRow.numberOfPanel" name="{{'unitnumberOfPanel'+unitRow.contRoleId}}"
-                                                                                    [disabled]="true"
-                                                                                    placeholder="" tabindex="6" [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
+                                                                                    [disabled]="true" placeholder="" tabindex="6"
+                                                                                    [ngClass]="{'red-border-class': hightVal.errors && isFormSubmitted}"
                                                                                     #hightVal="ngModel" required (blur)="onUnitWidthChange(unitRow,unitRowNum,rowNum)">
                                                                             </div>
                                                                             <div class="col-md-2">
@@ -325,15 +324,14 @@
                                                                                         <label class="fieldLabel">Vertical</label>
                                                                                         <br/>
                                                                                         <input type="checkbox" [(ngModel)]="fabricRow.isVerticalPatch" name="{{'isVerticalPatch'+unitRow.contRoleId+fabricRowNum+0000}}"
-                                                                                            [disabled]="true"
-                                                                                            (ngModelChange)="onChangeIsVerticalPatchCheckbox(fabricRow)">
+                                                                                            [disabled]="true" (ngModelChange)="onChangeIsVerticalPatchCheckbox(fabricRow)">
                                                                                     </div>
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">No. of patch</label>
                                                                                         <input *ngIf="fabricRow.isVerticalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.noOfVerticalPatch"
                                                                                             name="{{'noOfVerticalpatch'+unitRow.contRoleId+fabricRowNum+0000}}"
-                                                                                            [disabled]="true"
-                                                                                            placeholder="" tabindex="6" [ngClass]="{'red-border-class': noOfverticalVal.errors && isFormSubmitted}"
+                                                                                            [disabled]="true" placeholder=""
+                                                                                            tabindex="6" [ngClass]="{'red-border-class': noOfverticalVal.errors && isFormSubmitted}"
                                                                                             #noOfverticalVal="ngModel" required
                                                                                             (blur)="calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
                                                                                     </div>
@@ -341,8 +339,8 @@
                                                                                         <label class="fieldLabel">Width</label>
                                                                                         <input *ngIf="fabricRow.isVerticalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.verticalPatchWidth"
                                                                                             name="{{'verticalPatchWidth'+unitRow.contRoleId+fabricRowNum+0000}}"
-                                                                                            [disabled]="true"
-                                                                                            placeholder="" tabindex="6" [ngClass]="{'red-border-class': verticalPatchWidthVal.errors && isFormSubmitted}"
+                                                                                            [disabled]="true" placeholder=""
+                                                                                            tabindex="6" [ngClass]="{'red-border-class': verticalPatchWidthVal.errors && isFormSubmitted}"
                                                                                             (blur)="calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)"
                                                                                             #verticalPatchWidthVal="ngModel"
                                                                                             required>
@@ -379,15 +377,14 @@
                                                                                         <label class="fieldLabel">Horizontal</label>
                                                                                         <br/>
                                                                                         <input type="checkbox" [(ngModel)]="fabricRow.isHorizontalPatch" name="{{'isHorizontalPatch'+unitRow.contRoleId+fabricRowNum+0000}}"
-                                                                                            [disabled]="true"
-                                                                                            (ngModelChange)="onChangeIsHorizontalPatchCheckbox(fabricRow)">
+                                                                                            [disabled]="true" (ngModelChange)="onChangeIsHorizontalPatchCheckbox(fabricRow)">
                                                                                     </div>
                                                                                     <div class="col-md-2">
                                                                                         <label class="fieldLabel">No. of patch</label>
                                                                                         <input *ngIf="fabricRow.isHorizontalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.noOfHorizontalPatch"
                                                                                             name="{{'noOfHorizontalpatch'+unitRow.contRoleId+fabricRowNum+0000}}"
-                                                                                            [disabled]="true"
-                                                                                            placeholder="" tabindex="6" [ngClass]="{'red-border-class': noOfHorizontalVal.errors && isFormSubmitted}"
+                                                                                            [disabled]="true" placeholder=""
+                                                                                            tabindex="6" [ngClass]="{'red-border-class': noOfHorizontalVal.errors && isFormSubmitted}"
                                                                                             #noOfHorizontalVal="ngModel" required
                                                                                             (blur)="calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)">
 
@@ -396,8 +393,8 @@
                                                                                         <label class="fieldLabel">Height</label>
                                                                                         <input *ngIf="fabricRow.isHorizontalPatch" class="form-control m-input" type="text" [(ngModel)]="fabricRow.horizontalPatchHeight"
                                                                                             name="{{'horizontalPatchHeight'+unitRow.contRoleId+fabricRowNum+0000}}"
-                                                                                            [disabled]="true"
-                                                                                            placeholder="" tabindex="6" [ngClass]="{'red-border-class': horizontalPatchHeightVal.errors && isFormSubmitted}"
+                                                                                            [disabled]="true" placeholder=""
+                                                                                            tabindex="6" [ngClass]="{'red-border-class': horizontalPatchHeightVal.errors && isFormSubmitted}"
                                                                                             #horizontalPatchHeightVal="ngModel"
                                                                                             (blur)="calculateHorizontalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow)"
                                                                                             required>
@@ -458,8 +455,7 @@
                                                                                         [(ngModel)]="accessoryRow.orderQuantity"
                                                                                         name="{{'accessoryDiscount'+accessoryRow.contRoleId}}"
                                                                                         #accessoryQuantityVal="ngModel" tabindex="21"
-                                                                                        [disabled]="true"
-                                                                                        placeholder="" (blur)="changeAccessoryQuantity(accessoryRow)"
+                                                                                        [disabled]="true" placeholder="" (blur)="changeAccessoryQuantity(accessoryRow)"
                                                                                         required>
                                                                                 </div>
                                                                                 <!-- <div class="col-md-1">
@@ -513,8 +509,8 @@
                                                                                     <br/>
                                                                                     <input *ngIf="unitRow.isTrack" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="10000"
                                                                                         [ngClass]="{'red-border-class': trackQuantityVal.errors && isFormSubmitted}"
-                                                                                        [disabled]="true"
-                                                                                        [(ngModel)]="unitRow.trackQuantity" name="{{'trackQuantity'+unitRow.contRoleId}}"
+                                                                                        [disabled]="true" [(ngModel)]="unitRow.trackQuantity"
+                                                                                        name="{{'trackQuantity'+unitRow.contRoleId}}"
                                                                                         #trackQuantityVal="ngModel" tabindex="21"
                                                                                         placeholder="" (blur)="changeTrackQuantity(unitRow,unitRowNum,rowNum)"
                                                                                         required>
@@ -551,8 +547,7 @@
                                                                                         [ngClass]="{'red-border-class': motorQuantityVal.errors && isFormSubmitted}"
                                                                                         [(ngModel)]="unitRow.motorQuantity" name="{{'motorQuantity'+unitRow.contRoleId}}"
                                                                                         #motorQuantityVal="ngModel" tabindex="21"
-                                                                                        [disabled]="true"
-                                                                                        placeholder="" (blur)="changeMotorQuantity(unitRow,unitRowNum,rowNum)"
+                                                                                        [disabled]="true" placeholder="" (blur)="changeMotorQuantity(unitRow,unitRowNum,rowNum)"
                                                                                         required>
                                                                                 </div>
                                                                                 <!-- <div class="col-md-1">
@@ -595,8 +590,7 @@
                                                                                     <input *ngIf="unitRow.isRemote" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0"
                                                                                         maxValue="10000" [ngClass]="{'red-border-class': remoteQuantityVal.errors && isFormSubmitted}"
                                                                                         [(ngModel)]="unitRow.remoteQuantity"
-                                                                                        [disabled]="true"
-                                                                                        name="{{'remoteQuantity'+unitRow.contRoleId}}"
+                                                                                        [disabled]="true" name="{{'remoteQuantity'+unitRow.contRoleId}}"
                                                                                         #remoteQuantityVal="ngModel" tabindex="21"
                                                                                         placeholder="" (blur)="changeRemoteQuantity(unitRow,unitRowNum,rowNum)"
                                                                                         required>
@@ -675,8 +669,8 @@
                                                             <input *ngIf="trnWorkOrderObj.isRod" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0"
                                                                 maxValue="10000" [ngClass]="{'red-border-class': rodQuantityVal.errors  && isFormSubmitted}"
                                                                 [(ngModel)]="trnWorkOrderObj.rodQuantity" name="rodquantity"
-                                                                [disabled]="true" #rodQuantityVal="ngModel"
-                                                                tabindex="21" placeholder="" (blur)="changeRodQuantity()" required>
+                                                                [disabled]="true" #rodQuantityVal="ngModel" tabindex="21" placeholder=""
+                                                                (blur)="changeRodQuantity()" required>
                                                         </div>
                                                         <!-- <div class="col-md-1">
                                                             <label class="fieldLabel">Amount</label>
@@ -715,9 +709,8 @@
                                                             <input *ngIf="trnWorkOrderObj.isRodAccessory" class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off"
                                                                 minValue="0" maxValue="10000" [ngClass]="{'red-border-class': rodItemAccessoryQuantityVal.errors  && isFormSubmitted}"
                                                                 [(ngModel)]="trnWorkOrderObj.rodItemAccessoryQuantity" name="rodItemAccessoryquantity"
-                                                                [disabled]="true" #rodItemAccessoryQuantityVal="ngModel"
-                                                                tabindex="21" placeholder="" (blur)="changeRodItemAccessoryQuantity()"
-                                                                required>
+                                                                [disabled]="true" #rodItemAccessoryQuantityVal="ngModel" tabindex="21"
+                                                                placeholder="" (blur)="changeRodItemAccessoryQuantity()" required>
                                                         </div>
                                                         <!-- <div class="col-md-1">
                                                             <label class="fieldLabel">Amount</label>
@@ -838,6 +831,24 @@
                         Track
                     </td>
                     <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;text-align:center;">{{unitRow.trackQuantity}}</td>
+                </tr>
+                <tr *ngIf="unitRow.isMotor">
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Accessory</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">
+                        {{ unitRow.motorAccessoriesDetails?unitRow.motorAccessoriesDetails.itemCode:""}}</td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
+                        Motor
+                    </td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;text-align:center;">{{unitRow.motorQuantity}}</td>
+                </tr>
+                <tr *ngIf="unitRow.isRemote">
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">Accessory</td>
+                    <td style="font-family: Roboto;color: #000;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;font-size:13px;">
+                        {{ unitRow.remoteAccessoriesDetails?unitRow.remoteAccessoriesDetails.itemCode:""}}</td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;">
+                        Remote
+                    </td>
+                    <td style="font-family: Roboto;color: #000;font-size:13px;font-weight:400;border:1px solid #000;border-collapse:collapse;padding:0 1px;text-align:center;">{{unitRow.remoteQuantity}}</td>
                 </tr>
             </table>
         </div>
