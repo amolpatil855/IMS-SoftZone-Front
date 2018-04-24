@@ -314,7 +314,7 @@
                                                                                     <label class="fieldLabel">Direction</label>
                                                                                     <br/>
                                                                                     <select class="form-control" name="{{'verticalHorizontal'+fabricRow.contRoleId}}" [(ngModel)]="fabricRow.fabricDirection" [ngClass]="{'red-border-class': fabricDirectionVal.errors && isFormSubmitted}"
-                                                                                        #fabricDirectionVal="ngModel" required
+                                                                                        #fabricDirectionVal="ngModel" required [disabled]="trnCurtainQuotationObj.status == 'Approved'"
                                                                                         (ngModelChange)="onFabricDirectionChange(fabricRow,fabricRowNum,unitRowNum,rowNum,unitRow)">
                                                                                         <option value="Vertical">Vertical</option>
                                                                                         <option value="Horizontal">Horizontal</option>
