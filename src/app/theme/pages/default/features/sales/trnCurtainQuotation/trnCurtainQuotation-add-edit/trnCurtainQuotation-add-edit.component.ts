@@ -1073,7 +1073,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
               normalAccessoryAmount = normalAccessoryAmount + accessoryObj.amountWithGST;
             });
 
-            let trackObj = _.find(results.trnCurtainQuotationItems, { "isTrack": true, unit: value.unit });
+            let trackObj = _.find(results.trnCurtainQuotationItems, { "isTrack": true, unit: value.unit, 'area': value.area });
             if (trackObj) {
               trackAccessoryAmount = trackAccessoryAmount + trackObj.amountWithGST;
               value.trackAccessoriesDetails = trackObj.accessoriesDetails;
@@ -1087,7 +1087,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
               value.trackQuantity = trackObj.orderQuantity;
             }
 
-            let motorObj = _.find(results.trnCurtainQuotationItems, { "isMotor": true, unit: value.unit });
+            let motorObj = _.find(results.trnCurtainQuotationItems, { "isMotor": true, unit: value.unit, 'area': value.area });
             if (motorObj) {
               motorAccessoryAmount = motorAccessoryAmount + motorObj.amountWithGST;
               value.motorAccessoriesDetails = motorObj.accessoriesDetails;
@@ -1101,7 +1101,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
               value.motorQuantity = motorObj.orderQuantity;
             }
 
-            let remoteObj = _.find(results.trnCurtainQuotationItems, { "isRemote": true, unit: value.unit });
+            let remoteObj = _.find(results.trnCurtainQuotationItems, { "isRemote": true, unit: value.unit, 'area': value.area });
             if (motorObj) {
               if (remoteObj != null) {
                 remoteAccessoryAmount = remoteAccessoryAmount + remoteObj.amountWithGST;
