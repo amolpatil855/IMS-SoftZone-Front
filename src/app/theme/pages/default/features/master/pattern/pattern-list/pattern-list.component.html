@@ -42,10 +42,10 @@
 		</div>
 		<div *ngIf="toggleDiv" class="m-form__actions m-form__actions--solid formTopActionBtnBox">
 			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="patternForm" title="{{(patternForm && patternForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-			 [isAuthorize]="['pattern']" tabindex="9">
+			 [isAuthorize]="['pattern']" tabindex="11">
 						{{ params ? 'Update' : 'Save' }}
 				</button>
-			<button class="btn btn-secondary" [isAuthorize]="['pattern']" (click)="onCancel()" tabindex="10">
+			<button class="btn btn-secondary" [isAuthorize]="['pattern']" (click)="onCancel()" tabindex="12">
 						Cancel
 				</button>
 		</div>
@@ -98,7 +98,7 @@
 														<div class="col-sm-7">
 															<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #woFabricHeightVal="ngModel"
 															 required [(ngModel)]="patternObj.woFabricHeight" [ngClass]="{'red-border-class': woFabricHeightVal.errors && isFormSubmitted}"
-															 name="woFabricHeight" id="woFabricHeight" placeholder="" autocomplete="off" tabindex="2">
+															 name="woFabricHeight" id="woFabricHeight" placeholder="" autocomplete="off" tabindex="4">
 														</div>
 													</div>
 												</div>
@@ -108,7 +108,7 @@
 														<div class="col-sm-7">
 															<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #woLiningHeightVal="ngModel"
 															 required [(ngModel)]="patternObj.woLiningHeight" [ngClass]="{'red-border-class': woLiningHeightVal.errors && isFormSubmitted}"
-															 name="woLiningHeight" id="woLiningHeight" placeholder="" autocomplete="off" tabindex="3">
+															 name="woLiningHeight" id="woLiningHeight" placeholder="" autocomplete="off" tabindex="5">
 														</div>
 													</div>
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxPattern">
@@ -116,7 +116,7 @@
 														<div class="col-sm-7">
 															<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="0" minValue="1" maxValue="2147483647" #meterPerInchVal="ngModel"
 															 required [ngClass]="{'red-border-class': meterPerInchVal.errors && isFormSubmitted}" [(ngModel)]="patternObj.meterPerInch"
-															 name="meterPerInch" id="meterPerInch" placeholder="" autocomplete="off" tabindex="4">
+															 name="meterPerInch" id="meterPerInch" placeholder="" autocomplete="off" tabindex="6">
 														</div>
 													</div>
 													<div class="col-lg-3 col-md-6 formContentbox formContentboxPattern">
@@ -125,7 +125,7 @@
 															<div class="col-sm-7">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="0" minValue="1" maxValue="2147483647" #widthPerInchVal="ngModel"
 																 required [ngClass]="{'red-border-class': widthPerInchVal.errors && isFormSubmitted}" [(ngModel)]="patternObj.widthPerInch"
-																 name="widthPerInch" id="widthPerInch" placeholder="" autocomplete="off" tabindex="5">
+																 name="widthPerInch" id="widthPerInch" placeholder="" autocomplete="off" tabindex="7">
 															</div>
 														</div>
 													</div>
@@ -135,7 +135,7 @@
 															<div class="col-sm-7">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #setRateForCustomerVal="ngModel"
 																 required [(ngModel)]="patternObj.setRateForCustomer" [ngClass]="{'red-border-class': setRateForCustomerVal.errors && isFormSubmitted}"
-																 name="setRateForCustomer" id="setRateForCustomer" placeholder="" autocomplete="off" tabindex="6">
+																 name="setRateForCustomer" id="setRateForCustomer" placeholder="" autocomplete="off" tabindex="8">
 															</div>
 														</div>
 													</div>
@@ -147,7 +147,7 @@
 															<div class="col-sm-7">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #verticalPatchVal="ngModel"
 																 required [(ngModel)]="patternObj.verticalPatch" [ngClass]="{'red-border-class': verticalPatchVal.errors && isFormSubmitted}"
-																 name="verticalPatch" id="verticalPatch" placeholder="" autocomplete="off" tabindex="7">
+																 name="verticalPatch" id="verticalPatch" placeholder="" autocomplete="off" tabindex="9">
 															</div>
 														</div>
 													</div>
@@ -157,7 +157,7 @@
 															<div class="col-sm-7">
 																<input class="form-control m-input" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" #horizontalPatchVal="ngModel"
 																 required [(ngModel)]="patternObj.horizontalPatch" [ngClass]="{'red-border-class': horizontalPatchVal.errors && isFormSubmitted}"
-																 name="horizontalPatch" id="horizontalPatch" placeholder="" autocomplete="off" tabindex="8">
+																 name="horizontalPatch" id="horizontalPatch" placeholder="" autocomplete="off" tabindex="10">
 															</div>
 														</div>
 													</div>

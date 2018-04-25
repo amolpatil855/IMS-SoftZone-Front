@@ -41,17 +41,17 @@
             </ul>
         </div>
         <div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-            <button class="topBtn btn btn-info" title="Print" (click)="print()" tabindex="5">Print</button>
+            <button class="topBtn btn btn-info" title="Print" (click)="print()" tabindex="6">Print</button>
             <button type="submit" class="topBtn btn btn-success" *ngIf="adminFlag && trnWorkOrderObj.status == 'Created'" [isAuthorize]="['workorder']"
-                title="Approve" (click)="onApprove()" tabindex="7">
+                title="Approve" (click)="onApprove()" tabindex="5">
                 Approve
             </button>
             <button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnCurtainSelectionForm"
                 title="{{(trnCurtainSelectionForm && trnCurtainSelectionForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-                [isAuthorize]="['workorder']" tabindex="16">
+                [isAuthorize]="['workorder']" tabindex="3">
                 {{ params ? 'Update' : 'Save' }}
             </button>
-            <button class="btn btn-secondary" [isAuthorize]="['workorder']" (click)="onCancel()" tabindex="17">
+            <button class="btn btn-secondary" [isAuthorize]="['workorder']" (click)="onCancel()" tabindex="4">
                 Cancel
             </button>
         </div>
@@ -132,7 +132,7 @@
                                                                 <div class="col-md-8 col-sm-8">
                                                                     <select class="form-control" name="tailorId" [(ngModel)]="trnWorkOrderObj.tailorId" required [disabled]="trnWorkOrderObj.status != 'Created'"
                                                                         #tailorIdCodeVal="ngModel" [ngClass]="{'red-border-class': tailorIdCodeVal.errors && isFormSubmitted}"
-                                                                        tabindex="4" (ngModelChange)="onChangeTailor()">
+                                                                        tabindex="2" (ngModelChange)="onChangeTailor()">
                                                                         <option *ngFor="let x of tailorCodeList" [ngValue]="x.id" [selected]="trnWorkOrderObj.tailorId == x.id">{{x.name}}</option>
                                                                     </select>
 

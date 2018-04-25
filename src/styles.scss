@@ -2503,3 +2503,8 @@ select option {
     border-color: #bbb;
     border-radius: 3px;
 }
+
+.formTopActionBtn:focus {
+    background-color: #00a3b6!important;
+    border-radius: 3px!important;    
+}

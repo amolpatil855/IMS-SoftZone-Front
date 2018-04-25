@@ -75,7 +75,7 @@
                                          <label class="col-md-4 col-sm-4 fieldLabel">From Date</label>
                                         <div class="col-md-8 col-sm-8">
                                             <p-calendar class="purchaseOrderDate" [(ngModel)]="startDate" (ngModelChange)="onChangeDate()"
-                                                name="startDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="1" yearRange="2015:2030" dateFormat="dd/mm/yy"
+                                                name="startDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="3" yearRange="2015:2030" dateFormat="dd/mm/yy"
                                                 placeholder="dd/mm/yyyy"></p-calendar>
                                         </div>
                                     </div> 
@@ -85,13 +85,13 @@
                                          <label class="col-md-4 col-sm-4 fieldLabel">To Date</label>
                                         <div class="col-md-8 col-sm-8">
                                             <p-calendar class="purchaseOrderDate" [(ngModel)]="endDate"
-                                            name="endDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="6" yearRange="2015:2030" [minDate]="startDate" dateFormat="dd/mm/yy"
+                                            name="endDate" [monthNavigator]="true" [yearNavigator]="true" tabindex="4" yearRange="2015:2030" [minDate]="startDate" dateFormat="dd/mm/yy"
                                             (ngModelChange)="onChangeDate()" placeholder="dd/mm/yyyy"></p-calendar>
                                         </div>
                                     </div> 
                                     <div class="col-md-8">
                                         <i class="fa fa-search searchIcon"></i>
-								        <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox">
+								        <input #gb type="text" pInputText size="50" placeholder="Search" class="form-control siteSearchbox" tabindex="5">
                                     </div>
                                 </div>         
 
