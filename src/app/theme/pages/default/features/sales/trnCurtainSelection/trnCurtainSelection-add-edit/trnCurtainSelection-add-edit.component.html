@@ -42,15 +42,15 @@
         </div>
         <div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
             <button type="submit" *ngIf="params" class="topBtn btn btn-success" [isAuthorize]="['curtainselection']" title="{{ (params && (trnCurtainSelectionObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}"
-                (click)="onUpdateAndCreateQuotation()" tabindex="9">
+                (click)="onUpdateAndCreateQuotation()" tabindex="1002">
                 {{ (params && (trnCurtainSelectionObj.isQuotationCreated == false)) ? 'Update And Create Quotation' : 'View Quotation' }}
             </button>
             <button type="submit" *ngIf="viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnCurtainSelectionForm"
                 title="{{(trnCurtainSelectionForm && trnCurtainSelectionForm.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-                [isAuthorize]="['curtainselection']" tabindex="16">
+                [isAuthorize]="['curtainselection']" tabindex="1000">
                 {{ params ? 'Update' : 'Save' }}
             </button>
-            <button class="btn btn-secondary" [isAuthorize]="['curtainselection']" (click)="onCancel()" tabindex="17">
+            <button class="btn btn-secondary" [isAuthorize]="['curtainselection']" (click)="onCancel()" tabindex="1001">
                 Cancel
             </button>
         </div>
@@ -110,7 +110,7 @@
                                                                 <div class="col-md-8 col-sm-8 customerNameBox">
                                                                     <select class="form-control" required name="customer" [(ngModel)]="trnCurtainSelectionObj.customerId" #selectedCustomerVal="ngModel"
                                                                         [disabled]="!viewItem" [ngClass]="{'red-border-class': selectedCustomerVal.errors && isFormSubmitted}"
-                                                                        style="float: left;width: 85%;" tabindex="2" required>
+                                                                        style="float: left;width: 85%;" tabindex="1" required>
                                                                         <option *ngFor="let x of customerList" [ngValue]="x.value">{{x.label}}</option>
                                                                     </select>
                                                                     <!-- <p-dropdown class="feePlanBox" [options]="customerList" [style]="{'width':'100%'}" #selectedCustomerVal="ngModel" [(ngModel)]="trnCurtainSelectionObj.customerId"
@@ -118,7 +118,7 @@
 																	 [disabled]="!viewItem" filter="true" tabindex="2" style="float: left;width: 85%;"></p-dropdown> -->
 
                                                                     <button type="button" class="btn" (click)="showDialog()" [disabled]="!viewItem" title="Add Customer" style="padding: 2px 5px!important;margin-left: 7px;"
-                                                                        tabindex="3">
+                                                                        tabindex="1">
                                                                         <i class="fa fa-plus" style="font-size: 13px;vertical-align: middle;"></i>
                                                                     </button>
                                                                 </div>
@@ -136,7 +136,7 @@
                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Referred By
                                                                 </label>
                                                                 <div class="col-md-8 col-sm-8">
-                                                                    <select class="form-control" name="agent" [(ngModel)]="trnCurtainSelectionObj.referById" [disabled]="!viewItem" tabindex="4">
+                                                                    <select class="form-control" name="agent" [(ngModel)]="trnCurtainSelectionObj.referById" [disabled]="!viewItem" tabindex="1">
                                                                         <option *ngFor="let x of agentList" [ngValue]="x.value" [selected]="trnCurtainSelectionObj.referById == x.value">{{x.label}}</option>
                                                                     </select>
                                                                     <!-- <p-dropdown class="feePlanBox" [options]="agentList" [disabled]="!viewItem" [style]="{'width':'100%'}" [(ngModel)]="trnCurtainSelectionObj.referById"
@@ -167,7 +167,7 @@
                                                                 </label>
                                                                 <div class="col-md-6 col-sm-6" style="padding-left: 24px;padding-right: 0;">
                                                                     <input class="form-control m-input" type="text" [(ngModel)]="areaRow.area" name="{{'area'+areaRow.contRoleId}}" id="{{'area'+rowNum}}"
-                                                                        placeholder="" tabindex="6" [disabled]="!viewItem" [ngClass]="{'red-border-class': areaVal.errors && isFormSubmitted}"
+                                                                        placeholder="" tabindex="{{rowNum+1}}" [disabled]="!viewItem" [ngClass]="{'red-border-class': areaVal.errors && isFormSubmitted}"
                                                                         #areaVal="ngModel" required>
                                                                 </div>
                                                             </div>
@@ -185,7 +185,7 @@
                                                                                 </label>
                                                                                 <div class="col-md-8 col-sm-8">
                                                                                     <input class="form-control m-input" type="text" [(ngModel)]="unitRow.unit" name="{{'unit'+unitRow.contRoleId}}" placeholder=""
-                                                                                        tabindex="6" [disabled]="!viewItem" [ngClass]="{'red-border-class': unitVal.errors && isFormSubmitted}"
+                                                                                        tabindex="{{rowNum+1}}" [disabled]="!viewItem" [ngClass]="{'red-border-class': unitVal.errors && isFormSubmitted}"
                                                                                         #unitVal="ngModel" required>
                                                                                 </div>
                                                                             </div>
@@ -197,7 +197,7 @@
                                                                                     <!-- <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': areaError}" [(ngModel)]="unitRow.pattern"
                                                                                         name="{{'patern'+unitRow.contRoleId}}" placeholder=""
                                                                                         tabindex="6"> -->
-                                                                                    <select class="form-control" name="{{'patern'+unitRow.contRoleId}}" [(ngModel)]="unitRow.patternId" tabindex="9" [disabled]="!viewItem"
+                                                                                    <select class="form-control" name="{{'patern'+unitRow.contRoleId}}" [(ngModel)]="unitRow.patternId" tabindex="{{rowNum+1}}" [disabled]="!viewItem"
                                                                                         [ngClass]="{'red-border-class': paternVal.errors && isFormSubmitted}"
                                                                                         #paternVal="ngModel" required>
                                                                                         <option *ngFor="let x of patternList" [ngValue]="x.value" [selected]="unitRow.pattern == x.value">{{x.label}}</option>
@@ -213,7 +213,7 @@
                                                                                 <div class="col-md-8 col-sm-8">
                                                                                     <select class="form-control" name="{{'collection'+unitRow.contRoleId+fabricRow.contRoleId+fabricRowNum+0000}}" [(ngModel)]="fabricRow.collectionId"
                                                                                         [disabled]="!viewItem" (ngModelChange)="onChangeCollection(fabricRow)"
-                                                                                        tabindex="9" [ngClass]="{'red-border-class': collectionVal.errors && isFormSubmitted}"
+                                                                                        tabindex="{{rowNum+1}}" [ngClass]="{'red-border-class': collectionVal.errors && isFormSubmitted}"
                                                                                         #collectionVal="ngModel" required>
                                                                                         <option *ngFor="let x of collectionList" [ngValue]="x.value" [selected]="fabricRow.collectionId == x.value">{{x.label}}</option>
                                                                                     </select>
@@ -226,7 +226,7 @@
                                                                                     <span class="requiredField">*</span>
                                                                                 </label>
                                                                                 <div class="col-md-8 col-sm-8">
-                                                                                    <select class="form-control" name="{{'shade'+unitRow.contRoleId+fabricRow.contRoleId+fabricRowNum+0000}}" [(ngModel)]="fabricRow.shadeId" tabindex="9"
+                                                                                    <select class="form-control" name="{{'shade'+unitRow.contRoleId+fabricRow.contRoleId+fabricRowNum+0000}}" [(ngModel)]="fabricRow.shadeId" tabindex="{{rowNum+1}}"
                                                                                         [disabled]="!viewItem" (ngModelChange)="onChangeShade(fabricRow)"
                                                                                         [ngClass]="{'red-border-class': shadeVal.errors && isFormSubmitted}"
                                                                                         #shadeVal="ngModel" required>
@@ -240,7 +240,7 @@
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Patch
                                                                                 </label>
                                                                                 <div class="col-md-2 col-sm-2 noPadding alignCenter">
-                                                                                    <input type="checkbox" [(ngModel)]="fabricRow.isPatch" [disabled]="fabricRow.isLining || !viewItem" name="{{'patch'+unitRow.contRoleId+fabricRow.contRoleId+fabricRowNum+0000}}">
+                                                                                    <input type="checkbox" [(ngModel)]="fabricRow.isPatch" [disabled]="fabricRow.isLining || !viewItem" name="{{'patch'+unitRow.contRoleId+fabricRow.contRoleId+fabricRowNum+0000}}" tabindex="{{rowNum+1}}">
                                                                                 </div>
                                                                                 <label class="col-md-4 col-sm-4 fieldLabel noPadding">Lining
                                                                                 </label>
@@ -248,7 +248,7 @@
                                                                                     <!-- <input type="radio" name="{{'lining'+unitRow.contRoleId+fabricRowNum+0000}}" [checked]="fabricRow.isLining == true" [value]="fabricRow.isLining"
                                                                                     (click)="selectedLining(rowNum,unitRowNum,fabricRowNum)"
                                                                                     > -->
-                                                                                    <input type="checkbox" [(ngModel)]="fabricRow.isLining" [disabled]="fabricRow.isPatch  || !viewItem" name="{{'lining'+unitRow.contRoleId+fabricRow.contRoleId+fabricRowNum+0000}}">
+                                                                                    <input type="checkbox" [(ngModel)]="fabricRow.isLining" [disabled]="fabricRow.isPatch  || !viewItem" name="{{'lining'+unitRow.contRoleId+fabricRow.contRoleId+fabricRowNum+0000}}" tabindex="{{rowNum+1}}">
                                                                                 </div>
                                                                             </div>
                                                                             <!-- <div class="col-md-3">
@@ -264,9 +264,9 @@
                                                                                 </div>
                                                                             </div> -->
                                                                             <div class="col-md-2">
-                                                                                <button type="button" *ngIf="viewItem" pButton (click)="addFabricRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Add Unit"></button>
+                                                                                <button type="button" *ngIf="viewItem" pButton (click)="addFabricRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Add Unit" tabindex="{{rowNum+1}}"></button>
                                                                                 <button type="button" *ngIf="unitRow.fabricList.length > 1 && viewItem" pButton (click)="onDeleteFabricRow(rowNum,unitRowNum,fabricRowNum, unitRow.fabricList)" icon="fa fa-times"
-                                                                                    class="editBtn" title="Delete Fabric"></button>
+                                                                                    class="editBtn" title="Delete Fabric" tabindex="{{rowNum+unitRowNum+fabricRowNum}}"></button>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row form-group" *ngFor="let accessoryRow of unitRow.accessoryList;let accessoryRowNum=index;let accessoryLastRowNum=last;">
@@ -275,7 +275,7 @@
                                                                                 </label>
                                                                                 <div class="col-md-8 col-sm-8">
                                                                                     <select class="form-control" name="{{'accessory'+unitRow.contRoleId+accessoryRow.contRoleId+accessoryRowNum+111}}" [(ngModel)]="accessoryRow.accessoryId"
-                                                                                        [disabled]="!viewItem" tabindex="9" (ngModelChange)="onChangeAccesory(accessoryRow)"
+                                                                                        [disabled]="!viewItem" tabindex="{{rowNum+1}}" (ngModelChange)="onChangeAccesory(accessoryRow)"
                                                                                         [required]="params" [ngClass]="{'red-border-class': accessoryVal.errors && isFormSubmitted}"
                                                                                         #accessoryVal="ngModel">
                                                                                         <option *ngFor="let x of accessoryCodeList" [ngValue]="x.accessoryId" [selected]="accessoryId == x.accessoryId">{{x.itemCode}}</option>
@@ -290,18 +290,18 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-2">
-                                                                                <button type="button" *ngIf="viewItem" pButton (click)="addAccessoryRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Add Accessory"></button>
+                                                                                <button type="button" *ngIf="viewItem" pButton (click)="addAccessoryRow(unitRow)" icon="fa fa-plus" class="editBtn" title="Add Accessory" tabindex="{{rowNum+1}}"></button>
                                                                                 <button type="button" pButton *ngIf="unitRow.accessoryList.length > 1 && viewItem" (click)="deleteAccessoryRow(rowNum,unitRowNum,accessoryRowNum,unitRow.accessoryList)"
-                                                                                    icon="fa fa-times" class="editBtn" title="Delete Accessory"></button>
+                                                                                    icon="fa fa-times" class="editBtn" title="Delete Accessory" tabindex="{{rowNum+1}}"></button>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row form-group">
                                                                             <div class="col-md-4">
                                                                                 <input type="button" *ngIf="viewItem && unitLastRowNum" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add Unit"
-                                                                                    tabindex="14" (click)="addUnit(areaRow)"
+                                                                                    tabindex="{{rowNum+1}}" (click)="addUnit(areaRow)"
                                                                                 />
                                                                                 <input type="button" *ngIf="viewItem" class="btn btn-secondary" value="Remove" (click)="removeUnit(rowNum,unitRowNum,areaRow.unitList)"
-                                                                                    tabindex="15">
+                                                                                    tabindex="{{rowNum+1}}">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -310,8 +310,8 @@
                                                         </div>
                                                         <div class="m-form__actions m-form__actions--solid formTopActionBtnBox formAddItemBox">
                                                             <input type="button" *ngIf="viewItem && lastRowNum" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add Area"
-                                                                tabindex="14" (click)="addArea()" />
-                                                            <input type="button" *ngIf="viewItem" class="btn btn-secondary" value="Remove" (click)="removeArea(rowNum)" tabindex="15">
+                                                                tabindex="{{rowNum+1}}" (click)="addArea()" />
+                                                            <input type="button" *ngIf="viewItem" class="btn btn-secondary" value="Remove" (click)="removeArea(rowNum)" tabindex="{{rowNum+1}}">
                                                         </div>
                                                     </div>
 
