@@ -1,21 +1,31 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
-import * as _ from 'lodash/index';
-import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
-import { ConfirmationService, DataTableModule, LazyLoadEvent } from 'primeng/primeng';
-import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
-import { MessageService } from '../../../../../../../_services/message.service';
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { ActivatedRoute, Router, Params } from "@angular/router";
+import { Observable } from "rxjs/Rx";
+import * as _ from "lodash/index";
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  FormArray,
+  FormControl
+} from "@angular/forms";
+import {
+  ConfirmationService,
+  DataTableModule,
+  LazyLoadEvent
+} from "primeng/primeng";
+import { GlobalErrorHandler } from "../../../../../../../_services/error-handler.service";
+import { MessageService } from "../../../../../../../_services/message.service";
 import { CustomerService } from "../../../../_services/customer.service";
 import { Customer } from "../../../../_models/customer";
-import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
+import { ScriptLoaderService } from "../../../../../../../_services/script-loader.service";
 import { Address } from "../../../../_models/address";
 import { Helpers } from "../../../../../../../helpers";
-import { CommonService } from '../../../../_services/common.service';
+import { CommonService } from "../../../../_services/common.service";
 @Component({
   selector: "app-customer-list",
   templateUrl: "./customer-list.component.html",
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class CustomerListComponent implements OnInit {
   customerForm: FormGroup;
@@ -25,14 +35,21 @@ export class CustomerListComponent implements OnInit {
   pageSize = 50;
   page = 1;
   totalCount = 0;
-  search = '';
+  search = "";
   states = [];
   toggleDiv = false;
   isHide = false;
   isFormSubmitted: boolean = false;
-  tableEmptyMesssage = 'Loading...';
-  customerTypeList = ["Furniture Showroom", "Workshop Big", "Workshop Small", "Karagir", "Designer", "Miscellaneous"];
-  misVal = '';
+  tableEmptyMesssage = "Loading...";
+  customerTypeList = [
+    "Furniture Showroom",
+    "Workshop Big",
+    "Workshop Small",
+    "Karagir",
+    "Designer",
+    "Miscellaneous"
+  ];
+  misVal = "";
   isResponsive: boolean;
   constructor(
     private formBuilder: FormBuilder,
@@ -42,15 +59,19 @@ export class CustomerListComponent implements OnInit {
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private commonService: CommonService,
-    private messageService: MessageService) {
-  }
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
     this.states = this.commonService.states;
     this.route.params.forEach((params: Params) => {
-      this.params = params['customerId'];
+      this.params = params["customerId"];
     });
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
       this.isResponsive = true;
     }
     this.newRecord();
@@ -61,38 +82,39 @@ export class CustomerListComponent implements OnInit {
     this.misVal = "";
     this.customerObj = {
       id: 0,
-      code: '',
-      name: '',
-      nickName: '',
-      email: '',
-      alternateEmail1: '',
-      alternateEmail2: '',
-      phone: '',
-      alternatePhone1: '',
-      alternatePhone2: '',
+      code: "",
+      name: "",
+      nickName: "",
+      email: "",
+      alternateEmail1: "",
+      alternateEmail2: "",
+      phone: "",
+      alternatePhone1: "",
+      alternatePhone2: "",
       isWholesaleCustomer: false,
-      pan: '',
-      accountPersonName: '',
-      accountPersonPhone: '',
-      accountPersonEmail: '',
+      pan: "",
+      accountPersonName: "",
+      accountPersonPhone: "",
+      accountPersonEmail: "",
       creditPeriodDays: null,
-      userName: '',
-      type: '',
-      MstCustomerAddresses: [],
+      userName: "",
+      type: "",
+      MstCustomerAddresses: []
     };
 
-    this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
+    this.customerObj.MstCustomerAddresses.push({
+      // <-- the child FormGroup
       id: 0,
       customerId: 0,
-      addressLine1: '',
-      addressLine2: '',
-      city: '',
-      state: '',
-      country: '',
-      pin: '',
-      gstin: '',
+      addressLine1: "",
+      addressLine2: "",
+      city: "",
+      state: "",
+      country: "",
+      pin: "",
+      gstin: "",
       isPrimary: true,
-      contRoleId: Math.floor(Math.random() * 2000),
+      contRoleId: Math.floor(Math.random() * 2000)
     });
     this.isFormSubmitted = false;
   }
@@ -121,13 +143,17 @@ export class CustomerListComponent implements OnInit {
   onClickPrimary(row) {
     this.customerObj.MstCustomerAddresses.forEach(function(value) {
       value.isPrimary = false;
-    })
+    });
     row.isPrimary = true;
   }
 
   clearAddress(supAddIndex) {
     if (this.customerObj.MstCustomerAddresses[supAddIndex].isPrimary) {
-      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Primary address can not be deleted." });
+      this.messageService.addMessage({
+        severity: "error",
+        summary: "Error",
+        detail: "Primary address can not be deleted."
+      });
     } else {
       Helpers.setLoading(true);
       let id = this.customerObj.MstCustomerAddresses[supAddIndex].id;
@@ -136,15 +162,19 @@ export class CustomerListComponent implements OnInit {
           if (results)
             this.customerObj.MstCustomerAddresses.splice(supAddIndex, 1);
           else {
-            this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Not able to delete the address due to reference exist with another record." });
+            this.messageService.addMessage({
+              severity: "error",
+              summary: "Error",
+              detail:
+                "Not able to delete the address due to reference exist with another record."
+            });
             Helpers.setLoading(false);
           }
         },
         error => {
           this.globalErrorHandler.handleError(error);
-        });
-
-
+        }
+      );
     }
   }
 
@@ -153,7 +183,6 @@ export class CustomerListComponent implements OnInit {
     if (this.toggleDiv && !this.params) {
       this.newRecord();
     }
-
   }
   onCancel() {
     this.toggleDiv = false;
@@ -161,18 +190,21 @@ export class CustomerListComponent implements OnInit {
   }
 
   getCustomersList() {
-    this.customerService.getAllCustomers(this.pageSize, this.page, this.search).subscribe(
-      results => {
-        this.customerList = results.data;
-        this.totalCount = results.totalCount;
-        if (this.totalCount == 0) {
+    this.customerService
+      .getAllCustomers(this.pageSize, this.page, this.search)
+      .subscribe(
+        results => {
+          this.customerList = results.data;
+          this.totalCount = results.totalCount;
+          if (this.totalCount == 0) {
+            this.tableEmptyMesssage = "No Records Found";
+          }
+        },
+        error => {
           this.tableEmptyMesssage = "No Records Found";
+          this.globalErrorHandler.handleError(error);
         }
-      },
-      error => {
-        this.tableEmptyMesssage = "No Records Found";
-        this.globalErrorHandler.handleError(error);
-      });
+      );
   }
   loadLazy(event: LazyLoadEvent) {
     //in a real application, make a remote request to load data using state metadata from event
@@ -191,8 +223,7 @@ export class CustomerListComponent implements OnInit {
   validateAddress1(addressObj) {
     if (!addressObj.addressLine1) {
       addressObj.invalidAddressLine1 = true;
-    }
-    else {
+    } else {
       addressObj.invalidAddressLine1 = false;
     }
   }
@@ -201,11 +232,9 @@ export class CustomerListComponent implements OnInit {
     let regex = new RegExp("^[A-Z0-9]{15}$");
     if (!addressObj.gstin) {
       addressObj.invalidGstin = true;
-    }
-    else if (addressObj.gstin && regex.test(addressObj.gstin) == false) {
+    } else if (addressObj.gstin && regex.test(addressObj.gstin) == false) {
       addressObj.invalidGstin = true;
-    }
-    else {
+    } else {
       addressObj.invalidGstin = false;
     }
   }
@@ -214,11 +243,9 @@ export class CustomerListComponent implements OnInit {
     let regex = new RegExp("^[0-9]{6}$");
     if (!addressObj.pin) {
       addressObj.invalidPin = true;
-    }
-    else if (addressObj.pin && regex.test(addressObj.pin) == false) {
+    } else if (addressObj.pin && regex.test(addressObj.pin) == false) {
       addressObj.invalidPin = true;
-    }
-    else {
+    } else {
       addressObj.invalidPin = false;
     }
   }
@@ -232,10 +259,9 @@ export class CustomerListComponent implements OnInit {
   }
 
   validateState(addressObj) {
-    if (!addressObj.state || addressObj.state == '0' || addressObj.state == 0) {
+    if (!addressObj.state || addressObj.state == "0" || addressObj.state == 0) {
       addressObj.invalidState = true;
-    }
-    else {
+    } else {
       addressObj.invalidState = false;
     }
   }
@@ -247,23 +273,24 @@ export class CustomerListComponent implements OnInit {
       if (!addressObj.addressLine1) {
         addressObj.invalidAddressLine1 = true;
         isvalidAddress = false;
-      }
-      else {
+      } else {
         addressObj.invalidAddressLine1 = false;
       }
       if (!addressObj.gstin) {
         addressObj.invalidGstin = true;
         isvalidAddress = false;
-      }
-      else {
+      } else {
         addressObj.invalidGstin = false;
       }
 
-      if (!addressObj.state || addressObj.state == '0' || addressObj.state == 0) {
+      if (
+        !addressObj.state ||
+        addressObj.state == "0" ||
+        addressObj.state == 0
+      ) {
         addressObj.invalidState = true;
         isvalidAddress = false;
-      }
-      else {
+      } else {
         addressObj.invalidState = false;
       }
       if (!addressObj.city) {
@@ -282,53 +309,55 @@ export class CustomerListComponent implements OnInit {
     return isvalidAddress;
   }
 
-  onSubmit({ value, valid }: { value: any, valid: boolean }) {
+  onSubmit({ value, valid }: { value: any; valid: boolean }) {
     this.isFormSubmitted = true;
     _.forEach(this.customerObj.MstCustomerAddresses, function(addressObj) {
       if (!addressObj.addressLine1) {
         addressObj.invalidAddressLine1 = true;
         valid = false;
-      }
-      else {
+      } else {
         addressObj.invalidAdd = false;
       }
-      if (!addressObj.state || addressObj.state == '0' || addressObj.state == 0) {
+      if (
+        !addressObj.state ||
+        addressObj.state == "0" ||
+        addressObj.state == 0
+      ) {
         addressObj.invalidState = true;
         valid = false;
-      }
-      else {
+      } else {
         addressObj.invalidState = false;
       }
       if (!addressObj.city) {
         addressObj.invalidCity = true;
         valid = false;
-      }
-      else {
+      } else {
         addressObj.invalidCity = false;
       }
       if (!addressObj.pin) {
         addressObj.invalidPin = true;
         valid = false;
-      }
-      else {
+      } else {
         addressObj.invalidPin = false;
       }
     });
-    if (valid)
-      this.saveCustomer(this.customerObj);
+    if (valid) this.saveCustomer(this.customerObj);
   }
 
   saveCustomer(value) {
-    if (value.type == 'Miscellaneous') {
+    if (value.type == "Miscellaneous") {
       value.type = this.misVal;
     }
     Helpers.setLoading(true);
     if (this.params) {
-      this.customerService.updateCustomer(value)
-        .subscribe(
+      this.customerService.updateCustomer(value).subscribe(
         results => {
           this.getCustomersList();
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          this.messageService.addMessage({
+            severity: results.type.toLowerCase(),
+            summary: results.type,
+            detail: results.message
+          });
           this.isFormSubmitted = false;
           this.newRecord();
           Helpers.setLoading(false);
@@ -336,13 +365,17 @@ export class CustomerListComponent implements OnInit {
         error => {
           this.globalErrorHandler.handleError(error);
           Helpers.setLoading(false);
-        });
+        }
+      );
     } else {
-      this.customerService.createCustomer(value)
-        .subscribe(
+      this.customerService.createCustomer(value).subscribe(
         results => {
           this.getCustomersList();
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          this.messageService.addMessage({
+            severity: results.type.toLowerCase(),
+            summary: results.type,
+            detail: results.message
+          });
           this.isFormSubmitted = false;
           this.newRecord();
           Helpers.setLoading(false);
@@ -350,7 +383,8 @@ export class CustomerListComponent implements OnInit {
         error => {
           this.globalErrorHandler.handleError(error);
           Helpers.setLoading(false);
-        });
+        }
+      );
     }
   }
   getCustomerById(id) {
@@ -360,33 +394,35 @@ export class CustomerListComponent implements OnInit {
         this.customerObj = results;
         if (this.customerObj.isWholesaleCustomer) {
           this.isHide = true;
-        }
-        else {
+        } else {
           this.isHide = false;
         }
         this.customerObj.MstCustomerAddresses = results.mstCustomerAddresses;
         if (this.customerObj.MstCustomerAddresses.length == 0) {
-          this.customerObj.MstCustomerAddresses.push({ // <-- the child FormGroup
+          this.customerObj.MstCustomerAddresses.push({
+            // <-- the child FormGroup
             id: 0,
             customerId: 0,
-            addressLine1: '',
-            addressLine2: '',
-            city: '',
-            state: '',
-            country: '',
-            pin: '',
+            addressLine1: "",
+            addressLine2: "",
+            city: "",
+            state: "",
+            country: "",
+            pin: "",
             gstin: 0,
             isPrimary: true,
-            contRoleId: Math.floor(Math.random() * 2000),
+            contRoleId: Math.floor(Math.random() * 2000)
           });
         }
         let custType = this.customerObj.type;
-        let index = _.findIndex(this.customerTypeList, function(o) { return o == custType; });
+        let index = _.findIndex(this.customerTypeList, function(o) {
+          return o == custType;
+        });
         if (index == -1) {
           this.misVal = this.customerObj.type;
           this.customerObj.type = custType ? "Miscellaneous" : null;
         }
-        delete this.customerObj['mstCustomerAddresses'];
+        delete this.customerObj["mstCustomerAddresses"];
         _.forEach(this.customerObj.MstCustomerAddresses, function(value) {
           value.contRoleId = Math.floor(Math.random() * 2000);
         });
@@ -395,10 +431,10 @@ export class CustomerListComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
         Helpers.setLoading(false);
-      });
+      }
+    );
   }
   onEditClick(customer: Customer) {
-
     this.customerService.perPage = this.pageSize;
     this.customerService.currentPos = this.page;
     this.getCustomerById(customer.id);
@@ -410,14 +446,18 @@ export class CustomerListComponent implements OnInit {
 
   onDelete(customer: Customer) {
     this.confirmationService.confirm({
-      message: 'Do you want to delete this record?',
-      header: 'Delete Confirmation',
-      icon: 'fa fa-trash',
+      message: "Do you want to delete this record?",
+      header: "Delete Confirmation",
+      icon: "fa fa-trash",
       accept: () => {
         Helpers.setLoading(true);
         this.customerService.deleteCustomer(customer.id).subscribe(
           results => {
-            this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+            this.messageService.addMessage({
+              severity: results.type.toLowerCase(),
+              summary: results.type,
+              detail: results.message
+            });
             this.getCustomersList();
             this.isFormSubmitted = false;
             this.newRecord();
@@ -426,10 +466,20 @@ export class CustomerListComponent implements OnInit {
           error => {
             this.globalErrorHandler.handleError(error);
             Helpers.setLoading(false);
-          })
+          }
+        );
       },
-      reject: () => {
-      }
+      reject: () => {}
     });
+  }
+  onCheckClick() {
+    if (this.customerObj.isWholesaleCustomer) {
+      this.customerObj.userName = this.customerObj.code;
+    } else {
+      this.customerObj.userName = "";
+    }
+  }
+  onCode(){
+    this.customerObj.userName = this.customerObj.code;
   }
 }

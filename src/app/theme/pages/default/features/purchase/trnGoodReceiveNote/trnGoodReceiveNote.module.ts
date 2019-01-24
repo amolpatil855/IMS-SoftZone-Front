@@ -25,6 +25,7 @@ import { TrnGoodReceiveNoteListComponent } from "./trnGoodReceiveNote-list/trnGo
 import { TrnGoodReceiveNoteAddEditComponent } from "./trnGoodReceiveNote-add-edit/trnGoodReceiveNote-add-edit.component";
 import { TrnProductStockService } from "../../../_services/trnProductStock.service";
 import { MatSizeService } from "../../../_services/matSize.service";
+import { TrnPurchaseOrderService } from "../../../_services/trnPurchaseOrder.service";
 
 const routes: Routes = [
   {
@@ -44,7 +45,7 @@ const routes: Routes = [
             }
           },
           {
-            path: 'add',
+            path: 'add/:id',
             component: TrnGoodReceiveNoteAddEditComponent,
             canActivate: [AuthGuard],
             data: {
@@ -93,7 +94,8 @@ const routes: Routes = [
     SupplierService,
     CommonService,
     CollectionService,
-    MatSizeService
+    MatSizeService,
+    TrnPurchaseOrderService
   ],
 })
 export class TrnGoodReceiveNoteModule {

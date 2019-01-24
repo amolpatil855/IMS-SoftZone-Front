@@ -12,4 +12,6 @@ export class TrnGoodIssueNote {
   salesOrderNumber: string;
   materialQuotationNumber: string;
   workOrderNumber: string;
+  courierDetails: string;
+  dockatNo: any;
 }

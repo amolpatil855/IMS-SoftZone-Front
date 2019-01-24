@@ -224,6 +224,10 @@ const routes: Routes = [
         "loadChildren": ".\/pages\/default\/features\/stockEnquiry\/stockEnquiry.module#StockEnquiryModule"
       },
       {
+        "path": "upload",
+        "loadChildren": ".\/pages\/default\/features\/upload\/upload.module#UploadModule"
+      },
+      {
         "path": "header/changePassword",
         "loadChildren": ".\/pages\/default\/features\/changePassword\/changePassword.module#ChangePasswordModule"
       },
