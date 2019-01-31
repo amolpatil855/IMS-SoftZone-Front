@@ -104,7 +104,8 @@
                                                                         <div class="col-md-7 col-sm-7">
                                                                             <!-- <input type="text" [(ngModel)]="trnGoodIssueNoteObj.salesOrderNumber" name="salesOrderNumber" class="form-control" #salesOrderNumberVal="ngModel"
                                                                                 readonly tabindex="3" placeholder=""> -->
-                                                                            {{trnGoodIssueNoteObj.salesOrderNumber || trnGoodIssueNoteObj.materialQuotationNumber || trnGoodIssueNoteObj.workOrderNumber }}
+                                                                            {{trnGoodIssueNoteObj.salesOrderNumber || trnGoodIssueNoteObj.materialQuotationNumber || trnGoodIssueNoteObj.workOrderNumber
+                                                                            }}
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-3">
@@ -112,6 +113,24 @@
                                                                         <div class="col-md-7 col-sm-7 customerNameBox">
 
                                                                             <label>{{ trnGoodIssueNoteObj.mstCustomer?trnGoodIssueNoteObj.mstCustomer.name:''}}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <label class="col-md-2 col-sm-2 fieldLabel">Courier Details
+																        </label>
+                                                                        <div class="col-md-10 col-sm-10 customerNameBox">
+                                                                            <textarea class="form-control" name="courierDetails" [disabled]="disabled" [(ngModel)]="trnGoodIssueNoteObj.courierDetails"
+                                                                                tabindex="5"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label class="col-md-3 col-sm-3 fieldLabel">Dock-at No.
+																        </label>
+                                                                        <div class="col-md-9 col-sm-9 customerNameBox">
+                                                                            <input type="text" class="form-control" name="dockatNo" [disabled]="disabled" [(ngModel)]="trnGoodIssueNoteObj.dockatNo"
+                                                                                tabindex="6">
                                                                         </div>
                                                                     </div>
                                                                 </div>

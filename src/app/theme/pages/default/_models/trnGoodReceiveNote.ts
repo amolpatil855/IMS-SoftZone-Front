@@ -11,4 +11,6 @@ export class TrnGoodReceiveNote {
   totalAmount: number;
   supplierName: string;
   TrnGoodReceiveNoteItems = [];
+  courierDetails : string;
+  dockatNo: any;
 }

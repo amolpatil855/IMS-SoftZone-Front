@@ -2,9 +2,9 @@ import { Headers, Http, RequestOptions, Response } from "@angular/http";
 
 export class AppSettings {
 
-  public static API_ENDPOINT = 'http://localhost:50273/api/';
-  public static LOGIN_API_ENDPOINT = 'http://localhost:50273/';
-  public static IMAGE_API_ENDPOINT = 'http://localhost:50273/';
+  public static API_ENDPOINT = 'http://192.168.101.21:3351/api/';
+  public static LOGIN_API_ENDPOINT = 'http://192.168.101.21:3351/';
+  public static IMAGE_API_ENDPOINT = 'http://192.168.101.21:3351/';
 
   public static requestOptions() {
     let headers = new Headers({ 'Content-Type': 'application/json' });

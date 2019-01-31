@@ -181,16 +181,16 @@
 												<span> {{row.serialno}} {{row.size}}</span>
 											</ng-template>
 										</p-column>
-										<p-column field="orderQuantity" header="Or. Quantity" [editable]="isMatSelectionId || trnMaterialQuotationObj.status == 'Created'" [style]="{'text-align':'center'}">
+										<p-column field="orderQuantity" header="Or. Quantity" [editable]="isMatSelectionId || trnMaterialQuotationObj.status == 'Created'" [style]="{'text-align':'center','cursor': 'pointer'}">
 											<ng-template let-col let-row="rowData" pTemplate="editor">
 												<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="999" [(ngModel)]="row[col.field]"
-												 name="orderQuantity" (blur)="changeOrderType(row)">
+												 name="orderQuantity" (blur)="changeOrderType(row)" style="border: 1px solid #ddd !important;">
 											</ng-template>
 										</p-column>
-										<p-column field="discountPercentage" header="Disc. %" [editable]="isMatSelectionId || trnMaterialQuotationObj.status == 'Created'" [style]="{'text-align':'center'}">
+										<p-column field="discountPercentage" header="Disc. %" [editable]="isMatSelectionId || trnMaterialQuotationObj.status == 'Created'" [style]="{'text-align':'center','cursor': 'pointer'}">
 											<ng-template let-col let-row="rowData" pTemplate="editor">
 												<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="999" [(ngModel)]="row[col.field]"
-												 name="discountPercentage" (blur)="changeOrderType(row)">
+												 name="discountPercentage" (blur)="changeOrderType(row)" style="border: 1px solid #ddd !important;">
 											</ng-template>
 										</p-column>
 										<p-column field="orderType" header="Or. Type" [editable]="false" [style]="{'text-align':'center'}"></p-column>

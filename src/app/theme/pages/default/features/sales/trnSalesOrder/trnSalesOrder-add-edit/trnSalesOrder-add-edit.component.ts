@@ -34,7 +34,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   trnSalesOrderList = [];
   categoryList: SelectItem[];
   discountOnRate = null;
-  givenDiscount = null;
+  givenDiscount:any = "0";
   selectedCourierMode = null;
   selectedAgent = null;
   agentList = [];
@@ -439,7 +439,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.orderType = null;
     this.amountWithGST = null;
     this.discountOnRate = null;
-    this.givenDiscount = null;
+    this.givenDiscount = "0";
     this.rateWithGST = null;
     this.rate = null;
     this.productDetails = {
@@ -490,7 +490,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.widthError = false;
       this.matThicknessId = null;
       this.matThicknessIdError = false;
-      this.givenDiscount = null;
+      this.givenDiscount = "0";
       this.givenDiscountError = false;
       this.orderType = '';
       this.amountWithGST = null;
@@ -517,7 +517,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.widthError = false;
       this.matThicknessId = null;
       this.matThicknessIdError = false;
-      this.givenDiscount = null;
+      this.givenDiscount = "0";
       this.givenDiscountError = false;
       this.orderType = '';
       this.amountWithGST = null;
@@ -544,7 +544,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.widthError = false;
       this.matThicknessId = null;
       this.matThicknessIdError = false;
-      this.givenDiscount = null;
+      this.givenDiscount = "0";
       this.givenDiscountError = false;
       this.orderType = '';
       this.amountWithGST = null;
@@ -572,7 +572,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.lengthError = false;
       this.width = null;
       this.widthError = false;
-      this.givenDiscount = null;
+      this.givenDiscount = "0";
       this.givenDiscountError = false;
       this.orderType = '';
       this.amountWithGST = null;
@@ -819,7 +819,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
 
   onChangeDiscountAmount() {
     if (!this.givenDiscount) {
-      this.givenDiscount = 0;
+      this.givenDiscount = "0";
     }
     this.givenDiscountError = false;
     this.calculateAmount(this.givenDiscount);
@@ -858,7 +858,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     this.widthError = false;
     this.matThicknessId = null;
     this.matThicknessIdError = false;
-    this.givenDiscount = null;
+    this.givenDiscount = "0";
     this.givenDiscountError = false;
     this.amount = null,
       this.orderType = '';
@@ -877,7 +877,6 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     if (this.categoryId == 1 || this.categoryId == 5 || this.categoryId == 6) {
       this.collectionIdError = false;
       this.shadeIdList = [];
-      this.shadeIdList.unshift({ label: '--Select--', value: null });
       this.shadeIdError = false;
       this.shadeId = null;
       this.productDetails.stock = null;
@@ -891,19 +890,20 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.widthError = false;
       this.matThicknessId = null;
       this.matThicknessIdError = false;
-      this.givenDiscount = null;
+      this.givenDiscount = "0";
       this.givenDiscountError = false;
       this.amount = null,
         this.orderType = '';
       this.amountWithGST = null;
       if (this.collectionId != null) {
         this.getshadeIdList();
+      }else{
+        this.shadeIdList.unshift({ label: '--Select--', value: null });
       }
     }
     else if (this.categoryId == 2) {
       this.collectionIdError = false;
       this.fomSizeList = [];
-      this.fomSizeList.unshift({ label: '--Select--', value: null });
       this.fomSizeIdError = false;
       this.fomSizeId = null;
       this.productDetails.stock = null;
@@ -917,23 +917,23 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.widthError = false;
       this.matThicknessId = null;
       this.matThicknessIdError = false;
-      this.givenDiscount = null;
+      this.givenDiscount = "0";
       this.givenDiscountError = false;
       this.amount = null,
         this.orderType = '';
       this.amountWithGST = null;
       if (this.collectionId != null) {
         this.getFoamSizeList();
+      }else{
+        this.fomSizeList.unshift({ label: '--Select--', value: null });
       }
     }
     else if (this.categoryId == 4) {
       this.collectionIdError = false;
       this.matSizeList = [];
-      this.matSizeList.unshift({ label: '--Select--', value: null });
       this.matSizeIdError = false;
       this.matSizeId = null;
       this.qualityList = [];
-      this.qualityList.unshift({ label: '--Select--', value: null });
       this.qualityIdError = false;
       this.qualityId = null;
       this.productDetails.stock = null;
@@ -947,7 +947,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.widthError = false;
       this.matThicknessId = null;
       this.matThicknessIdError = false;
-      this.givenDiscount = null;
+      this.givenDiscount = "0";
       this.givenDiscountError = false;
       this.amount = null,
         this.orderType = '';
@@ -955,6 +955,9 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       if (this.collectionId != null) {
         this.getMatSizeList();
         this.getMatQualityList();
+      }else{
+        this.matSizeList.unshift({ label: '--Select--', value: null });
+        this.qualityList.unshift({ label: '--Select--', value: null });
       }
     }
     else {
@@ -984,7 +987,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.widthError = false;
       this.matThicknessId = null;
       this.matThicknessIdError = false;
-      this.givenDiscount = null;
+      this.givenDiscount = "0";
       this.amount = null,
         this.orderType = '';
       this.amountWithGST = null;
@@ -1026,6 +1029,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     Helpers.setLoading(true);
     this.trnSalesOrderService.getSerialNumberLookUpByCollection(this.collectionId).subscribe(
       results => {
+        this.shadeIdList = [];
         this.shadeIdList = results;
         this.shadeIdList.unshift({ label: '--Select--', value: null });
         Helpers.setLoading(false);
@@ -1040,6 +1044,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
     Helpers.setLoading(true);
     this.collectionService.getCollectionLookUpForSo(this.categoryId).subscribe(
       results => {
+        this.collectionList = [];
         this.collectionList = results;
         this.collectionList.unshift({ label: '--Select--', value: null });
         Helpers.setLoading(false);

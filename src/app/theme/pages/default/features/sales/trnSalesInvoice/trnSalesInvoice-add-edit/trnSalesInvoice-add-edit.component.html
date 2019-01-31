@@ -19,10 +19,10 @@
 				</li>
 			</ul>
 		</div>
-
+		<!-- *ngIf="!viewItem" -->
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox" style="float:right">
 			<button class="topBtn btn btn-info" title="Print" (click)="print()" tabindex="5">print</button>
-			<button type="submit" *ngIf="!viewItem" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesInvoice"
+			<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnSalesInvoice"
 			 title="{{(trnSalesInvoice && trnSalesInvoice.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['invoice']" tabindex="3">
 				{{ params ? 'Update' : 'Save' }}
@@ -156,12 +156,12 @@
 															| date: 'dd/MM/yyyy') : trnSalesInvoiceObj["trnCurtainQuotation"] ? (trnSalesInvoiceObj["trnCurtainQuotation"]["curtainQuotationDate"] | date: 'dd/MM/yyyy') : ""}}</h4>
 													</div>
 												</div>
-
+												<!-- [disabled]="disabled" -->
 												<div class="col-md-6">
 													<div class="invoiceStatContainer">
 														<h5>Dispatch Document No.</h5>
 														<input class="form-control m-input" type="text" [(ngModel)]="trnSalesInvoiceObj.courierDockYardNumber" name="courierDockYardNumber"
-														 id="courierDockYardNumber" [disabled]="disabled" placeholder="" maxlength="20" tabindex="2">
+														 id="courierDockYardNumber" placeholder="" maxlength="20" tabindex="2">
 													</div>
 												</div>
 

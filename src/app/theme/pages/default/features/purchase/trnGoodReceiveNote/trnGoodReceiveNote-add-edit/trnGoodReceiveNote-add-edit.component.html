@@ -41,9 +41,9 @@
 			</ul>
 		</div>
 		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" *ngIf="showUpdateBtn" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnGoodReceiveNote" title="{{(trnGoodReceiveNote && trnGoodReceiveNote.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
+			<button type="submit" *ngIf="showUpdateBtn" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnGoodReceiveNote" title="{{(trnGoodReceiveNote && trnGoodReceiveNote.form.valid) ? 'Please fill in all the required fields' :  showUpdateStr ? 'Update' : 'Save'}}"
 			 [isAuthorize]="['grn']" tabindex="13">
-				{{ params ? 'Update' : 'Save' }}
+				{{ showUpdateStr ? 'Update' : 'Save' }}
 			</button>
 			<button class="btn btn-secondary" [isAuthorize]="['grn']" (click)="onCancel()" tabindex="14">
 				Cancel
@@ -132,6 +132,26 @@
 																		<div class="col-md-7 col-sm-7">
 																			<label class="orderTypeLabel">{{trnGoodReceiveNoteObj ? (trnGoodReceiveNoteObj.totalAmount | number:'.0') : ''}}</label>
 																		</div>
+															</div>
+															<div class="col-md-6">
+																<label class="col-md-2 col-sm-2 fieldLabel">Courier Details
+																</label>
+																<div class="col-md-10 col-sm-10 customerNameBox">
+																	<textarea class="form-control" name="courierDetails" [disabled]="disabled" [(ngModel)]="trnGoodReceiveNoteObj.courierDetails" tabindex="6"></textarea>
+																</div>
+															</div>
+														</div>
+														<div class="row form-group">
+															<div class="col-md-3">
+															</div>
+															<div class="col-md-3">
+															</div>
+															<div class="col-md-6">
+																<label class="col-md-2 col-sm-2 fieldLabel">Dock-at No.
+																</label>
+																<div class="col-md-10 col-sm-10 customerNameBox">
+																	<input type="text" class="form-control" name="dockatNo" [disabled]="disabled" [(ngModel)]="trnGoodReceiveNoteObj.dockatNo" tabindex="7">
+																</div>
 															</div>
 														</div>
 													</div>
