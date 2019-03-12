@@ -289,12 +289,19 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     ) {
       return false;
     }
-
+    if (this.receivedQuantity <= 0) {
+      this.messageService.addMessage({
+        severity: "error",
+        summary: "Error",
+        detail: "Received quantity should be greater than zero."
+      });
+      return false;
+    }
     if (this.receivedQuantity > this.orderQuantity) {
       this.messageService.addMessage({
         severity: "error",
         summary: "Error",
-        detail: "Recieved quantity should be less than ordered quantity."
+        detail: "Received quantity should be less than ordered quantity."
       });
       return false;
     }
@@ -873,11 +880,20 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
 
   changeRecivedQuantity() {
     this.resetErrors();
+
+    if (this.receivedQuantity <= 0) {
+      this.messageService.addMessage({
+        severity: "error",
+        summary: "Error",
+        detail: "Received quantity should be greater than zero."
+      });
+      return false;
+    }
     if (this.receivedQuantity > this.orderQuantity) {
       this.messageService.addMessage({
         severity: "error",
         summary: "Error",
-        detail: "Recieved quantity should be less than ordered quantity."
+        detail: "Received quantity should be less than ordered quantity."
       });
       return false;
     }
@@ -1495,8 +1511,28 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
         "value",
         this.trnGoodReceiveNoteObj.supplierId
       ]);
-      (this.trnGoodReceiveNoteObj.supplierName = supplierObj.label),
-        this.saveTrnGoodReceiveNote(this.trnGoodReceiveNoteObj);
+      this.trnGoodReceiveNoteObj.supplierName = supplierObj.label;
+      let isRecievedQuantityGreaterThanZero = false;
+      _.forEach(this.trnGoodReceiveNoteItems, function(grnItem) {
+        if (grnItem.receivedQuantity > 0)
+          isRecievedQuantityGreaterThanZero = true;
+      });
+      if (!isRecievedQuantityGreaterThanZero) {
+        this.messageService.addMessage({
+          severity: "error",
+          summary: "Error",
+          detail:
+            "Received quantity of at least 1 item must be greater than zero."
+        });
+        return false;
+      }
+      this.trnGoodReceiveNoteObj.TrnGoodReceiveNoteItems = _.filter(
+        this.trnGoodReceiveNoteItems,
+        function(grnItem) {
+          return grnItem.receivedQuantity > 0;
+        }
+      );
+      this.saveTrnGoodReceiveNote(this.trnGoodReceiveNoteObj);
     }
   }
 
