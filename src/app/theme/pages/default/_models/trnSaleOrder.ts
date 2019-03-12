@@ -21,6 +21,8 @@ export class TrnSaleOrder {
   remark: string;
   status: string;
   financialYear: string;
+  courierDetails: string;
+  dockAtNumber: string;
   MstAgent: Agent;
   MstCourier: Courier;
   MstCustomer: Customer;

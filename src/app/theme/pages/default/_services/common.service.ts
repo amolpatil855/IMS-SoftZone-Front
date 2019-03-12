@@ -28,7 +28,7 @@ export class CommonService {
   getCourierMode() {
     let courierMode = this.courierMode;
     courierMode.push({ label: '--Select--', value: '0' });
-    this.courierModeData.forEach(function (element) {
+    this.courierModeData.forEach(function(element) {
       courierMode.push({ label: element, value: element });
     });
   }

@@ -27,7 +27,7 @@ import { CommonService } from "../../../../_services/common.service";
 import { CollectionService } from "../../../../_services/collection.service";
 import { TrnProductStockService } from "../../../../_services/trnProductStock.service";
 import { MatSizeService } from "../../../../_services/matSize.service";
-import { TrnPurchaseOrderService } from '../../../../_services/trnPurchaseOrder.service';
+import { TrnPurchaseOrderService } from "../../../../_services/trnPurchaseOrder.service";
 @Component({
   selector: "app-trnGoodReceiveNote-add-edit",
   templateUrl: "./trnGoodReceiveNote-add-edit.component.html",
@@ -126,7 +126,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     private messageService: MessageService,
     private trnProductStockService: TrnProductStockService,
     private matSizeService: MatSizeService,
-    private trnPurchaseOrderService: TrnPurchaseOrderService,
+    private trnPurchaseOrderService: TrnPurchaseOrderService
   ) {}
 
   ngOnInit() {
@@ -151,8 +151,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       if (this.params.indexOf("PO") > -1) {
         this.showUpdateStr = false;
         let id = this.params.split("-")[1];
-        if(id !== '0')
-          this.getTrnPurchaseOrderById(id);
+        if (id !== "0") this.getTrnPurchaseOrderById(id);
       } else {
         this.disabled = true;
         this.showUpdateBtn = false;
@@ -190,11 +189,20 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     Helpers.setLoading(true);
     this.trnPurchaseOrderService.getTrnPurchaseOrderById(id).subscribe(
       results => {
+        let self = this;
         this.trnGoodReceiveNoteObj = results;
         this.trnGoodReceiveNoteObj.grnDate = new Date();
         this.trnGoodReceiveNoteItems = results.trnPurchaseOrderItems;
         delete this.trnGoodReceiveNoteObj["trnPurchaseOrderItems"];
         this.locationObj = results.mstCompanyLocation;
+        _.forEach(self.trnGoodReceiveNoteItems, function(grnItem, index) {
+          self.trnGoodReceiveNoteItems[index].purchaseOrderNumber =
+            results.orderNumber;
+          self.trnGoodReceiveNoteItems[index].amountWithGST = null;
+          self.trnGoodReceiveNoteItems[index].orderQuantity =
+            self.trnGoodReceiveNoteItems[index].balanceQuantity;
+        });
+        this.trnGoodReceiveNoteObj.totalAmount = 0;
         // this.trnPurchaseOrderObj.orderDate = new Date(this.trnPurchaseOrderObj.orderDate);
         // if (this.trnPurchaseOrderObj.status == "Created") {
         //   this.status = true;
@@ -214,7 +222,8 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       error => {
         this.globalErrorHandler.handleError(error);
         Helpers.setLoading(false);
-      });
+      }
+    );
   }
 
   addItemToList() {
@@ -340,23 +349,33 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     let itemObj = {
       categoryId: this.categoryId,
       categoryName: catObj
-        ? catObj.label != "--Select--" ? catObj.label : ""
+        ? catObj.label != "--Select--"
+          ? catObj.label
+          : ""
         : "",
       collectionName: collObj
-        ? collObj.label != "--Select--" ? collObj.label : ""
+        ? collObj.label != "--Select--"
+          ? collObj.label
+          : ""
         : "",
       accessoryName: accessoryObj
-        ? accessoryObj.label != "--Select--" ? accessoryObj.label : ""
+        ? accessoryObj.label != "--Select--"
+          ? accessoryObj.label
+          : ""
         : "",
       collectionId: this.collectionId,
       serialno: this.shadeId
-        ? shadeObj.label != "--Select--" ? shadeObj.label : ""
+        ? shadeObj.label != "--Select--"
+          ? shadeObj.label
+          : ""
         : "",
       size: this.fomSizeId
         ? fomSizeObj.label
         : this.matSizeId
-          ? matSizeObj.label != "--Select--" ? matSizeObj.label : ""
-          : "",
+        ? matSizeObj.label != "--Select--"
+          ? matSizeObj.label
+          : ""
+        : "",
       shadeId: this.shadeId,
       fomSizeId: this.fomSizeId,
       matSizeId: this.matSizeId,
@@ -418,6 +437,70 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     };
     this.orderType = "";
     this.amountWithGST = "";
+  }
+
+  changeReceivedQuantity(goodReceiveNoteItems, index) {
+    let {
+      id,
+      receivedQuantity,
+      orderQuantity,
+      categoryId,
+      rate,
+      amount,
+      matSizeId,
+      purchaseDiscount,
+      gst
+    } = goodReceiveNoteItems;
+    let self = this;
+    if (receivedQuantity) receivedQuantity = parseInt(receivedQuantity);
+    else receivedQuantity = 0;
+    if (receivedQuantity > orderQuantity) {
+      this.messageService.addMessage({
+        severity: "error",
+        summary: "Error",
+        detail: "Recieved quantity should be less than ordered quantity."
+      });
+      return false;
+    }
+    this.trnGoodReceiveNoteItems[index].receivedQuantity = receivedQuantity;
+
+    let poObj = _.find(this.trnGoodReceiveNoteItems, {
+      id
+    });
+    if (!poObj) return false;
+
+    if (categoryId == 1 || categoryId == 5 || categoryId == 6) {
+      amount = rate * receivedQuantity;
+      rate = parseFloat(rate).toFixed(2);
+      if (poObj.purchaseDiscount != null) {
+        this.trnGoodReceiveNoteItems[index].amount = Math.round(
+          amount - (amount * poObj.purchaseDiscount) / 100
+        );
+        this.trnGoodReceiveNoteItems[index].purchaseDiscount =
+          poObj.purchaseDiscount;
+      } else this.trnGoodReceiveNoteItems[index].purchaseDiscount = 0;
+      this.trnGoodReceiveNoteItems[index].amountWithGST = Math.round(
+        amount + (amount * poObj.gst) / 100
+      );
+    } else {
+      // this.amountWithGST = poObj.rate * this.receivedQuantity;
+      amount = rate * receivedQuantity;
+      if (matSizeId != -1 && categoryId == 4) {
+        this.trnGoodReceiveNoteItems[index].amount = Math.round(amount);
+        this.trnGoodReceiveNoteItems[index].purchaseDiscount = 0;
+      } else
+        this.trnGoodReceiveNoteItems[index].amount = Math.round(
+          amount - (amount * poObj.purchaseDiscount) / 100
+        );
+      this.trnGoodReceiveNoteItems[index].amountWithGST = Math.round(
+        amount + (amount * poObj.gst) / 100
+      );
+    }
+    let totalCalculatedAmount = 0;
+    _.forEach(self.trnGoodReceiveNoteItems, function(grnItem) {
+      totalCalculatedAmount += grnItem.amountWithGST;
+    });
+    self.trnGoodReceiveNoteObj.totalAmount = totalCalculatedAmount;
   }
 
   resetErrors() {
@@ -808,20 +891,24 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       let applyDiscount = false;
       this.rate = poObj.purchaseFlatRate
         ? poObj.purchaseFlatRate
-        : poObj.orderQuantity >= 50 ? poObj.roleRate : poObj.cutRate;
+        : poObj.orderQuantity >= 50
+        ? poObj.roleRate
+        : poObj.cutRate;
       applyDiscount = poObj.purchaseFlatRate
         ? true
-        : poObj.orderQuantity >= 50 ? true : false;
+        : poObj.orderQuantity >= 50
+        ? true
+        : false;
       this.amount = this.rate * this.receivedQuantity;
       this.rate = parseFloat(this.rate).toFixed(2);
       if (applyDiscount) {
         this.amount = Math.round(
-          this.amount - this.amount * poObj.purchaseDiscount / 100
+          this.amount - (this.amount * poObj.purchaseDiscount) / 100
         );
         this.purchaseDiscount = poObj.purchaseDiscount;
       } else this.purchaseDiscount = 0;
       this.amountWithGST = Math.round(
-        this.amount + this.amount * poObj.gst / 100
+        this.amount + (this.amount * poObj.gst) / 100
       );
     } else {
       // this.amountWithGST = poObj.rate * this.receivedQuantity;
@@ -831,10 +918,10 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
         this.purchaseDiscount = 0;
       } else
         this.amount = Math.round(
-          this.amount - this.amount * poObj.purchaseDiscount / 100
+          this.amount - (this.amount * poObj.purchaseDiscount) / 100
         );
       this.amountWithGST = Math.round(
-        this.amount + this.amount * poObj.gst / 100
+        this.amount + (this.amount * poObj.gst) / 100
       );
     }
   }
@@ -1416,9 +1503,10 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
   saveTrnGoodReceiveNote(value) {
     let tempGrnDate = new Date(value.grnDate);
     value.grnDate = new Date(tempGrnDate.setHours(23));
+    if (value.totalAmount == null) value.totalAmount = 0;
     Helpers.setLoading(true);
     if (this.params) {
-      this.trnGoodReceiveNoteService.updateTrnGoodReceiveNote(value).subscribe(
+      this.trnGoodReceiveNoteService.createTrnGoodReceiveNote(value).subscribe(
         results => {
           this.params = null;
           this.messageService.addMessage({

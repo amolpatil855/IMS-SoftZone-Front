@@ -137,8 +137,8 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
     let vm = this;
     let tailorObj = _.find(this.tailorCodeList, ['id', this.trnWorkOrderObj.tailorId]);
     if (tailorObj) {
-      _.forEach(vm.trnWorkOrderObj.areaList, function (areaObj, areaIndex) {
-        _.forEach(areaObj.unitList, function (value, unitIndex) {
+      _.forEach(vm.trnWorkOrderObj.areaList, function(areaObj, areaIndex) {
+        _.forEach(areaObj.unitList, function(value, unitIndex) {
           if (value.unit) {
             let patternCharges = _.find(tailorObj.mstTailorPatternChargeDetails, ['patternId', vm.trnWorkOrderObj.areaList[areaIndex].unitList[unitIndex].patternId]);
             vm.trnWorkOrderObj.areaList[areaIndex].unitList[unitIndex].labourCharges = Math.round(vm.trnWorkOrderObj.areaList[areaIndex].unitList[unitIndex].numberOfPanel * patternCharges.charge);
@@ -156,198 +156,176 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
         return false;
       }
       let vm = this;
-    vm.trnWorkOrderObj.trnWorkOrderItems = [];
-    // this.trnWorkOrderObj.TrnWorkOrderItems = this.trnWorkOrderItems;
-    // let custObj = _.find(this.customerList, ['value', this.trnWorkOrderObj.customerId]);
-    //this.trnWorkOrderObj.customerName = custObj ? custObj.label : '';
+      vm.trnWorkOrderObj.trnWorkOrderItems = [];
+      // this.trnWorkOrderObj.TrnWorkOrderItems = this.trnWorkOrderItems;
+      // let custObj = _.find(this.customerList, ['value', this.trnWorkOrderObj.customerId]);
+      //this.trnWorkOrderObj.customerName = custObj ? custObj.label : '';
 
-    _.forEach( this.trnWorkOrderObj.areaList, function (areaObj) {
-      _.forEach(areaObj.unitList, function (unitObj) {
-        _.forEach(unitObj.fabricList, function (fabricobj) {
-          let collectionObj = _.find(vm.collectionList, ['value', fabricobj.collectionId]);
-          let obj = {
-            "area": areaObj.area,
-            "unit": unitObj.unit,
-            "patternId": unitObj.patternId,
-            "categoryId": 1,
-            'id': fabricobj.id,
-            "collectionId": fabricobj.collectionId,
-            "shadeId": fabricobj.shadeId,
-            "accessoryId": null,
-            "isPatch": fabricobj.isPatch,
+      _.forEach(this.trnWorkOrderObj.areaList, function(areaObj) {
+        _.forEach(areaObj.unitList, function(unitObj) {
+          _.forEach(unitObj.fabricList, function(fabricobj) {
+            let collectionObj = _.find(vm.collectionList, ['value', fabricobj.collectionId]);
+            let obj = {
+              "area": areaObj.area,
+              "unit": unitObj.unit,
+              "patternId": unitObj.patternId,
+              "categoryId": 1,
+              'id': fabricobj.id,
+              "collectionId": fabricobj.collectionId,
+              "shadeId": fabricobj.shadeId,
+              "accessoryId": null,
+              "isPatch": fabricobj.isPatch,
 
-            "isVerticalPatch": fabricobj.isVerticalPatch,
-            "noOfVerticalPatch": fabricobj.noOfVerticalPatch,
-            "verticalPatchWidth": fabricobj.verticalPatchWidth,
-            "verticalPatchQuantity": fabricobj.verticalPatchQuantity,
-            "isHorizontalPatch": fabricobj.isHorizontalPatch,
-            "noOfHorizontalPatch": fabricobj.noOfHorizontalPatch,
-            "horizontalPatchHeight": fabricobj.horizontalPatchHeight,
-            "horizontalPatchQuantity": fabricobj.horizontalPatchQuantity,
-            "isLining": fabricobj.isLining,
+              "isVerticalPatch": fabricobj.isVerticalPatch,
+              "noOfVerticalPatch": fabricobj.noOfVerticalPatch,
+              "verticalPatchWidth": fabricobj.verticalPatchWidth,
+              "verticalPatchQuantity": fabricobj.verticalPatchQuantity,
+              "isHorizontalPatch": fabricobj.isHorizontalPatch,
+              "noOfHorizontalPatch": fabricobj.noOfHorizontalPatch,
+              "horizontalPatchHeight": fabricobj.horizontalPatchHeight,
+              "horizontalPatchQuantity": fabricobj.horizontalPatchQuantity,
+              "isLining": fabricobj.isLining,
 
-            "unitHeight": unitObj.unitHeight,
-            "unitWidth": unitObj.unitWidth,
-            "orderQuantity": fabricobj.orderQuantity,
-            "numberOfPanel": unitObj.numberOfPanel,
-            "labourCharges": unitObj.labourCharges,
-            "discount": fabricobj.discount,
-            "rate": fabricobj.rate,
-            "rateWithGST": fabricobj.rateWithGST,
-            "amount": fabricobj.amount,
-            "amountWithGST": fabricobj.amountWithGST,
-            "categoryName": 'Fabric',
-            "collectionName": collectionObj ? collectionObj.label : '',
-            // "serialno": "5",
-            // "itemCode": null
+              "unitHeight": unitObj.unitHeight,
+              "unitWidth": unitObj.unitWidth,
+              "orderQuantity": fabricobj.orderQuantity,
+              "numberOfPanel": unitObj.numberOfPanel,
+              "labourCharges": unitObj.labourCharges,
+              "discount": fabricobj.discount,
+              "rate": fabricobj.rate,
+              "rateWithGST": fabricobj.rateWithGST,
+              "amount": fabricobj.amount,
+              "amountWithGST": fabricobj.amountWithGST,
+              "categoryName": 'Fabric',
+              "collectionName": collectionObj ? collectionObj.label : '',
+              // "serialno": "5",
+              // "itemCode": null
+            }
+            vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+          });
+
+          unitObj.accessoryList.forEach(function(accessoryobj) {
+            let obj = {
+              "area": areaObj.area,
+              "unit": unitObj.unit,
+              "patternId": unitObj.patternId,
+              'id': accessoryobj.id,
+              "categoryId": 7,
+              "collectionId": null,
+              "shadeId": null,
+              "accessoryId": accessoryobj.accessoryId,
+              "isPatch": false,
+              "isLining": false,
+              "orderQuantity": accessoryobj.orderQuantity,
+              "amount": accessoryobj.amount,
+              "amountWithGST": accessoryobj.amountWithGST,
+              "discount": null,
+              "categoryName": "Accessories",
+              "collectionName": null,
+              // "serialno": "5",
+              // "itemCode": null
+            }
+            vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+          });
+
+
+          if (unitObj.isTrack) {
+            let obj = {
+              "area": areaObj.area,
+              "unit": unitObj.unit,
+              "patternId": unitObj.patternId,
+              "categoryId": 7,
+              "collectionId": null,
+              "shadeId": null,
+              "accessoryId": unitObj.trackAccessoryId,
+              "isTrack": true,
+              "orderQuantity": unitObj.trackQuantity,
+              'id': unitObj.trackId,
+              "rate": unitObj.trackRate,
+              "gst": unitObj.trackGST,
+              "amount": unitObj.trackAmount,
+              "unitHeight": unitObj.unitHeight,
+              "unitWidth": unitObj.unitWidth,
+              "numberOfPanel": unitObj.numberOfPanel,
+              "amountWithGST": unitObj.trackAmountWithGST,
+              "discount": null,
+              "categoryName": "Accessories",
+              "collectionName": null,
+              // "serialno": "5",
+              // "itemCode": null
+            }
+            if (obj)
+              vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
           }
-          vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+
+          if (unitObj.isMotor) {
+            let obj = {
+              "area": areaObj.area,
+              "unit": unitObj.unit,
+              "patternId": unitObj.patternId,
+              "categoryId": 7,
+              "collectionId": null,
+              "shadeId": null,
+              "accessoryId": unitObj.motorAccessoryId,
+              "isMotor": true,
+              "orderQuantity": unitObj.motorQuantity,
+              'id': unitObj.motorId,
+              "rate": unitObj.motorRate,
+              "gst": unitObj.motorGST,
+              "amount": unitObj.motorAmount,
+              "amountWithGST": unitObj.motorAmountWithGST,
+              "discount": null,
+              "categoryName": "Accessories",
+              "collectionName": null,
+              // "serialno": "5",
+              // "itemCode": null
+            }
+            if (obj)
+              vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+          }
+
+          if (unitObj.isRemote) {
+            let obj = {
+              "area": areaObj.area,
+              "unit": unitObj.unit,
+              "patternId": unitObj.patternId,
+              "categoryId": 7,
+              "collectionId": null,
+              "shadeId": null,
+              "accessoryId": unitObj.remoteAccessoryId,
+              "isRemote": true,
+              "orderQuantity": unitObj.remoteQuantity,
+              'id': unitObj.remoteId,
+              "rate": unitObj.remoteRate,
+              "gst": unitObj.remoteGST,
+              "amount": unitObj.remoteAmount,
+              "amountWithGST": unitObj.remoteAmountWithGST,
+              "discount": null,
+              "categoryName": "Accessories",
+              "collectionName": null,
+              // "serialno": "5",
+              // "itemCode": null
+            }
+            if (obj)
+              vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+          }
+
         });
-
-        unitObj.accessoryList.forEach(function (accessoryobj) {
-          let obj = {
-            "area": areaObj.area,
-            "unit": unitObj.unit,
-            "patternId": unitObj.patternId,
-            'id': accessoryobj.id,
-            "categoryId": 7,
-            "collectionId": null,
-            "shadeId": null,
-            "accessoryId": accessoryobj.accessoryId,
-            "isPatch": false,
-            "isLining": false,
-            "orderQuantity": accessoryobj.orderQuantity,
-            "amount": accessoryobj.amount,
-            "amountWithGST": accessoryobj.amountWithGST,
-            "discount": null,
-            "categoryName": "Accessories",
-            "collectionName": null,
-            // "serialno": "5",
-            // "itemCode": null
-          }
-          vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
-        });
-
-
-        if (unitObj.isTrack) {
-          let obj = {
-            "area": areaObj.area,
-            "unit": unitObj.unit,
-            "patternId": unitObj.patternId,
-            "categoryId": 7,
-            "collectionId": null,
-            "shadeId": null,
-            "accessoryId": unitObj.trackAccessoryId,
-            "isTrack": true,
-            "orderQuantity": unitObj.trackQuantity,
-            'id': unitObj.trackId,
-            "rate": unitObj.trackRate,
-            "gst": unitObj.trackGST,
-            "amount": unitObj.trackAmount,
-            "unitHeight": unitObj.unitHeight,
-            "unitWidth": unitObj.unitWidth,
-            "numberOfPanel": unitObj.numberOfPanel,
-            "amountWithGST": unitObj.trackAmountWithGST,
-            "discount": null,
-            "categoryName": "Accessories",
-            "collectionName": null,
-            // "serialno": "5",
-            // "itemCode": null
-          }
-          if (obj)
-            vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
-        }
-
-        if (unitObj.isMotor) {
-          let obj = {
-            "area": areaObj.area,
-            "unit": unitObj.unit,
-            "patternId": unitObj.patternId,
-            "categoryId": 7,
-            "collectionId": null,
-            "shadeId": null,
-            "accessoryId": unitObj.motorAccessoryId,
-            "isMotor": true,
-            "orderQuantity": unitObj.motorQuantity,
-            'id': unitObj.motorId,
-            "rate": unitObj.motorRate,
-            "gst": unitObj.motorGST,
-            "amount": unitObj.motorAmount,
-            "amountWithGST": unitObj.motorAmountWithGST,
-            "discount": null,
-            "categoryName": "Accessories",
-            "collectionName": null,
-            // "serialno": "5",
-            // "itemCode": null
-          }
-          if (obj)
-            vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
-        }
-
-        if (unitObj.isRemote) {
-          let obj = {
-            "area": areaObj.area,
-            "unit": unitObj.unit,
-            "patternId": unitObj.patternId,
-            "categoryId": 7,
-            "collectionId": null,
-            "shadeId": null,
-            "accessoryId": unitObj.remoteAccessoryId,
-            "isRemote": true,
-            "orderQuantity": unitObj.remoteQuantity,
-            'id': unitObj.remoteId,
-            "rate": unitObj.remoteRate,
-            "gst": unitObj.remoteGST,
-            "amount": unitObj.remoteAmount,
-            "amountWithGST": unitObj.remoteAmountWithGST,
-            "discount": null,
-            "categoryName": "Accessories",
-            "collectionName": null,
-            // "serialno": "5",
-            // "itemCode": null
-          }
-          if (obj)
-            vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
-        }
-
       });
-    });
 
-    if (vm.trnWorkOrderObj.isRod) {
-      let obj = {
-        "categoryId": 7,
-        "collectionId": null,
-        "shadeId": null,
-        "accessoryId": vm.trnWorkOrderObj.rodAccessoryId,
-        "isRod": true,
-        'id': vm.trnWorkOrderObj.rodId,
-        "orderQuantity": vm.trnWorkOrderObj.rodQuantity,
-        "rate": vm.trnWorkOrderObj.rodRate,
-        "gst": vm.trnWorkOrderObj.rodGST,
-        "amount": vm.trnWorkOrderObj.rodAmount,
-        "amountWithGST": vm.trnWorkOrderObj.rodAmountWithGST,
-        "discount": null,
-        "categoryName": "Accessories",
-        "collectionName": null,
-        // "serialno": "5",
-        // "itemCode": null
-      }
-      vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
-
-
-      if (vm.trnWorkOrderObj.isRodAccessory) {
+      if (vm.trnWorkOrderObj.isRod) {
         let obj = {
           "categoryId": 7,
           "collectionId": null,
           "shadeId": null,
-          "accessoryId": vm.trnWorkOrderObj.rodItemAccessoryId,
-          "isRodAccessory": true,
-          'id': vm.trnWorkOrderObj.rodAccessoryRecordId,
-          "orderQuantity": vm.trnWorkOrderObj.rodItemAccessoryQuantity,
-          "rate": vm.trnWorkOrderObj.rodItemAccessoryRate,
-          "gst": vm.trnWorkOrderObj.rodItemAccessoryGST,
-          "amount": vm.trnWorkOrderObj.rodItemAccessoryAmount,
-          "amountWithGST": vm.trnWorkOrderObj.rodItemAccessoryAmountWithGST,
+          "accessoryId": vm.trnWorkOrderObj.rodAccessoryId,
+          "isRod": true,
+          'id': vm.trnWorkOrderObj.rodId,
+          "orderQuantity": vm.trnWorkOrderObj.rodQuantity,
+          "rate": vm.trnWorkOrderObj.rodRate,
+          "gst": vm.trnWorkOrderObj.rodGST,
+          "amount": vm.trnWorkOrderObj.rodAmount,
+          "amountWithGST": vm.trnWorkOrderObj.rodAmountWithGST,
           "discount": null,
           "categoryName": "Accessories",
           "collectionName": null,
@@ -355,9 +333,31 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
           // "itemCode": null
         }
         vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
-      }
 
-    }
+
+        if (vm.trnWorkOrderObj.isRodAccessory) {
+          let obj = {
+            "categoryId": 7,
+            "collectionId": null,
+            "shadeId": null,
+            "accessoryId": vm.trnWorkOrderObj.rodItemAccessoryId,
+            "isRodAccessory": true,
+            'id': vm.trnWorkOrderObj.rodAccessoryRecordId,
+            "orderQuantity": vm.trnWorkOrderObj.rodItemAccessoryQuantity,
+            "rate": vm.trnWorkOrderObj.rodItemAccessoryRate,
+            "gst": vm.trnWorkOrderObj.rodItemAccessoryGST,
+            "amount": vm.trnWorkOrderObj.rodItemAccessoryAmount,
+            "amountWithGST": vm.trnWorkOrderObj.rodItemAccessoryAmountWithGST,
+            "discount": null,
+            "categoryName": "Accessories",
+            "collectionName": null,
+            // "serialno": "5",
+            // "itemCode": null
+          }
+          vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
+        }
+
+      }
       Helpers.setLoading(true);
       this.trnWorkOrderService.updateTrnWorkOrder(vm.trnWorkOrderObj)
         .subscribe(
@@ -462,7 +462,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
 
         let areaObjList = _.uniqBy(results.trnWorkOrderItems, 'area');
         vm.trnWorkOrderObj.areaList = [];
-        _.forEach(areaObjList, function (value) {
+        _.forEach(areaObjList, function(value) {
           if (value.area) {
             vm.trnWorkOrderObj.areaList.push({
               area: value.area,
@@ -475,14 +475,14 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
         vm.accessoriesTotal = 0;
         vm.grandTotal = 0;
         vm.grandTotalWithoutLabourCharges = 0;
-        _.forEach(vm.trnWorkOrderObj.areaList, function (areaObj) {
+        _.forEach(vm.trnWorkOrderObj.areaList, function(areaObj) {
 
           areaObj.unitList = [];
           let repetedUnit = _.filter(results.trnWorkOrderItems, { 'area': areaObj.area });
 
           let unitObjList = _.uniqBy(repetedUnit, 'unit');
 
-          _.forEach(unitObjList, function (value) {
+          _.forEach(unitObjList, function(value) {
             if (value.unit) {
               vm.stitchingTotal = vm.stitchingTotal + value.labourCharges;
               areaObj.unitList.push({
@@ -517,19 +517,19 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
         let motorAccessoryAmount = 0;
         let rodAccessoryAmount = 0;
         let remoteAccessoryAmount = 0;
-        _.forEach(vm.trnWorkOrderObj.areaList, function (areaObj) {
-          _.forEach(areaObj.unitList, function (value) {
+        _.forEach(vm.trnWorkOrderObj.areaList, function(areaObj) {
+          _.forEach(areaObj.unitList, function(value) {
             let fabricDataList = _.filter(results.trnWorkOrderItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
-            _.forEach(fabricDataList, function (temp) {
+            _.forEach(fabricDataList, function(temp) {
               temp.contRoleId = Math.floor(Math.random() * 2000)
             });
             value.fabricList = fabricDataList;
             let accssoryDataList = _.filter(results.trnWorkOrderItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': false, 'isRod': false, 'isRemote': false, 'isMotor': false });
-            _.forEach(accssoryDataList, function (temp) {
+            _.forEach(accssoryDataList, function(temp) {
               temp.contRoleId = Math.floor(Math.random() * 2000)
             });
             value.accessoryList = accssoryDataList;
-            _.forEach(value.fabricList, function (fabricObj) {
+            _.forEach(value.fabricList, function(fabricObj) {
               vm.fabricTotal = vm.fabricTotal + fabricObj.amountWithGST;
             });
 
@@ -563,7 +563,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
 
             let remoteObj = _.find(results.trnWorkOrderItems, { "isRemote": true, unit: value.unit, 'area': value.area });
             if (motorObj) {
-              if(remoteObj != null){
+              if (remoteObj != null) {
                 remoteAccessoryAmount = remoteAccessoryAmount + remoteObj.amountWithGST;
                 value.remoteAccessoriesDetails = remoteObj.mstAccessory;
                 value.remoteId = remoteObj.id;
@@ -632,9 +632,9 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
     // let custObj = _.find(this.customerList, ['value', this.trnWorkOrderObj.customerId]);
     //this.trnWorkOrderObj.customerName = custObj ? custObj.label : '';
 
-    _.forEach( this.trnWorkOrderObj.areaList, function (areaObj) {
-      _.forEach(areaObj.unitList, function (unitObj) {
-        _.forEach(unitObj.fabricList, function (fabricobj) {
+    _.forEach(this.trnWorkOrderObj.areaList, function(areaObj) {
+      _.forEach(areaObj.unitList, function(unitObj) {
+        _.forEach(unitObj.fabricList, function(fabricobj) {
           let collectionObj = _.find(vm.collectionList, ['value', fabricobj.collectionId]);
           let obj = {
             "area": areaObj.area,
@@ -675,7 +675,7 @@ export class TrnWorkOrderAddEditComponent implements OnInit {
           vm.trnWorkOrderObj.trnWorkOrderItems.push(obj);
         });
 
-        unitObj.accessoryList.forEach(function (accessoryobj) {
+        unitObj.accessoryList.forEach(function(accessoryobj) {
           let obj = {
             "area": areaObj.area,
             "unit": unitObj.unit,

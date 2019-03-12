@@ -34,7 +34,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
   trnSalesOrderList = [];
   categoryList: SelectItem[];
   discountOnRate = null;
-  givenDiscount:any = "0";
+  givenDiscount: any = "0";
   selectedCourierMode = null;
   selectedAgent = null;
   agentList = [];
@@ -897,7 +897,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.collectionId != null) {
         this.getshadeIdList();
-      }else{
+      } else {
         this.shadeIdList.unshift({ label: '--Select--', value: null });
       }
     }
@@ -924,7 +924,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       this.amountWithGST = null;
       if (this.collectionId != null) {
         this.getFoamSizeList();
-      }else{
+      } else {
         this.fomSizeList.unshift({ label: '--Select--', value: null });
       }
     }
@@ -955,7 +955,7 @@ export class TrnSalesOrderAddEditComponent implements OnInit {
       if (this.collectionId != null) {
         this.getMatSizeList();
         this.getMatQualityList();
-      }else{
+      } else {
         this.matSizeList.unshift({ label: '--Select--', value: null });
         this.qualityList.unshift({ label: '--Select--', value: null });
       }

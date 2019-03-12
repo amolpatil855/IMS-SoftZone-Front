@@ -17,7 +17,7 @@ import { TrnWorkOrder } from "../../../../_models/trnWorkOrder";
   encapsulation: ViewEncapsulation.None,
 })
 export class TrnWorkOrderListComponent implements OnInit {
-trnWorkOrderForm: any;
+  trnWorkOrderForm: any;
   trnWorkOrderObj: any;
   params: number;
   userRole: string;

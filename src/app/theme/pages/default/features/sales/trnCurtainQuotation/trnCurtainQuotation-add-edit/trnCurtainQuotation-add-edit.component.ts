@@ -347,21 +347,21 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     let vm = this;
     let areaObjList = _.uniqBy(results.trnCurtainQuotationItems, 'area');
     vm.trnCurtainQuotationObj.areaList = [];
-    _.forEach(areaObjList, function (value) {
+    _.forEach(areaObjList, function(value) {
       vm.trnCurtainQuotationObj.areaList.push({
         area: value.area,
         contRoleId: Math.floor(Math.random() * 2000),
       });
     });
 
-    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
+    _.forEach(vm.trnCurtainQuotationObj.areaList, function(areaObj) {
 
       areaObj.unitList = [];
       let repetedUnit = _.filter(results.trnCurtainQuotationItems, { 'area': areaObj.area });
 
       let unitObjList = _.uniqBy(repetedUnit, 'unit');
 
-      _.forEach(unitObjList, function (value) {
+      _.forEach(unitObjList, function(value) {
         areaObj.unitList.push({
           unit: value.unit,
           area: value.area,
@@ -374,16 +374,16 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
     });
 
-    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
-      _.forEach(areaObj.unitList, function (value) {
+    _.forEach(vm.trnCurtainQuotationObj.areaList, function(areaObj) {
+      _.forEach(areaObj.unitList, function(value) {
         let fabricDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
-        _.forEach(fabricDataList, function (temp) {
+        _.forEach(fabricDataList, function(temp) {
           temp.contRoleId = Math.floor(Math.random() * 2000)
         });
 
         value.fabricList = fabricDataList;
         let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7 });
-        _.forEach(accssoryDataList, function (temp) {
+        _.forEach(accssoryDataList, function(temp) {
           temp.contRoleId = Math.floor(Math.random() * 2000)
           temp.rate = temp.accessoriesDetails.sellingRate;
           temp.rateWithGST = temp.rate + ((temp.rate * temp.accessoriesDetails.gst) / 100);
@@ -434,7 +434,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   removeArea(areaIndex) {
     // this.trnCurtainQuotationObj.areaList.slice(index, 1);
     if (this.trnCurtainQuotationObj.areaList.length > 1)
-      this.trnCurtainQuotationObj.areaList = _.remove(this.trnCurtainQuotationObj.areaList, function (rec, index) {
+      this.trnCurtainQuotationObj.areaList = _.remove(this.trnCurtainQuotationObj.areaList, function(rec, index) {
         if (areaIndex != index) {
           return rec;
         }
@@ -472,7 +472,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   removeUnit(areaIndex, unitindex, unitList) {
     // this.trnCurtainQuotationObj.areaList[areaIndex].unitList.slice(unitindex, 1);
     if (this.trnCurtainQuotationObj.areaList[areaIndex].unitList.length > 1)
-      this.trnCurtainQuotationObj.areaList[areaIndex].unitList = _.remove(this.trnCurtainQuotationObj.areaList[areaIndex].unitList, function (rec, index) {
+      this.trnCurtainQuotationObj.areaList[areaIndex].unitList = _.remove(this.trnCurtainQuotationObj.areaList[areaIndex].unitList, function(rec, index) {
         if (unitindex != index) {
           return rec;
         }
@@ -494,7 +494,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
   onDeleteFabricRow(areaindex, unitIndex, fabricIndex, fabricList) {
     if (this.trnCurtainQuotationObj.areaList[areaindex].unitList[unitIndex].fabricList.length > 1)
-      this.trnCurtainQuotationObj.areaList[areaindex].unitList[unitIndex].fabricList = _.remove(this.trnCurtainQuotationObj.areaList[areaindex].unitList[unitIndex].fabricList, function (rec, index) {
+      this.trnCurtainQuotationObj.areaList[areaindex].unitList[unitIndex].fabricList = _.remove(this.trnCurtainQuotationObj.areaList[areaindex].unitList[unitIndex].fabricList, function(rec, index) {
         if (fabricIndex != index) {
           return rec;
         }
@@ -504,7 +504,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
   deleteAccessoryRow(areaindex, unitIndex, accesoryIndex, accessoryList) {
     if (this.trnCurtainQuotationObj.areaList[areaindex].unitList[unitIndex].accessoryList.length > 1)
-      this.trnCurtainQuotationObj.areaList[areaindex].unitList[unitIndex].accessoryList = _.remove(this.trnCurtainQuotationObj.areaList[areaindex].unitList[unitIndex].accessoryList, function (rec, index) {
+      this.trnCurtainQuotationObj.areaList[areaindex].unitList[unitIndex].accessoryList = _.remove(this.trnCurtainQuotationObj.areaList[areaindex].unitList[unitIndex].accessoryList, function(rec, index) {
         if (accesoryIndex != index) {
           return rec;
         }
@@ -601,7 +601,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     if (selectedPatternObj) {
       let quantity = 0;// ((unitRow.unitHeight + )/ selectedPatternObj.meterPerInch);
 
-      _.forEach(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].fabricList, function (fabObj, index) {
+      _.forEach(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].fabricList, function(fabObj, index) {
         fabObj.orderQuantity = 0;
         if (fabObj.isLining || (!fabObj.isLining && !fabObj.isPatch)) {
           if (fabObj.shadeDetails.fabricWidth <= 100) {
@@ -663,9 +663,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   findMinGlobalDiscount() {
     let vm = this;
     let discountArray = [];
-    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
-      _.forEach(areaObj.unitList, function (unitObj) {
-        _.forEach(unitObj.fabricList, function (fabObj) {
+    _.forEach(vm.trnCurtainQuotationObj.areaList, function(areaObj) {
+      _.forEach(areaObj.unitList, function(unitObj) {
+        _.forEach(unitObj.fabricList, function(fabObj) {
           discountArray.push(fabObj.shadeDetails.maxCutRateDisc);
         });
       });
@@ -674,9 +674,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   }
   changeGlobalDiscount() {
     let vm = this;
-    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
-      _.forEach(areaObj.unitList, function (unitObj, unitRowNum) {
-        _.forEach(unitObj.fabricList, function (fabricRow, fabricRowNum) {
+    _.forEach(vm.trnCurtainQuotationObj.areaList, function(areaObj, rowNum) {
+      _.forEach(areaObj.unitList, function(unitObj, unitRowNum) {
+        _.forEach(unitObj.fabricList, function(fabricRow, fabricRowNum) {
           if (!fabricRow.shadeDetails.flatRate) {
             fabricRow.discount = vm.trnCurtainQuotationObj.commonDiscount;
             vm.changeDiscount(fabricRow, fabricRowNum, unitRowNum, rowNum);
@@ -719,13 +719,13 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     vm.grandTotal = 0;
     vm.tempAccessory = 0;
     vm.grandTotalWithoutLabourCharges = 0;
-    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
-      _.forEach(areaObj.unitList, function (unitObj, unitRowNum) {
+    _.forEach(vm.trnCurtainQuotationObj.areaList, function(areaObj, rowNum) {
+      _.forEach(areaObj.unitList, function(unitObj, unitRowNum) {
         vm.stitchingTotal += unitObj.laborCharges;
-        _.forEach(unitObj.fabricList, function (fabricRow, fabricRowNum) {
+        _.forEach(unitObj.fabricList, function(fabricRow, fabricRowNum) {
           vm.fabricTotal += fabricRow.amountWithGST;
         });
-        _.forEach(unitObj.accessoryList, function (accessoryObj) {
+        _.forEach(unitObj.accessoryList, function(accessoryObj) {
           vm.accessoriesTotal += accessoryObj.amountWithGST;
         });
         if (unitObj.trackAmountWithGST) {
@@ -995,7 +995,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
 
         let areaObjList = _.uniqBy(results.trnCurtainQuotationItems, 'area');
         vm.trnCurtainQuotationObj.areaList = [];
-        _.forEach(areaObjList, function (value) {
+        _.forEach(areaObjList, function(value) {
           if (value.area) {
             vm.trnCurtainQuotationObj.areaList.push({
               area: value.area,
@@ -1008,14 +1008,14 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         vm.accessoriesTotal = 0;
         vm.grandTotal = 0;
         vm.grandTotalWithoutLabourCharges = 0;
-        _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
+        _.forEach(vm.trnCurtainQuotationObj.areaList, function(areaObj) {
 
           areaObj.unitList = [];
           let repetedUnit = _.filter(results.trnCurtainQuotationItems, { 'area': areaObj.area });
 
           let unitObjList = _.uniqBy(repetedUnit, 'unit');
 
-          _.forEach(unitObjList, function (value) {
+          _.forEach(unitObjList, function(value) {
             if (value.unit) {
               vm.stitchingTotal = vm.stitchingTotal + value.laborCharges;
               areaObj.unitList.push({
@@ -1051,25 +1051,25 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
         let motorAccessoryAmount = 0;
         let rodAccessoryAmount = 0;
         let remoteAccessoryAmount = 0;
-        _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
-          _.forEach(areaObj.unitList, function (value) {
+        _.forEach(vm.trnCurtainQuotationObj.areaList, function(areaObj) {
+          _.forEach(areaObj.unitList, function(value) {
             let fabricDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
-            _.forEach(fabricDataList, function (temp) {
+            _.forEach(fabricDataList, function(temp) {
               temp.contRoleId = Math.floor(Math.random() * 2000)
             });
             value.fabricList = fabricDataList;
             let accssoryDataList = _.filter(results.trnCurtainQuotationItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7, 'isTrack': false, 'isRod': false, 'isRemote': false, 'isMotor': false });
-            _.forEach(accssoryDataList, function (temp) {
+            _.forEach(accssoryDataList, function(temp) {
               temp.contRoleId = Math.floor(Math.random() * 2000),
                 temp.rate = temp.accessoriesDetails.sellingRate;
               temp.rateWithGST = temp.rate + ((temp.rate * temp.accessoriesDetails.gst) / 100);
             });
             value.accessoryList = accssoryDataList;
-            _.forEach(value.fabricList, function (fabricObj) {
+            _.forEach(value.fabricList, function(fabricObj) {
               vm.fabricTotal = vm.fabricTotal + fabricObj.amountWithGST;
             });
 
-            _.forEach(value.accessoryList, function (accessoryObj) {
+            _.forEach(value.accessoryList, function(accessoryObj) {
               normalAccessoryAmount = normalAccessoryAmount + accessoryObj.amountWithGST;
             });
 
@@ -1162,7 +1162,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   }
 
   selectedLining(areaIndex, unitIndex, fabricIndex) {
-    _.forEach(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].fabricList, function (fabObj) {
+    _.forEach(this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].fabricList, function(fabObj) {
       fabObj.isLining = false;
     });
     this.trnCurtainQuotationObj.areaList[areaIndex].unitList[unitIndex].fabricList[fabricIndex].isLining = true;
@@ -1177,12 +1177,12 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     unitRow.numberOfPanel = 0;
     if (unitRow.patternId != null) {
       unitRow.mstPattern = _.find(this.patternList, ['id', unitRow.patternId]);
-      _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj, rowNum) {
-        _.forEach(areaObj.unitList, function (unitRow, unitRowNum) {
+      _.forEach(vm.trnCurtainQuotationObj.areaList, function(areaObj, rowNum) {
+        _.forEach(areaObj.unitList, function(unitRow, unitRowNum) {
           unitRow.numberOfPanel = Math.ceil(unitRow.unitWidth / unitRow.mstPattern.widthPerInch);
           unitRow.laborCharges = Math.round(unitRow.numberOfPanel * unitRow.mstPattern.setRateForCustomer);
           vm.onUnitHeightChange(unitRow, unitRowNum, rowNum);
-          _.forEach(unitRow.fabricList, function (fabricRow, fabricRowNum) {
+          _.forEach(unitRow.fabricList, function(fabricRow, fabricRowNum) {
             if (fabricRow.isPatch) {
               if (fabricRow.isVerticalPatch)
                 vm.calculateVerticalQuantity(fabricRow, fabricRowNum, unitRowNum, rowNum, unitRow);
@@ -1191,7 +1191,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
             }
             vm.fabricTotal += fabricRow.amountWithGST;
           });
-          _.forEach(unitRow.accessoryList, function (accessoryRow) {
+          _.forEach(unitRow.accessoryList, function(accessoryRow) {
             accessoryAmount += accessoryRow.amountWithGST;
           });
         });
@@ -1240,9 +1240,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     this.trnCurtainQuotationObj.rodRate = shadeObj.sellingRate;
     this.trnCurtainQuotationObj.rodItemCode = shadeObj.itemCode;
     this.trnCurtainQuotationObj.rodRateWithGST = Math.round(this.trnCurtainQuotationObj.rodRate + ((this.trnCurtainQuotationObj.rodRate * shadeObj.gst) / 100));
-    _.forEach(vm.trnCurtainQuotationObj.areaList, function (areaObj) {
-      _.forEach(areaObj.unitList, function (value) {
-        if(value.unitWidth)
+    _.forEach(vm.trnCurtainQuotationObj.areaList, function(areaObj) {
+      _.forEach(areaObj.unitList, function(value) {
+        if (value.unitWidth)
           totalWidth += parseFloat(value.unitWidth);
       });
     });
@@ -1499,9 +1499,9 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     // let custObj = _.find(this.customerList, ['value', this.trnCurtainQuotationObj.customerId]);
     //this.trnCurtainQuotationObj.customerName = custObj ? custObj.label : '';
     vm.trnCurtainQuotationObj.totalAmount = this.grandTotalWithoutLabourCharges;
-    this.trnCurtainQuotationObj.areaList.forEach(function (areaObj) {
-      areaObj.unitList.forEach(function (unitObj) {
-        unitObj.fabricList.forEach(function (fabricobj) {
+    this.trnCurtainQuotationObj.areaList.forEach(function(areaObj) {
+      areaObj.unitList.forEach(function(unitObj) {
+        unitObj.fabricList.forEach(function(fabricobj) {
           let collectionObj = _.find(vm.collectionList, ['value', fabricobj.collectionId]);
           let obj = {
             "area": areaObj.area,
@@ -1543,7 +1543,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
           vm.trnCurtainQuotationObj.trnCurtainQuotationItems.push(obj);
         });
 
-        unitObj.accessoryList.forEach(function (accessoryobj) {
+        unitObj.accessoryList.forEach(function(accessoryobj) {
           let obj = {
             "area": areaObj.area,
             "unit": unitObj.unit,

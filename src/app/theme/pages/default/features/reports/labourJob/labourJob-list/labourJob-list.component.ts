@@ -63,34 +63,34 @@ export class LabourJobListComponent implements OnInit {
   }
 
   getLabourJobList() {
-    if(this.startDate && this.endDate){
-      this.labourJobService.getAllLabourJobs(this.pageSize, this.page, this.search, this.isPaid, this.tailorId,new Date(this.startDate.setHours(23)).toLocaleDateString(), new Date(this.endDate.setHours(23)).toLocaleDateString()).subscribe(
-      results => {
-        this.labourJobList = results.data;
-        this.totalCount = results.totalCount;
-        if (this.totalCount == 0) {
+    if (this.startDate && this.endDate) {
+      this.labourJobService.getAllLabourJobs(this.pageSize, this.page, this.search, this.isPaid, this.tailorId, new Date(this.startDate.setHours(23)).toLocaleDateString(), new Date(this.endDate.setHours(23)).toLocaleDateString()).subscribe(
+        results => {
+          this.labourJobList = results.data;
+          this.totalCount = results.totalCount;
+          if (this.totalCount == 0) {
+            this.tableEmptyMesssage = "No Records Found";
+          }
+        },
+        error => {
           this.tableEmptyMesssage = "No Records Found";
-        }
-      },
-      error => {
-        this.tableEmptyMesssage = "No Records Found";
-        this.globalErrorHandler.handleError(error);
-      });
-    }else{
+          this.globalErrorHandler.handleError(error);
+        });
+    } else {
       this.labourJobService.getAllLabourJobs(this.pageSize, this.page, this.search, this.isPaid, this.tailorId, null, null).subscribe(
-      results => {
-        this.labourJobList = results.data;
-        this.totalCount = results.totalCount;
-        if (this.totalCount == 0) {
+        results => {
+          this.labourJobList = results.data;
+          this.totalCount = results.totalCount;
+          if (this.totalCount == 0) {
+            this.tableEmptyMesssage = "No Records Found";
+          }
+        },
+        error => {
           this.tableEmptyMesssage = "No Records Found";
-        }
-      },
-      error => {
-        this.tableEmptyMesssage = "No Records Found";
-        this.globalErrorHandler.handleError(error);
-      });
+          this.globalErrorHandler.handleError(error);
+        });
     }
-    
+
   }
 
   onChangePaymentStatus() {
@@ -99,23 +99,23 @@ export class LabourJobListComponent implements OnInit {
     this.getLabourJobList();
   }
 
-  onTailorChange(){
+  onTailorChange() {
     this.page = 0;
     this.search = '';
     this.getLabourJobList();
   }
 
-  onChangeDate(){
-    if(this.startDate && this.endDate){
-        if (this.endDate < this.startDate) {
+  onChangeDate() {
+    if (this.startDate && this.endDate) {
+      if (this.endDate < this.startDate) {
         this.endDate = null;
         return;
-        }
-        this.page = 0;
-        this.search = '';
-        this.getLabourJobList();
+      }
+      this.page = 0;
+      this.search = '';
+      this.getLabourJobList();
     }
-    
+
   }
 
   loadLazy(event: LazyLoadEvent) {

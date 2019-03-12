@@ -61,8 +61,8 @@
 					<div class="m-section">
 						<div class="m-section__content">
 							<div class="ui-widget-header" style="border-bottom: 0 none">
-								<select class="form-control" name="selectPO" [(ngModel)]="SelectPO" style="max-width: 220px;display: inline !important;float: left;">
-									 <option *ngFor="let x of trnPurchaseOrderList" [ngValue]="x.id" [selected]="SelectPO == x.id">{{x.orderNumber}}</option> 
+								<select class="form-control" name="selectPO" [(ngModel)]="SelectPO" style="max-width: 220px;display: inline !important;float: left;" (ngModelChange)="onAddGoodReceiveNote()">
+									 <option *ngFor="let x of trnPurchaseOrderList" [ngValue]="x.value" [selected]="SelectPO == x.value">{{x.label}}</option> 
 									
 								</select>
 								<i class="fa fa-search searchIcon"></i>

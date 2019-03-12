@@ -14,7 +14,7 @@ export class TrnAdvancePaymentService {
   currentPageNumber: any = 1;
 
   getAllTrnAdvancePayments(pageSize = 0, page = 0, search = '', quotationType) {
-    return this.http.get(AppSettings.API_ENDPOINT + 'TrnAdvancePayment?pageSize=' + pageSize + '&page=' + page + '&search=' + search  + '&quotationType=' + quotationType, AppSettings.requestOptions()).map((response: Response) => response.json());
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnAdvancePayment?pageSize=' + pageSize + '&page=' + page + '&search=' + search + '&quotationType=' + quotationType, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
   getTrnAdvancePaymentById(id: number) {

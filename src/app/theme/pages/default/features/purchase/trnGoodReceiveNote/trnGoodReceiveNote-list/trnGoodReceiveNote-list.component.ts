@@ -38,20 +38,20 @@ export class TrnGoodReceiveNoteListComponent implements OnInit {
     private globalErrorHandler: GlobalErrorHandler,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private trnPurchaseOrderService: TrnPurchaseOrderService,) {
+    private trnPurchaseOrderService: TrnPurchaseOrderService, ) {
   }
 
   ngOnInit() {
     this.getTrnPurchaseOrdersList();
   }
   getTrnPurchaseOrdersList() {
-    let pageSize = 1000;
-    this.trnPurchaseOrderService.getAllTrnPurchaseOrders(this.pageSize, this.page, this.search).subscribe(
+    this.trnGoodReceiveNoteService.getPendingPO().subscribe(
       results => {
-        let _tempList = results.data;
-        this.trnPurchaseOrderList = _.filter(_tempList,function(o){return o.status !== 'Approved' || o.status !== 'Completed'})
-        this.trnPurchaseOrderList.unshift({'id':0, 'orderNumber':'--select--'});
-        this.totalCount = results.totalCount;
+        if(results){
+          this.trnPurchaseOrderList = results;
+          this.totalCount = results.length;
+        }
+        this.trnPurchaseOrderList.unshift({ 'value': 0, 'label': '--select--' });
         if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
         }
@@ -86,8 +86,8 @@ export class TrnGoodReceiveNoteListComponent implements OnInit {
   onEditClick(trnGoodReceiveNote: TrnGoodReceiveNote) {
     this.router.navigate(['/features/purchase/trnGoodReceiveNote/edit', trnGoodReceiveNote.id]);
   }
-  onAddGoodReceiveNote(){
-    this.router.navigate(['/features/purchase/trnGoodReceiveNote/add', 'PO-'+this.SelectPO]);
+  onAddGoodReceiveNote() {
+    this.router.navigate(['/features/purchase/trnGoodReceiveNote/add', 'PO-' + this.SelectPO]);
   }
 
   onDelete(trnGoodReceiveNote: TrnGoodReceiveNote) {

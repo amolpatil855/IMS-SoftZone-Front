@@ -179,7 +179,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   removeArea(areaIndex) {
     // this.trnCurtainSelectionObj.areaList.slice(index, 1);
     if (this.trnCurtainSelectionObj.areaList.length > 1)
-      this.trnCurtainSelectionObj.areaList = _.remove(this.trnCurtainSelectionObj.areaList, function (rec, index) {
+      this.trnCurtainSelectionObj.areaList = _.remove(this.trnCurtainSelectionObj.areaList, function(rec, index) {
         if (areaIndex != index) {
           return rec;
         }
@@ -217,7 +217,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   removeUnit(areaIndex, unitindex, unitList) {
     // this.trnCurtainSelectionObj.areaList[areaIndex].unitList.slice(unitindex, 1);
     if (this.trnCurtainSelectionObj.areaList[areaIndex].unitList.length > 1)
-      this.trnCurtainSelectionObj.areaList[areaIndex].unitList = _.remove(this.trnCurtainSelectionObj.areaList[areaIndex].unitList, function (rec, index) {
+      this.trnCurtainSelectionObj.areaList[areaIndex].unitList = _.remove(this.trnCurtainSelectionObj.areaList[areaIndex].unitList, function(rec, index) {
         if (unitindex != index) {
           return rec;
         }
@@ -239,7 +239,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   onDeleteFabricRow(areaindex, unitIndex, fabricIndex, fabricList) {
     if (this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList.length > 1)
-      this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList = _.remove(this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList, function (rec, index) {
+      this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList = _.remove(this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].fabricList, function(rec, index) {
         if (fabricIndex != index) {
           return rec;
         }
@@ -249,7 +249,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
   deleteAccessoryRow(areaindex, unitIndex, accesoryIndex, accessoryList) {
     if (this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList.length > 1)
-      this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList = _.remove(this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList, function (rec, index) {
+      this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList = _.remove(this.trnCurtainSelectionObj.areaList[areaindex].unitList[unitIndex].accessoryList, function(rec, index) {
         if (accesoryIndex != index) {
           return rec;
         }
@@ -330,21 +330,21 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
 
         let areaObjList = _.uniqBy(results.trnCurtainSelectionItems, 'area');
         vm.trnCurtainSelectionObj.areaList = [];
-        _.forEach(areaObjList, function (value) {
+        _.forEach(areaObjList, function(value) {
           vm.trnCurtainSelectionObj.areaList.push({
             area: value.area,
             contRoleId: Math.floor(Math.random() * 2000),
           });
         });
 
-        _.forEach(vm.trnCurtainSelectionObj.areaList, function (areaObj) {
+        _.forEach(vm.trnCurtainSelectionObj.areaList, function(areaObj) {
 
           areaObj.unitList = [];
           let repetedUnit = _.filter(results.trnCurtainSelectionItems, { 'area': areaObj.area });
 
           let unitObjList = _.uniqBy(repetedUnit, 'unit');
 
-          _.forEach(unitObjList, function (value) {
+          _.forEach(unitObjList, function(value) {
             areaObj.unitList.push({
               unit: value.unit,
               area: value.area,
@@ -377,8 +377,8 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
           // });
         });
 
-        _.forEach(vm.trnCurtainSelectionObj.areaList, function (areaObj) {
-          _.forEach(areaObj.unitList, function (value) {
+        _.forEach(vm.trnCurtainSelectionObj.areaList, function(areaObj) {
+          _.forEach(areaObj.unitList, function(value) {
             let fabricDataList = _.filter(results.trnCurtainSelectionItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 1 });
             value.fabricList = fabricDataList;
             let accssoryDataList = _.filter(results.trnCurtainSelectionItems, { 'unit': value.unit, 'area': value.area, 'categoryId': 7 });
@@ -414,7 +414,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   }
 
   selectedLining(areaIndex, unitIndex, fabricIndex) {
-    _.forEach(this.trnCurtainSelectionObj.areaList[areaIndex].unitList[unitIndex].fabricList, function (fabObj) {
+    _.forEach(this.trnCurtainSelectionObj.areaList[areaIndex].unitList[unitIndex].fabricList, function(fabObj) {
       fabObj.isLining = false;
     });
     this.trnCurtainSelectionObj.areaList[areaIndex].unitList[unitIndex].fabricList[fabricIndex].isLining = true;
@@ -641,7 +641,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
   formatrequest() {
     let vm = this;
     this.trnCurtainSelectionObj.trnCurtainSelectionItems = [];
-    this.trnCurtainSelectionObj.areaList.forEach(function (areaObj) {
+    this.trnCurtainSelectionObj.areaList.forEach(function(areaObj) {
       if (vm.trnCurtainSelectionObj.areaList.length > 1) {
         let areaObject = _.filter(vm.trnCurtainSelectionObj.areaList, { 'area': areaObj.area });
         if (areaObject.length > 1) {
@@ -653,8 +653,8 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
         }
 
       }
-      areaObj.unitList.forEach(function (unitObj) {
-        unitObj.fabricList.forEach(function (fabricobj) {
+      areaObj.unitList.forEach(function(unitObj) {
+        unitObj.fabricList.forEach(function(fabricobj) {
           let collectionObj = _.find(vm.collectionList, ['value', fabricobj.collectionId]);
           let obj = {
             "area": areaObj.area,
@@ -676,7 +676,7 @@ export class TrnCurtainSelectionAddEditComponent implements OnInit {
           vm.trnCurtainSelectionObj.trnCurtainSelectionItems.push(obj);
         });
 
-        unitObj.accessoryList.forEach(function (accessoryobj) {
+        unitObj.accessoryList.forEach(function(accessoryobj) {
 
           if (accessoryobj.accessoryId != null) {
             let obj = {
