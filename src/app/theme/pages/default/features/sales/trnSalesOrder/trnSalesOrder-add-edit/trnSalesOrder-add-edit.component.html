@@ -279,27 +279,6 @@
 																	 name="courierModeDDl" filter="true" tabindex="5"></p-dropdown> -->
                                 </div>
                               </div>
-                              <div class="col-md-6">
-                                <label class="col-md-2 col-sm-2 fieldLabel"
-                                  >Courier Details
-                                </label>
-                                <div
-                                  class="col-md-10 col-sm-10 customerNameBox"
-                                >
-                                  <textarea
-                                    class="form-control"
-                                    name="courierDetails"
-                                    [disabled]="disabled"
-                                    [(ngModel)]="
-                                      trnSalesOrderObj.courierDetails
-                                    "
-                                    tabindex="5"
-                                  ></textarea>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row form-group">
                               <div class="col-md-3">
                                 <label class="col-md-4 col-sm-4 fieldLabel"
                                   >Referred By
@@ -310,7 +289,7 @@
                                     name="agent"
                                     [(ngModel)]="trnSalesOrderObj.referById"
                                     [disabled]="!status"
-                                    tabindex="6"
+                                    tabindex="5"
                                   >
                                     <option
                                       *ngFor="let x of agentList"
@@ -353,23 +332,6 @@
                                     (onSelect)="onDateSelect()"
                                     placeholder="dd/mm/yyyy"
                                   ></p-calendar>
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <label class="col-md-2 col-sm-2 fieldLabel"
-                                  >Dock-at No.
-                                </label>
-                                <div
-                                  class="col-md-10 col-sm-10 customerNameBox"
-                                >
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    name="dockAtNumber"
-                                    [disabled]="disabled"
-                                    [(ngModel)]="trnSalesOrderObj.dockAtNumber"
-                                    tabindex="7"
-                                  />
                                 </div>
                               </div>
                             </div>

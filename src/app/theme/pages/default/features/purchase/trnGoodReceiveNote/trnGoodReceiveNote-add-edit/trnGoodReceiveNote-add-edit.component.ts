@@ -456,7 +456,8 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       amount,
       matSizeId,
       purchaseDiscount,
-      gst
+      gst,
+      purchaseOrderId
     } = goodReceiveNoteItems;
     let self = this;
     if (receivedQuantity) receivedQuantity = parseInt(receivedQuantity);
@@ -474,7 +475,9 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     let poObj = _.find(this.trnGoodReceiveNoteItems, {
       id
     });
-    if (!poObj) return false;
+    if (!poObj) {
+      poObj = _.find(this.purchaseItemList, { purchaseOrderId });
+    }
 
     if (categoryId == 1 || categoryId == 5 || categoryId == 6) {
       amount = rate * receivedQuantity;
@@ -487,7 +490,8 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
           poObj.purchaseDiscount;
       } else this.trnGoodReceiveNoteItems[index].purchaseDiscount = 0;
       this.trnGoodReceiveNoteItems[index].amountWithGST = Math.round(
-        amount + (amount * poObj.gst) / 100
+        this.trnGoodReceiveNoteItems[index].amount +
+          (this.trnGoodReceiveNoteItems[index].amount * poObj.gst) / 100
       );
     } else {
       // this.amountWithGST = poObj.rate * this.receivedQuantity;
@@ -500,7 +504,8 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
           amount - (amount * poObj.purchaseDiscount) / 100
         );
       this.trnGoodReceiveNoteItems[index].amountWithGST = Math.round(
-        amount + (amount * poObj.gst) / 100
+        this.trnGoodReceiveNoteItems[index].amount +
+          (this.trnGoodReceiveNoteItems[index].amount * poObj.gst) / 100
       );
     }
     let totalCalculatedAmount = 0;
