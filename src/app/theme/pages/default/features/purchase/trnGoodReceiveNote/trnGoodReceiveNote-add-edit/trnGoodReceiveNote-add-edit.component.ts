@@ -462,6 +462,14 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     let self = this;
     if (receivedQuantity) receivedQuantity = parseInt(receivedQuantity);
     else receivedQuantity = 0;
+    if (receivedQuantity <= 0) {
+      this.messageService.addMessage({
+        severity: "error",
+        summary: "Error",
+        detail: "Received quantity should be greater than zero."
+      });
+      return false;
+    }
     if (receivedQuantity > orderQuantity) {
       this.messageService.addMessage({
         severity: "error",
@@ -480,11 +488,27 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     }
 
     if (categoryId == 1 || categoryId == 5 || categoryId == 6) {
-      amount = rate * receivedQuantity;
+      let applyDiscount = false;
+      if (!id) {
+        rate = poObj.purchaseFlatRate
+          ? poObj.purchaseFlatRate
+          : poObj.orderQuantity >= 50
+          ? poObj.roleRate
+          : poObj.cutRate;
+      }
+      applyDiscount = poObj.purchaseFlatRate
+        ? true
+        : poObj.orderQuantity >= 50
+        ? true
+        : false;
+      this.trnGoodReceiveNoteItems[index].amount = rate * receivedQuantity;
       rate = parseFloat(rate).toFixed(2);
-      if (poObj.purchaseDiscount != null) {
+      if (applyDiscount) {
         this.trnGoodReceiveNoteItems[index].amount = Math.round(
-          amount - (amount * poObj.purchaseDiscount) / 100
+          this.trnGoodReceiveNoteItems[index].amount -
+            (this.trnGoodReceiveNoteItems[index].amount *
+              poObj.purchaseDiscount) /
+              100
         );
         this.trnGoodReceiveNoteItems[index].purchaseDiscount =
           poObj.purchaseDiscount;
@@ -495,13 +519,18 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       );
     } else {
       // this.amountWithGST = poObj.rate * this.receivedQuantity;
-      amount = rate * receivedQuantity;
+      this.trnGoodReceiveNoteItems[index].amount = rate * receivedQuantity;
       if (matSizeId != -1 && categoryId == 4) {
-        this.trnGoodReceiveNoteItems[index].amount = Math.round(amount);
+        this.trnGoodReceiveNoteItems[index].amount = Math.round(
+          this.trnGoodReceiveNoteItems[index].amount
+        );
         this.trnGoodReceiveNoteItems[index].purchaseDiscount = 0;
       } else
         this.trnGoodReceiveNoteItems[index].amount = Math.round(
-          amount - (amount * poObj.purchaseDiscount) / 100
+          this.trnGoodReceiveNoteItems[index].amount -
+            (this.trnGoodReceiveNoteItems[index].amount *
+              poObj.purchaseDiscount) /
+              100
         );
       this.trnGoodReceiveNoteItems[index].amountWithGST = Math.round(
         this.trnGoodReceiveNoteItems[index].amount +
@@ -1517,10 +1546,14 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
         this.trnGoodReceiveNoteObj.supplierId
       ]);
       this.trnGoodReceiveNoteObj.supplierName = supplierObj.label;
-      let isRecievedQuantityGreaterThanZero = false;
+      let isRecievedQuantityGreaterThanZero,
+        isGreaterThanOrderQuantity = false;
       _.forEach(this.trnGoodReceiveNoteItems, function(grnItem) {
         if (grnItem.receivedQuantity > 0)
           isRecievedQuantityGreaterThanZero = true;
+        if (grnItem.receivedQuantity > grnItem.orderQuantity) {
+          isGreaterThanOrderQuantity = true;
+        }
       });
       if (!isRecievedQuantityGreaterThanZero) {
         this.messageService.addMessage({
@@ -1528,6 +1561,14 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
           summary: "Error",
           detail:
             "Received quantity of at least 1 item must be greater than zero."
+        });
+        return false;
+      }
+      if (isGreaterThanOrderQuantity) {
+        this.messageService.addMessage({
+          severity: "error",
+          summary: "Error",
+          detail: "Received quantity should be less than ordered quantity."
         });
         return false;
       }
