@@ -96,7 +96,7 @@
                                                                               <div class="col-md-3 col-sm-2">
                                                                                     <input class="form-control m-input" type="text" [ngClass]="{'red-border-class': codeVal.errors && isFormSubmitted}" #codeVal="ngModel"
                                                                                           required [(ngModel)]="customerObj.code"
-                                                                                          name="code" id="code" placeholder="Code"
+                                                                                          name="code" id="code" placeholder="Code" readonly
                                                                                           maxlength="50" tabindex="3" (blur)="onCode()">
                                                                               </div>
                                                                         </div>

@@ -87,7 +87,7 @@ export class TrnCurtainSelectionListComponent implements OnInit {
   }
 
   onEditClick(trnCurtainSelectionObj) {
-    this.router.navigate(['/features/sales/trnCurtainSelection/edit',trnCurtainSelectionObj.id]);
+    this.router.navigate(['/features/sales/trnCurtainSelection/edit', trnCurtainSelectionObj.id]);
   }
 
 

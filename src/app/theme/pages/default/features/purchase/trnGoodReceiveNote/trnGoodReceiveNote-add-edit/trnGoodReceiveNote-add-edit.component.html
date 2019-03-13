@@ -1,255 +1,538 @@
 <p-confirmDialog #cd>
-	<p-footer>
-		<button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
-			<span>
-				<i class="la la-check"></i>
-				<span>
-					Yes
-				</span>
-			</span>
-		</button>
-		<button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
-			<span>
-				<i class="la la-close"></i>
-				<span>
-					No
-				</span>
-			</span>
-		</button>
-	</p-footer>
+  <p-footer>
+    <button
+      type="button"
+      class="btn btn-accent m-btn m-btn--icon"
+      (click)="cd.accept()"
+    >
+      <span>
+        <i class="la la-check"></i>
+        <span>
+          Yes
+        </span>
+      </span>
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary m-btn m-btn--icon"
+      (click)="cd.reject()"
+    >
+      <span>
+        <i class="la la-close"></i>
+        <span>
+          No
+        </span>
+      </span>
+    </button>
+  </p-footer>
 </p-confirmDialog>
 
 <div class="m-subheader">
-	<div class="d-flex align-items-center">
-		<div class="mr-auto">
-			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-				<li class="m-nav__item m-nav__item--home">
-					<a href="#" class="m-nav__link m-nav__link--icon">
-						<i class="m-nav__link-icon la la-home"></i>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a class="m-nav__link">
-						<span class="m-nav__link-text">
-							Good Receive Note
-						</span>
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-			<button type="submit" *ngIf="showUpdateBtn" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" form="trnGoodReceiveNote" title="{{(trnGoodReceiveNote && trnGoodReceiveNote.form.valid) ? 'Please fill in all the required fields' :  showUpdateStr ? 'Update' : 'Save'}}"
-			 [isAuthorize]="['grn']" tabindex="13">
-				{{ showUpdateStr ? 'Update' : 'Save' }}
-			</button>
-			<button class="btn btn-secondary" [isAuthorize]="['grn']" (click)="onCancel()" tabindex="14">
-				Cancel
-			</button>
-		</div>
-	</div>
+  <div class="d-flex align-items-center">
+    <div class="mr-auto">
+      <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+        <li class="m-nav__item m-nav__item--home">
+          <a href="#" class="m-nav__link m-nav__link--icon">
+            <i class="m-nav__link-icon la la-home"></i>
+          </a>
+        </li>
+        <li class="m-nav__separator">
+          -
+        </li>
+        <li class="m-nav__item">
+          <a class="m-nav__link">
+            <span class="m-nav__link-text">
+              Good Receive Note
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+      <button
+        type="submit"
+        *ngIf="showUpdateBtn"
+        class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"
+        form="trnGoodReceiveNote"
+        title="{{
+          trnGoodReceiveNote && trnGoodReceiveNote.form.valid
+            ? 'Please fill in all the required fields'
+            : showUpdateStr
+            ? 'Update'
+            : 'Save'
+        }}"
+        [isAuthorize]="['grn']"
+        tabindex="14"
+      >
+        {{ showUpdateStr ? "Update" : "Save" }}
+      </button>
+      <button
+        class="btn btn-secondary"
+        [isAuthorize]="['grn']"
+        (click)="onCancel()"
+        tabindex="15"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
 </div>
 <!-- END: Subheader -->
 <div class="m-content">
-	<div class="row">
-		<div class="col-lg-12">
-			<!--begin::Portlet-->
-			<div class="m-portlet">
+  <div class="row">
+    <div class="col-lg-12">
+      <!--begin::Portlet-->
+      <div class="m-portlet">
+        <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
-				<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
-
-				<div class="row">
-
-					<div class="col-md-12">
-
-						<div class="formContainerSamePage">
-							<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
-							 (ngSubmit)="onSubmit(trnGoodReceiveNote)" #trnGoodReceiveNote="ngForm" id="trnGoodReceiveNote">
-								<div class="row">
-
-									<div class="col-md-12">
-
-										<div class="row">
-											<div class="col-md-12">
-												<!-- Basic Details -->
-												<div class="panel panel-default">
-													<div class="panel-heading">Basic Details</div>
-													<div class="panel-body">
-
-														<div class="row form-group">
-
-															<div class="col-md-6">
-																<div class="row">
-																	<div class="col-md-6">
-																		<label class="col-md-4 col-sm-4 fieldLabel">Date</label>
-																		<div class="col-md-8 col-sm-8">
-																			<p-calendar class="purchaseOrderDate" #grnDateVal="ngModel" [(ngModel)]="trnGoodReceiveNoteObj.grnDate" name="grnDate"
-																			 [monthNavigator]="true" [yearNavigator]="true" tabindex="1" yearRange="2015:2030" dateFormat="dd/mm/yy" [disabled]="disabled"
-																			 styleClass="{{ grnDateVal.errors && isFormSubmitted?'red-border-class':''}}" autofocus required></p-calendar>
-																		</div>
-																	</div>
-																	<div class="col-md-6">
-																		<label class="col-md-5 col-sm-5 fieldLabel noPadding">GRN No.</label>
-																		<div class="col-md-7 col-sm-7">
-																			<input type="text" [(ngModel)]="trnGoodReceiveNoteObj.grnNumber" name="grnNumber" class="form-control" #orderNoVal="ngModel"
-																			  disabled tabindex="2" placeholder="">
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="col-md-6">
-																<label class="col-md-2 col-sm-2 fieldLabel">Supplier<span class="requiredField">*</span>
-																</label>
-																<div class="col-md-10 col-sm-10 customerNameBox">
-																	<select class="form-control" required name="supplierId" [(ngModel)]="trnGoodReceiveNoteObj.supplierId" #supplierCodeVal="ngModel" [disabled]="disabled" [ngClass]="{'red-border-class': supplierCodeVal.errors && isFormSubmitted}" (ngModelChange)="onChangeSupplier()" tabindex="3">
-																		<option *ngFor="let x of supplierCodeList" [ngValue]="x.value">{{x.label}}</option>
-																	</select>
-																	<!-- <p-dropdown class="feePlanBox" [options]="supplierCodeList" required [(ngModel)]="trnGoodReceiveNoteObj.supplierId" #supplierCodeVal="ngModel"
+        <div class="row">
+          <div class="col-md-12">
+            <div class="formContainerSamePage">
+              <form
+                class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm"
+                role="form"
+                novalidate
+                (ngSubmit)="onSubmit(trnGoodReceiveNote)"
+                #trnGoodReceiveNote="ngForm"
+                id="trnGoodReceiveNote"
+              >
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <!-- Basic Details -->
+                        <div class="panel panel-default">
+                          <div class="panel-heading">Basic Details</div>
+                          <div class="panel-body">
+                            <div class="row form-group">
+                              <div class="col-md-6">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <label class="col-md-4 col-sm-4 fieldLabel"
+                                      >Date</label
+                                    >
+                                    <div class="col-md-8 col-sm-8">
+                                      <p-calendar
+                                        class="purchaseOrderDate"
+                                        #grnDateVal="ngModel"
+                                        [(ngModel)]="
+                                          trnGoodReceiveNoteObj.grnDate
+                                        "
+                                        name="grnDate"
+                                        [monthNavigator]="true"
+                                        [yearNavigator]="true"
+                                        tabindex="1"
+                                        yearRange="2015:2030"
+                                        dateFormat="dd/mm/yy"
+                                        [disabled]="disabled"
+                                        styleClass="{{
+                                          grnDateVal.errors && isFormSubmitted
+                                            ? 'red-border-class'
+                                            : ''
+                                        }}"
+                                        autofocus
+                                        required
+                                      ></p-calendar>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <label
+                                      class="col-md-5 col-sm-5 fieldLabel noPadding"
+                                      >GRN No.</label
+                                    >
+                                    <div class="col-md-7 col-sm-7">
+                                      <input
+                                        type="text"
+                                        [(ngModel)]="
+                                          trnGoodReceiveNoteObj.grnNumber
+                                        "
+                                        name="grnNumber"
+                                        class="form-control"
+                                        #orderNoVal="ngModel"
+                                        disabled
+                                        tabindex="2"
+                                        placeholder=""
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <label class="col-md-2 col-sm-2 fieldLabel"
+                                  >Supplier<span class="requiredField">*</span>
+                                </label>
+                                <div
+                                  class="col-md-10 col-sm-10 customerNameBox"
+                                >
+                                  <select
+                                    class="form-control"
+                                    required
+                                    name="supplierId"
+                                    [(ngModel)]="
+                                      trnGoodReceiveNoteObj.supplierId
+                                    "
+                                    #supplierCodeVal="ngModel"
+                                    [disabled]="disabled"
+                                    [ngClass]="{
+                                      'red-border-class':
+                                        supplierCodeVal.errors &&
+                                        isFormSubmitted
+                                    }"
+                                    (ngModelChange)="onChangeSupplier()"
+                                    tabindex="3"
+                                  >
+                                    <option
+                                      *ngFor="let x of supplierCodeList"
+                                      [ngValue]="x.value"
+                                      >{{ x.label }}</option
+                                    >
+                                  </select>
+                                  <!-- <p-dropdown class="feePlanBox" [options]="supplierCodeList" required [(ngModel)]="trnGoodReceiveNoteObj.supplierId" #supplierCodeVal="ngModel"
 																	 required styleClass="{{ supplierCodeVal.errors && isFormSubmitted?'red-border-class':''}}" [style]="{'width':'100%'}" [disabled]="disabled"
 																	 name="supplierCodeDDl" filter="true" tabindex="3"  (ngModelChange)="onChangeSupplier()"></p-dropdown> -->
-																</div>
-															</div>
+                                </div>
+                              </div>
+                            </div>
 
-														</div>
-
-														<div class="row form-group">
-															<div class="col-md-3">
-																<label class="col-md-4 col-sm-4 fieldLabel">Location<span class="requiredField">*</span>
-																</label>
-																<div class="col-md-8 col-sm-8">
-																	<select class="form-control" name="locationId" [(ngModel)]="trnGoodReceiveNoteObj.locationId" required [disabled]="disabled" #locationVal="ngModel" [ngClass]="{'red-border-class': locationVal.errors && isFormSubmitted}" (ngModelChange)="onChangeLocation()"  tabindex="4">
-																		<option *ngFor="let x of locationList" [ngValue]="x.value" [selected]="trnGoodReceiveNoteObj.locationId == x.value">{{x.label}}</option>
-																	</select>
-																	<!-- <p-dropdown class="feePlanBox" [options]="locationList" required [(ngModel)]="trnGoodReceiveNoteObj.locationId" #locationVal="ngModel"
+                            <div class="row form-group">
+                              <div class="col-md-3">
+                                <label class="col-md-4 col-sm-4 fieldLabel"
+                                  >Location<span class="requiredField">*</span>
+                                </label>
+                                <div class="col-md-8 col-sm-8">
+                                  <select
+                                    class="form-control"
+                                    name="locationId"
+                                    [(ngModel)]="
+                                      trnGoodReceiveNoteObj.locationId
+                                    "
+                                    required
+                                    [disabled]="disabled"
+                                    #locationVal="ngModel"
+                                    [ngClass]="{
+                                      'red-border-class':
+                                        locationVal.errors && isFormSubmitted
+                                    }"
+                                    (ngModelChange)="onChangeLocation()"
+                                    tabindex="4"
+                                  >
+                                    <option
+                                      *ngFor="let x of locationList"
+                                      [ngValue]="x.value"
+                                      [selected]="
+                                        trnGoodReceiveNoteObj.locationId ==
+                                        x.value
+                                      "
+                                      >{{ x.label }}</option
+                                    >
+                                  </select>
+                                  <!-- <p-dropdown class="feePlanBox" [options]="locationList" required [(ngModel)]="trnGoodReceiveNoteObj.locationId" #locationVal="ngModel"
 																	 required [style]="{'width':'100%'}" styleClass="{{ locationVal.errors && isFormSubmitted?'red-border-class':''}}"
 																	 name="LocationDDl" filter="true" [disabled]="disabled" tabindex="4" (ngModelChange)="onChangeLocation()"></p-dropdown> -->
-																</div>
-                                                            </div>
-                                                            <div class="col-md-3">
-																		<label class="col-md-5 col-sm-5 fieldLabel noPadding">Total Amount</label>
-																		<div class="col-md-7 col-sm-7">
-																			<label class="orderTypeLabel">{{trnGoodReceiveNoteObj ? (trnGoodReceiveNoteObj.totalAmount | number:'.0') : ''}}</label>
-																		</div>
-															</div>
-															<div class="col-md-6">
-																<label class="col-md-2 col-sm-2 fieldLabel">Courier Details
-																</label>
-																<div class="col-md-10 col-sm-10 customerNameBox">
-																	<textarea class="form-control" name="courierDetails" [disabled]="disabled" [(ngModel)]="trnGoodReceiveNoteObj.courierDetails" tabindex="6"></textarea>
-																</div>
-															</div>
-														</div>
-														<div class="row form-group">
-															<div class="col-md-3">
-															</div>
-															<div class="col-md-3">
-															</div>
-															<div class="col-md-6">
-																<label class="col-md-2 col-sm-2 fieldLabel">Dock-at No.
-																</label>
-																<div class="col-md-10 col-sm-10 customerNameBox">
-																	<input type="text" class="form-control" name="dockatNo" [disabled]="disabled" [(ngModel)]="trnGoodReceiveNoteObj.dockatNo" tabindex="7">
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <label
+                                  class="col-md-5 col-sm-5 fieldLabel noPadding"
+                                  >Total Amount</label
+                                >
+                                <div class="col-md-7 col-sm-7">
+                                  <label class="orderTypeLabel">{{
+                                    trnGoodReceiveNoteObj
+                                      ? (trnGoodReceiveNoteObj.totalAmount
+                                        | number: ".0")
+                                      : ""
+                                  }}</label>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <label class="col-md-2 col-sm-2 fieldLabel"
+                                  >Courier Details
+                                </label>
+                                <div
+                                  class="col-md-10 col-sm-10 customerNameBox"
+                                >
+                                  <textarea
+                                    class="form-control"
+                                    name="courierDetails"
+                                    [disabled]="disabled"
+                                    [(ngModel)]="
+                                      trnGoodReceiveNoteObj.courierDetails
+                                    "
+                                    tabindex="4"
+                                  ></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row form-group">
+                              <div class="col-md-3"></div>
+                              <div class="col-md-3"></div>
+                              <div class="col-md-6">
+                                <label class="col-md-2 col-sm-2 fieldLabel"
+                                  >Dock-at No.
+                                </label>
+                                <div
+                                  class="col-md-10 col-sm-10 customerNameBox"
+                                >
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="dockAtNumber"
+                                    [disabled]="disabled"
+                                    [(ngModel)]="
+                                      trnGoodReceiveNoteObj.dockAtNumber
+                                    "
+                                    tabindex="5"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-										</div>
-
-									</div>
-
-									 <div class="col-md-12">
-										<div class="panel panel-default">
-											<div class="panel-heading">Item Details</div>
-											<div class="panel-body" *ngIf="showUpdateBtn">
-												<div class="row form-group">
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Category<span class="requiredField">*</span></label>
-														<div class="col-md-8 col-sm-8">
-															<select class="form-control" name="categoryId" [(ngModel)]="categoryId" [ngClass]="{'red-border-class': categoryIdError}" (ngModelChange)="onChangeCategory()" tabindex="5">
-																<option *ngFor="let x of categoriesCodeList" [ngValue]="x.value" [selected]="categoryId == x.value">{{x.label}}</option>
-															</select>
-															<!-- <p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="categoryId" [style]="{'width':'100%'}" styleClass="{{categoryIdError?'red-border-class':'' }}"
+                  <div class="col-md-12">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">Item Details</div>
+                      <div class="panel-body" *ngIf="showUpdateBtn">
+                        <div class="row form-group">
+                          <div class="col-md-4">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Category<span class="requiredField"
+                                >*</span
+                              ></label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <select
+                                class="form-control"
+                                name="categoryId"
+                                [(ngModel)]="categoryId"
+                                [ngClass]="{
+                                  'red-border-class': categoryIdError
+                                }"
+                                (ngModelChange)="onChangeCategory()"
+                                tabindex="5"
+                              >
+                                <option
+                                  *ngFor="let x of categoriesCodeList"
+                                  [ngValue]="x.value"
+                                  [selected]="categoryId == x.value"
+                                  >{{ x.label }}</option
+                                >
+                              </select>
+                              <!-- <p-dropdown class="feePlanBox" [options]="categoriesCodeList" [(ngModel)]="categoryId" [style]="{'width':'100%'}" styleClass="{{categoryIdError?'red-border-class':'' }}"
 															 (ngModelChange)="onChangeCategory()" name="categoriesDDl" filter="true" tabindex="5"></p-dropdown> -->
-														</div>
-													</div>
-													<div class="col-md-4" *ngIf="categoryId!=7">
-														<label class="col-md-4 col-sm-4 fieldLabel">Collection<span class="requiredField">*</span></label>
-														<div class="col-md-8 col-sm-8">
-															<select class="form-control" name="collectionId" [(ngModel)]="collectionId" [ngClass]="{'red-border-class': collectionIdError}" (ngModelChange)="onChangeCollection()" tabindex="6">
-																<option *ngFor="let x of collectionList" [ngValue]="x.value" [selected]="collectionId == x.value">{{x.label}}</option>
-															</select>
-															<!-- <p-dropdown class="feePlanBox" [options]="collectionList" [(ngModel)]="collectionId" [style]="{'width':'100%'}" styleClass="{{collectionIdError?'red-border-class': ''}}"
+                            </div>
+                          </div>
+                          <div class="col-md-4" *ngIf="categoryId != 7">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Collection<span class="requiredField"
+                                >*</span
+                              ></label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <select
+                                class="form-control"
+                                name="collectionId"
+                                [(ngModel)]="collectionId"
+                                [ngClass]="{
+                                  'red-border-class': collectionIdError
+                                }"
+                                (ngModelChange)="onChangeCollection()"
+                                tabindex="6"
+                              >
+                                <option
+                                  *ngFor="let x of collectionList"
+                                  [ngValue]="x.value"
+                                  [selected]="collectionId == x.value"
+                                  >{{ x.label }}</option
+                                >
+                              </select>
+                              <!-- <p-dropdown class="feePlanBox" [options]="collectionList" [(ngModel)]="collectionId" [style]="{'width':'100%'}" styleClass="{{collectionIdError?'red-border-class': ''}}"
 															 name="collectionCodeDDl" filter="true" tabindex="6" (ngModelChange)="onChangeCollection()"></p-dropdown> -->
-														</div>
-													</div>
-													<div class="col-md-4" *ngIf="categoryId==1 || categoryId==5 || categoryId==6">
-														<label class="col-md-4 col-sm-4 fieldLabel">Serial No.<span class="requiredField">*</span></label>
-														<div class="col-md-8 col-sm-8">
-															<select class="form-control" name="shadeId" [(ngModel)]="shadeId" [ngClass]="{'red-border-class': shadeIdError}" (ngModelChange)="calculateProductStockDetails()" tabindex="7">
-																<option *ngFor="let x of shadeIdList" [ngValue]="x.value" [selected]="shadeId == x.value">{{x.label}}</option>
-															</select>
-															<!-- <p-dropdown class="feePlanBox" [options]="shadeIdList" [(ngModel)]="shadeId" [style]="{'width':'100%'}" styleClass="{{shadeIdError?'red-border-class':'' }}"
+                            </div>
+                          </div>
+                          <div
+                            class="col-md-4"
+                            *ngIf="
+                              categoryId == 1 ||
+                              categoryId == 5 ||
+                              categoryId == 6
+                            "
+                          >
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Serial No.<span class="requiredField"
+                                >*</span
+                              ></label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <select
+                                class="form-control"
+                                name="shadeId"
+                                [(ngModel)]="shadeId"
+                                [ngClass]="{ 'red-border-class': shadeIdError }"
+                                (ngModelChange)="calculateProductStockDetails()"
+                                tabindex="7"
+                              >
+                                <option
+                                  *ngFor="let x of shadeIdList"
+                                  [ngValue]="x.value"
+                                  [selected]="shadeId == x.value"
+                                  >{{ x.label }}</option
+                                >
+                              </select>
+                              <!-- <p-dropdown class="feePlanBox" [options]="shadeIdList" [(ngModel)]="shadeId" [style]="{'width':'100%'}" styleClass="{{shadeIdError?'red-border-class':'' }}"
 															 name="shadeId" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown> -->
-														</div>
-													</div>
-													<div class="col-md-4" *ngIf="categoryId==4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Mat size<span class="requiredField">*</span></label>
-														<div class="col-md-8 col-sm-8">
-															<select class="form-control" name="matSizeId" [(ngModel)]="matSizeId" [ngClass]="{'red-border-class': matSizeIdError}" (ngModelChange)="calculateProductStockDetails()" tabindex="7">
-																<option *ngFor="let x of matSizeList" [ngValue]="x.value" [selected]="matSizeId == x.value">{{x.label}}</option>
-															</select>
-															<!-- <p-dropdown class="feePlanBox" [options]="matSizeList" [(ngModel)]="matSizeId" [style]="{'width':'100%'}" styleClass="{{matSizeIdError?'red-border-class':'' }}"
+                            </div>
+                          </div>
+                          <div class="col-md-4" *ngIf="categoryId == 4">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Mat size<span class="requiredField"
+                                >*</span
+                              ></label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <select
+                                class="form-control"
+                                name="matSizeId"
+                                [(ngModel)]="matSizeId"
+                                [ngClass]="{
+                                  'red-border-class': matSizeIdError
+                                }"
+                                (ngModelChange)="calculateProductStockDetails()"
+                                tabindex="7"
+                              >
+                                <option
+                                  *ngFor="let x of matSizeList"
+                                  [ngValue]="x.value"
+                                  [selected]="matSizeId == x.value"
+                                  >{{ x.label }}</option
+                                >
+                              </select>
+                              <!-- <p-dropdown class="feePlanBox" [options]="matSizeList" [(ngModel)]="matSizeId" [style]="{'width':'100%'}" styleClass="{{matSizeIdError?'red-border-class':'' }}"
 															 name="matSizeId" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown> -->
-														</div>
-													</div>
-													<div class="col-md-4" *ngIf="categoryId==2">
-														<label class="col-md-4 col-sm-4 fieldLabel">Foam Item<span class="requiredField">*</span></label>
-														<div class="col-md-8 col-sm-8">
-															<select class="form-control" name="fomSizeId" [(ngModel)]="fomSizeId" [ngClass]="{'red-border-class': fomSizeIdError}" (ngModelChange)="calculateProductStockDetails()" tabindex="7">
-																<option *ngFor="let x of fomSizeList" [ngValue]="x.value" [selected]="fomSizeId == x.value">{{x.label}}</option>
-															</select>
-															<!-- <p-dropdown class="feePlanBox" [options]="fomSizeList" [(ngModel)]="fomSizeId" [style]="{'width':'100%'}" styleClass="{{fomSizeIdError?'red-border-class':'' }}"
+                            </div>
+                          </div>
+                          <div class="col-md-4" *ngIf="categoryId == 2">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Foam Item<span class="requiredField"
+                                >*</span
+                              ></label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <select
+                                class="form-control"
+                                name="fomSizeId"
+                                [(ngModel)]="fomSizeId"
+                                [ngClass]="{
+                                  'red-border-class': fomSizeIdError
+                                }"
+                                (ngModelChange)="calculateProductStockDetails()"
+                                tabindex="7"
+                              >
+                                <option
+                                  *ngFor="let x of fomSizeList"
+                                  [ngValue]="x.value"
+                                  [selected]="fomSizeId == x.value"
+                                  >{{ x.label }}</option
+                                >
+                              </select>
+                              <!-- <p-dropdown class="feePlanBox" [options]="fomSizeList" [(ngModel)]="fomSizeId" [style]="{'width':'100%'}" styleClass="{{fomSizeIdError?'red-border-class':'' }}"
 															 name="fomSizeId" filter="true" tabindex="7" (ngModelChange)="calculateProductStockDetails()"></p-dropdown> -->
-														</div>
-													</div>
-													<div class="col-md-4" *ngIf="categoryId==7">
-														<label class="col-md-4 col-sm-4 fieldLabel">Accessory Code<span class="requiredField">*</span></label>
-														<div class="col-md-8 col-sm-8">
-															<select class="form-control" name="accessoryId" [(ngModel)]="accessoryId" [ngClass]="{'red-border-class': accessoryIdError}" (ngModelChange)="calculateProductStockDetails()" tabindex="6">
-																<option *ngFor="let x of accessoryCodeList" [ngValue]="x.value" [selected]="accessoryId == x.value">{{x.label}}</option>
-															</select>
-															<!-- <p-dropdown class="feePlanBox" [options]="accessoryCodeList" [(ngModel)]="accessoryId" [style]="{'width':'100%'}" styleClass="{{accessoryIdError?'red-border-class':'' }}"
+                            </div>
+                          </div>
+                          <div class="col-md-4" *ngIf="categoryId == 7">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Accessory Code<span class="requiredField"
+                                >*</span
+                              ></label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <select
+                                class="form-control"
+                                name="accessoryId"
+                                [(ngModel)]="accessoryId"
+                                [ngClass]="{
+                                  'red-border-class': accessoryIdError
+                                }"
+                                (ngModelChange)="calculateProductStockDetails()"
+                                tabindex="6"
+                              >
+                                <option
+                                  *ngFor="let x of accessoryCodeList"
+                                  [ngValue]="x.value"
+                                  [selected]="accessoryId == x.value"
+                                  >{{ x.label }}</option
+                                >
+                              </select>
+                              <!-- <p-dropdown class="feePlanBox" [options]="accessoryCodeList" [(ngModel)]="accessoryId" [style]="{'width':'100%'}" styleClass="{{accessoryIdError?'red-border-class':'' }}"
 															 name="accessoryId" filter="true" tabindex="6" (ngModelChange)="calculateProductStockDetails()"></p-dropdown> -->
-														</div>
-													</div>
-												</div>
-												<div class="row form-group" *ngIf="categoryId==4 && matSizeId==-1">
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Quality<span class="requiredField">*</span></label>
-														<div class="col-md-8 col-sm-8">
-															<select class="form-control" name="qualityId" [(ngModel)]="qualityId" [ngClass]="{'red-border-class': qualityIdError}" (ngModelChange)="onQualityClick()" tabindex="8">
-																<option *ngFor="let x of qualityList" [ngValue]="x.value" [selected]="qualityId == x.value">{{x.label}}</option>
-															</select>
-															<!-- <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="qualityId"
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="row form-group"
+                          *ngIf="categoryId == 4 && matSizeId == -1"
+                        >
+                          <div class="col-md-4">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Quality<span class="requiredField"
+                                >*</span
+                              ></label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <select
+                                class="form-control"
+                                name="qualityId"
+                                [(ngModel)]="qualityId"
+                                [ngClass]="{
+                                  'red-border-class': qualityIdError
+                                }"
+                                (ngModelChange)="onQualityClick()"
+                                tabindex="8"
+                              >
+                                <option
+                                  *ngFor="let x of qualityList"
+                                  [ngValue]="x.value"
+                                  [selected]="qualityId == x.value"
+                                  >{{ x.label }}</option
+                                >
+                              </select>
+                              <!-- <p-dropdown class="feePlanBox" [options]="qualityList" [style]="{'width':'100%'}" [(ngModel)]="qualityId"
 															 styleClass="{{qualityIdError?'red-border-class':'' }}"  (ngModelChange)="onQualityClick()"
 															 name="qualityId"  filter="true" tabindex="8"></p-dropdown> -->
-														</div>
-													</div>
-													<div class="col-md-4">
-														<label class="fieldLabel col-md-4 col-sm-4">Thickness<span class="requiredField">*</span></label>
-														<div class="col-md-8 col-sm-8">
-															<select class="form-control" name="matThicknessId" [(ngModel)]="matThicknessId" [ngClass]="{'red-border-class': matThicknessIdError}" (ngModelChange)="onThicknessChange()" tabindex="8">
-																<option *ngFor="let x of thicknessList" [ngValue]="x.value" [selected]="matThicknessId == x.value">{{x.label}}</option>
-															</select>
-															 <!-- <p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="matThicknessId" (ngModelChange)="onThicknessChange()"
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="fieldLabel col-md-4 col-sm-4"
+                              >Thickness<span class="requiredField"
+                                >*</span
+                              ></label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <select
+                                class="form-control"
+                                name="matThicknessId"
+                                [(ngModel)]="matThicknessId"
+                                [ngClass]="{
+                                  'red-border-class': matThicknessIdError
+                                }"
+                                (ngModelChange)="onThicknessChange()"
+                                tabindex="8"
+                              >
+                                <option
+                                  *ngFor="let x of thicknessList"
+                                  [ngValue]="x.value"
+                                  [selected]="matThicknessId == x.value"
+                                  >{{ x.label }}</option
+                                >
+                              </select>
+                              <!-- <p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="matThicknessId" (ngModelChange)="onThicknessChange()"
 															 styleClass="{{matThicknessIdError?'red-border-class':'' }}" name="matThicknessId"  filter="true" tabindex="8" ></p-dropdown> -->
-														</div>
-														<!-- <label class="col-md-4 col-sm-4 fieldLabel">Length x Width<span class="requiredField">*</span></label>
+                            </div>
+                            <!-- <label class="col-md-4 col-sm-4 fieldLabel">Length x Width<span class="requiredField">*</span></label>
 														<div class="col-md-3 col-sm-3">
 															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': lengthError}"
 															 [(ngModel)]="length" name="length" placeholder="" (blur)="onMatSizeCodeChange()" autocomplete="off" tabindex="8">
@@ -260,200 +543,361 @@
 															<input type="text" class="form-control" OnlyNumber="true" DecimalPlaces="0" minValue="0" maxValue="999" [ngClass]="{'red-border-class': widthError}"
 															 (blur)="calculateSizeCode();" [(ngModel)]="width" name="width" placeholder="" (blur)="onMatSizeCodeChange()" autocomplete="off" tabindex="8">
 														</div> -->
-													</div>
-													<div class="col-md-4">
-														<!-- <label class="fieldLabel col-md-4 col-sm-4">Thickness<span class="requiredField">*</span></label>
+                          </div>
+                          <div class="col-md-4">
+                            <!-- <label class="fieldLabel col-md-4 col-sm-4">Thickness<span class="requiredField">*</span></label>
 														<div class="col-md-8 col-sm-8">
 															 <p-dropdown class="feePlanBox" [options]="thicknessList" [style]="{'width':'100%'}" [(ngModel)]="matThicknessId" (ngModelChange)="onThicknessChange()"
 															 styleClass="{{matThicknessIdError?'red-border-class':'' }}" name="matSizeIdval"  filter="true" tabindex="8" ></p-dropdown>
 														</div> -->
-														<label class="fieldLabel col-md-4 col-sm-4">MatSizeCode<span class="requiredField">*</span></label>
-														<div class="col-md-8 col-sm-8">
-															<select class="form-control" name="matSizeCode" [(ngModel)]="matSizeCode" [ngClass]="{'red-border-class': matSizeCodeError}" (ngModelChange)="onMatSizeCodeChange()" tabindex="8">
-																<option *ngFor="let x of matSizeCodeList" [ngValue]="x.value" [selected]="matSizeCode == x.value">{{x.label}}</option>
-															</select>
-															 <!-- <p-dropdown class="feePlanBox" [options]="matSizeCodeList" [style]="{'width':'100%'}" [(ngModel)]="matSizeCode"
+                            <label class="fieldLabel col-md-4 col-sm-4"
+                              >MatSizeCode<span class="requiredField"
+                                >*</span
+                              ></label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <select
+                                class="form-control"
+                                name="matSizeCode"
+                                [(ngModel)]="matSizeCode"
+                                [ngClass]="{
+                                  'red-border-class': matSizeCodeError
+                                }"
+                                (ngModelChange)="onMatSizeCodeChange()"
+                                tabindex="8"
+                              >
+                                <option
+                                  *ngFor="let x of matSizeCodeList"
+                                  [ngValue]="x.value"
+                                  [selected]="matSizeCode == x.value"
+                                  >{{ x.label }}</option
+                                >
+                              </select>
+                              <!-- <p-dropdown class="feePlanBox" [options]="matSizeCodeList" [style]="{'width':'100%'}" [(ngModel)]="matSizeCode"
 															 styleClass="{{matSizeCodeError?'red-border-class':'' }}" name="matSizeCode"  (ngModelChange)="onMatSizeCodeChange()" filter="true" tabindex="8" ></p-dropdown> -->
-														</div>
-													</div>
-												</div>
+                            </div>
+                          </div>
+                        </div>
 
-												<div class="row form-group">
-													<div class="col-md-4">
-														<label class="fieldLabel col-md-4 col-sm-4">Purchase Order No.<span class="requiredField">*</span></label>
-														<div class="col-md-8 col-sm-8">
-															<select class="form-control" name="purchaseOrderId" [(ngModel)]="purchaseOrderId" [ngClass]="{'red-border-class': purchaseOrderIdIdError}" (ngModelChange)="onPuchaseOrderChange()" tabindex="8">
-																<option *ngFor="let x of purchaseOrderList" [ngValue]="x.value" [selected]="purchaseOrderId == x.value">{{x.label}}</option>
-															</select>
-															 <!-- <p-dropdown class="feePlanBox" [options]="purchaseOrderList" [style]="{'width':'100%'}" [(ngModel)]="purchaseOrderId"
+                        <div class="row form-group">
+                          <div class="col-md-4">
+                            <label class="fieldLabel col-md-4 col-sm-4"
+                              >Purchase Order No.<span class="requiredField"
+                                >*</span
+                              ></label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <select
+                                class="form-control"
+                                name="purchaseOrderId"
+                                [(ngModel)]="purchaseOrderId"
+                                [ngClass]="{
+                                  'red-border-class': purchaseOrderIdIdError
+                                }"
+                                (ngModelChange)="onPuchaseOrderChange()"
+                                tabindex="8"
+                              >
+                                <option
+                                  *ngFor="let x of purchaseOrderList"
+                                  [ngValue]="x.value"
+                                  [selected]="purchaseOrderId == x.value"
+                                  >{{ x.label }}</option
+                                >
+                              </select>
+                              <!-- <p-dropdown class="feePlanBox" [options]="purchaseOrderList" [style]="{'width':'100%'}" [(ngModel)]="purchaseOrderId"
 															 styleClass="{{purchaseOrderIdIdError?'red-border-class':'' }}" name="purchaseOrderIdval"  filter="true"
 															 (ngModelChange)="onPuchaseOrderChange()" tabindex="8"></p-dropdown> -->
-														</div>
-													</div>
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Or. Quantity</label>
-														<div class="col-md-6 col-sm-6">
-															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="99999"
-															 [(ngModel)]="orderQuantity" name="orderQuantity" disabled placeholder="">
-														</div>
-														<label class="orderTypeLabel">{{orderType}}</label>
-													</div>
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Rate</label>
-														<div class="col-md-6 col-sm-6">
-															<label class="orderTypeLabel">{{rate ? (rate | number:'.0') : ''}}</label>
-														</div>
-													</div>
-												</div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Or. Quantity</label
+                            >
+                            <div class="col-md-6 col-sm-6">
+                              <input
+                                class="form-control"
+                                OnlyNumber="true"
+                                DecimalPlaces="0"
+                                autocomplete="off"
+                                minValue="0"
+                                maxValue="99999"
+                                [(ngModel)]="orderQuantity"
+                                name="orderQuantity"
+                                disabled
+                                placeholder=""
+                              />
+                            </div>
+                            <label class="orderTypeLabel">{{
+                              orderType
+                            }}</label>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Rate</label
+                            >
+                            <div class="col-md-6 col-sm-6">
+                              <label class="orderTypeLabel">{{
+                                rate ? (rate | number: ".0") : ""
+                              }}</label>
+                            </div>
+                          </div>
+                        </div>
 
-												<div class="row form-group">
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Disc. %</label>
-														<div class="col-md-8 col-sm-8">
-															<label class="orderTypeLabel">{{purchaseDiscount}}</label>
-														</div>
-													</div>
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Rec. Quantity<span class="requiredField">*</span></label>
-														<div class="col-md-8 col-sm-8">
-															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': orderQuantityError}"
-															 [(ngModel)]="receivedQuantity" name="receivedQuantity" tabindex="9" placeholder="" (blur)="changeRecivedQuantity()">
-														</div>
-													</div>
-													<div class="col-md-4" *ngIf="categoryId==2">
-														<label class="col-md-4 col-sm-4 fieldLabel">Foam Quantity(KG)<span class="requiredField">*</span></label>
-														<div class="col-md-8 col-sm-8">
-															<input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="99999" [ngClass]="{'red-border-class': fomQuantityInKGError}"
-															 [(ngModel)]="fomQuantityInKG" (input)="onFomQuantityInKGChange()" name="fomQuantityInKG" tabindex="10" placeholder="">
-														</div>
-													</div>
-												</div>
+                        <div class="row form-group">
+                          <div class="col-md-4">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Disc. %</label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <label class="orderTypeLabel">{{
+                                purchaseDiscount
+                              }}</label>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Rec. Quantity<span class="requiredField"
+                                >*</span
+                              ></label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <input
+                                class="form-control"
+                                OnlyNumber="true"
+                                DecimalPlaces="0"
+                                autocomplete="off"
+                                minValue="0"
+                                maxValue="99999"
+                                [ngClass]="{
+                                  'red-border-class': orderQuantityError
+                                }"
+                                [(ngModel)]="receivedQuantity"
+                                name="receivedQuantity"
+                                tabindex="9"
+                                placeholder=""
+                                (blur)="changeRecivedQuantity()"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-4" *ngIf="categoryId == 2">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Foam Quantity(KG)<span class="requiredField"
+                                >*</span
+                              ></label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <input
+                                class="form-control"
+                                OnlyNumber="true"
+                                DecimalPlaces="0"
+                                autocomplete="off"
+                                minValue="0"
+                                maxValue="99999"
+                                [ngClass]="{
+                                  'red-border-class': fomQuantityInKGError
+                                }"
+                                [(ngModel)]="fomQuantityInKG"
+                                (input)="onFomQuantityInKGChange()"
+                                name="fomQuantityInKG"
+                                tabindex="10"
+                                placeholder=""
+                              />
+                            </div>
+                          </div>
+                        </div>
 
-												<div class="row form-group">
-													<!-- <div class="col-md-4">
+                        <div class="row form-group">
+                          <!-- <div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Rate</label>
 														<div class="col-md-8 col-sm-8">
 															<input class="form-control" [(ngModel)]="rateWithGST" disabled name="rateWithGST">
 														</div>
 													</div> -->
-													<!-- <div class="col-md-4">
+                          <!-- <div class="col-md-4">
 														<label class="col-md-4 col-sm-4 fieldLabel">Order Type</label>
 														<div class="col-md-8 col-sm-8">
 															<label class="orderTypeLabel">{{orderType}}</label>
 														</div>
 													</div> -->
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">GST %</label>
-														<div class="col-md-8 col-sm-8">
-															<label class="orderTypeLabel">{{gst}}</label>
-														</div>
-													</div>
-													<div class="col-md-4">
-														<label class="col-md-4 col-sm-4 fieldLabel">Amount(GST)</label>
-														<div class="col-md-8 col-sm-8">
-															<label class="orderTypeLabel">{{amountWithGST ? (amountWithGST | number:'.0') : ''}}</label>
-														</div>
-													</div>
-												</div>
+                          <div class="col-md-4">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >GST %</label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <label class="orderTypeLabel">{{ gst }}</label>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="col-md-4 col-sm-4 fieldLabel"
+                              >Amount(GST)</label
+                            >
+                            <div class="col-md-8 col-sm-8">
+                              <label class="orderTypeLabel">{{
+                                amountWithGST
+                                  ? (amountWithGST | number: ".0")
+                                  : ""
+                              }}</label>
+                            </div>
+                          </div>
+                        </div>
 
-												<div class="m-form__actions m-form__actions--solid formTopActionBtnBox formAddItemBox">
-													<input type="button" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" value="Add To List" tabindex="11"
-													 (click)="addItemToList()" />
-													<input type="button" class="btn btn-secondary" value="Cancel" (click)="onCancelItemDetails()" tabindex="12">
-												</div>
-											</div>
-										</div>
-									</div> 
-								</div>
-							</form>
-							<div class="row">
-								<div class="col-md-12">
-									<table class="staticTable" id="">
-										<thead>
-											<tr>
-												<th class="aligncenter">
-													PO No.
-												</th>
-												<th title="">
-													Category
-												</th>
-												<th title="" class="alignleft">
-													Collection
-												</th>
-												<th title="" class="alignleft">
-													Accessory
-												</th>
-												<th title="" class="alignleft">
-													Serial No/Size
-												</th>
-												<th title="" class="aligncenter">
-													Ordered Qty
-												</th>
-												<th title="" class="aligncenter">
-													Received Qty
-												</th>
-												<!-- <th title="">
+                        <div
+                          class="m-form__actions m-form__actions--solid formTopActionBtnBox formAddItemBox"
+                        >
+                          <input
+                            type="button"
+                            class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"
+                            value="Add To List"
+                            tabindex="11"
+                            (click)="addItemToList()"
+                          />
+                          <input
+                            type="button"
+                            class="btn btn-secondary"
+                            value="Cancel"
+                            (click)="onCancelItemDetails()"
+                            tabindex="12"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="row">
+                <div class="col-md-12">
+                  <table class="staticTable" id="">
+                    <thead>
+                      <tr>
+                        <th class="aligncenter">
+                          PO No.
+                        </th>
+                        <th title="">
+                          Category
+                        </th>
+                        <th title="" class="alignleft">
+                          Collection
+                        </th>
+                        <th title="" class="alignleft">
+                          Accessory
+                        </th>
+                        <th title="" class="alignleft">
+                          Serial No/Size
+                        </th>
+                        <th title="" class="aligncenter">
+                          Ordered Qty
+                        </th>
+                        <th title="" class="aligncenter">
+                          Received Qty
+                        </th>
+                        <!-- <th title="">
 													Order Type
 												</th> -->
-												<th title="" class="alignright">
-													Amount(GST)
-												</th>
-												<th title=""  *ngIf="showUpdateBtn" class="aligncenter">
-													Action
-												</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr *ngIf="trnGoodReceiveNoteItems.length==0">
-												<td colspan="5">
-													No Record Found
-												</td>
-											</tr>
-											<tr *ngFor="let row of trnGoodReceiveNoteItems;let rowNum=index;let lastRowNum=last;">
-												<td class="aligncenter">{{row.purchaseOrderNumber}}</td>
-												<td class="alignleft">{{row.categoryName}}</td>
-												<td class="alignleft">{{row.collectionId ? row.collectionName:''}}</td>
-												<td class="alignleft">{{row.accessoryId ? row.accessoryName : ''}}</td>
-												<td class="alignleft">{{row.serialno}} {{row.size}}</td>
-												<td class="aligncenter"> {{row.orderQuantity}}</td>
-												<td class="aligncenter">{{row.receivedQuantity}}</td>
-												<!-- <td>{{row.orderType}}</td> -->
-												<td class="alignright">{{row ? (row.amountWithGST | number:'.0') : ''}}</td>
-												<td  *ngIf="showUpdateBtn && (row.enable || row.id || !row.id)" >
-													<div class="">
-														<!-- <button title="Edit" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+                        <th title="" class="alignright">
+                          Amount(GST)
+                        </th>
+                        <th title="" *ngIf="showUpdateBtn" class="aligncenter">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngIf="trnGoodReceiveNoteItems.length == 0">
+                        <td colspan="5">
+                          No Record Found
+                        </td>
+                      </tr>
+                      <tr
+                        *ngFor="
+                          let row of trnGoodReceiveNoteItems;
+                          let rowNum = index;
+                          let lastRowNum = last
+                        "
+                      >
+                        <td class="aligncenter">
+                          {{ row.purchaseOrderNumber }}
+                        </td>
+                        <td class="alignleft">{{ row.categoryName }}</td>
+                        <td class="alignleft">
+                          {{ row.collectionId ? row.collectionName : "" }}
+                        </td>
+                        <td class="alignleft">
+                          {{ row.accessoryId ? row.accessoryName : "" }}
+                        </td>
+                        <td class="alignleft">
+                          {{ row.serialno }} {{ row.size }}
+                        </td>
+                        <td class="aligncenter">{{ row.orderQuantity }}</td>
+                        <td class="aligncenter" *ngIf="showUpdateStr">
+                          {{ row.receivedQuantity }}
+                        </td>
+                        <td class="aligncenter" *ngIf="showUpdateBtn">
+                          <input
+                            class="form-control"
+                            OnlyNumber="true"
+                            DecimalPlaces="0"
+                            autocomplete="off"
+                            minValue="0"
+                            maxValue="99999"
+                            [(ngModel)]="row.receivedQuantity"
+                            name="{{ 'receivedQuantity' + rowNum }}"
+                            tabindex="13"
+                            placeholder=""
+                            (blur)="changeReceivedQuantity(row, rowNum)"
+                          />
+                        </td>
+
+                        <!-- <td>{{row.orderType}}</td> -->
+                        <td class="alignright">
+                          {{ row ? (row.amountWithGST | number: ".0") : "" }}
+                        </td>
+                        <td
+                          *ngIf="
+                            showUpdateBtn && (row.enable || row.id || !row.id)
+                          "
+                        >
+                          <div class="">
+                            <!-- <button title="Edit" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
 															*ngIf="!row.enable" (click)="enableEdit(row)">
 															<i class="la la-edit" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 														</button> -->
-														<!-- <button title="Cancel" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+                            <!-- <button title="Cancel" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
 														*ngIf="row.enable" (click)="cancelEdit(row)">
 														<i class="la la-undo" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 													</button> -->
-														<button title="Delete" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
-														 *ngIf="showUpdateBtn && (row.enable || row.id || !row.id)"  (click)="onDeleteItemDetails(row.id,rowNum)">
-															<i class="la la-close" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
-														</button>
-														<!-- <button title="Save" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+                            <button
+                              title="Delete"
+                              type="button"
+                              class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
+                              *ngIf="
+                                showUpdateBtn &&
+                                (row.enable || row.id || !row.id)
+                              "
+                              (click)="onDeleteItemDetails(row.id, rowNum)"
+                            >
+                              <i
+                                class="la la-close"
+                                style="vertical-align: middle;margin-top: -2px;margin-right: 0;"
+                              ></i>
+                            </button>
+                            <!-- <button title="Save" type="button" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"
 															*ngIf="row.enable ||!row.id" (click)="onSaveItemDetails(row,isDefaultSelected)">
 															<i class="la la-save" style="vertical-align: middle;margin-top: -2px;margin-right: 0;"></i>
 														</button> -->
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-
-
-				<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
-			</div>
-			<!--end::Portlet-->
-		</div>
-	</div>
+        <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+      </div>
+      <!--end::Portlet-->
+    </div>
+  </div>
 </div>

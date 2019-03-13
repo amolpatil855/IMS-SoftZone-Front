@@ -137,12 +137,12 @@ export class TrnSalesInvoiceAddEditComponent implements OnInit {
           this.customerAddresses = results.trnSaleOrder.mstCustomer.mstCustomerAddresses;
           customerInMH = _.find(this.customerAddresses, function(o) { return o.state == "Maharashtra" && o.id == results.trnSaleOrder.shippingAddressId; });
           this.customerShippingAddress = _.find(this.customerAddresses, function(o) { return o.id == results.trnSaleOrder.shippingAddressId; });
-        } else if(results.trnMaterialQuotation != null) {
+        } else if (results.trnMaterialQuotation != null) {
           this.orderNumber = results.trnMaterialQuotation.materialQuotationNumber;
           this.customerAddresses = results.trnMaterialQuotation.mstCustomer.mstCustomerAddresses;
           customerInMH = _.find(this.customerAddresses, function(o) { return o.state == "Maharashtra" && o.isPrimary == true; });
           this.customerShippingAddress = _.find(this.customerAddresses, function(o) { return o.isPrimary == true; });
-        } else if(results.trnCurtainQuotation != null) {
+        } else if (results.trnCurtainQuotation != null) {
           this.orderNumber = results.trnCurtainQuotation.curtainQuotationNumber;
           this.customerAddresses = results.trnCurtainQuotation.mstCustomer.mstCustomerAddresses;
           customerInMH = _.find(this.customerAddresses, function(o) { return o.state == "Maharashtra" && o.isPrimary == true; });

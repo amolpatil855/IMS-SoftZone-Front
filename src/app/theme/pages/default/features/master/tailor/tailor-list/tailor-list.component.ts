@@ -132,7 +132,7 @@ export class TailorListComponent implements OnInit {
       results => {
         this.tailorObj = results;
         let vm = this;
-        _.forEach(this.tailorObj.mstTailorPatternChargeDetails, function (selectedItem) {
+        _.forEach(this.tailorObj.mstTailorPatternChargeDetails, function(selectedItem) {
           let poItemObj = _.find(vm.patternChargeList, { 'patternId': selectedItem.patternId });
           if (poItemObj != null) {
             if (id == selectedItem.tailorId && poItemObj.patternId == selectedItem.patternId)
@@ -175,7 +175,7 @@ export class TailorListComponent implements OnInit {
           Helpers.setLoading(false);
         });
     } else {
-      _.forEach(value.MstTailorPatternChargeDetails, function (selectedItem) {
+      _.forEach(value.MstTailorPatternChargeDetails, function(selectedItem) {
         if (selectedItem.mstPattern != null)
           selectedItem.mstPattern = null;
       });

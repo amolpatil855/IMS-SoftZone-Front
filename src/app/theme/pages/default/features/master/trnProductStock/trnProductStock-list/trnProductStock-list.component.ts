@@ -311,7 +311,7 @@ export class TrnProductStockListComponent implements OnInit {
   onSubmit({ value, valid }: { value: any, valid: boolean }) {
 
     this.isFormSubmitted = true;
-    
+
 
     if (!valid)
       return;
@@ -330,11 +330,11 @@ export class TrnProductStockListComponent implements OnInit {
 
     if (parseFloat(this.trnProductStockObj.stock) > 0 || parseFloat(this.trnProductStockObj.stockInKg) > 0) {
       this.saveTrnProductStock(this.trnProductStockObj);
-    }else{
+    } else {
       this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Stock value must be greater than zero." });
       return false;
     }
-    
+
   }
 
   saveTrnProductStock(value) {

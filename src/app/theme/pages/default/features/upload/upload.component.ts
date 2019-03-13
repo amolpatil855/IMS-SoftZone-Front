@@ -26,12 +26,12 @@ export class UploadComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    
-  ) {}
+
+  ) { }
 
   ngOnInit() {
-    
+
   }
 
-  
+
 }

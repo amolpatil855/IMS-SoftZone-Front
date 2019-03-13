@@ -104,33 +104,34 @@
                                                                         <div class="col-md-7 col-sm-7">
                                                                             <!-- <input type="text" [(ngModel)]="trnGoodIssueNoteObj.salesOrderNumber" name="salesOrderNumber" class="form-control" #salesOrderNumberVal="ngModel"
                                                                                 readonly tabindex="3" placeholder=""> -->
-                                                                            {{trnGoodIssueNoteObj.salesOrderNumber || trnGoodIssueNoteObj.materialQuotationNumber || trnGoodIssueNoteObj.workOrderNumber
-                                                                            }}
+                                                                                <label class="labelFeild">{{trnGoodIssueNoteObj.salesOrderNumber || trnGoodIssueNoteObj.materialQuotationNumber || trnGoodIssueNoteObj.workOrderNumber}}</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label class="col-md-5 col-sm-5 fieldLabel">Customer</label>
                                                                         <div class="col-md-7 col-sm-7 customerNameBox">
 
-                                                                            <label>{{ trnGoodIssueNoteObj.mstCustomer?trnGoodIssueNoteObj.mstCustomer.name:''}}</label>
+                                                                            <label class="labelFeild">{{ trnGoodIssueNoteObj.mstCustomer ? trnGoodIssueNoteObj.mstCustomer.name:''}}</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <label class="col-md-2 col-sm-2 fieldLabel">Courier Details
+                                                                    <div class="col-md-3">
+                                                                        <label class="col-md-4 col-sm-4 fieldLabel">Courier Details
 																        </label>
-                                                                        <div class="col-md-10 col-sm-10 customerNameBox">
-                                                                            <textarea class="form-control" name="courierDetails" [disabled]="disabled" [(ngModel)]="trnGoodIssueNoteObj.courierDetails"
-                                                                                tabindex="5"></textarea>
+                                                                        <div class="col-md-8 col-sm-8">
+                                                                                <label class="labelFeild">{{ trnGoodIssueNoteObj.trnSaleOrder ? trnGoodIssueNoteObj.trnSaleOrder.courierDetails:''}}</label>
+                                                                            <!-- <textarea class="form-control" name="courierDetails" [disabled]="disabled" [(ngModel)]="trnGoodIssueNoteObj.courierDetails"
+                                                                                tabindex="5"></textarea> -->
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-6">
-                                                                        <label class="col-md-3 col-sm-3 fieldLabel">Dock-at No.
+                                                                    <div class="col-md-3">
+                                                                        <label class="col-md-5 col-sm-5 fieldLabel noPadding">Dock-at No.
 																        </label>
-                                                                        <div class="col-md-9 col-sm-9 customerNameBox">
-                                                                            <input type="text" class="form-control" name="dockatNo" [disabled]="disabled" [(ngModel)]="trnGoodIssueNoteObj.dockatNo"
-                                                                                tabindex="6">
+                                                                        <div class="col-md-7 col-sm-7">
+                                                                                <label class="labelFeild">{{ trnGoodIssueNoteObj.trnSaleOrder ? trnGoodIssueNoteObj.trnSaleOrder.dockAtNumber:''}}</label>
+                                                                            <!-- <input type="text" class="form-control" name="dockatNo" [disabled]="disabled" [(ngModel)]="trnGoodIssueNoteObj.dockatNo"
+                                                                                tabindex="6"> -->
                                                                         </div>
                                                                     </div>
                                                                 </div>

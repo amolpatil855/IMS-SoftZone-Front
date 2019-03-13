@@ -61,8 +61,8 @@
 					<div class="m-section">
 						<div class="m-section__content">
 							<div class="ui-widget-header" style="border-bottom: 0 none">
-								<select class="form-control" name="selectPO" [(ngModel)]="SelectPO" style="max-width: 220px;display: inline !important;float: left;">
-									 <option *ngFor="let x of trnPurchaseOrderList" [ngValue]="x.id" [selected]="SelectPO == x.id">{{x.orderNumber}}</option> 
+								<select class="form-control" name="selectPO" [(ngModel)]="SelectPO" style="max-width: 220px;display: inline !important;float: left;" (ngModelChange)="onAddGoodReceiveNote()">
+									 <option *ngFor="let x of trnPurchaseOrderList" [ngValue]="x.value" [selected]="SelectPO == x.value">{{x.label}}</option> 
 									
 								</select>
 								<i class="fa fa-search searchIcon"></i>
@@ -99,7 +99,7 @@
 								<p-column field="locationCode" header="Location" [style]="{'text-align':'left'}"></p-column>
 								<p-column field="totalAmount" header="Total" [style]="{'text-align':'right'}">
 									<ng-template let-col let-data="rowData" pTemplate="body">
-										{{data[col.field] ? (data[col.field] | number:'.0') : ''}}
+										{{data[col.field] ? (data[col.field] | number:'.0') : 0}}	
 									</ng-template>
 								</p-column>
 								<p-column styleClass="col-button" [style]="{'text-align':'center'}">

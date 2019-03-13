@@ -17,6 +17,10 @@ export class TrnGoodReceiveNoteService {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnGoodReceiveNote?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getPendingPO(){
+    return this.http.get(AppSettings.API_ENDPOINT + 'TrnGoodReceiveNote/GetPendingPO', AppSettings.requestOptions()).map((response: Response) => response.json()); 
+  }
+
   getPOListForSelectedItem(categoryId, collectionId, parameterId, matSizeCode, matQualityId, matThicknessId) {
     return this.http.get(AppSettings.API_ENDPOINT + 'TrnGoodReceiveNote/GetPOListForSelectedItem?categoryId=' + categoryId + '&collectionId=' + collectionId + '&parameterId=' + parameterId + '&matSizeCode=' + matSizeCode + '&matQualityId=' + matQualityId + '&matThicknessId=' + matThicknessId, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

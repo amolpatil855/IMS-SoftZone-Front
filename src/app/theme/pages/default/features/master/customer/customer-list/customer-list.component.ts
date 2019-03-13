@@ -60,7 +60,7 @@ export class CustomerListComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private commonService: CommonService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.states = this.commonService.states;
@@ -166,7 +166,7 @@ export class CustomerListComponent implements OnInit {
               severity: "error",
               summary: "Error",
               detail:
-                "Not able to delete the address due to reference exist with another record."
+              "Not able to delete the address due to reference exist with another record."
             });
             Helpers.setLoading(false);
           }
@@ -182,6 +182,19 @@ export class CustomerListComponent implements OnInit {
     this.toggleDiv = !this.toggleDiv;
     if (this.toggleDiv && !this.params) {
       this.newRecord();
+      this.customerService
+      .getCustomerCode()
+      .subscribe(
+      results => {
+        if(results)
+          this.customerObj.code = results;
+        else
+        this.customerObj.code = "";
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+      }
+      );
     }
   }
   onCancel() {
@@ -193,17 +206,17 @@ export class CustomerListComponent implements OnInit {
     this.customerService
       .getAllCustomers(this.pageSize, this.page, this.search)
       .subscribe(
-        results => {
-          this.customerList = results.data;
-          this.totalCount = results.totalCount;
-          if (this.totalCount == 0) {
-            this.tableEmptyMesssage = "No Records Found";
-          }
-        },
-        error => {
+      results => {
+        this.customerList = results.data;
+        this.totalCount = results.totalCount;
+        if (this.totalCount == 0) {
           this.tableEmptyMesssage = "No Records Found";
-          this.globalErrorHandler.handleError(error);
         }
+      },
+      error => {
+        this.tableEmptyMesssage = "No Records Found";
+        this.globalErrorHandler.handleError(error);
+      }
       );
   }
   loadLazy(event: LazyLoadEvent) {
@@ -469,7 +482,7 @@ export class CustomerListComponent implements OnInit {
           }
         );
       },
-      reject: () => {}
+      reject: () => { }
     });
   }
   onCheckClick() {
@@ -479,7 +492,7 @@ export class CustomerListComponent implements OnInit {
       this.customerObj.userName = "";
     }
   }
-  onCode(){
+  onCode() {
     this.customerObj.userName = this.customerObj.code;
   }
 }

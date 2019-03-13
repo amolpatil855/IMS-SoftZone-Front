@@ -1,3 +1,3 @@
-export class TrnWorkOrder{
-    id: number;
+export class TrnWorkOrder {
+  id: number;
 }

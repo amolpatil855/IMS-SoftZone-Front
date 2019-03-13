@@ -57,7 +57,7 @@ export class TrnAdvancePaymentListComponent implements OnInit {
       });
   }
 
-  onChangeQuotationType(){
+  onChangeQuotationType() {
     this.page = 0;
     this.getTrnAdvancePaymentsList();
   }

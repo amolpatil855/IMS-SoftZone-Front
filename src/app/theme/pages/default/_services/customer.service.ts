@@ -17,6 +17,10 @@ export class CustomerService {
     return this.http.get(AppSettings.API_ENDPOINT + 'Customer?pageSize=' + pageSize + '&page=' + page + '&search=' + search, AppSettings.requestOptions()).map((response: Response) => response.json());
   }
 
+  getCustomerCode(){
+    return this.http.get(AppSettings.API_ENDPOINT + 'Customer/GetCustomerCode', AppSettings.requestOptions()).map((response: Response) => response.json()); 
+  }
+
   getCustomerById(id: number) {
     return this.http.get(AppSettings.API_ENDPOINT + 'Customer/' + id, AppSettings.requestOptions()).map((response: Response) => response.json());
   }

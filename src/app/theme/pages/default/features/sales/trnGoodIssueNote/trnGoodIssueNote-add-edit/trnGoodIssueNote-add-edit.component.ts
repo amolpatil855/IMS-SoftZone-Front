@@ -1,25 +1,37 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
-import * as _ from 'lodash/index';
-import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
-import { ConfirmationService, DataTableModule, LazyLoadEvent, SelectItem, TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/primeng';
-import { GlobalErrorHandler } from '../../../../../../../_services/error-handler.service';
-import { MessageService } from '../../../../../../../_services/message.service';
-import { TrnGoodIssueNoteService } from '../../../../_services/trnGoodIssueNote.service';
-import { ScriptLoaderService } from '../../../../../../../_services/script-loader.service';
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { ActivatedRoute, Router, Params } from "@angular/router";
+import { Observable } from "rxjs/Rx";
+import * as _ from "lodash/index";
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  FormArray,
+  FormControl
+} from "@angular/forms";
+import {
+  ConfirmationService,
+  DataTableModule,
+  LazyLoadEvent,
+  SelectItem,
+  TRISTATECHECKBOX_VALUE_ACCESSOR
+} from "primeng/primeng";
+import { GlobalErrorHandler } from "../../../../../../../_services/error-handler.service";
+import { MessageService } from "../../../../../../../_services/message.service";
+import { TrnGoodIssueNoteService } from "../../../../_services/trnGoodIssueNote.service";
+import { ScriptLoaderService } from "../../../../../../../_services/script-loader.service";
 import { Helpers } from "../../../../../../../helpers";
 import { TrnGoodIssueNote } from "../../../../_models/trnGoodIssueNote";
-import { SupplierService } from '../../../../_services/supplier.service';
-import { CommonService } from '../../../../_services/common.service';
-import { CollectionService } from '../../../../_services/collection.service';
-import { TrnProductStockService } from '../../../../_services/trnProductStock.service';
-import { MatSizeService } from '../../../../_services/matSize.service';
-import { TrnGINForItemsWithStockAvailableService } from '../../../../_services/trnGINForItemsWithStockAvailable.service';
+import { SupplierService } from "../../../../_services/supplier.service";
+import { CommonService } from "../../../../_services/common.service";
+import { CollectionService } from "../../../../_services/collection.service";
+import { TrnProductStockService } from "../../../../_services/trnProductStock.service";
+import { MatSizeService } from "../../../../_services/matSize.service";
+import { TrnGINForItemsWithStockAvailableService } from "../../../../_services/trnGINForItemsWithStockAvailable.service";
 @Component({
   selector: "app-trnGoodIssueNote-add-edit",
   templateUrl: "./trnGoodIssueNote-add-edit.component.html",
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class TrnGoodIssueNoteAddEditComponent implements OnInit {
   TrnGoodIssueNoteForm: any;
@@ -29,8 +41,8 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
   pageSize = 50;
   page = 1;
   totalCount = 0;
-  search = '';
-  tableEmptyMesssage = 'Loading...';
+  search = "";
+  tableEmptyMesssage = "Loading...";
   trnGoodIssueNoteObj = new TrnGoodIssueNote();
   amountWithGST = null;
   rateWithGST = null;
@@ -69,8 +81,7 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
     private trnProductStockService: TrnProductStockService,
     private matSizeService: MatSizeService,
     private trnGINForItemsWithStockAvailableService: TrnGINForItemsWithStockAvailableService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.trnGoodIssueNoteObj = new TrnGoodIssueNote();
@@ -79,7 +90,7 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
     this.showUpdateBtn = true;
     this.trnGoodIssueNoteObj.ginDate = today;
     this.route.params.forEach((params: Params) => {
-      this.params = params['id'];
+      this.params = params["id"];
     });
     if (this.params) {
       this.disabled = true;
@@ -99,20 +110,27 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
     this.TrnGoodIssueNoteService.getTrnGoodIssueNoteById(id).subscribe(
       results => {
         this.trnGoodIssueNoteObj = results;
-        this.trnGoodIssueNoteObj.ginDate = new Date(this.trnGoodIssueNoteObj.ginDate);
+        this.trnGoodIssueNoteObj.ginDate = new Date(
+          this.trnGoodIssueNoteObj.ginDate
+        );
         Helpers.setLoading(false);
       },
       error => {
         this.globalErrorHandler.handleError(error);
         Helpers.setLoading(false);
-      });
+      }
+    );
   }
 
   onChangeIssuedQuantity(row) {
     row.orderQuantity = parseFloat(row.orderQuantity);
     row.availableStock = parseFloat(row.availableStock);
     row.issuedQuantity = parseFloat(row.issuedQuantity);
-    if (!row.issuedQuantity || row.issuedQuantity > row.orderQuantity || row.issuedQuantity > row.availableStock) {
+    if (
+      !row.issuedQuantity ||
+      row.issuedQuantity > row.orderQuantity ||
+      row.issuedQuantity > row.availableStock
+    ) {
       row.issuedQuantity = 0;
     }
   }
@@ -126,29 +144,38 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
 
   onCancel() {
     if (this.redirectToGinStockAavailableList == "lstStock")
-      this.router.navigate(['/features/sales/trnGINForItemsWithStockAvailable/list']);
-    else
-      this.router.navigate(['/features/sales/trnGoodIssueNote/list']);
+      this.router.navigate([
+        "/features/sales/trnGINForItemsWithStockAvailable/list"
+      ]);
+    else this.router.navigate(["/features/sales/trnGoodIssueNote/list"]);
     this.disabled = false;
     this.showUpdateBtn = true;
   }
 
-  onSubmit({ value, valid }: { value: any, valid: boolean }) {
+  onSubmit({ value, valid }: { value: any; valid: boolean }) {
     this.isFormSubmitted = true;
     let orderQuantityFlag = false;
     //this.trnGoodIssueNoteObj.TrnGoodIssueNoteItems = this.trnGoodIssueNoteItems;
     if (this.trnGoodIssueNoteObj.trnGoodIssueNoteItems.length == 0) {
-      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please Select Items" });
+      this.messageService.addMessage({
+        severity: "error",
+        summary: "Error",
+        detail: "Please Select Items"
+      });
       return false;
     }
 
-    _.forEach(this.trnGoodIssueNoteObj.trnGoodIssueNoteItems, function (item) {
+    _.forEach(this.trnGoodIssueNoteObj.trnGoodIssueNoteItems, function(item) {
       if (item.issuedQuantity || item.issuedQuantity > 0)
         orderQuantityFlag = true;
     });
 
     if (!orderQuantityFlag) {
-      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please enter issue quantity for at least one item" });
+      this.messageService.addMessage({
+        severity: "error",
+        summary: "Error",
+        detail: "Please enter issue quantity for at least one item"
+      });
       return false;
     }
 
@@ -160,40 +187,47 @@ export class TrnGoodIssueNoteAddEditComponent implements OnInit {
   }
 
   saveTrnGoodIssueNote(value) {
-    debugger;
     let tempGinDate = new Date(value.ginDate);
     value.ginDate = new Date(tempGinDate.setHours(23));
     Helpers.setLoading(true);
     if (this.params) {
-      this.TrnGoodIssueNoteService.updateTrnGoodIssueNote(value)
-        .subscribe(
+      this.TrnGoodIssueNoteService.updateTrnGoodIssueNote(value).subscribe(
         results => {
           this.params = null;
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          this.messageService.addMessage({
+            severity: results.type.toLowerCase(),
+            summary: results.type,
+            detail: results.message
+          });
           Helpers.setLoading(false);
           if (this.redirectToGinStockAavailableList == "lstStock")
-            this.router.navigate(['/features/sales/trnGINForItemsWithStockAvailable/list']);
-          else
-            this.router.navigate(['/features/sales/trnGoodIssueNote/list']);
+            this.router.navigate([
+              "/features/sales/trnGINForItemsWithStockAvailable/list"
+            ]);
+          else this.router.navigate(["/features/sales/trnGoodIssueNote/list"]);
         },
         error => {
           this.globalErrorHandler.handleError(error);
           Helpers.setLoading(false);
-        });
+        }
+      );
     } else {
-      this.TrnGoodIssueNoteService.createTrnGoodIssueNote(value)
-        .subscribe(
+      this.TrnGoodIssueNoteService.createTrnGoodIssueNote(value).subscribe(
         results => {
           this.params = null;
-          this.messageService.addMessage({ severity: results.type.toLowerCase(), summary: results.type, detail: results.message });
+          this.messageService.addMessage({
+            severity: results.type.toLowerCase(),
+            summary: results.type,
+            detail: results.message
+          });
           Helpers.setLoading(false);
-          this.router.navigate(['/features/sales/trnGoodIssueNote/list']);
+          this.router.navigate(["/features/sales/trnGoodIssueNote/list"]);
         },
         error => {
           this.globalErrorHandler.handleError(error);
           Helpers.setLoading(false);
-        });
+        }
+      );
     }
   }
-
 }
