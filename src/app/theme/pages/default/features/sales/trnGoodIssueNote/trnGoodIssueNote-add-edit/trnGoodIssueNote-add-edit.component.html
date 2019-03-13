@@ -1,157 +1,251 @@
 <p-confirmDialog #cd>
-    <p-footer>
-        <button type="button" class="btn btn-accent m-btn m-btn--icon" (click)="cd.accept()">
-            <span>
-                <i class="la la-check"></i>
-                <span>
-                    Yes
-                </span>
-            </span>
-        </button>
-        <button type="button" class="btn btn-secondary m-btn m-btn--icon" (click)="cd.reject()">
-            <span>
-                <i class="la la-close"></i>
-                <span>
-                    No
-                </span>
-            </span>
-        </button>
-    </p-footer>
+  <p-footer>
+    <button
+      type="button"
+      class="btn btn-accent m-btn m-btn--icon"
+      (click)="cd.accept()"
+    >
+      <span>
+        <i class="la la-check"></i>
+        <span>
+          Yes
+        </span>
+      </span>
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary m-btn m-btn--icon"
+      (click)="cd.reject()"
+    >
+      <span>
+        <i class="la la-close"></i>
+        <span>
+          No
+        </span>
+      </span>
+    </button>
+  </p-footer>
 </p-confirmDialog>
 
 <div class="m-subheader">
-    <div class="d-flex align-items-center">
-        <div class="mr-auto">
-            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-                <li class="m-nav__item m-nav__item--home">
-                    <a href="#" class="m-nav__link m-nav__link--icon">
-                        <i class="m-nav__link-icon la la-home"></i>
-                    </a>
-                </li>
-                <li class="m-nav__separator">
-                    -
-                </li>
-                <li class="m-nav__item">
-                    <a class="m-nav__link">
-                        <span class="m-nav__link-text">
-                            Good Issue Note
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
-            <button type="submit" *ngIf="trnGoodIssueNoteObj.status=='Created'" class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"
-                form="trnGoodIssueNote" title="{{(trnGoodIssueNote && trnGoodIssueNote.form.valid) ? 'Please fill in all the required fields' :  params ? 'Update' : 'Save'}}"
-                [isAuthorize]="['gin']" tabindex="8">
-                {{ params ? 'Update' : 'Save' }}
-            </button>
-            <button class="btn btn-secondary" [isAuthorize]="['gin']" (click)="onCancel()" tabindex="9">
-                Cancel
-            </button>
-        </div>
+  <div class="d-flex align-items-center">
+    <div class="mr-auto">
+      <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+        <li class="m-nav__item m-nav__item--home">
+          <a href="#" class="m-nav__link m-nav__link--icon">
+            <i class="m-nav__link-icon la la-home"></i>
+          </a>
+        </li>
+        <li class="m-nav__separator">
+          -
+        </li>
+        <li class="m-nav__item">
+          <a class="m-nav__link">
+            <span class="m-nav__link-text">
+              Good Issue Note
+            </span>
+          </a>
+        </li>
+      </ul>
     </div>
+    <div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+      <button
+        type="submit"
+        *ngIf="trnGoodIssueNoteObj.status == 'Created'"
+        class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn"
+        form="trnGoodIssueNote"
+        title="{{
+          trnGoodIssueNote && trnGoodIssueNote.form.valid
+            ? 'Please fill in all the required fields'
+            : params
+            ? 'Update'
+            : 'Save'
+        }}"
+        [isAuthorize]="['gin']"
+        tabindex="8"
+      >
+        {{ params ? "Update" : "Save" }}
+      </button>
+      <button
+        class="btn btn-secondary"
+        [isAuthorize]="['gin']"
+        (click)="onCancel()"
+        tabindex="9"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
 </div>
 <!-- END: Subheader -->
 <div class="m-content">
-    <div class="row">
-        <div class="col-lg-12">
-            <!--begin::Portlet-->
-            <div class="m-portlet">
+  <div class="row">
+    <div class="col-lg-12">
+      <!--begin::Portlet-->
+      <div class="m-portlet">
+        <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
-                <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
-
+        <div class="row">
+          <div class="col-md-12">
+            <div class="formContainerSamePage">
+              <form
+                class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm"
+                role="form"
+                novalidate
+                (ngSubmit)="onSubmit(trnGoodIssueNote)"
+                #trnGoodIssueNote="ngForm"
+                id="trnGoodIssueNote"
+              >
                 <div class="row">
-
-                    <div class="col-md-12">
-
-                        <div class="formContainerSamePage">
-                            <form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed inputForm" role="form" novalidate
-                                (ngSubmit)="onSubmit(trnGoodIssueNote)" #trnGoodIssueNote="ngForm" id="trnGoodIssueNote">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <!-- Basic Details -->
+                        <div class="panel panel-default">
+                          <div class="panel-heading">Basic Details</div>
+                          <div class="panel-body">
+                            <div class="row form-group">
+                              <div class="col-md-12">
                                 <div class="row">
-
-                                    <div class="col-md-12">
-
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <!-- Basic Details -->
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading">Basic Details</div>
-                                                    <div class="panel-body">
-
-                                                        <div class="row form-group">
-
-                                                            <div class="col-md-12">
-                                                                <div class="row">
-                                                                    <div class="col-md-3">
-                                                                        <label class="col-md-4 col-sm-4 fieldLabel">Date</label>
-                                                                        <div class="col-md-8 col-sm-8">
-                                                                            <p-calendar class="purchaseOrderDate" #grnDateVal="ngModel" [(ngModel)]="trnGoodIssueNoteObj.ginDate" name="grnDate" [monthNavigator]="true"
-                                                                                [yearNavigator]="true" tabindex="1" yearRange="2015:2030"
-                                                                                [disabled]="disabled" dateFormat="dd/mm/yy" styleClass="{{ grnDateVal.errors && isFormSubmitted?'red-border-class':''}}"
-                                                                                autofocus required></p-calendar>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <label class="col-md-5 col-sm-5 fieldLabel noPadding">GIN No.</label>
-                                                                        <div class="col-md-7 col-sm-7">
-                                                                            <input type="text" [(ngModel)]="trnGoodIssueNoteObj.ginNumber" name="ginNumber" class="form-control" #ginNumberVal="ngModel"
-                                                                                readonly tabindex="2" placeholder="">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <label class="col-md-5 col-sm-5 fieldLabel noPadding">Sales / Quotation / WO No.</label>
-                                                                        <div class="col-md-7 col-sm-7">
-                                                                            <!-- <input type="text" [(ngModel)]="trnGoodIssueNoteObj.salesOrderNumber" name="salesOrderNumber" class="form-control" #salesOrderNumberVal="ngModel"
-                                                                                readonly tabindex="3" placeholder=""> -->
-                                                                                <label class="labelFeild">{{trnGoodIssueNoteObj.salesOrderNumber || trnGoodIssueNoteObj.materialQuotationNumber || trnGoodIssueNoteObj.workOrderNumber}}</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <label class="col-md-5 col-sm-5 fieldLabel">Customer</label>
-                                                                        <div class="col-md-7 col-sm-7 customerNameBox">
-
-                                                                            <label class="labelFeild">{{ trnGoodIssueNoteObj.mstCustomer ? trnGoodIssueNoteObj.mstCustomer.name:''}}</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-3">
-                                                                        <label class="col-md-4 col-sm-4 fieldLabel">Courier Details
-																        </label>
-                                                                        <div class="col-md-8 col-sm-8">
-                                                                                <label class="labelFeild">{{ trnGoodIssueNoteObj.trnSaleOrder ? trnGoodIssueNoteObj.trnSaleOrder.courierDetails:''}}</label>
-                                                                            <!-- <textarea class="form-control" name="courierDetails" [disabled]="disabled" [(ngModel)]="trnGoodIssueNoteObj.courierDetails"
-                                                                                tabindex="5"></textarea> -->
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <label class="col-md-5 col-sm-5 fieldLabel noPadding">Dock-at No.
-																        </label>
-                                                                        <div class="col-md-7 col-sm-7">
-                                                                                <label class="labelFeild">{{ trnGoodIssueNoteObj.trnSaleOrder ? trnGoodIssueNoteObj.trnSaleOrder.dockAtNumber:''}}</label>
-                                                                            <!-- <input type="text" class="form-control" name="dockatNo" [disabled]="disabled" [(ngModel)]="trnGoodIssueNoteObj.dockatNo"
-                                                                                tabindex="6"> -->
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
+                                  <div class="col-md-3">
+                                    <label class="col-md-4 col-sm-4 fieldLabel"
+                                      >Date</label
+                                    >
+                                    <div class="col-md-8 col-sm-8">
+                                      <p-calendar
+                                        class="purchaseOrderDate"
+                                        #grnDateVal="ngModel"
+                                        [(ngModel)]="
+                                          trnGoodIssueNoteObj.ginDate
+                                        "
+                                        name="grnDate"
+                                        [monthNavigator]="true"
+                                        [yearNavigator]="true"
+                                        tabindex="1"
+                                        yearRange="2015:2030"
+                                        [disabled]="disabled"
+                                        dateFormat="dd/mm/yy"
+                                        styleClass="{{
+                                          grnDateVal.errors && isFormSubmitted
+                                            ? 'red-border-class'
+                                            : ''
+                                        }}"
+                                        autofocus
+                                        required
+                                      ></p-calendar>
                                     </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label
+                                      class="col-md-5 col-sm-5 fieldLabel noPadding"
+                                      >GIN No.</label
+                                    >
+                                    <div class="col-md-7 col-sm-7">
+                                      <input
+                                        type="text"
+                                        [(ngModel)]="
+                                          trnGoodIssueNoteObj.ginNumber
+                                        "
+                                        name="ginNumber"
+                                        class="form-control"
+                                        #ginNumberVal="ngModel"
+                                        readonly
+                                        tabindex="2"
+                                        placeholder=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label
+                                      class="col-md-5 col-sm-5 fieldLabel noPadding"
+                                      >Sales / Quotation / WO No.</label
+                                    >
+                                    <div class="col-md-7 col-sm-7">
+                                      <!-- <input type="text" [(ngModel)]="trnGoodIssueNoteObj.salesOrderNumber" name="salesOrderNumber" class="form-control" #salesOrderNumberVal="ngModel"
+                                                                                readonly tabindex="3" placeholder=""> -->
+                                      <label class="labelFeild">{{
+                                        trnGoodIssueNoteObj.salesOrderNumber ||
+                                          trnGoodIssueNoteObj.materialQuotationNumber ||
+                                          trnGoodIssueNoteObj.workOrderNumber
+                                      }}</label>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label class="col-md-5 col-sm-5 fieldLabel"
+                                      >Customer</label
+                                    >
+                                    <div
+                                      class="col-md-7 col-sm-7 customerNameBox"
+                                    >
+                                      <label class="labelFeild">{{
+                                        trnGoodIssueNoteObj.mstCustomer
+                                          ? trnGoodIssueNoteObj.mstCustomer.name
+                                          : ""
+                                      }}</label>
+                                    </div>
+                                  </div>
                                 </div>
-                            </form>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">Item Details</div>
-                                        <!-- <table class="staticTable merchantTable" id="">
+                                <div class="row form-group">
+                                  <div class="col-md-6">
+                                    <label class="col-md-2 col-sm-2 fieldLabel"
+                                      >Courier Details
+                                    </label>
+                                    <div
+                                      class="col-md-10 col-sm-10 customerNameBox"
+                                    >
+                                      <textarea
+                                        class="form-control"
+                                        name="courierDetails"
+                                        [disabled]="
+                                          trnGoodIssueNoteObj.status !=
+                                          'Created'
+                                        "
+                                        [(ngModel)]="
+                                          trnGoodIssueNoteObj.courierDetails
+                                        "
+                                        tabindex="5"
+                                      ></textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row form-group">
+                                  <div class="col-md-6">
+                                    <label class="col-md-2 col-sm-2 fieldLabel"
+                                      >Dock-at No.
+                                    </label>
+                                    <div
+                                      class="col-md-10 col-sm-10 customerNameBox"
+                                    >
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        name="dockAtNumber"
+                                        [disabled]="
+                                          trnGoodIssueNoteObj.status !=
+                                          'Created'
+                                        "
+                                        [(ngModel)]="
+                                          trnGoodIssueNoteObj.dockAtNumber
+                                        "
+                                        tabindex="6"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">Item Details</div>
+                    <!-- <table class="staticTable merchantTable" id="">
                                         <thead>
                                             <tr>
                                                 <th title="">
@@ -189,35 +283,86 @@
                                         </tbody>
                                     </table> -->
 
-                                        <p-dataTable [value]="trnGoodIssueNoteObj.trnGoodIssueNoteItems" [editable]="true" [emptyMessage]="tableEmptyMesssage" class="table listingTable">
-                                            <p-column field="categoryName" header="Category" [editable]="false" [style]="{'text-align':'left'}"></p-column>
-                                            <p-column field="collectionName" header="Collection" [editable]="false" [style]="{'text-align':'left'}"></p-column>
-                                            <p-column header="Sr. No. / Size / Accessory" [style]="{'text-align':'left'}">
-                                                <ng-template let-row="rowData" pTemplate="body">
-                                                    <span> {{row.serialno}} {{row.size}} {{row.accessoryName}}</span>
-                                                </ng-template>
-                                            </p-column>
-                                            <p-column field="orderQuantity" header="Or. Quantity" [editable]="false" [style]="{'text-align':'center'}"></p-column>
-                                            <p-column field="availableStock" header="Available Stock" [editable]="false" [style]="{'text-align':'center'}"></p-column>
-                                            <p-column field="issuedQuantity" header="Issue Quantity" [editable]="trnGoodIssueNoteObj.status=='Created'" [style]="{'text-align':'center'}">
-                                                <ng-template let-col let-row="rowData" pTemplate="editor">
-                                                    <input class="form-control" OnlyNumber="true" DecimalPlaces="2" autocomplete="off" minValue="0" maxValue="{{row.orderQuantity > row.availableStock ? row.availableStock : row.orderQuantity }}"
-                                                        [(ngModel)]="row[col.field]" name="issuedQuantity" (blur)="onChangeIssuedQuantity(row)">
-                                                </ng-template>
-                                            </p-column>
-                                        </p-dataTable>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    <p-dataTable
+                      [value]="trnGoodIssueNoteObj.trnGoodIssueNoteItems"
+                      [editable]="true"
+                      [emptyMessage]="tableEmptyMesssage"
+                      class="table listingTable"
+                    >
+                      <p-column
+                        field="categoryName"
+                        header="Category"
+                        [editable]="false"
+                        [style]="{ 'text-align': 'left' }"
+                      ></p-column>
+                      <p-column
+                        field="collectionName"
+                        header="Collection"
+                        [editable]="false"
+                        [style]="{ 'text-align': 'left' }"
+                      ></p-column>
+                      <p-column
+                        header="Sr. No. / Size / Accessory"
+                        [style]="{ 'text-align': 'left' }"
+                      >
+                        <ng-template let-row="rowData" pTemplate="body">
+                          <span>
+                            {{ row.serialno }} {{ row.size }}
+                            {{ row.accessoryName }}</span
+                          >
+                        </ng-template>
+                      </p-column>
+                      <p-column
+                        field="orderQuantity"
+                        header="Or. Quantity"
+                        [editable]="false"
+                        [style]="{ 'text-align': 'center' }"
+                      ></p-column>
+                      <p-column
+                        field="availableStock"
+                        header="Available Stock"
+                        [editable]="false"
+                        [style]="{ 'text-align': 'center' }"
+                      ></p-column>
+                      <p-column
+                        field="issuedQuantity"
+                        header="Issue Quantity"
+                        [editable]="trnGoodIssueNoteObj.status == 'Created'"
+                        [style]="{ 'text-align': 'center' }"
+                      >
+                        <ng-template
+                          let-col
+                          let-row="rowData"
+                          pTemplate="editor"
+                        >
+                          <input
+                            class="form-control"
+                            OnlyNumber="true"
+                            DecimalPlaces="2"
+                            autocomplete="off"
+                            minValue="0"
+                            maxValue="{{
+                              row.orderQuantity > row.availableStock
+                                ? row.availableStock
+                                : row.orderQuantity
+                            }}"
+                            [(ngModel)]="row[col.field]"
+                            name="issuedQuantity"
+                            (blur)="onChangeIssuedQuantity(row)"
+                          />
+                        </ng-template>
+                      </p-column>
+                    </p-dataTable>
+                  </div>
                 </div>
-
-
-                <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+              </div>
             </div>
-            <!--end::Portlet-->
+          </div>
         </div>
+
+        <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+      </div>
+      <!--end::Portlet-->
     </div>
+  </div>
 </div>
