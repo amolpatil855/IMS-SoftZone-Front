@@ -33,5 +33,8 @@ export class UploadComponent implements OnInit {
 
   }
 
+  onUploadFile() {
+
+  }
 
 }
