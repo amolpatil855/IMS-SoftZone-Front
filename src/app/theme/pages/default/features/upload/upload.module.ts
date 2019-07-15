@@ -12,6 +12,7 @@ import {
 } from 'primeng/primeng';
 // import {FileUploadModule} from 'primeng/fileupload';
 import { UploadComponent } from "./upload.component";
+import { UploadService } from '../../_services/upload.service';
 
 const routes: Routes = [
   {
@@ -41,6 +42,7 @@ const routes: Routes = [
     UploadComponent
   ],
   providers: [
+    UploadService
   ],
 })
 export class UploadModule {

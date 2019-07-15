@@ -218,7 +218,7 @@
                                                     <p-column field="requiredQuantity" header="Req. Quantity" [editable]="false" [style]="{'text-align':'center'}"></p-column>
                                                     <p-column field="orderQuantity" header="Or. Quantity" [editable]="true" [style]="{'text-align':'center'}">
                                                             <ng-template let-col let-row="rowData" pTemplate="editor">
-                                                                    <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off" minValue="0" maxValue="999" 
+                                                                    <input class="form-control" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" autocomplete="off"
                                                                     [(ngModel)]="row[col.field]" name="orderQuantity" (blur)="changeOrderType(row)" >
                                                                 </ng-template>
                                                     </p-column>

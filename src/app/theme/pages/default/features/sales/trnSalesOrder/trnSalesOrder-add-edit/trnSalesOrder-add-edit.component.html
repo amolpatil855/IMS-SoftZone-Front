@@ -917,10 +917,10 @@
                                   <input
                                     class="form-control"
                                     OnlyNumber="true"
-                                    DecimalPlaces="0"
+                                    DecimalPlaces="2"
+                                    minValue="0.00"
+                                    maxValue="99999.99"
                                     autocomplete="off"
-                                    minValue="0"
-                                    maxValue="99999"
                                     [ngClass]="{
                                       'red-border-class': orderQuantityError
                                     }"

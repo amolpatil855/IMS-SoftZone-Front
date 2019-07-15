@@ -148,7 +148,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
       row.rate = ((row.purchaseRatePerMM * row.suggestedMM) / 2592) * row.length * row.width;
       row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
       //this.amountWithGST = this.rate * this.orderQuantity;
-      row.amount = row.rate * row.orderQuantity;
+      row.amount = Math.round(row.rate * row.orderQuantity);
       row.rate = parseFloat(row.rate).toFixed(2);
       row.amount = Math.round(row.amount - ((row.amount * row.purchaseDiscount) / 100));
       // this.amountWithGST= this.amountWithGST -  ((this.amountWithGST * row.purchaseDiscount)/100);
@@ -180,7 +180,7 @@ export class TrnPOItemsWithInsufficientStockListComponent implements OnInit {
         // this.rate = this.rate - Math.round((this.rate) / 100);
         row.rateWithGST = parseFloat(row.rate + (row.rate * row.gst) / 100).toFixed(2);
         // this.amountWithGST = this.rateWithGST * this.orderQuantity;
-        row.amount = row.rate * row.orderQuantity;
+        row.amount = Math.round(row.rate * row.orderQuantity);
         row.rate = parseFloat(row.rate).toFixed(2);
         //this.amountWithGST= Math.round( this.amountWithGST -  ( (this.amountWithGST * row.purchaseDiscount)/100));
         row.amount = Math.round(row.amount - ((row.amount * row.purchaseDiscount) / 100));

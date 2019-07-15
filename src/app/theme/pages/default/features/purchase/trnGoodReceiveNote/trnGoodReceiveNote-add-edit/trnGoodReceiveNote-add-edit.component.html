@@ -366,8 +366,8 @@
                           <div class="col-md-4">
                             <label class="col-md-4 col-sm-4 fieldLabel">Or. Quantity</label>
                             <div class="col-md-6 col-sm-6">
-                              <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off"
-                                minValue="0" maxValue="99999" [(ngModel)]="orderQuantity" name="orderQuantity" disabled
+                              <input class="form-control" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" autocomplete="off"
+                                [(ngModel)]="orderQuantity" name="orderQuantity" disabled
                                 placeholder="" />
                             </div>
                             <label class="orderTypeLabel">{{
@@ -397,8 +397,8 @@
                             <label class="col-md-4 col-sm-4 fieldLabel">Rec. Quantity<span
                                 class="requiredField">*</span></label>
                             <div class="col-md-8 col-sm-8">
-                              <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off"
-                                minValue="0" maxValue="99999" [ngClass]="{
+                              <input class="form-control" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" autocomplete="off"
+                                [ngClass]="{
                                   'red-border-class': orderQuantityError
                                 }" [(ngModel)]="receivedQuantity" name="receivedQuantity" tabindex="9" placeholder=""
                                 (blur)="changeRecivedQuantity()" />
@@ -408,8 +408,7 @@
                             <label class="col-md-4 col-sm-4 fieldLabel">Foam Quantity(KG)<span
                                 class="requiredField">*</span></label>
                             <div class="col-md-8 col-sm-8">
-                              <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off"
-                                minValue="0" maxValue="99999" [ngClass]="{
+                              <input class="form-control" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" autocomplete="off" [ngClass]="{
                                   'red-border-class': fomQuantityInKGError
                                 }" [(ngModel)]="fomQuantityInKG" (input)="onFomQuantityInKGChange()"
                                 name="fomQuantityInKG" tabindex="10" placeholder="" />
@@ -528,8 +527,7 @@
                           {{ row.receivedQuantity }}
                         </td>
                         <td class="aligncenter" *ngIf="showUpdateBtn">
-                          <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off"
-                            minValue="0" maxValue="99999" [(ngModel)]="row.receivedQuantity"
+                          <input class="form-control" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" autocomplete="off" [(ngModel)]="row.receivedQuantity"
                             name="{{ 'receivedQuantity' + rowNum }}" tabindex="13" placeholder=""
                             (blur)="changeReceivedQuantity(row, rowNum)" />
                         </td>
@@ -537,8 +535,7 @@
                           {{ row.fomQuantityInKG }}
                         </td>
                         <td class="aligncenter" *ngIf="showUpdateBtn">
-                          <input class="form-control" OnlyNumber="true" DecimalPlaces="0" autocomplete="off"
-                            minValue="0" maxValue="99999" [(ngModel)]="row.fomQuantityInKG"
+                          <input class="form-control" OnlyNumber="true" DecimalPlaces="2" minValue="0.00" maxValue="99999.99" autocomplete="off" [(ngModel)]="row.fomQuantityInKG"
                             name="{{ 'fomQuantityInKG' + rowNum }}" tabindex="1" placeholder=""
                             [disabled]="row.categoryId!=2" (blur)="changeFomQuantityinKG(row, rowNum)" />
                         </td>

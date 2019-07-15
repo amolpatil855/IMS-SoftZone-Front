@@ -39,32 +39,49 @@
 					<div class="m-section">
 						<div class="m-section__content">
 							<div class="ui-widget-header" style="border-bottom: 0 none">
-								<select class="form-control" name="selectProduct" [(ngModel)]="selectProduct" style="max-width: 220px;display: inline !important;float: left;">
-                                      <option value="">--Select Product--</option>
-                                        <option value="Accessory">Accessory</option>
-                                      <option value="Collection">Collection</option>
-                                      <option value="Quality">Quality</option>
-                                      <option value="Design">Design</option>
-                                      <option value="Shade">Shade</option>
-                                      <option value="Mattress Thickness">Mattress Thickness</option>
-                                      <option value="Mattress Size">Mattress Size</option>
-                                      <option value="Foam Density">Foam Density</option>
-                                      <option value="Foam Suggested MM">Foam Suggested MM</option>
-                                      <option value="Pattern">Pattern</option> 
-                                      <option value="Tailor">Tailor</option> 
-								</select>
-								<!-- Add Button -->
-                                <!-- routerLink="/features/purchase/trnGoodReceiveNote/add"  -->
-                                <input type="file" id="myFile">
-								<button class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill btnAddForm"
-								 (click)="onUploadFile()" [isAuthorize]="['grn']">
-									<span>
-										<i class="flaticon-add"></i>
-										<span>
-											Upload File
-										</span>
-									</span>
-								</button>
+								<div class="row">
+									<div class="col-md-12">
+										<!-- Basic Details -->
+										<div class="panel panel-default">
+											<div class="panel-heading">Upload</div>
+											<div class="panel-body">
+
+												<div class="row form-group">
+
+													<div class="col-md-12">
+														<div class="row">
+															<div class="col-md-6">
+																<label class="col-md-4 col-sm-4 fieldLabel ">Select Product Master<span
+																		class="requiredField">*</span></label>
+																<div class="col-md-8 col-sm-8">
+																	<select class="form-control" required name="selectedProductMaster"
+																		[(ngModel)]="uploadObj.MstFWRShade" #selectedProduct
+																		tabindex="1">
+																		<option *ngFor="let x of tableNameList" [ngValue]="x.value">{{x.label}}</option>
+																	</select>
+																</div>
+															</div>
+															<div class="col-md-6">
+																<label class="col-md-4 col-sm-4 fieldLabel noPadding">Upload File<span
+																		class="requiredField">*</span></label>
+																<div class="col-md-8 col-sm-8">
+																	<input class="form-control m-input" type="file" #fileupload value="" name="file"
+																		id="file" (change)="onUploadFile(fileupload.files, $event)" tabindex="2">
+																</div>
+															</div>
+														</div>
+													</div>
+
+
+												</div>
+
+											</div>
+										</div>
+
+
+									</div>
+
+								</div>
 							</div>
 						</div>
 					</div>

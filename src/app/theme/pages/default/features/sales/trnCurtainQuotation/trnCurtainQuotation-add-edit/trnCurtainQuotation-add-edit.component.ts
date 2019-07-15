@@ -701,7 +701,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     if (rate) {
       fabricRow.rateWithGST = rate + (rate * fabricRow.shadeDetails.gst) / 100;
       //this.amountWithGST =this.rateWithGST * this.orderQuantity;
-      fabricRow.amount = rate * fabricRow.orderQuantity;
+      fabricRow.amount = Math.round(rate * fabricRow.orderQuantity);
       //this.amountWithGST = Math.round(this.amountWithGST - ((this.amountWithGST * givenDicount) / 100));
       fabricRow.amount = Math.round(fabricRow.amount - ((fabricRow.amount * fabricRow.discount) / 100));
       fabricRow.amountWithGST = Math.round(fabricRow.amount + ((fabricRow.amount * fabricRow.shadeDetails.gst) / 100));
@@ -857,7 +857,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     unitRow.trackGST = 0;
     if (unitRow.trackAccessoryId != null) {
       let trackObj = _.find(this.trackCodeList, { accessoryId: unitRow.trackAccessoryId });
-      unitRow.trackAmount = unitRow.trackRate * unitRow.trackQuantity;
+      unitRow.trackAmount = Math.round(unitRow.trackRate * unitRow.trackQuantity);
       unitRow.trackAmountWithGST = Math.round(unitRow.trackAmount + (unitRow.trackAmount * trackObj.gst) / 100);
       unitRow.trackGST = trackObj.gst;
       this.calculateGrandTotal();
@@ -871,7 +871,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     unitRow.motorGST = 0;
     if (unitRow.motorAccessoryId != null) {
       let motorObj = _.find(this.motorCodeList, { accessoryId: unitRow.motorAccessoryId });
-      unitRow.motorAmount = unitRow.motorRate * unitRow.motorQuantity;
+      unitRow.motorAmount = Math.round(unitRow.motorRate * unitRow.motorQuantity);
       unitRow.motorAmountWithGST = Math.round(unitRow.motorAmount + (unitRow.motorAmount * motorObj.gst) / 100);
       unitRow.motorGST = motorObj.gst;
       this.calculateGrandTotal();
@@ -884,7 +884,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
     unitRow.remoteGST = 0;
     if (unitRow.remoteAccessoryId != null) {
       let remoteObj = _.find(this.remoteCodeList, { accessoryId: unitRow.remoteAccessoryId });
-      unitRow.remoteAmount = unitRow.remoteRate * unitRow.remoteQuantity;
+      unitRow.remoteAmount = Math.round(unitRow.remoteRate * unitRow.remoteQuantity);
       unitRow.remoteAmountWithGST = Math.round(unitRow.remoteAmount + (unitRow.remoteAmount * remoteObj.gst) / 100);
       unitRow.remoteGST = remoteObj.gst;
       this.calculateGrandTotal();
@@ -922,6 +922,7 @@ export class TrnCurtainQuotationAddEditComponent implements OnInit {
   }
 
   changeAccessoryQuantity(accessoryRow) {
+    accessoryRow.orderQuantity = parseFloat(accessoryRow.orderQuantity);
     if (accessoryRow.orderQuantity) {
       accessoryRow.amount = Math.round(accessoryRow.accessoriesDetails.sellingRate * accessoryRow.orderQuantity);
       accessoryRow.amountWithGST = Math.round(accessoryRow.amount + (accessoryRow.amount * accessoryRow.accessoriesDetails.gst) / 100);

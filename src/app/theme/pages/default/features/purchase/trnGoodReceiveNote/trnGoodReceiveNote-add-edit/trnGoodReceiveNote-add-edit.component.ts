@@ -197,12 +197,12 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
         this.locationObj = results.mstCompanyLocation;
         this.trnGoodReceiveNoteObj.TrnGoodReceiveNoteItems = _.filter(
           this.trnGoodReceiveNoteItems,
-          function (grnItem) {
+          function(grnItem) {
             return grnItem.balanceQuantity > 0;
           }
         );
         this.trnGoodReceiveNoteItems = this.trnGoodReceiveNoteObj.TrnGoodReceiveNoteItems;
-        _.forEach(self.trnGoodReceiveNoteItems, function (grnItem, index) {
+        _.forEach(self.trnGoodReceiveNoteItems, function(grnItem, index) {
           self.trnGoodReceiveNoteItems[index].purchaseOrderNumber =
             results.orderNumber;
           self.trnGoodReceiveNoteItems[index].amountWithGST = null;
@@ -468,7 +468,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       fomQuantityInKG
     } = goodReceiveNoteItems;
     let self = this;
-    if (receivedQuantity) receivedQuantity = parseInt(receivedQuantity);
+    if (receivedQuantity) receivedQuantity = parseFloat(receivedQuantity);
     else receivedQuantity = 0;
     if (receivedQuantity <= 0) {
       this.messageService.addMessage({
@@ -488,7 +488,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     }
     this.trnGoodReceiveNoteItems[index].receivedQuantity = receivedQuantity;
     if (this.trnGoodReceiveNoteItems[index].categoryId == 2) {
-      this.trnGoodReceiveNoteItems[index].fomQuantityInKG = fomQuantityInKG ? parseInt(fomQuantityInKG) : 0;
+      this.trnGoodReceiveNoteItems[index].fomQuantityInKG = fomQuantityInKG ? parseFloat(fomQuantityInKG) : 0;
     }
 
     let poObj = _.find(this.trnGoodReceiveNoteItems, {
@@ -549,7 +549,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       );
     }
     let totalCalculatedAmount = 0;
-    _.forEach(self.trnGoodReceiveNoteItems, function (grnItem) {
+    _.forEach(self.trnGoodReceiveNoteItems, function(grnItem) {
       totalCalculatedAmount += grnItem.amountWithGST;
     });
     self.trnGoodReceiveNoteObj.totalAmount = totalCalculatedAmount;
@@ -559,7 +559,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     let {
       fomQuantityInKG
     } = goodReceiveNoteItems;
-    this.trnGoodReceiveNoteItems[index].fomQuantityInKG = fomQuantityInKG ? parseInt(fomQuantityInKG) : 0;
+    this.trnGoodReceiveNoteItems[index].fomQuantityInKG = fomQuantityInKG ? parseFloat(fomQuantityInKG) : 0;
 
     if (this.trnGoodReceiveNoteItems[index].fomQuantityInKG <= 0) {
       this.messageService.addMessage({
@@ -623,34 +623,34 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
         parameterId = this.matSizeId;
         this.trnGoodReceiveNoteService
           .getPOListForSelectedItem(
-            this.categoryId,
-            this.collectionId,
-            parameterId,
-            this.matSizeCode,
-            this.qualityId,
-            this.matThicknessId
+          this.categoryId,
+          this.collectionId,
+          parameterId,
+          this.matSizeCode,
+          this.qualityId,
+          this.matThicknessId
           )
           .subscribe(
-            data => {
-              this.purchaseItemList = data;
-              this.purchaseOrderList = [];
-              let vm = this;
-              console.log("this.purchaseItemList", this.purchaseItemList);
-              _.forEach(this.purchaseItemList, function (value) {
-                vm.purchaseOrderList.push({
-                  label: value.purchaseOrderNumber,
-                  value: value.purchaseOrderId
-                });
+          data => {
+            this.purchaseItemList = data;
+            this.purchaseOrderList = [];
+            let vm = this;
+            console.log("this.purchaseItemList", this.purchaseItemList);
+            _.forEach(this.purchaseItemList, function(value) {
+              vm.purchaseOrderList.push({
+                label: value.purchaseOrderNumber,
+                value: value.purchaseOrderId
               });
-              this.purchaseOrderList.unshift({
-                label: "--Select--",
-                value: null
-              });
-              console.log("this.purchaseOrderList", this.purchaseOrderList);
-            },
-            error => {
-              this.globalErrorHandler.handleError(error);
-            }
+            });
+            this.purchaseOrderList.unshift({
+              label: "--Select--",
+              value: null
+            });
+            console.log("this.purchaseOrderList", this.purchaseOrderList);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+          }
           );
       }
     }
@@ -689,34 +689,34 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
         parameterId = this.shadeId;
         this.trnGoodReceiveNoteService
           .getPOListForSelectedItem(
-            this.categoryId,
-            this.collectionId,
-            parameterId,
-            this.matSizeCode,
-            null,
-            null
+          this.categoryId,
+          this.collectionId,
+          parameterId,
+          this.matSizeCode,
+          null,
+          null
           )
           .subscribe(
-            data => {
-              this.purchaseItemList = data;
-              this.purchaseOrderList = [];
-              let vm = this;
-              console.log("this.purchaseItemList", this.purchaseItemList);
-              _.forEach(this.purchaseItemList, function (value) {
-                vm.purchaseOrderList.push({
-                  label: value.purchaseOrderNumber,
-                  value: value.purchaseOrderId
-                });
+          data => {
+            this.purchaseItemList = data;
+            this.purchaseOrderList = [];
+            let vm = this;
+            console.log("this.purchaseItemList", this.purchaseItemList);
+            _.forEach(this.purchaseItemList, function(value) {
+              vm.purchaseOrderList.push({
+                label: value.purchaseOrderNumber,
+                value: value.purchaseOrderId
               });
-              this.purchaseOrderList.unshift({
-                label: "--Select--",
-                value: null
-              });
-              console.log("this.purchaseOrderList", this.purchaseOrderList);
-            },
-            error => {
-              this.globalErrorHandler.handleError(error);
-            }
+            });
+            this.purchaseOrderList.unshift({
+              label: "--Select--",
+              value: null
+            });
+            console.log("this.purchaseOrderList", this.purchaseOrderList);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+          }
           );
       }
     } else if (this.categoryId == 2) {
@@ -749,34 +749,34 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
         parameterId = this.fomSizeId;
         this.trnGoodReceiveNoteService
           .getPOListForSelectedItem(
-            this.categoryId,
-            this.collectionId,
-            parameterId,
-            this.matSizeCode,
-            null,
-            null
+          this.categoryId,
+          this.collectionId,
+          parameterId,
+          this.matSizeCode,
+          null,
+          null
           )
           .subscribe(
-            data => {
-              this.purchaseItemList = data;
-              this.purchaseOrderList = [];
-              let vm = this;
-              console.log("this.purchaseItemList", this.purchaseItemList);
-              _.forEach(this.purchaseItemList, function (value) {
-                vm.purchaseOrderList.push({
-                  label: value.purchaseOrderNumber,
-                  value: value.purchaseOrderId
-                });
+          data => {
+            this.purchaseItemList = data;
+            this.purchaseOrderList = [];
+            let vm = this;
+            console.log("this.purchaseItemList", this.purchaseItemList);
+            _.forEach(this.purchaseItemList, function(value) {
+              vm.purchaseOrderList.push({
+                label: value.purchaseOrderNumber,
+                value: value.purchaseOrderId
               });
-              this.purchaseOrderList.unshift({
-                label: "--Select--",
-                value: null
-              });
-              console.log("this.purchaseOrderList", this.purchaseOrderList);
-            },
-            error => {
-              this.globalErrorHandler.handleError(error);
-            }
+            });
+            this.purchaseOrderList.unshift({
+              label: "--Select--",
+              value: null
+            });
+            console.log("this.purchaseOrderList", this.purchaseOrderList);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+          }
           );
       }
     } else if (this.categoryId == 4 && this.matSizeId != -1) {
@@ -811,34 +811,34 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
         parameterId = this.matSizeId;
         this.trnGoodReceiveNoteService
           .getPOListForSelectedItem(
-            this.categoryId,
-            this.collectionId,
-            parameterId,
-            this.matSizeCode,
-            this.qualityId,
-            this.matThicknessId
+          this.categoryId,
+          this.collectionId,
+          parameterId,
+          this.matSizeCode,
+          this.qualityId,
+          this.matThicknessId
           )
           .subscribe(
-            data => {
-              this.purchaseItemList = data;
-              this.purchaseOrderList = [];
-              let vm = this;
-              console.log("this.purchaseItemList", this.purchaseItemList);
-              _.forEach(this.purchaseItemList, function (value) {
-                vm.purchaseOrderList.push({
-                  label: value.purchaseOrderNumber,
-                  value: value.purchaseOrderId
-                });
+          data => {
+            this.purchaseItemList = data;
+            this.purchaseOrderList = [];
+            let vm = this;
+            console.log("this.purchaseItemList", this.purchaseItemList);
+            _.forEach(this.purchaseItemList, function(value) {
+              vm.purchaseOrderList.push({
+                label: value.purchaseOrderNumber,
+                value: value.purchaseOrderId
               });
-              this.purchaseOrderList.unshift({
-                label: "--Select--",
-                value: null
-              });
-              console.log("this.purchaseOrderList", this.purchaseOrderList);
-            },
-            error => {
-              this.globalErrorHandler.handleError(error);
-            }
+            });
+            this.purchaseOrderList.unshift({
+              label: "--Select--",
+              value: null
+            });
+            console.log("this.purchaseOrderList", this.purchaseOrderList);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+          }
           );
       }
     } else if (
@@ -875,34 +875,34 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
         parameterId = this.accessoryId;
         this.trnGoodReceiveNoteService
           .getPOListForSelectedItem(
-            this.categoryId,
-            this.collectionId,
-            parameterId,
-            this.matSizeCode,
-            null,
-            null
+          this.categoryId,
+          this.collectionId,
+          parameterId,
+          this.matSizeCode,
+          null,
+          null
           )
           .subscribe(
-            data => {
-              this.purchaseItemList = data;
-              this.purchaseOrderList = [];
-              let vm = this;
-              console.log("this.purchaseItemList", this.purchaseItemList);
-              _.forEach(this.purchaseItemList, function (value) {
-                vm.purchaseOrderList.push({
-                  label: value.purchaseOrderNumber,
-                  value: value.purchaseOrderId
-                });
+          data => {
+            this.purchaseItemList = data;
+            this.purchaseOrderList = [];
+            let vm = this;
+            console.log("this.purchaseItemList", this.purchaseItemList);
+            _.forEach(this.purchaseItemList, function(value) {
+              vm.purchaseOrderList.push({
+                label: value.purchaseOrderNumber,
+                value: value.purchaseOrderId
               });
-              this.purchaseOrderList.unshift({
-                label: "--Select--",
-                value: null
-              });
-              console.log("this.purchaseOrderList", this.purchaseOrderList);
-            },
-            error => {
-              this.globalErrorHandler.handleError(error);
-            }
+            });
+            this.purchaseOrderList.unshift({
+              label: "--Select--",
+              value: null
+            });
+            console.log("this.purchaseOrderList", this.purchaseOrderList);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+          }
           );
       }
     } else {
@@ -1008,15 +1008,15 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     this.matSizeService
       .getQualityLookUpByCollection(this.collectionId)
       .subscribe(
-        results => {
-          this.qualityList = results;
-          this.qualityList.unshift({ label: "--Select--", value: null });
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        }
+      results => {
+        this.qualityList = results;
+        this.qualityList.unshift({ label: "--Select--", value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      }
       );
   }
 
@@ -1091,19 +1091,19 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     if (this.matThicknessId != null) {
       this.trnGoodReceiveNoteService
         .getCustomMatSizeCodeLookup(
-          this.categoryId,
-          this.collectionId,
-          this.qualityId,
-          this.matThicknessId
+        this.categoryId,
+        this.collectionId,
+        this.qualityId,
+        this.matThicknessId
         )
         .subscribe(
-          data => {
-            this.matSizeCodeList = data;
-            this.matSizeCodeList.unshift({ label: "--Select--", value: null });
-          },
-          error => {
-            this.globalErrorHandler.handleError(error);
-          }
+        data => {
+          this.matSizeCodeList = data;
+          this.matSizeCodeList.unshift({ label: "--Select--", value: null });
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        }
         );
     }
   }
@@ -1436,17 +1436,17 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.trnGoodReceiveNoteService
         .getMatsizeTrnGoodReceiveNotes(this.collectionId)
         .subscribe(
-          results => {
-            this.matSizeList = results;
-            this.matSizeList.unshift({ label: "--Select--", value: null });
-            if (this.categoryId == 4)
-              this.matSizeList.push({ label: "Custom", value: -1 });
-            Helpers.setLoading(false);
-          },
-          error => {
-            this.globalErrorHandler.handleError(error);
-            Helpers.setLoading(false);
-          }
+        results => {
+          this.matSizeList = results;
+          this.matSizeList.unshift({ label: "--Select--", value: null });
+          if (this.categoryId == 4)
+            this.matSizeList.push({ label: "Custom", value: -1 });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        }
         );
     }
   }
@@ -1457,15 +1457,15 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.trnGoodReceiveNoteService
         .getFoamSizeTrnGoodReceiveNotes(this.collectionId)
         .subscribe(
-          results => {
-            this.fomSizeList = results;
-            this.fomSizeList.unshift({ label: "--Select--", value: null });
-            Helpers.setLoading(false);
-          },
-          error => {
-            this.globalErrorHandler.handleError(error);
-            Helpers.setLoading(false);
-          }
+        results => {
+          this.fomSizeList = results;
+          this.fomSizeList.unshift({ label: "--Select--", value: null });
+          Helpers.setLoading(false);
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+          Helpers.setLoading(false);
+        }
         );
     }
   }
@@ -1475,13 +1475,13 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.trnGoodReceiveNoteService
         .getshadeIdTrnGoodReceiveNotes(this.collectionId)
         .subscribe(
-          results => {
-            this.shadeIdList = results;
-            this.shadeIdList.unshift({ label: "--Select--", value: null });
-          },
-          error => {
-            this.globalErrorHandler.handleError(error);
-          }
+        results => {
+          this.shadeIdList = results;
+          this.shadeIdList.unshift({ label: "--Select--", value: null });
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        }
         );
     }
   }
@@ -1491,12 +1491,12 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       this.commonService
         .getLocationById(this.trnGoodReceiveNoteObj.locationId)
         .subscribe(
-          data => {
-            this.locationObj = data;
-          },
-          error => {
-            this.globalErrorHandler.handleError(error);
-          }
+        data => {
+          this.locationObj = data;
+        },
+        error => {
+          this.globalErrorHandler.handleError(error);
+        }
         );
     } else {
       this.locationObj = {};
@@ -1507,19 +1507,19 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
     Helpers.setLoading(true);
     this.collectionService
       .getCollectionForGRNByCategorynSupplierId(
-        this.categoryId,
-        this.trnGoodReceiveNoteObj.supplierId
+      this.categoryId,
+      this.trnGoodReceiveNoteObj.supplierId
       )
       .subscribe(
-        results => {
-          this.collectionList = results;
-          this.collectionList.unshift({ label: "--Select--", value: null });
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        }
+      results => {
+        this.collectionList = results;
+        this.collectionList.unshift({ label: "--Select--", value: null });
+        Helpers.setLoading(false);
+      },
+      error => {
+        this.globalErrorHandler.handleError(error);
+        Helpers.setLoading(false);
+      }
       );
   }
   getLocationList() {
@@ -1576,7 +1576,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       let isRecievedQuantityGreaterThanZero,
         isGreaterThanOrderQuantity,
         isFomQuantityNotEntered = false;
-      _.forEach(this.trnGoodReceiveNoteItems, function (grnItem) {
+      _.forEach(this.trnGoodReceiveNoteItems, function(grnItem) {
         if (grnItem.receivedQuantity > 0)
           isRecievedQuantityGreaterThanZero = true;
         if (grnItem.receivedQuantity > grnItem.orderQuantity) {
@@ -1591,7 +1591,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
           severity: "error",
           summary: "Error",
           detail:
-            "Received quantity of at least 1 item must be greater than zero."
+          "Received quantity of at least 1 item must be greater than zero."
         });
         return false;
       }
@@ -1613,7 +1613,7 @@ export class TrnGoodReceiveNoteAddEditComponent implements OnInit {
       }
       this.trnGoodReceiveNoteObj.TrnGoodReceiveNoteItems = _.filter(
         this.trnGoodReceiveNoteItems,
-        function (grnItem) {
+        function(grnItem) {
           return grnItem.receivedQuantity > 0;
         }
       );
