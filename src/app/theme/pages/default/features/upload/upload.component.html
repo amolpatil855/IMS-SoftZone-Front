@@ -19,6 +19,12 @@
 				</li>
 			</ul>
 		</div>
+		<div class="m-form__actions m-form__actions--solid formTopActionBtnBox">
+			<button class="btn btn-accent m-btn m-btn--air m-btn--custom formTopActionBtn" title="Upload"
+				(click)="onUploadFile()" tabindex="3">
+				Upload
+			</button>
+		</div>
 	</div>
 </div>
 <div class="m-content">
@@ -38,50 +44,51 @@
 
 					<div class="m-section">
 						<div class="m-section__content">
-							<div class="ui-widget-header" style="border-bottom: 0 none">
-								<div class="row">
-									<div class="col-md-12">
-										<!-- Basic Details -->
-										<div class="panel panel-default">
-											<div class="panel-heading">Upload</div>
-											<div class="panel-body">
+							<div class="row">
+								<div class="col-md-12">
+									<!-- Basic Details -->
+									<div class="panel panel-default">
+										<div class="panel-heading">Upload</div>
+										<div class="panel-body">
 
-												<div class="row form-group">
+											<div class="row form-group">
 
-													<div class="col-md-12">
-														<div class="row">
-															<div class="col-md-6">
-																<label class="col-md-4 col-sm-4 fieldLabel ">Select Product Master<span
-																		class="requiredField">*</span></label>
-																<div class="col-md-8 col-sm-8">
-																	<select class="form-control" required name="selectedProductMaster"
-																		[(ngModel)]="uploadObj.MstFWRShade" #selectedProduct
-																		tabindex="1">
-																		<option *ngFor="let x of tableNameList" [ngValue]="x.value">{{x.label}}</option>
-																	</select>
-																</div>
+												<div class="col-md-8">
+													<div class="row">
+														<div class="col-md-6">
+															<label class="col-md-4 col-sm-4 fieldLabel ">Select Product
+																Master<span class="requiredField">*</span></label>
+															<div class="col-md-8 col-sm-8">
+																<select class="form-control" required
+																	name="selectedProductMaster"
+																	[(ngModel)]="uploadObj.MstFWRShade" autofocus
+																	tabindex="1">
+																	<option *ngFor="let x of tableNameList"
+																		[ngValue]="x.value">{{x.label}}</option>
+																</select>
 															</div>
-															<div class="col-md-6">
-																<label class="col-md-4 col-sm-4 fieldLabel noPadding">Upload File<span
-																		class="requiredField">*</span></label>
-																<div class="col-md-8 col-sm-8">
-																	<input class="form-control m-input" type="file" #fileupload value="" name="file"
-																		id="file" (change)="onUploadFile(fileupload.files, $event)" tabindex="2">
-																</div>
+														</div>
+														<div class="col-md-6">
+															<label class="col-md-4 col-sm-4 fieldLabel">Upload File<span
+																	class="requiredField">*</span></label>
+															<div class="col-md-8 col-sm-8">
+																<input class="form-control m-input" type="file"
+																	#selectedFile value="" name="file" id="file"
+																	tabindex="2">
 															</div>
 														</div>
 													</div>
-
-
 												</div>
 
+
 											</div>
+
 										</div>
-
-
 									</div>
 
+
 								</div>
+
 							</div>
 						</div>
 					</div>

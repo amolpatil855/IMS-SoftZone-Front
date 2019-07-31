@@ -6,13 +6,18 @@ import { AppSettings } from '../../../../app-settings';
 
 @Injectable()
 export class UploadService {
-  
+
   constructor(private http: Http) {
-    
+
   }
-  uploadFile(fileName: string, file:File) {
+
+  uploadFile(fileName: string, file: File) {
     const _formData = new FormData();
-    _formData.append('file', file, fileName);   
-    return this.http.post(AppSettings.API_ENDPOINT + 'UploadFWRShade?MstFWRShade=' + fileName,_formData).map((response: Response) => response.json());
+    _formData.append('file', file);
+    return this.http.post(AppSettings.API_ENDPOINT + 'UploadFile?TableName=' + fileName, _formData, AppSettings.requestOptions()).map((response: Response) => response.json());
+  }
+
+  downloadFile(filepath: string) {
+    window.location.href = AppSettings.API_ENDPOINT + 'UploadFile?filepath=' + filepath;
   }
 }

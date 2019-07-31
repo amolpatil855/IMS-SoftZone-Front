@@ -1,21 +1,4 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from "@angular/core";
-import { ActivatedRoute, Router, Params } from "@angular/router";
-import { Observable } from "rxjs/Rx";
-import * as _ from "lodash/index";
-import {
-  FormGroup,
-  Validators,
-  FormBuilder,
-  FormArray,
-  FormControl
-} from "@angular/forms";
-import {
-  ConfirmationService,
-  DataTableModule,
-  LazyLoadEvent,
-  SelectItem,
-  TRISTATECHECKBOX_VALUE_ACCESSOR
-} from "primeng/primeng";
 import { UploadService } from "../../_services/upload.service";
 import { MessageService } from "../../../../../_services/message.service";
 import { GlobalErrorHandler } from "../../../../../_services/error-handler.service";
@@ -30,11 +13,9 @@ export class UploadComponent implements OnInit {
   uploadObj: Upload;
   selectedProductMaster: string;
   tableNameList = [];
-  @ViewChild('selectedProduct')
-  selectedProduct: ElementRef;
+  @ViewChild('selectedFile')
+  selectedFile: ElementRef;
   constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
     private globalErrorHandler: GlobalErrorHandler,
     private fileUploadService: UploadService,
     private messageService: MessageService
@@ -44,17 +25,17 @@ export class UploadComponent implements OnInit {
     this.uploadObj = new Upload();
     this.uploadObj.MstFWRShade = null;
     this.tableNameList.push({ label: '--Select--', value: null });
-    this.tableNameList.push({ label: 'Accessories', value: 'Accessories' });
-    this.tableNameList.push({ label: 'Collections', value: 'Collections' });
-    this.tableNameList.push({ label: 'Patterns', value: 'Patterns' });
-    this.tableNameList.push({ label: 'Collections', value: 'Collections' });
-    this.tableNameList.push({ label: 'Tailors', value: 'Tailors' });
-    this.tableNameList.push({ label: 'FoamDensity', value: 'FoamDensity' });
-    this.tableNameList.push({ label: 'FoamSize', value: 'FoamSize' });
-    this.tableNameList.push({ label: 'FoamSuggestedMM', value: 'FoamSuggestedMM' });
+    this.tableNameList.push({ label: 'Accessories', value: 'Accessory' });
+    this.tableNameList.push({ label: 'Collections', value: 'Collection' });
+    this.tableNameList.push({ label: 'Patterns', value: 'Pattern' });
+    this.tableNameList.push({ label: 'PatternDetails', value: 'PatternDetails' });
+    this.tableNameList.push({ label: 'Tailors', value: 'Tailor' });
+    this.tableNameList.push({ label: 'FoamDensity', value: 'MstFomDensity' });
+    this.tableNameList.push({ label: 'FoamSize', value: 'MstFomSize' });
+    this.tableNameList.push({ label: 'FoamSuggestedMM', value: 'MstFomSuggestedMM' });
     this.tableNameList.push({ label: 'FoamQuality', value: 'FoamQuality' });
-    this.tableNameList.push({ label: 'FWRDesign', value: 'FWRDesign' });
-    this.tableNameList.push({ label: 'FWRShade', value: 'FWRShade' });
+    this.tableNameList.push({ label: 'FWRDesign', value: 'MstFWRDesign' });
+    this.tableNameList.push({ label: 'FWRShade', value: 'MstFWRShade' });
     this.tableNameList.push({ label: 'FWRQualityCutRoleRate', value: 'FWRQualityCutRoleRate' });
     this.tableNameList.push({ label: 'FWRQualityFlatRate', value: 'FWRQualityFlatRate' });
     this.tableNameList.push({ label: 'MattressSize', value: 'MattressSize' });
@@ -62,25 +43,25 @@ export class UploadComponent implements OnInit {
     this.tableNameList.push({ label: 'MattressQuality', value: 'MattressQuality' });
   }
 
-  onUploadFile(fileInput: any, e) {
-    console.log(fileInput);
-    if(this.uploadObj.MstFWRShade != null)
-    {
+  onUploadFile() {
+    if (this.uploadObj.MstFWRShade != null && this.selectedFile.nativeElement.files.length > 0) {
       Helpers.setLoading(true);
-      this.fileUploadService.uploadFile(this.uploadObj.MstFWRShade, e.target.files[0])
+      this.fileUploadService.uploadFile(this.uploadObj.MstFWRShade, this.selectedFile.nativeElement.files[0])
         .subscribe(
-        results => {
-          this.messageService.addMessage({ severity: 'success', summary: 'Success', detail: results.message });
-          this.uploadObj.MstFWRShade = null;
-          this.selectedProduct.nativeElement.value = "";
-          Helpers.setLoading(false);
-        },
-        error => {
-          this.globalErrorHandler.handleError(error);
-          Helpers.setLoading(false);
-        });
+          results => {
+            this.messageService.addMessage({ severity: 'success', summary: results.type, detail: "File Uploaded Successfully" });
+            this.uploadObj.MstFWRShade = null;
+            this.selectedFile.nativeElement.value = "";
+            if (results.message) {
+              this.fileUploadService.downloadFile(results.message);
+            }
+            Helpers.setLoading(false);
+          },
+          error => {
+            this.globalErrorHandler.handleError(error);
+            Helpers.setLoading(false);
+          });
     }
-    
   }
 
 }
