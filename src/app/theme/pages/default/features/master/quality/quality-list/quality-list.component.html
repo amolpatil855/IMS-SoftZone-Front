@@ -93,7 +93,7 @@
                                     <label class="col-md-5 col-sm-5 fieldLabel">Collection<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
                                       <select class="form-control" formControlName="collectionId" [ngClass]="{'red-border-class': qualityForm.get('collectionId').hasError('required') && isFormSubmitted}" required tabindex="2">
-                                            <option *ngFor="let x of collectionList" [ngValue]="x.value" [selected]="collectionId == x.value">{{x.label}}</option>
+                                            <option *ngFor="let x of collectionList" [ngValue]="x.value">{{x.label}}</option>
                                       </select>
                                       <!-- <p-dropdown class="feePlanBox" [options]="collectionList" formControlName="collectionId" styleClass="{{ qualityForm.get('collectionId').hasError('required') && isFormSubmitted?'red-border-class':''}}"
                                         required [style]="{'width':'100%'}" [disabled]="disabled" name="supplierCodeDDl" filter="true"
@@ -150,7 +150,7 @@
                                   <div class="row">
                                     <label class="col-md-5 col-sm-5 fieldLabel">Width<span class="requiredField">*</span></label>
                                     <div class="col-md-7 col-sm-7">
-                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="99999.99" class="form-control" *ngIf="slectedCategory==1"
+                                      <input OnlyNumber="true" DecimalPlaces="2" minValue="0.01" maxValue="9999.99" class="form-control" *ngIf="slectedCategory==1"
                                         formControlName="width" [ngClass]="{'red-border-class': qualityForm.get('width').hasError('required') && isFormSubmitted}"
                                         autocomplete="off" tabindex="7">
                                       <!-- <input type="text" class="form-control"  *ngIf="slectedCategory!=1" disabled tabindex="10"> -->
