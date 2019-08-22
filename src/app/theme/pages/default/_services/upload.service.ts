@@ -14,7 +14,13 @@ export class UploadService {
   uploadFile(fileName: string, file: File) {
     const _formData = new FormData();
     _formData.append('file', file);
-    return this.http.post(AppSettings.API_ENDPOINT + 'UploadFile?TableName=' + fileName, _formData, AppSettings.requestOptions()).map((response: Response) => response.json());
+    let headers = new Headers();
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser && currentUser.access_token) {
+      headers.append('Authorization', 'Bearer ' + currentUser.access_token);
+    }
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(AppSettings.API_ENDPOINT + 'UploadFile?TableName=' + fileName, _formData, options).map((response: Response) => response.json());
   }
 
   downloadFile(filepath: string) {

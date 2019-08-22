@@ -44,12 +44,22 @@ export class UploadComponent implements OnInit {
   }
 
   onUploadFile() {
+    if (this.uploadObj.MstFWRShade == null && this.selectedFile.nativeElement.files.length === 0) {
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please select product master and file." });
+      return false;
+    } else if (this.uploadObj.MstFWRShade == null) {
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please select product master." });
+      return false;
+    } else if (this.selectedFile.nativeElement.files.length === 0) {
+      this.messageService.addMessage({ severity: 'error', summary: 'Error', detail: "Please select file." });
+      return false;
+    }
     if (this.uploadObj.MstFWRShade != null && this.selectedFile.nativeElement.files.length > 0) {
       Helpers.setLoading(true);
       this.fileUploadService.uploadFile(this.uploadObj.MstFWRShade, this.selectedFile.nativeElement.files[0])
         .subscribe(
           results => {
-            this.messageService.addMessage({ severity: 'success', summary: results.type, detail: "File Uploaded Successfully" });
+            this.messageService.addMessage({ severity: 'success', summary: results.type, detail: "File uploaded successfully with " + results.id + " records." });
             this.uploadObj.MstFWRShade = null;
             this.selectedFile.nativeElement.value = "";
             if (results.message) {

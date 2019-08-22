@@ -148,7 +148,7 @@
                             <div class="form-group">
                               <label class="fieldLabel col-sm-5">Size<span class="requiredField">*</span></label>
                               <div class="col-sm-7">
-                                <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==20) return false;" maxlength="10"
+                                <input class="form-control m-input" type="text" value="" onKeyPress="if(this.value.length==20) return false;" maxlength="20"
                                   #sizeVal="ngModel" required [ngClass]="{'red-border-class': sizeVal.errors && isFormSubmitted}"
                                   [(ngModel)]="accessoryObj.size" name="size" id="size" placeholder="" tabindex="8">
                               </div>
